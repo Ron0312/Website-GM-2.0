@@ -1,7 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const CookieBanner = () => {
-    const [accepted, setAccepted] = useState(localStorage.getItem('gas_cookie') === 'true');
+    const [accepted, setAccepted] = useState(true);
+
+    useEffect(() => {
+        const stored = localStorage.getItem('gas_cookie');
+        setAccepted(stored === 'true');
+    }, []);
+
+    const accept = () => {
+        setAccepted(true);
+        localStorage.setItem('gas_cookie', 'true');
+    };
 
     if (accepted) return null;
 
@@ -11,8 +21,8 @@ const CookieBanner = () => {
                 Wir nutzen Cookies, um Ihnen die bestmögliche Erfahrung zu bieten. Dazu zählen essentielle Cookies für die Funktion der Website sowie Analyse-Tools.
             </div>
             <div className="flex gap-4">
-                <button onClick={() => { setAccepted(true); localStorage.setItem('gas_cookie', 'true'); }} className="bg-gas text-white px-6 py-2 rounded-lg font-bold hover:bg-gas-dark transition-all text-sm">Alles akzeptieren</button>
-                <button onClick={() => { setAccepted(true); localStorage.setItem('gas_cookie', 'true'); }} className="text-gray-500 hover:text-gray-800 text-sm font-bold">Nur Essentielle</button>
+                <button onClick={accept} className="bg-gas text-white px-6 py-2 rounded-lg font-bold hover:bg-gas-dark transition-all text-sm">Alles akzeptieren</button>
+                <button onClick={accept} className="text-gray-500 hover:text-gray-800 text-sm font-bold">Nur Essentielle</button>
             </div>
         </div>
     );
