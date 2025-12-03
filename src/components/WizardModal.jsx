@@ -4,7 +4,7 @@ import { X, Check, Settings, Flame, Wrench, AlertTriangle } from 'lucide-react';
 
 const WEB3FORMS_ACCESS_KEY = "f22052ed-455f-4e4d-9f5a-94a6e340426f";
 
-const WizardModal = ({ isOpen, onClose, initialType = 'tank' }) => {
+const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null }) => {
     const [step, setStep] = useState(1);
     const [type, setType] = useState(initialType);
     const [plz, setPlz] = useState('');
@@ -20,8 +20,26 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank' }) => {
             setSuccess(false);
             setPlzError('');
             if (initialType) setType(initialType);
+
+            // Handle initialData from GasOrderSection
+            if (initialData) {
+                if (initialData.plz) setPlz(initialData.plz);
+                if (initialData.liters) {
+                    setDetails(prev => ({
+                        ...prev,
+                        amount: initialData.liters.toString(),
+                        fillUp: false
+                    }));
+                }
+
+                // Auto-advance logic
+                if (initialData.plz && initialType === 'gas') {
+                    // Skip PLZ (Step 1) and Type Selection (Step 2)
+                    setStep(3);
+                }
+            }
         }
-    }, [isOpen, initialType]);
+    }, [isOpen, initialType, initialData]);
 
     const validatePlz = (val) => {
         const regex = /^(1[7-9]\d{3}|2\d{4})$/;
@@ -199,7 +217,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank' }) => {
                                                             </div>
                                                         </div>
                                                         <div className={`relative transition-opacity ${details.fillUp ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
-                                                            <input type="number" className="w-full p-4 pr-20 border border-gray-200 rounded-lg font-mono text-right text-lg" placeholder="z.B. 2000" onChange={(e) => setDetails({...details, amount: e.target.value})}/>
+                                                            <input type="number" className="w-full p-4 pr-20 border border-gray-200 rounded-lg font-mono text-right text-lg" placeholder="z.B. 2000" value={details.amount || ''} onChange={(e) => setDetails({...details, amount: e.target.value})}/>
                                                             <span className="absolute right-6 top-4 text-gray-400 font-bold">Liter</span>
                                                         </div>
 

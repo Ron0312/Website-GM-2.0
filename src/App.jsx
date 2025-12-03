@@ -23,12 +23,14 @@ const App = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [wizardOpen, setWizardOpen] = useState(false);
     const [wizardType, setWizardType] = useState('tank');
+    const [wizardData, setWizardData] = useState(null);
 
     // Legal Modals
     const [legalModal, setLegalModal] = useState({ open: false, title: '', content: '' });
 
     const openWizard = (type) => {
         setWizardType(type);
+        setWizardData(null); // Reset data when opening manually
         setWizardOpen(true);
     };
 
@@ -71,11 +73,17 @@ const App = () => {
 
     useEffect(() => { window.scrollTo(0, 0); }, [activeSection]);
 
+    const handleGasCheckAvailability = (plz, liters) => {
+        setWizardData({ plz, liters });
+        setWizardType('gas');
+        setWizardOpen(true);
+    };
+
     const renderSection = () => {
         switch(activeSection) {
             case 'start': return <><Hero openWizard={openWizard} setActiveSection={setActiveSection} /><TrustBar /><div className="my-16 text-center"><div className="inline-block p-2 rounded-2xl bg-gradient-to-r from-gas-light to-white border border-gas/10 shadow-2xl"><button onClick={() => openWizard('tank')} className="bg-gas text-white px-10 py-5 rounded-xl font-extrabold text-2xl shadow-lg hover:bg-gas-dark transition-all flex items-center gap-3"><Settings size={28}/> Zum Anfrage-Assistenten <ArrowRight size={28}/></button></div><p className="mt-4 text-gray-400 text-sm font-medium">Kostenlos & Unverbindlich</p></div><TankSection openWizard={openWizard} /><CommercialSection setActiveSection={setActiveSection} /><DeliveryMap /><FAQ /><ContactSection /></>;
             case 'tanks': return <><div className="pt-20"></div><TankSection openWizard={openWizard} /><ContactSection /></>;
-            case 'gas': return <><div className="pt-20"></div><GasOrderSection setActiveSection={setActiveSection} /><FAQ /><ContactSection /></>;
+            case 'gas': return <><div className="pt-20"></div><GasOrderSection onCheckAvailability={handleGasCheckAvailability} /><FAQ /><ContactSection /></>;
             case 'rechner': return <><div className="pt-32 max-w-4xl mx-auto px-4"><SavingsCalculator /></div><ContactSection /></>;
             case 'gewerbe': return <><div className="pt-20"></div><CommercialSection setActiveSection={setActiveSection} /><ContactSection /></>;
             case 'wissen': return <><div className="pt-20"></div><KnowledgeCenter setActiveSection={setActiveSection} /><ContactSection /></>;
@@ -130,7 +138,7 @@ const App = () => {
                     &copy; 2025 gasmöller GmbH. Alle Rechte vorbehalten.
                 </div>
             </footer>
-            <WizardModal isOpen={wizardOpen} onClose={() => setWizardOpen(false)} initialType={wizardType} />
+            <WizardModal isOpen={wizardOpen} onClose={() => setWizardOpen(false)} initialType={wizardType} initialData={wizardData} />
             <CookieBanner />
             <SimpleModal isOpen={legalModal.open} onClose={() => setLegalModal({ ...legalModal, open: false })} title={legalModal.title} content={legalModal.content} />
             <ScrollToTop />
