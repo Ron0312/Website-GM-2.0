@@ -20,8 +20,6 @@ const GasOrderSection = ({ onCheckAvailability }) => {
 
         if (!isValidRegion) {
             setPlzError('Wir liefern leider noch nicht in dieses Gebiet.');
-            // Fallback alert as requested if inline isn't enough, but inline is better.
-            // window.alert("Wir liefern leider noch nicht in dieses Gebiet.");
             return;
         }
 
@@ -37,7 +35,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
             <header className="relative bg-gas-dark pt-32 pb-24 lg:pt-48 lg:pb-32 overflow-hidden">
                 {/* Background Image with Overlay */}
                 <div className="absolute inset-0 z-0">
-                    <div className="absolute inset-0 bg-gas-dark/90 z-10"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-gray-900/70 to-gray-900/30 z-10"></div>
                      <img
                         src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
                         alt="Hintergrund Gas Lieferung Norddeutschland"
@@ -123,7 +121,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                                                 setPlz(e.target.value.replace(/[^0-9]/g, ''));
                                                 if (plzError) setPlzError('');
                                             }}
-                                            className={`w-full bg-white/5 border border-white/10 text-white text-xl font-bold p-4 pl-12 rounded-xl outline-none focus:bg-white/10 focus:border-gas-light transition-all placeholder:text-gray-500 ${plzError ? 'border-red-400 focus:border-red-400' : ''}`}
+                                            className={`w-full bg-white/5 border border-white/10 text-white text-xl font-bold p-4 pl-12 rounded-xl outline-none focus:bg-white/10 focus:border-gas-light transition-all placeholder:text-gray-300 ${plzError ? 'border-red-400 focus:border-red-400' : ''}`}
                                             placeholder="PLZ eingeben"
                                         />
                                         <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
@@ -154,8 +152,87 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                 </div>
             </header>
 
-            {/* 3. SEO Content: "Warum wir anders sind" */}
-            <section className="py-24 bg-white relative overflow-hidden">
+             {/* SEO Content: Process */}
+            <section className="py-24 bg-gray-50">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl font-bold text-gray-900 mb-4">In 3 Schritten zum vollen Tank</h2>
+                        <p className="text-gray-600">Unkompliziert, transparent und schnell.</p>
+                    </div>
+                    <div className="grid md:grid-cols-3 gap-8">
+                        {/* Step 1 */}
+                        <div className="relative group">
+                            <div className="text-9xl font-bold text-gray-100 absolute -top-10 -left-4 z-0 group-hover:text-blue-50 transition-colors">1</div>
+                            <div className="relative z-10 bg-white p-8 rounded-2xl shadow-sm border border-gray-100 h-full hover:shadow-lg transition-shadow">
+                                <h3 className="text-xl font-bold text-gas mb-3">Preis prüfen</h3>
+                                <p className="text-gray-600 leading-relaxed">Geben Sie Ihre PLZ und die gewünschte Menge in unseren Rechner ein. Sie sehen sofort den aktuellen Tagespreis.</p>
+                            </div>
+                        </div>
+                        {/* Step 2 */}
+                        <div className="relative group">
+                            <div className="text-9xl font-bold text-gray-100 absolute -top-10 -left-4 z-0 group-hover:text-blue-50 transition-colors">2</div>
+                            <div className="relative z-10 bg-white p-8 rounded-2xl shadow-sm border border-gray-100 h-full hover:shadow-lg transition-shadow">
+                                <h3 className="text-xl font-bold text-gas mb-3">Bestellung aufgeben</h3>
+                                <p className="text-gray-600 leading-relaxed">Senden Sie die Anfrage ab. Wir bestätigen den Termin und den Preis. Keine versteckten Kosten, keine Vertragsbindung.</p>
+                            </div>
+                        </div>
+                        {/* Step 3 */}
+                        <div className="relative group">
+                            <div className="text-9xl font-bold text-gray-100 absolute -top-10 -left-4 z-0 group-hover:text-blue-50 transition-colors">3</div>
+                            <div className="relative z-10 bg-white p-8 rounded-2xl shadow-sm border border-gray-100 h-full hover:shadow-lg transition-shadow">
+                                <h3 className="text-xl font-bold text-gas mb-3">Lieferung erhalten</h3>
+                                <p className="text-gray-600 leading-relaxed">Unsere Fahrer füllen Ihren Tank sicher und zuverlässig auf. Sie zahlen bequem per Rechnung nach der Lieferung.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+             {/* SEO Content: Quality/Safety Info */}
+            <section className="py-24 bg-white overflow-hidden">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                             <div className="absolute inset-0 bg-gradient-to-tr from-gas-dark/20 to-transparent pointer-events-none"></div>
+                             <img src="https://images.unsplash.com/photo-1621905251189-08b95d630445?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Sicherheitsprüfung Flüssiggastank" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700" />
+                        </div>
+                        <div>
+                            <div className="inline-block px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-bold mb-6">DIN 51622</div>
+                            <h2 className="text-3xl lg:text-4xl font-extrabold text-gray-900 mb-6">Geprüfte Qualität für Ihre Sicherheit</h2>
+                            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                                Ihr Flüssiggas (Propan) unterliegt strengsten Qualitätskontrollen. Wir liefern ausschließlich Gas, das der DIN-Norm 51622 entspricht.
+                                Das garantiert Ihnen einen hohen Brennwert und eine saubere Verbrennung, die Ihre Heizungsanlage schont und die Umwelt entlastet.
+                            </p>
+                            <ul className="space-y-4">
+                                <li className="flex items-start gap-4">
+                                    <div className="p-1 mt-1 bg-green-100 rounded-full text-green-600 flex-shrink-0"><Check size={16} /></div>
+                                    <div>
+                                        <span className="block text-gray-900 font-bold">Hoher Heizwert</span>
+                                        <span className="text-sm text-gray-500">Effizientes Heizen spart Kosten.</span>
+                                    </div>
+                                </li>
+                                 <li className="flex items-start gap-4">
+                                    <div className="p-1 mt-1 bg-green-100 rounded-full text-green-600 flex-shrink-0"><Check size={16} /></div>
+                                    <div>
+                                        <span className="block text-gray-900 font-bold">Saubere Verbrennung</span>
+                                        <span className="text-sm text-gray-500">Weniger Rückstände, längere Lebensdauer Ihrer Anlage.</span>
+                                    </div>
+                                </li>
+                                 <li className="flex items-start gap-4">
+                                    <div className="p-1 mt-1 bg-green-100 rounded-full text-green-600 flex-shrink-0"><Check size={16} /></div>
+                                    <div>
+                                        <span className="block text-gray-900 font-bold">Frostsicher</span>
+                                        <span className="text-sm text-gray-500">Verdampft auch bei extremen Minustemperaturen zuverlässig.</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 3. Original Content: "Warum wir anders sind" */}
+            <section className="py-24 bg-gray-50 relative overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center max-w-3xl mx-auto mb-16">
                         <h2 className="text-3xl lg:text-4xl font-extrabold text-gray-900 mb-6">Warum wir anders sind</h2>
@@ -166,7 +243,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
-                        <div className="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow duration-300">
+                        <div className="bg-white p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow duration-300">
                             <div className="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 mb-6">
                                 <Truck size={28} />
                             </div>
@@ -175,7 +252,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                                 Unsere Fahrer kennen die Straßen im Norden. Kurze Wege bedeuten für Sie: Schnellere Lieferung und weniger CO₂-Ausstoß.
                             </p>
                         </div>
-                        <div className="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow duration-300">
+                        <div className="bg-white p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow duration-300">
                             <div className="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center text-green-600 mb-6">
                                 <Coins size={28} />
                             </div>
@@ -184,7 +261,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                                 Sie zahlen immer den aktuellen Tagespreis. Keine langen Verträge, keine Abo-Fallen. Sie bestellen, wenn der Preis für Sie stimmt.
                             </p>
                         </div>
-                        <div className="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow duration-300">
+                        <div className="bg-white p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow duration-300">
                             <div className="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center text-red-600 mb-6">
                                 <Heart size={28} />
                             </div>
@@ -196,7 +273,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                     </div>
 
                     {/* Trust Bar Integration */}
-                    <div className="mt-20 pt-10 border-t border-gray-100">
+                    <div className="mt-20 pt-10 border-t border-gray-200/60">
                         <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
                             <div className="flex items-center gap-3">
                                 <ShieldCheck size={32} className="text-gray-400" />
