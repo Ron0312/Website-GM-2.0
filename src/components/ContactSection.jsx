@@ -1,0 +1,25 @@
+import React from 'react';
+
+const ContactSection = () => (
+    <section className="bg-gas-dark py-24 text-white relative overflow-hidden" id="kontakt">
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-gas opacity-50 transform -skew-x-12 translate-x-20"></div>
+        <div className="max-w-4xl mx-auto px-4 relative z-10 text-center">
+            <h2 className="text-3xl font-extrabold mb-6">Noch Fragen?</h2>
+            <p className="text-gas-light mb-10 text-lg">Unser Team ist für Sie da. Persönlich und kompetent.</p>
+            <div className="bg-white rounded-2xl p-8 md:p-12 shadow-2xl text-left max-w-2xl mx-auto text-text transform hover:-translate-y-1 transition-transform duration-500">
+                <form className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Name</label><input type="text" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" /></div>
+                        <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Telefon</label><input type="tel" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" /></div>
+                    </div>
+                    <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">E-Mail</label><input type="email" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" /></div>
+                    <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Betreff</label><input type="text" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" /></div>
+                    <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Nachricht</label><textarea className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all h-32"></textarea></div>
+                    <button type="button" className="w-full bg-gas hover:bg-gas-dark text-white font-bold py-4 rounded-lg transition-all uppercase tracking-wide shadow-lg hover:shadow-xl transform active:scale-95">Anfrage absenden</button>
+                </form>
+            </div>
+        </div>
+    </section>
+);
+
+export default ContactSection;
