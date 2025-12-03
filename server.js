@@ -31,7 +31,7 @@ async function createServer() {
     )
   }
 
-  const siteData = {
+  const defaultSiteData = {
     title: 'gasmöller - Ihr Partner für Flüssiggas im Norden',
     description: 'Unabhängig. Fair. Norddeutsch. Flüssiggastanks kaufen statt mieten. Ihr Experte seit 2005.',
     content: '<!--app-html-->'
@@ -39,6 +39,16 @@ async function createServer() {
 
   app.use(async (req, res, next) => {
     const url = req.originalUrl
+
+    // Determine metadata based on URL (basic implementation for future routing)
+    let siteData = { ...defaultSiteData };
+    if (url.includes('/gas-bestellen')) {
+        siteData.title = 'Flüssiggas bestellen | gasmöller - Aktuelle Preise';
+        siteData.description = 'Bestellen Sie Flüssiggas zu tagesaktuellen Preisen. Lieferung in Schleswig-Holstein, Hamburg & Niedersachsen.';
+    } else if (url.includes('/tanks')) {
+        siteData.title = 'Flüssiggastanks kaufen | gasmöller - 1,2t bis 2,9t';
+        siteData.description = 'Kaufen statt mieten. Oberirdische und unterirdische Flüssiggastanks inklusive Prüfung und Aufstellung.';
+    }
 
     try {
       let template, render, templatePath
