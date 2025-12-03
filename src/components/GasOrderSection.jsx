@@ -14,11 +14,11 @@ const GasOrderSection = ({ onCheckAvailability }) => {
             return;
         }
 
-        // Logic Fix: Check if PLZ starts with 18, 19, 2, or 3 (North Germany)
-        const validPrefixes = ['18', '19', '2', '3'];
-        const isValidRegion = validPrefixes.some(prefix => plz.startsWith(prefix));
+        // Validation for specific regions:
+        // 17-19 (MV), 20-22 (HH), 21-25 (SH/Niedersachsen mix), 27 (SH), 292-296 (Niedersachsen)
+        const regex = /^(1[7-9]\d{3}|2[0-5]\d{3}|27\d{3}|29[2-6]\d{2})$/;
 
-        if (!isValidRegion) {
+        if (!regex.test(plz)) {
             setPlzError('Wir liefern leider noch nicht in dieses Gebiet.');
             return;
         }
@@ -35,9 +35,9 @@ const GasOrderSection = ({ onCheckAvailability }) => {
             <header className="relative bg-gas-dark pt-32 pb-24 lg:pt-48 lg:pb-32 overflow-hidden">
                 {/* Background Image with Overlay */}
                 <div className="absolute inset-0 z-0">
-                    <div className="absolute inset-0 bg-gradient-to-r from-gray-900/70 to-gray-900/30 z-10"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-gray-900/40 to-gray-900/10 z-10"></div>
                      <img
-                        src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+                        src="https://images.unsplash.com/photo-1565514020176-db8b746d84f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
                         alt="Hintergrund Gas Lieferung Norddeutschland"
                         className="w-full h-full object-cover absolute inset-0"
                     />

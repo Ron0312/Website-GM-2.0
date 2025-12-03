@@ -42,14 +42,16 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
     }, [isOpen, initialType, initialData]);
 
     const validatePlz = (val) => {
-        const regex = /^(1[7-9]\d{3}|2\d{4})$/;
+        // Validation for specific regions:
+        // 17-19 (MV), 20-22 (HH), 21-25 (SH/Niedersachsen mix), 27 (SH), 292-296 (Niedersachsen)
+        const regex = /^(1[7-9]\d{3}|2[0-5]\d{3}|27\d{3}|29[2-6]\d{2})$/;
         return regex.test(val);
     };
 
     const handleNext = () => {
         if (step === 1) {
             if (!validatePlz(plz)) {
-                setPlzError('Leider liefern wir aktuell nur in Norddeutschland (PLZ 17, 18, 19, 2xxxx).');
+                setPlzError('Leider liefern wir aktuell nur in unserem Liefergebiet (Norddeutschland).');
                 return;
             }
             setPlzError('');
