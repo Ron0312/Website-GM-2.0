@@ -46,11 +46,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center">
                         <div className="flex-shrink-0 flex items-center cursor-pointer" onClick={() => setActiveSection('start')}>
-                            {/* Using placeholder image as external image might be blocked, using relative path based on future assets structure */}
-                            {/* In a real migration I would download the image and put it in public/images/logo.png */}
-                            {/* For now I will use the external link but in the final step I should replace it if I could download it. */}
-                            {/* Instructions say "Assume all images ... will be placed in the /public folder". */}
-                            <img src="/logo.png" alt="gasmöller" className={`transition-all duration-300 ${isScrolled ? 'h-10' : 'h-12'}`} onError={(e) => {e.target.onerror = null; e.target.src="https://gasmoeller.de/wp-content/uploads/2021/08/Logo-01.png"}} />
+                            <img src="/logos/Icon-01.webp" alt="gasmöller" className={`transition-all duration-300 ${isScrolled ? 'h-10' : 'h-12'}`} />
                         </div>
 
                         <div className="hidden xl:flex space-x-1 bg-gray-50/50 p-1 rounded-full border border-gray-100">
