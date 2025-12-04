@@ -267,6 +267,11 @@ export const CONTENT = {
                                 <li><strong>3. Dämmen:</strong> Heizungsrohre im Keller dämmen kostet wenig und bringt viel.</li>
                                 <li><strong>4. Thermostate:</strong> Programmierbare Thermostate senken die Temperatur, wenn niemand da ist.</li>
                                 <li><strong>5. Wartung:</strong> Eine gewartete Heizung verbraucht weniger Gas.</li>
+                                <li><strong>6. Heizkörper freihalten:</strong> Verdecken Sie Heizkörper nicht mit Möbeln oder langen Vorhängen. Die Wärme staut sich sonst.</li>
+                                <li><strong>7. Fenster abdichten:</strong> Prüfen Sie die Dichtungen. Zugluft ist ein teurer Wärmedieb.</li>
+                                <li><strong>8. Raumtemperatur anpassen:</strong> 1 Grad weniger spart ca. 6% Energie. Im Schlafzimmer reichen oft 17-18 Grad.</li>
+                                <li><strong>9. Türen schließen:</strong> Heizen Sie nur die Räume, die Sie nutzen, und halten Sie die Türen zu kühleren Räumen geschlossen.</li>
+                                <li><strong>10. Heizungspumpe tauschen:</strong> Alte Umwälzpumpen sind Stromfresser. Eine Hocheffizienzpumpe spart Strom und optimiert den Heizkreislauf.</li>
                             </ul>
                         </div>
                     )
