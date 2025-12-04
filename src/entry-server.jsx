@@ -6,7 +6,7 @@ import './index.css'
 export function render(url) {
   const html = ReactDOMServer.renderToString(
     <React.StrictMode>
-      <App />
+      <App path={url} />
     </React.StrictMode>
   )
   return { html }

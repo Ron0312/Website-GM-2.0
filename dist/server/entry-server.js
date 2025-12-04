@@ -4,6 +4,49 @@ import ReactDOMServer from "react-dom/server";
 import { TrendingUp, Clock, ArrowRight, X, Menu, ShieldCheck, BadgeCheck, Star, Calculator, Droplet, Tractor, Factory, Truck, MapPin, CheckCircle, ChevronDown, Check, Coins, Heart, BookOpen, AlertTriangle, Settings, Home, Wrench, Lock, Unlock, ChevronRight, Flame, ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import CountUp from "react-countup";
+const seoData = {
+  "start": {
+    title: "gasmöller - Ihr Partner für Flüssiggas im Norden",
+    description: "Unabhängig. Fair. Norddeutsch. Flüssiggastanks kaufen statt mieten. Ihr Experte seit 2005. Jetzt Angebot anfordern!"
+  },
+  "tanks": {
+    title: "Flüssiggastank kaufen | Oberirdisch & Unterirdisch | gasmöller",
+    description: "Kaufen Sie Ihren Flüssiggastank statt zu mieten. 1,2t, 2,1t und 2,9t Tanks verfügbar. Unabhängigkeit von großen Versorgern."
+  },
+  "gas": {
+    title: "Flüssiggas bestellen | Aktuelle Preise & Lieferung | gasmöller",
+    description: "Flüssiggas günstig bestellen. Lieferung in Schleswig-Holstein, Hamburg & Niedersachsen. Fairer Preis, schnelle Lieferung."
+  },
+  "wissen": {
+    title: "Wissen & Ratgeber | Alles über Flüssiggas | gasmöller",
+    description: "Ratgeber zu Flüssiggas, Tanksicherheit, Prüfintervalle und Energiespartipps. Informieren Sie sich hier."
+  },
+  "gewerbe": {
+    title: "Gewerbegas & Prozesswärme | gasmöller",
+    description: "Individuelle Flüssiggas-Lösungen für Gewerbe, Landwirtschaft und Industrie. Prozesswärme, Hallenheizung und mehr."
+  },
+  "ueber-uns": {
+    title: "Über gasmöller | Ihr unabhängiger Energieversorger",
+    description: "Lernen Sie gasmöller kennen. Seit 2005 Ihr zuverlässiger Partner für Flüssiggas im Norden. Unser Team und unsere Werte."
+  },
+  "kontakt": {
+    title: "Kontakt | gasmöller Kundenservice",
+    description: "Kontaktieren Sie uns. Telefonisch unter 04551 89 70 89 oder per E-Mail. Wir beraten Sie gerne kostenlos."
+  },
+  "rechner": {
+    title: "Spar-Rechner | Flüssiggas Kostenvergleich | gasmöller",
+    description: "Vergleichen Sie Ihre aktuellen Flüssiggaskosten. Sehen Sie, wie viel Sie mit einem eigenen Tank sparen können."
+  }
+};
+const getSeoForPath = (path) => {
+  let section = "start";
+  if (path === "/" || path === "") section = "start";
+  else {
+    const p = path.replace(/^\//, "").toLowerCase();
+    if (seoData[p]) section = p;
+  }
+  return seoData[section] || seoData["start"];
+};
 const TopBar = () => /* @__PURE__ */ jsx("div", { className: "bg-gas-dark text-white text-xs py-2 hidden lg:block border-b border-white/10", children: /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 flex justify-between items-center", children: [
   /* @__PURE__ */ jsxs("div", { className: "flex space-x-6", children: [
     /* @__PURE__ */ jsxs("span", { className: "flex items-center text-white/80", children: [
@@ -352,9 +395,12 @@ const FAQ = () => {
   const [open, setOpen] = useState(0);
   const faqs = [
     { q: "Wie lange dauert die Lieferung?", a: "In der Regel liefern wir innerhalb von 5-10 Werktagen. In dringenden Notfällen bieten wir einen 24h-Express-Service an." },
-    { q: "Kann ich meinen Gastank kaufen?", a: "Ja! Wir sind spezialisiert auf den Verkauf von Eigentumstanks. Damit sparen Sie sich langfristig die teure Miete und sind frei in der Händlerwahl." },
-    { q: "Was kostet Flüssiggas aktuell?", a: "Der Preis ändert sich täglich analog zu den Ölbörsen. Nutzen Sie unseren Preisrechner oder rufen Sie uns an für ein tagesaktuelles Angebot." },
-    { q: "Muss ich bei der Lieferung zu Hause sein?", a: "Nicht zwingend, sofern der Tank und der Füllanschluss für unseren Fahrer frei zugänglich sind." }
+    { q: "Kann ich meinen Gastank kaufen?", a: "Ja! Wir sind spezialisiert auf den Verkauf von Eigentumstanks (oberirdisch und unterirdisch). Damit sparen Sie sich langfristig die teure Miete und sind frei in der Händlerwahl. Wir bieten Größen von 1,2 t bis 2,9 t an." },
+    { q: "Was kostet Flüssiggas aktuell?", a: "Der Preis ändert sich täglich analog zu den Ölbörsen. Da wir unabhängig sind, können wir oft günstigere Konditionen anbieten als Großkonzerne. Nutzen Sie unseren Preisrechner oder rufen Sie uns an für ein tagesaktuelles Angebot." },
+    { q: "Muss ich bei der Lieferung zu Hause sein?", a: "Nicht zwingend, sofern der Tank und der Füllanschluss für unseren Fahrer frei zugänglich sind. Wir informieren Sie vorab über den Liefertermin." },
+    { q: "Liefern Sie auch Notgas?", a: "Ja, wenn Ihre Heizung kalt bleibt, versuchen wir schnellstmöglich zu helfen. Rufen Sie uns direkt an unter 04551 89 70 89." },
+    { q: "Was ist der Unterschied zwischen Propan und Flüssiggas?", a: "Flüssiggas (LPG) besteht hauptsächlich aus Propan und Butan. Für Heizzwecke wird in Deutschland fast ausschließlich reines Propan (DIN 51622) verwendet, da es auch bei tiefen Temperaturen verdampft." },
+    { q: "Welche Prüfungen sind beim Gastank vorgeschrieben?", a: "Alle 2 Jahre muss eine äußere Prüfung durch eine befähigte Person erfolgen. Alle 10 Jahre ist eine innere Prüfung durch eine ZÜS (z.B. TÜV, DEKRA) notwendig. Wir unterstützen Sie gerne bei der Organisation." }
   ];
   return /* @__PURE__ */ jsxs("div", { className: "max-w-3xl mx-auto px-4 py-24", children: [
     /* @__PURE__ */ jsx("h3", { className: "text-3xl font-bold text-center mb-12", children: "Häufig gestellte Fragen" }),
@@ -1763,8 +1809,19 @@ const ScrollToTop = () => {
   };
   return /* @__PURE__ */ jsx("button", { onClick: scrollToTop, className: `scroll-to-top ${visible ? "visible" : ""}`, "aria-label": "Nach oben", children: /* @__PURE__ */ jsx(ChevronUp, { size: 24 }) });
 };
-const App = () => {
-  const [activeSection, setActiveSection] = useState("start");
+const App = ({ path }) => {
+  const getInitialSection = () => {
+    if (path) {
+      const p = path.replace(/^\//, "").toLowerCase();
+      return p || "start";
+    }
+    if (typeof window !== "undefined") {
+      const p = window.location.pathname.replace(/^\//, "").toLowerCase();
+      return p || "start";
+    }
+    return "start";
+  };
+  const [activeSection, setActiveSection] = useState(getInitialSection());
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [wizardOpen, setWizardOpen] = useState(false);
   const [wizardType, setWizardType] = useState("tank");
@@ -1867,7 +1924,31 @@ const App = () => {
     setLegalModal({ open: true, title, content });
   };
   useEffect(() => {
-    window.scrollTo(0, 0);
+    const handlePopState = () => {
+      const p = window.location.pathname.replace(/^\//, "").toLowerCase();
+      setActiveSection(p || "start");
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+  const changeSection = (section) => {
+    setActiveSection(section);
+    if (typeof window !== "undefined") {
+      const url = section === "start" ? "/" : `/${section}`;
+      window.history.pushState({}, "", url);
+      window.scrollTo(0, 0);
+    }
+  };
+  useEffect(() => {
+    const seoInfo = getSeoForPath(activeSection);
+    document.title = seoInfo.title;
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement("meta");
+      metaDesc.name = "description";
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.content = seoInfo.description;
   }, [activeSection]);
   const handleGasCheckAvailability = (plz, liters) => {
     setWizardData({ plz, liters });
@@ -1875,10 +1956,12 @@ const App = () => {
     setWizardOpen(true);
   };
   const renderSection = () => {
-    switch (activeSection) {
+    const validSections = ["start", "tanks", "gas", "rechner", "gewerbe", "wissen", "ueber-uns", "kontakt"];
+    const sectionToRender = validSections.includes(activeSection) ? activeSection : "start";
+    switch (sectionToRender) {
       case "start":
         return /* @__PURE__ */ jsxs(Fragment, { children: [
-          /* @__PURE__ */ jsx(Hero, { openWizard, setActiveSection }),
+          /* @__PURE__ */ jsx(Hero, { openWizard, setActiveSection: changeSection }),
           /* @__PURE__ */ jsx(TrustBar, {}),
           /* @__PURE__ */ jsxs("div", { className: "my-16 text-center", children: [
             /* @__PURE__ */ jsx("div", { className: "inline-block p-2 rounded-2xl bg-gradient-to-r from-gas-light to-white border border-gas/10 shadow-2xl animate-pulse hover:animate-none transition-all", children: /* @__PURE__ */ jsxs("button", { onClick: () => openWizard("tank"), className: "bg-gas text-white px-10 py-5 rounded-xl font-extrabold text-2xl shadow-lg hover:bg-gas-dark transition-all flex items-center gap-3", children: [
@@ -1889,7 +1972,7 @@ const App = () => {
             /* @__PURE__ */ jsx("p", { className: "mt-4 text-gray-400 text-sm font-medium", children: "Kostenlos & Unverbindlich" })
           ] }),
           /* @__PURE__ */ jsx(TankSection, { openWizard }),
-          /* @__PURE__ */ jsx(CommercialSection, { setActiveSection }),
+          /* @__PURE__ */ jsx(CommercialSection, { setActiveSection: changeSection }),
           /* @__PURE__ */ jsx(DeliveryMap, {}),
           /* @__PURE__ */ jsx(FAQ, {}),
           /* @__PURE__ */ jsx(ContactSection, {})
@@ -1915,19 +1998,19 @@ const App = () => {
       case "gewerbe":
         return /* @__PURE__ */ jsxs(Fragment, { children: [
           /* @__PURE__ */ jsx("div", { className: "pt-20" }),
-          /* @__PURE__ */ jsx(CommercialSection, { setActiveSection }),
+          /* @__PURE__ */ jsx(CommercialSection, { setActiveSection: changeSection }),
           /* @__PURE__ */ jsx(ContactSection, {})
         ] });
       case "wissen":
         return /* @__PURE__ */ jsxs(Fragment, { children: [
           /* @__PURE__ */ jsx("div", { className: "pt-20" }),
-          /* @__PURE__ */ jsx(KnowledgeCenter, { setActiveSection }),
+          /* @__PURE__ */ jsx(KnowledgeCenter, { setActiveSection: changeSection }),
           /* @__PURE__ */ jsx(ContactSection, {})
         ] });
       case "ueber-uns":
         return /* @__PURE__ */ jsxs(Fragment, { children: [
           /* @__PURE__ */ jsx("div", { className: "pt-20" }),
-          /* @__PURE__ */ jsx(AboutPage, { setActiveSection }),
+          /* @__PURE__ */ jsx(AboutPage, { setActiveSection: changeSection }),
           /* @__PURE__ */ jsx(ContactSection, {})
         ] });
       case "kontakt":
@@ -1936,11 +2019,11 @@ const App = () => {
           /* @__PURE__ */ jsx(ContactSection, {})
         ] });
       default:
-        return /* @__PURE__ */ jsx(Hero, { openWizard, setActiveSection });
+        return /* @__PURE__ */ jsx(Hero, { openWizard, setActiveSection: changeSection });
     }
   };
   return /* @__PURE__ */ jsxs("div", { className: "min-h-screen flex flex-col bg-white", children: [
-    /* @__PURE__ */ jsx(Navigation, { activeSection, setActiveSection, mobileMenuOpen, setMobileMenuOpen, openWizard }),
+    /* @__PURE__ */ jsx(Navigation, { activeSection, setActiveSection: changeSection, mobileMenuOpen, setMobileMenuOpen, openWizard }),
     /* @__PURE__ */ jsx("main", { className: "flex-grow", children: renderSection() }),
     /* @__PURE__ */ jsxs("footer", { className: "bg-gray-900 text-gray-400 py-20 border-t border-gray-800 text-sm", children: [
       /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12", children: [
@@ -1959,10 +2042,10 @@ const App = () => {
         /* @__PURE__ */ jsxs("div", { children: [
           /* @__PURE__ */ jsx("h4", { className: "text-white font-bold mb-4 uppercase text-xs tracking-wider", children: "Schnellzugriff" }),
           /* @__PURE__ */ jsxs("ul", { className: "space-y-2", children: [
-            /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("gas"), className: "hover:text-white transition-colors", children: "Gas bestellen" }) }),
-            /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("tanks"), className: "hover:text-white transition-colors", children: "Tanks kaufen" }) }),
-            /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("rechner"), className: "hover:text-white transition-colors", children: "Spar-Rechner" }) }),
-            /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("kontakt"), className: "hover:text-white transition-colors", children: "Kontakt" }) })
+            /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => changeSection("gas"), className: "hover:text-white transition-colors", children: "Gas bestellen" }) }),
+            /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => changeSection("tanks"), className: "hover:text-white transition-colors", children: "Tanks kaufen" }) }),
+            /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => changeSection("rechner"), className: "hover:text-white transition-colors", children: "Spar-Rechner" }) }),
+            /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => changeSection("kontakt"), className: "hover:text-white transition-colors", children: "Kontakt" }) })
           ] })
         ] }),
         /* @__PURE__ */ jsxs("div", { children: [
@@ -1989,7 +2072,7 @@ const App = () => {
 };
 function render(url) {
   const html = ReactDOMServer.renderToString(
-    /* @__PURE__ */ jsx(React.StrictMode, { children: /* @__PURE__ */ jsx(App, {}) })
+    /* @__PURE__ */ jsx(React.StrictMode, { children: /* @__PURE__ */ jsx(App, { path: url }) })
   );
   return { html };
 }
