@@ -19,3 +19,11 @@ The changes directly address the user's feedback regarding accuracy and visual c
 2.  **Server-Side Validation**: Currently, validation is client-side. Moving this to a backend service (or Server Actions in Next.js) would be more secure.
 3.  **Accessibility**: While improved, further audits on contrast ratios and screen reader navigation (ARIA labels) for the WizardModal would be beneficial.
 4.  **Test Coverage**: Adding unit tests for the validation logic would prevent regression in future updates.
+
+## Update v1.4
+
+### Changes
+-   **Consolidated Validation**: Created a shared `src/utils/validation.js` ensuring consistent Postal Code (PLZ) validation across all forms (`WizardModal`, `GasOrderSection`, `ContactSection`).
+-   **Tank Detail Pages**: Implemented dynamic tank detail pages (`/tanks/:slug`) with rich content, technical data, and SEO optimization.
+-   **SEO Enhancement**: Updated `seoData.js` to provide specific meta tags and Schema.org Product markup for each individual tank page.
+-   **Form Consistency**: Added PLZ field to the Contact form to unify the user experience and location checking.

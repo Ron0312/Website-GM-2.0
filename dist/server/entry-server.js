@@ -1,9 +1,185 @@
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import React, { useState, useEffect } from "react";
 import ReactDOMServer from "react-dom/server";
-import { TrendingUp, Clock, ArrowRight, X, Menu, ShieldCheck, BadgeCheck, Star, Calculator, Droplet, Tractor, Factory, Truck, MapPin, CheckCircle, ChevronDown, Check, Coins, Heart, BookOpen, AlertTriangle, Settings, Home, Wrench, Lock, Unlock, ChevronRight, Flame, ChevronUp } from "lucide-react";
+import { TrendingUp, Clock, ArrowRight, X, Menu, ShieldCheck, BadgeCheck, Star, Calculator, Droplet, ArrowLeft, Ruler, Weight, Check, Download, Tractor, Factory, Truck, MapPin, CheckCircle, ChevronDown, Coins, Heart, BookOpen, AlertTriangle, Settings, Home, Wrench, Lock, Unlock, ChevronRight, Flame, ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import CountUp from "react-countup";
+const tankDetails = [
+  {
+    slug: "1-2t-oberirdisch",
+    name: "1,2 t Flüssiggastank (oberirdisch)",
+    type: "oberirdisch",
+    capacity: "1,2 t",
+    volume: "2.700 Liter",
+    dimensions: "2,50 x 1,25 m",
+    weight: "550 kg",
+    power: "35 kW",
+    description: "Der kompakte 1,2 t Flüssiggastank ist die ideale Lösung für Ferienhäuser, kleine Einfamilienhäuser oder als Zusatzheizung. Durch seine geringen Abmessungen findet er auch in kleineren Gärten Platz.",
+    features: [
+      "Ideal für geringen Platzbedarf",
+      "Schnelle und einfache Aufstellung",
+      "Kostengünstige Installation",
+      "Gut geeignet für Niedrigenergiehäuser"
+    ],
+    technicalData: {
+      diameter: "1.250 mm",
+      length: "2.500 mm",
+      weight: "ca. 550 kg",
+      volume: "2.700 Liter",
+      filling: "ca. 2.160 Liter (bei 85%)",
+      material: "Feinkornbaustahl",
+      coating: "Epoxidharz-Beschichtung (weiß/hellgrau)"
+    },
+    installation: "Der Tank wird auf einer fertigen Betonplatte (Fundament) aufgestellt. Die Zuleitung zum Haus erfolgt meist unterirdisch.",
+    seoTitle: "1,2 t Flüssiggastank oberirdisch kaufen | Maße & Preis | gasmöller",
+    seoDesc: "Kleiner 1,2t Flüssiggastank (2700l) oberirdisch. Ideal für Ferienhäuser. Alle Maße, Daten & Preise. Jetzt Angebot anfordern!"
+  },
+  {
+    slug: "2-1t-oberirdisch",
+    name: "2,1 t Flüssiggastank (oberirdisch)",
+    type: "oberirdisch",
+    capacity: "2,1 t",
+    volume: "4.850 Liter",
+    dimensions: "4,30 x 1,25 m",
+    weight: "980 kg",
+    power: "60 kW",
+    description: "Unser Standard-Tank für das klassische Einfamilienhaus. Mit 4.850 Litern Volumen deckt dieser Tank in der Regel den Jahresbedarf eines 4-Personen-Haushalts ab, sodass Sie nur einmal im Jahr tanken müssen.",
+    features: [
+      "Der Klassiker für Eigenheime",
+      "Nur 1x jährlich tanken (bei Standard-Verbrauch)",
+      "Robust und langlebig",
+      "Gutes Preis-Leistungs-Verhältnis"
+    ],
+    technicalData: {
+      diameter: "1.250 mm",
+      length: "4.300 mm",
+      weight: "ca. 980 kg",
+      volume: "4.850 Liter",
+      filling: "ca. 4.100 Liter (bei 85%)",
+      material: "Feinkornbaustahl",
+      coating: "Epoxidharz-Beschichtung (weiß/hellgrau)"
+    },
+    installation: "Erfordert ein Streifenfundament oder eine Betonplatte. Sicherheitsabstände zu Brandlasten und Öffnungen sind zu beachten.",
+    seoTitle: "2,1 t Flüssiggastank oberirdisch | Standardgröße für EFH | gasmöller",
+    seoDesc: "2,1t (4850l) Flüssiggastank oberirdisch kaufen. Der Standard für Einfamilienhäuser. Maße, Technische Daten & Installation."
+  },
+  {
+    slug: "2-9t-oberirdisch",
+    name: "2,9 t Flüssiggastank (oberirdisch)",
+    type: "oberirdisch",
+    capacity: "2,9 t",
+    volume: "6.400 Liter",
+    dimensions: "5,50 x 1,25 m",
+    weight: "1.300 kg",
+    power: "90 kW",
+    description: "Der Maxi-Tank für Mehrfamilienhäuser, große Villen oder gewerbliche Anwendungen. Er bietet maximale Unabhängigkeit und Versorgungssicherheit auch bei hohem Verbrauch.",
+    features: [
+      "Großes Speichervolumen",
+      "Für Mehrfamilienhäuser und Gewerbe",
+      "Seltenes Nachtanken",
+      "Auch für Prozesswärme geeignet"
+    ],
+    technicalData: {
+      diameter: "1.250 mm",
+      length: "5.500 mm",
+      weight: "ca. 1.300 kg",
+      volume: "6.400 Liter",
+      filling: "ca. 5.400 Liter (bei 85%)",
+      material: "Feinkornbaustahl",
+      coating: "Epoxidharz-Beschichtung (weiß/hellgrau)"
+    },
+    installation: "Aufgrund des Gewichts ist ein solides Fundament zwingend erforderlich. Kranwagen für Aufstellung notwendig.",
+    seoTitle: "2,9 t Flüssiggastank oberirdisch | Großtank für Gewerbe | gasmöller",
+    seoDesc: "2,9t (6400l) Flüssiggastank oberirdisch. Für MFH & Gewerbe. Maximale Kapazität. Alle technischen Daten hier."
+  },
+  {
+    slug: "1-2t-unterirdisch",
+    name: "1,2 t Flüssiggastank (unterirdisch)",
+    type: "unterirdisch",
+    capacity: "1,2 t",
+    volume: "2.700 Liter",
+    dimensions: "2,50 x 1,25 m",
+    weight: "600 kg",
+    power: "35 kW",
+    description: "Die unsichtbare Lösung für kleine Gärten. Der 1,2 t Tank verschwindet komplett unter der Erde, nur der Domdeckel bleibt sichtbar. Perfekt, wenn die Optik des Gartens nicht gestört werden soll.",
+    features: [
+      "Unsichtbar im Garten",
+      "Begehbar (Deckel)",
+      "Platzsparend",
+      "Ideal bei kleinen Grundstücken"
+    ],
+    technicalData: {
+      diameter: "1.250 mm",
+      length: "2.500 mm",
+      weight: "ca. 600 kg",
+      volume: "2.700 Liter",
+      filling: "ca. 2.160 Liter (bei 85%)",
+      material: "Feinkornbaustahl",
+      coating: "Epoxidharz + Bitumen-Isolierung (Korrosionsschutz)"
+    },
+    installation: "Erfordert Erdarbeiten (Grube). Der Tank wird in ein Sandbett gelegt. Auftriebssicherung bei hohem Grundwasser beachten.",
+    seoTitle: "1,2 t Flüssiggastank unterirdisch | Unsichtbar & Platzsparend",
+    seoDesc: "Unterirdischer 1,2t Tank (2700l). Perfekt für kleine Gärten. Verschwindet im Boden. Jetzt informieren & Angebot holen."
+  },
+  {
+    slug: "2-1t-unterirdisch",
+    name: "2,1 t Flüssiggastank (unterirdisch)",
+    type: "unterirdisch",
+    capacity: "2,1 t",
+    volume: "4.850 Liter",
+    dimensions: "4,30 x 1,25 m",
+    weight: "1.100 kg",
+    power: "60 kW",
+    description: "Der beliebteste unterirdische Tank. Er kombiniert das Volumen für ein klassisches Einfamilienhaus mit der unauffälligen Optik einer Erddeckung. Die Gartenfläche bleibt nutzbar.",
+    features: [
+      "Standardgröße für EFH",
+      "Keine Störung der Gartenoptik",
+      "Hohe Sicherheit",
+      "Wertsteigerung der Immobilie"
+    ],
+    technicalData: {
+      diameter: "1.250 mm",
+      length: "4.300 mm",
+      weight: "ca. 1.100 kg",
+      volume: "4.850 Liter",
+      filling: "ca. 4.100 Liter (bei 85%)",
+      material: "Feinkornbaustahl",
+      coating: "Epoxidharz + Bitumen-Isolierung (Korrosionsschutz)"
+    },
+    installation: "Einbau in eine Baugrube, Einbettung in steinfreien Sand. Domschacht bleibt zugänglich für Befüllung und Wartung.",
+    seoTitle: "2,1 t Flüssiggastank unterirdisch | Der Standard für EFH",
+    seoDesc: "2,1t (4850l) Erdtank kaufen. Unsichtbare Energieversorgung für Ihr Einfamilienhaus. Maße & Einbau-Infos."
+  },
+  {
+    slug: "2-9t-unterirdisch",
+    name: "2,9 t Flüssiggastank (unterirdisch)",
+    type: "unterirdisch",
+    capacity: "2,9 t",
+    volume: "6.400 Liter",
+    dimensions: "5,50 x 1,25 m",
+    weight: "1.500 kg",
+    power: "90 kW",
+    description: "Maximale Energie, unsichtbar gelagert. Für große Objekte mit hohem Wärmebedarf, die keine Kompromisse bei der Ästhetik eingehen wollen.",
+    features: [
+      "Höchste Kapazität",
+      "Vollständig verdeckt",
+      "Für gehobene Ansprüche",
+      "Sicher und langlebig"
+    ],
+    technicalData: {
+      diameter: "1.250 mm",
+      length: "5.500 mm",
+      weight: "ca. 1.500 kg",
+      volume: "6.400 Liter",
+      filling: "ca. 5.400 Liter (bei 85%)",
+      material: "Feinkornbaustahl",
+      coating: "Epoxidharz + Bitumen-Isolierung (Korrosionsschutz)"
+    },
+    installation: "Große Baugrube erforderlich. Professionelle Einbringung mit Kran. Ideal in der Bauphase zu installieren.",
+    seoTitle: "2,9 t Flüssiggastank unterirdisch | Großtank für Profis",
+    seoDesc: "2,9t (6400l) Flüssiggastank für den Erdeinbau. Für Gewerbe & Mehrfamilienhäuser. Technische Daten & Preise."
+  }
+];
 const seoData = {
   "start": {
     title: "gasmöller - Ihr Partner für Flüssiggas im Norden",
@@ -39,6 +215,16 @@ const seoData = {
   }
 };
 const getSeoForPath = (path) => {
+  if (path.startsWith("tanks/")) {
+    const slug = path.split("/")[1];
+    const tank = tankDetails.find((t) => t.slug === slug);
+    if (tank) {
+      return {
+        title: tank.seoTitle,
+        description: tank.seoDesc
+      };
+    }
+  }
   let section = "start";
   if (path === "/" || path === "") section = "start";
   else {
@@ -271,16 +457,22 @@ const TankAdvisorPro = () => {
     ] })
   ] });
 };
-const TankSection = ({ openWizard }) => {
-  const [filter, setFilter] = useState("ober");
-  const tanks = [
-    { type: "ober", size: "2.700 Liter (1,2 t)", capacity: "1,2 t", name: "Klein", usage: "Ideal für Ferienhäuser.", length: "2,50 m", diameter: "1,25 m", weight: "550 kg" },
-    { type: "ober", size: "4.850 Liter (2,1 t)", capacity: "2,1 t", name: "Standard", usage: "Klassiker für Einfamilienhäuser.", highlight: true, length: "4,30 m", diameter: "1,25 m", weight: "980 kg" },
-    { type: "ober", size: "6.400 Liter (2,9 t)", capacity: "2,9 t", name: "Maxi", usage: "Für Mehrfamilienhäuser.", length: "5,50 m", diameter: "1,25 m", weight: "1.300 kg" },
-    { type: "unter", size: "2.700 Liter (1,2 t)", capacity: "1,2 t", name: "Klein (Tief)", usage: "Unsichtbar im Garten.", length: "2,50 m", diameter: "1,25 m", weight: "600 kg" },
-    { type: "unter", size: "4.850 Liter (2,1 t)", capacity: "2,1 t", name: "Standard (Tief)", usage: "Platzsparend unterirdisch.", highlight: true, length: "4,30 m", diameter: "1,25 m", weight: "1.100 kg" },
-    { type: "unter", size: "6.400 Liter (2,9 t)", capacity: "2,9 t", name: "Maxi (Tief)", usage: "Maximale Kapazität.", length: "5,50 m", diameter: "1,25 m", weight: "1.500 kg" }
-  ];
+const TankSection = ({ openWizard, setActiveSection }) => {
+  const [filter, setFilter] = useState("oberirdisch");
+  const tanks = tankDetails.map((t) => ({
+    type: t.type,
+    size: t.volume,
+    capacity: t.capacity,
+    name: t.name.split("(")[0].trim(),
+    // Simplified name for card
+    usage: t.features[0],
+    // Use first feature as usage
+    highlight: t.capacity === "2,1 t",
+    length: t.dimensions.split("x")[0].trim(),
+    diameter: t.dimensions.split("x")[1].replace("m", "").trim() + " m",
+    weight: t.weight,
+    slug: t.slug
+  }));
   const visibleTanks = tanks.filter((t) => t.type === filter);
   return /* @__PURE__ */ jsx("section", { className: "py-24 bg-white", id: "tanks", children: /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4", children: [
     /* @__PURE__ */ jsxs("div", { className: "flex flex-col md:flex-row justify-between items-end mb-12", children: [
@@ -289,11 +481,27 @@ const TankSection = ({ openWizard }) => {
         /* @__PURE__ */ jsx("h3", { className: "text-4xl font-extrabold text-text", children: "Tanks für jeden Bedarf" })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "bg-gray-100 p-1 rounded-lg flex mt-4 md:mt-0", children: [
-        /* @__PURE__ */ jsx("button", { onClick: () => setFilter("ober"), className: `px-6 py-2 rounded-md text-sm font-bold transition-all ${filter === "ober" ? "bg-white shadow-sm text-gas" : "text-gray-500"}`, children: "Oberirdisch" }),
-        /* @__PURE__ */ jsx("button", { onClick: () => setFilter("unter"), className: `px-6 py-2 rounded-md text-sm font-bold transition-all ${filter === "unter" ? "bg-white shadow-sm text-gas" : "text-gray-500"}`, children: "Unterirdisch" })
+        /* @__PURE__ */ jsx("button", { onClick: () => setFilter("oberirdisch"), className: `px-6 py-2 rounded-md text-sm font-bold transition-all ${filter === "oberirdisch" ? "bg-white shadow-sm text-gas" : "text-gray-500"}`, children: "Oberirdisch" }),
+        /* @__PURE__ */ jsx("button", { onClick: () => setFilter("unterirdisch"), className: `px-6 py-2 rounded-md text-sm font-bold transition-all ${filter === "unterirdisch" ? "bg-white shadow-sm text-gas" : "text-gray-500"}`, children: "Unterirdisch" })
       ] })
     ] }),
-    /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-8", children: visibleTanks.map((tank, i) => /* @__PURE__ */ jsx(TankCard, { tank, onContact: () => openWizard ? openWizard("tank") : null }, i)) }),
+    /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-8", children: visibleTanks.map((tank, i) => /* @__PURE__ */ jsxs("div", { className: "relative group", children: [
+      /* @__PURE__ */ jsx(
+        TankCard,
+        {
+          tank,
+          onContact: () => openWizard ? openWizard("tank") : null
+        }
+      ),
+      /* @__PURE__ */ jsx("div", { className: "mt-4 text-center", children: /* @__PURE__ */ jsx(
+        "button",
+        {
+          onClick: () => setActiveSection ? setActiveSection(`tanks/${tank.slug}`) : null,
+          className: "text-sm font-bold text-gray-400 hover:text-gas transition-colors border-b border-transparent hover:border-gas pb-0.5",
+          children: "Details & Maße ansehen"
+        }
+      ) })
+    ] }, i)) }),
     /* @__PURE__ */ jsxs("div", { className: "mt-20 grid grid-cols-1 md:grid-cols-3 gap-8", children: [
       /* @__PURE__ */ jsxs("div", { className: "md:col-span-2 bg-gray-50 rounded-2xl p-8 border border-gray-100", children: [
         /* @__PURE__ */ jsx("h4", { className: "font-bold text-xl mb-4", children: "Technische Übersicht" }),
@@ -329,6 +537,108 @@ const TankSection = ({ openWizard }) => {
       /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx(TankAdvisorPro, {}) })
     ] })
   ] }) });
+};
+const TankDetail = ({ slug, onBack, openWizard }) => {
+  const tank = tankDetails.find((t) => t.slug === slug);
+  if (!tank) {
+    return /* @__PURE__ */ jsxs("div", { className: "pt-32 pb-20 text-center", children: [
+      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold", children: "Tank nicht gefunden." }),
+      /* @__PURE__ */ jsx("button", { onClick: onBack, className: "mt-4 text-gas hover:underline", children: "Zurück zur Übersicht" })
+    ] });
+  }
+  return /* @__PURE__ */ jsxs("div", { className: "pt-24 pb-20 bg-white", children: [
+    /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 mb-8", children: /* @__PURE__ */ jsxs("button", { onClick: onBack, className: "flex items-center text-gray-500 hover:text-gas font-medium transition-colors", children: [
+      /* @__PURE__ */ jsx(ArrowLeft, { size: 20, className: "mr-2" }),
+      " Zurück zur Übersicht"
+    ] }) }),
+    /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4", children: [
+      /* @__PURE__ */ jsxs("div", { className: "grid lg:grid-cols-2 gap-12 mb-16", children: [
+        /* @__PURE__ */ jsxs(motion.div, { initial: { opacity: 0, x: -20 }, animate: { opacity: 1, x: 0 }, className: "bg-gray-50 rounded-3xl p-8 flex items-center justify-center border border-gray-100 relative overflow-hidden", children: [
+          /* @__PURE__ */ jsx("div", { className: "absolute top-4 left-4 bg-white/80 backdrop-blur px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-gray-500 border border-gray-200", children: tank.type === "oberirdisch" ? "Oberirdisch" : "Unterirdisch" }),
+          /* @__PURE__ */ jsx("div", { className: "w-full max-w-md", children: tank.type === "oberirdisch" ? /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 400 200", className: "w-full drop-shadow-xl text-gas", children: [
+            /* @__PURE__ */ jsx("rect", { x: "50", y: "60", width: "300", height: "80", rx: "40", fill: "currentColor", opacity: "0.1" }),
+            /* @__PURE__ */ jsx("rect", { x: "50", y: "60", width: "300", height: "80", rx: "40", stroke: "currentColor", strokeWidth: "2", fill: "none" }),
+            /* @__PURE__ */ jsx("rect", { x: "80", y: "140", width: "20", height: "30", fill: "gray" }),
+            /* @__PURE__ */ jsx("rect", { x: "300", y: "140", width: "20", height: "30", fill: "gray" }),
+            /* @__PURE__ */ jsx("rect", { x: "190", y: "50", width: "20", height: "10", fill: "silver" }),
+            /* @__PURE__ */ jsx("circle", { cx: "200", cy: "55", r: "15", fill: "silver", opacity: "0.5" })
+          ] }) : /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 400 200", className: "w-full drop-shadow-xl text-green-600", children: [
+            /* @__PURE__ */ jsx("path", { d: "M0 100 L400 100", stroke: "#86efac", strokeWidth: "4", strokeDasharray: "10 5" }),
+            /* @__PURE__ */ jsx("rect", { x: "50", y: "110", width: "300", height: "80", rx: "40", fill: "currentColor", opacity: "0.1" }),
+            /* @__PURE__ */ jsx("rect", { x: "50", y: "110", width: "300", height: "80", rx: "40", stroke: "currentColor", strokeWidth: "2", fill: "none" }),
+            /* @__PURE__ */ jsx("rect", { x: "180", y: "80", width: "40", height: "30", fill: "silver" }),
+            /* @__PURE__ */ jsx("rect", { x: "170", y: "75", width: "60", height: "5", fill: "#374151" })
+          ] }) })
+        ] }),
+        /* @__PURE__ */ jsxs(motion.div, { initial: { opacity: 0, x: 20 }, animate: { opacity: 1, x: 0 }, children: [
+          /* @__PURE__ */ jsx("h1", { className: "text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4", children: tank.name }),
+          /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-4 mb-8", children: [
+            /* @__PURE__ */ jsxs("div", { className: "flex items-center text-gray-600 bg-gray-100 px-3 py-1 rounded-lg", children: [
+              /* @__PURE__ */ jsx(Ruler, { size: 18, className: "mr-2" }),
+              " ",
+              tank.dimensions
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "flex items-center text-gray-600 bg-gray-100 px-3 py-1 rounded-lg", children: [
+              /* @__PURE__ */ jsx(Weight, { size: 18, className: "mr-2" }),
+              " ",
+              tank.weight
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "flex items-center text-gas font-bold bg-blue-50 px-3 py-1 rounded-lg", children: [
+              /* @__PURE__ */ jsx(ShieldCheck, { size: 18, className: "mr-2" }),
+              " DIN 4681 / 4680"
+            ] })
+          ] }),
+          /* @__PURE__ */ jsx("p", { className: "text-lg text-gray-600 mb-8 leading-relaxed", children: tank.description }),
+          /* @__PURE__ */ jsx("div", { className: "space-y-4 mb-10", children: tank.features.map((feature, i) => /* @__PURE__ */ jsxs("div", { className: "flex items-start", children: [
+            /* @__PURE__ */ jsx("div", { className: "bg-green-100 text-green-600 rounded-full p-1 mr-3 mt-1", children: /* @__PURE__ */ jsx(Check, { size: 14, strokeWidth: 3 }) }),
+            /* @__PURE__ */ jsx("span", { className: "font-medium text-gray-800", children: feature })
+          ] }, i)) }),
+          /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row gap-4", children: [
+            /* @__PURE__ */ jsx("button", { onClick: () => openWizard("tank"), className: "bg-gas text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-gas-dark transition-all shadow-lg hover:shadow-xl transform active:scale-95 text-center", children: "Angebot anfordern" }),
+            /* @__PURE__ */ jsxs("button", { onClick: () => window.print(), className: "bg-white text-gray-700 border border-gray-200 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition-all flex items-center justify-center", children: [
+              /* @__PURE__ */ jsx(Download, { size: 20, className: "mr-2" }),
+              " Datenblatt drucken"
+            ] })
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "grid lg:grid-cols-3 gap-12", children: [
+        /* @__PURE__ */ jsxs("div", { className: "lg:col-span-2", children: [
+          /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold mb-6", children: "Technische Daten" }),
+          /* @__PURE__ */ jsx("div", { className: "bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm", children: /* @__PURE__ */ jsx("table", { className: "w-full text-left border-collapse", children: /* @__PURE__ */ jsx("tbody", { className: "divide-y divide-gray-100", children: Object.entries(tank.technicalData).map(([key, value], i) => /* @__PURE__ */ jsxs("tr", { className: i % 2 === 0 ? "bg-gray-50/50" : "bg-white", children: [
+            /* @__PURE__ */ jsx("td", { className: "p-4 font-bold text-gray-500 capitalize w-1/3", children: key.replace(/([A-Z])/g, " $1").trim() }),
+            /* @__PURE__ */ jsx("td", { className: "p-4 font-medium text-gray-900", children: value })
+          ] }, key)) }) }) }),
+          /* @__PURE__ */ jsxs("div", { className: "mt-12", children: [
+            /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold mb-4", children: "Installation & Hinweise" }),
+            /* @__PURE__ */ jsxs("div", { className: "bg-blue-50 border-l-4 border-gas p-6 rounded-r-xl text-gray-700 leading-relaxed", children: [
+              tank.installation,
+              /* @__PURE__ */ jsx("p", { className: "mt-4 text-sm font-bold text-gas-dark", children: "Wir unterstützen Sie gerne bei der Planung und vermitteln qualifizierte Partner für Fundament und Erdarbeiten." })
+            ] })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsxs("div", { className: "bg-gray-900 text-white rounded-2xl p-8 sticky top-24", children: [
+          /* @__PURE__ */ jsx("h4", { className: "text-xl font-bold mb-4", children: "Warum kaufen?" }),
+          /* @__PURE__ */ jsx("p", { className: "text-gray-400 mb-6 text-sm", children: "Ein eigener Tank macht Sie unabhängig. Sie sparen bei jeder Füllung, da Sie den Anbieter frei wählen können." }),
+          /* @__PURE__ */ jsxs("ul", { className: "space-y-3 mb-8 text-sm", children: [
+            /* @__PURE__ */ jsxs("li", { className: "flex items-center text-gray-300", children: [
+              /* @__PURE__ */ jsx(Check, { size: 16, className: "text-green-400 mr-2" }),
+              " Freie Händlerwahl"
+            ] }),
+            /* @__PURE__ */ jsxs("li", { className: "flex items-center text-gray-300", children: [
+              /* @__PURE__ */ jsx(Check, { size: 16, className: "text-green-400 mr-2" }),
+              " Keine Mietgebühren"
+            ] }),
+            /* @__PURE__ */ jsxs("li", { className: "flex items-center text-gray-300", children: [
+              /* @__PURE__ */ jsx(Check, { size: 16, className: "text-green-400 mr-2" }),
+              " Amortisation oft nach 3-5 Jahren"
+            ] })
+          ] }),
+          /* @__PURE__ */ jsx("button", { onClick: () => openWizard("tank"), className: "w-full bg-white text-gas font-bold py-3 rounded-lg hover:bg-gray-100 transition-colors", children: "Jetzt Beratungstermin buchen" })
+        ] }) })
+      ] })
+    ] })
+  ] });
 };
 const CommercialSection = ({ setActiveSection }) => /* @__PURE__ */ jsx("section", { className: "py-24 bg-gray-50", id: "gewerbe", children: /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4", children: [
   /* @__PURE__ */ jsxs("div", { className: "text-center mb-16", children: [
@@ -413,50 +723,88 @@ const FAQ = () => {
     ] }, i)) })
   ] });
 };
-const ContactSection = () => /* @__PURE__ */ jsxs("section", { className: "bg-gas-dark py-24 text-white relative overflow-hidden", id: "kontakt", children: [
-  /* @__PURE__ */ jsx("div", { className: "absolute top-0 right-0 w-1/2 h-full bg-gas opacity-50 transform -skew-x-12 translate-x-20" }),
-  /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 relative z-10 text-center", children: [
-    /* @__PURE__ */ jsx("h2", { className: "text-3xl font-extrabold mb-6", children: "Noch Fragen?" }),
-    /* @__PURE__ */ jsx("p", { className: "text-gas-light mb-10 text-lg", children: "Unser Team ist für Sie da. Persönlich und kompetent." }),
-    /* @__PURE__ */ jsx("div", { className: "bg-white rounded-2xl p-8 md:p-12 shadow-2xl text-left max-w-2xl mx-auto text-text transform hover:-translate-y-1 transition-transform duration-500", children: /* @__PURE__ */ jsxs("form", { className: "space-y-6", children: [
-      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [
+const validatePlz = (plz) => {
+  const regex = /^(1[7-9]\d{3}|2[0-5]\d{3}|27\d{3}|29[2-6]\d{2})$/;
+  return regex.test(plz);
+};
+const getPlzError = (plz) => {
+  if (!plz || plz.length !== 5) {
+    return "Bitte geben Sie eine gültige 5-stellige PLZ ein.";
+  }
+  if (!validatePlz(plz)) {
+    return "Leider liefern wir aktuell nur in unserem Liefergebiet (Norddeutschland).";
+  }
+  return "";
+};
+const ContactSection = () => {
+  const [plz, setPlz] = useState("");
+  const [plzError, setPlzError] = useState("");
+  const handlePlzChange = (e) => {
+    const val = e.target.value;
+    setPlz(val);
+    if (val.length === 5) {
+      setPlzError(getPlzError(val));
+    } else {
+      setPlzError("");
+    }
+  };
+  return /* @__PURE__ */ jsxs("section", { className: "bg-gas-dark py-24 text-white relative overflow-hidden", id: "kontakt", children: [
+    /* @__PURE__ */ jsx("div", { className: "absolute top-0 right-0 w-1/2 h-full bg-gas opacity-50 transform -skew-x-12 translate-x-20" }),
+    /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 relative z-10 text-center", children: [
+      /* @__PURE__ */ jsx("h2", { className: "text-3xl font-extrabold mb-6", children: "Noch Fragen?" }),
+      /* @__PURE__ */ jsx("p", { className: "text-gas-light mb-10 text-lg", children: "Unser Team ist für Sie da. Persönlich und kompetent." }),
+      /* @__PURE__ */ jsx("div", { className: "bg-white rounded-2xl p-8 md:p-12 shadow-2xl text-left max-w-2xl mx-auto text-text transform hover:-translate-y-1 transition-transform duration-500", children: /* @__PURE__ */ jsxs("form", { className: "space-y-6", children: [
+        /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "Name" }),
+            /* @__PURE__ */ jsx("input", { type: "text", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "Telefon" }),
+            /* @__PURE__ */ jsx("input", { type: "tel", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "Postleitzahl" }),
+            /* @__PURE__ */ jsx(
+              "input",
+              {
+                type: "text",
+                value: plz,
+                onChange: handlePlzChange,
+                maxLength: 5,
+                className: `w-full px-4 py-3 bg-gray-50 border rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all ${plzError ? "border-red-300 bg-red-50 text-red-900" : "border-gray-200"}`
+              }
+            ),
+            plzError && /* @__PURE__ */ jsx("p", { className: "text-red-500 text-xs mt-1 font-bold", children: plzError })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "E-Mail" }),
+            /* @__PURE__ */ jsx("input", { type: "email", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" })
+          ] })
+        ] }),
         /* @__PURE__ */ jsxs("div", { children: [
-          /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "Name" }),
+          /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "Betreff" }),
           /* @__PURE__ */ jsx("input", { type: "text", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" })
         ] }),
         /* @__PURE__ */ jsxs("div", { children: [
-          /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "Telefon" }),
-          /* @__PURE__ */ jsx("input", { type: "tel", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "E-Mail" }),
-        /* @__PURE__ */ jsx("input", { type: "email", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" })
-      ] }),
-      /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "Betreff" }),
-        /* @__PURE__ */ jsx("input", { type: "text", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" })
-      ] }),
-      /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "Nachricht" }),
-        /* @__PURE__ */ jsx("textarea", { className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all h-32" })
-      ] }),
-      /* @__PURE__ */ jsx("button", { type: "button", className: "w-full bg-gas hover:bg-gas-dark text-white font-bold py-4 rounded-lg transition-all uppercase tracking-wide shadow-lg hover:shadow-xl transform active:scale-95", children: "Anfrage absenden" })
-    ] }) })
-  ] })
-] });
+          /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "Nachricht" }),
+          /* @__PURE__ */ jsx("textarea", { className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all h-32" })
+        ] }),
+        /* @__PURE__ */ jsx("button", { type: "button", className: "w-full bg-gas hover:bg-gas-dark text-white font-bold py-4 rounded-lg transition-all uppercase tracking-wide shadow-lg hover:shadow-xl transform active:scale-95", children: "Anfrage absenden" })
+      ] }) })
+    ] })
+  ] });
+};
 const GasOrderSection = ({ onCheckAvailability }) => {
   const [liters, setLiters] = useState(3e3);
   const [plz, setPlz] = useState("");
   const [plzError, setPlzError] = useState("");
   const handleCheck = () => {
-    if (!plz || plz.length !== 5) {
-      setPlzError("Bitte geben Sie eine gültige 5-stellige PLZ ein.");
-      return;
-    }
-    const regex = /^(1[7-9]\d{3}|2[0-5]\d{3}|27\d{3}|29[2-6]\d{2})$/;
-    if (!regex.test(plz)) {
-      setPlzError("Wir liefern leider noch nicht in dieses Gebiet.");
+    const error = getPlzError(plz);
+    if (error) {
+      setPlzError(error);
       return;
     }
     setPlzError("");
@@ -1577,14 +1925,11 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
       }
     }
   }, [isOpen, initialType, initialData]);
-  const validatePlz = (val) => {
-    const regex = /^(1[7-9]\d{3}|2[0-5]\d{3}|27\d{3}|29[2-6]\d{2})$/;
-    return regex.test(val);
-  };
   const handleNext = () => {
     if (step === 1) {
-      if (!validatePlz(plz)) {
-        setPlzError("Leider liefern wir aktuell nur in unserem Liefergebiet (Norddeutschland).");
+      const error = getPlzError(plz);
+      if (error) {
+        setPlzError(error);
         return;
       }
       setPlzError("");
@@ -1956,6 +2301,10 @@ const App = ({ path }) => {
     setWizardOpen(true);
   };
   const renderSection = () => {
+    if (activeSection.startsWith("tanks/")) {
+      const slug = activeSection.split("/")[1];
+      return /* @__PURE__ */ jsx(TankDetail, { slug, onBack: () => changeSection("tanks"), openWizard });
+    }
     const validSections = ["start", "tanks", "gas", "rechner", "gewerbe", "wissen", "ueber-uns", "kontakt"];
     const sectionToRender = validSections.includes(activeSection) ? activeSection : "start";
     switch (sectionToRender) {
@@ -1971,7 +2320,7 @@ const App = ({ path }) => {
             ] }) }),
             /* @__PURE__ */ jsx("p", { className: "mt-4 text-gray-400 text-sm font-medium", children: "Kostenlos & Unverbindlich" })
           ] }),
-          /* @__PURE__ */ jsx(TankSection, { openWizard }),
+          /* @__PURE__ */ jsx(TankSection, { openWizard, setActiveSection: changeSection }),
           /* @__PURE__ */ jsx(CommercialSection, { setActiveSection: changeSection }),
           /* @__PURE__ */ jsx(DeliveryMap, {}),
           /* @__PURE__ */ jsx(FAQ, {}),

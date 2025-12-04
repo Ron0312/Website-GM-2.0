@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
 import TankCard from './TankCard';
 import TankAdvisorPro from './TankAdvisorPro';
+import { tankDetails } from '../data/tanks';
 
-const TankSection = ({ openWizard }) => {
-    const [filter, setFilter] = useState('ober');
-    const tanks = [
-        { type: 'ober', size: '2.700 Liter (1,2 t)', capacity: '1,2 t', name: 'Klein', usage: 'Ideal für Ferienhäuser.', length: '2,50 m', diameter: '1,25 m', weight: '550 kg' },
-        { type: 'ober', size: '4.850 Liter (2,1 t)', capacity: '2,1 t', name: 'Standard', usage: 'Klassiker für Einfamilienhäuser.', highlight: true, length: '4,30 m', diameter: '1,25 m', weight: '980 kg' },
-        { type: 'ober', size: '6.400 Liter (2,9 t)', capacity: '2,9 t', name: 'Maxi', usage: 'Für Mehrfamilienhäuser.', length: '5,50 m', diameter: '1,25 m', weight: '1.300 kg' },
-        { type: 'unter', size: '2.700 Liter (1,2 t)', capacity: '1,2 t', name: 'Klein (Tief)', usage: 'Unsichtbar im Garten.', length: '2,50 m', diameter: '1,25 m', weight: '600 kg' },
-        { type: 'unter', size: '4.850 Liter (2,1 t)', capacity: '2,1 t', name: 'Standard (Tief)', usage: 'Platzsparend unterirdisch.', highlight: true, length: '4,30 m', diameter: '1,25 m', weight: '1.100 kg' },
-        { type: 'unter', size: '6.400 Liter (2,9 t)', capacity: '2,9 t', name: 'Maxi (Tief)', usage: 'Maximale Kapazität.', length: '5,50 m', diameter: '1,25 m', weight: '1.500 kg' },
-    ];
+const TankSection = ({ openWizard, setActiveSection }) => {
+    const [filter, setFilter] = useState('oberirdisch');
+
+    // Map the simple tank data to match TankCard props but enriched with slug for linking
+    const tanks = tankDetails.map(t => ({
+        type: t.type,
+        size: t.volume,
+        capacity: t.capacity,
+        name: t.name.split('(')[0].trim(), // Simplified name for card
+        usage: t.features[0], // Use first feature as usage
+        highlight: t.capacity === '2,1 t',
+        length: t.dimensions.split('x')[0].trim(),
+        diameter: t.dimensions.split('x')[1].replace('m', '').trim() + ' m',
+        weight: t.weight,
+        slug: t.slug
+    }));
+
     const visibleTanks = tanks.filter(t => t.type === filter);
 
     return (
@@ -23,12 +31,28 @@ const TankSection = ({ openWizard }) => {
                         <h3 className="text-4xl font-extrabold text-text">Tanks für jeden Bedarf</h3>
                     </div>
                     <div className="bg-gray-100 p-1 rounded-lg flex mt-4 md:mt-0">
-                        <button onClick={() => setFilter('ober')} className={`px-6 py-2 rounded-md text-sm font-bold transition-all ${filter === 'ober' ? 'bg-white shadow-sm text-gas' : 'text-gray-500'}`}>Oberirdisch</button>
-                        <button onClick={() => setFilter('unter')} className={`px-6 py-2 rounded-md text-sm font-bold transition-all ${filter === 'unter' ? 'bg-white shadow-sm text-gas' : 'text-gray-500'}`}>Unterirdisch</button>
+                        <button onClick={() => setFilter('oberirdisch')} className={`px-6 py-2 rounded-md text-sm font-bold transition-all ${filter === 'oberirdisch' ? 'bg-white shadow-sm text-gas' : 'text-gray-500'}`}>Oberirdisch</button>
+                        <button onClick={() => setFilter('unterirdisch')} className={`px-6 py-2 rounded-md text-sm font-bold transition-all ${filter === 'unterirdisch' ? 'bg-white shadow-sm text-gas' : 'text-gray-500'}`}>Unterirdisch</button>
                     </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {visibleTanks.map((tank, i) => <TankCard key={i} tank={tank} onContact={() => openWizard ? openWizard('tank') : null}/>)}
+                    {visibleTanks.map((tank, i) => (
+                        <div key={i} className="relative group">
+                            <TankCard
+                                tank={tank}
+                                onContact={() => openWizard ? openWizard('tank') : null}
+                            />
+                            {/* Detail Link */}
+                            <div className="mt-4 text-center">
+                                <button
+                                    onClick={() => setActiveSection ? setActiveSection(`tanks/${tank.slug}`) : null}
+                                    className="text-sm font-bold text-gray-400 hover:text-gas transition-colors border-b border-transparent hover:border-gas pb-0.5"
+                                >
+                                    Details & Maße ansehen
+                                </button>
+                            </div>
+                        </div>
+                    ))}
                 </div>
                 <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div className="md:col-span-2 bg-gray-50 rounded-2xl p-8 border border-gray-100">

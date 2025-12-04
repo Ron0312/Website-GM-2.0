@@ -1,3 +1,5 @@
+import { tankDetails } from './tanks.js';
+
 export const seoData = {
     'start': {
         title: 'gasmöller - Ihr Partner für Flüssiggas im Norden',
@@ -34,6 +36,18 @@ export const seoData = {
 };
 
 export const getSeoForPath = (path) => {
+    // Check for dynamic tank routes
+    if (path.startsWith('tanks/')) {
+        const slug = path.split('/')[1];
+        const tank = tankDetails.find(t => t.slug === slug);
+        if (tank) {
+            return {
+                title: tank.seoTitle,
+                description: tank.seoDesc
+            };
+        }
+    }
+
     // Normalize path to section key
     let section = 'start';
     if (path === '/' || path === '') section = 'start';
@@ -79,31 +93,54 @@ export const getSchemaForPath = (path) => {
         "priceRange": "$$"
     };
 
+    // Specific schema for Tank Detail pages
+    if (path.startsWith('tanks/')) {
+        const slug = path.split('/')[1];
+        const tank = tankDetails.find(t => t.slug === slug);
+        if (tank) {
+            return {
+                "@context": "https://schema.org",
+                "@type": "Product",
+                "name": tank.name,
+                "image": "https://gasmoeller.de/wp-content/uploads/2021/08/Logo-01.png", // Placeholder
+                "description": tank.description,
+                "sku": tank.slug,
+                "brand": {
+                    "@type": "Brand",
+                    "name": "gasmöller"
+                },
+                "offers": {
+                    "@type": "Offer",
+                    "url": `https://www.gasmoeller.de/${path}`,
+                    "priceCurrency": "EUR",
+                    "price": "0", // Price on request
+                    "availability": "https://schema.org/InStock",
+                    "itemCondition": "https://schema.org/NewCondition"
+                },
+                "additionalProperty": [
+                    { "@type": "PropertyValue", "name": "Kapazität", "value": tank.capacity },
+                    { "@type": "PropertyValue", "name": "Volumen", "value": tank.volume },
+                    { "@type": "PropertyValue", "name": "Abmessungen", "value": tank.dimensions }
+                ]
+            };
+        }
+    }
+
     // Specific schema for Tanks page (Product)
-    if (path.includes('tanks')) {
+    if (path === 'tanks') {
         return {
             ...baseSchema,
             "hasOfferCatalog": {
                 "@type": "OfferCatalog",
                 "name": "Flüssiggastanks",
-                "itemListElement": [
-                    {
-                        "@type": "Offer",
-                        "itemOffered": {
-                            "@type": "Product",
-                            "name": "Flüssiggastank 1,2 Tonnen (2700 Liter)",
-                            "description": "Ideal für Einfamilienhäuser. Oberirdisch oder unterirdisch verfügbar."
-                        }
-                    },
-                    {
-                        "@type": "Offer",
-                        "itemOffered": {
-                            "@type": "Product",
-                            "name": "Flüssiggastank 2,1 Tonnen (4850 Liter)",
-                            "description": "Für Mehrfamilienhäuser oder hohen Verbrauch."
-                        }
+                "itemListElement": tankDetails.map(t => ({
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Product",
+                        "name": t.name,
+                        "description": t.description
                     }
-                ]
+                }))
             }
         };
     }
