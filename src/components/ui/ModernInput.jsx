@@ -27,7 +27,7 @@ const ModernInput = ({ label, error, className = '', ...props }) => {
             setFocused(false);
             props.onBlur && props.onBlur(e);
           }}
-          className="w-full p-4 bg-transparent outline-none text-gray-800 font-medium placeholder-gray-400 rounded-xl"
+        className="w-full p-4 bg-transparent outline-none text-gray-800 font-medium placeholder-gray-400 rounded-xl font-sans"
         />
         {label && (
              <div className="absolute -top-2.5 left-4 bg-white px-2 text-xs font-bold text-gray-500 uppercase tracking-wider pointer-events-none">
