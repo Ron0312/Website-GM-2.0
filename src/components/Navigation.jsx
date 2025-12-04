@@ -73,7 +73,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                             <img src="/logos/Icon-01.webp" alt="gasmöller" className={`transition-all duration-300 ${isScrolled ? 'h-10' : 'h-12'}`} />
                         </div>
 
-                        <div className="hidden xl:flex space-x-2 bg-gray-50/50 p-1.5 rounded-full border border-gray-100">
+                        <div className="hidden xl:flex space-x-1 bg-gray-50/50 p-1 rounded-full border border-gray-100">
                             {navLinks.map((link) => (
                                 <div key={link.id} className="relative group"
                                      onMouseEnter={() => link.subLinks && setOpenDropdown(link.id)}
@@ -85,7 +85,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                             ${activeSection === link.id || (link.subLinks && activeSection.startsWith(link.id))
                                                 ? 'bg-white text-gas shadow-sm font-bold'
                                                 : 'text-gray-500 hover:text-gas hover:bg-white/50'}
-                                            px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200 flex items-center
+                                            px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 flex items-center whitespace-nowrap
                                         `}
                                     >
                                         {link.label}

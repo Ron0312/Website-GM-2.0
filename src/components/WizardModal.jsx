@@ -35,6 +35,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
             if (initialType) setType(initialType);
             setInstallationType('');
             setDetails({});
+            setContact({ name: '', street: '', city: '', email: '', phone: '', number: '' });
 
             if (initialData) {
                 if (initialData.plz) setPlz(initialData.plz);
@@ -102,7 +103,11 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
         formData.append("Type", type);
         formData.append("PLZ", plz);
         if (type === 'tank') formData.append("Installation", installationType);
-        formData.append("Details", JSON.stringify(details));
+
+        // Flatten details for better email formatting
+        Object.keys(details).forEach(key => {
+            formData.append(key, details[key]);
+        });
 
         formData.append("Name", contact.name);
         formData.append("Address", `${contact.street} ${contact.number}, ${plz} ${contact.city}`);
@@ -282,9 +287,26 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                                 <button key={opt} type="button" onClick={() => setDetails({...details, ownership: opt})} className={`flex-1 py-3 rounded-xl border-2 font-bold transition-all ${details.ownership === opt ? 'border-gas bg-gas-light/20 text-gas' : 'border-gray-100 text-gray-500 hover:border-gas-light'}`}>{opt}</button>
                                                             ))}
                                                         </div>
+                                                        {details.ownership === 'Nein, Mietvertrag' && (
+                                                            <div className="bg-yellow-50 p-4 rounded-xl border border-yellow-200 text-yellow-800 text-sm mt-4 flex items-start">
+                                                                <AlertTriangle className="mr-3 flex-shrink-0" size={20} />
+                                                                <p><strong>Hinweis:</strong> Wenn Sie den Tank gemietet haben, sind Sie meist vertraglich an Ihren Anbieter gebunden. Eine Befüllung durch uns ist dann rechtlich oft nicht möglich. Bitte prüfen Sie Ihren Vertrag.</p>
+                                                            </div>
+                                                        )}
                                                     </div>
 
                                                     <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                                                        <div className="mb-4">
+                                                            <label className="text-sm font-bold text-gray-700 mb-2 block">Tankgröße (falls bekannt)</label>
+                                                            <ModernInput
+                                                                type="text"
+                                                                name="tankSizeGas"
+                                                                className="mb-0 bg-white"
+                                                                placeholder="z.B. 1,2t oder 2700 Liter"
+                                                                value={details.tankSizeGas || ''}
+                                                                onChange={(e) => setDetails({...details, tankSizeGas: e.target.value})}
+                                                            />
+                                                        </div>
                                                         <div className="flex justify-between items-center mb-4">
                                                             <label className="text-sm font-bold text-gray-700">Wunschmenge</label>
                                                             <div className="flex items-center space-x-2">

@@ -3,73 +3,105 @@ from playwright.sync_api import sync_playwright
 def verify_changes():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
+        context = browser.new_context()
+        page = context.new_page()
 
-        # 1. Verify Navigation Menu (Tanks Flyout)
-        page.goto("http://localhost:5173/")
-        page.wait_for_selector("nav")
+        print("Navigating to homepage...")
+        page.goto("http://localhost:5173")
 
-        # Hover over Tanks & Kauf to trigger flyout
-        tanks_link = page.locator("nav").get_by_text("Tanks & Kauf")
-        tanks_link.hover()
-
-        # Need to hover Oberirdisch again to ensure the submenu is visible
-        oberirdisch_btn = page.locator("nav").get_by_role("button", name="Oberirdisch").first
-        oberirdisch_btn.hover()
-
-        # Click the link. Sometimes hover is flaky in headless if we don't wait.
-        # Force click might be needed if it's hidden or moving?
-        # But let's try to just navigate directly if click fails,
-        # but the purpose is to test the menu.
-
-        # Wait for visibility
-        tank_link = page.get_by_text("1,2 t Tank (2700 L)").first
-        tank_link.wait_for(state="visible")
-        tank_link.click()
-
-        page.wait_for_url("**/tanks/1-2t-oberirdisch")
-
-        # Scroll down to Technical Data
-        page.wait_for_selector("text=Epoxidharz-Beschichtung (hellgrün)")
-
-        # Check Installation Text
-        page.wait_for_selector("text=Aufgrund des Gewichts ist ein solides Fundament zwingend erforderlich")
-
-        page.screenshot(path="verification_tank_detail.png")
-        print("Tank detail screenshot taken.")
-
-        # 2. Verify Service Menu
-        # Navigate back home to reset menu state
-        page.goto("http://localhost:5173/")
-
-        service_link = page.locator("nav").get_by_text("Service")
-        service_link.hover()
-
-        page.wait_for_selector("text=Prüfungen & Sicherheit")
-        page.screenshot(path="verification_nav_service.png")
-        print("Service navigation screenshot taken.")
-
-        # 4. Verify Inspection Content
-        page.goto("http://localhost:5173/wissen")
-        # Need to find the article "Prüfung & Sicherheit"
-        page.get_by_text("Prüfung & Sicherheit").click()
-        page.wait_for_selector("text=Warum sind Prüfungen notwendig?")
-        page.wait_for_selector("text=Rohrleitungsprüfung")
-
-        page.screenshot(path="verification_knowledge.png")
-        print("Knowledge screenshot taken.")
-
-        # 5. Verify Forms (Auto-fill attributes)
-        # Check Contact Section
-        page.goto("http://localhost:5173/kontakt")
-        # Verify name attribute exists on input
-        name_input = page.locator("input[name='name']")
-        if name_input.count() > 0:
-            print("Contact form has name attribute.")
+        # 1. Verify Navigation
+        print("Verifying navigation menu...")
+        # Check if nav items have whitespace-nowrap
+        tanks_button = page.locator("button", has_text="Tanks & Kauf").first
+        class_attr = tanks_button.get_attribute("class")
+        if "whitespace-nowrap" in class_attr:
+            print("SUCCESS: Navigation button has whitespace-nowrap.")
         else:
-            print("Contact form MISSING name attribute.")
+            print(f"FAILURE: Navigation button missing whitespace-nowrap. Classes: {class_attr}")
 
-        page.screenshot(path="verification_contact.png")
+        # 2. Verify WizardModal Reset
+        print("\nVerifying WizardModal reset...")
+        # Open Wizard
+        page.get_by_text("Angebot", exact=False).first.click()
+
+        # Enter PLZ
+        page.get_by_placeholder("PLZ").fill("21073") # Valid PLZ
+        page.get_by_role("button", name="Weiter").click()
+
+        # Select 'Gas bestellen'
+        page.locator("h3:has-text('Gas bestellen')").click()
+        page.get_by_role("button", name="Weiter").click()
+
+        # Fill some details (Gas details step)
+        page.get_by_placeholder("z.B. 2000").fill("1234")
+
+        # Go to contact
+        page.get_by_text("Weiter zu Kontakt").click()
+
+        # Fill contact
+        page.get_by_placeholder("Ihr vollständiger Name").fill("Test User")
+
+        # Close modal
+        # Use a more specific selector for the close button.
+        # It has an X icon and is in the top right of the modal.
+        # <button onClick={onClose} className="p-2 rounded-full hover:bg-gray-100 ..."> <X size={24}/> </button>
+        # We can look for the button containing the X icon or just the one with that class.
+        # Or look for SVG.
+        page.locator("button.p-2.rounded-full").first.click()
+
+        # Reopen modal
+        print("Reopening modal to check reset...")
+        page.get_by_text("Angebot", exact=False).first.click()
+
+        plz_value = page.get_by_placeholder("PLZ").input_value()
+        print(f"PLZ value after reopen: '{plz_value}'")
+
+        if not plz_value or len(plz_value) < 5:
+             page.get_by_placeholder("PLZ").fill("21073")
+
+        page.get_by_role("button", name="Weiter").click()
+
+        # Step 2: Select Gas again
+        page.locator("h3:has-text('Gas bestellen')").click()
+        page.get_by_role("button", name="Weiter").click()
+
+        # Check Details (Amount)
+        amount_value = page.get_by_placeholder("z.B. 2000").input_value()
+        if amount_value == "":
+            print("SUCCESS: Amount reset.")
+        else:
+            print(f"FAILURE: Amount NOT reset. Value: {amount_value}")
+
+        page.get_by_text("Weiter zu Kontakt").click()
+
+        name_value = page.get_by_placeholder("Ihr vollständiger Name").input_value()
+        if name_value == "":
+            print("SUCCESS: Contact Name reset.")
+        else:
+            print(f"FAILURE: Contact Name NOT reset. Value: {name_value}")
+
+        # 3. Verify Ownership Warning
+        print("\nVerifying Ownership Warning...")
+        # Go back to details (Step 3)
+        page.get_by_text("Zurück").click()
+
+        # Click "Nein, Mietvertrag"
+        page.get_by_text("Nein, Mietvertrag").click()
+
+        # Check for warning text
+        warning = page.get_by_text("Wenn Sie den Tank gemietet haben")
+        if warning.is_visible():
+            print("SUCCESS: Warning message visible.")
+        else:
+            print("FAILURE: Warning message NOT visible.")
+
+        # 4. Verify Tank Size field
+        print("\nVerifying Tank Size field...")
+        tank_size_input = page.get_by_placeholder("z.B. 1,2t oder 2700 Liter")
+        if tank_size_input.is_visible():
+             print("SUCCESS: Tank Size input visible.")
+        else:
+             print("FAILURE: Tank Size input NOT visible.")
 
         browser.close()
 
