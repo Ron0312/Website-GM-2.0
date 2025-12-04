@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Check, Settings, Flame, Wrench, AlertTriangle } from 'lucide-react';
+import { validatePlz, getPlzError } from '../utils/validation';
 
 const WEB3FORMS_ACCESS_KEY = "f22052ed-455f-4e4d-9f5a-94a6e340426f";
 
@@ -41,17 +42,11 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
         }
     }, [isOpen, initialType, initialData]);
 
-    const validatePlz = (val) => {
-        // Validation for specific regions:
-        // 17-19 (MV), 20-22 (HH), 21-25 (SH/Niedersachsen mix), 27 (SH), 292-296 (Niedersachsen)
-        const regex = /^(1[7-9]\d{3}|2[0-5]\d{3}|27\d{3}|29[2-6]\d{2})$/;
-        return regex.test(val);
-    };
-
     const handleNext = () => {
         if (step === 1) {
-            if (!validatePlz(plz)) {
-                setPlzError('Leider liefern wir aktuell nur in unserem Liefergebiet (Norddeutschland).');
+            const error = getPlzError(plz);
+            if (error) {
+                setPlzError(error);
                 return;
             }
             setPlzError('');

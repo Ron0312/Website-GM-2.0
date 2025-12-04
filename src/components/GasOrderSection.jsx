@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Check, ShieldCheck, MapPin, ArrowRight, Truck, Heart, Coins } from 'lucide-react';
 import DeliveryMap from './DeliveryMap';
+import { getPlzError } from '../utils/validation';
 
 const GasOrderSection = ({ onCheckAvailability }) => {
     const [liters, setLiters] = useState(3000);
@@ -9,17 +10,9 @@ const GasOrderSection = ({ onCheckAvailability }) => {
     const [plzError, setPlzError] = useState('');
 
     const handleCheck = () => {
-        if (!plz || plz.length !== 5) {
-            setPlzError('Bitte geben Sie eine gültige 5-stellige PLZ ein.');
-            return;
-        }
-
-        // Validation for specific regions:
-        // 17-19 (MV), 20-22 (HH), 21-25 (SH/Niedersachsen mix), 27 (SH), 292-296 (Niedersachsen)
-        const regex = /^(1[7-9]\d{3}|2[0-5]\d{3}|27\d{3}|29[2-6]\d{2})$/;
-
-        if (!regex.test(plz)) {
-            setPlzError('Wir liefern leider noch nicht in dieses Gebiet.');
+        const error = getPlzError(plz);
+        if (error) {
+            setPlzError(error);
             return;
         }
 
