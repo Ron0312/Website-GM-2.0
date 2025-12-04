@@ -31,14 +31,29 @@ async function createServer() {
     )
   }
 
-  const siteData = {
-    title: 'gasmöller - Ihr Partner für Flüssiggas im Norden',
-    description: 'Unabhängig. Fair. Norddeutsch. Flüssiggastanks kaufen statt mieten. Ihr Experte seit 2005.',
-    content: '<!--app-html-->'
-  }
+  // Import SEO Data (Dynamically loaded to avoid build step issues in server file if possible,
+  // but since we are using import/export in server.js (type: module), we can import relative to src if configured,
+  // OR we just duplicate the logic/require it.
+  // Ideally, we read the JSON or JS file. Since server.js is at root and src is nearby:
+
+  // Note: Direct import from src might fail if not compiled, but in Vite 'type: module' environments it often works.
+  // However, for safety in this specific environment, I will use dynamic import logic or read the file.
+  // Let's try importing directly as we are in a module environment.
+  const { getSeoForPath, getSchemaForPath } = await import('./src/data/seoData.js');
 
   app.use(async (req, res, next) => {
     const url = req.originalUrl
+
+    // Determine SEO Data based on URL
+    const seoInfo = getSeoForPath(url);
+    const schemaJson = JSON.stringify(getSchemaForPath(url));
+
+    const siteData = {
+      title: seoInfo.title,
+      description: seoInfo.description,
+      content: '<!--app-html-->',
+      schema: schemaJson // We will need to inject this into the template
+    }
 
     try {
       let template, render, templatePath
@@ -47,17 +62,24 @@ async function createServer() {
         templatePath = path.resolve(__dirname, 'views/index.ejs')
         template = fs.readFileSync(templatePath, 'utf-8')
 
-        // Debugging: Ensure template is read
-        // console.log("Template read:", template.substring(0, 100));
+        // Inject Schema placeholder if not present in EJS (it might not be, so we might need to string replace)
+        // Check if template has a place for schema. If not, we append it to head.
+        if (!template.includes('<!--schema-json-->')) {
+            template = template.replace('</head>', '<script type="application/ld+json"><!--schema-json--></script></head>');
+        }
 
         // EJS Render
         try {
+          // We render EJS with siteData.
+          // Note: If index.ejs uses <%= title %>, this works.
           template = ejs.render(template, siteData)
-          // console.log("EJS Rendered:", template.substring(0, 100));
         } catch (err) {
             console.error("EJS Error:", err);
             throw err;
         }
+
+        // Manual Schema Injection if EJS didn't do it (or if we used the placeholder strategy above)
+        template = template.replace('<!--schema-json-->', siteData.schema);
 
         // Vite Transform
         template = await vite.transformIndexHtml(url, template)
@@ -66,6 +88,22 @@ async function createServer() {
       } else {
         templatePath = path.resolve(__dirname, 'dist/client/index.html')
         template = fs.readFileSync(templatePath, 'utf-8')
+
+        // Production: We need to replace the placeholders.
+        // Assuming dist/client/index.html is static, we replace the title/desc.
+        // This is tricky if the static HTML already has a title.
+        // Typically Vite SSG/SSR replaces <!--app-head--> or similar.
+        // Here we will do simple string replacements.
+
+        // Regex replace title
+        template = template.replace(/<title>.*?<\/title>/, `<title>${siteData.title}</title>`);
+        template = template.replace(/<meta name="description" content=".*?"/, `<meta name="description" content="${siteData.description}"`);
+
+        // Inject Schema
+        if (!template.includes('<script type="application/ld+json">')) {
+             template = template.replace('</head>', `<script type="application/ld+json">${siteData.schema}</script></head>`);
+        }
+
         render = (await import('./dist/server/entry-server.js')).render
       }
 

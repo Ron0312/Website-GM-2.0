@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Settings, ArrowRight } from 'lucide-react';
+import { getSeoForPath } from './data/seoData';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import TrustBar from './components/TrustBar';
@@ -18,8 +19,21 @@ import CookieBanner from './components/CookieBanner';
 import SimpleModal from './components/SimpleModal';
 import ScrollToTop from './components/ScrollToTop';
 
-const App = () => {
-    const [activeSection, setActiveSection] = useState('start');
+const App = ({ path }) => {
+    // Initial state based on path if provided (SSR), otherwise default to window location (CSR)
+    const getInitialSection = () => {
+        if (path) {
+            const p = path.replace(/^\//, '').toLowerCase();
+            return p || 'start';
+        }
+        if (typeof window !== 'undefined') {
+             const p = window.location.pathname.replace(/^\//, '').toLowerCase();
+             return p || 'start';
+        }
+        return 'start';
+    };
+
+    const [activeSection, setActiveSection] = useState(getInitialSection());
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [wizardOpen, setWizardOpen] = useState(false);
     const [wizardType, setWizardType] = useState('tank');
@@ -71,7 +85,44 @@ const App = () => {
         setLegalModal({ open: true, title, content });
     };
 
-    useEffect(() => { window.scrollTo(0, 0); }, [activeSection]);
+    // Handle Browser Back/Forward
+    useEffect(() => {
+        const handlePopState = () => {
+             const p = window.location.pathname.replace(/^\//, '').toLowerCase();
+             setActiveSection(p || 'start');
+        };
+        window.addEventListener('popstate', handlePopState);
+        return () => window.removeEventListener('popstate', handlePopState);
+    }, []);
+
+    // Update URL when section changes
+    const changeSection = (section) => {
+        setActiveSection(section);
+        if (typeof window !== 'undefined') {
+            const url = section === 'start' ? '/' : `/${section}`;
+            window.history.pushState({}, '', url);
+            window.scrollTo(0, 0);
+        }
+    };
+
+    useEffect(() => {
+        // Initial scroll is handled by browser usually, but we ensure top
+        // window.scrollTo(0, 0);
+
+        // Update Title and Meta Description on client-side navigation
+        const seoInfo = getSeoForPath(activeSection);
+        document.title = seoInfo.title;
+
+        // Update meta description
+        let metaDesc = document.querySelector('meta[name="description"]');
+        if (!metaDesc) {
+            metaDesc = document.createElement('meta');
+            metaDesc.name = "description";
+            document.head.appendChild(metaDesc);
+        }
+        metaDesc.content = seoInfo.description;
+
+    }, [activeSection]);
 
     const handleGasCheckAvailability = (plz, liters) => {
         setWizardData({ plz, liters });
@@ -80,22 +131,26 @@ const App = () => {
     };
 
     const renderSection = () => {
-        switch(activeSection) {
-            case 'start': return <><Hero openWizard={openWizard} setActiveSection={setActiveSection} /><TrustBar /><div className="my-16 text-center"><div className="inline-block p-2 rounded-2xl bg-gradient-to-r from-gas-light to-white border border-gas/10 shadow-2xl animate-pulse hover:animate-none transition-all"><button onClick={() => openWizard('tank')} className="bg-gas text-white px-10 py-5 rounded-xl font-extrabold text-2xl shadow-lg hover:bg-gas-dark transition-all flex items-center gap-3"><Settings size={28}/> Zum Anfrage-Assistenten <ArrowRight size={28}/></button></div><p className="mt-4 text-gray-400 text-sm font-medium">Kostenlos & Unverbindlich</p></div><TankSection openWizard={openWizard} /><CommercialSection setActiveSection={setActiveSection} /><DeliveryMap /><FAQ /><ContactSection /></>;
+        // Fallback for unknown sections
+        const validSections = ['start', 'tanks', 'gas', 'rechner', 'gewerbe', 'wissen', 'ueber-uns', 'kontakt'];
+        const sectionToRender = validSections.includes(activeSection) ? activeSection : 'start';
+
+        switch(sectionToRender) {
+            case 'start': return <><Hero openWizard={openWizard} setActiveSection={changeSection} /><TrustBar /><div className="my-16 text-center"><div className="inline-block p-2 rounded-2xl bg-gradient-to-r from-gas-light to-white border border-gas/10 shadow-2xl animate-pulse hover:animate-none transition-all"><button onClick={() => openWizard('tank')} className="bg-gas text-white px-10 py-5 rounded-xl font-extrabold text-2xl shadow-lg hover:bg-gas-dark transition-all flex items-center gap-3"><Settings size={28}/> Zum Anfrage-Assistenten <ArrowRight size={28}/></button></div><p className="mt-4 text-gray-400 text-sm font-medium">Kostenlos & Unverbindlich</p></div><TankSection openWizard={openWizard} /><CommercialSection setActiveSection={changeSection} /><DeliveryMap /><FAQ /><ContactSection /></>;
             case 'tanks': return <><div className="pt-20"></div><TankSection openWizard={openWizard} /><ContactSection /></>;
             case 'gas': return <><div className="pt-20"></div><GasOrderSection onCheckAvailability={handleGasCheckAvailability} /><FAQ /><ContactSection /></>;
             case 'rechner': return <><div className="pt-32 max-w-4xl mx-auto px-4"><SavingsCalculator /></div><ContactSection /></>;
-            case 'gewerbe': return <><div className="pt-20"></div><CommercialSection setActiveSection={setActiveSection} /><ContactSection /></>;
-            case 'wissen': return <><div className="pt-20"></div><KnowledgeCenter setActiveSection={setActiveSection} /><ContactSection /></>;
-            case 'ueber-uns': return <><div className="pt-20"></div><AboutPage setActiveSection={setActiveSection} /><ContactSection /></>;
+            case 'gewerbe': return <><div className="pt-20"></div><CommercialSection setActiveSection={changeSection} /><ContactSection /></>;
+            case 'wissen': return <><div className="pt-20"></div><KnowledgeCenter setActiveSection={changeSection} /><ContactSection /></>;
+            case 'ueber-uns': return <><div className="pt-20"></div><AboutPage setActiveSection={changeSection} /><ContactSection /></>;
             case 'kontakt': return <><div className="pt-32"></div><ContactSection /></>;
-            default: return <Hero openWizard={openWizard} setActiveSection={setActiveSection} />;
+            default: return <Hero openWizard={openWizard} setActiveSection={changeSection} />;
         }
     };
 
     return (
         <div className="min-h-screen flex flex-col bg-white">
-            <Navigation activeSection={activeSection} setActiveSection={setActiveSection} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} openWizard={openWizard} />
+            <Navigation activeSection={activeSection} setActiveSection={changeSection} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} openWizard={openWizard} />
             <main className="flex-grow">{renderSection()}</main>
             <footer className="bg-gray-900 text-gray-400 py-20 border-t border-gray-800 text-sm">
                 <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
@@ -111,10 +166,10 @@ const App = () => {
                     <div>
                         <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-wider">Schnellzugriff</h4>
                         <ul className="space-y-2">
-                            <li><button onClick={() => setActiveSection('gas')} className="hover:text-white transition-colors">Gas bestellen</button></li>
-                            <li><button onClick={() => setActiveSection('tanks')} className="hover:text-white transition-colors">Tanks kaufen</button></li>
-                            <li><button onClick={() => setActiveSection('rechner')} className="hover:text-white transition-colors">Spar-Rechner</button></li>
-                            <li><button onClick={() => setActiveSection('kontakt')} className="hover:text-white transition-colors">Kontakt</button></li>
+                            <li><button onClick={() => changeSection('gas')} className="hover:text-white transition-colors">Gas bestellen</button></li>
+                            <li><button onClick={() => changeSection('tanks')} className="hover:text-white transition-colors">Tanks kaufen</button></li>
+                            <li><button onClick={() => changeSection('rechner')} className="hover:text-white transition-colors">Spar-Rechner</button></li>
+                            <li><button onClick={() => changeSection('kontakt')} className="hover:text-white transition-colors">Kontakt</button></li>
                         </ul>
                     </div>
                     <div>
