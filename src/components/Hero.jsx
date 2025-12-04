@@ -10,7 +10,7 @@ const Hero = ({ setActiveSection, openWizard }) => (
              <div className="w-full h-full bg-gray-300"></div>
              {/* Ideally I would put the image here, but I can't download external resources to file system easily. */}
              {/* I will put an img tag with the external source for now, but it should be replaced with local asset. */}
-            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Landschaft Norddeutschland" className="w-full h-full object-cover absolute inset-0" />
+            <img src="/images/gas-order-hero.webp" alt="Landschaft Norddeutschland" className="w-full h-full object-cover absolute inset-0" />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
             <div className="lg:grid lg:grid-cols-2 lg:gap-20 items-center">

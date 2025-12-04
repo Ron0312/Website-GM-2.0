@@ -7,6 +7,7 @@ import TrustBar from './components/TrustBar';
 import TankSection from './components/TankSection';
 import TankDetail from './components/TankDetail';
 import CommercialSection from './components/CommercialSection';
+import InspectionSection from './components/InspectionSection';
 import DeliveryMap from './components/DeliveryMap';
 import FAQ from './components/FAQ';
 import ContactSection from './components/ContactSection';
@@ -139,13 +140,14 @@ const App = ({ path }) => {
         }
 
         // Fallback for unknown sections
-        const validSections = ['start', 'tanks', 'gas', 'rechner', 'gewerbe', 'wissen', 'ueber-uns', 'kontakt'];
+        const validSections = ['start', 'tanks', 'gas', 'rechner', 'gewerbe', 'wissen', 'ueber-uns', 'kontakt', 'pruefungen'];
         const sectionToRender = validSections.includes(activeSection) ? activeSection : 'start';
 
         switch(sectionToRender) {
             case 'start': return <><Hero openWizard={openWizard} setActiveSection={changeSection} /><TrustBar /><div className="my-16 text-center"><div className="inline-block p-2 rounded-2xl bg-gradient-to-r from-gas-light to-white border border-gas/10 shadow-2xl animate-pulse hover:animate-none transition-all"><button onClick={() => openWizard('tank')} className="bg-gas text-white px-10 py-5 rounded-xl font-extrabold text-2xl shadow-lg hover:bg-gas-dark transition-all flex items-center gap-3"><Settings size={28}/> Zum Anfrage-Assistenten <ArrowRight size={28}/></button></div><p className="mt-4 text-gray-400 text-sm font-medium">Kostenlos & Unverbindlich</p></div><TankSection openWizard={openWizard} setActiveSection={changeSection} /><CommercialSection setActiveSection={changeSection} /><DeliveryMap /><FAQ /><ContactSection /></>;
-            case 'tanks': return <><div className="pt-20"></div><TankSection openWizard={openWizard} /><ContactSection /></>;
+            case 'tanks': return <><div className="pt-20"></div><TankSection openWizard={openWizard} setActiveSection={changeSection} /><ContactSection /></>;
             case 'gas': return <><div className="pt-20"></div><GasOrderSection onCheckAvailability={handleGasCheckAvailability} /><FAQ /><ContactSection /></>;
+            case 'pruefungen': return <><div className="pt-20"></div><InspectionSection openWizard={openWizard} /><ContactSection /></>;
             case 'rechner': return <><div className="pt-32 max-w-4xl mx-auto px-4"><SavingsCalculator /></div><ContactSection /></>;
             case 'gewerbe': return <><div className="pt-20"></div><CommercialSection setActiveSection={changeSection} /><ContactSection /></>;
             case 'wissen': return <><div className="pt-20"></div><KnowledgeCenter setActiveSection={changeSection} /><ContactSection /></>;

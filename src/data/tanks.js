@@ -16,15 +16,15 @@ export const tankDetails = [
             'Gut geeignet für Niedrigenergiehäuser'
         ],
         technicalData: {
-            diameter: '1.250 mm',
-            length: '2.500 mm',
-            weight: 'ca. 550 kg',
-            volume: '2.700 Liter',
-            filling: 'ca. 2.160 Liter (bei 85%)',
-            material: 'Feinkornbaustahl',
-            coating: 'Epoxidharz-Beschichtung (weiß/hellgrau)'
+            'Durchmesser': '1.250 mm',
+            'Länge': '2.500 mm',
+            'Gewicht': 'ca. 550 kg',
+            'Volumen': '2.700 Liter',
+            'Füllmenge': 'ca. 2.160 Liter (bei 85%)',
+            'Material': 'Feinkornbaustahl',
+            'Beschichtung': 'Epoxidharz-Beschichtung (weiß/hellgrau)'
         },
-        installation: 'Der Tank wird auf einer fertigen Betonplatte (Fundament) aufgestellt. Die Zuleitung zum Haus erfolgt meist unterirdisch.',
+        installation: 'Der Tank wird auf einer fertigen Betonplatte (Fundament) aufgestellt. Die Zuleitung zum Haus erfolgt meist unterirdisch. gasmöller liefert bei Bedarf eine Fundamentplatte mit (gegen Aufpreis). Außerdem unterstützen wir Sie durch unsere Partner beim Anschluss der Heizung oder bei Erdarbeiten.',
         seoTitle: '1,2 t Flüssiggastank oberirdisch kaufen | Maße & Preis | gasmöller',
         seoDesc: 'Kleiner 1,2t Flüssiggastank (2700l) oberirdisch. Ideal für Ferienhäuser. Alle Maße, Daten & Preise. Jetzt Angebot anfordern!'
     },
@@ -45,15 +45,15 @@ export const tankDetails = [
             'Gutes Preis-Leistungs-Verhältnis'
         ],
         technicalData: {
-            diameter: '1.250 mm',
-            length: '4.300 mm',
-            weight: 'ca. 980 kg',
-            volume: '4.850 Liter',
-            filling: 'ca. 4.100 Liter (bei 85%)',
-            material: 'Feinkornbaustahl',
-            coating: 'Epoxidharz-Beschichtung (weiß/hellgrau)'
+            'Durchmesser': '1.250 mm',
+            'Länge': '4.300 mm',
+            'Gewicht': 'ca. 980 kg',
+            'Volumen': '4.850 Liter',
+            'Füllmenge': 'ca. 4.100 Liter (bei 85%)',
+            'Material': 'Feinkornbaustahl',
+            'Beschichtung': 'Epoxidharz-Beschichtung (weiß/hellgrau)'
         },
-        installation: 'Erfordert ein Streifenfundament oder eine Betonplatte. Sicherheitsabstände zu Brandlasten und Öffnungen sind zu beachten.',
+        installation: 'Erfordert ein Streifenfundament oder eine Betonplatte. Sicherheitsabstände zu Brandlasten und Öffnungen sind zu beachten. gasmöller liefert bei Bedarf eine Fundamentplatte mit (gegen Aufpreis). Außerdem unterstützen wir Sie durch unsere Partner beim Anschluss der Heizung oder bei Erdarbeiten.',
         seoTitle: '2,1 t Flüssiggastank oberirdisch | Standardgröße für EFH | gasmöller',
         seoDesc: '2,1t (4850l) Flüssiggastank oberirdisch kaufen. Der Standard für Einfamilienhäuser. Maße, Technische Daten & Installation.'
     },
@@ -74,15 +74,15 @@ export const tankDetails = [
             'Auch für Prozesswärme geeignet'
         ],
         technicalData: {
-            diameter: '1.250 mm',
-            length: '5.500 mm',
-            weight: 'ca. 1.300 kg',
-            volume: '6.400 Liter',
-            filling: 'ca. 5.400 Liter (bei 85%)',
-            material: 'Feinkornbaustahl',
-            coating: 'Epoxidharz-Beschichtung (weiß/hellgrau)'
+            'Durchmesser': '1.250 mm',
+            'Länge': '5.500 mm',
+            'Gewicht': 'ca. 1.300 kg',
+            'Volumen': '6.400 Liter',
+            'Füllmenge': 'ca. 5.400 Liter (bei 85%)',
+            'Material': 'Feinkornbaustahl',
+            'Beschichtung': 'Epoxidharz-Beschichtung (weiß/hellgrau)'
         },
-        installation: 'Aufgrund des Gewichts ist ein solides Fundament zwingend erforderlich. Kranwagen für Aufstellung notwendig.',
+        installation: 'Aufgrund des Gewichts ist ein solides Fundament zwingend erforderlich. Kranwagen für Aufstellung notwendig. gasmöller liefert bei Bedarf eine Fundamentplatte mit (gegen Aufpreis). Außerdem unterstützen wir Sie durch unsere Partner beim Anschluss der Heizung oder bei Erdarbeiten.',
         seoTitle: '2,9 t Flüssiggastank oberirdisch | Großtank für Gewerbe | gasmöller',
         seoDesc: '2,9t (6400l) Flüssiggastank oberirdisch. Für MFH & Gewerbe. Maximale Kapazität. Alle technischen Daten hier.'
     },
@@ -103,15 +103,15 @@ export const tankDetails = [
             'Ideal bei kleinen Grundstücken'
         ],
         technicalData: {
-            diameter: '1.250 mm',
-            length: '2.500 mm',
-            weight: 'ca. 600 kg',
-            volume: '2.700 Liter',
-            filling: 'ca. 2.160 Liter (bei 85%)',
-            material: 'Feinkornbaustahl',
-            coating: 'Epoxidharz + Bitumen-Isolierung (Korrosionsschutz)'
+            'Durchmesser': '1.250 mm',
+            'Länge': '2.500 mm',
+            'Gewicht': 'ca. 600 kg',
+            'Volumen': '2.700 Liter',
+            'Füllmenge': 'ca. 2.160 Liter (bei 85%)',
+            'Material': 'Feinkornbaustahl',
+            'Beschichtung': 'Epoxidharz + Bitumen-Isolierung (Korrosionsschutz)'
         },
-        installation: 'Erfordert Erdarbeiten (Grube). Der Tank wird in ein Sandbett gelegt. Auftriebssicherung bei hohem Grundwasser beachten.',
+        installation: 'Erfordert Erdarbeiten (Grube). Der Tank wird in ein Sandbett gelegt. Auftriebssicherung bei hohem Grundwasser beachten. Wir unterstützen Sie gerne bei der Planung und vermitteln qualifizierte Partner für Erdarbeiten.',
         seoTitle: '1,2 t Flüssiggastank unterirdisch | Unsichtbar & Platzsparend',
         seoDesc: 'Unterirdischer 1,2t Tank (2700l). Perfekt für kleine Gärten. Verschwindet im Boden. Jetzt informieren & Angebot holen.'
     },
@@ -132,15 +132,15 @@ export const tankDetails = [
             'Wertsteigerung der Immobilie'
         ],
         technicalData: {
-            diameter: '1.250 mm',
-            length: '4.300 mm',
-            weight: 'ca. 1.100 kg',
-            volume: '4.850 Liter',
-            filling: 'ca. 4.100 Liter (bei 85%)',
-            material: 'Feinkornbaustahl',
-            coating: 'Epoxidharz + Bitumen-Isolierung (Korrosionsschutz)'
+            'Durchmesser': '1.250 mm',
+            'Länge': '4.300 mm',
+            'Gewicht': 'ca. 1.100 kg',
+            'Volumen': '4.850 Liter',
+            'Füllmenge': 'ca. 4.100 Liter (bei 85%)',
+            'Material': 'Feinkornbaustahl',
+            'Beschichtung': 'Epoxidharz + Bitumen-Isolierung (Korrosionsschutz)'
         },
-        installation: 'Einbau in eine Baugrube, Einbettung in steinfreien Sand. Domschacht bleibt zugänglich für Befüllung und Wartung.',
+        installation: 'Einbau in eine Baugrube, Einbettung in steinfreien Sand. Domschacht bleibt zugänglich für Befüllung und Wartung. Wir unterstützen Sie gerne bei der Planung und vermitteln qualifizierte Partner für Erdarbeiten.',
         seoTitle: '2,1 t Flüssiggastank unterirdisch | Der Standard für EFH',
         seoDesc: '2,1t (4850l) Erdtank kaufen. Unsichtbare Energieversorgung für Ihr Einfamilienhaus. Maße & Einbau-Infos.'
     },
@@ -161,15 +161,15 @@ export const tankDetails = [
             'Sicher und langlebig'
         ],
         technicalData: {
-            diameter: '1.250 mm',
-            length: '5.500 mm',
-            weight: 'ca. 1.500 kg',
-            volume: '6.400 Liter',
-            filling: 'ca. 5.400 Liter (bei 85%)',
-            material: 'Feinkornbaustahl',
-            coating: 'Epoxidharz + Bitumen-Isolierung (Korrosionsschutz)'
+            'Durchmesser': '1.250 mm',
+            'Länge': '5.500 mm',
+            'Gewicht': 'ca. 1.500 kg',
+            'Volumen': '6.400 Liter',
+            'Füllmenge': 'ca. 5.400 Liter (bei 85%)',
+            'Material': 'Feinkornbaustahl',
+            'Beschichtung': 'Epoxidharz + Bitumen-Isolierung (Korrosionsschutz)'
         },
-        installation: 'Große Baugrube erforderlich. Professionelle Einbringung mit Kran. Ideal in der Bauphase zu installieren.',
+        installation: 'Große Baugrube erforderlich. Professionelle Einbringung mit Kran. Ideal in der Bauphase zu installieren. Wir unterstützen Sie gerne bei der Planung und vermitteln qualifizierte Partner für Erdarbeiten.',
         seoTitle: '2,9 t Flüssiggastank unterirdisch | Großtank für Profis',
         seoDesc: '2,9t (6400l) Flüssiggastank für den Erdeinbau. Für Gewerbe & Mehrfamilienhäuser. Technische Daten & Preise.'
     }

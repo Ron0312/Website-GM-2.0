@@ -141,7 +141,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                             {[
                                                 { id: 'tank', icon: Settings, label: 'Neuer Tank', desc: 'Kauf/Miete' },
                                                 { id: 'gas', icon: Flame, label: 'Gas bestellen', desc: 'Füllung' },
-                                                { id: 'service', icon: Wrench, label: 'Service', desc: 'Wartung' }
+                                                { id: 'service', icon: Wrench, label: 'Service', desc: 'Wartung & Prüfungen' }
                                             ].map((opt) => (
                                                 <button key={opt.id} type="button" onClick={() => { setType(opt.id); handleNext(); }} className={`p-6 rounded-xl border-2 transition-all text-center group ${type === opt.id ? 'border-gas bg-gas-light/30' : 'border-gray-100 hover:border-gas'}`}>
                                                     <div className={`w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 ${type === opt.id ? 'bg-gas text-white' : 'bg-gray-100 text-gray-500 group-hover:bg-gas group-hover:text-white transition-colors'}`}><opt.icon size={24}/></div>
@@ -238,7 +238,17 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                 </>
                                             )}
                                             {type === 'service' && (
-                                                <textarea className="w-full p-4 border border-gray-200 rounded-lg h-32" placeholder="Beschreiben Sie Ihr Anliegen..." onChange={(e) => setDetails({...details, message: e.target.value})}></textarea>
+                                                <>
+                                                    <label className="block text-sm font-bold text-gray-700 mb-2">Art des Service</label>
+                                                    <select className="w-full p-4 border border-gray-200 rounded-lg outline-none bg-white mb-4" onChange={(e) => setDetails({...details, serviceType: e.target.value})}>
+                                                        <option>Bitte wählen...</option>
+                                                        <option>Innere Prüfung (10 Jahre)</option>
+                                                        <option>Äußere Prüfung (2 Jahre)</option>
+                                                        <option>Rohrleitungsprüfung</option>
+                                                        <option>Sonstiges / Reparatur</option>
+                                                    </select>
+                                                    <textarea className="w-full p-4 border border-gray-200 rounded-lg h-32" placeholder="Beschreiben Sie Ihr Anliegen..." onChange={(e) => setDetails({...details, message: e.target.value})}></textarea>
+                                                </>
                                             )}
                                             <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-lg font-bold hover:bg-gas-dark mt-4">Weiter</button>
                                             <button type="button" onClick={handleBack} className="w-full text-gray-400 hover:text-gray-600 text-sm font-bold mt-4">Zurück</button>
