@@ -30,7 +30,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                 <div className="absolute inset-0 z-0">
                     <div className="absolute inset-0 bg-gradient-to-r from-gray-900/60 to-gray-900/30 z-10"></div>
                      <img
-                        src="/images/gas-order-hero.webp"
+                        src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
                         alt="Hintergrund Gas Lieferung Norddeutschland"
                         className="w-full h-full object-cover absolute inset-0"
                     />

@@ -19,12 +19,26 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
             id: 'tanks',
             label: 'Tanks & Kauf',
             subLinks: [
-                { id: 'tanks/1-2t-oberirdisch', label: '1,2 t Tank (2700 L)' },
-                { id: 'tanks/2-1t-oberirdisch', label: '2,1 t Tank (4850 L)' },
-                { id: 'tanks/2-9t-oberirdisch', label: '2,9 t Tank (6400 L)' }
+                {
+                    label: 'Oberirdisch',
+                    items: [
+                        { id: 'tanks/1-2t-oberirdisch', label: '1,2 t Tank (2700 L)' },
+                        { id: 'tanks/2-1t-oberirdisch', label: '2,1 t Tank (4850 L)' },
+                        { id: 'tanks/2-9t-oberirdisch', label: '2,9 t Tank (6400 L)' }
+                    ]
+                },
+                {
+                    label: 'Unterirdisch',
+                    items: [
+                        { id: 'tanks/1-2t-unterirdisch', label: '1,2 t Tank (2700 L)' },
+                        { id: 'tanks/2-1t-unterirdisch', label: '2,1 t Tank (4850 L)' },
+                        { id: 'tanks/2-9t-unterirdisch', label: '2,9 t Tank (6400 L)' }
+                    ]
+                }
             ]
         },
         { id: 'gas', label: 'Gas bestellen' },
+        { id: 'pruefungen', label: 'Prüfungen' },
         { id: 'wissen', label: 'Wissen' },
         { id: 'gewerbe', label: 'Gewerbe' },
         { id: 'ueber-uns', label: 'Über Uns' },
@@ -65,16 +79,21 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
 
                                     {/* Dropdown */}
                                     {link.subLinks && (
-                                        <div className={`absolute left-0 top-full pt-2 w-56 transition-all duration-200 origin-top-left z-50 ${openDropdown === link.id ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible'}`}>
+                                        <div className={`absolute left-0 top-full pt-2 w-64 transition-all duration-200 origin-top-left z-50 ${openDropdown === link.id ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible'}`}>
                                             <div className="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden py-2">
-                                                {link.subLinks.map(sub => (
-                                                    <button
-                                                        key={sub.id}
-                                                        onClick={() => { setActiveSection(sub.id); setOpenDropdown(null); }}
-                                                        className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gas-light/30 hover:text-gas transition-colors"
-                                                    >
-                                                        {sub.label}
-                                                    </button>
+                                                {link.subLinks.map((group, idx) => (
+                                                    <div key={idx} className="mb-2 last:mb-0">
+                                                        <div className="px-4 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider">{group.label}</div>
+                                                        {group.items.map(sub => (
+                                                            <button
+                                                                key={sub.id}
+                                                                onClick={() => { setActiveSection(sub.id); setOpenDropdown(null); }}
+                                                                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gas-light/30 hover:text-gas transition-colors pl-6"
+                                                            >
+                                                                {sub.label}
+                                                            </button>
+                                                        ))}
+                                                    </div>
                                                 ))}
                                             </div>
                                         </div>
@@ -124,14 +143,19 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                     </button>
                                     {link.subLinks && (
                                         <div className="pl-8 space-y-2 mb-2">
-                                            {link.subLinks.map(sub => (
-                                                <button
-                                                    key={sub.id}
-                                                    onClick={() => { setActiveSection(sub.id); setMobileMenuOpen(false); }}
-                                                    className="block w-full text-left px-4 py-2 text-base text-gray-600 hover:text-gas"
-                                                >
-                                                    {sub.label}
-                                                </button>
+                                            {link.subLinks.map((group, idx) => (
+                                                <div key={idx}>
+                                                    <div className="px-4 py-1 text-xs font-bold text-gray-400 uppercase tracking-wider mt-2">{group.label}</div>
+                                                    {group.items.map(sub => (
+                                                        <button
+                                                            key={sub.id}
+                                                            onClick={() => { setActiveSection(sub.id); setMobileMenuOpen(false); }}
+                                                            className="block w-full text-left px-4 py-2 text-base text-gray-600 hover:text-gas pl-6"
+                                                        >
+                                                            {sub.label}
+                                                        </button>
+                                                    ))}
+                                                </div>
                                             ))}
                                         </div>
                                     )}
