@@ -65,8 +65,8 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
 
                                     {/* Dropdown */}
                                     {link.subLinks && (
-                                        <div className={`absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden transition-all duration-200 origin-top-left ${openDropdown === link.id ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible'}`}>
-                                            <div className="py-2">
+                                        <div className={`absolute left-0 top-full pt-2 w-56 transition-all duration-200 origin-top-left z-50 ${openDropdown === link.id ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible'}`}>
+                                            <div className="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden py-2">
                                                 {link.subLinks.map(sub => (
                                                     <button
                                                         key={sub.id}
