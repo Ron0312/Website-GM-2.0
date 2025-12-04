@@ -19,9 +19,9 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
             id: 'tanks',
             label: 'Tanks & Kauf',
             subLinks: [
-                { id: 'tanks/1.2t', label: '1,2 t Tank (2700 L)' },
-                { id: 'tanks/2.1t', label: '2,1 t Tank (4850 L)' },
-                { id: 'tanks/2.9t', label: '2,9 t Tank (6400 L)' }
+                { id: 'tanks/1-2t-oberirdisch', label: '1,2 t Tank (2700 L)' },
+                { id: 'tanks/2-1t-oberirdisch', label: '2,1 t Tank (4850 L)' },
+                { id: 'tanks/2-9t-oberirdisch', label: '2,9 t Tank (6400 L)' }
             ]
         },
         { id: 'gas', label: 'Gas bestellen' },
