@@ -108,8 +108,14 @@ const App = ({ path }) => {
     };
 
     useEffect(() => {
+        if ('scrollRestoration' in window.history) {
+            window.history.scrollRestoration = 'manual';
+        }
+    }, []);
+
+    useEffect(() => {
         // Initial scroll is handled by browser usually, but we ensure top
-        // window.scrollTo(0, 0);
+        window.scrollTo(0, 0);
 
         // Update Title and Meta Description on client-side navigation
         const seoInfo = getSeoForPath(activeSection);
