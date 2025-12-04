@@ -30,7 +30,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                 <div className="absolute inset-0 z-0">
                     <div className="absolute inset-0 bg-gradient-to-r from-gray-900/60 to-gray-900/30 z-10"></div>
                      <img
-                        src="https://images.unsplash.com/photo-1605218427306-c0d75a359789?q=80&w=2066&auto=format&fit=crop"
+                        src="/images/hero-gas-order.webp"
                         alt="Hintergrund Gas Lieferung Norddeutschland"
                         className="w-full h-full object-cover absolute inset-0"
                     />
@@ -136,7 +136,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                                     onClick={handleCheck}
                                     className="w-full bg-gas hover:bg-white hover:text-gas text-white font-bold text-lg py-5 rounded-xl shadow-lg shadow-gas/20 transform transition-all active:scale-[0.98] flex items-center justify-center gap-3 group"
                                 >
-                                    Jetzt Angebot anfordern
+                                    Angebot anfordern
                                     <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                                 </button>
                             </div>

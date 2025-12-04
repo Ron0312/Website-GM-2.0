@@ -5,7 +5,7 @@ const Footer = ({ setActiveSection }) => (
     <footer className="bg-gray-900 text-gray-400 py-20 border-t border-gray-800 text-sm">
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
             <div className="col-span-1">
-                <img src="https://gasmoeller.de/wp-content/uploads/2021/08/Logo-01.png" alt="gasmöller" className="h-8 filter brightness-0 invert opacity-80 mb-6" />
+                <img src="/logos/Icon-01.webp" alt="gasmöller" className="h-8 filter brightness-0 invert opacity-80 mb-6" />
                 <p className="leading-relaxed mb-4">Ihr unabhängiger Partner für Energie im Norden. Seit 2005.</p>
                 <div className="flex space-x-4">
                     <div className="w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer">f</div>

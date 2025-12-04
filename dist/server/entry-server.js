@@ -1,7 +1,7 @@
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import React, { useState, useEffect } from "react";
 import ReactDOMServer from "react-dom/server";
-import { TrendingUp, Clock, ArrowRight, X, Menu, ShieldCheck, BadgeCheck, Star, Calculator, Droplet, ArrowLeft, Ruler, Weight, Check, Download, Tractor, Factory, Truck, MapPin, CheckCircle, ChevronDown, Coins, Heart, BookOpen, AlertTriangle, Settings, Home, Wrench, Lock, Unlock, ChevronRight, Flame, ChevronUp } from "lucide-react";
+import { TrendingUp, Clock, ChevronDown, ArrowRight, X, Menu, ShieldCheck, BadgeCheck, Star, Calculator, Droplet, ArrowLeft, Ruler, Weight, Check, Download, Tractor, Factory, Truck, MapPin, CheckCircle, Coins, Heart, BookOpen, AlertTriangle, Settings, Home, Wrench, Lock, Unlock, ChevronRight, Flame, ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import CountUp from "react-countup";
 const tankDetails = [
@@ -252,6 +252,7 @@ const TopBar = () => /* @__PURE__ */ jsx("div", { className: "bg-gas-dark text-w
 ] }) });
 const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobileMenuOpen, openWizard }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
@@ -259,20 +260,65 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
   }, []);
   const navLinks = [
     { id: "start", label: "Startseite" },
-    { id: "tanks", label: "Tanks & Kauf" },
+    {
+      id: "tanks",
+      label: "Tanks & Kauf",
+      subLinks: [
+        { id: "tanks/1.2t", label: "1,2 t Tank (2700 L)" },
+        { id: "tanks/2.1t", label: "2,1 t Tank (4850 L)" },
+        { id: "tanks/2.9t", label: "2,9 t Tank (6400 L)" }
+      ]
+    },
     { id: "gas", label: "Gas bestellen" },
     { id: "wissen", label: "Wissen" },
     { id: "gewerbe", label: "Gewerbe" },
     { id: "ueber-uns", label: "Über Uns" }
   ];
+  const handleLinkClick = (link) => {
+    if (link.subLinks) {
+      setActiveSection(link.id);
+    } else {
+      setActiveSection(link.id);
+    }
+  };
   return /* @__PURE__ */ jsxs("div", { className: "fixed top-0 left-0 w-full z-50", children: [
     /* @__PURE__ */ jsx(TopBar, {}),
     /* @__PURE__ */ jsx("nav", { className: `transition-all duration-300 border-b border-white/10 ${isScrolled ? "bg-white/95 backdrop-blur-md shadow-lg py-2" : "bg-white py-4"}`, children: /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8", children: /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center", children: [
-      /* @__PURE__ */ jsx("div", { className: "flex-shrink-0 flex items-center cursor-pointer", onClick: () => setActiveSection("start"), children: /* @__PURE__ */ jsx("img", { src: "/logo.png", alt: "gasmöller", className: `transition-all duration-300 ${isScrolled ? "h-10" : "h-12"}`, onError: (e) => {
-        e.target.onerror = null;
-        e.target.src = "https://gasmoeller.de/wp-content/uploads/2021/08/Logo-01.png";
-      } }) }),
-      /* @__PURE__ */ jsx("div", { className: "hidden xl:flex space-x-1 bg-gray-50/50 p-1 rounded-full border border-gray-100", children: navLinks.map((link) => /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection(link.id), className: `${activeSection === link.id ? "bg-white text-gas shadow-sm font-bold" : "text-gray-500 hover:text-gas hover:bg-gray-100"} px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200`, children: link.label }, link.id)) }),
+      /* @__PURE__ */ jsx("div", { className: "flex-shrink-0 flex items-center cursor-pointer", onClick: () => setActiveSection("start"), children: /* @__PURE__ */ jsx("img", { src: "/logos/Icon-01.webp", alt: "gasmöller", className: `transition-all duration-300 ${isScrolled ? "h-10" : "h-12"}` }) }),
+      /* @__PURE__ */ jsx("div", { className: "hidden xl:flex space-x-1 bg-gray-50/50 p-1 rounded-full border border-gray-100", children: navLinks.map((link) => /* @__PURE__ */ jsxs(
+        "div",
+        {
+          className: "relative group",
+          onMouseEnter: () => link.subLinks && setOpenDropdown(link.id),
+          onMouseLeave: () => link.subLinks && setOpenDropdown(null),
+          children: [
+            /* @__PURE__ */ jsxs(
+              "button",
+              {
+                onClick: () => handleLinkClick(link),
+                className: `${activeSection === link.id || link.subLinks && activeSection.startsWith(link.id) ? "bg-white text-gas shadow-sm font-bold" : "text-gray-500 hover:text-gas hover:bg-gray-100"} px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 flex items-center`,
+                children: [
+                  link.label,
+                  link.subLinks && /* @__PURE__ */ jsx(ChevronDown, { size: 14, className: "ml-1 opacity-50" })
+                ]
+              }
+            ),
+            link.subLinks && /* @__PURE__ */ jsx("div", { className: `absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden transition-all duration-200 origin-top-left ${openDropdown === link.id ? "opacity-100 scale-100 visible" : "opacity-0 scale-95 invisible"}`, children: /* @__PURE__ */ jsx("div", { className: "py-2", children: link.subLinks.map((sub) => /* @__PURE__ */ jsx(
+              "button",
+              {
+                onClick: () => {
+                  setActiveSection(sub.id);
+                  setOpenDropdown(null);
+                },
+                className: "block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gas-light/30 hover:text-gas transition-colors",
+                children: sub.label
+              },
+              sub.id
+            )) }) })
+          ]
+        },
+        link.id
+      )) }),
       /* @__PURE__ */ jsxs("div", { className: "hidden lg:flex items-center space-x-4", children: [
         /* @__PURE__ */ jsxs("a", { href: "tel:04551897089", className: "flex flex-col items-end text-right mr-2", children: [
           /* @__PURE__ */ jsx("span", { className: "text-[10px] uppercase font-bold text-gray-400 tracking-wider", children: "Kostenlose Beratung" }),
@@ -286,10 +332,36 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
       /* @__PURE__ */ jsx("div", { className: "xl:hidden flex items-center", children: /* @__PURE__ */ jsx("button", { onClick: () => setMobileMenuOpen(!mobileMenuOpen), className: "text-text hover:text-gas p-2", children: mobileMenuOpen ? /* @__PURE__ */ jsx(X, { size: 28 }) : /* @__PURE__ */ jsx(Menu, { size: 28 }) }) })
     ] }) }) }),
     /* @__PURE__ */ jsx(AnimatePresence, { children: mobileMenuOpen && /* @__PURE__ */ jsx(motion.div, { initial: { opacity: 0, height: 0 }, animate: { opacity: 1, height: "auto" }, exit: { opacity: 0, height: 0 }, className: "xl:hidden bg-white border-t border-gray-100 absolute w-full shadow-2xl overflow-hidden z-40", children: /* @__PURE__ */ jsxs("div", { className: "px-6 pt-6 pb-12 space-y-2", children: [
-      navLinks.map((link) => /* @__PURE__ */ jsx("button", { onClick: () => {
-        setActiveSection(link.id);
-        setMobileMenuOpen(false);
-      }, className: "block w-full text-left px-4 py-4 text-lg font-bold text-text hover:bg-gas-light hover:text-gas rounded-lg transition-colors", children: link.label }, link.id)),
+      navLinks.map((link) => /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx(
+          "button",
+          {
+            onClick: () => {
+              if (!link.subLinks) {
+                setActiveSection(link.id);
+                setMobileMenuOpen(false);
+              } else {
+                setActiveSection(link.id);
+                setMobileMenuOpen(false);
+              }
+            },
+            className: "block w-full text-left px-4 py-4 text-lg font-bold text-text hover:bg-gas-light hover:text-gas rounded-lg transition-colors flex justify-between items-center",
+            children: link.label
+          }
+        ),
+        link.subLinks && /* @__PURE__ */ jsx("div", { className: "pl-8 space-y-2 mb-2", children: link.subLinks.map((sub) => /* @__PURE__ */ jsx(
+          "button",
+          {
+            onClick: () => {
+              setActiveSection(sub.id);
+              setMobileMenuOpen(false);
+            },
+            className: "block w-full text-left px-4 py-2 text-base text-gray-600 hover:text-gas",
+            children: sub.label
+          },
+          sub.id
+        )) })
+      ] }, link.id)),
       /* @__PURE__ */ jsx("button", { onClick: () => {
         openWizard ? openWizard("tank") : setActiveSection("kontakt");
         setMobileMenuOpen(false);
@@ -815,11 +887,11 @@ const GasOrderSection = ({ onCheckAvailability }) => {
   return /* @__PURE__ */ jsxs("div", { id: "gas", className: "bg-white", children: [
     /* @__PURE__ */ jsxs("header", { className: "relative bg-gas-dark pt-32 pb-24 lg:pt-48 lg:pb-32 overflow-hidden", children: [
       /* @__PURE__ */ jsxs("div", { className: "absolute inset-0 z-0", children: [
-        /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-gradient-to-r from-gray-900/40 to-gray-900/10 z-10" }),
+        /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-gradient-to-r from-gray-900/60 to-gray-900/30 z-10" }),
         /* @__PURE__ */ jsx(
           "img",
           {
-            src: "https://images.unsplash.com/photo-1565514020176-db8b746d84f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
+            src: "/images/hero-gas-order.webp",
             alt: "Hintergrund Gas Lieferung Norddeutschland",
             className: "w-full h-full object-cover absolute inset-0"
           }
@@ -855,7 +927,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
             children: [
               /* @__PURE__ */ jsx("div", { className: "absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gas-light to-blue-500" }),
               /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-white mb-2", children: "Liefergebiet prüfen" }),
-              /* @__PURE__ */ jsx("p", { className: "text-gray-300 text-sm mb-8", children: "Prüfen Sie jetzt unverbindlich unsere Tagespreise." }),
+              /* @__PURE__ */ jsx("p", { className: "text-gray-300 text-sm mb-8", children: "Erhalten Sie jetzt Ihr unverbindliches Angebot." }),
               /* @__PURE__ */ jsxs("div", { className: "space-y-8", children: [
                 /* @__PURE__ */ jsxs("div", { children: [
                   /* @__PURE__ */ jsxs("div", { className: "flex justify-between text-white font-medium mb-4", children: [
@@ -923,7 +995,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                     onClick: handleCheck,
                     className: "w-full bg-gas hover:bg-white hover:text-gas text-white font-bold text-lg py-5 rounded-xl shadow-lg shadow-gas/20 transform transition-all active:scale-[0.98] flex items-center justify-center gap-3 group",
                     children: [
-                      "Jetzt Preis anfragen",
+                      "Angebot anfordern",
                       /* @__PURE__ */ jsx(ArrowRight, { size: 20, className: "group-hover:translate-x-1 transition-transform" })
                     ]
                   }
@@ -943,8 +1015,8 @@ const GasOrderSection = ({ onCheckAvailability }) => {
         /* @__PURE__ */ jsxs("div", { className: "relative group", children: [
           /* @__PURE__ */ jsx("div", { className: "text-9xl font-bold text-gray-100 absolute -top-10 -left-4 z-0 group-hover:text-blue-50 transition-colors", children: "1" }),
           /* @__PURE__ */ jsxs("div", { className: "relative z-10 bg-white p-8 rounded-2xl shadow-sm border border-gray-100 h-full hover:shadow-lg transition-shadow", children: [
-            /* @__PURE__ */ jsx("h3", { className: "text-xl font-bold text-gas mb-3", children: "Preis prüfen" }),
-            /* @__PURE__ */ jsx("p", { className: "text-gray-600 leading-relaxed", children: "Geben Sie Ihre PLZ und die gewünschte Menge in unseren Rechner ein. Sie sehen sofort den aktuellen Tagespreis." })
+            /* @__PURE__ */ jsx("h3", { className: "text-xl font-bold text-gas mb-3", children: "Angebot anfordern" }),
+            /* @__PURE__ */ jsx("p", { className: "text-gray-600 leading-relaxed", children: "Geben Sie Ihre PLZ und die gewünschte Menge in unseren Rechner ein. Sie erhalten umgehend ein unverbindliches Angebot." })
           ] })
         ] }),
         /* @__PURE__ */ jsxs("div", { className: "relative group", children: [
@@ -1445,6 +1517,26 @@ const CONTENT = {
             /* @__PURE__ */ jsxs("li", { children: [
               /* @__PURE__ */ jsx("strong", { children: "5. Wartung:" }),
               " Eine gewartete Heizung verbraucht weniger Gas."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { children: "6. Heizkörper freihalten:" }),
+              " Verdecken Sie Heizkörper nicht mit Möbeln oder langen Vorhängen. Die Wärme staut sich sonst."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { children: "7. Fenster abdichten:" }),
+              " Prüfen Sie die Dichtungen. Zugluft ist ein teurer Wärmedieb."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { children: "8. Raumtemperatur anpassen:" }),
+              " 1 Grad weniger spart ca. 6% Energie. Im Schlafzimmer reichen oft 17-18 Grad."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { children: "9. Türen schließen:" }),
+              " Heizen Sie nur die Räume, die Sie nutzen, und halten Sie die Türen zu kühleren Räumen geschlossen."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { children: "10. Heizungspumpe tauschen:" }),
+              " Alte Umwälzpumpen sind Stromfresser. Eine Hocheffizienzpumpe spart Strom und optimiert den Heizkreislauf."
             ] })
           ] }) })
         }
