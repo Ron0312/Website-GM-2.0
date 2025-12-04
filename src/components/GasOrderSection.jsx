@@ -28,9 +28,9 @@ const GasOrderSection = ({ onCheckAvailability }) => {
             <header className="relative bg-gas-dark pt-32 pb-24 lg:pt-48 lg:pb-32 overflow-hidden">
                 {/* Background Image with Overlay */}
                 <div className="absolute inset-0 z-0">
-                    <div className="absolute inset-0 bg-gradient-to-r from-gray-900/40 to-gray-900/10 z-10"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-gray-900/60 to-gray-900/30 z-10"></div>
                      <img
-                        src="https://images.unsplash.com/photo-1565514020176-db8b746d84f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+                        src="https://images.unsplash.com/photo-1605218427306-c0d75a359789?q=80&w=2066&auto=format&fit=crop"
                         alt="Hintergrund Gas Lieferung Norddeutschland"
                         className="w-full h-full object-cover absolute inset-0"
                     />
@@ -76,7 +76,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gas-light to-blue-500"></div>
 
                             <h2 className="text-2xl font-bold text-white mb-2">Liefergebiet prüfen</h2>
-                            <p className="text-gray-300 text-sm mb-8">Prüfen Sie jetzt unverbindlich unsere Tagespreise.</p>
+                            <p className="text-gray-300 text-sm mb-8">Erhalten Sie jetzt Ihr unverbindliches Angebot.</p>
 
                             <div className="space-y-8">
                                 {/* Slider Input */}
@@ -136,7 +136,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                                     onClick={handleCheck}
                                     className="w-full bg-gas hover:bg-white hover:text-gas text-white font-bold text-lg py-5 rounded-xl shadow-lg shadow-gas/20 transform transition-all active:scale-[0.98] flex items-center justify-center gap-3 group"
                                 >
-                                    Jetzt Preis anfragen
+                                    Jetzt Angebot anfordern
                                     <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                                 </button>
                             </div>
@@ -157,8 +157,8 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                         <div className="relative group">
                             <div className="text-9xl font-bold text-gray-100 absolute -top-10 -left-4 z-0 group-hover:text-blue-50 transition-colors">1</div>
                             <div className="relative z-10 bg-white p-8 rounded-2xl shadow-sm border border-gray-100 h-full hover:shadow-lg transition-shadow">
-                                <h3 className="text-xl font-bold text-gas mb-3">Preis prüfen</h3>
-                                <p className="text-gray-600 leading-relaxed">Geben Sie Ihre PLZ und die gewünschte Menge in unseren Rechner ein. Sie sehen sofort den aktuellen Tagespreis.</p>
+                                <h3 className="text-xl font-bold text-gas mb-3">Angebot anfordern</h3>
+                                <p className="text-gray-600 leading-relaxed">Geben Sie Ihre PLZ und die gewünschte Menge in unseren Rechner ein. Sie erhalten umgehend ein unverbindliches Angebot.</p>
                             </div>
                         </div>
                         {/* Step 2 */}

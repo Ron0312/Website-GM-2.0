@@ -3,3 +3,9 @@
 > node server.js
 
 Server started at http://localhost:5173
+1:14:27 PM [vite] hmr update /src/components/GasOrderSection.jsx, /src/index.css
+1:14:27 PM [vite] hmr update /src/components/Navigation.jsx, /src/index.css
+1:14:27 PM [vite] hmr update /src/components/KnowledgeCenter.jsx, /src/index.css
+1:14:38 PM [vite] hmr update /src/components/GasOrderSection.jsx, /src/index.css
+1:14:38 PM [vite] hmr update /src/components/Navigation.jsx, /src/index.css
+1:14:38 PM [vite] hmr update /src/components/KnowledgeCenter.jsx, /src/index.css
