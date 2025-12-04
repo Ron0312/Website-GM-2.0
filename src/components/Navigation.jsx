@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Menu, X, ChevronDown } from 'lucide-react';
+import { ArrowRight, Menu, X, ChevronDown, ChevronRight } from 'lucide-react';
 import TopBar from './TopBar';
 
 const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobileMenuOpen, openWizard }) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [openDropdown, setOpenDropdown] = useState(null);
+    const [activeSubGroup, setActiveSubGroup] = useState(null);
 
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -18,9 +19,11 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
         {
             id: 'tanks',
             label: 'Tanks & Kauf',
+            dropdownType: 'nested',
             subLinks: [
                 {
                     label: 'Oberirdisch',
+                    id: 'oberirdisch',
                     items: [
                         { id: 'tanks/1-2t-oberirdisch', label: '1,2 t Tank (2700 L)' },
                         { id: 'tanks/2-1t-oberirdisch', label: '2,1 t Tank (4850 L)' },
@@ -29,6 +32,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                 },
                 {
                     label: 'Unterirdisch',
+                    id: 'unterirdisch',
                     items: [
                         { id: 'tanks/1-2t-unterirdisch', label: '1,2 t Tank (2700 L)' },
                         { id: 'tanks/2-1t-unterirdisch', label: '2,1 t Tank (4850 L)' },
@@ -38,8 +42,20 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
             ]
         },
         { id: 'gas', label: 'Gas bestellen' },
-        { id: 'pruefungen', label: 'Prüfungen' },
-        { id: 'wissen', label: 'Wissen' },
+        {
+            id: 'service',
+            label: 'Service',
+            subLinks: [
+                {
+                    label: 'Unsere Dienste',
+                    items: [
+                        { id: 'pruefungen', label: 'Prüfungen & Sicherheit' },
+                        { id: 'wissen', label: 'Wissen & Ratgeber' },
+                        { id: 'kontakt', label: 'Kontakt & Notfall' }
+                    ]
+                }
+            ]
+        },
         { id: 'gewerbe', label: 'Gewerbe' },
         { id: 'ueber-uns', label: 'Über Uns' },
     ];
@@ -66,8 +82,19 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                         <div className="hidden xl:flex space-x-1 bg-gray-50/50 p-1 rounded-full border border-gray-100">
                             {navLinks.map((link) => (
                                 <div key={link.id} className="relative group"
-                                     onMouseEnter={() => link.subLinks && setOpenDropdown(link.id)}
-                                     onMouseLeave={() => link.subLinks && setOpenDropdown(null)}
+                                     onMouseEnter={() => {
+                                         if(link.subLinks) {
+                                             setOpenDropdown(link.id);
+                                             // Reset sub group selection
+                                             setActiveSubGroup(null);
+                                         }
+                                     }}
+                                     onMouseLeave={() => {
+                                         if(link.subLinks) {
+                                             setOpenDropdown(null);
+                                             setActiveSubGroup(null);
+                                         }
+                                     }}
                                 >
                                     <button
                                         onClick={() => handleLinkClick(link)}
@@ -77,25 +104,66 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                         {link.subLinks && <ChevronDown size={14} className="ml-1 opacity-50" />}
                                     </button>
 
-                                    {/* Dropdown */}
+                                    {/* Dropdown Logic */}
                                     {link.subLinks && (
-                                        <div className={`absolute left-0 top-full pt-2 w-64 transition-all duration-200 origin-top-left z-50 ${openDropdown === link.id ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible'}`}>
-                                            <div className="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden py-2">
-                                                {link.subLinks.map((group, idx) => (
-                                                    <div key={idx} className="mb-2 last:mb-0">
-                                                        <div className="px-4 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider">{group.label}</div>
-                                                        {group.items.map(sub => (
+                                        <div className={`absolute left-0 top-full pt-2 transition-all duration-200 origin-top-left z-50 ${openDropdown === link.id ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible'}`}>
+                                            {/* Specialized Flyout Menu for Nested Items (Tanks) */}
+                                            {link.dropdownType === 'nested' ? (
+                                                <div className="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden flex w-[480px]">
+                                                    {/* Left: Group List */}
+                                                    <div className="w-1/2 py-2 bg-gray-50 border-r border-gray-100">
+                                                        {link.subLinks.map((group, idx) => (
                                                             <button
-                                                                key={sub.id}
-                                                                onClick={() => { setActiveSection(sub.id); setOpenDropdown(null); }}
-                                                                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gas-light/30 hover:text-gas transition-colors pl-6"
+                                                                key={idx}
+                                                                onMouseEnter={() => setActiveSubGroup(idx)}
+                                                                className={`w-full text-left px-4 py-3 text-sm font-bold flex justify-between items-center transition-colors ${activeSubGroup === idx ? 'bg-white text-gas shadow-sm' : 'text-gray-600 hover:bg-gray-100'}`}
                                                             >
-                                                                {sub.label}
+                                                                {group.label}
+                                                                <ChevronRight size={14} className="opacity-50"/>
                                                             </button>
                                                         ))}
                                                     </div>
-                                                ))}
-                                            </div>
+                                                    {/* Right: Items for Active Group */}
+                                                    <div className="w-1/2 py-2 bg-white min-h-[200px]">
+                                                        {activeSubGroup !== null ? (
+                                                            <div className="animate-in fade-in slide-in-from-left-2 duration-200">
+                                                                <div className="px-4 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">{link.subLinks[activeSubGroup].label}</div>
+                                                                {link.subLinks[activeSubGroup].items.map(sub => (
+                                                                    <button
+                                                                        key={sub.id}
+                                                                        onClick={() => { setActiveSection(sub.id); setOpenDropdown(null); }}
+                                                                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gas-light/30 hover:text-gas transition-colors"
+                                                                    >
+                                                                        {sub.label}
+                                                                    </button>
+                                                                ))}
+                                                            </div>
+                                                        ) : (
+                                                            <div className="h-full flex items-center justify-center text-gray-400 text-xs text-center px-4">
+                                                                Wählen Sie eine Kategorie
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                /* Standard Simple List (Service) */
+                                                <div className="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden py-2 w-64">
+                                                     {link.subLinks.map((group, idx) => (
+                                                        <div key={idx} className="mb-2 last:mb-0">
+                                                            {group.label && <div className="px-4 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider">{group.label}</div>}
+                                                            {group.items.map(sub => (
+                                                                <button
+                                                                    key={sub.id}
+                                                                    onClick={() => { setActiveSection(sub.id); setOpenDropdown(null); }}
+                                                                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gas-light/30 hover:text-gas transition-colors pl-6"
+                                                                >
+                                                                    {sub.label}
+                                                                </button>
+                                                            ))}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
                                         </div>
                                     )}
                                 </div>
@@ -121,7 +189,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
 
             <AnimatePresence>
                 {mobileMenuOpen && (
-                    <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="xl:hidden bg-white border-t border-gray-100 absolute w-full shadow-2xl overflow-hidden z-40">
+                    <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="xl:hidden bg-white border-t border-gray-100 absolute w-full shadow-2xl overflow-hidden z-40 max-h-[80vh] overflow-y-auto">
                         <div className="px-6 pt-6 pb-12 space-y-2">
                             {navLinks.map((link) => (
                                 <div key={link.id}>
@@ -131,10 +199,9 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                                 setActiveSection(link.id);
                                                 setMobileMenuOpen(false);
                                             } else {
-                                                // Toggle dropdown on mobile? Or just go to parent?
-                                                // Let's just go to parent for now or toggle logic could be added
+                                                // On mobile, maybe toggle accordion?
+                                                // For now, simple logic: if it has sublinks, show them always
                                                 setActiveSection(link.id);
-                                                setMobileMenuOpen(false);
                                             }
                                         }}
                                         className="block w-full text-left px-4 py-4 text-lg font-bold text-text hover:bg-gas-light hover:text-gas rounded-lg transition-colors flex justify-between items-center"
@@ -142,7 +209,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                         {link.label}
                                     </button>
                                     {link.subLinks && (
-                                        <div className="pl-8 space-y-2 mb-2">
+                                        <div className="pl-4 space-y-2 mb-2 border-l-2 border-gray-100 ml-4">
                                             {link.subLinks.map((group, idx) => (
                                                 <div key={idx}>
                                                     <div className="px-4 py-1 text-xs font-bold text-gray-400 uppercase tracking-wider mt-2">{group.label}</div>

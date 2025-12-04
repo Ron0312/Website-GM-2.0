@@ -11,7 +11,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
     const [plz, setPlz] = useState('');
     const [plzError, setPlzError] = useState('');
     const [details, setDetails] = useState({});
-    const [contact, setContact] = useState({ name: '', street: '', city: '', email: '', phone: '' });
+    const [contact, setContact] = useState({ name: '', street: '', city: '', email: '', phone: '', number: '' });
     const [submitting, setSubmitting] = useState(false);
     const [success, setSuccess] = useState(false);
 
@@ -77,7 +77,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
         formData.append("PLZ", plz);
         formData.append("Details", JSON.stringify(details));
         formData.append("Name", contact.name);
-        formData.append("Address", `${contact.street}, ${plz} ${contact.city}`);
+        formData.append("Address", `${contact.street} ${contact.number}, ${plz} ${contact.city}`);
         formData.append("Email", contact.email);
         formData.append("Phone", contact.phone);
 
@@ -128,7 +128,17 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                         <h3 className="text-2xl font-bold text-center mb-2">Wo benötigen Sie Energie?</h3>
                                         <p className="text-center text-gray-500 mb-8">Prüfung der Verfügbarkeit.</p>
                                         <div className="max-w-xs mx-auto">
-                                            <input type="text" value={plz} onChange={(e) => setPlz(e.target.value)} className={`w-full text-center text-2xl font-bold tracking-widest p-4 border-2 rounded-xl outline-none transition-all ${plzError ? 'border-red-300 bg-red-50' : 'border-gray-200 focus:border-gas'}`} placeholder="PLZ" maxLength={5} autoFocus />
+                                            <input
+                                                type="text"
+                                                name="plz"
+                                                autoComplete="postal-code"
+                                                value={plz}
+                                                onChange={(e) => setPlz(e.target.value)}
+                                                className={`w-full text-center text-2xl font-bold tracking-widest p-4 border-2 rounded-xl outline-none transition-all ${plzError ? 'border-red-300 bg-red-50' : 'border-gray-200 focus:border-gas'}`}
+                                                placeholder="PLZ"
+                                                maxLength={5}
+                                                autoFocus
+                                            />
                                             {plzError && <p className="text-red-500 text-xs mt-2 text-center font-bold">{plzError}</p>}
                                             <button type="button" onClick={handleNext} disabled={plz.length < 5} className="w-full mt-6 bg-gas text-white py-4 rounded-xl font-bold hover:bg-gas-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all">Weiter</button>
                                         </div>
@@ -160,7 +170,11 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                             {type === 'tank' && (
                                                 <>
                                                     <label className="block text-sm font-bold text-gray-700">Art des Gebäudes</label>
-                                                    <select className="w-full p-4 border border-gray-200 rounded-lg outline-none bg-white" onChange={(e) => setDetails({...details, building: e.target.value})}>
+                                                    <select
+                                                        name="building"
+                                                        className="w-full p-4 border border-gray-200 rounded-lg outline-none bg-white"
+                                                        onChange={(e) => setDetails({...details, building: e.target.value})}
+                                                    >
                                                         <option>Einfamilienhaus (Bestand)</option>
                                                         <option>Neubau</option>
                                                         <option>Gewerbe</option>
@@ -177,7 +191,11 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                     </div>
 
                                                     <label className="block text-sm font-bold text-gray-700 mt-2">Interesse an</label>
-                                                    <select className="w-full p-4 border border-gray-200 rounded-lg outline-none bg-white" onChange={(e) => setDetails({...details, interest: e.target.value})}>
+                                                    <select
+                                                        name="interest"
+                                                        className="w-full p-4 border border-gray-200 rounded-lg outline-none bg-white"
+                                                        onChange={(e) => setDetails({...details, interest: e.target.value})}
+                                                    >
                                                         <option>Bitte wählen...</option>
                                                         <option>Kauf (Eigentum)</option>
                                                         <option>Miete</option>
@@ -214,7 +232,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                             </div>
                                                         </div>
                                                         <div className={`relative transition-opacity ${details.fillUp ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
-                                                            <input type="number" className="w-full p-4 pr-20 border border-gray-200 rounded-lg font-mono text-right text-lg" placeholder="z.B. 2000" value={details.amount || ''} onChange={(e) => setDetails({...details, amount: e.target.value})}/>
+                                                            <input type="number" name="amount" className="w-full p-4 pr-20 border border-gray-200 rounded-lg font-mono text-right text-lg" placeholder="z.B. 2000" value={details.amount || ''} onChange={(e) => setDetails({...details, amount: e.target.value})}/>
                                                             <span className="absolute right-6 top-4 text-gray-400 font-bold">Liter</span>
                                                         </div>
 
@@ -222,13 +240,13 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                             <div>
                                                                 <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Füllstand ca.</label>
                                                                 <div className="relative">
-                                                                    <input type="number" className="w-full p-3 border border-gray-200 rounded-lg text-center" placeholder="20" onChange={(e) => setDetails({...details, level: e.target.value})}/>
+                                                                    <input type="number" name="level" className="w-full p-3 border border-gray-200 rounded-lg text-center" placeholder="20" onChange={(e) => setDetails({...details, level: e.target.value})}/>
                                                                     <span className="absolute right-4 top-3 text-gray-400 text-sm">%</span>
                                                                 </div>
                                                             </div>
                                                             <div>
                                                                 <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Priorität</label>
-                                                                <select className="w-full p-3 border border-gray-200 rounded-lg bg-white outline-none" onChange={(e) => setDetails({...details, delivery: e.target.value})}>
+                                                                <select name="delivery" className="w-full p-3 border border-gray-200 rounded-lg bg-white outline-none" onChange={(e) => setDetails({...details, delivery: e.target.value})}>
                                                                     <option value="normal">Normal (Tour)</option>
                                                                     <option value="express">Express (Notfall)</option>
                                                                 </select>
@@ -240,14 +258,14 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                             {type === 'service' && (
                                                 <>
                                                     <label className="block text-sm font-bold text-gray-700 mb-2">Art des Service</label>
-                                                    <select className="w-full p-4 border border-gray-200 rounded-lg outline-none bg-white mb-4" onChange={(e) => setDetails({...details, serviceType: e.target.value})}>
+                                                    <select name="serviceType" className="w-full p-4 border border-gray-200 rounded-lg outline-none bg-white mb-4" onChange={(e) => setDetails({...details, serviceType: e.target.value})}>
                                                         <option>Bitte wählen...</option>
                                                         <option>Innere Prüfung (10 Jahre)</option>
                                                         <option>Äußere Prüfung (2 Jahre)</option>
                                                         <option>Rohrleitungsprüfung</option>
                                                         <option>Sonstiges / Reparatur</option>
                                                     </select>
-                                                    <textarea className="w-full p-4 border border-gray-200 rounded-lg h-32" placeholder="Beschreiben Sie Ihr Anliegen..." onChange={(e) => setDetails({...details, message: e.target.value})}></textarea>
+                                                    <textarea name="message" className="w-full p-4 border border-gray-200 rounded-lg h-32" placeholder="Beschreiben Sie Ihr Anliegen..." onChange={(e) => setDetails({...details, message: e.target.value})}></textarea>
                                                 </>
                                             )}
                                             <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-lg font-bold hover:bg-gas-dark mt-4">Weiter</button>
@@ -259,17 +277,17 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                     <motion.div key="step4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                                         <h3 className="text-2xl font-bold text-center mb-6">Kontakt</h3>
                                         <div className="space-y-4 max-w-md mx-auto">
-                                            <input type="text" required placeholder="Ihr Name" className="w-full p-4 border border-gray-200 rounded-lg outline-none focus:border-gas" value={contact.name} onChange={(e) => setContact({...contact, name: e.target.value})} />
+                                            <input type="text" name="name" autoComplete="name" required placeholder="Ihr Name" className="w-full p-4 border border-gray-200 rounded-lg outline-none focus:border-gas" value={contact.name} onChange={(e) => setContact({...contact, name: e.target.value})} />
                                             <div className="grid grid-cols-3 gap-4">
-                                                <div className="col-span-2"><input type="text" required placeholder="Straße" className="w-full p-4 border border-gray-200 rounded-lg outline-none focus:border-gas" value={contact.street} onChange={(e) => setContact({...contact, street: e.target.value})} /></div>
-                                                <div><input type="text" required placeholder="Nr." className="w-full p-4 border border-gray-200 rounded-lg outline-none focus:border-gas" value={contact.number} onChange={(e) => setContact({...contact, number: e.target.value})} /></div>
+                                                <div className="col-span-2"><input type="text" name="street" autoComplete="address-line1" required placeholder="Straße" className="w-full p-4 border border-gray-200 rounded-lg outline-none focus:border-gas" value={contact.street} onChange={(e) => setContact({...contact, street: e.target.value})} /></div>
+                                                <div><input type="text" name="number" autoComplete="address-line2" required placeholder="Nr." className="w-full p-4 border border-gray-200 rounded-lg outline-none focus:border-gas" value={contact.number} onChange={(e) => setContact({...contact, number: e.target.value})} /></div>
                                             </div>
                                             <div className="grid grid-cols-3 gap-4">
-                                                <div><input type="text" disabled value={plz} className="w-full p-4 border border-gray-200 bg-gray-50 rounded-lg text-gray-500 font-bold" /></div>
-                                                <div className="col-span-2"><input type="text" required placeholder="Ort" className="w-full p-4 border border-gray-200 rounded-lg outline-none focus:border-gas" value={contact.city} onChange={(e) => setContact({...contact, city: e.target.value})} /></div>
+                                                <div><input type="text" name="plz" autoComplete="postal-code" disabled value={plz} className="w-full p-4 border border-gray-200 bg-gray-50 rounded-lg text-gray-500 font-bold" /></div>
+                                                <div className="col-span-2"><input type="text" name="city" autoComplete="address-level2" required placeholder="Ort" className="w-full p-4 border border-gray-200 rounded-lg outline-none focus:border-gas" value={contact.city} onChange={(e) => setContact({...contact, city: e.target.value})} /></div>
                                             </div>
-                                            <input type="email" required placeholder="E-Mail Adresse" className="w-full p-4 border border-gray-200 rounded-lg outline-none focus:border-gas" value={contact.email} onChange={(e) => setContact({...contact, email: e.target.value})} />
-                                            <input type="tel" placeholder="Telefonnummer" className="w-full p-4 border border-gray-200 rounded-lg outline-none focus:border-gas" value={contact.phone} onChange={(e) => setContact({...contact, phone: e.target.value})} />
+                                            <input type="email" name="email" autoComplete="email" required placeholder="E-Mail Adresse" className="w-full p-4 border border-gray-200 rounded-lg outline-none focus:border-gas" value={contact.email} onChange={(e) => setContact({...contact, email: e.target.value})} />
+                                            <input type="tel" name="phone" autoComplete="tel" placeholder="Telefonnummer" className="w-full p-4 border border-gray-200 rounded-lg outline-none focus:border-gas" value={contact.phone} onChange={(e) => setContact({...contact, phone: e.target.value})} />
                                             <div className="flex items-start text-xs text-gray-500 mt-4">
                                                 <input type="checkbox" required className="mt-1 mr-2" />
                                                 <span>Ich stimme der Verarbeitung meiner Daten gemäß der Datenschutzerklärung zu.</span>
