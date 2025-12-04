@@ -113,14 +113,15 @@ export const CONTENT = {
                 {
                     id: 'sicherheit',
                     title: 'Prüfung & Sicherheit',
-                    description: 'Ist ein Gastank gefährlich?',
+                    description: 'Warum sind Prüfungen notwendig?',
                     content: (
                         <div>
-                            <p>Flüssiggastanks gehören zu den sichersten Energiespeichern überhaupt. Sie bestehen aus hochwertigem Feinkornbaustahl und sind mit Sicherheitsventilen ausgestattet.</p>
+                            <p>Flüssiggastanks unterliegen strengen Sicherheitsvorschriften. Um die Sicherheit für Mensch und Umwelt zu gewährleisten, schreibt der Gesetzgeber regelmäßige Prüfungen vor. Diese dienen nicht nur der Sicherheit, sondern werterhalten auch Ihre Anlage.</p>
                             <h4>Prüfintervalle</h4>
                             <ul>
-                                <li><strong>Alle 2 Jahre (Äußere Prüfung):</strong> Sichtprüfung auf Korrosion, Zugänglichkeit und Beschilderung. Durchführbar durch "befähigte Person" (z.B. unser Tankwagenfahrer oder Techniker).</li>
-                                <li><strong>Alle 10 Jahre (Innere Prüfung):</strong> Umfassende Prüfung durch eine ZÜS (z.B. TÜV). Austausch des Sicherheitsventils und Druckprüfung.</li>
+                                <li><strong>Äußere Prüfung (alle 2 Jahre):</strong> Sichtprüfung auf Korrosion, Zugänglichkeit und Beschilderung. Durchführbar durch "befähigte Person" (z.B. unser Tankwagenfahrer oder Techniker).</li>
+                                <li><strong>Innere Prüfung (alle 10 Jahre):</strong> Umfassende Prüfung durch eine ZÜS (z.B. TÜV). Austausch des Sicherheitsventils und Druckprüfung.</li>
+                                <li><strong>Rohrleitungsprüfung (alle 10 Jahre):</strong> Dichtigkeits- und Festigkeitsprüfung der erdgedeckten oder oberirdischen Rohrleitungen.</li>
                             </ul>
                         </div>
                     )

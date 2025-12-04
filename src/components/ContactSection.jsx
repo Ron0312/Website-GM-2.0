@@ -24,14 +24,16 @@ const ContactSection = () => {
                 <div className="bg-white rounded-2xl p-8 md:p-12 shadow-2xl text-left max-w-2xl mx-auto text-text transform hover:-translate-y-1 transition-transform duration-500">
                     <form className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Name</label><input type="text" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" /></div>
-                            <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Telefon</label><input type="tel" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" /></div>
+                            <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Name</label><input type="text" name="name" autoComplete="name" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" /></div>
+                            <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Telefon</label><input type="tel" name="phone" autoComplete="tel" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" /></div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label className="block text-xs font-bold text-gray-400 uppercase mb-1">Postleitzahl</label>
                                 <input
                                     type="text"
+                                    name="plz"
+                                    autoComplete="postal-code"
                                     value={plz}
                                     onChange={handlePlzChange}
                                     maxLength={5}
@@ -39,10 +41,10 @@ const ContactSection = () => {
                                 />
                                 {plzError && <p className="text-red-500 text-xs mt-1 font-bold">{plzError}</p>}
                             </div>
-                            <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">E-Mail</label><input type="email" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" /></div>
+                            <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">E-Mail</label><input type="email" name="email" autoComplete="email" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" /></div>
                         </div>
-                        <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Betreff</label><input type="text" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" /></div>
-                        <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Nachricht</label><textarea className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all h-32"></textarea></div>
+                        <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Betreff</label><input type="text" name="subject" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" /></div>
+                        <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Nachricht</label><textarea name="message" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all h-32"></textarea></div>
                         <button type="button" className="w-full bg-gas hover:bg-gas-dark text-white font-bold py-4 rounded-lg transition-all uppercase tracking-wide shadow-lg hover:shadow-xl transform active:scale-95">Anfrage absenden</button>
                     </form>
                 </div>

@@ -6,10 +6,6 @@ const Hero = ({ setActiveSection, openWizard }) => (
     <header className="relative bg-white pt-48 pb-24 lg:pt-64 lg:pb-48 overflow-hidden">
         <div className="absolute inset-0 z-0">
             <div className="absolute inset-0 bg-gradient-to-r from-gray-900/40 to-gray-900/10 z-10"></div>
-             {/* Placeholder for the hero image */}
-             <div className="w-full h-full bg-gray-300"></div>
-             {/* Ideally I would put the image here, but I can't download external resources to file system easily. */}
-             {/* I will put an img tag with the external source for now, but it should be replaced with local asset. */}
             <img src="/images/gas-order-hero.webp" alt="Landschaft Norddeutschland" className="w-full h-full object-cover absolute inset-0" />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
