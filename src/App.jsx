@@ -20,6 +20,8 @@ import WizardModal from './components/WizardModal';
 import CookieBanner from './components/CookieBanner';
 import SimpleModal from './components/SimpleModal';
 import ScrollToTop from './components/ScrollToTop';
+import NotFound from './components/NotFound';
+import { ImprintContent, PrivacyContent, TermsContent } from './components/Legal';
 
 const App = ({ path }) => {
     // Initial state based on path if provided (SSR), otherwise default to window location (CSR)
@@ -55,10 +57,13 @@ const App = ({ path }) => {
         let title;
         if (type === 'imprint') {
             title = 'Impressum';
-            content = <div><p><strong>gasmöller GmbH</strong><br/>Musterstraße 1<br/>12345 Musterstadt</p><p>Vertreten durch:<br/>Thomas Möller</p><p>Kontakt:<br/>Telefon: 04551 89 70 89<br/>E-Mail: info@gasmoeller.de</p><p>Registereintrag:<br/>Eintragung im Handelsregister.<br/>Registergericht: Amtsgericht Kiel<br/>Registernummer: HRB 12345</p></div>;
+            content = <ImprintContent />;
         } else if (type === 'privacy') {
             title = 'Datenschutz';
-            content = <div><p><strong>Datenschutzerklärung</strong></p><p>Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.</p><p>Die Nutzung unserer Webseite ist in der Regel ohne Angabe personenbezogener Daten möglich. Soweit auf unseren Seiten personenbezogene Daten (beispielsweise Name, Anschrift oder E-Mail-Adressen) erhoben werden, erfolgt dies, soweit möglich, stets auf freiwilliger Basis.</p></div>;
+            content = <PrivacyContent />;
+        } else if (type === 'terms') {
+            title = 'AGB';
+            content = <TermsContent />;
         } else if (type === 'dev') {
             title = 'Developer Report (v1.3)';
             content = (
@@ -139,11 +144,15 @@ const App = ({ path }) => {
             return <TankDetail slug={slug} onBack={() => changeSection('tanks')} openWizard={openWizard} />;
         }
 
-        // Fallback for unknown sections
+        // Sections
         const validSections = ['start', 'tanks', 'gas', 'rechner', 'gewerbe', 'wissen', 'ueber-uns', 'kontakt', 'pruefungen'];
-        const sectionToRender = validSections.includes(activeSection) ? activeSection : 'start';
 
-        switch(sectionToRender) {
+        // Return 404 if not a valid section
+        if (!validSections.includes(activeSection)) {
+            return <><div className="pt-20"></div><NotFound onGoHome={() => changeSection('start')} /><ContactSection /></>;
+        }
+
+        switch(activeSection) {
             case 'start': return <><Hero openWizard={openWizard} setActiveSection={changeSection} /><TrustBar /><div className="my-16 text-center"><div className="inline-block p-2 rounded-2xl bg-gradient-to-r from-gas-light to-white border border-gas/10 shadow-2xl animate-pulse hover:animate-none transition-all"><button onClick={() => openWizard('tank')} className="bg-gas text-white px-10 py-5 rounded-xl font-extrabold text-2xl shadow-lg hover:bg-gas-dark transition-all flex items-center gap-3"><Settings size={28}/> Zum Anfrage-Assistenten <ArrowRight size={28}/></button></div><p className="mt-4 text-gray-400 text-sm font-medium">Kostenlos & Unverbindlich</p></div><TankSection openWizard={openWizard} setActiveSection={changeSection} showTechnicalOverview={false} /><CommercialSection setActiveSection={changeSection} /><DeliveryMap /><FAQ /><ContactSection /></>;
             case 'tanks': return <><div className="pt-20"></div><TankSection openWizard={openWizard} setActiveSection={changeSection} /><ContactSection /></>;
             case 'gas': return <><div className="pt-20"></div><GasOrderSection onCheckAvailability={handleGasCheckAvailability} /><FAQ /><ContactSection /></>;
@@ -153,7 +162,7 @@ const App = ({ path }) => {
             case 'wissen': return <><div className="pt-20"></div><KnowledgeCenter setActiveSection={changeSection} /><ContactSection /></>;
             case 'ueber-uns': return <><div className="pt-20"></div><AboutPage setActiveSection={changeSection} /><ContactSection /></>;
             case 'kontakt': return <><div className="pt-32"></div><ContactSection /></>;
-            default: return <Hero openWizard={openWizard} setActiveSection={changeSection} />;
+            default: return <><div className="pt-20"></div><NotFound onGoHome={() => changeSection('start')} /><ContactSection /></>;
         }
     };
 
@@ -161,47 +170,7 @@ const App = ({ path }) => {
         <div className="min-h-screen flex flex-col bg-white">
             <Navigation activeSection={activeSection} setActiveSection={changeSection} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} openWizard={openWizard} />
             <main className="flex-grow">{renderSection()}</main>
-            <footer className="bg-gray-900 text-gray-400 py-20 border-t border-gray-800 text-sm">
-                <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
-                    <div className="col-span-1">
-                        <div className="h-8 mb-6 text-white font-bold text-xl">gasmöller</div>
-                        <p className="leading-relaxed mb-4">Ihr unabhängiger Partner für Energie im Norden. Seit 2005.</p>
-                        <div className="flex space-x-4">
-                            <div className="w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer">f</div>
-                            <div className="w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer">in</div>
-                        </div>
-                        <button onClick={() => openLegal('dev')} className="mt-8 text-[10px] text-gray-700 hover:text-gas transition-colors flex items-center"><code className="mr-1">&lt;/&gt;</code> Dev Status</button>
-                    </div>
-                    <div>
-                        <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-wider">Schnellzugriff</h4>
-                        <ul className="space-y-2">
-                            <li><button onClick={() => changeSection('gas')} className="hover:text-white transition-colors">Gas bestellen</button></li>
-                            <li><button onClick={() => changeSection('tanks')} className="hover:text-white transition-colors">Tanks kaufen</button></li>
-                            <li><button onClick={() => changeSection('rechner')} className="hover:text-white transition-colors">Spar-Rechner</button></li>
-                            <li><button onClick={() => changeSection('kontakt')} className="hover:text-white transition-colors">Kontakt</button></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-wider">Rechtliches</h4>
-                        <ul className="space-y-2">
-                            <li><button onClick={() => openLegal('imprint')} className="hover:text-white transition-colors">Impressum</button></li>
-                            <li><button onClick={() => openLegal('privacy')} className="hover:text-white transition-colors">Datenschutz</button></li>
-                            <li><a href="#" className="hover:text-white transition-colors">AGB</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-wider">Newsletter</h4>
-                        <p className="mb-4 text-xs">Bleiben Sie über Gaspreise informiert.</p>
-                        {/* Removed actual form elements to avoid hydration issues for now, simplified */}
-                        <div className="flex bg-gray-800 rounded p-1">
-                           <span className="text-gray-500 px-2">Newsletter feature coming soon</span>
-                        </div>
-                    </div>
-                </div>
-                <div className="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-gray-800 text-center text-xs text-gray-600">
-                    &copy; 2025 gasmöller GmbH. Alle Rechte vorbehalten.
-                </div>
-            </footer>
+            <Footer setActiveSection={changeSection} openLegal={openLegal} />
             <WizardModal isOpen={wizardOpen} onClose={() => setWizardOpen(false)} initialType={wizardType} initialData={wizardData} />
             <CookieBanner />
             <SimpleModal isOpen={legalModal.open} onClose={() => setLegalModal({ ...legalModal, open: false })} title={legalModal.title} content={legalModal.content} />
