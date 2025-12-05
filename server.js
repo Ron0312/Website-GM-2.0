@@ -41,21 +41,31 @@ async function createServer() {
   // Let's try importing directly as we are in a module environment.
   const { getSeoForPath, getSchemaForPath } = await import('./src/data/seoData.js');
 
-  app.use(async (req, res, next) => {
+  // Ensure we catch all other routes for SPA/SSR
+  app.use('*', async (req, res, next) => {
     const url = req.originalUrl
 
-    // Determine SEO Data based on URL
-    const seoInfo = getSeoForPath(url);
-    const schemaJson = JSON.stringify(getSchemaForPath(url));
+    try {
+        // Determine SEO Data based on URL
+        // Wrap in try-catch to prevent SEO logic from crashing the request
+        let seoInfo;
+        let schemaJson;
+        try {
+            seoInfo = getSeoForPath(url);
+            schemaJson = JSON.stringify(getSchemaForPath(url));
+        } catch (err) {
+            console.error('SEO Data Error:', err);
+            seoInfo = { title: 'gasmöller', description: '' };
+            schemaJson = '{}';
+        }
 
     const siteData = {
-      title: seoInfo.title,
-      description: seoInfo.description,
+      title: seoInfo ? seoInfo.title : 'gasmöller',
+      description: seoInfo ? seoInfo.description : '',
       content: '<!--app-html-->',
       schema: schemaJson // We will need to inject this into the template
     }
 
-    try {
       let template, render, templatePath
 
       if (!isProd) {
