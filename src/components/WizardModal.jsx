@@ -22,7 +22,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
     // Data State
     const [installationType, setInstallationType] = useState(''); // oberirdisch, unterirdisch
     const [details, setDetails] = useState({});
-    const [contact, setContact] = useState({ name: '', street: '', city: '', email: '', phone: '', number: '' });
+    const [contact, setContact] = useState({ name: '', street: '', city: '', email: '', phone: '', number: '', honeypot: '' });
 
     const [submitting, setSubmitting] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -35,7 +35,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
             if (initialType) setType(initialType);
             setInstallationType('');
             setDetails({});
-            setContact({ name: '', street: '', city: '', email: '', phone: '', number: '' });
+            setContact({ name: '', street: '', city: '', email: '', phone: '', number: '', honeypot: '' });
 
             if (initialData) {
                 if (initialData.plz) setPlz(initialData.plz);
@@ -98,7 +98,12 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
         formData.append("access_key", WEB3FORMS_ACCESS_KEY);
         formData.append("subject", `Neue Anfrage: ${type.toUpperCase()} - ${plz}`);
         formData.append("from_name", "gasmöller Website");
-        formData.append("botcheck", "");
+
+        // Honeypot check
+        if (contact.honeypot) {
+            // Silently fail or just return
+            return;
+        }
 
         formData.append("Type", type);
         formData.append("PLZ", plz);
@@ -399,6 +404,15 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                     </div>
 
                                                     <div>
+                                                        <label className="block text-sm font-bold text-gray-700 mb-2">Zustand des Tanks</label>
+                                                        <div className="flex gap-4 mb-6">
+                                                            {['Neu', 'Gebraucht / Aufbereitet'].map((opt) => (
+                                                                <button key={opt} type="button" onClick={() => setDetails({...details, condition: opt})} className={`flex-1 py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${details.condition === opt ? 'border-gas bg-gas-light/20 text-gas' : 'border-gray-100 text-gray-500 hover:border-gas-light'}`}>{opt}</button>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+
+                                                    <div>
                                                         <label className="block text-sm font-bold text-gray-700 mb-2">Interesse an</label>
                                                         <select
                                                             name="interest"
@@ -456,6 +470,17 @@ const ContactForm = ({ contact, setContact, plz, submitting, handleBack, stepNam
     <>
         <h3 className="text-2xl font-bold text-center mb-6 text-gray-900">{stepName}</h3>
         <div className="space-y-2 max-w-md mx-auto">
+            {/* Honeypot field - hidden from users */}
+            <input
+                type="text"
+                name="b_field"
+                style={{ display: 'none' }}
+                tabIndex="-1"
+                autoComplete="off"
+                value={contact.honeypot || ''}
+                onChange={(e) => setContact({...contact, honeypot: e.target.value})}
+            />
+
             <ModernInput
                 label="Name"
                 type="text"
