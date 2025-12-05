@@ -3,69 +3,96 @@ import { MapPin, CheckCircle } from 'lucide-react';
 
 const DeliveryMap = () => {
     const cities = [
-        { name: 'Flensburg', x: 295, y: 55, align: 'middle' },
-        { name: 'Kiel', x: 355, y: 125, align: 'start' },
-        { name: 'Lübeck', x: 435, y: 155, align: 'start' },
-        { name: 'Hamburg', x: 355, y: 230, align: 'start' },
-        { name: 'Elmshorn', x: 325, y: 210, align: 'end' },
-        { name: 'Lüneburg', x: 365, y: 300, align: 'start' },
-        { name: 'Schwerin', x: 485, y: 260, align: 'start' },
-        { name: 'Rostock', x: 535, y: 85, align: 'start' },
+        { name: 'Hamburg', x: 345, y: 235, align: 'start' },
+        { name: 'Kiel', x: 360, y: 125, align: 'start' },
+        { name: 'Schwerin', x: 480, y: 250, align: 'start' },
+        { name: 'Lüneburg', x: 380, y: 285, align: 'start' },
+        { name: 'Celle', x: 350, y: 355, align: 'start' },
+        { name: 'Cuxhaven', x: 260, y: 175, align: 'end' },
     ];
 
-    // State Paths
-    // SH: Schleswig-Holstein
+    // PATH 1: Schleswig-Holstein (SH)
+    // Includes North Frisia (with Sylt), Angeln, Ostholstein.
+    // South border: Elbe (North bank).
     const pathSH = `
-        M 280 40
-        L 275 45 L 270 50 L 268 70 L 265 90 L 262 110 L 260 130 L 265 145 L 270 160
-        L 280 170 L 300 180 L 315 195 L 335 215
-        L 350 210 L 365 225
-        L 385 235
-        L 400 220 L 415 190 L 430 160
-        L 425 140 L 410 120
-        L 380 110 L 360 125
-        L 340 100 L 320 60 L 300 40
+        M 260 170
+        L 270 175 L 290 180 L 310 190 L 330 200
+        L 332 205 L 325 210 L 335 215
+        L 345 212 L 355 210
+        L 360 215 L 370 215 L 380 220
+        L 390 225 L 400 230
+        L 410 220 L 415 210 L 420 200
+        L 425 190 L 430 180 L 440 170 L 450 160
+        L 440 150 L 430 145 L 435 135
+        L 430 125 L 420 120 L 410 125 L 400 120
+        L 380 125 L 370 120 L 360 125 L 355 120
+        L 350 110 L 340 115
+        L 345 100 L 350 90 L 355 80 L 345 85 L 335 90 L 325 85
+        L 330 75 L 340 70 L 345 65 L 340 60
+        L 330 55 L 320 50 L 310 52 L 300 55 L 295 52
+        L 280 50 L 260 48 L 240 45
+        L 235 55 L 240 65 L 230 75 L 235 85
+        L 220 90 L 225 100
+        L 215 110 L 220 120
+        L 210 130 L 225 140
+        L 235 150 L 250 160 L 260 170
         Z
-        M 255 20 L 265 20 L 265 55 L 255 50 Z
-        M 405 75 L 425 80 L 420 95 L 400 90 Z
+        M 190 20 L 195 25 L 192 35 L 195 45 L 190 55 L 192 65 L 195 70 L 200 65 L 205 55 L 202 45 L 205 35 L 200 25 L 195 20 L 190 20 Z
+        M 210 75 L 205 80 L 210 85 L 215 82 L 212 75 Z
+        M 460 110 L 450 115 L 455 125 L 465 120 L 470 115 L 460 110 Z
     `;
 
-    // HH: Hamburg
+    // PATH 2: Hamburg (HH)
+    // Small area between SH and NI.
     const pathHH = `
         M 335 215
-        L 350 210 L 365 225
-        L 375 230
-        L 365 235
-        L 350 250
-        L 335 215
+        L 345 212 L 355 210
+        L 360 215 L 370 215 L 380 220
+        L 375 225 L 370 230 L 365 235
+        L 355 240
+        L 345 235 L 340 230 L 335 225 L 335 215
         Z
     `;
 
-    // NI: Niedersachsen (North)
-    const pathNI = `
-        M 260 180
-        L 280 185 L 300 195 L 320 210 L 335 215
-        L 350 250
-        L 365 235
-        L 385 235
-        L 400 245 L 440 255 L 480 270
-        L 480 400 L 300 400 L 260 400
-        Z
-    `;
-
-    // MV: Mecklenburg-Vorpommern
+    // PATH 3: Mecklenburg-Vorpommern (MV)
     const pathMV = `
-        M 385 235
-        L 400 220 L 415 190 L 430 160
-        L 450 150 L 480 100 L 520 80
-        L 550 70 L 580 90
-        L 620 120
-        L 620 300
-        L 550 260 L 480 270
-        L 440 255 L 400 245 L 385 235
+        M 410 220
+        L 415 210 L 420 200 L 425 190 L 430 180 L 440 170 L 450 160
+        L 470 160 L 490 155 L 510 150
+        L 530 145 L 550 140
+        L 560 130 L 580 120 L 600 125
+        L 620 130 L 640 140
+        L 660 150 L 680 160 L 700 170
+        L 710 190 L 700 210 L 680 230 L 660 240
+        L 640 250 L 620 260 L 600 270
+        L 550 280 L 500 290
+        L 480 290 L 460 280
+        L 450 270 L 440 260
+        L 435 250 L 430 240
+        L 420 230
         Z
-        M 540 50 L 560 40 L 590 60 L 580 90 L 550 80 Z
-        M 610 110 L 630 100 L 640 130 L 620 140 Z
+        M 580 100 L 590 90 L 600 85 L 610 90 L 620 100 L 610 110 L 600 110 L 590 105 L 580 100 Z
+        M 630 100 L 640 95 L 650 100 L 645 110 L 635 110 L 630 100 Z
+    `;
+
+    // PATH 4: Niedersachsen-Nord (NI)
+    // Cuxhaven -> Elbe -> MV Border -> Wolfsburg -> Celle -> Bremen -> Cuxhaven
+    const pathNI = `
+        M 260 170
+        L 270 175 L 290 180 L 310 190 L 330 200
+        L 335 215 L 335 225 L 340 230 L 345 235 L 355 240
+        L 365 235 L 370 230 L 375 225
+        L 380 220 L 390 225 L 400 230
+        L 410 235 L 420 240 L 430 245
+        L 440 260 L 450 270 L 460 280 L 450 300
+        L 440 320 L 430 340 L 420 360
+        L 400 365 L 380 370
+        L 360 365 L 340 360 L 320 355
+        L 300 350 L 280 345
+        L 260 340 L 240 320 L 230 300
+        L 220 280 L 230 260
+        L 240 240 L 250 220 L 255 200 L 260 170
+        Z
     `;
 
     return (
@@ -91,28 +118,27 @@ const DeliveryMap = () => {
                     </div>
                 </div>
                 <div className="lg:w-1/2 mt-12 lg:mt-0 relative flex items-center justify-center p-4 lg:p-0">
-                    <svg viewBox="0 0 800 500" className="w-full h-auto drop-shadow-2xl max-w-md lg:max-w-full">
-                        <g stroke="white" strokeWidth="0.5" strokeLinejoin="round" fill="#005b9f" fillOpacity="0.3">
-                            <path d={pathNI} />
-                            <path d={pathMV} />
-                            <path d={pathSH} />
-                            <path d={pathHH} fillOpacity="0.5" />
+                    <svg viewBox="0 0 800 500" className="w-full h-auto max-w-md lg:max-w-full">
+                        {/* Flat Design Map */}
+                        <g stroke="white" strokeWidth="0.5" strokeLinejoin="round">
+                            <path d={pathNI} fill="#005b9f" />
+                            <path d={pathMV} fill="#4da6ff" />
+                            <path d={pathSH} fill="#8ecae6" />
+                            <path d={pathHH} fill="#003366" />
                         </g>
 
                         {/* Cities */}
                         {cities.map((city, index) => (
                             <g key={index} transform={`translate(${city.x}, ${city.y})`}>
-                                <circle cx="0" cy="0" r="4" fill="#4ade80">
-                                    <animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite"/>
-                                </circle>
+                                <circle cx="0" cy="0" r="3" fill="white" />
                                 <text
-                                    x={city.align === 'start' ? 10 : city.align === 'end' ? -10 : 0}
-                                    y={5}
+                                    x={city.align === 'start' ? 8 : city.align === 'end' ? -8 : 0}
+                                    y={4}
+                                    fontFamily="Arial"
                                     fontSize="12"
                                     fill="white"
                                     fontWeight="bold"
                                     textAnchor={city.align}
-                                    style={{textShadow: '0 2px 4px rgba(0,0,0,0.8)'}}
                                 >
                                     {city.name}
                                 </text>

@@ -3,3 +3,5 @@
 > node server.js
 
 Server started at http://localhost:5173
+1:42:51 PM [vite] hmr update /src/components/DeliveryMap.jsx, /src/index.css
+1:44:39 PM [vite] hmr update /src/components/DeliveryMap.jsx, /src/index.css
