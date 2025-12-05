@@ -12,7 +12,7 @@ import DeliveryMap from './components/DeliveryMap';
 import FAQ from './components/FAQ';
 import ContactSection from './components/ContactSection';
 import GasOrderSection from './components/GasOrderSection';
-import SavingsCalculator from './components/SavingsCalculator';
+import EnergyCalculator from './components/EnergyCalculator';
 import KnowledgeCenter from './components/KnowledgeCenter';
 import AboutPage from './components/AboutPage';
 import Footer from './components/Footer';
@@ -157,7 +157,7 @@ const App = ({ path }) => {
             case 'tanks': return <><div className="pt-20"></div><TankSection openWizard={openWizard} setActiveSection={changeSection} /><ContactSection /></>;
             case 'gas': return <><div className="pt-20"></div><GasOrderSection onCheckAvailability={handleGasCheckAvailability} /><FAQ /><ContactSection /></>;
             case 'pruefungen': return <><div className="pt-20"></div><InspectionSection openWizard={openWizard} /><ContactSection /></>;
-            case 'rechner': return <><div className="pt-32 max-w-4xl mx-auto px-4"><SavingsCalculator /></div><ContactSection /></>;
+            case 'rechner': return <><div className="pt-32 max-w-4xl mx-auto px-4"><EnergyCalculator /></div><ContactSection /></>;
             case 'gewerbe': return <><div className="pt-20"></div><CommercialSection setActiveSection={changeSection} /><ContactSection /></>;
             case 'wissen': return <><div className="pt-20"></div><KnowledgeCenter setActiveSection={changeSection} /><ContactSection /></>;
             case 'ueber-uns': return <><div className="pt-20"></div><AboutPage setActiveSection={changeSection} /><ContactSection /></>;
