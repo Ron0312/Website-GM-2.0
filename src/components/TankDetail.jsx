@@ -116,7 +116,7 @@ const TankDetail = ({ slug, onBack, openWizard }) => {
                             <h3 className="text-2xl font-bold mb-4">Installation & Hinweise</h3>
                             <div className="bg-blue-50 border-l-4 border-gas p-6 rounded-r-xl text-gray-700 leading-relaxed">
                                 {tank.installation}
-                                <p className="mt-4 text-sm font-bold text-gas-dark">Wir unterstützen Sie gerne bei der Planung und vermitteln qualifizierte Partner für Fundament und Erdarbeiten.</p>
+                                <p className="mt-4 text-sm font-bold text-gas-dark">Wir unterstützen Sie gerne bei der Planung und vermitteln qualifizierte Partner anstehende Erd- und Anschlussarbeiten.</p>
                             </div>
                         </div>
                     </div>

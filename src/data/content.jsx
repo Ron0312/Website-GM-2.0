@@ -41,14 +41,7 @@ export const CONTENT = {
                     content: (
                         <div>
                             <SourceBadge text="Fachbetriebspflicht" />
-                            <p>Sie möchten Ihren alten Flüssiggastank entsorgen? Das ist Aufgabe für Profis. Da oft noch Restgas im Tank ist, darf dieser nicht einfach zersägt werden.</p>
-                            <h4>Ablauf der Entsorgung</h4>
-                            <ul>
-                                <li><strong>Absaugen:</strong> Das Restgas muss fachgerecht abgesaugt und abgefackelt werden.</li>
-                                <li><strong>Spülen:</strong> Der Tank wird mit Stickstoff gespült, um gasfrei zu sein.</li>
-                                <li><strong>Demontage:</strong> Erst dann kann der Tank zerlegt und abtransportiert werden.</li>
-                            </ul>
-                            <p>Wir übernehmen die komplette Entsorgung für Sie – sicher und zertifiziert.</p>
+                            <p>Denn der Tank wird nicht gereinigt und auch nicht zersägt, aber natürlich vorher geleert. gasmöller nimmt den Tank aber gerne mit.</p>
                         </div>
                     )
                 },
@@ -170,8 +163,6 @@ export const CONTENT = {
             <p>Sie erfüllen die 65%-Regel des GEG, sparen Investitionskosten im Vergleich zur Voll-Wärmepumpe (keine teure Dämmung nötig) und haben 100% Versorgungssicherheit.</p>
         </div>)},{id: 'mfh', title: 'Lösungen für Mehrfamilienhäuser', description: 'Zentralheizung oder Etagenheizung mit Gas.', content: (<div>
             <p>Auch für Vermieter und WEGs ist Flüssiggas attraktiv. Mit einem zentralen unterirdischen Tank (oder einer Tankbatterie) können beliebig viele Wohneinheiten versorgt werden.</p>
-            <h4>Abrechnung leicht gemacht</h4>
-            <p>Wir bieten spezielle Zähler-Lösungen an, sodass jede Wohnung exakt nach Verbrauch abgerechnet werden kann. Wir kümmern uns um die Ablesung und Wartung der Zähler. Das steigert den Wohnwert und senkt die Nebenkosten für Ihre Mieter.</p>
         </div>)},
                 {
                     id: 'geg',
@@ -482,10 +473,10 @@ export const CONTENT = {
                 {
                     id: 'umrechnung',
                     title: 'Umrechnung: Liter, m³, kWh',
-                    description: 'Verwirrung am Zähler?',
+                    description: 'Verwirrung bei der Umrechnung?',
                     content: (
                         <div>
-                            <p>Flüssiggas wird in Litern geliefert, der Zähler misst Kubikmeter (m³) und die Abrechnung erfolgt oft in Kilowattstunden (kWh). Hier die Faustformeln:</p>
+                            <p>Flüssiggas wird in Litern geliefert. Die Abrechnung erfolgt aber oft in Kilowattstunden (kWh) oder Kubikmetern (m³). Hier die Faustformeln:</p>
                             <div className="bg-gray-100 p-4 rounded-lg font-mono text-sm my-4 space-y-2">
                                 <div>1 Liter flüssig ≈ 6,57 kWh</div>
                                 <div>1 m³ gasförmig ≈ 3,93 Liter flüssig</div>
