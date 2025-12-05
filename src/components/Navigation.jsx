@@ -6,12 +6,20 @@ import TopBar from './TopBar';
 const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobileMenuOpen, openWizard }) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [openDropdown, setOpenDropdown] = useState(null);
+    const [expandedMobileItems, setExpandedMobileItems] = useState({});
 
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 20);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    const toggleMobileItem = (id) => {
+        setExpandedMobileItems(prev => ({
+            ...prev,
+            [id]: !prev[id]
+        }));
+    };
 
     const navLinks = [
         { id: 'start', label: 'Startseite' },
@@ -182,48 +190,62 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                             if (!link.subLinks) {
                                                 setActiveSection(link.id);
                                                 setMobileMenuOpen(false);
+                                            } else {
+                                                toggleMobileItem(link.id);
                                             }
                                         }}
-                                        className="w-full text-left px-5 py-4 text-lg font-bold text-gray-900 flex justify-between items-center"
+                                        className="w-full text-left px-5 py-4 text-lg font-bold text-gray-900 flex justify-between items-center hover:bg-gray-100 transition-colors"
                                     >
                                         {link.label}
+                                        {link.subLinks && (
+                                            <ChevronDown size={20} className={`text-gray-400 transition-transform duration-300 ${expandedMobileItems[link.id] ? 'rotate-180' : ''}`} />
+                                        )}
                                     </button>
 
-                                    {link.subLinks && (
-                                        <div className="px-5 pb-4 space-y-4 border-t border-gray-200/50 pt-4">
-                                            {/* Logic for Mega Menu in Mobile */}
-                                            {link.dropdownType === 'mega' ? link.subLinks.map((group, idx) => (
-                                                <div key={idx}>
-                                                    <div className="text-xs font-bold text-gas uppercase tracking-wider mb-2 flex items-center">
-                                                        {group.icon && <group.icon size={14} className="mr-2"/>} {group.label}
-                                                    </div>
-                                                    <div className="grid grid-cols-1 gap-1">
-                                                        {group.items.map(sub => (
+                                    <AnimatePresence>
+                                        {link.subLinks && expandedMobileItems[link.id] && (
+                                            <motion.div
+                                                initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: "auto", opacity: 1 }}
+                                                exit={{ height: 0, opacity: 0 }}
+                                                className="border-t border-gray-200/50"
+                                            >
+                                                <div className="px-5 py-4 space-y-4 bg-gray-50/50">
+                                                    {/* Logic for Mega Menu in Mobile */}
+                                                    {link.dropdownType === 'mega' ? link.subLinks.map((group, idx) => (
+                                                        <div key={idx} className="mb-4 last:mb-0">
+                                                            <div className="text-xs font-bold text-gas uppercase tracking-wider mb-2 flex items-center">
+                                                                {group.icon && <group.icon size={14} className="mr-2"/>} {group.label}
+                                                            </div>
+                                                            <div className="grid grid-cols-1 gap-2">
+                                                                {group.items.map(sub => (
+                                                                    <button
+                                                                        key={sub.id}
+                                                                        onClick={() => { setActiveSection(sub.id); setMobileMenuOpen(false); }}
+                                                                        className="block w-full text-left py-2 px-3 rounded-lg text-sm text-gray-600 hover:bg-white hover:text-gas shadow-sm border border-transparent hover:border-gray-100 transition-all"
+                                                                    >
+                                                                        {sub.label}
+                                                                    </button>
+                                                                ))}
+                                                            </div>
+                                                        </div>
+                                                    )) : (
+                                                        /* Logic for Simple Menu in Mobile */
+                                                        link.subLinks.map(sub => (
                                                             <button
                                                                 key={sub.id}
                                                                 onClick={() => { setActiveSection(sub.id); setMobileMenuOpen(false); }}
-                                                                className="block w-full text-left py-2 text-sm text-gray-600 active:text-gas"
+                                                                className="flex items-center w-full text-left py-3 px-3 rounded-xl hover:bg-white text-base text-gray-600 transition-colors border border-transparent hover:border-gray-100 hover:shadow-sm"
                                                             >
+                                                                {sub.icon && <sub.icon size={18} className="mr-3 text-gas-light"/>}
                                                                 {sub.label}
                                                             </button>
-                                                        ))}
-                                                    </div>
+                                                        ))
+                                                    )}
                                                 </div>
-                                            )) : (
-                                                /* Logic for Simple Menu in Mobile */
-                                                link.subLinks.map(sub => (
-                                                    <button
-                                                        key={sub.id}
-                                                        onClick={() => { setActiveSection(sub.id); setMobileMenuOpen(false); }}
-                                                        className="flex items-center w-full text-left py-2 text-base text-gray-600"
-                                                    >
-                                                        {sub.icon && <sub.icon size={18} className="mr-3 text-gas-light"/>}
-                                                        {sub.label}
-                                                    </button>
-                                                ))
-                                            )}
-                                        </div>
-                                    )}
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
                                 </div>
                             ))}
                             <button onClick={() => { openWizard ? openWizard('tank') : setActiveSection('kontakt'); setMobileMenuOpen(false); }} className="w-full text-center px-4 py-4 text-lg font-bold text-white bg-gas rounded-xl mt-4 shadow-lg shadow-gas/20">

@@ -42,7 +42,7 @@ async function createServer() {
   const { getSeoForPath, getSchemaForPath } = await import('./src/data/seoData.js');
 
   // Ensure we catch all other routes for SPA/SSR
-  app.use('*', async (req, res, next) => {
+  app.use(async (req, res, next) => {
     const url = req.originalUrl
 
     try {
