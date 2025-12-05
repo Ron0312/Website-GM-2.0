@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import TankCard from './TankCard';
-import TankAdvisorPro from './TankAdvisorPro';
+import EnergyCalculator from './EnergyCalculator';
 import { tankDetails } from '../data/tanks';
 
 const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = true }) => {
@@ -90,7 +90,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                         </div>
                     )}
                     <div className={showTechnicalOverview ? "" : "md:col-span-3"}>
-                        <TankAdvisorPro />
+                        <EnergyCalculator />
                     </div>
                 </div>
             </div>
