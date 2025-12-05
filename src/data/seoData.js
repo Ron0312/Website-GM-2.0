@@ -36,9 +36,12 @@ export const seoData = {
 };
 
 export const getSeoForPath = (path) => {
+    // Normalize path first
+    const cleanPath = path.replace(/^\//, '');
+
     // Check for dynamic tank routes
-    if (path.startsWith('tanks/')) {
-        const slug = path.split('/')[1];
+    if (cleanPath.startsWith('tanks/')) {
+        const slug = cleanPath.split('/')[1];
         const tank = tankDetails.find(t => t.slug === slug);
         if (tank) {
             return {
@@ -52,7 +55,7 @@ export const getSeoForPath = (path) => {
     let section = 'start';
     if (path === '/' || path === '') section = 'start';
     else {
-        const p = path.replace(/^\//, '').toLowerCase();
+        const p = cleanPath.toLowerCase();
         if (seoData[p]) section = p;
     }
     return seoData[section] || seoData['start'];

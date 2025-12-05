@@ -109,7 +109,7 @@ const App = ({ path }) => {
 
     useEffect(() => {
         // Initial scroll is handled by browser usually, but we ensure top
-        // window.scrollTo(0, 0);
+        window.scrollTo(0, 0);
 
         // Update Title and Meta Description on client-side navigation
         const seoInfo = getSeoForPath(activeSection);
