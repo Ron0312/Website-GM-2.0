@@ -29,24 +29,20 @@ const DeliveryMap = () => (
                 {/* Northern Germany Outline (Detailed) */}
                 <svg viewBox="0 0 400 300" className="w-full h-auto drop-shadow-2xl max-w-md lg:max-w-full">
                     <path d="M 135 25 L 145 28 L 155 22 L 165 25 L 180 20 L 195 25 L 210 20 L 220 30 L 240 25 L 260 35 L 280 30 L 300 40 L 310 35 L 320 50 L 325 80 L 330 110 L 315 130 L 290 140 L 270 150 L 250 165 L 220 175 L 190 180 L 160 175 L 130 185 L 100 170 L 80 150 L 70 120 L 85 100 L 95 85 L 85 70 L 95 55 L 110 50 L 120 40 L 125 30 Z"
-                          fill="#005b9f" opacity="0.3" stroke="white" strokeWidth="1.5" strokeLinejoin="round" />
+                          fill="#005b9f" opacity="0.8" stroke="white" strokeWidth="1.5" strokeLinejoin="round" />
 
                     {/* Locations */}
                     <g transform="translate(195, 80)">
-                        <circle cx="0" cy="0" r="4" fill="#4ade80"><animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite"/></circle>
+                        <circle cx="0" cy="0" r="4" fill="#ef4444"><animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite"/></circle>
                         <text x="10" y="4" fontSize="12" fill="white" fontWeight="bold" style={{textShadow: '0 2px 4px rgba(0,0,0,0.5)'}}>Kiel</text>
                     </g>
-                    <g transform="translate(180, 145)">
-                        <circle cx="0" cy="0" r="4" fill="#4ade80"><animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite"/></circle>
-                        <text x="10" y="4" fontSize="12" fill="white" fontWeight="bold" style={{textShadow: '0 2px 4px rgba(0,0,0,0.5)'}}>Hamburg</text>
+                    <g transform="translate(205, 110)">
+                        <circle cx="0" cy="0" r="4" fill="#ef4444"><animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite"/></circle>
+                        <text x="10" y="4" fontSize="12" fill="white" fontWeight="bold" style={{textShadow: '0 2px 4px rgba(0,0,0,0.5)'}}>Bad Segeberg</text>
                     </g>
-                    <g transform="translate(150, 45)">
-                        <circle cx="0" cy="0" r="4" fill="#4ade80"><animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite"/></circle>
-                        <text x="10" y="4" fontSize="12" fill="white" fontWeight="bold" style={{textShadow: '0 2px 4px rgba(0,0,0,0.5)'}}>Flensburg</text>
-                    </g>
-                    <g transform="translate(280, 100)">
-                        <circle cx="0" cy="0" r="4" fill="#4ade80"><animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite"/></circle>
-                        <text x="10" y="4" fontSize="12" fill="white" fontWeight="bold" style={{textShadow: '0 2px 4px rgba(0,0,0,0.5)'}}>Rostock</text>
+                    <g transform="translate(180, 135)">
+                        <circle cx="0" cy="0" r="4" fill="#ef4444"><animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite"/></circle>
+                        <text x="10" y="4" fontSize="12" fill="white" fontWeight="bold" style={{textShadow: '0 2px 4px rgba(0,0,0,0.5)'}}>Norderstedt</text>
                     </g>
                 </svg>
             </div>
