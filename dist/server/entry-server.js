@@ -351,7 +351,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
   return /* @__PURE__ */ jsxs("div", { className: "fixed top-0 left-0 w-full z-50 font-sans", children: [
     /* @__PURE__ */ jsx(TopBar, {}),
     /* @__PURE__ */ jsx("nav", { className: `transition-all duration-300 border-b border-white/10 ${isScrolled ? "bg-white/95 backdrop-blur-md shadow-lg py-2" : "bg-white py-4"}`, children: /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8", children: /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center", children: [
-      /* @__PURE__ */ jsx("div", { className: "flex-shrink-0 flex items-center cursor-pointer", onClick: () => setActiveSection("start"), children: /* @__PURE__ */ jsx("img", { src: "/logos/Icon-01.webp", alt: "gasmöller", className: `transition-all duration-300 ${isScrolled ? "h-10" : "h-12"}` }) }),
+      /* @__PURE__ */ jsx("div", { className: "flex-shrink-0 flex items-center cursor-pointer", onClick: () => setActiveSection("start"), children: /* @__PURE__ */ jsx("img", { src: "/logos/Icon-01.webp", alt: "gasmöller", width: "2222", height: "747", className: `transition-all duration-300 ${isScrolled ? "h-10" : "h-12"}` }) }),
       /* @__PURE__ */ jsx("div", { className: "hidden xl:flex space-x-1 bg-gray-50/50 p-1 rounded-full border border-gray-100", children: navLinks.map((link) => /* @__PURE__ */ jsxs(
         "div",
         {
@@ -513,7 +513,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
 const Hero = ({ setActiveSection, openWizard }) => /* @__PURE__ */ jsxs("header", { className: "relative bg-white pt-48 pb-24 lg:pt-64 lg:pb-48 overflow-hidden", children: [
   /* @__PURE__ */ jsxs("div", { className: "absolute inset-0 z-0", children: [
     /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-gradient-to-r from-gray-900/40 to-gray-900/10 z-10" }),
-    /* @__PURE__ */ jsx("img", { src: "/images/gas-order-hero.webp", alt: "Landschaft Norddeutschland", className: "w-full h-full object-cover absolute inset-0" })
+    /* @__PURE__ */ jsx("img", { src: "/images/gas-order-hero.webp", alt: "Landschaft Norddeutschland", width: "1920", height: "1080", className: "w-full h-full object-cover absolute inset-0" })
   ] }),
   /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20", children: /* @__PURE__ */ jsx("div", { className: "lg:grid lg:grid-cols-2 lg:gap-20 items-center", children: /* @__PURE__ */ jsx("div", { className: "text-left text-white", children: /* @__PURE__ */ jsxs(motion.div, { initial: { opacity: 0, y: 30 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.8 }, children: [
     /* @__PURE__ */ jsxs("div", { className: "inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md border border-white/30 px-4 py-1.5 rounded-full mb-8 shadow-sm", children: [
@@ -2423,6 +2423,8 @@ const TeamSection = () => /* @__PURE__ */ jsxs("div", { className: "py-24 bg-whi
       {
         src: member.img,
         alt: member.name,
+        width: "300",
+        height: "400",
         className: "w-full h-full object-cover transition-transform duration-700 group-hover:scale-110",
         onError: (e) => {
           e.target.style.display = "none";
@@ -2468,7 +2470,7 @@ const AboutPage = () => /* @__PURE__ */ jsx("section", { className: "bg-white", 
 const Footer = ({ setActiveSection, openLegal }) => /* @__PURE__ */ jsxs("footer", { className: "bg-gray-900 text-gray-400 py-20 border-t border-gray-800 text-sm", children: [
   /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12", children: [
     /* @__PURE__ */ jsxs("div", { className: "col-span-1", children: [
-      /* @__PURE__ */ jsx("img", { src: "/logos/Icon-01.webp", alt: "gasmöller", className: "h-10 filter brightness-0 invert opacity-80 mb-6" }),
+      /* @__PURE__ */ jsx("img", { src: "/logos/Icon-01.webp", alt: "gasmöller", width: "2222", height: "747", className: "h-10 filter brightness-0 invert opacity-80 mb-6" }),
       /* @__PURE__ */ jsx("p", { className: "leading-relaxed mb-4", children: "Ihr unabhängiger Partner für Energie im Norden. Seit 2005." }),
       /* @__PURE__ */ jsxs("div", { className: "flex space-x-4", children: [
         /* @__PURE__ */ jsx("div", { className: "w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer", children: "f" }),
@@ -3171,7 +3173,7 @@ const NotFound = ({ onGoHome }) => {
 const ImprintContent = () => /* @__PURE__ */ jsxs("div", { className: "space-y-4 text-sm text-gray-700", children: [
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900", children: "Angaben gemäß § 5 TMG" }),
   /* @__PURE__ */ jsxs("p", { children: [
-    /* @__PURE__ */ jsx("strong", { children: "gasmöller GmbH" }),
+    /* @__PURE__ */ jsx("strong", { children: "gasmöller" }),
     /* @__PURE__ */ jsx("br", {}),
     "Musterstraße 1",
     /* @__PURE__ */ jsx("br", {}),
@@ -3221,7 +3223,7 @@ const PrivacyContent = () => /* @__PURE__ */ jsxs("div", { className: "space-y-4
   /* @__PURE__ */ jsxs("p", { children: [
     "Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:",
     /* @__PURE__ */ jsx("br", {}),
-    "gasmöller GmbH",
+    "gasmöller",
     /* @__PURE__ */ jsx("br", {}),
     "Musterstraße 1",
     /* @__PURE__ */ jsx("br", {}),
@@ -3239,9 +3241,9 @@ const PrivacyContent = () => /* @__PURE__ */ jsxs("div", { className: "space-y-4
 ] });
 const TermsContent = () => /* @__PURE__ */ jsxs("div", { className: "space-y-4 text-sm text-gray-700", children: [
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900", children: "1. Geltungsbereich" }),
-  /* @__PURE__ */ jsx("p", { children: "Für alle Lieferungen von gasmöller GmbH an Verbraucher (§ 13 BGB) gelten diese Allgemeinen Geschäftsbedingungen (AGB). Verbraucher ist jede natürliche Person, die ein Rechtsgeschäft zu Zwecken abschließt, die überwiegend weder ihrer gewerblichen noch ihrer selbständigen beruflichen Tätigkeit zugerechnet werden können." }),
+  /* @__PURE__ */ jsx("p", { children: "Für alle Lieferungen von gasmöller an Verbraucher (§ 13 BGB) gelten diese Allgemeinen Geschäftsbedingungen (AGB). Verbraucher ist jede natürliche Person, die ein Rechtsgeschäft zu Zwecken abschließt, die überwiegend weder ihrer gewerblichen noch ihrer selbständigen beruflichen Tätigkeit zugerechnet werden können." }),
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "2. Vertragspartner" }),
-  /* @__PURE__ */ jsx("p", { children: "Der Kaufvertrag kommt zustande mit der gasmöller GmbH, Geschäftsführer: Thomas Möller, Musterstraße 1, 12345 Musterstadt, Handelsregister: Amtsgericht Kiel, HRB 12345." }),
+  /* @__PURE__ */ jsx("p", { children: "Der Kaufvertrag kommt zustande mit der gasmöller, Geschäftsführer: Thomas Möller, Musterstraße 1, 12345 Musterstadt." }),
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "3. Vertragsabschluss" }),
   /* @__PURE__ */ jsx("p", { children: "Die Darstellung der Produkte im Online-Shop stellt kein rechtlich bindendes Angebot, sondern einen unverbindlichen Online-Katalog dar. Durch Anklicken des Bestellbuttons geben Sie eine verbindliche Bestellung der im Warenkorb enthaltenen Waren ab." }),
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "4. Preise und Versandkosten" }),
