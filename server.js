@@ -58,7 +58,11 @@ async function createServer() {
         }
 
     // Construct Meta Tags
+    const isHomePage = url === '/' || url === '/index.html';
+    const preloadLink = isHomePage ? '<link rel="preload" as="image" href="/images/gas-order-hero.webp">' : '';
+
     const metaTags = `
+    ${preloadLink}
     <meta property="og:type" content="${seoInfo.type || 'website'}" />
     <meta property="og:title" content="${seoInfo.title}" />
     <meta property="og:description" content="${seoInfo.description}" />

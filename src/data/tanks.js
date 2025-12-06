@@ -8,6 +8,7 @@ export const tankDetails = [
         dimensions: '2,50 x 1,25 m',
         weight: '550 kg',
         power: '35 kW',
+        image: null,
         description: 'Der kompakte 1,2 t Flüssiggastank ist die ideale Lösung für Ferienhäuser, kleine Einfamilienhäuser oder als Zusatzheizung. Durch seine geringen Abmessungen findet er auch in kleineren Gärten Platz.',
         features: [
             'Ideal für geringen Platzbedarf',
@@ -37,6 +38,7 @@ export const tankDetails = [
         dimensions: '4,30 x 1,25 m',
         weight: '980 kg',
         power: '60 kW',
+        image: null,
         description: 'Unser Standard-Tank für das klassische Einfamilienhaus. Mit 4.850 Litern Volumen deckt dieser Tank in der Regel den Jahresbedarf eines 4-Personen-Haushalts ab, sodass Sie nur einmal im Jahr tanken müssen.',
         features: [
             'Der Klassiker für Eigenheime',
@@ -66,6 +68,7 @@ export const tankDetails = [
         dimensions: '5,50 x 1,25 m',
         weight: '1.300 kg',
         power: '90 kW',
+        image: null,
         description: 'Der Maxi-Tank für Mehrfamilienhäuser, große Villen oder gewerbliche Anwendungen. Er bietet maximale Unabhängigkeit und Versorgungssicherheit auch bei hohem Verbrauch.',
         features: [
             'Großes Speichervolumen',
@@ -95,6 +98,7 @@ export const tankDetails = [
         dimensions: '2,50 x 1,25 m',
         weight: '600 kg',
         power: '35 kW',
+        image: null,
         description: 'Die unsichtbare Lösung für kleine Gärten. Der 1,2 t Tank verschwindet komplett unter der Erde, nur der Domdeckel bleibt sichtbar. Perfekt, wenn die Optik des Gartens nicht gestört werden soll.',
         features: [
             'Unsichtbar im Garten',
@@ -124,6 +128,7 @@ export const tankDetails = [
         dimensions: '4,30 x 1,25 m',
         weight: '1.100 kg',
         power: '60 kW',
+        image: null,
         description: 'Der beliebteste unterirdische Tank. Er kombiniert das Volumen für ein klassisches Einfamilienhaus mit der unauffälligen Optik einer Erddeckung. Die Gartenfläche bleibt nutzbar.',
         features: [
             'Standardgröße für EFH',
@@ -153,6 +158,7 @@ export const tankDetails = [
         dimensions: '5,50 x 1,25 m',
         weight: '1.500 kg',
         power: '90 kW',
+        image: null,
         description: 'Maximale Energie, unsichtbar gelagert. Für große Objekte mit hohem Wärmebedarf, die keine Kompromisse bei der Ästhetik eingehen wollen.',
         features: [
             'Höchste Kapazität',
