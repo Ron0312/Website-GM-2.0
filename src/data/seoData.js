@@ -137,7 +137,8 @@ export const getSchemaForPath = (path) => {
         },
         "priceRange": "$$",
         "sameAs": [
-             // Add social profiles here if available
+             "https://www.facebook.com/gasmoeller",
+             "https://www.linkedin.com/company/gasmoeller"
         ]
     };
 

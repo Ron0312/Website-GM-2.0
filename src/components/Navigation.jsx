@@ -78,7 +78,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center">
                         <div className="flex-shrink-0 flex items-center cursor-pointer" onClick={() => setActiveSection('start')}>
-                            <img src="/logos/Icon-01.webp" alt="gasmöller" className={`transition-all duration-300 ${isScrolled ? 'h-10' : 'h-12'}`} />
+                            <img src="/logos/Icon-01.webp" alt="gasmöller" width="2222" height="747" className={`transition-all duration-300 ${isScrolled ? 'h-10' : 'h-12'}`} />
                         </div>
 
                         <div className="hidden xl:flex space-x-1 bg-gray-50/50 p-1 rounded-full border border-gray-100">

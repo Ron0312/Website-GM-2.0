@@ -19,6 +19,7 @@ const TeamSection = () => (
                     <img
                         src={member.img}
                         alt={member.name}
+                        width="300" height="400"
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         onError={(e) => {e.target.style.display='none'; e.target.nextSibling.style.display='flex'}} // Hide img and show fallback
                     />
