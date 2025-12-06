@@ -4,6 +4,12 @@ import { test, expect } from '@playwright/test';
 test('Navigation Mega Menu', async ({ page }) => {
   await page.goto('http://localhost:5173');
 
+  // Dismiss cookie banner
+  const cookieBtn = page.getByRole('button', { name: 'Alle akzeptieren' });
+  if (await cookieBtn.isVisible()) {
+    await cookieBtn.click();
+  }
+
   // Locate "Tanks & Kauf" button in the navigation bar and hover
   const tanksNav = page.getByRole('navigation').getByRole('button', { name: 'Tanks & Kauf' });
   await expect(tanksNav).toBeVisible();
@@ -20,6 +26,12 @@ test('Navigation Mega Menu', async ({ page }) => {
 
 test('Wizard Tank Flow', async ({ page }) => {
   await page.goto('http://localhost:5173');
+
+  // Dismiss cookie banner
+  const cookieBtn = page.getByRole('button', { name: 'Alle akzeptieren' });
+  if (await cookieBtn.isVisible()) {
+    await cookieBtn.click();
+  }
 
   // Open Wizard using the main CTA in the header
   const wizardBtn = page.getByRole('button', { name: 'Angebot' }).first();
@@ -62,10 +74,13 @@ test('Wizard Tank Flow', async ({ page }) => {
   await expect(page.getByText('Welche Tankart bevorzugen Sie?')).toBeVisible();
 
   // Select Oberirdisch
-  await page.getByText('Oberirdisch').first().click();
+  // Click the title inside the card to ensure event bubbling
+  await page.locator('h3', { hasText: 'Oberirdisch' }).first().click({ force: true });
 
-  // Click "Weiter"
-  await page.locator('button', { hasText: 'Weiter' }).click();
+  // Check if button is enabled before clicking (step 3 validation)
+  const nextBtn = page.locator('button', { hasText: 'Weiter' });
+  await expect(nextBtn).toBeEnabled();
+  await nextBtn.click();
 
   // Step 4: Details
   await expect(page.getByText('Projekt Details')).toBeVisible();
