@@ -72,7 +72,7 @@ export const getSeoForPath = (path) => {
             data = {
                 title: tank.seoTitle || `${tank.name} kaufen | gasmöller`,
                 description: tank.seoDesc || `Kaufen Sie den ${tank.name}. ${tank.capacity} Kapazität.`,
-                image: DEFAULT_IMAGE, // Could use specific tank image if available in tankDetails
+                image: tank.image || DEFAULT_IMAGE,
                 url: `${SITE_URL}/${cleanPath}`,
                 type: 'product'
             };
