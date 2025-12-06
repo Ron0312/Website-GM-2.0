@@ -4,7 +4,7 @@ export const ImprintContent = () => (
     <div className="space-y-4 text-sm text-gray-700">
         <h3 className="text-lg font-bold text-gray-900">Angaben gemäß § 5 TMG</h3>
         <p>
-            <strong>gasmöller GmbH</strong><br />
+            <strong>gasmöller</strong><br />
             Musterstraße 1<br />
             12345 Musterstadt
         </p>
@@ -63,7 +63,7 @@ export const PrivacyContent = () => (
         <p><strong>Hinweis zur verantwortlichen Stelle</strong></p>
         <p>
             Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:<br />
-            gasmöller GmbH<br />
+            gasmöller<br />
             Musterstraße 1<br />
             12345 Musterstadt<br />
             Telefon: 04551 89 70 89<br />
@@ -89,14 +89,14 @@ export const TermsContent = () => (
     <div className="space-y-4 text-sm text-gray-700">
         <h3 className="text-lg font-bold text-gray-900">1. Geltungsbereich</h3>
         <p>
-            Für alle Lieferungen von gasmöller GmbH an Verbraucher (§ 13 BGB) gelten diese Allgemeinen Geschäftsbedingungen (AGB).
+            Für alle Lieferungen von gasmöller an Verbraucher (§ 13 BGB) gelten diese Allgemeinen Geschäftsbedingungen (AGB).
             Verbraucher ist jede natürliche Person, die ein Rechtsgeschäft zu Zwecken abschließt, die überwiegend weder ihrer gewerblichen
             noch ihrer selbständigen beruflichen Tätigkeit zugerechnet werden können.
         </p>
 
         <h3 className="text-lg font-bold text-gray-900 mt-4">2. Vertragspartner</h3>
         <p>
-            Der Kaufvertrag kommt zustande mit der gasmöller GmbH, Geschäftsführer: Thomas Möller, Musterstraße 1, 12345 Musterstadt, Handelsregister: Amtsgericht Kiel, HRB 12345.
+            Der Kaufvertrag kommt zustande mit der gasmöller, Geschäftsführer: Thomas Möller, Musterstraße 1, 12345 Musterstadt.
         </p>
 
         <h3 className="text-lg font-bold text-gray-900 mt-4">3. Vertragsabschluss</h3>
