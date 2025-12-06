@@ -1,93 +1,136 @@
-import fs from 'node:fs/promises';
+// Pre-render script for SSG
+import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-
-// Use dynamic imports for local source files to ensure we use the fresh versions or standard ES modules
-// Note: We are assuming these files are pure JS and don't import CSS/Images which Node would fail on.
-// If they did, we would need to rely on the built version or mock them.
-// Checked: tanks.js and seoData.js are pure JS.
 import { tankDetails } from './src/data/tanks.js';
 import { getSeoForPath, getSchemaForPath } from './src/data/seoData.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const toAbsolute = (p) => path.resolve(__dirname, p);
 
-const template = await fs.readFile(toAbsolute('dist/client/index.html'), 'utf-8');
+// Ensure dist/client exists
+if (!fs.existsSync(toAbsolute('dist/client'))) {
+    console.error("Error: dist/client does not exist. Please run 'npm run build:client' first.");
+    process.exit(1);
+}
+
+const template = fs.readFileSync(toAbsolute('dist/client/index.html'), 'utf-8');
 const { render } = await import('./dist/server/entry-server.js');
 
-// Define routes to prerender
+// Define routes to pre-render
 const routesToPrerender = [
     '/',
     '/start',
-    '/tanks',
     '/gas',
-    '/rechner',
-    '/gewerbe',
+    '/tanks',
     '/wissen',
+    '/gewerbe',
     '/ueber-uns',
     '/kontakt',
-    '/pruefungen'
+    '/rechner',
+    '/pruefungen',
+    // Dynamic routes
+    ...tankDetails.map(t => `/tanks/${t.slug}`)
 ];
 
-// Add dynamic tank routes
-tankDetails.forEach(tank => {
-    routesToPrerender.push(`/tanks/${tank.slug}`);
-});
-
-console.log(`Starting prerender for ${routesToPrerender.length} routes...`);
-
 (async () => {
-  for (const url of routesToPrerender) {
-    try {
-        // 1. Render the app HTML
-        const context = {};
-        const appHtml = render(url, context);
-        // Note: entry-server.jsx render returns { html } object
-        const html = appHtml.html;
+    // Determine output directory
+    const distClient = toAbsolute('dist/client');
+    const sitemapUrls = [];
 
-        // 2. Get SEO Data
-        const seoInfo = getSeoForPath(url);
-        const schemaJson = JSON.stringify(getSchemaForPath(url));
+    for (const url of routesToPrerender) {
+        // Render app HTML
+        const { html } = render(url);
 
-        // 3. Inject into template
-        let rendered = template.replace('<!--app-html-->', html);
+        // Get SEO Data
+        const seoData = getSeoForPath(url);
+        const schemaData = getSchemaForPath(url);
 
-        // Replace Title
-        // Use regex to be safe against existing title tag content
-        rendered = rendered.replace(/<title>.*?<\/title>/, `<title>${seoInfo.title}</title>`);
+        // Inject into template
+        let pageHtml = template.replace('<!--app-html-->', html);
 
-        // Replace Description
-        // If meta description exists, replace content. If not, append to head (though index.html usually has it).
-        if (rendered.includes('<meta name="description"')) {
-            rendered = rendered.replace(
-                /<meta name="description" content=".*?"/,
-                `<meta name="description" content="${seoInfo.description}"`
-            );
-        } else {
-            rendered = rendered.replace('</head>', `<meta name="description" content="${seoInfo.description}"></head>`);
+        // --- SEO Injection ---
+
+        // 1. Title
+        if (seoData.title) {
+            pageHtml = pageHtml.replace(/<title>.*?<\/title>/, `<title>${seoData.title}</title>`);
         }
 
-        // Inject Schema.org JSON-LD
-        // We append it before closing head
-        rendered = rendered.replace('</head>', `<script type="application/ld+json">${schemaJson}</script></head>`);
+        // 2. Meta Description
+        if (seoData.description) {
+            const descTag = `<meta name="description" content="${seoData.description}">`;
+            if (pageHtml.includes('<meta name="description"')) {
+                pageHtml = pageHtml.replace(/<meta name="description" content=".*?">/, descTag);
+            } else {
+                pageHtml = pageHtml.replace('</head>', `${descTag}</head>`);
+            }
+        }
 
-        // 4. Determine output path
-        let filePath = `dist/client${url === '/' ? '/index.html' : `${url}/index.html`}`;
+        // 3. Open Graph & Twitter Cards
+        const ogTags = `
+    <meta property="og:type" content="${seoData.type || 'website'}" />
+    <meta property="og:title" content="${seoData.title}" />
+    <meta property="og:description" content="${seoData.description}" />
+    <meta property="og:url" content="${seoData.url}" />
+    <meta property="og:image" content="${seoData.image}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${seoData.title}" />
+    <meta name="twitter:description" content="${seoData.description}" />
+    <meta name="twitter:image" content="${seoData.image}" />
+    <link rel="canonical" href="${seoData.url}" />
+        `;
+        pageHtml = pageHtml.replace('</head>', `${ogTags}</head>`);
 
-        // Ensure directory exists
-        const dir = path.dirname(toAbsolute(filePath));
-        await fs.mkdir(dir, { recursive: true });
+        // 4. Schema.org JSON-LD
+        const schemaScript = `<script type="application/ld+json">${JSON.stringify(schemaData)}</script>`;
+        pageHtml = pageHtml.replace('</head>', `${schemaScript}</head>`);
 
-        // 5. Write file
-        await fs.writeFile(toAbsolute(filePath), rendered);
-        console.log(`Generated: ${filePath}`);
+        // --- File Writing ---
 
-    } catch (e) {
-        console.error(`Error prerendering ${url}:`, e);
+        // Determine file path
+        let fileName = url === '/' ? 'index.html' : `${url === '/start' ? 'index' : url.substring(1)}.html`;
+
+        // Handle nested routes (e.g. /tanks/slug)
+        if (url.split('/').length > 2) {
+             const parts = url.split('/').filter(p => p);
+             const dir = parts.slice(0, -1).join('/');
+             const file = parts[parts.length - 1];
+
+             const targetDir = path.join(distClient, dir);
+             if (!fs.existsSync(targetDir)) {
+                 fs.mkdirSync(targetDir, { recursive: true });
+             }
+             fileName = `${dir}/${file}.html`;
+        }
+
+        const filePath = path.join(distClient, fileName);
+
+        console.log(`Prerendering ${url} to ${fileName}...`);
+        fs.writeFileSync(filePath, pageHtml);
+
+        // Add to sitemap list (skip duplicate /start if / is present, or keep both? Canonical handles it)
+        // We will prefer the cleaner URLs (no /start if / is there, but here we render both)
+        // Let's rely on canonicals.
+        if (url !== '/start') { // Skip /start as it is same as /
+             sitemapUrls.push(seoData.url);
+        } else if (url === '/' && !sitemapUrls.includes(seoData.url)) {
+             sitemapUrls.push(seoData.url);
+        }
     }
-  }
 
-  console.log('Prerender complete.');
-  // Optional: Remove dist/server if you want a clean static output
-  // await fs.rm(toAbsolute('dist/server'), { recursive: true, force: true });
+    // --- Generate Sitemap.xml ---
+    console.log('Generating sitemap.xml...');
+    const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemapUrls.map(u => `  <url>
+    <loc>${u}</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>${u === 'https://www.gasmoeller.de' ? '1.0' : '0.8'}</priority>
+  </url>`).join('\n')}
+</urlset>`;
+
+    fs.writeFileSync(path.join(distClient, 'sitemap.xml'), sitemapContent);
+
+    console.log('Prerendering complete.');
 })();
