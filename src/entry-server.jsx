@@ -3,10 +3,10 @@ import ReactDOMServer from 'react-dom/server'
 import App from './App'
 import './index.css'
 
-export function render(url) {
+export function render(url, context = {}) {
   const html = ReactDOMServer.renderToString(
     <React.StrictMode>
-      <App path={url} />
+      <App path={url} context={context} />
     </React.StrictMode>
   )
   return { html }

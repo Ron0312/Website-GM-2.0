@@ -9,6 +9,12 @@ const GasOrderSection = ({ onCheckAvailability }) => {
     const [plz, setPlz] = useState('');
     const [plzError, setPlzError] = useState('');
     const [isChecking, setIsChecking] = useState(false);
+    const [consent, setConsent] = useState(false); // Used if we were submitting directly, but here we just check availability.
+    // The actual form is in WizardModal, but let's keep consistent if this form submits data.
+    // Here we just "Check Availability" which opens the wizard. The Wizard has the form.
+    // So no consent needed here for the "Check" button itself as it doesn't submit personal data yet.
+    // However, if we want to be super strict, we could add it, but it's UX friction for a calculator.
+    // The wizard will handle consent.
 
     const handleCheck = async () => {
         const error = getPlzError(plz);

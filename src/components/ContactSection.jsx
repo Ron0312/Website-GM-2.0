@@ -7,6 +7,7 @@ const ContactSection = () => {
     const [plzError, setPlzError] = useState('');
     const [honeypot, setHoneypot] = useState('');
     const [status, setStatus] = useState('idle'); // idle, loading, success, error
+    const [consent, setConsent] = useState(false);
 
     const handlePlzChange = (e) => {
         const val = e.target.value;
@@ -21,6 +22,7 @@ const ContactSection = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (honeypot) return;
+        if (!consent) return;
 
         setStatus('loading');
 
@@ -40,6 +42,7 @@ const ContactSection = () => {
                 setStatus('success');
                 form.reset();
                 setPlz('');
+                setConsent(false);
             } else {
                 setStatus('error');
             }
@@ -77,8 +80,8 @@ const ContactSection = () => {
                                 onChange={(e) => setHoneypot(e.target.value)}
                             />
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Name</label><input type="text" name="name" autoComplete="name" required className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" /></div>
-                                <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Telefon</label><input type="tel" name="phone" autoComplete="tel" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" /></div>
+                                <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Name</label><input type="text" name="name" autoComplete="name" required className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" /></div>
+                                <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Telefon</label><input type="tel" name="phone" autoComplete="tel" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" /></div>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
@@ -90,14 +93,28 @@ const ContactSection = () => {
                                         value={plz}
                                         onChange={handlePlzChange}
                                         maxLength={5}
-                                        className={`w-full px-4 py-3 bg-gray-50 border rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all ${plzError ? 'border-red-300 bg-red-50 text-red-900' : 'border-gray-200'}`}
+                                        className={`w-full px-4 py-3 bg-gray-50 border rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans ${plzError ? 'border-red-300 bg-red-50 text-red-900' : 'border-gray-200'}`}
                                     />
                                     {plzError && <p className="text-red-500 text-xs mt-1 font-bold">{plzError}</p>}
                                 </div>
-                                <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">E-Mail</label><input type="email" name="email" autoComplete="email" required className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" /></div>
+                                <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">E-Mail</label><input type="email" name="email" autoComplete="email" required className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" /></div>
                             </div>
-                            <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Betreff</label><input type="text" name="subject" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" /></div>
-                            <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Nachricht</label><textarea name="message" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all h-32"></textarea></div>
+                            <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Betreff</label><input type="text" name="subject" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" /></div>
+                            <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Nachricht</label><textarea name="message" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all h-32 font-sans"></textarea></div>
+
+                            <div className="flex items-start gap-3">
+                                <input
+                                    type="checkbox"
+                                    id="contact-consent"
+                                    checked={consent}
+                                    onChange={(e) => setConsent(e.target.checked)}
+                                    className="mt-1 w-5 h-5 text-gas border-gray-300 rounded focus:ring-gas"
+                                    required
+                                />
+                                <label htmlFor="contact-consent" className="text-sm text-gray-600">
+                                    Ich stimme zu, dass meine Angaben zur Kontaktaufnahme und Zuordnung für eventuelle Rückfragen dauerhaft gespeichert werden. Sie können diese Einwilligung jederzeit widerrufen. Weitere Informationen finden Sie in der <button type="button" onClick={() => window.openPrivacy?.()} className="text-gas hover:underline">Datenschutzerklärung</button>.
+                                </label>
+                            </div>
 
                             {status === 'error' && (
                                 <div className="bg-red-50 text-red-600 p-4 rounded-lg text-sm text-center">
@@ -107,7 +124,7 @@ const ContactSection = () => {
 
                             <button
                                 type="submit"
-                                disabled={status === 'loading'}
+                                disabled={status === 'loading' || !consent}
                                 className="w-full bg-gas hover:bg-gas-dark text-white font-bold py-4 rounded-lg transition-all uppercase tracking-wide shadow-lg hover:shadow-xl transform active:scale-95 flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed"
                             >
                                 {status === 'loading' ? <Loader2 size={24} className="animate-spin" /> : 'Anfrage absenden'}

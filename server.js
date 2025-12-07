@@ -13,6 +13,14 @@ async function createServer() {
 
   const isProd = process.env.NODE_ENV === 'production'
 
+  // Security Headers (Basic)
+  app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+    next();
+  });
+
   let vite
   if (!isProd) {
     const { createServer: createViteServer } = await import('vite')
@@ -32,13 +40,23 @@ async function createServer() {
   }
 
   // Import SEO Data
-  // Dynamic import to handle module context
   const { getSeoForPath, getSchemaForPath } = await import('./src/data/seoData.js');
 
   app.use(async (req, res) => {
     const url = req.originalUrl
 
     try {
+        let tryFile = url === '/' ? 'index.html' : (url.endsWith('/') ? url + 'index.html' : url + '.html');
+        // Handle tank slugs /tanks/slug -> /tanks/slug.html
+        if (!tryFile.endsWith('.html') && !tryFile.includes('.')) tryFile += '.html';
+
+        if (isProd) {
+            const possibleStaticPath = path.join(__dirname, 'dist/client', tryFile.replace(/^\//, ''));
+            if (fs.existsSync(possibleStaticPath)) {
+                return res.sendFile(possibleStaticPath);
+            }
+        }
+
         // Determine SEO Data based on URL
         let seoInfo;
         let schemaJson;
@@ -57,7 +75,6 @@ async function createServer() {
             schemaJson = '{}';
         }
 
-    // Construct Meta Tags
     const isHomePage = url === '/' || url === '/index.html';
     const preloadLink = isHomePage ? '<link rel="preload" as="image" href="/images/gas-order-hero.webp">' : '';
 
@@ -87,97 +104,28 @@ async function createServer() {
 
       if (!isProd) {
         templatePath = path.resolve(__dirname, 'views/index.ejs')
-        // Check if ejs view exists, otherwise fallback to index.html pattern
         if (fs.existsSync(templatePath)) {
              template = fs.readFileSync(templatePath, 'utf-8')
-             // EJS Render logic...
-             // For brevity and consistency, let's assume index.html via Vite is the main path for Dev as well,
-             // unless views/index.ejs is specifically used.
-             // The original code tried ejs first.
-             // If we use index.html in dev, we need to inject manually like in prerender.
         } else {
-            // Fallback to src/index.html
             template = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf-8')
         }
 
-        // Inject logic for Dev (simulating Prerender logic)
-        // 1. Title
         template = template.replace(/<title>.*?<\/title>/, `<title>${siteData.title}</title>`);
-
-        // 2. Meta Desc (Regex replace or append)
         if (template.includes('<meta name="description"')) {
             template = template.replace(/<meta name="description" content=".*?">/, `<meta name="description" content="${siteData.description}">`);
         } else {
             template = template.replace('</head>', `<meta name="description" content="${siteData.description}"></head>`);
         }
-
-        // 3. Meta Tags (OG/Twitter)
         template = template.replace('</head>', `${siteData.metaTags}</head>`);
-
-        // 4. Schema
         template = template.replace('</head>', `<script type="application/ld+json">${siteData.schema}</script></head>`);
 
-        // Vite Transform
         template = await vite.transformIndexHtml(url, template)
-
         render = (await vite.ssrLoadModule('/src/entry-server.jsx')).render
       } else {
         templatePath = path.resolve(__dirname, 'dist/client/index.html')
         template = fs.readFileSync(templatePath, 'utf-8')
-
-        // In Prod with SSG, the HTML might already be pre-rendered.
-        // If we are using this server to serve dynamic content or fallback, we might need to inject.
-        // However, if we use `express.static` above for dist/client, this block might only be reached for 404s or non-static routes.
-        // But the `express.static` has `index: false`, so root / hits this handler.
-        // So we are serving the file, but we want to potentially Hydrate it?
-        // Actually, for SSG, we should just serve the file from disk if it exists.
-        // But `server.js` here seems to be designed for SSR (rendering on demand).
-        // If we want "High-End SEO" with SSG, we should trust the pre-rendered HTML files.
-        // BUT, the existing logic re-renders.
-
-        // If the file exists in dist/client (e.g. gas.html), we should serve it directly?
-        // The current logic loads `dist/client/index.html` (the template) and re-renders using SSR.
-        // This defeats the purpose of SSG if we do it for every request.
-        // Ideally: Check if pre-rendered file exists -> Serve it.
-        // If not -> SSR.
-
-        // Let's implement that check for "High End" performance.
-        let tryFile = url === '/' ? 'index.html' : (url.endsWith('/') ? url + 'index.html' : url + '.html');
-        // Handle tank slugs /tanks/slug -> /tanks/slug.html
-        if (!tryFile.endsWith('.html') && !tryFile.includes('.')) tryFile += '.html';
-
-        const possibleStaticPath = path.join(__dirname, 'dist/client', tryFile.replace(/^\//, ''));
-        if (fs.existsSync(possibleStaticPath)) {
-            return res.sendFile(possibleStaticPath);
-        }
-
-        // 404 Fallback for Static Generation
-        // If the URL was not found as a static file, check if it's a valid CSR route or just a 404
-        // For simplicity in this hybrid setup, if we can't find the file, we can fall back to SSR
-        // OR serve the 404.html if it exists.
-
-        // However, we want to support dynamic routes via SSR if needed.
-        // But in our case, we pre-render almost everything.
-
-        // If it's a known invalid route, serve 404.html
-        // But App.jsx handles 404 logic too.
-
-        // If we are here, it means no static file exists for this URL.
-        // We proceed to SSR to let React App decide if it's a valid dynamic route or 404.
-
-        // OPTIMIZATION: If we know it's a 404 (e.g. not a dynamic route pattern),
-        // we could serve dist/client/404.html directly if it exists.
-        const path404 = path.join(__dirname, 'dist/client', '404.html');
-        if (fs.existsSync(path404)) {
-             // Let SSR handle it first to be dynamic?
-             // Actually, if we rely on App.jsx to render "NotFound", SSR will generate that HTML.
-             // But setting the status code is important for SEO.
-        }
-
-        // If not found statically, proceed to SSR (e.g. for dynamic routes not pre-rendered)
         render = (await import('./dist/server/entry-server.js')).render
 
-        // We need to inject tags into the template again if we are SSR-ing
         template = template.replace(/<title>.*?<\/title>/, `<title>${siteData.title}</title>`);
         if (template.includes('<meta name="description"')) {
             template = template.replace(/<meta name="description" content=".*?">/, `<meta name="description" content="${siteData.description}">`);
@@ -188,9 +136,16 @@ async function createServer() {
         template = template.replace('</head>', `<script type="application/ld+json">${siteData.schema}</script></head>`);
       }
 
-      const { html } = render(url)
+      // Context object for SSR to communicate status/redirects
+      const context = {};
+      const { html } = render(url, context);
+
+      if (context.status === 404) {
+          res.status(404);
+      }
+
       const htmlResponse = template.replace('<!--app-html-->', html)
-      res.status(200).set({ 'Content-Type': 'text/html' }).end(htmlResponse)
+      res.status(context.status || 200).set({ 'Content-Type': 'text/html' }).end(htmlResponse)
     } catch (e) {
       !isProd && vite.ssrFixStacktrace(e)
       console.log(e.stack)
