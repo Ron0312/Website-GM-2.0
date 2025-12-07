@@ -97,7 +97,7 @@ const Footer = ({ setActiveSection, openLegal }) => {
                 </div>
             </div>
             <div className="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-gray-800 text-center text-xs text-gray-600">
-                &copy; 2025 gasmöller GmbH. Alle Rechte vorbehalten.
+                &copy; 2025 Gas-Service Möller e.K. Alle Rechte vorbehalten.
             </div>
         </footer>
     );
