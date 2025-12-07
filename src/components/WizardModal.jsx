@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Check, Settings, Flame, Wrench, AlertTriangle, ArrowUpFromLine, ArrowDownToLine, Home, Building2, Factory } from 'lucide-react';
-import { validatePlz, getPlzError } from '../utils/validation';
+import { X, Check, Settings, Flame, Wrench, AlertTriangle, ArrowUpFromLine, ArrowDownToLine, Home, Building2, Factory, Sparkles, RefreshCw, Info } from 'lucide-react';
+import { getPlzError } from '../utils/validation';
 import ModernInput from './ui/ModernInput';
 import SelectionCard from './ui/SelectionCard';
 
@@ -12,8 +12,9 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
     // 1: PLZ
     // 2: Main Category (Tank, Gas, Service)
     // 3: Sub Category (Tank: Ober/Unter, Gas: Details, Service: Details)
-    // 4: Details (Tank: Size/Building) OR Contact (Gas/Service)
-    // 5: Contact (Tank)
+    // 4: Tank Condition (NEW STEP) OR Contact (Gas/Service)
+    // 5: Project Details (Tank)
+    // 6: Contact (Tank)
     const [step, setStep] = useState(1);
     const [type, setType] = useState(initialType);
     const [plz, setPlz] = useState('');
@@ -70,13 +71,15 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
         } else if (step === 3) {
             if (type === 'tank') {
                 if (!installationType) return; // Must select type
-                setStep(4); // Go to Tank Details
+                setStep(4); // Go to Tank Condition
             } else {
                 setStep(4); // Go to Contact for Gas/Service
             }
         } else if (step === 4) {
-             if (type === 'tank') setStep(5); // Go to Contact
+             if (type === 'tank') setStep(5); // Go to Project Details
              else handleSubmitWrapper(); // Submit for Gas/Service (handled in form but just in case)
+        } else if (step === 5) {
+             if (type === 'tank') setStep(6); // Go to Contact
         }
     };
 
@@ -137,7 +140,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
         }
     };
 
-    const totalSteps = type === 'tank' ? 5 : 4;
+    const totalSteps = type === 'tank' ? 6 : 4;
     const progress = (step / totalSteps) * 100;
 
     if (!isOpen) return null;
@@ -361,74 +364,45 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                     </motion.div>
                                 )}
 
-                                {/* STEP 4: TANK DETAILS OR CONTACT (For Gas/Service) */}
+                                {/* STEP 4: TANK CONDITION (Only for Tank) OR CONTACT (For Gas/Service) */}
                                 {step === 4 && (
                                     <motion.div key="step4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                                         {type === 'tank' ? (
-                                            /* Tank Specific Details */
                                             <>
-                                                <h3 className="text-2xl font-bold text-center mb-6 text-gray-900">Projekt Details</h3>
-                                                <div className="space-y-6 max-w-md mx-auto">
-                                                    <div>
-                                                        <label className="block text-sm font-bold text-gray-700 mb-2">Art des Gebäudes</label>
-                                                        <div className="grid grid-cols-1 gap-3">
-                                                            {[
-                                                                { id: 'bestand', label: 'Haus (Bestand)', icon: Home },
-                                                                { id: 'neubau', label: 'Neubau', icon: Building2 },
-                                                                { id: 'gewerbe', label: 'Gewerbe', icon: Factory }
-                                                            ].map(b => (
-                                                                <button
-                                                                    key={b.id}
-                                                                    type="button"
-                                                                    onClick={() => setDetails({...details, building: b.label})}
-                                                                    className={`flex items-center p-4 rounded-xl border-2 transition-all ${details.building === b.label ? 'border-gas bg-gas-light/20 text-gas' : 'border-gray-100 hover:border-gas-light'}`}
-                                                                >
-                                                                    <b.icon size={20} className="mr-3" />
-                                                                    <span className="font-bold">{b.label}</span>
-                                                                    {details.building === b.label && <Check size={16} className="ml-auto" />}
-                                                                </button>
-                                                            ))}
+                                                <h3 className="text-2xl font-bold text-center mb-4 text-gray-900">Zustand des Tanks</h3>
+                                                <p className="text-center text-gray-500 mb-8 max-w-sm mx-auto">Wählen Sie zwischen einem fabrikneuen oder einem professionell aufbereiteten Tank.</p>
+
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                                    <SelectionCard
+                                                        title="Neu"
+                                                        description="Fabrikneuer Tank"
+                                                        icon={Sparkles}
+                                                        selected={details.condition === 'Neu'}
+                                                        onClick={() => setDetails({...details, condition: 'Neu'})}
+                                                        className="h-48"
+                                                    />
+                                                    <div className="relative group">
+                                                        <SelectionCard
+                                                            title="Gebraucht"
+                                                            description="Geprüft & Aufbereitet"
+                                                            icon={RefreshCw}
+                                                            selected={details.condition === 'Gebraucht / Aufbereitet'}
+                                                            onClick={() => setDetails({...details, condition: 'Gebraucht / Aufbereitet'})}
+                                                            className="h-48"
+                                                        />
+                                                        {/* Info Box / Tooltip */}
+                                                        <div className="absolute -top-3 -right-3">
+                                                             <div className="bg-gas text-white rounded-full p-1 shadow-lg">
+                                                                 <Info size={16} />
+                                                             </div>
+                                                        </div>
+                                                        <div className="mt-3 bg-blue-50 p-3 rounded-xl border border-blue-100 text-xs text-blue-800 leading-relaxed">
+                                                            <strong>Spar-Tipp:</strong> Wir bereiten alte Tanks professionell auf (lackiert & geprüft). Eine nachhaltige und günstige Alternative!
                                                         </div>
                                                     </div>
-
-                                                    <div>
-                                                        <label className="block text-sm font-bold text-gray-700 mb-2">Gewünschte Tankgröße</label>
-                                                        <div className="grid grid-cols-3 gap-3">
-                                                            {[{l:'1,2 t', v:'1.2t'}, {l:'2,1 t', v:'2.1t'}, {l:'2,9 t', v:'2.9t'}].map((t) => (
-                                                                <button key={t.v} type="button" onClick={() => setDetails({...details, tankSize: t.v})} className={`p-3 rounded-xl border-2 text-center transition-all ${details.tankSize === t.v ? 'border-gas bg-gas text-white shadow-lg' : 'border-gray-100 hover:border-gas-light'}`}>
-                                                                    <div className="text-xs uppercase font-bold tracking-wider opacity-70 mb-1">Volumen</div>
-                                                                    <div className="font-extrabold text-lg">{t.l}</div>
-                                                                </button>
-                                                            ))}
-                                                        </div>
-                                                    </div>
-
-                                                    <div>
-                                                        <label className="block text-sm font-bold text-gray-700 mb-2">Zustand des Tanks</label>
-                                                        <div className="flex gap-4 mb-6">
-                                                            {['Neu', 'Gebraucht / Aufbereitet'].map((opt) => (
-                                                                <button key={opt} type="button" onClick={() => setDetails({...details, condition: opt})} className={`flex-1 py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${details.condition === opt ? 'border-gas bg-gas-light/20 text-gas' : 'border-gray-100 text-gray-500 hover:border-gas-light'}`}>{opt}</button>
-                                                            ))}
-                                                        </div>
-                                                    </div>
-
-                                                    <div>
-                                                        <label className="block text-sm font-bold text-gray-700 mb-2">Interesse an</label>
-                                                        <select
-                                                            name="interest"
-                                                            className="w-full p-4 border-2 border-gray-100 rounded-xl outline-none bg-white focus:border-gas transition-colors"
-                                                            onChange={(e) => setDetails({...details, interest: e.target.value})}
-                                                        >
-                                                            <option>Bitte wählen...</option>
-                                                            <option>Kauf (Eigentum)</option>
-                                                            <option>Miete</option>
-                                                            <option>Beratung gewünscht</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg shadow-gas/20 hover:bg-gas-dark transition-all mt-4">Weiter zu Kontakt</button>
-                                                    <button type="button" onClick={handleBack} className="w-full text-gray-400 hover:text-gray-600 font-bold mt-4">Zurück</button>
                                                 </div>
+                                                <button type="button" onClick={handleNext} disabled={!details.condition} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg shadow-gas/20 hover:bg-gas-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all mb-4">Weiter</button>
+                                                <button type="button" onClick={handleBack} className="w-full text-gray-400 hover:text-gray-600 font-bold">Zurück</button>
                                             </>
                                         ) : (
                                             /* CONTACT FORM for Gas/Service */
@@ -444,9 +418,78 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                     </motion.div>
                                 )}
 
-                                {/* STEP 5: CONTACT FORM (Only for Tank) */}
+                                {/* STEP 5: PROJECT DETAILS (Only for Tank) */}
                                 {step === 5 && type === 'tank' && (
                                     <motion.div key="step5" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+                                        <h3 className="text-2xl font-bold text-center mb-6 text-gray-900">Projekt Details</h3>
+                                        <div className="space-y-8 max-w-md mx-auto">
+
+                                            {/* Art des Gebäudes */}
+                                            <div>
+                                                <label className="block text-sm font-bold text-gray-700 mb-3 ml-1">Art des Gebäudes</label>
+                                                <div className="grid grid-cols-3 gap-3">
+                                                    {[
+                                                        { id: 'bestand', label: 'Haus', sub: '(Bestand)', icon: Home },
+                                                        { id: 'neubau', label: 'Neubau', sub: '', icon: Building2 },
+                                                        { id: 'gewerbe', label: 'Gewerbe', sub: '', icon: Factory }
+                                                    ].map(b => (
+                                                        <button
+                                                            key={b.id}
+                                                            type="button"
+                                                            onClick={() => setDetails({...details, building: b.label + (b.sub ? ' ' + b.sub : '')})}
+                                                            className={`flex flex-col items-center justify-center p-3 rounded-xl border-2 transition-all h-24 ${details.building === (b.label + (b.sub ? ' ' + b.sub : '')) ? 'border-gas bg-gas-light/20 text-gas' : 'border-gray-100 hover:border-gas-light text-gray-600'}`}
+                                                        >
+                                                            <b.icon size={24} className="mb-2" strokeWidth={1.5} />
+                                                            <span className="font-bold text-xs">{b.label}</span>
+                                                            {b.sub && <span className="text-[10px] opacity-70">{b.sub}</span>}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            {/* Tankgröße */}
+                                            <div>
+                                                <label className="block text-sm font-bold text-gray-700 mb-3 ml-1">Gewünschte Tankgröße</label>
+                                                <div className="grid grid-cols-3 gap-3">
+                                                    {[{l:'1,2 t', v:'1.2t', vol:'2.700 L'}, {l:'2,1 t', v:'2.1t', vol:'4.850 L'}, {l:'2,9 t', v:'2.9t', vol:'6.400 L'}].map((t) => (
+                                                        <button key={t.v} type="button" onClick={() => setDetails({...details, tankSize: t.v})} className={`p-3 rounded-xl border-2 text-center transition-all ${details.tankSize === t.v ? 'border-gas bg-gas text-white shadow-lg' : 'border-gray-100 hover:border-gas-light'}`}>
+                                                            <div className="font-extrabold text-lg">{t.l}</div>
+                                                            <div className={`text-[10px] font-bold tracking-wider uppercase mt-1 ${details.tankSize === t.v ? 'opacity-80' : 'text-gray-400'}`}>Volumen</div>
+                                                            <div className={`text-xs ${details.tankSize === t.v ? 'opacity-100' : 'text-gray-500'}`}>{t.vol}</div>
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            {/* Interesse */}
+                                            <div>
+                                                <label className="block text-sm font-bold text-gray-700 mb-3 ml-1">Interesse an</label>
+                                                <div className="grid grid-cols-1 gap-2">
+                                                    {['Kauf (Eigentum)', 'Miete', 'Beratung gewünscht'].map((opt) => (
+                                                        <button
+                                                            key={opt}
+                                                            type="button"
+                                                            onClick={() => setDetails({...details, interest: opt})}
+                                                            className={`w-full text-left px-5 py-4 rounded-xl border-2 font-bold transition-all flex justify-between items-center ${details.interest === opt ? 'border-gas bg-gas-light/20 text-gas' : 'border-gray-100 text-gray-600 hover:border-gas-light'}`}
+                                                        >
+                                                            {opt}
+                                                            {details.interest === opt && <Check size={18} />}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            <div className="pt-2">
+                                                <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg shadow-gas/20 hover:bg-gas-dark transition-all">Weiter zu Kontakt</button>
+                                                <button type="button" onClick={handleBack} className="w-full text-gray-400 hover:text-gray-600 font-bold mt-4">Zurück</button>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                )}
+
+                                {/* STEP 6: CONTACT FORM (Only for Tank) */}
+                                {step === 6 && type === 'tank' && (
+                                    <motion.div key="step6" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                                         <ContactForm
                                             contact={contact}
                                             setContact={setContact}
