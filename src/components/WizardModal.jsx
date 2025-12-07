@@ -146,7 +146,12 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md">
+        <div
+            className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="wizard-title"
+        >
             <motion.div
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -155,10 +160,10 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                 {/* Header */}
                 <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-white z-20">
                     <div>
-                        <h2 className="text-xl font-bold text-gray-900">Anfrage stellen</h2>
+                        <h2 id="wizard-title" className="text-xl font-bold text-gray-900">Anfrage stellen</h2>
                         <p className="text-sm text-gray-400">Schritt {step} von {totalSteps}</p>
                     </div>
-                    <button onClick={onClose} className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors">
+                    <button onClick={onClose} aria-label="Schließen" className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors">
                         <X size={24}/>
                     </button>
                 </div>

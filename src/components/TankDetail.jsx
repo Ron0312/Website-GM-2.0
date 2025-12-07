@@ -15,8 +15,34 @@ const TankDetail = ({ slug, onBack, openWizard }) => {
         );
     }
 
+    const productSchema = {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": tank.name,
+        "description": tank.description,
+        "image": tank.type === 'oberirdisch'
+            ? "https://www.gasmoeller.de/images/tanks/oberirdisch.webp"
+            : "https://www.gasmoeller.de/images/tanks/unterirdisch.webp", // Fallback logic mimicking SEO data
+        "brand": {
+            "@type": "Brand",
+            "name": "gasmöller"
+        },
+        "offers": {
+            "@type": "Offer",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock",
+            "price": "0.00" // Price is hidden/request only
+        },
+        "additionalProperty": Object.entries(tank.technicalData).map(([key, value]) => ({
+            "@type": "PropertyValue",
+            "name": key.replace(/([A-Z])/g, ' $1').trim(),
+            "value": value
+        }))
+    };
+
     return (
         <div className="pt-24 pb-20 bg-white">
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />
             {/* Breadcrumb / Back */}
             <div className="max-w-7xl mx-auto px-4 mb-8">
                 <button onClick={onBack} className="flex items-center text-gray-500 hover:text-gas font-medium transition-colors">
