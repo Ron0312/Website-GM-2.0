@@ -370,6 +370,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                 onClick: () => handleLinkClick(link),
                 "aria-expanded": openDropdown === link.id,
                 "aria-haspopup": !!link.subLinks,
+                "aria-label": link.label,
                 className: `
                                             ${activeSection === link.id || link.subLinks && activeSection.startsWith(link.id) ? "bg-white text-gas shadow-sm font-bold" : "text-gray-500 hover:text-gas hover:bg-white/50"}
                                             px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 flex items-center whitespace-nowrap
@@ -892,7 +893,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
   return /* @__PURE__ */ jsxs("section", { className: "bg-white", id: "tanks", children: [
     /* @__PURE__ */ jsxs("div", { className: "relative bg-gray-900 py-32 lg:py-48 overflow-hidden", children: [
       /* @__PURE__ */ jsxs("div", { className: "absolute inset-0 z-0", children: [
-        /* @__PURE__ */ jsx("img", { src: "https://images.unsplash.com/photo-1565514020176-db7936a7d512?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", alt: "Flüssiggastank im Garten", className: "w-full h-full object-cover opacity-40 mix-blend-overlay" }),
+        /* @__PURE__ */ jsx("img", { src: "/images/tank-section-background.jpg", alt: "Flüssiggastank im Garten", className: "w-full h-full object-cover opacity-40 mix-blend-overlay" }),
         /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent" })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 relative z-10 text-center", children: [
@@ -1141,7 +1142,7 @@ const InspectionSection = ({ openWizard }) => {
   return /* @__PURE__ */ jsxs("section", { id: "pruefungen", className: "bg-white", children: [
     /* @__PURE__ */ jsxs("div", { className: "relative bg-gray-900 py-32 lg:py-48 overflow-hidden", children: [
       /* @__PURE__ */ jsxs("div", { className: "absolute inset-0 z-0", children: [
-        /* @__PURE__ */ jsx("img", { src: "https://images.unsplash.com/photo-1621905251189-08b95d630445?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", alt: "Technische Prüfung Flüssiggastank", className: "w-full h-full object-cover opacity-30 mix-blend-overlay" }),
+        /* @__PURE__ */ jsx("img", { src: "/images/inspection-background.jpg", alt: "Technische Prüfung Flüssiggastank", className: "w-full h-full object-cover opacity-30 mix-blend-overlay" }),
         /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent" })
       ] }),
       /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 relative z-10 text-center", children: /* @__PURE__ */ jsxs(motion.div, { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.6 }, children: [
@@ -1374,6 +1375,7 @@ const ContactSection = () => {
   const [plzError, setPlzError] = useState("");
   const [honeypot, setHoneypot] = useState("");
   const [status, setStatus] = useState("idle");
+  const [consent, setConsent] = useState(false);
   const handlePlzChange = (e) => {
     const val = e.target.value;
     setPlz(val);
@@ -1386,6 +1388,7 @@ const ContactSection = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (honeypot) return;
+    if (!consent) return;
     setStatus("loading");
     const form = e.target;
     const formData = new FormData(form);
@@ -1402,6 +1405,7 @@ const ContactSection = () => {
         setStatus("success");
         form.reset();
         setPlz("");
+        setConsent(false);
       } else {
         setStatus("error");
       }
@@ -1435,11 +1439,11 @@ const ContactSection = () => {
         /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [
           /* @__PURE__ */ jsxs("div", { children: [
             /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "Name" }),
-            /* @__PURE__ */ jsx("input", { type: "text", name: "name", autoComplete: "name", required: true, className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" })
+            /* @__PURE__ */ jsx("input", { type: "text", name: "name", autoComplete: "name", required: true, className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" })
           ] }),
           /* @__PURE__ */ jsxs("div", { children: [
             /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "Telefon" }),
-            /* @__PURE__ */ jsx("input", { type: "tel", name: "phone", autoComplete: "tel", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" })
+            /* @__PURE__ */ jsx("input", { type: "tel", name: "phone", autoComplete: "tel", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" })
           ] })
         ] }),
         /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [
@@ -1454,30 +1458,51 @@ const ContactSection = () => {
                 value: plz,
                 onChange: handlePlzChange,
                 maxLength: 5,
-                className: `w-full px-4 py-3 bg-gray-50 border rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all ${plzError ? "border-red-300 bg-red-50 text-red-900" : "border-gray-200"}`
+                className: `w-full px-4 py-3 bg-gray-50 border rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans ${plzError ? "border-red-300 bg-red-50 text-red-900" : "border-gray-200"}`
               }
             ),
             plzError && /* @__PURE__ */ jsx("p", { className: "text-red-500 text-xs mt-1 font-bold", children: plzError })
           ] }),
           /* @__PURE__ */ jsxs("div", { children: [
             /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "E-Mail" }),
-            /* @__PURE__ */ jsx("input", { type: "email", name: "email", autoComplete: "email", required: true, className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" })
+            /* @__PURE__ */ jsx("input", { type: "email", name: "email", autoComplete: "email", required: true, className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" })
           ] })
         ] }),
         /* @__PURE__ */ jsxs("div", { children: [
           /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "Betreff" }),
-          /* @__PURE__ */ jsx("input", { type: "text", name: "subject", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all" })
+          /* @__PURE__ */ jsx("input", { type: "text", name: "subject", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" })
         ] }),
         /* @__PURE__ */ jsxs("div", { children: [
           /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "Nachricht" }),
-          /* @__PURE__ */ jsx("textarea", { name: "message", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all h-32" })
+          /* @__PURE__ */ jsx("textarea", { name: "message", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all h-32 font-sans" })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-3", children: [
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "checkbox",
+              id: "contact-consent",
+              checked: consent,
+              onChange: (e) => setConsent(e.target.checked),
+              className: "mt-1 w-5 h-5 text-gas border-gray-300 rounded focus:ring-gas",
+              required: true
+            }
+          ),
+          /* @__PURE__ */ jsxs("label", { htmlFor: "contact-consent", className: "text-sm text-gray-600", children: [
+            "Ich stimme zu, dass meine Angaben zur Kontaktaufnahme und Zuordnung für eventuelle Rückfragen dauerhaft gespeichert werden. Sie können diese Einwilligung jederzeit widerrufen. Weitere Informationen finden Sie in der ",
+            /* @__PURE__ */ jsx("button", { type: "button", onClick: () => {
+              var _a;
+              return (_a = window.openPrivacy) == null ? void 0 : _a.call(window);
+            }, className: "text-gas hover:underline", children: "Datenschutzerklärung" }),
+            "."
+          ] })
         ] }),
         status === "error" && /* @__PURE__ */ jsx("div", { className: "bg-red-50 text-red-600 p-4 rounded-lg text-sm text-center", children: "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut oder rufen Sie uns an." }),
         /* @__PURE__ */ jsx(
           "button",
           {
             type: "submit",
-            disabled: status === "loading",
+            disabled: status === "loading" || !consent,
             className: "w-full bg-gas hover:bg-gas-dark text-white font-bold py-4 rounded-lg transition-all uppercase tracking-wide shadow-lg hover:shadow-xl transform active:scale-95 flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed",
             children: status === "loading" ? /* @__PURE__ */ jsx(Loader2, { size: 24, className: "animate-spin" }) : "Anfrage absenden"
           }
@@ -1491,6 +1516,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
   const [plz, setPlz] = useState("");
   const [plzError, setPlzError] = useState("");
   const [isChecking, setIsChecking] = useState(false);
+  const [consent, setConsent] = useState(false);
   const handleCheck = async () => {
     const error = getPlzError(plz);
     if (error) {
@@ -1512,7 +1538,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
         /* @__PURE__ */ jsx(
           "img",
           {
-            src: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
+            src: "/images/gas-order-background.jpg",
             alt: "Hintergrund Gas Lieferung Norddeutschland",
             className: "w-full h-full object-cover absolute inset-0"
           }
@@ -1660,7 +1686,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
     /* @__PURE__ */ jsx("section", { className: "py-24 bg-white overflow-hidden", children: /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8", children: /* @__PURE__ */ jsxs("div", { className: "grid lg:grid-cols-2 gap-16 items-center", children: [
       /* @__PURE__ */ jsxs("div", { className: "relative rounded-2xl overflow-hidden shadow-2xl", children: [
         /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-gradient-to-tr from-gas-dark/20 to-transparent pointer-events-none" }),
-        /* @__PURE__ */ jsx("img", { src: "https://images.unsplash.com/photo-1621905251189-08b95d630445?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80", alt: "Sicherheitsprüfung Flüssiggastank", className: "w-full h-full object-cover transform hover:scale-105 transition-transform duration-700" })
+        /* @__PURE__ */ jsx("img", { src: "/images/inspection-background.jpg", alt: "Sicherheitsprüfung Flüssiggastank", className: "w-full h-full object-cover transform hover:scale-105 transition-transform duration-700" })
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("div", { className: "inline-block px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-bold mb-6", children: "DIN 51622" }),
@@ -3298,21 +3324,28 @@ const ContactForm = ({ contact, setContact, plz, submitting, handleBack, stepNam
   ] })
 ] });
 const CookieBanner = () => {
-  const [accepted, setAccepted] = useState(true);
+  const [visible, setVisible] = useState(false);
+  const [consentLevel, setConsentLevel] = useState(null);
   useEffect(() => {
-    const stored = localStorage.getItem("gas_cookie");
-    setAccepted(stored === "true");
+    const stored = localStorage.getItem("gas_cookie_consent");
+    if (stored) {
+      setConsentLevel(stored);
+    } else {
+      setVisible(true);
+    }
   }, []);
-  const accept = () => {
-    setAccepted(true);
-    localStorage.setItem("gas_cookie", "true");
+  const handleConsent = (level) => {
+    setConsentLevel(level);
+    localStorage.setItem("gas_cookie_consent", level);
+    setVisible(false);
   };
-  if (accepted) return null;
-  return /* @__PURE__ */ jsxs("div", { className: "fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 z-[70] shadow-[0_-4px_20px_rgba(0,0,0,0.1)] flex flex-col md:flex-row items-center justify-between gap-4", children: [
-    /* @__PURE__ */ jsx("div", { className: "text-sm text-gray-600 max-w-2xl", children: "Wir nutzen Cookies, um Ihnen die bestmögliche Erfahrung zu bieten. Dazu zählen essentielle Cookies für die Funktion der Website sowie Analyse-Tools." }),
-    /* @__PURE__ */ jsxs("div", { className: "flex gap-4", children: [
-      /* @__PURE__ */ jsx("button", { onClick: accept, className: "bg-gas text-white px-6 py-2 rounded-lg font-bold hover:bg-gas-dark transition-all text-sm", children: "Alles akzeptieren" }),
-      /* @__PURE__ */ jsx("button", { onClick: accept, className: "text-gray-500 hover:text-gray-800 text-sm font-bold", children: "Nur Essentielle" })
+  if (!visible) return null;
+  return /* @__PURE__ */ jsxs("div", { className: "fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 z-[70] shadow-[0_-4px_20px_rgba(0,0,0,0.1)] flex flex-col md:flex-row items-center justify-between gap-4 animate-in slide-in-from-bottom-10 fade-in duration-500", children: [
+    /* @__PURE__ */ jsx("div", { className: "text-sm text-gray-600 max-w-2xl", children: "Wir nutzen Cookies, um Ihnen die bestmögliche Erfahrung zu bieten. Wir verwenden technisch notwendige Cookies und, mit Ihrer Einwilligung, externe Dienste (z.B. Karten)." }),
+    /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap justify-center gap-3", children: [
+      /* @__PURE__ */ jsx("button", { onClick: () => handleConsent("essential"), className: "px-4 py-2 text-sm font-bold text-gray-500 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors", children: "Ablehnen" }),
+      /* @__PURE__ */ jsx("button", { onClick: () => handleConsent("essential"), className: "px-4 py-2 text-sm font-bold text-gas hover:bg-gas-light/20 rounded-lg transition-colors", children: "Nur Essentielle" }),
+      /* @__PURE__ */ jsx("button", { onClick: () => handleConsent("all"), className: "bg-gas text-white px-6 py-2 rounded-lg font-bold hover:bg-gas-dark transition-all text-sm shadow-md hover:shadow-lg", children: "Alles akzeptieren" })
     ] })
   ] });
 };
@@ -3465,7 +3498,7 @@ const TermsContent = () => /* @__PURE__ */ jsxs("div", { className: "space-y-4 t
     "."
   ] })
 ] });
-const App = ({ path }) => {
+const App = ({ path, context }) => {
   const getInitialSection = () => {
     if (path) {
       const p = path.replace(/^\//, "").toLowerCase();
@@ -3543,6 +3576,9 @@ const App = ({ path }) => {
     }
     const validSections = ["start", "tanks", "gas", "rechner", "gewerbe", "wissen", "ueber-uns", "kontakt", "pruefungen"];
     if (!validSections.includes(activeSection)) {
+      if (context) {
+        context.status = 404;
+      }
       return /* @__PURE__ */ jsxs(Fragment, { children: [
         /* @__PURE__ */ jsx("div", { className: "pt-20" }),
         /* @__PURE__ */ jsx(NotFound, { onGoHome: () => changeSection("start") }),
@@ -3633,9 +3669,9 @@ const App = ({ path }) => {
     /* @__PURE__ */ jsx(ScrollToTop, {})
   ] });
 };
-function render(url) {
+function render(url, context = {}) {
   const html = ReactDOMServer.renderToString(
-    /* @__PURE__ */ jsx(React.StrictMode, { children: /* @__PURE__ */ jsx(App, { path: url }) })
+    /* @__PURE__ */ jsx(React.StrictMode, { children: /* @__PURE__ */ jsx(App, { path: url, context }) })
   );
   return { html };
 }
