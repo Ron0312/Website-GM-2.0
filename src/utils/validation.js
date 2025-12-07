@@ -10,7 +10,7 @@ export const getPlzError = (plz) => {
         return 'Bitte geben Sie eine gültige 5-stellige PLZ ein.';
     }
     if (!validatePlz(plz)) {
-        return 'Leider liefern wir aktuell nur in unserem Liefergebiet (Norddeutschland).';
+        return 'Leider liefern wir noch nicht in dieses Gebiet.';
     }
     return '';
 };
