@@ -14,6 +14,16 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Lock body scroll when mobile menu is open
+    useEffect(() => {
+        if (mobileMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => { document.body.style.overflow = ''; };
+    }, [mobileMenuOpen]);
+
     const toggleMobileItem = (id) => {
         setExpandedMobileItems(prev => ({
             ...prev,
@@ -183,7 +193,22 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
 
             <AnimatePresence>
                 {mobileMenuOpen && (
-                    <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="xl:hidden bg-white border-t border-gray-100 absolute w-full shadow-2xl overflow-hidden z-40 max-h-[85vh] overflow-y-auto">
+                    <>
+                        {/* Overlay */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="fixed inset-0 bg-black/50 z-30 xl:hidden"
+                            onClick={() => setMobileMenuOpen(false)}
+                        />
+                        {/* Menu */}
+                        <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="xl:hidden bg-white border-t border-gray-100 absolute w-full shadow-2xl overflow-hidden z-40 max-h-[85vh] overflow-y-auto"
+                        >
                         <div className="p-4 space-y-2">
                             {navLinks.map((link) => (
                                 <div key={link.id} className="bg-gray-50 rounded-xl overflow-hidden">
@@ -255,7 +280,8 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                 Jetzt Angebot anfordern
                             </button>
                         </div>
-                    </motion.div>
+                        </motion.div>
+                    </>
                 )}
             </AnimatePresence>
         </div>

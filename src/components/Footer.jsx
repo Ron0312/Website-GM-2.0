@@ -61,6 +61,10 @@ const Footer = ({ setActiveSection, openLegal }) => {
                         <li><button onClick={() => openLegal('imprint')} className="hover:text-white transition-colors text-left">Impressum</button></li>
                         <li><button onClick={() => openLegal('privacy')} className="hover:text-white transition-colors text-left">Datenschutz</button></li>
                         <li><button onClick={() => openLegal('terms')} className="hover:text-white transition-colors text-left">AGB</button></li>
+                        <li><button onClick={() => {
+                            const event = new CustomEvent('openCookieBanner');
+                            window.dispatchEvent(event);
+                        }} className="hover:text-white transition-colors text-left">Cookie-Einstellungen</button></li>
                     </ul>
                 </div>
                 <div>

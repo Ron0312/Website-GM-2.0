@@ -6,6 +6,10 @@ const CookieBanner = () => {
     useEffect(() => {
         const stored = localStorage.getItem('gas_cookie');
         setAccepted(stored === 'true');
+
+        const handleOpen = () => setAccepted(false);
+        window.addEventListener('openCookieBanner', handleOpen);
+        return () => window.removeEventListener('openCookieBanner', handleOpen);
     }, []);
 
     const accept = () => {

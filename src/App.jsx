@@ -145,7 +145,7 @@ const App = ({ path }) => {
     return (
         <div className="min-h-screen flex flex-col bg-white">
             <Navigation activeSection={activeSection} setActiveSection={changeSection} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} openWizard={openWizard} />
-            <main className="flex-grow">{renderSection()}</main>
+            <main id="main-content" className="flex-grow focus:outline-none" tabIndex="-1">{renderSection()}</main>
             <Footer setActiveSection={changeSection} openLegal={openLegal} />
             <WizardModal isOpen={wizardOpen} onClose={() => setWizardOpen(false)} initialType={wizardType} initialData={wizardData} />
             <CookieBanner />

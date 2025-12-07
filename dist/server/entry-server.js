@@ -299,6 +299,16 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
   const toggleMobileItem = (id) => {
     setExpandedMobileItems((prev) => ({
       ...prev,
@@ -444,78 +454,99 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
       ] }),
       /* @__PURE__ */ jsx("div", { className: "xl:hidden flex items-center", children: /* @__PURE__ */ jsx("button", { onClick: () => setMobileMenuOpen(!mobileMenuOpen), "aria-label": mobileMenuOpen ? "Menü schließen" : "Menü öffnen", "aria-expanded": mobileMenuOpen, className: "text-gray-800 hover:text-gas p-2", children: mobileMenuOpen ? /* @__PURE__ */ jsx(X, { size: 28 }) : /* @__PURE__ */ jsx(Menu, { size: 28 }) }) })
     ] }) }) }),
-    /* @__PURE__ */ jsx(AnimatePresence, { children: mobileMenuOpen && /* @__PURE__ */ jsx(motion.div, { initial: { opacity: 0, height: 0 }, animate: { opacity: 1, height: "auto" }, exit: { opacity: 0, height: 0 }, className: "xl:hidden bg-white border-t border-gray-100 absolute w-full shadow-2xl overflow-hidden z-40 max-h-[85vh] overflow-y-auto", children: /* @__PURE__ */ jsxs("div", { className: "p-4 space-y-2", children: [
-      navLinks.map((link) => /* @__PURE__ */ jsxs("div", { className: "bg-gray-50 rounded-xl overflow-hidden", children: [
-        /* @__PURE__ */ jsxs(
-          "button",
-          {
-            onClick: () => {
-              if (!link.subLinks) {
-                setActiveSection(link.id);
-                setMobileMenuOpen(false);
-              } else {
-                toggleMobileItem(link.id);
-              }
-            },
-            "aria-expanded": !!expandedMobileItems[link.id],
-            className: "w-full text-left px-5 py-4 text-lg font-bold text-gray-900 flex justify-between items-center hover:bg-gray-100 transition-colors",
-            children: [
-              link.label,
-              link.subLinks && /* @__PURE__ */ jsx(ChevronDown, { size: 20, className: `text-gray-400 transition-transform duration-300 ${expandedMobileItems[link.id] ? "rotate-180" : ""}` })
-            ]
-          }
-        ),
-        /* @__PURE__ */ jsx(AnimatePresence, { children: link.subLinks && expandedMobileItems[link.id] && /* @__PURE__ */ jsx(
-          motion.div,
-          {
-            initial: { height: 0, opacity: 0 },
-            animate: { height: "auto", opacity: 1 },
-            exit: { height: 0, opacity: 0 },
-            className: "border-t border-gray-200/50",
-            children: /* @__PURE__ */ jsx("div", { className: "px-5 py-4 space-y-4 bg-gray-50/50", children: link.dropdownType === "mega" ? link.subLinks.map((group, idx) => /* @__PURE__ */ jsxs("div", { className: "mb-4 last:mb-0", children: [
-              /* @__PURE__ */ jsxs("div", { className: "text-xs font-bold text-gas uppercase tracking-wider mb-2 flex items-center", children: [
-                group.icon && /* @__PURE__ */ jsx(group.icon, { size: 14, className: "mr-2" }),
-                " ",
-                group.label
-              ] }),
-              /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 gap-2", children: group.items.map((sub) => /* @__PURE__ */ jsx(
+    /* @__PURE__ */ jsx(AnimatePresence, { children: mobileMenuOpen && /* @__PURE__ */ jsxs(Fragment, { children: [
+      /* @__PURE__ */ jsx(
+        motion.div,
+        {
+          initial: { opacity: 0 },
+          animate: { opacity: 1 },
+          exit: { opacity: 0 },
+          className: "fixed inset-0 bg-black/50 z-30 xl:hidden",
+          onClick: () => setMobileMenuOpen(false)
+        }
+      ),
+      /* @__PURE__ */ jsx(
+        motion.div,
+        {
+          initial: { opacity: 0, height: 0 },
+          animate: { opacity: 1, height: "auto" },
+          exit: { opacity: 0, height: 0 },
+          className: "xl:hidden bg-white border-t border-gray-100 absolute w-full shadow-2xl overflow-hidden z-40 max-h-[85vh] overflow-y-auto",
+          children: /* @__PURE__ */ jsxs("div", { className: "p-4 space-y-2", children: [
+            navLinks.map((link) => /* @__PURE__ */ jsxs("div", { className: "bg-gray-50 rounded-xl overflow-hidden", children: [
+              /* @__PURE__ */ jsxs(
                 "button",
                 {
                   onClick: () => {
-                    setActiveSection(sub.id);
-                    setMobileMenuOpen(false);
+                    if (!link.subLinks) {
+                      setActiveSection(link.id);
+                      setMobileMenuOpen(false);
+                    } else {
+                      toggleMobileItem(link.id);
+                    }
                   },
-                  className: "block w-full text-left py-2 px-3 rounded-lg text-sm text-gray-600 hover:bg-white hover:text-gas shadow-sm border border-transparent hover:border-gray-100 transition-all",
-                  children: sub.label
-                },
-                sub.id
-              )) })
-            ] }, idx)) : (
-              /* Logic for Simple Menu in Mobile */
-              link.subLinks.map((sub) => /* @__PURE__ */ jsxs(
-                "button",
-                {
-                  onClick: () => {
-                    setActiveSection(sub.id);
-                    setMobileMenuOpen(false);
-                  },
-                  className: "flex items-center w-full text-left py-3 px-3 rounded-xl hover:bg-white text-base text-gray-600 transition-colors border border-transparent hover:border-gray-100 hover:shadow-sm",
+                  "aria-expanded": !!expandedMobileItems[link.id],
+                  className: "w-full text-left px-5 py-4 text-lg font-bold text-gray-900 flex justify-between items-center hover:bg-gray-100 transition-colors",
                   children: [
-                    sub.icon && /* @__PURE__ */ jsx(sub.icon, { size: 18, className: "mr-3 text-gas-light" }),
-                    sub.label
+                    link.label,
+                    link.subLinks && /* @__PURE__ */ jsx(ChevronDown, { size: 20, className: `text-gray-400 transition-transform duration-300 ${expandedMobileItems[link.id] ? "rotate-180" : ""}` })
                   ]
-                },
-                sub.id
-              ))
-            ) })
-          }
-        ) })
-      ] }, link.id)),
-      /* @__PURE__ */ jsx("button", { onClick: () => {
-        openWizard ? openWizard("tank") : setActiveSection("kontakt");
-        setMobileMenuOpen(false);
-      }, className: "w-full text-center px-4 py-4 text-lg font-bold text-white bg-gas rounded-xl mt-4 shadow-lg shadow-gas/20", children: "Jetzt Angebot anfordern" })
-    ] }) }) })
+                }
+              ),
+              /* @__PURE__ */ jsx(AnimatePresence, { children: link.subLinks && expandedMobileItems[link.id] && /* @__PURE__ */ jsx(
+                motion.div,
+                {
+                  initial: { height: 0, opacity: 0 },
+                  animate: { height: "auto", opacity: 1 },
+                  exit: { height: 0, opacity: 0 },
+                  className: "border-t border-gray-200/50",
+                  children: /* @__PURE__ */ jsx("div", { className: "px-5 py-4 space-y-4 bg-gray-50/50", children: link.dropdownType === "mega" ? link.subLinks.map((group, idx) => /* @__PURE__ */ jsxs("div", { className: "mb-4 last:mb-0", children: [
+                    /* @__PURE__ */ jsxs("div", { className: "text-xs font-bold text-gas uppercase tracking-wider mb-2 flex items-center", children: [
+                      group.icon && /* @__PURE__ */ jsx(group.icon, { size: 14, className: "mr-2" }),
+                      " ",
+                      group.label
+                    ] }),
+                    /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 gap-2", children: group.items.map((sub) => /* @__PURE__ */ jsx(
+                      "button",
+                      {
+                        onClick: () => {
+                          setActiveSection(sub.id);
+                          setMobileMenuOpen(false);
+                        },
+                        className: "block w-full text-left py-2 px-3 rounded-lg text-sm text-gray-600 hover:bg-white hover:text-gas shadow-sm border border-transparent hover:border-gray-100 transition-all",
+                        children: sub.label
+                      },
+                      sub.id
+                    )) })
+                  ] }, idx)) : (
+                    /* Logic for Simple Menu in Mobile */
+                    link.subLinks.map((sub) => /* @__PURE__ */ jsxs(
+                      "button",
+                      {
+                        onClick: () => {
+                          setActiveSection(sub.id);
+                          setMobileMenuOpen(false);
+                        },
+                        className: "flex items-center w-full text-left py-3 px-3 rounded-xl hover:bg-white text-base text-gray-600 transition-colors border border-transparent hover:border-gray-100 hover:shadow-sm",
+                        children: [
+                          sub.icon && /* @__PURE__ */ jsx(sub.icon, { size: 18, className: "mr-3 text-gas-light" }),
+                          sub.label
+                        ]
+                      },
+                      sub.id
+                    ))
+                  ) })
+                }
+              ) })
+            ] }, link.id)),
+            /* @__PURE__ */ jsx("button", { onClick: () => {
+              openWizard ? openWizard("tank") : setActiveSection("kontakt");
+              setMobileMenuOpen(false);
+            }, className: "w-full text-center px-4 py-4 text-lg font-bold text-white bg-gas rounded-xl mt-4 shadow-lg shadow-gas/20", children: "Jetzt Angebot anfordern" })
+          ] })
+        }
+      )
+    ] }) })
   ] });
 };
 const Hero = ({ setActiveSection, openWizard }) => /* @__PURE__ */ jsxs("header", { className: "relative bg-white pt-48 pb-24 lg:pt-64 lg:pb-48 overflow-hidden", children: [
@@ -892,7 +923,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
   return /* @__PURE__ */ jsxs("section", { className: "bg-white", id: "tanks", children: [
     /* @__PURE__ */ jsxs("div", { className: "relative bg-gray-900 py-32 lg:py-48 overflow-hidden", children: [
       /* @__PURE__ */ jsxs("div", { className: "absolute inset-0 z-0", children: [
-        /* @__PURE__ */ jsx("img", { src: "https://images.unsplash.com/photo-1565514020176-db7936a7d512?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", alt: "Flüssiggastank im Garten", className: "w-full h-full object-cover opacity-40 mix-blend-overlay" }),
+        /* @__PURE__ */ jsx("img", { src: "https://images.unsplash.com/photo-1565514020176-db7936a7d512?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", alt: "Flüssiggastank im Garten", className: "w-full h-full object-cover opacity-40 mix-blend-overlay", loading: "lazy" }),
         /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent" })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 relative z-10 text-center", children: [
@@ -2618,7 +2649,11 @@ const Footer = ({ setActiveSection, openLegal }) => {
         /* @__PURE__ */ jsxs("ul", { className: "space-y-2", children: [
           /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => openLegal("imprint"), className: "hover:text-white transition-colors text-left", children: "Impressum" }) }),
           /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => openLegal("privacy"), className: "hover:text-white transition-colors text-left", children: "Datenschutz" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => openLegal("terms"), className: "hover:text-white transition-colors text-left", children: "AGB" }) })
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => openLegal("terms"), className: "hover:text-white transition-colors text-left", children: "AGB" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => {
+            const event = new CustomEvent("openCookieBanner");
+            window.dispatchEvent(event);
+          }, className: "hover:text-white transition-colors text-left", children: "Cookie-Einstellungen" }) })
         ] })
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
@@ -3302,6 +3337,9 @@ const CookieBanner = () => {
   useEffect(() => {
     const stored = localStorage.getItem("gas_cookie");
     setAccepted(stored === "true");
+    const handleOpen = () => setAccepted(false);
+    window.addEventListener("openCookieBanner", handleOpen);
+    return () => window.removeEventListener("openCookieBanner", handleOpen);
   }, []);
   const accept = () => {
     setAccepted(true);
@@ -3343,17 +3381,25 @@ const ScrollToTop = () => {
   return /* @__PURE__ */ jsx("button", { onClick: scrollToTop, className: `scroll-to-top ${visible ? "visible" : ""}`, "aria-label": "Nach oben", children: /* @__PURE__ */ jsx(ChevronUp, { size: 24 }) });
 };
 const NotFound = ({ onGoHome }) => {
-  return /* @__PURE__ */ jsxs("div", { className: "min-h-[70vh] flex flex-col items-center justify-center p-4 text-center bg-gray-50", children: [
-    /* @__PURE__ */ jsx("h1", { className: "text-9xl font-extrabold text-gray-200 mb-4", children: "404" }),
-    /* @__PURE__ */ jsx("h2", { className: "text-3xl font-bold text-gray-900 mb-4", children: "Upps! Seite nicht gefunden." }),
-    /* @__PURE__ */ jsx("p", { className: "text-gray-600 mb-8 max-w-md text-lg", children: "Es scheint, als hätten Sie sich verlaufen. Die gesuchte Seite ist leider nicht verfügbar." }),
-    /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap justify-center gap-3 mb-8", children: [
-      /* @__PURE__ */ jsx("button", { onClick: onGoHome, className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors", children: "Startseite" }),
-      /* @__PURE__ */ jsx("button", { onClick: () => window.location.href = "/tanks", className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors", children: "Tanks kaufen" }),
-      /* @__PURE__ */ jsx("button", { onClick: () => window.location.href = "/gas", className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors", children: "Gas bestellen" }),
-      /* @__PURE__ */ jsx("button", { onClick: () => window.location.href = "/kontakt", className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors", children: "Kontakt" })
+  return /* @__PURE__ */ jsxs("div", { className: "min-h-[70vh] flex flex-col items-center justify-center p-4 text-center bg-gray-50 relative overflow-hidden", children: [
+    /* @__PURE__ */ jsxs("div", { className: "absolute inset-0 overflow-hidden pointer-events-none", children: [
+      /* @__PURE__ */ jsx("div", { className: "absolute top-1/4 left-1/4 w-96 h-96 bg-gas-light/20 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2" }),
+      /* @__PURE__ */ jsx("div", { className: "absolute bottom-1/4 right-1/4 w-64 h-64 bg-gas/5 rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2" })
     ] }),
-    /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row gap-4", children: [
+    /* @__PURE__ */ jsx("h1", { className: "text-9xl font-extrabold text-gray-200 mb-4 select-none relative z-10", children: "404" }),
+    /* @__PURE__ */ jsx("h2", { className: "text-4xl font-bold text-gray-900 mb-4 relative z-10", children: "Upps! Seite nicht gefunden." }),
+    /* @__PURE__ */ jsx("p", { className: "text-gray-600 mb-8 max-w-md text-lg relative z-10", children: "Es scheint, als hätten Sie sich verlaufen. Die gesuchte Seite ist leider nicht verfügbar." }),
+    /* @__PURE__ */ jsx("div", { className: "w-full max-w-md mb-10 relative z-10", children: /* @__PURE__ */ jsxs("div", { className: "bg-white p-2 rounded-xl shadow-lg border border-gray-100 flex items-center", children: [
+      /* @__PURE__ */ jsx("input", { type: "text", placeholder: "Wonach suchen Sie?", className: "flex-grow px-4 py-2 text-gray-700 outline-none" }),
+      /* @__PURE__ */ jsx("button", { className: "bg-gas text-white p-2 rounded-lg hover:bg-gas-dark transition-colors", onClick: () => window.location.href = "/", children: /* @__PURE__ */ jsx(ArrowRight, { size: 20 }) })
+    ] }) }),
+    /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap justify-center gap-3 mb-8 relative z-10", children: [
+      /* @__PURE__ */ jsx("button", { onClick: onGoHome, className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors hover:shadow-md", children: "Startseite" }),
+      /* @__PURE__ */ jsx("button", { onClick: () => window.location.href = "/tanks", className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors hover:shadow-md", children: "Tanks kaufen" }),
+      /* @__PURE__ */ jsx("button", { onClick: () => window.location.href = "/gas", className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors hover:shadow-md", children: "Gas bestellen" }),
+      /* @__PURE__ */ jsx("button", { onClick: () => window.location.href = "/kontakt", className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors hover:shadow-md", children: "Kontakt" })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row gap-4 relative z-10", children: [
       /* @__PURE__ */ jsxs(
         "button",
         {
@@ -3625,7 +3671,7 @@ const App = ({ path }) => {
   };
   return /* @__PURE__ */ jsxs("div", { className: "min-h-screen flex flex-col bg-white", children: [
     /* @__PURE__ */ jsx(Navigation, { activeSection, setActiveSection: changeSection, mobileMenuOpen, setMobileMenuOpen, openWizard }),
-    /* @__PURE__ */ jsx("main", { className: "flex-grow", children: renderSection() }),
+    /* @__PURE__ */ jsx("main", { id: "main-content", className: "flex-grow focus:outline-none", tabIndex: "-1", children: renderSection() }),
     /* @__PURE__ */ jsx(Footer, { setActiveSection: changeSection, openLegal }),
     /* @__PURE__ */ jsx(WizardModal, { isOpen: wizardOpen, onClose: () => setWizardOpen(false), initialType: wizardType, initialData: wizardData }),
     /* @__PURE__ */ jsx(CookieBanner, {}),

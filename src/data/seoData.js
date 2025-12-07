@@ -222,5 +222,6 @@ export const getSchemaForPath = (path) => {
         return [baseSchema, breadcrumb];
     }
 
+    // Always return Organization schema (baseSchema) even for Home
     return baseSchema;
 };
