@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Check, ShieldCheck, MapPin, ArrowRight, Truck, Heart, Coins } from 'lucide-react';
+import { Check, ShieldCheck, MapPin, ArrowRight, Truck, Heart, Coins, Loader2 } from 'lucide-react';
 import DeliveryMap from './DeliveryMap';
 import { getPlzError } from '../utils/validation';
 
@@ -8,8 +8,9 @@ const GasOrderSection = ({ onCheckAvailability }) => {
     const [liters, setLiters] = useState(3000);
     const [plz, setPlz] = useState('');
     const [plzError, setPlzError] = useState('');
+    const [isChecking, setIsChecking] = useState(false);
 
-    const handleCheck = () => {
+    const handleCheck = async () => {
         const error = getPlzError(plz);
         if (error) {
             setPlzError(error);
@@ -17,6 +18,12 @@ const GasOrderSection = ({ onCheckAvailability }) => {
         }
 
         setPlzError('');
+        setIsChecking(true);
+
+        // Simulate a small delay for better UX (so the user sees something is happening)
+        await new Promise(resolve => setTimeout(resolve, 600));
+
+        setIsChecking(false);
         if (onCheckAvailability) {
             onCheckAvailability(plz, liters);
         }
@@ -134,10 +141,15 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                                 {/* CTA Button */}
                                 <button
                                     onClick={handleCheck}
-                                    className="w-full bg-gas hover:bg-white hover:text-gas text-white font-bold text-lg py-5 rounded-xl shadow-lg shadow-gas/20 transform transition-all active:scale-[0.98] flex items-center justify-center gap-3 group"
+                                    disabled={isChecking}
+                                    className="w-full bg-gas hover:bg-white hover:text-gas text-white font-bold text-lg py-5 rounded-xl shadow-lg shadow-gas/20 transform transition-all active:scale-[0.98] flex items-center justify-center gap-3 group disabled:opacity-80 disabled:cursor-wait"
                                 >
-                                    Angebot anfordern
-                                    <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                                    {isChecking ? <Loader2 size={24} className="animate-spin" /> : (
+                                        <>
+                                            Angebot anfordern
+                                            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                                        </>
+                                    )}
                                 </button>
                             </div>
                         </motion.div>

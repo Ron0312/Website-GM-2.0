@@ -64,30 +64,6 @@ const App = ({ path }) => {
         } else if (type === 'terms') {
             title = 'AGB';
             content = <TermsContent />;
-        } else if (type === 'dev') {
-            title = 'Developer Report (v1.3)';
-            content = (
-                <div>
-                    <div className="bg-gray-100 p-4 rounded-lg mb-4 text-sm font-mono">
-                        <p className="font-bold">Latest Changes:</p>
-                        <ul className="list-disc pl-4 space-y-1 mt-2">
-                            <li>Migrated to Vite + React.</li>
-                            <li>Removed all external CDN dependencies for GDPR compliance.</li>
-                            <li>Modularized components.</li>
-                            <li>Local fonts implemented.</li>
-                        </ul>
-                    </div>
-                    <h4 className="font-bold text-lg mb-2 text-gas">Migration to Next.js</h4>
-                    <p className="mb-4 text-sm">To achieve perfect SEO and performance (Core Web Vitals), we recommend migrating this single-file prototype to a full Next.js application.</p>
-                    <div className="space-y-2 text-sm">
-                        <p><strong>1. Setup:</strong> <code>npx create-next-app@latest gasmoeller</code></p>
-                        <p><strong>2. Structure:</strong> Move components to <code>src/components/</code>. Use <code>app/page.js</code> for the main layout.</p>
-                        <p><strong>3. SEO:</strong> Use Next.js Metadata API for dynamic title/description tags per page.</p>
-                        <p><strong>4. Images:</strong> Replace <code>img</code> tags with <code>next/image</code> for automatic optimization.</p>
-                        <p><strong>5. Forms:</strong> Move form submission logic to Server Actions for security.</p>
-                    </div>
-                </div>
-            );
         }
         setLegalModal({ open: true, title, content });
     };

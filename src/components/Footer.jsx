@@ -42,10 +42,9 @@ const Footer = ({ setActiveSection, openLegal }) => {
                     <img src="/logos/Icon-01.webp" alt="gasmöller" width="2222" height="747" className="h-10 w-auto filter brightness-0 invert opacity-80 mb-6" />
                     <p className="leading-relaxed mb-4">Ihr unabhängiger Partner für Energie im Norden. Seit 2005.</p>
                     <div className="flex space-x-4">
-                        <div className="w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer">f</div>
-                        <div className="w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer">in</div>
+                        <a href="https://facebook.com/gasmoeller" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer" aria-label="Facebook">f</a>
+                        <a href="https://linkedin.com/company/gasmoeller" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer" aria-label="LinkedIn">in</a>
                     </div>
-                    <button onClick={() => openLegal('dev')} className="mt-8 text-[10px] text-gray-700 hover:text-gas transition-colors flex items-center"><code className="mr-1">&lt;/&gt;</code> Dev Status</button>
                 </div>
                 <div>
                     <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-wider">Schnellzugriff</h4>

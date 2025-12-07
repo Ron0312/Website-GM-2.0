@@ -13,7 +13,7 @@ const Hero = ({ setActiveSection, openWizard }) => (
                 height="1080"
                 className="w-full h-full object-cover absolute inset-0"
                 loading="eager"
-                fetchPriority="high"
+                fetchpriority="high"
             />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
