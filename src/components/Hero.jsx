@@ -6,7 +6,15 @@ const Hero = ({ setActiveSection, openWizard }) => (
     <header className="relative bg-white pt-48 pb-24 lg:pt-64 lg:pb-48 overflow-hidden">
         <div className="absolute inset-0 z-0">
             <div className="absolute inset-0 bg-gradient-to-r from-gray-900/40 to-gray-900/10 z-10"></div>
-            <img src="/images/gas-order-hero.webp" alt="Landschaft Norddeutschland" width="1920" height="1080" className="w-full h-full object-cover absolute inset-0" />
+            <img
+                src="/images/gas-order-hero.webp"
+                alt="Landschaft Norddeutschland"
+                width="1920"
+                height="1080"
+                className="w-full h-full object-cover absolute inset-0"
+                loading="eager"
+                fetchPriority="high"
+            />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
             <div className="lg:grid lg:grid-cols-2 lg:gap-20 items-center">

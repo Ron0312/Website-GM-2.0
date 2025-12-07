@@ -89,6 +89,8 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                 >
                                     <button
                                         onClick={() => handleLinkClick(link)}
+                                        aria-expanded={openDropdown === link.id}
+                                        aria-haspopup={!!link.subLinks}
                                         className={`
                                             ${activeSection === link.id || (link.subLinks && activeSection.startsWith(link.id))
                                                 ? 'bg-white text-gas shadow-sm font-bold'
@@ -173,7 +175,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                         </div>
 
                         <div className="xl:hidden flex items-center">
-                            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-gray-800 hover:text-gas p-2">{mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}</button>
+                            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label={mobileMenuOpen ? "Menü schließen" : "Menü öffnen"} aria-expanded={mobileMenuOpen} className="text-gray-800 hover:text-gas p-2">{mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}</button>
                         </div>
                     </div>
                 </div>
@@ -194,6 +196,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                                 toggleMobileItem(link.id);
                                             }
                                         }}
+                                        aria-expanded={!!expandedMobileItems[link.id]}
                                         className="w-full text-left px-5 py-4 text-lg font-bold text-gray-900 flex justify-between items-center hover:bg-gray-100 transition-colors"
                                     >
                                         {link.label}

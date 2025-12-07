@@ -53,6 +53,9 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                 </div>
 
                 {/* Tank Grid with Horizontal Scroll on Mobile */}
+                <div className="md:hidden text-center text-xs text-gray-400 mb-2 animate-pulse">
+                    ← Nach links wischen für mehr →
+                </div>
                 <div className="flex md:grid md:grid-cols-3 gap-8 overflow-x-auto md:overflow-visible snap-x md:snap-none pb-4 md:pb-0 px-4 md:px-0 -mx-4 md:mx-0 scrollbar-hide">
                     {visibleTanks.map((tank, i) => (
                         <div key={i} className="relative group min-w-[85vw] md:min-w-0 snap-center first:pl-0 last:pr-0">
