@@ -1,7 +1,7 @@
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import React, { useState, useEffect } from "react";
 import ReactDOMServer from "react-dom/server";
-import { TrendingUp, Clock, ArrowUpFromLine, ArrowDownToLine, ShieldCheck, BookOpen, Phone, ChevronDown, ArrowRight, X, Menu, BadgeCheck, Star, Calculator, Zap, Info, Flame, Droplets, Leaf, Trees, ArrowLeft, Ruler, Weight, Check, Download, Tractor, Factory, Truck, MapPin, CheckCircle, Coins, Heart, AlertTriangle, Settings, Home, Wrench, Lock, Unlock, ChevronRight, Send, Sparkles, RefreshCw, Building2, ChevronUp } from "lucide-react";
+import { TrendingUp, Clock, ArrowUpFromLine, ArrowDownToLine, ShieldCheck, BookOpen, Phone, ChevronDown, ArrowRight, X, Menu, BadgeCheck, Star, Calculator, Zap, Info, Flame, Droplets, Leaf, Trees, ArrowLeft, Ruler, Weight, Check, Download, Tractor, Factory, Truck, MapPin, CheckCircle, Loader2, Coins, Heart, AlertTriangle, Settings, Home, Wrench, Lock, Unlock, ChevronRight, Send, Sparkles, RefreshCw, Building2, ChevronUp } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 const tankDetails = [
   {
@@ -368,6 +368,8 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
               "button",
               {
                 onClick: () => handleLinkClick(link),
+                "aria-expanded": openDropdown === link.id,
+                "aria-haspopup": !!link.subLinks,
                 className: `
                                             ${activeSection === link.id || link.subLinks && activeSection.startsWith(link.id) ? "bg-white text-gas shadow-sm font-bold" : "text-gray-500 hover:text-gas hover:bg-white/50"}
                                             px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 flex items-center whitespace-nowrap
@@ -431,16 +433,16 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
         link.id
       )) }),
       /* @__PURE__ */ jsxs("div", { className: "hidden lg:flex items-center space-x-4", children: [
-        /* @__PURE__ */ jsxs("a", { href: "tel:04551897089", className: "flex flex-col items-end text-right mr-2 group", children: [
+        /* @__PURE__ */ jsxs("a", { href: "tel:04551897089", "aria-label": "Rufen Sie uns an unter 04551 89 70 89", className: "flex flex-col items-end text-right mr-2 group", children: [
           /* @__PURE__ */ jsx("span", { className: "text-[10px] uppercase font-bold text-gray-400 tracking-wider group-hover:text-gas transition-colors", children: "Kostenlose Beratung" }),
           /* @__PURE__ */ jsx("span", { className: "text-lg font-bold text-gas leading-none", children: "04551 89 70 89" })
         ] }),
-        /* @__PURE__ */ jsxs(motion.button, { whileHover: { scale: 1.05 }, whileTap: { scale: 0.95 }, onClick: () => openWizard ? openWizard("tank") : setActiveSection("kontakt"), className: "bg-gas hover:bg-gas-dark text-white px-6 py-3 rounded-full shadow-lg shadow-gas/20 font-bold text-sm uppercase tracking-wider transition-all flex items-center", children: [
+        /* @__PURE__ */ jsxs(motion.button, { whileHover: { scale: 1.05 }, whileTap: { scale: 0.95 }, onClick: () => openWizard ? openWizard("tank") : setActiveSection("kontakt"), "aria-label": "Angebot anfordern", className: "bg-gas hover:bg-gas-dark text-white px-6 py-3 rounded-full shadow-lg shadow-gas/20 font-bold text-sm uppercase tracking-wider transition-all flex items-center", children: [
           "Angebot ",
           /* @__PURE__ */ jsx(ArrowRight, { size: 16, className: "ml-2" })
         ] })
       ] }),
-      /* @__PURE__ */ jsx("div", { className: "xl:hidden flex items-center", children: /* @__PURE__ */ jsx("button", { onClick: () => setMobileMenuOpen(!mobileMenuOpen), className: "text-gray-800 hover:text-gas p-2", children: mobileMenuOpen ? /* @__PURE__ */ jsx(X, { size: 28 }) : /* @__PURE__ */ jsx(Menu, { size: 28 }) }) })
+      /* @__PURE__ */ jsx("div", { className: "xl:hidden flex items-center", children: /* @__PURE__ */ jsx("button", { onClick: () => setMobileMenuOpen(!mobileMenuOpen), "aria-label": mobileMenuOpen ? "Menü schließen" : "Menü öffnen", "aria-expanded": mobileMenuOpen, className: "text-gray-800 hover:text-gas p-2", children: mobileMenuOpen ? /* @__PURE__ */ jsx(X, { size: 28 }) : /* @__PURE__ */ jsx(Menu, { size: 28 }) }) })
     ] }) }) }),
     /* @__PURE__ */ jsx(AnimatePresence, { children: mobileMenuOpen && /* @__PURE__ */ jsx(motion.div, { initial: { opacity: 0, height: 0 }, animate: { opacity: 1, height: "auto" }, exit: { opacity: 0, height: 0 }, className: "xl:hidden bg-white border-t border-gray-100 absolute w-full shadow-2xl overflow-hidden z-40 max-h-[85vh] overflow-y-auto", children: /* @__PURE__ */ jsxs("div", { className: "p-4 space-y-2", children: [
       navLinks.map((link) => /* @__PURE__ */ jsxs("div", { className: "bg-gray-50 rounded-xl overflow-hidden", children: [
@@ -455,6 +457,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                 toggleMobileItem(link.id);
               }
             },
+            "aria-expanded": !!expandedMobileItems[link.id],
             className: "w-full text-left px-5 py-4 text-lg font-bold text-gray-900 flex justify-between items-center hover:bg-gray-100 transition-colors",
             children: [
               link.label,
@@ -518,7 +521,18 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
 const Hero = ({ setActiveSection, openWizard }) => /* @__PURE__ */ jsxs("header", { className: "relative bg-white pt-48 pb-24 lg:pt-64 lg:pb-48 overflow-hidden", children: [
   /* @__PURE__ */ jsxs("div", { className: "absolute inset-0 z-0", children: [
     /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-gradient-to-r from-gray-900/40 to-gray-900/10 z-10" }),
-    /* @__PURE__ */ jsx("img", { src: "/images/gas-order-hero.webp", alt: "Landschaft Norddeutschland", width: "1920", height: "1080", className: "w-full h-full object-cover absolute inset-0" })
+    /* @__PURE__ */ jsx(
+      "img",
+      {
+        src: "/images/gas-order-hero.webp",
+        alt: "Landschaft Norddeutschland",
+        width: "1920",
+        height: "1080",
+        className: "w-full h-full object-cover absolute inset-0",
+        loading: "eager",
+        fetchpriority: "high"
+      }
+    )
   ] }),
   /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20", children: /* @__PURE__ */ jsx("div", { className: "lg:grid lg:grid-cols-2 lg:gap-20 items-center", children: /* @__PURE__ */ jsx("div", { className: "text-left text-white", children: /* @__PURE__ */ jsxs(motion.div, { initial: { opacity: 0, y: 30 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.8 }, children: [
     /* @__PURE__ */ jsxs("div", { className: "inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md border border-white/30 px-4 py-1.5 rounded-full mb-8 shadow-sm", children: [
@@ -901,6 +915,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
           /* @__PURE__ */ jsx("button", { onClick: () => setFilter("unterirdisch"), className: `px-6 py-2 rounded-md text-sm font-bold transition-all ${filter === "unterirdisch" ? "bg-white shadow-sm text-gas" : "text-gray-500"}`, children: "Unterirdisch" })
         ] })
       ] }),
+      /* @__PURE__ */ jsx("div", { className: "md:hidden text-center text-xs text-gray-400 mb-2 animate-pulse", children: "← Nach links wischen für mehr →" }),
       /* @__PURE__ */ jsx("div", { className: "flex md:grid md:grid-cols-3 gap-8 overflow-x-auto md:overflow-visible snap-x md:snap-none pb-4 md:pb-0 px-4 md:px-0 -mx-4 md:mx-0 scrollbar-hide", children: visibleTanks.map((tank, i) => /* @__PURE__ */ jsxs("div", { className: "relative group min-w-[85vw] md:min-w-0 snap-center first:pl-0 last:pr-0", children: [
         /* @__PURE__ */ jsx(
           TankCard,
@@ -963,7 +978,32 @@ const TankDetail = ({ slug, onBack, openWizard }) => {
       /* @__PURE__ */ jsx("button", { onClick: onBack, className: "mt-4 text-gas hover:underline", children: "Zurück zur Übersicht" })
     ] });
   }
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": tank.name,
+    "description": tank.description,
+    "image": tank.type === "oberirdisch" ? "https://www.gasmoeller.de/images/tanks/oberirdisch.webp" : "https://www.gasmoeller.de/images/tanks/unterirdisch.webp",
+    // Fallback logic mimicking SEO data
+    "brand": {
+      "@type": "Brand",
+      "name": "gasmöller"
+    },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EUR",
+      "availability": "https://schema.org/InStock",
+      "price": "0.00"
+      // Price is hidden/request only
+    },
+    "additionalProperty": Object.entries(tank.technicalData).map(([key, value]) => ({
+      "@type": "PropertyValue",
+      "name": key.replace(/([A-Z])/g, " $1").trim(),
+      "value": value
+    }))
+  };
   return /* @__PURE__ */ jsxs("div", { className: "pt-24 pb-20 bg-white", children: [
+    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(productSchema) } }),
     /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 mb-8", children: /* @__PURE__ */ jsxs("button", { onClick: onBack, className: "flex items-center text-gray-500 hover:text-gas font-medium transition-colors", children: [
       /* @__PURE__ */ jsx(ArrowLeft, { size: 20, className: "mr-2" }),
       " Zurück zur Übersicht"
@@ -1292,7 +1332,20 @@ const FAQ = () => {
     { q: "Was genau ist Flüssiggas?", a: "Flüssiggas (LPG) besteht aus Propan und Butan. Als Heizgas verwenden wir in Deutschland gemäß DIN 51622 fast ausschließlich reines Propan, da dieses auch bei tiefen Temperaturen im Winter zuverlässig verdampft." },
     { q: "Welche Prüfungen sind beim Gastank vorgeschrieben?", a: "Alle 2 Jahre muss eine äußere Prüfung durch eine befähigte Person erfolgen. Alle 10 Jahre ist eine innere Prüfung durch eine ZÜS (z.B. TÜV, DEKRA) notwendig. Wir unterstützen Sie gerne bei der Organisation." }
   ];
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((faq) => ({
+      "@type": "Question",
+      "name": faq.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.a
+      }
+    }))
+  };
   return /* @__PURE__ */ jsxs("div", { className: "max-w-3xl mx-auto px-4 py-24", children: [
+    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(faqSchema) } }),
     /* @__PURE__ */ jsx("h3", { className: "text-3xl font-bold text-center mb-12", children: "Häufig gestellte Fragen" }),
     /* @__PURE__ */ jsx("div", { className: "space-y-4", children: faqs.map((faq, i) => /* @__PURE__ */ jsxs("div", { className: "border border-gray-200 rounded-xl overflow-hidden", children: [
       /* @__PURE__ */ jsxs("button", { onClick: () => setOpen(open === i ? -1 : i), className: "w-full flex justify-between items-center p-5 bg-white hover:bg-gray-50 text-left font-bold text-text transition-colors", children: [
@@ -1320,6 +1373,7 @@ const ContactSection = () => {
   const [plz, setPlz] = useState("");
   const [plzError, setPlzError] = useState("");
   const [honeypot, setHoneypot] = useState("");
+  const [status, setStatus] = useState("idle");
   const handlePlzChange = (e) => {
     const val = e.target.value;
     setPlz(val);
@@ -1329,17 +1383,43 @@ const ContactSection = () => {
       setPlzError("");
     }
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (honeypot) return;
+    setStatus("loading");
+    const form = e.target;
+    const formData = new FormData(form);
+    formData.append("access_key", "f22052ed-455f-4e4d-9f5a-94a6e340426f");
+    formData.append("subject", "Neue Kontaktanfrage (Website)");
+    formData.append("from_name", "gasmöller Kontaktformular");
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+      const result = await response.json();
+      if (result.success) {
+        setStatus("success");
+        form.reset();
+        setPlz("");
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
+      setStatus("error");
+    }
+  };
   return /* @__PURE__ */ jsxs("section", { className: "bg-gas-dark py-24 text-white relative overflow-hidden", id: "kontakt", children: [
     /* @__PURE__ */ jsx("div", { className: "absolute top-0 right-0 w-1/2 h-full bg-gas opacity-50 transform -skew-x-12 translate-x-20" }),
     /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 relative z-10 text-center", children: [
       /* @__PURE__ */ jsx("h2", { className: "text-3xl font-extrabold mb-6", children: "Noch Fragen?" }),
       /* @__PURE__ */ jsx("p", { className: "text-gas-light mb-10 text-lg", children: "Unser Team ist für Sie da. Persönlich und kompetent." }),
-      /* @__PURE__ */ jsx("div", { className: "bg-white rounded-2xl p-8 md:p-12 shadow-2xl text-left max-w-2xl mx-auto text-text transform hover:-translate-y-1 transition-transform duration-500", children: /* @__PURE__ */ jsxs("form", { className: "space-y-6", onSubmit: (e) => {
-        if (honeypot) {
-          e.preventDefault();
-          return;
-        }
-      }, children: [
+      /* @__PURE__ */ jsx("div", { className: "bg-white rounded-2xl p-8 md:p-12 shadow-2xl text-left max-w-2xl mx-auto text-text transform hover:-translate-y-1 transition-transform duration-500", children: status === "success" ? /* @__PURE__ */ jsxs("div", { className: "text-center py-12", children: [
+        /* @__PURE__ */ jsx("div", { className: "inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-6", children: /* @__PURE__ */ jsx(CheckCircle, { size: 32, className: "text-green-600" }) }),
+        /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-gray-900 mb-2", children: "Vielen Dank!" }),
+        /* @__PURE__ */ jsx("p", { className: "text-gray-600", children: "Ihre Nachricht wurde erfolgreich versendet. Wir melden uns in Kürze bei Ihnen." }),
+        /* @__PURE__ */ jsx("button", { onClick: () => setStatus("idle"), className: "mt-8 text-gas font-bold hover:underline", children: "Neue Nachricht schreiben" })
+      ] }) : /* @__PURE__ */ jsxs("form", { className: "space-y-6", onSubmit: handleSubmit, children: [
         /* @__PURE__ */ jsx(
           "input",
           {
@@ -1392,7 +1472,16 @@ const ContactSection = () => {
           /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "Nachricht" }),
           /* @__PURE__ */ jsx("textarea", { name: "message", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all h-32" })
         ] }),
-        /* @__PURE__ */ jsx("button", { type: "submit", className: "w-full bg-gas hover:bg-gas-dark text-white font-bold py-4 rounded-lg transition-all uppercase tracking-wide shadow-lg hover:shadow-xl transform active:scale-95", children: "Anfrage absenden" })
+        status === "error" && /* @__PURE__ */ jsx("div", { className: "bg-red-50 text-red-600 p-4 rounded-lg text-sm text-center", children: "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut oder rufen Sie uns an." }),
+        /* @__PURE__ */ jsx(
+          "button",
+          {
+            type: "submit",
+            disabled: status === "loading",
+            className: "w-full bg-gas hover:bg-gas-dark text-white font-bold py-4 rounded-lg transition-all uppercase tracking-wide shadow-lg hover:shadow-xl transform active:scale-95 flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed",
+            children: status === "loading" ? /* @__PURE__ */ jsx(Loader2, { size: 24, className: "animate-spin" }) : "Anfrage absenden"
+          }
+        )
       ] }) })
     ] })
   ] });
@@ -1401,13 +1490,17 @@ const GasOrderSection = ({ onCheckAvailability }) => {
   const [liters, setLiters] = useState(3e3);
   const [plz, setPlz] = useState("");
   const [plzError, setPlzError] = useState("");
-  const handleCheck = () => {
+  const [isChecking, setIsChecking] = useState(false);
+  const handleCheck = async () => {
     const error = getPlzError(plz);
     if (error) {
       setPlzError(error);
       return;
     }
     setPlzError("");
+    setIsChecking(true);
+    await new Promise((resolve) => setTimeout(resolve, 600));
+    setIsChecking(false);
     if (onCheckAvailability) {
       onCheckAvailability(plz, liters);
     }
@@ -1517,15 +1610,16 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                     }
                   )
                 ] }),
-                /* @__PURE__ */ jsxs(
+                /* @__PURE__ */ jsx(
                   "button",
                   {
                     onClick: handleCheck,
-                    className: "w-full bg-gas hover:bg-white hover:text-gas text-white font-bold text-lg py-5 rounded-xl shadow-lg shadow-gas/20 transform transition-all active:scale-[0.98] flex items-center justify-center gap-3 group",
-                    children: [
+                    disabled: isChecking,
+                    className: "w-full bg-gas hover:bg-white hover:text-gas text-white font-bold text-lg py-5 rounded-xl shadow-lg shadow-gas/20 transform transition-all active:scale-[0.98] flex items-center justify-center gap-3 group disabled:opacity-80 disabled:cursor-wait",
+                    children: isChecking ? /* @__PURE__ */ jsx(Loader2, { size: 24, className: "animate-spin" }) : /* @__PURE__ */ jsxs(Fragment, { children: [
                       "Angebot anfordern",
                       /* @__PURE__ */ jsx(ArrowRight, { size: 20, className: "group-hover:translate-x-1 transition-transform" })
-                    ]
+                    ] })
                   }
                 )
               ] })
@@ -2472,48 +2566,96 @@ const AboutPage = () => /* @__PURE__ */ jsx("section", { className: "bg-white", 
   /* @__PURE__ */ jsx(TeamSection, {}),
   /* @__PURE__ */ jsx(AboutTimeline, {})
 ] }) });
-const Footer = ({ setActiveSection, openLegal }) => /* @__PURE__ */ jsxs("footer", { className: "bg-gray-900 text-gray-400 py-20 border-t border-gray-800 text-sm", children: [
-  /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12", children: [
-    /* @__PURE__ */ jsxs("div", { className: "col-span-1", children: [
-      /* @__PURE__ */ jsx("img", { src: "/logos/Icon-01.webp", alt: "gasmöller", width: "2222", height: "747", className: "h-10 w-auto filter brightness-0 invert opacity-80 mb-6" }),
-      /* @__PURE__ */ jsx("p", { className: "leading-relaxed mb-4", children: "Ihr unabhängiger Partner für Energie im Norden. Seit 2005." }),
-      /* @__PURE__ */ jsxs("div", { className: "flex space-x-4", children: [
-        /* @__PURE__ */ jsx("div", { className: "w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer", children: "f" }),
-        /* @__PURE__ */ jsx("div", { className: "w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer", children: "in" })
+const Footer = ({ setActiveSection, openLegal }) => {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("idle");
+  const handleNewsletterSubmit = async (e) => {
+    e.preventDefault();
+    if (!email) return;
+    setStatus("loading");
+    try {
+      const formData = new FormData();
+      formData.append("access_key", "f22052ed-455f-4e4d-9f5a-94a6e340426f");
+      formData.append("subject", "Neue Newsletter Anmeldung");
+      formData.append("email", email);
+      formData.append("from_name", "gasmöller Website Footer");
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+      const result = await response.json();
+      if (result.success) {
+        setStatus("success");
+        setEmail("");
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
+      setStatus("error");
+    }
+  };
+  return /* @__PURE__ */ jsxs("footer", { className: "bg-gray-900 text-gray-400 py-20 border-t border-gray-800 text-sm", children: [
+    /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12", children: [
+      /* @__PURE__ */ jsxs("div", { className: "col-span-1", children: [
+        /* @__PURE__ */ jsx("img", { src: "/logos/Icon-01.webp", alt: "gasmöller", width: "2222", height: "747", className: "h-10 w-auto filter brightness-0 invert opacity-80 mb-6" }),
+        /* @__PURE__ */ jsx("p", { className: "leading-relaxed mb-4", children: "Ihr unabhängiger Partner für Energie im Norden. Seit 2005." }),
+        /* @__PURE__ */ jsxs("div", { className: "flex space-x-4", children: [
+          /* @__PURE__ */ jsx("a", { href: "https://facebook.com/gasmoeller", target: "_blank", rel: "noopener noreferrer", className: "w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer", "aria-label": "Facebook", children: "f" }),
+          /* @__PURE__ */ jsx("a", { href: "https://linkedin.com/company/gasmoeller", target: "_blank", rel: "noopener noreferrer", className: "w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer", "aria-label": "LinkedIn", children: "in" })
+        ] })
       ] }),
-      /* @__PURE__ */ jsxs("button", { onClick: () => openLegal("dev"), className: "mt-8 text-[10px] text-gray-700 hover:text-gas transition-colors flex items-center", children: [
-        /* @__PURE__ */ jsx("code", { className: "mr-1", children: "</>" }),
-        " Dev Status"
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h4", { className: "text-white font-bold mb-4 uppercase text-xs tracking-wider", children: "Schnellzugriff" }),
+        /* @__PURE__ */ jsxs("ul", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("gas"), className: "hover:text-white transition-colors", children: "Gas bestellen" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("tanks"), className: "hover:text-white transition-colors", children: "Tanks kaufen" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("rechner"), className: "hover:text-white transition-colors", children: "Spar-Rechner" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("kontakt"), className: "hover:text-white transition-colors", children: "Kontakt" }) })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h4", { className: "text-white font-bold mb-4 uppercase text-xs tracking-wider", children: "Rechtliches" }),
+        /* @__PURE__ */ jsxs("ul", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => openLegal("imprint"), className: "hover:text-white transition-colors text-left", children: "Impressum" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => openLegal("privacy"), className: "hover:text-white transition-colors text-left", children: "Datenschutz" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => openLegal("terms"), className: "hover:text-white transition-colors text-left", children: "AGB" }) })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h4", { className: "text-white font-bold mb-4 uppercase text-xs tracking-wider", children: "Newsletter" }),
+        /* @__PURE__ */ jsx("p", { className: "mb-4 text-xs", children: "Bleiben Sie über Gaspreise informiert." }),
+        status === "success" ? /* @__PURE__ */ jsxs("div", { className: "bg-green-500/10 text-green-400 p-3 rounded flex items-center border border-green-500/20", children: [
+          /* @__PURE__ */ jsx(CheckCircle, { size: 16, className: "mr-2" }),
+          /* @__PURE__ */ jsx("span", { children: "Angemeldet!" })
+        ] }) : /* @__PURE__ */ jsxs("form", { onSubmit: handleNewsletterSubmit, className: "flex", children: [
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "email",
+              required: true,
+              placeholder: "Ihre E-Mail Adresse",
+              value: email,
+              onChange: (e) => setEmail(e.target.value),
+              disabled: status === "loading",
+              className: "bg-gray-800 border border-gray-700 rounded-l px-3 py-2 w-full text-white focus:ring-1 focus:ring-gas focus:border-gas outline-none transition-all placeholder-gray-500 disabled:opacity-50"
+            }
+          ),
+          /* @__PURE__ */ jsx(
+            "button",
+            {
+              type: "submit",
+              disabled: status === "loading",
+              className: "bg-gas text-white px-3 py-2 rounded-r hover:bg-gas-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
+              children: status === "loading" ? /* @__PURE__ */ jsx(Loader2, { size: 16, className: "animate-spin" }) : /* @__PURE__ */ jsx(Send, { size: 16 })
+            }
+          )
+        ] }),
+        status === "error" && /* @__PURE__ */ jsx("p", { className: "text-red-400 text-xs mt-2", children: "Ein Fehler ist aufgetreten." })
       ] })
     ] }),
-    /* @__PURE__ */ jsxs("div", { children: [
-      /* @__PURE__ */ jsx("h4", { className: "text-white font-bold mb-4 uppercase text-xs tracking-wider", children: "Schnellzugriff" }),
-      /* @__PURE__ */ jsxs("ul", { className: "space-y-2", children: [
-        /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("gas"), className: "hover:text-white transition-colors", children: "Gas bestellen" }) }),
-        /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("tanks"), className: "hover:text-white transition-colors", children: "Tanks kaufen" }) }),
-        /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("rechner"), className: "hover:text-white transition-colors", children: "Spar-Rechner" }) }),
-        /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("kontakt"), className: "hover:text-white transition-colors", children: "Kontakt" }) })
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { children: [
-      /* @__PURE__ */ jsx("h4", { className: "text-white font-bold mb-4 uppercase text-xs tracking-wider", children: "Rechtliches" }),
-      /* @__PURE__ */ jsxs("ul", { className: "space-y-2", children: [
-        /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => openLegal("imprint"), className: "hover:text-white transition-colors text-left", children: "Impressum" }) }),
-        /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => openLegal("privacy"), className: "hover:text-white transition-colors text-left", children: "Datenschutz" }) }),
-        /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => openLegal("terms"), className: "hover:text-white transition-colors text-left", children: "AGB" }) })
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { children: [
-      /* @__PURE__ */ jsx("h4", { className: "text-white font-bold mb-4 uppercase text-xs tracking-wider", children: "Newsletter" }),
-      /* @__PURE__ */ jsx("p", { className: "mb-4 text-xs", children: "Bleiben Sie über Gaspreise informiert." }),
-      /* @__PURE__ */ jsxs("div", { className: "flex opacity-50 cursor-not-allowed", title: "Bald verfügbar", children: [
-        /* @__PURE__ */ jsx("input", { disabled: true, type: "email", placeholder: "Bald verfügbar", className: "bg-gray-800 border-none rounded-l px-3 py-2 w-full text-white focus:ring-1 focus:ring-gas outline-none cursor-not-allowed" }),
-        /* @__PURE__ */ jsx("button", { disabled: true, className: "bg-gas text-white px-3 py-2 rounded-r hover:bg-gas-dark cursor-not-allowed", children: /* @__PURE__ */ jsx(Send, { size: 16 }) })
-      ] })
-    ] })
-  ] }),
-  /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-gray-800 text-center text-xs text-gray-600", children: "© 2025 gasmöller GmbH. Alle Rechte vorbehalten." })
-] });
+    /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-gray-800 text-center text-xs text-gray-600", children: "© 2025 Gas-Service Möller e.K. Alle Rechte vorbehalten." })
+  ] });
+};
 const ModernInput = ({ label, error, className = "", ...props }) => {
   const [focused, setFocused] = useState(false);
   return /* @__PURE__ */ jsxs("div", { className: `relative mb-4 ${className}`, children: [
@@ -2686,351 +2828,360 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
   const totalSteps = type === "tank" ? 6 : 4;
   const progress = step / totalSteps * 100;
   if (!isOpen) return null;
-  return /* @__PURE__ */ jsx("div", { className: "fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md", children: /* @__PURE__ */ jsxs(
-    motion.div,
+  return /* @__PURE__ */ jsx(
+    "div",
     {
-      initial: { opacity: 0, scale: 0.95, y: 20 },
-      animate: { opacity: 1, scale: 1, y: 0 },
-      className: "bg-white rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden relative flex flex-col max-h-[90vh]",
-      children: [
-        /* @__PURE__ */ jsxs("div", { className: "p-6 border-b border-gray-100 flex justify-between items-center bg-white z-20", children: [
-          /* @__PURE__ */ jsxs("div", { children: [
-            /* @__PURE__ */ jsx("h2", { className: "text-xl font-bold text-gray-900", children: "Anfrage stellen" }),
-            /* @__PURE__ */ jsxs("p", { className: "text-sm text-gray-400", children: [
-              "Schritt ",
-              step,
-              " von ",
-              totalSteps
-            ] })
-          ] }),
-          /* @__PURE__ */ jsx("button", { onClick: onClose, className: "p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors", children: /* @__PURE__ */ jsx(X, { size: 24 }) })
-        ] }),
-        /* @__PURE__ */ jsx("div", { className: "h-1 bg-gray-100 w-full", children: /* @__PURE__ */ jsx(
-          motion.div,
-          {
-            className: "h-full bg-gas",
-            initial: { width: 0 },
-            animate: { width: `${progress}%` },
-            transition: { duration: 0.5, ease: "easeInOut" }
-          }
-        ) }),
-        /* @__PURE__ */ jsx("div", { className: "p-8 md:p-10 overflow-y-auto custom-scrollbar flex-1 relative", children: success ? /* @__PURE__ */ jsxs("div", { className: "text-center py-12 flex flex-col items-center justify-center h-full", children: [
-          /* @__PURE__ */ jsx(
-            motion.div,
-            {
-              initial: { scale: 0 },
-              animate: { scale: 1 },
-              className: "w-24 h-24 bg-green-100 text-green-500 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-green-100",
-              children: /* @__PURE__ */ jsx(Check, { size: 48, strokeWidth: 3 })
-            }
-          ),
-          /* @__PURE__ */ jsx("h3", { className: "text-3xl font-bold mb-4 text-gray-900", children: "Vielen Dank!" }),
-          /* @__PURE__ */ jsx("p", { className: "text-gray-500 mb-8 max-w-sm mx-auto", children: "Wir haben Ihre Anfrage erhalten und werden uns schnellstmöglich bei Ihnen melden." }),
-          /* @__PURE__ */ jsx("button", { onClick: onClose, className: "bg-gas text-white px-10 py-4 rounded-xl font-bold shadow-lg shadow-gas/20 hover:bg-gas-dark transition-all", children: "Schließen" })
-        ] }) : /* @__PURE__ */ jsx("form", { onSubmit: handleSubmitWrapper, className: "h-full", children: /* @__PURE__ */ jsxs(AnimatePresence, { mode: "wait", children: [
-          step === 1 && /* @__PURE__ */ jsxs(motion.div, { initial: { opacity: 0, x: 20 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -20 }, className: "flex flex-col h-full justify-center", children: [
-            /* @__PURE__ */ jsxs("div", { className: "text-center mb-10", children: [
-              /* @__PURE__ */ jsx("h3", { className: "text-3xl font-bold mb-3 text-gray-900", children: "Wo wird geliefert?" }),
-              /* @__PURE__ */ jsx("p", { className: "text-gray-500", children: "Geben Sie Ihre Postleitzahl ein, um die Verfügbarkeit zu prüfen." })
-            ] }),
-            /* @__PURE__ */ jsxs("div", { className: "max-w-xs mx-auto w-full", children: [
-              /* @__PURE__ */ jsx(
-                ModernInput,
-                {
-                  type: "text",
-                  name: "plz",
-                  autoComplete: "postal-code",
-                  value: plz,
-                  onChange: (e) => {
-                    if (e.target.value.length <= 5 && /^\d*$/.test(e.target.value)) {
-                      setPlz(e.target.value);
-                    }
-                  },
-                  className: "text-center text-3xl font-bold tracking-[0.5em] !rounded-2xl",
-                  placeholder: "PLZ",
-                  maxLength: 5,
-                  autoFocus: true,
-                  error: plzError
-                }
-              ),
-              /* @__PURE__ */ jsx(
-                "button",
-                {
-                  type: "button",
-                  onClick: handleNext,
-                  disabled: plz.length < 5,
-                  className: "w-full mt-6 bg-gas text-white py-4 rounded-xl font-bold hover:bg-gas-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-xl shadow-gas/20",
-                  children: "Weiter"
-                }
-              )
-            ] })
-          ] }, "step1"),
-          step === 2 && /* @__PURE__ */ jsxs(motion.div, { initial: { opacity: 0, x: 20 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -20 }, children: [
-            /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-center mb-8 text-gray-900", children: "Wie können wir helfen?" }),
-            /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-4 mb-8", children: [
-              /* @__PURE__ */ jsx(
-                SelectionCard,
-                {
-                  title: "Neuer Tank",
-                  description: "Kauf oder Miete",
-                  icon: Settings,
-                  selected: type === "tank",
-                  onClick: () => {
-                    setType("tank");
-                  }
-                }
-              ),
-              /* @__PURE__ */ jsx(
-                SelectionCard,
-                {
-                  title: "Gas bestellen",
-                  description: "Befüllung",
-                  icon: Flame,
-                  selected: type === "gas",
-                  onClick: () => {
-                    setType("gas");
-                  }
-                }
-              ),
-              /* @__PURE__ */ jsx(
-                SelectionCard,
-                {
-                  title: "Service",
-                  description: "Wartung & Prüfung",
-                  icon: Wrench,
-                  selected: type === "service",
-                  onClick: () => {
-                    setType("service");
-                  }
-                }
-              )
-            ] }),
-            /* @__PURE__ */ jsx("button", { type: "button", onClick: handleNext, className: "w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg shadow-gas/20 hover:bg-gas-dark transition-all mb-4", children: "Weiter" }),
-            /* @__PURE__ */ jsx("button", { type: "button", onClick: handleBack, className: "w-full text-gray-400 hover:text-gray-600 font-bold", children: "Zurück" })
-          ] }, "step2"),
-          step === 3 && /* @__PURE__ */ jsxs(motion.div, { initial: { opacity: 0, x: 20 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -20 }, children: [
-            type === "tank" ? /* @__PURE__ */ jsxs(Fragment, { children: [
-              /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-center mb-8 text-gray-900", children: "Welche Tankart bevorzugen Sie?" }),
-              /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6 mb-8", children: [
-                /* @__PURE__ */ jsx(
-                  SelectionCard,
-                  {
-                    title: "Oberirdisch",
-                    description: "Einfache Aufstellung im Garten (hellgrün)",
-                    icon: ArrowUpFromLine,
-                    selected: installationType === "oberirdisch",
-                    onClick: () => setInstallationType("oberirdisch"),
-                    className: "h-48"
-                  }
-                ),
-                /* @__PURE__ */ jsx(
-                  SelectionCard,
-                  {
-                    title: "Unterirdisch",
-                    description: "Unsichtbar im Boden verbaut",
-                    icon: ArrowDownToLine,
-                    selected: installationType === "unterirdisch",
-                    onClick: () => setInstallationType("unterirdisch"),
-                    className: "h-48"
-                  }
-                )
+      className: "fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md",
+      role: "dialog",
+      "aria-modal": "true",
+      "aria-labelledby": "wizard-title",
+      children: /* @__PURE__ */ jsxs(
+        motion.div,
+        {
+          initial: { opacity: 0, scale: 0.95, y: 20 },
+          animate: { opacity: 1, scale: 1, y: 0 },
+          className: "bg-white rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden relative flex flex-col max-h-[90vh]",
+          children: [
+            /* @__PURE__ */ jsxs("div", { className: "p-6 border-b border-gray-100 flex justify-between items-center bg-white z-20", children: [
+              /* @__PURE__ */ jsxs("div", { children: [
+                /* @__PURE__ */ jsx("h2", { id: "wizard-title", className: "text-xl font-bold text-gray-900", children: "Anfrage stellen" }),
+                /* @__PURE__ */ jsxs("p", { className: "text-sm text-gray-400", children: [
+                  "Schritt ",
+                  step,
+                  " von ",
+                  totalSteps
+                ] })
               ] }),
-              /* @__PURE__ */ jsx("button", { type: "button", onClick: handleNext, disabled: !installationType, className: "w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg shadow-gas/20 hover:bg-gas-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all mb-4", children: "Weiter" })
-            ] }) : type === "gas" ? /* @__PURE__ */ jsxs(Fragment, { children: [
-              /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-center mb-6 text-gray-900", children: "Bestelldetails" }),
-              /* @__PURE__ */ jsxs("div", { className: "space-y-6 max-w-md mx-auto", children: [
-                /* @__PURE__ */ jsxs("div", { children: [
-                  /* @__PURE__ */ jsx("label", { className: "block text-sm font-bold text-gray-700 mb-2", children: "Eigentumsverhältnis" }),
-                  /* @__PURE__ */ jsx("div", { className: "flex gap-4", children: ["Ja, Eigentum", "Nein, Mietvertrag"].map((opt) => /* @__PURE__ */ jsx("button", { type: "button", onClick: () => setDetails({ ...details, ownership: opt }), className: `flex-1 py-3 rounded-xl border-2 font-bold transition-all ${details.ownership === opt ? "border-gas bg-gas-light/20 text-gas" : "border-gray-100 text-gray-500 hover:border-gas-light"}`, children: opt }, opt)) }),
-                  details.ownership === "Nein, Mietvertrag" && /* @__PURE__ */ jsxs("div", { className: "bg-yellow-50 p-4 rounded-xl border border-yellow-200 text-yellow-800 text-sm mt-4 flex items-start", children: [
-                    /* @__PURE__ */ jsx(AlertTriangle, { className: "mr-3 flex-shrink-0", size: 20 }),
-                    /* @__PURE__ */ jsxs("p", { children: [
-                      /* @__PURE__ */ jsx("strong", { children: "Hinweis:" }),
-                      " Wenn Sie den Tank gemietet haben, sind Sie meist vertraglich an Ihren Anbieter gebunden. Eine Befüllung durch uns ist dann rechtlich oft nicht möglich. Bitte prüfen Sie Ihren Vertrag."
-                    ] })
-                  ] })
+              /* @__PURE__ */ jsx("button", { onClick: onClose, "aria-label": "Schließen", className: "p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors", children: /* @__PURE__ */ jsx(X, { size: 24 }) })
+            ] }),
+            /* @__PURE__ */ jsx("div", { className: "h-1 bg-gray-100 w-full", children: /* @__PURE__ */ jsx(
+              motion.div,
+              {
+                className: "h-full bg-gas",
+                initial: { width: 0 },
+                animate: { width: `${progress}%` },
+                transition: { duration: 0.5, ease: "easeInOut" }
+              }
+            ) }),
+            /* @__PURE__ */ jsx("div", { className: "p-8 md:p-10 overflow-y-auto custom-scrollbar flex-1 relative", children: success ? /* @__PURE__ */ jsxs("div", { className: "text-center py-12 flex flex-col items-center justify-center h-full", children: [
+              /* @__PURE__ */ jsx(
+                motion.div,
+                {
+                  initial: { scale: 0 },
+                  animate: { scale: 1 },
+                  className: "w-24 h-24 bg-green-100 text-green-500 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-green-100",
+                  children: /* @__PURE__ */ jsx(Check, { size: 48, strokeWidth: 3 })
+                }
+              ),
+              /* @__PURE__ */ jsx("h3", { className: "text-3xl font-bold mb-4 text-gray-900", children: "Vielen Dank!" }),
+              /* @__PURE__ */ jsx("p", { className: "text-gray-500 mb-8 max-w-sm mx-auto", children: "Wir haben Ihre Anfrage erhalten und werden uns schnellstmöglich bei Ihnen melden." }),
+              /* @__PURE__ */ jsx("button", { onClick: onClose, className: "bg-gas text-white px-10 py-4 rounded-xl font-bold shadow-lg shadow-gas/20 hover:bg-gas-dark transition-all", children: "Schließen" })
+            ] }) : /* @__PURE__ */ jsx("form", { onSubmit: handleSubmitWrapper, className: "h-full", children: /* @__PURE__ */ jsxs(AnimatePresence, { mode: "wait", children: [
+              step === 1 && /* @__PURE__ */ jsxs(motion.div, { initial: { opacity: 0, x: 20 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -20 }, className: "flex flex-col h-full justify-center", children: [
+                /* @__PURE__ */ jsxs("div", { className: "text-center mb-10", children: [
+                  /* @__PURE__ */ jsx("h3", { className: "text-3xl font-bold mb-3 text-gray-900", children: "Wo wird geliefert?" }),
+                  /* @__PURE__ */ jsx("p", { className: "text-gray-500", children: "Geben Sie Ihre Postleitzahl ein, um die Verfügbarkeit zu prüfen." })
                 ] }),
-                /* @__PURE__ */ jsxs("div", { className: "bg-gray-50 p-6 rounded-2xl border border-gray-100", children: [
-                  /* @__PURE__ */ jsxs("div", { className: "mb-4", children: [
-                    /* @__PURE__ */ jsx("label", { className: "text-sm font-bold text-gray-700 mb-2 block", children: "Tankgröße (falls bekannt)" }),
+                /* @__PURE__ */ jsxs("div", { className: "max-w-xs mx-auto w-full", children: [
+                  /* @__PURE__ */ jsx(
+                    ModernInput,
+                    {
+                      type: "text",
+                      name: "plz",
+                      autoComplete: "postal-code",
+                      value: plz,
+                      onChange: (e) => {
+                        if (e.target.value.length <= 5 && /^\d*$/.test(e.target.value)) {
+                          setPlz(e.target.value);
+                        }
+                      },
+                      className: "text-center text-3xl font-bold tracking-[0.5em] !rounded-2xl",
+                      placeholder: "PLZ",
+                      maxLength: 5,
+                      autoFocus: true,
+                      error: plzError
+                    }
+                  ),
+                  /* @__PURE__ */ jsx(
+                    "button",
+                    {
+                      type: "button",
+                      onClick: handleNext,
+                      disabled: plz.length < 5,
+                      className: "w-full mt-6 bg-gas text-white py-4 rounded-xl font-bold hover:bg-gas-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-xl shadow-gas/20",
+                      children: "Weiter"
+                    }
+                  )
+                ] })
+              ] }, "step1"),
+              step === 2 && /* @__PURE__ */ jsxs(motion.div, { initial: { opacity: 0, x: 20 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -20 }, children: [
+                /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-center mb-8 text-gray-900", children: "Wie können wir helfen?" }),
+                /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-4 mb-8", children: [
+                  /* @__PURE__ */ jsx(
+                    SelectionCard,
+                    {
+                      title: "Neuer Tank",
+                      description: "Kauf oder Miete",
+                      icon: Settings,
+                      selected: type === "tank",
+                      onClick: () => {
+                        setType("tank");
+                      }
+                    }
+                  ),
+                  /* @__PURE__ */ jsx(
+                    SelectionCard,
+                    {
+                      title: "Gas bestellen",
+                      description: "Befüllung",
+                      icon: Flame,
+                      selected: type === "gas",
+                      onClick: () => {
+                        setType("gas");
+                      }
+                    }
+                  ),
+                  /* @__PURE__ */ jsx(
+                    SelectionCard,
+                    {
+                      title: "Service",
+                      description: "Wartung & Prüfung",
+                      icon: Wrench,
+                      selected: type === "service",
+                      onClick: () => {
+                        setType("service");
+                      }
+                    }
+                  )
+                ] }),
+                /* @__PURE__ */ jsx("button", { type: "button", onClick: handleNext, className: "w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg shadow-gas/20 hover:bg-gas-dark transition-all mb-4", children: "Weiter" }),
+                /* @__PURE__ */ jsx("button", { type: "button", onClick: handleBack, className: "w-full text-gray-400 hover:text-gray-600 font-bold", children: "Zurück" })
+              ] }, "step2"),
+              step === 3 && /* @__PURE__ */ jsxs(motion.div, { initial: { opacity: 0, x: 20 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -20 }, children: [
+                type === "tank" ? /* @__PURE__ */ jsxs(Fragment, { children: [
+                  /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-center mb-8 text-gray-900", children: "Welche Tankart bevorzugen Sie?" }),
+                  /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6 mb-8", children: [
                     /* @__PURE__ */ jsx(
-                      ModernInput,
+                      SelectionCard,
                       {
-                        type: "text",
-                        name: "tankSizeGas",
-                        className: "mb-0 bg-white",
-                        placeholder: "z.B. 1,2t oder 2700 Liter",
-                        value: details.tankSizeGas || "",
-                        onChange: (e) => setDetails({ ...details, tankSizeGas: e.target.value })
+                        title: "Oberirdisch",
+                        description: "Einfache Aufstellung im Garten (hellgrün)",
+                        icon: ArrowUpFromLine,
+                        selected: installationType === "oberirdisch",
+                        onClick: () => setInstallationType("oberirdisch"),
+                        className: "h-48"
+                      }
+                    ),
+                    /* @__PURE__ */ jsx(
+                      SelectionCard,
+                      {
+                        title: "Unterirdisch",
+                        description: "Unsichtbar im Boden verbaut",
+                        icon: ArrowDownToLine,
+                        selected: installationType === "unterirdisch",
+                        onClick: () => setInstallationType("unterirdisch"),
+                        className: "h-48"
                       }
                     )
                   ] }),
-                  /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center mb-4", children: [
-                    /* @__PURE__ */ jsx("label", { className: "text-sm font-bold text-gray-700", children: "Wunschmenge" }),
-                    /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-2", children: [
-                      /* @__PURE__ */ jsx("input", { type: "checkbox", id: "fillUp", className: "w-4 h-4 accent-gas rounded", onChange: (e) => setDetails({ ...details, fillUp: e.target.checked }) }),
-                      /* @__PURE__ */ jsx("label", { htmlFor: "fillUp", className: "text-sm text-gray-600 font-medium cursor-pointer", children: "Bitte vollmachen" })
+                  /* @__PURE__ */ jsx("button", { type: "button", onClick: handleNext, disabled: !installationType, className: "w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg shadow-gas/20 hover:bg-gas-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all mb-4", children: "Weiter" })
+                ] }) : type === "gas" ? /* @__PURE__ */ jsxs(Fragment, { children: [
+                  /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-center mb-6 text-gray-900", children: "Bestelldetails" }),
+                  /* @__PURE__ */ jsxs("div", { className: "space-y-6 max-w-md mx-auto", children: [
+                    /* @__PURE__ */ jsxs("div", { children: [
+                      /* @__PURE__ */ jsx("label", { className: "block text-sm font-bold text-gray-700 mb-2", children: "Eigentumsverhältnis" }),
+                      /* @__PURE__ */ jsx("div", { className: "flex gap-4", children: ["Ja, Eigentum", "Nein, Mietvertrag"].map((opt) => /* @__PURE__ */ jsx("button", { type: "button", onClick: () => setDetails({ ...details, ownership: opt }), className: `flex-1 py-3 rounded-xl border-2 font-bold transition-all ${details.ownership === opt ? "border-gas bg-gas-light/20 text-gas" : "border-gray-100 text-gray-500 hover:border-gas-light"}`, children: opt }, opt)) }),
+                      details.ownership === "Nein, Mietvertrag" && /* @__PURE__ */ jsxs("div", { className: "bg-yellow-50 p-4 rounded-xl border border-yellow-200 text-yellow-800 text-sm mt-4 flex items-start", children: [
+                        /* @__PURE__ */ jsx(AlertTriangle, { className: "mr-3 flex-shrink-0", size: 20 }),
+                        /* @__PURE__ */ jsxs("p", { children: [
+                          /* @__PURE__ */ jsx("strong", { children: "Hinweis:" }),
+                          " Wenn Sie den Tank gemietet haben, sind Sie meist vertraglich an Ihren Anbieter gebunden. Eine Befüllung durch uns ist dann rechtlich oft nicht möglich. Bitte prüfen Sie Ihren Vertrag."
+                        ] })
+                      ] })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { className: "bg-gray-50 p-6 rounded-2xl border border-gray-100", children: [
+                      /* @__PURE__ */ jsxs("div", { className: "mb-4", children: [
+                        /* @__PURE__ */ jsx("label", { className: "text-sm font-bold text-gray-700 mb-2 block", children: "Tankgröße (falls bekannt)" }),
+                        /* @__PURE__ */ jsx(
+                          ModernInput,
+                          {
+                            type: "text",
+                            name: "tankSizeGas",
+                            className: "mb-0 bg-white",
+                            placeholder: "z.B. 1,2t oder 2700 Liter",
+                            value: details.tankSizeGas || "",
+                            onChange: (e) => setDetails({ ...details, tankSizeGas: e.target.value })
+                          }
+                        )
+                      ] }),
+                      /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center mb-4", children: [
+                        /* @__PURE__ */ jsx("label", { className: "text-sm font-bold text-gray-700", children: "Wunschmenge" }),
+                        /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-2", children: [
+                          /* @__PURE__ */ jsx("input", { type: "checkbox", id: "fillUp", className: "w-4 h-4 accent-gas rounded", onChange: (e) => setDetails({ ...details, fillUp: e.target.checked }) }),
+                          /* @__PURE__ */ jsx("label", { htmlFor: "fillUp", className: "text-sm text-gray-600 font-medium cursor-pointer", children: "Bitte vollmachen" })
+                        ] })
+                      ] }),
+                      /* @__PURE__ */ jsxs("div", { className: `relative transition-opacity ${details.fillUp ? "opacity-50 pointer-events-none" : "opacity-100"}`, children: [
+                        /* @__PURE__ */ jsx(
+                          ModernInput,
+                          {
+                            type: "number",
+                            name: "amount",
+                            className: "mb-0",
+                            placeholder: "z.B. 2000",
+                            value: details.amount || "",
+                            onChange: (e) => setDetails({ ...details, amount: e.target.value })
+                          }
+                        ),
+                        /* @__PURE__ */ jsx("span", { className: "absolute right-6 top-4 text-gray-400 font-bold", children: "Liter" })
+                      ] })
+                    ] }),
+                    /* @__PURE__ */ jsx("button", { type: "button", onClick: handleNext, className: "w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg shadow-gas/20 hover:bg-gas-dark transition-all mt-4", children: "Weiter zu Kontakt" })
+                  ] })
+                ] }) : (
+                  /* Service Details */
+                  /* @__PURE__ */ jsxs(Fragment, { children: [
+                    /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-center mb-6 text-gray-900", children: "Service Anfrage" }),
+                    /* @__PURE__ */ jsxs("div", { className: "space-y-4", children: [
+                      /* @__PURE__ */ jsx("label", { className: "block text-sm font-bold text-gray-700", children: "Art des Service" }),
+                      /* @__PURE__ */ jsxs("select", { name: "serviceType", className: "w-full p-4 border-2 border-gray-100 rounded-xl outline-none bg-white mb-4 focus:border-gas transition-colors", onChange: (e) => setDetails({ ...details, serviceType: e.target.value }), children: [
+                        /* @__PURE__ */ jsx("option", { children: "Bitte wählen..." }),
+                        /* @__PURE__ */ jsx("option", { children: "Innere Prüfung (10 Jahre)" }),
+                        /* @__PURE__ */ jsx("option", { children: "Äußere Prüfung (2 Jahre)" }),
+                        /* @__PURE__ */ jsx("option", { children: "Rohrleitungsprüfung" }),
+                        /* @__PURE__ */ jsx("option", { children: "Wartung" }),
+                        /* @__PURE__ */ jsx("option", { children: "Sonstiges" })
+                      ] }),
+                      /* @__PURE__ */ jsx("label", { className: "block text-sm font-bold text-gray-700", children: "Nachricht" }),
+                      /* @__PURE__ */ jsx("textarea", { name: "message", className: "w-full p-4 border-2 border-gray-100 rounded-xl h-32 outline-none focus:border-gas transition-colors resize-none", placeholder: "Beschreiben Sie Ihr Anliegen...", onChange: (e) => setDetails({ ...details, message: e.target.value }) }),
+                      /* @__PURE__ */ jsx("button", { type: "button", onClick: handleNext, className: "w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg shadow-gas/20 hover:bg-gas-dark transition-all mt-4", children: "Weiter zu Kontakt" })
                     ] })
-                  ] }),
-                  /* @__PURE__ */ jsxs("div", { className: `relative transition-opacity ${details.fillUp ? "opacity-50 pointer-events-none" : "opacity-100"}`, children: [
+                  ] })
+                ),
+                type !== "tank" && /* @__PURE__ */ jsx("button", { type: "button", onClick: handleBack, className: "w-full text-gray-400 hover:text-gray-600 font-bold mt-4", children: "Zurück" }),
+                type === "tank" && /* @__PURE__ */ jsx("button", { type: "button", onClick: handleBack, className: "w-full text-gray-400 hover:text-gray-600 font-bold mt-4", children: "Zurück" })
+              ] }, "step3"),
+              step === 4 && /* @__PURE__ */ jsx(motion.div, { initial: { opacity: 0, x: 20 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -20 }, children: type === "tank" ? /* @__PURE__ */ jsxs(Fragment, { children: [
+                /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-center mb-4 text-gray-900", children: "Zustand des Tanks" }),
+                /* @__PURE__ */ jsx("p", { className: "text-center text-gray-500 mb-8 max-w-sm mx-auto", children: "Wählen Sie zwischen einem fabrikneuen oder einem professionell aufbereiteten Tank." }),
+                /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6 mb-8", children: [
+                  /* @__PURE__ */ jsx(
+                    SelectionCard,
+                    {
+                      title: "Neu",
+                      description: "Fabrikneuer Tank",
+                      icon: Sparkles,
+                      selected: details.condition === "Neu",
+                      onClick: () => setDetails({ ...details, condition: "Neu" }),
+                      className: "h-48"
+                    }
+                  ),
+                  /* @__PURE__ */ jsxs("div", { className: "relative group", children: [
                     /* @__PURE__ */ jsx(
-                      ModernInput,
+                      SelectionCard,
                       {
-                        type: "number",
-                        name: "amount",
-                        className: "mb-0",
-                        placeholder: "z.B. 2000",
-                        value: details.amount || "",
-                        onChange: (e) => setDetails({ ...details, amount: e.target.value })
+                        title: "Gebraucht",
+                        description: "Geprüft & Aufbereitet",
+                        icon: RefreshCw,
+                        selected: details.condition === "Gebraucht / Aufbereitet",
+                        onClick: () => setDetails({ ...details, condition: "Gebraucht / Aufbereitet" }),
+                        className: "h-48"
                       }
                     ),
-                    /* @__PURE__ */ jsx("span", { className: "absolute right-6 top-4 text-gray-400 font-bold", children: "Liter" })
+                    /* @__PURE__ */ jsx("div", { className: "absolute -top-3 -right-3", children: /* @__PURE__ */ jsx("div", { className: "bg-gas text-white rounded-full p-1 shadow-lg", children: /* @__PURE__ */ jsx(Info, { size: 16 }) }) }),
+                    /* @__PURE__ */ jsxs("div", { className: "mt-3 bg-blue-50 p-3 rounded-xl border border-blue-100 text-xs text-blue-800 leading-relaxed", children: [
+                      /* @__PURE__ */ jsx("strong", { children: "Spar-Tipp:" }),
+                      " Wir bereiten alte Tanks professionell auf (lackiert & geprüft). Eine nachhaltige und günstige Alternative!"
+                    ] })
                   ] })
                 ] }),
-                /* @__PURE__ */ jsx("button", { type: "button", onClick: handleNext, className: "w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg shadow-gas/20 hover:bg-gas-dark transition-all mt-4", children: "Weiter zu Kontakt" })
-              ] })
-            ] }) : (
-              /* Service Details */
-              /* @__PURE__ */ jsxs(Fragment, { children: [
-                /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-center mb-6 text-gray-900", children: "Service Anfrage" }),
-                /* @__PURE__ */ jsxs("div", { className: "space-y-4", children: [
-                  /* @__PURE__ */ jsx("label", { className: "block text-sm font-bold text-gray-700", children: "Art des Service" }),
-                  /* @__PURE__ */ jsxs("select", { name: "serviceType", className: "w-full p-4 border-2 border-gray-100 rounded-xl outline-none bg-white mb-4 focus:border-gas transition-colors", onChange: (e) => setDetails({ ...details, serviceType: e.target.value }), children: [
-                    /* @__PURE__ */ jsx("option", { children: "Bitte wählen..." }),
-                    /* @__PURE__ */ jsx("option", { children: "Innere Prüfung (10 Jahre)" }),
-                    /* @__PURE__ */ jsx("option", { children: "Äußere Prüfung (2 Jahre)" }),
-                    /* @__PURE__ */ jsx("option", { children: "Rohrleitungsprüfung" }),
-                    /* @__PURE__ */ jsx("option", { children: "Wartung" }),
-                    /* @__PURE__ */ jsx("option", { children: "Sonstiges" })
-                  ] }),
-                  /* @__PURE__ */ jsx("label", { className: "block text-sm font-bold text-gray-700", children: "Nachricht" }),
-                  /* @__PURE__ */ jsx("textarea", { name: "message", className: "w-full p-4 border-2 border-gray-100 rounded-xl h-32 outline-none focus:border-gas transition-colors resize-none", placeholder: "Beschreiben Sie Ihr Anliegen...", onChange: (e) => setDetails({ ...details, message: e.target.value }) }),
-                  /* @__PURE__ */ jsx("button", { type: "button", onClick: handleNext, className: "w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg shadow-gas/20 hover:bg-gas-dark transition-all mt-4", children: "Weiter zu Kontakt" })
-                ] })
-              ] })
-            ),
-            type !== "tank" && /* @__PURE__ */ jsx("button", { type: "button", onClick: handleBack, className: "w-full text-gray-400 hover:text-gray-600 font-bold mt-4", children: "Zurück" }),
-            type === "tank" && /* @__PURE__ */ jsx("button", { type: "button", onClick: handleBack, className: "w-full text-gray-400 hover:text-gray-600 font-bold mt-4", children: "Zurück" })
-          ] }, "step3"),
-          step === 4 && /* @__PURE__ */ jsx(motion.div, { initial: { opacity: 0, x: 20 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -20 }, children: type === "tank" ? /* @__PURE__ */ jsxs(Fragment, { children: [
-            /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-center mb-4 text-gray-900", children: "Zustand des Tanks" }),
-            /* @__PURE__ */ jsx("p", { className: "text-center text-gray-500 mb-8 max-w-sm mx-auto", children: "Wählen Sie zwischen einem fabrikneuen oder einem professionell aufbereiteten Tank." }),
-            /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6 mb-8", children: [
-              /* @__PURE__ */ jsx(
-                SelectionCard,
-                {
-                  title: "Neu",
-                  description: "Fabrikneuer Tank",
-                  icon: Sparkles,
-                  selected: details.condition === "Neu",
-                  onClick: () => setDetails({ ...details, condition: "Neu" }),
-                  className: "h-48"
-                }
-              ),
-              /* @__PURE__ */ jsxs("div", { className: "relative group", children: [
+                /* @__PURE__ */ jsx("button", { type: "button", onClick: handleNext, disabled: !details.condition, className: "w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg shadow-gas/20 hover:bg-gas-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all mb-4", children: "Weiter" }),
+                /* @__PURE__ */ jsx("button", { type: "button", onClick: handleBack, className: "w-full text-gray-400 hover:text-gray-600 font-bold", children: "Zurück" })
+              ] }) : (
+                /* CONTACT FORM for Gas/Service */
                 /* @__PURE__ */ jsx(
-                  SelectionCard,
+                  ContactForm,
                   {
-                    title: "Gebraucht",
-                    description: "Geprüft & Aufbereitet",
-                    icon: RefreshCw,
-                    selected: details.condition === "Gebraucht / Aufbereitet",
-                    onClick: () => setDetails({ ...details, condition: "Gebraucht / Aufbereitet" }),
-                    className: "h-48"
+                    contact,
+                    setContact,
+                    plz,
+                    submitting,
+                    handleBack,
+                    stepName: "Kontakt"
                   }
-                ),
-                /* @__PURE__ */ jsx("div", { className: "absolute -top-3 -right-3", children: /* @__PURE__ */ jsx("div", { className: "bg-gas text-white rounded-full p-1 shadow-lg", children: /* @__PURE__ */ jsx(Info, { size: 16 }) }) }),
-                /* @__PURE__ */ jsxs("div", { className: "mt-3 bg-blue-50 p-3 rounded-xl border border-blue-100 text-xs text-blue-800 leading-relaxed", children: [
-                  /* @__PURE__ */ jsx("strong", { children: "Spar-Tipp:" }),
-                  " Wir bereiten alte Tanks professionell auf (lackiert & geprüft). Eine nachhaltige und günstige Alternative!"
+                )
+              ) }, "step4"),
+              step === 5 && type === "tank" && /* @__PURE__ */ jsxs(motion.div, { initial: { opacity: 0, x: 20 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -20 }, children: [
+                /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-center mb-6 text-gray-900", children: "Projekt Details" }),
+                /* @__PURE__ */ jsxs("div", { className: "space-y-8 max-w-md mx-auto", children: [
+                  /* @__PURE__ */ jsxs("div", { children: [
+                    /* @__PURE__ */ jsx("label", { className: "block text-sm font-bold text-gray-700 mb-3 ml-1", children: "Art des Gebäudes" }),
+                    /* @__PURE__ */ jsx("div", { className: "grid grid-cols-3 gap-3", children: [
+                      { id: "bestand", label: "Haus", sub: "(Bestand)", icon: Home },
+                      { id: "neubau", label: "Neubau", sub: "", icon: Building2 },
+                      { id: "gewerbe", label: "Gewerbe", sub: "", icon: Factory }
+                    ].map((b) => /* @__PURE__ */ jsxs(
+                      "button",
+                      {
+                        type: "button",
+                        onClick: () => setDetails({ ...details, building: b.label + (b.sub ? " " + b.sub : "") }),
+                        className: `flex flex-col items-center justify-center p-3 rounded-xl border-2 transition-all h-24 ${details.building === b.label + (b.sub ? " " + b.sub : "") ? "border-gas bg-gas-light/20 text-gas" : "border-gray-100 hover:border-gas-light text-gray-600"}`,
+                        children: [
+                          /* @__PURE__ */ jsx(b.icon, { size: 24, className: "mb-2", strokeWidth: 1.5 }),
+                          /* @__PURE__ */ jsx("span", { className: "font-bold text-xs", children: b.label }),
+                          b.sub && /* @__PURE__ */ jsx("span", { className: "text-[10px] opacity-70", children: b.sub })
+                        ]
+                      },
+                      b.id
+                    )) })
+                  ] }),
+                  /* @__PURE__ */ jsxs("div", { children: [
+                    /* @__PURE__ */ jsx("label", { className: "block text-sm font-bold text-gray-700 mb-3 ml-1", children: "Gewünschte Tankgröße" }),
+                    /* @__PURE__ */ jsx("div", { className: "grid grid-cols-3 gap-3", children: [{ l: "1,2 t", v: "1.2t", vol: "2.700 L" }, { l: "2,1 t", v: "2.1t", vol: "4.850 L" }, { l: "2,9 t", v: "2.9t", vol: "6.400 L" }].map((t) => /* @__PURE__ */ jsxs("button", { type: "button", onClick: () => setDetails({ ...details, tankSize: t.v }), className: `p-3 rounded-xl border-2 text-center transition-all ${details.tankSize === t.v ? "border-gas bg-gas text-white shadow-lg" : "border-gray-100 hover:border-gas-light"}`, children: [
+                      /* @__PURE__ */ jsx("div", { className: "font-extrabold text-lg", children: t.l }),
+                      /* @__PURE__ */ jsx("div", { className: `text-[10px] font-bold tracking-wider uppercase mt-1 ${details.tankSize === t.v ? "opacity-80" : "text-gray-400"}`, children: "Volumen" }),
+                      /* @__PURE__ */ jsx("div", { className: `text-xs ${details.tankSize === t.v ? "opacity-100" : "text-gray-500"}`, children: t.vol })
+                    ] }, t.v)) })
+                  ] }),
+                  /* @__PURE__ */ jsxs("div", { children: [
+                    /* @__PURE__ */ jsx("label", { className: "block text-sm font-bold text-gray-700 mb-3 ml-1", children: "Interesse an" }),
+                    /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 gap-2", children: ["Kauf (Eigentum)", "Miete", "Beratung gewünscht"].map((opt) => /* @__PURE__ */ jsxs(
+                      "button",
+                      {
+                        type: "button",
+                        onClick: () => setDetails({ ...details, interest: opt }),
+                        className: `w-full text-left px-5 py-4 rounded-xl border-2 font-bold transition-all flex justify-between items-center ${details.interest === opt ? "border-gas bg-gas-light/20 text-gas" : "border-gray-100 text-gray-600 hover:border-gas-light"}`,
+                        children: [
+                          opt,
+                          details.interest === opt && /* @__PURE__ */ jsx(Check, { size: 18 })
+                        ]
+                      },
+                      opt
+                    )) })
+                  ] }),
+                  /* @__PURE__ */ jsxs("div", { className: "pt-2", children: [
+                    /* @__PURE__ */ jsx("button", { type: "button", onClick: handleNext, className: "w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg shadow-gas/20 hover:bg-gas-dark transition-all", children: "Weiter zu Kontakt" }),
+                    /* @__PURE__ */ jsx("button", { type: "button", onClick: handleBack, className: "w-full text-gray-400 hover:text-gray-600 font-bold mt-4", children: "Zurück" })
+                  ] })
                 ] })
-              ] })
-            ] }),
-            /* @__PURE__ */ jsx("button", { type: "button", onClick: handleNext, disabled: !details.condition, className: "w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg shadow-gas/20 hover:bg-gas-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all mb-4", children: "Weiter" }),
-            /* @__PURE__ */ jsx("button", { type: "button", onClick: handleBack, className: "w-full text-gray-400 hover:text-gray-600 font-bold", children: "Zurück" })
-          ] }) : (
-            /* CONTACT FORM for Gas/Service */
-            /* @__PURE__ */ jsx(
-              ContactForm,
-              {
-                contact,
-                setContact,
-                plz,
-                submitting,
-                handleBack,
-                stepName: "Kontakt"
-              }
-            )
-          ) }, "step4"),
-          step === 5 && type === "tank" && /* @__PURE__ */ jsxs(motion.div, { initial: { opacity: 0, x: 20 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -20 }, children: [
-            /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-center mb-6 text-gray-900", children: "Projekt Details" }),
-            /* @__PURE__ */ jsxs("div", { className: "space-y-8 max-w-md mx-auto", children: [
-              /* @__PURE__ */ jsxs("div", { children: [
-                /* @__PURE__ */ jsx("label", { className: "block text-sm font-bold text-gray-700 mb-3 ml-1", children: "Art des Gebäudes" }),
-                /* @__PURE__ */ jsx("div", { className: "grid grid-cols-3 gap-3", children: [
-                  { id: "bestand", label: "Haus", sub: "(Bestand)", icon: Home },
-                  { id: "neubau", label: "Neubau", sub: "", icon: Building2 },
-                  { id: "gewerbe", label: "Gewerbe", sub: "", icon: Factory }
-                ].map((b) => /* @__PURE__ */ jsxs(
-                  "button",
-                  {
-                    type: "button",
-                    onClick: () => setDetails({ ...details, building: b.label + (b.sub ? " " + b.sub : "") }),
-                    className: `flex flex-col items-center justify-center p-3 rounded-xl border-2 transition-all h-24 ${details.building === b.label + (b.sub ? " " + b.sub : "") ? "border-gas bg-gas-light/20 text-gas" : "border-gray-100 hover:border-gas-light text-gray-600"}`,
-                    children: [
-                      /* @__PURE__ */ jsx(b.icon, { size: 24, className: "mb-2", strokeWidth: 1.5 }),
-                      /* @__PURE__ */ jsx("span", { className: "font-bold text-xs", children: b.label }),
-                      b.sub && /* @__PURE__ */ jsx("span", { className: "text-[10px] opacity-70", children: b.sub })
-                    ]
-                  },
-                  b.id
-                )) })
-              ] }),
-              /* @__PURE__ */ jsxs("div", { children: [
-                /* @__PURE__ */ jsx("label", { className: "block text-sm font-bold text-gray-700 mb-3 ml-1", children: "Gewünschte Tankgröße" }),
-                /* @__PURE__ */ jsx("div", { className: "grid grid-cols-3 gap-3", children: [{ l: "1,2 t", v: "1.2t", vol: "2.700 L" }, { l: "2,1 t", v: "2.1t", vol: "4.850 L" }, { l: "2,9 t", v: "2.9t", vol: "6.400 L" }].map((t) => /* @__PURE__ */ jsxs("button", { type: "button", onClick: () => setDetails({ ...details, tankSize: t.v }), className: `p-3 rounded-xl border-2 text-center transition-all ${details.tankSize === t.v ? "border-gas bg-gas text-white shadow-lg" : "border-gray-100 hover:border-gas-light"}`, children: [
-                  /* @__PURE__ */ jsx("div", { className: "font-extrabold text-lg", children: t.l }),
-                  /* @__PURE__ */ jsx("div", { className: `text-[10px] font-bold tracking-wider uppercase mt-1 ${details.tankSize === t.v ? "opacity-80" : "text-gray-400"}`, children: "Volumen" }),
-                  /* @__PURE__ */ jsx("div", { className: `text-xs ${details.tankSize === t.v ? "opacity-100" : "text-gray-500"}`, children: t.vol })
-                ] }, t.v)) })
-              ] }),
-              /* @__PURE__ */ jsxs("div", { children: [
-                /* @__PURE__ */ jsx("label", { className: "block text-sm font-bold text-gray-700 mb-3 ml-1", children: "Interesse an" }),
-                /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 gap-2", children: ["Kauf (Eigentum)", "Miete", "Beratung gewünscht"].map((opt) => /* @__PURE__ */ jsxs(
-                  "button",
-                  {
-                    type: "button",
-                    onClick: () => setDetails({ ...details, interest: opt }),
-                    className: `w-full text-left px-5 py-4 rounded-xl border-2 font-bold transition-all flex justify-between items-center ${details.interest === opt ? "border-gas bg-gas-light/20 text-gas" : "border-gray-100 text-gray-600 hover:border-gas-light"}`,
-                    children: [
-                      opt,
-                      details.interest === opt && /* @__PURE__ */ jsx(Check, { size: 18 })
-                    ]
-                  },
-                  opt
-                )) })
-              ] }),
-              /* @__PURE__ */ jsxs("div", { className: "pt-2", children: [
-                /* @__PURE__ */ jsx("button", { type: "button", onClick: handleNext, className: "w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg shadow-gas/20 hover:bg-gas-dark transition-all", children: "Weiter zu Kontakt" }),
-                /* @__PURE__ */ jsx("button", { type: "button", onClick: handleBack, className: "w-full text-gray-400 hover:text-gray-600 font-bold mt-4", children: "Zurück" })
-              ] })
-            ] })
-          ] }, "step5"),
-          step === 6 && type === "tank" && /* @__PURE__ */ jsx(motion.div, { initial: { opacity: 0, x: 20 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -20 }, children: /* @__PURE__ */ jsx(
-            ContactForm,
-            {
-              contact,
-              setContact,
-              plz,
-              submitting,
-              handleBack,
-              stepName: "Kontakt"
-            }
-          ) }, "step6")
-        ] }) }) })
-      ]
+              ] }, "step5"),
+              step === 6 && type === "tank" && /* @__PURE__ */ jsx(motion.div, { initial: { opacity: 0, x: 20 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -20 }, children: /* @__PURE__ */ jsx(
+                ContactForm,
+                {
+                  contact,
+                  setContact,
+                  plz,
+                  submitting,
+                  handleBack,
+                  stepName: "Kontakt"
+                }
+              ) }, "step6")
+            ] }) }) })
+          ]
+        }
+      )
     }
-  ) });
+  );
 };
 const ContactForm = ({ contact, setContact, plz, submitting, handleBack, stepName }) => /* @__PURE__ */ jsxs(Fragment, { children: [
   /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-center mb-6 text-gray-900", children: stepName }),
@@ -3192,21 +3343,37 @@ const ScrollToTop = () => {
   return /* @__PURE__ */ jsx("button", { onClick: scrollToTop, className: `scroll-to-top ${visible ? "visible" : ""}`, "aria-label": "Nach oben", children: /* @__PURE__ */ jsx(ChevronUp, { size: 24 }) });
 };
 const NotFound = ({ onGoHome }) => {
-  return /* @__PURE__ */ jsxs("div", { className: "min-h-[60vh] flex flex-col items-center justify-center p-4 text-center", children: [
-    /* @__PURE__ */ jsx("h1", { className: "text-9xl font-bold text-gray-200 mb-4", children: "404" }),
-    /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-gray-900 mb-4", children: "Seite nicht gefunden" }),
-    /* @__PURE__ */ jsx("p", { className: "text-gray-600 mb-8 max-w-md", children: "Die von Ihnen gesuchte Seite existiert nicht oder wurde verschoben." }),
-    /* @__PURE__ */ jsxs(
-      "button",
-      {
-        onClick: onGoHome,
-        className: "bg-gas text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-gas-dark transition-all flex items-center gap-2",
-        children: [
-          /* @__PURE__ */ jsx(Home, { size: 20 }),
-          "Zurück zur Startseite"
-        ]
-      }
-    )
+  return /* @__PURE__ */ jsxs("div", { className: "min-h-[70vh] flex flex-col items-center justify-center p-4 text-center bg-gray-50", children: [
+    /* @__PURE__ */ jsx("h1", { className: "text-9xl font-extrabold text-gray-200 mb-4", children: "404" }),
+    /* @__PURE__ */ jsx("h2", { className: "text-3xl font-bold text-gray-900 mb-4", children: "Upps! Seite nicht gefunden." }),
+    /* @__PURE__ */ jsx("p", { className: "text-gray-600 mb-8 max-w-md text-lg", children: "Es scheint, als hätten Sie sich verlaufen. Die gesuchte Seite ist leider nicht verfügbar." }),
+    /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap justify-center gap-3 mb-8", children: [
+      /* @__PURE__ */ jsx("button", { onClick: onGoHome, className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors", children: "Startseite" }),
+      /* @__PURE__ */ jsx("button", { onClick: () => window.location.href = "/tanks", className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors", children: "Tanks kaufen" }),
+      /* @__PURE__ */ jsx("button", { onClick: () => window.location.href = "/gas", className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors", children: "Gas bestellen" }),
+      /* @__PURE__ */ jsx("button", { onClick: () => window.location.href = "/kontakt", className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors", children: "Kontakt" })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row gap-4", children: [
+      /* @__PURE__ */ jsxs(
+        "button",
+        {
+          onClick: onGoHome,
+          className: "bg-gas text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:bg-gas-dark transition-all flex items-center justify-center gap-2",
+          children: [
+            /* @__PURE__ */ jsx(Home, { size: 20 }),
+            "Zurück zur Startseite"
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsx(
+        "a",
+        {
+          href: "mailto:kontakt@gasmoeller.de",
+          className: "bg-white text-gray-700 border border-gray-200 px-8 py-3 rounded-xl font-bold hover:bg-gray-100 transition-all flex items-center justify-center gap-2",
+          children: "Problem melden"
+        }
+      )
+    ] })
   ] });
 };
 const ImprintContent = () => /* @__PURE__ */ jsxs("div", { className: "space-y-4 text-sm text-gray-700", children: [
@@ -3292,7 +3459,11 @@ const TermsContent = () => /* @__PURE__ */ jsxs("div", { className: "space-y-4 t
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "6. Eigentumsvorbehalt" }),
   /* @__PURE__ */ jsx("p", { children: "Bis zur vollständigen Bezahlung bleibt die Ware unser Eigentum." }),
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "7. Streitbeilegung" }),
-  /* @__PURE__ */ jsx("p", { children: "Die EU-Kommission hat eine Internetplattform zur Online-Beilegung von Streitigkeiten geschaffen. Die Plattform dient als Anlaufstelle zur außergerichtlichen Beilegung von Streitigkeiten betreffend vertragliche Verpflichtungen, die aus Online-Kaufverträgen erwachsen. Nähere Informationen sind unter dem folgenden Link verfügbar: http://ec.europa.eu/consumers/odr." })
+  /* @__PURE__ */ jsxs("p", { children: [
+    "Die EU-Kommission hat eine Internetplattform zur Online-Beilegung von Streitigkeiten geschaffen. Die Plattform dient als Anlaufstelle zur außergerichtlichen Beilegung von Streitigkeiten betreffend vertragliche Verpflichtungen, die aus Online-Kaufverträgen erwachsen. Nähere Informationen sind unter dem folgenden Link verfügbar: ",
+    /* @__PURE__ */ jsx("a", { href: "http://ec.europa.eu/consumers/odr", target: "_blank", rel: "noopener noreferrer", className: "text-gas hover:underline", children: "http://ec.europa.eu/consumers/odr" }),
+    "."
+  ] })
 ] });
 const App = ({ path }) => {
   const getInitialSection = () => {
@@ -3329,52 +3500,6 @@ const App = ({ path }) => {
     } else if (type === "terms") {
       title = "AGB";
       content = /* @__PURE__ */ jsx(TermsContent, {});
-    } else if (type === "dev") {
-      title = "Developer Report (v1.3)";
-      content = /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsxs("div", { className: "bg-gray-100 p-4 rounded-lg mb-4 text-sm font-mono", children: [
-          /* @__PURE__ */ jsx("p", { className: "font-bold", children: "Latest Changes:" }),
-          /* @__PURE__ */ jsxs("ul", { className: "list-disc pl-4 space-y-1 mt-2", children: [
-            /* @__PURE__ */ jsx("li", { children: "Migrated to Vite + React." }),
-            /* @__PURE__ */ jsx("li", { children: "Removed all external CDN dependencies for GDPR compliance." }),
-            /* @__PURE__ */ jsx("li", { children: "Modularized components." }),
-            /* @__PURE__ */ jsx("li", { children: "Local fonts implemented." })
-          ] })
-        ] }),
-        /* @__PURE__ */ jsx("h4", { className: "font-bold text-lg mb-2 text-gas", children: "Migration to Next.js" }),
-        /* @__PURE__ */ jsx("p", { className: "mb-4 text-sm", children: "To achieve perfect SEO and performance (Core Web Vitals), we recommend migrating this single-file prototype to a full Next.js application." }),
-        /* @__PURE__ */ jsxs("div", { className: "space-y-2 text-sm", children: [
-          /* @__PURE__ */ jsxs("p", { children: [
-            /* @__PURE__ */ jsx("strong", { children: "1. Setup:" }),
-            " ",
-            /* @__PURE__ */ jsx("code", { children: "npx create-next-app@latest gasmoeller" })
-          ] }),
-          /* @__PURE__ */ jsxs("p", { children: [
-            /* @__PURE__ */ jsx("strong", { children: "2. Structure:" }),
-            " Move components to ",
-            /* @__PURE__ */ jsx("code", { children: "src/components/" }),
-            ". Use ",
-            /* @__PURE__ */ jsx("code", { children: "app/page.js" }),
-            " for the main layout."
-          ] }),
-          /* @__PURE__ */ jsxs("p", { children: [
-            /* @__PURE__ */ jsx("strong", { children: "3. SEO:" }),
-            " Use Next.js Metadata API for dynamic title/description tags per page."
-          ] }),
-          /* @__PURE__ */ jsxs("p", { children: [
-            /* @__PURE__ */ jsx("strong", { children: "4. Images:" }),
-            " Replace ",
-            /* @__PURE__ */ jsx("code", { children: "img" }),
-            " tags with ",
-            /* @__PURE__ */ jsx("code", { children: "next/image" }),
-            " for automatic optimization."
-          ] }),
-          /* @__PURE__ */ jsxs("p", { children: [
-            /* @__PURE__ */ jsx("strong", { children: "5. Forms:" }),
-            " Move form submission logic to Server Actions for security."
-          ] })
-        ] })
-      ] });
     }
     setLegalModal({ open: true, title, content });
   };

@@ -33,13 +33,17 @@ const routesToPrerender = [
     ...tankDetails.map(t => `/tanks/${t.slug}`)
 ];
 
+// Add 404 route specifically
+const routesWith404 = [...routesToPrerender, '/404'];
+
 (async () => {
     // Determine output directory
     const distClient = toAbsolute('dist/client');
     const sitemapUrls = [];
 
-    for (const url of routesToPrerender) {
+    for (const url of routesWith404) {
         // Render app HTML
+        // Note: '404' is not a valid section in App.jsx switch, so it falls to default (NotFound)
         const { html } = render(url);
 
         // Get SEO Data
@@ -111,7 +115,8 @@ const routesToPrerender = [
         // Add to sitemap list (skip duplicate /start if / is present, or keep both? Canonical handles it)
         // We will prefer the cleaner URLs (no /start if / is there, but here we render both)
         // Let's rely on canonicals.
-        if (url !== '/start') { // Skip /start as it is same as /
+        // Also exclude 404 from sitemap
+        if (url !== '/start' && url !== '/404') { // Skip /start as it is same as /
              sitemapUrls.push(seoData.url);
         } else if (url === '/' && !sitemapUrls.includes(seoData.url)) {
              sitemapUrls.push(seoData.url);

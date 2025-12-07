@@ -151,6 +151,29 @@ async function createServer() {
             return res.sendFile(possibleStaticPath);
         }
 
+        // 404 Fallback for Static Generation
+        // If the URL was not found as a static file, check if it's a valid CSR route or just a 404
+        // For simplicity in this hybrid setup, if we can't find the file, we can fall back to SSR
+        // OR serve the 404.html if it exists.
+
+        // However, we want to support dynamic routes via SSR if needed.
+        // But in our case, we pre-render almost everything.
+
+        // If it's a known invalid route, serve 404.html
+        // But App.jsx handles 404 logic too.
+
+        // If we are here, it means no static file exists for this URL.
+        // We proceed to SSR to let React App decide if it's a valid dynamic route or 404.
+
+        // OPTIMIZATION: If we know it's a 404 (e.g. not a dynamic route pattern),
+        // we could serve dist/client/404.html directly if it exists.
+        const path404 = path.join(__dirname, 'dist/client', '404.html');
+        if (fs.existsSync(path404)) {
+             // Let SSR handle it first to be dynamic?
+             // Actually, if we rely on App.jsx to render "NotFound", SSR will generate that HTML.
+             // But setting the status code is important for SEO.
+        }
+
         // If not found statically, proceed to SSR (e.g. for dynamic routes not pre-rendered)
         render = (await import('./dist/server/entry-server.js')).render
 
