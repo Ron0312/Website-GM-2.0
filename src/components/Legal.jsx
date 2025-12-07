@@ -4,31 +4,31 @@ export const ImprintContent = () => (
     <div className="space-y-4 text-sm text-gray-700">
         <h3 className="text-lg font-bold text-gray-900">Angaben gemäß § 5 TMG</h3>
         <p>
-            <strong>gasmöller</strong><br />
-            Musterstraße 1<br />
-            12345 Musterstadt
+            <strong>Gas-Service Möller e.K.</strong><br />
+            Neuenteichweg 7a<br />
+            23795 Schieren
         </p>
 
         <h3 className="text-lg font-bold text-gray-900 mt-4">Vertreten durch</h3>
-        <p>Thomas Möller</p>
+        <p>Anja Möller</p>
 
         <h3 className="text-lg font-bold text-gray-900 mt-4">Kontakt</h3>
         <p>
             Telefon: 04551 89 70 89<br />
-            E-Mail: <a href="mailto:info@gasmoeller.de" className="text-gas hover:underline">info@gasmoeller.de</a>
+            E-Mail: <a href="mailto:kontakt@gasmoeller.de" className="text-gas hover:underline">kontakt@gasmoeller.de</a>
         </p>
 
         <h3 className="text-lg font-bold text-gray-900 mt-4">Registereintrag</h3>
         <p>
             Eintragung im Handelsregister.<br />
             Registergericht: Amtsgericht Kiel<br />
-            Registernummer: HRB 12345
+            Registernummer: HRA 11334 KI
         </p>
 
         <h3 className="text-lg font-bold text-gray-900 mt-4">Umsatzsteuer-ID</h3>
         <p>
             Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br />
-            DE 123456789
+            DE 224162155
         </p>
 
         <h3 className="text-lg font-bold text-gray-900 mt-4">Streitschlichtung</h3>
@@ -63,11 +63,11 @@ export const PrivacyContent = () => (
         <p><strong>Hinweis zur verantwortlichen Stelle</strong></p>
         <p>
             Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:<br />
-            gasmöller<br />
-            Musterstraße 1<br />
-            12345 Musterstadt<br />
+            Gas-Service Möller e.K.<br />
+            Neuenteichweg 7a<br />
+            23795 Schieren<br />
             Telefon: 04551 89 70 89<br />
-            E-Mail: info@gasmoeller.de
+            E-Mail: kontakt@gasmoeller.de
         </p>
 
         <h3 className="text-lg font-bold text-gray-900 mt-4">3. Datenerfassung auf dieser Website</h3>
@@ -96,7 +96,7 @@ export const TermsContent = () => (
 
         <h3 className="text-lg font-bold text-gray-900 mt-4">2. Vertragspartner</h3>
         <p>
-            Der Kaufvertrag kommt zustande mit der gasmöller, Geschäftsführer: Thomas Möller, Musterstraße 1, 12345 Musterstadt.
+            Der Kaufvertrag kommt zustande mit der Gas-Service Möller e.K., Inhaberin: Anja Möller, Neuenteichweg 7a, 23795 Schieren.
         </p>
 
         <h3 className="text-lg font-bold text-gray-900 mt-4">3. Vertragsabschluss</h3>

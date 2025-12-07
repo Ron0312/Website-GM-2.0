@@ -27,3 +27,10 @@ The changes directly address the user's feedback regarding accuracy and visual c
 -   **Tank Detail Pages**: Implemented dynamic tank detail pages (`/tanks/:slug`) with rich content, technical data, and SEO optimization.
 -   **SEO Enhancement**: Updated `seoData.js` to provide specific meta tags and Schema.org Product markup for each individual tank page.
 -   **Form Consistency**: Added PLZ field to the Contact form to unify the user experience and location checking.
+
+## Update v1.5
+
+### Changes
+-   **Legal Data Update**: Replaced all placeholder data (e.g., "Musterstraße") in `src/components/Legal.jsx` with the official company information for Gas-Service Möller e.K., including the correct address in Schieren, commercial register number (HRA 11334 KI), and VAT ID.
+-   **SEO Data Optimization**: Updated `src/data/seoData.js` to reflect the correct physical address and geo-coordinates in Schema.org structured data, improving local SEO relevance.
+-   **Contact Information**: Unified contact details across legal pages and SEO data to use the primary `kontakt@gasmoeller.de` email address.

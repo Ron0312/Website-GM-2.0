@@ -109,19 +109,19 @@ export const getSchemaForPath = (path) => {
         "name": "gasmöller",
         "image": DEFAULT_IMAGE,
         "telephone": "04551 89 70 89",
-        "email": "info@gasmoeller.de",
+        "email": "kontakt@gasmoeller.de",
         "url": SITE_URL,
         "address": {
             "@type": "PostalAddress",
-            "streetAddress": "Musterstraße 1", // Update if real address becomes available
-            "addressLocality": "Bad Segeberg",
+            "streetAddress": "Neuenteichweg 7a",
+            "addressLocality": "Schieren",
             "postalCode": "23795",
             "addressCountry": "DE"
         },
         "geo": {
             "@type": "GeoCoordinates",
-            "latitude": 53.936,
-            "longitude": 10.310
+            "latitude": 53.944,
+            "longitude": 10.390
         },
         "openingHoursSpecification": {
             "@type": "OpeningHoursSpecification",

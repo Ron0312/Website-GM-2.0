@@ -1,7 +1,7 @@
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import React, { useState, useEffect } from "react";
 import ReactDOMServer from "react-dom/server";
-import { TrendingUp, Clock, ArrowUpFromLine, ArrowDownToLine, ShieldCheck, BookOpen, Phone, ChevronDown, ArrowRight, X, Menu, BadgeCheck, Star, Calculator, Zap, Info, Flame, Droplets, Leaf, Trees, ArrowLeft, Ruler, Weight, Check, Download, Tractor, Factory, Truck, MapPin, CheckCircle, Coins, Heart, AlertTriangle, Settings, Home, Wrench, Lock, Unlock, ChevronRight, Send, Building2, ChevronUp } from "lucide-react";
+import { TrendingUp, Clock, ArrowUpFromLine, ArrowDownToLine, ShieldCheck, BookOpen, Phone, ChevronDown, ArrowRight, X, Menu, BadgeCheck, Star, Calculator, Zap, Info, Flame, Droplets, Leaf, Trees, ArrowLeft, Ruler, Weight, Check, Download, Tractor, Factory, Truck, MapPin, CheckCircle, Coins, Heart, AlertTriangle, Settings, Home, Wrench, Lock, Unlock, ChevronRight, Send, Sparkles, RefreshCw, Building2, ChevronUp } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 const tankDetails = [
   {
@@ -13,6 +13,7 @@ const tankDetails = [
     dimensions: "2,50 x 1,25 m",
     weight: "550 kg",
     power: "35 kW",
+    image: null,
     description: "Der kompakte 1,2 t Flüssiggastank ist die ideale Lösung für Ferienhäuser, kleine Einfamilienhäuser oder als Zusatzheizung. Durch seine geringen Abmessungen findet er auch in kleineren Gärten Platz.",
     features: [
       "Ideal für geringen Platzbedarf",
@@ -42,6 +43,7 @@ const tankDetails = [
     dimensions: "4,30 x 1,25 m",
     weight: "980 kg",
     power: "60 kW",
+    image: null,
     description: "Unser Standard-Tank für das klassische Einfamilienhaus. Mit 4.850 Litern Volumen deckt dieser Tank in der Regel den Jahresbedarf eines 4-Personen-Haushalts ab, sodass Sie nur einmal im Jahr tanken müssen.",
     features: [
       "Der Klassiker für Eigenheime",
@@ -71,6 +73,7 @@ const tankDetails = [
     dimensions: "5,50 x 1,25 m",
     weight: "1.300 kg",
     power: "90 kW",
+    image: null,
     description: "Der Maxi-Tank für Mehrfamilienhäuser, große Villen oder gewerbliche Anwendungen. Er bietet maximale Unabhängigkeit und Versorgungssicherheit auch bei hohem Verbrauch.",
     features: [
       "Großes Speichervolumen",
@@ -100,6 +103,7 @@ const tankDetails = [
     dimensions: "2,50 x 1,25 m",
     weight: "600 kg",
     power: "35 kW",
+    image: null,
     description: "Die unsichtbare Lösung für kleine Gärten. Der 1,2 t Tank verschwindet komplett unter der Erde, nur der Domdeckel bleibt sichtbar. Perfekt, wenn die Optik des Gartens nicht gestört werden soll.",
     features: [
       "Unsichtbar im Garten",
@@ -129,6 +133,7 @@ const tankDetails = [
     dimensions: "4,30 x 1,25 m",
     weight: "1.100 kg",
     power: "60 kW",
+    image: null,
     description: "Der beliebteste unterirdische Tank. Er kombiniert das Volumen für ein klassisches Einfamilienhaus mit der unauffälligen Optik einer Erddeckung. Die Gartenfläche bleibt nutzbar.",
     features: [
       "Standardgröße für EFH",
@@ -158,6 +163,7 @@ const tankDetails = [
     dimensions: "5,50 x 1,25 m",
     weight: "1.500 kg",
     power: "90 kW",
+    image: null,
     description: "Maximale Energie, unsichtbar gelagert. Für große Objekte mit hohem Wärmebedarf, die keine Kompromisse bei der Ästhetik eingehen wollen.",
     features: [
       "Höchste Kapazität",
@@ -245,8 +251,7 @@ const getSeoForPath = (path) => {
       data = {
         title: tank.seoTitle || `${tank.name} kaufen | gasmöller`,
         description: tank.seoDesc || `Kaufen Sie den ${tank.name}. ${tank.capacity} Kapazität.`,
-        image: DEFAULT_IMAGE,
-        // Could use specific tank image if available in tankDetails
+        image: tank.image || DEFAULT_IMAGE,
         url: `${SITE_URL}/${cleanPath}`,
         type: "product"
       };
@@ -351,7 +356,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
   return /* @__PURE__ */ jsxs("div", { className: "fixed top-0 left-0 w-full z-50 font-sans", children: [
     /* @__PURE__ */ jsx(TopBar, {}),
     /* @__PURE__ */ jsx("nav", { className: `transition-all duration-300 border-b border-white/10 ${isScrolled ? "bg-white/95 backdrop-blur-md shadow-lg py-2" : "bg-white py-4"}`, children: /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8", children: /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center", children: [
-      /* @__PURE__ */ jsx("div", { className: "flex-shrink-0 flex items-center cursor-pointer", onClick: () => setActiveSection("start"), children: /* @__PURE__ */ jsx("img", { src: "/logos/Icon-01.webp", alt: "gasmöller", width: "2222", height: "747", className: `transition-all duration-300 ${isScrolled ? "h-10" : "h-12"}` }) }),
+      /* @__PURE__ */ jsx("div", { className: "flex-shrink-0 flex items-center cursor-pointer", onClick: () => setActiveSection("start"), children: /* @__PURE__ */ jsx("img", { src: "/logos/Icon-01.webp", alt: "gasmöller", width: "2222", height: "747", className: `transition-all duration-300 w-auto ${isScrolled ? "h-10" : "h-12"}` }) }),
       /* @__PURE__ */ jsx("div", { className: "hidden xl:flex space-x-1 bg-gray-50/50 p-1 rounded-full border border-gray-100", children: navLinks.map((link) => /* @__PURE__ */ jsxs(
         "div",
         {
@@ -877,12 +882,12 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
         /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent" })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 relative z-10 text-center", children: [
-        /* @__PURE__ */ jsx("h1", { className: "text-4xl md:text-6xl font-extrabold text-white mb-6", children: "Ihr neuer Flüssiggastank" }),
-        /* @__PURE__ */ jsx("p", { className: "text-xl text-gray-300 max-w-2xl mx-auto mb-8", children: "Kaufen oder Mieten – Sie haben die Wahl. Wir bieten Ihnen Tanks in allen gängigen Größen, oberirdisch und unterirdisch." }),
-        /* @__PURE__ */ jsxs("div", { className: "inline-flex items-center bg-white/10 backdrop-blur rounded-full px-6 py-2 border border-white/20", children: [
+        /* @__PURE__ */ jsxs("div", { className: "inline-flex items-center bg-white/10 backdrop-blur rounded-full px-6 py-2 border border-white/20 mb-8", children: [
           /* @__PURE__ */ jsx("span", { className: "w-3 h-3 bg-green-400 rounded-full mr-3 animate-pulse" }),
           /* @__PURE__ */ jsx("span", { className: "text-white font-bold text-sm", children: "Sofort verfügbar & Installation durch Fachpartner" })
-        ] })
+        ] }),
+        /* @__PURE__ */ jsx("h1", { className: "text-4xl md:text-6xl font-extrabold text-white mb-6", children: "Ihr neuer Flüssiggastank" }),
+        /* @__PURE__ */ jsx("p", { className: "text-xl text-gray-300 max-w-2xl mx-auto mb-8", children: "Kaufen oder Mieten – Sie haben die Wahl. Wir bieten Ihnen Tanks in allen gängigen Größen, oberirdisch und unterirdisch." })
       ] })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "py-24 max-w-7xl mx-auto px-4", children: [
@@ -1283,8 +1288,8 @@ const FAQ = () => {
     { q: "Kann ich meinen Gastank kaufen?", a: "Ja! Wir sind spezialisiert auf den Verkauf von Eigentumstanks (oberirdisch und unterirdisch). Damit sparen Sie sich langfristig die teure Miete und sind frei in der Händlerwahl. Wir bieten Größen von 1,2 t bis 2,9 t an." },
     { q: "Was kostet Flüssiggas aktuell?", a: "Der Preis ändert sich täglich analog zu den Ölbörsen. Da wir unabhängig sind, können wir oft günstigere Konditionen anbieten als Großkonzerne. Nutzen Sie unseren Preisrechner oder rufen Sie uns an für ein tagesaktuelles Angebot." },
     { q: "Muss ich bei der Lieferung zu Hause sein?", a: "Nicht zwingend, sofern der Tank und der Füllanschluss für unseren Fahrer frei zugänglich sind. Wir informieren Sie vorab über den Liefertermin." },
-    { q: "Liefern Sie auch Notgas?", a: "Ja, wenn Ihre Heizung kalt bleibt, versuchen wir schnellstmöglich zu helfen. Rufen Sie uns direkt an unter 04551 89 70 89." },
-    { q: "Was ist der Unterschied zwischen Propan und Flüssiggas?", a: "Flüssiggas (LPG) besteht hauptsächlich aus Propan und Butan. Für Heizzwecke wird in Deutschland fast ausschließlich reines Propan (DIN 51622) verwendet, da es auch bei tiefen Temperaturen verdampft." },
+    { q: "Liefern Sie auch im Notfall?", a: "Ja, wenn Ihre Heizung kalt bleibt, versuchen wir schnellstmöglich zu helfen. Rufen Sie uns direkt an unter 04551 89 70 89." },
+    { q: "Was genau ist Flüssiggas?", a: "Flüssiggas (LPG) besteht aus Propan und Butan. Als Heizgas verwenden wir in Deutschland gemäß DIN 51622 fast ausschließlich reines Propan, da dieses auch bei tiefen Temperaturen im Winter zuverlässig verdampft." },
     { q: "Welche Prüfungen sind beim Gastank vorgeschrieben?", a: "Alle 2 Jahre muss eine äußere Prüfung durch eine befähigte Person erfolgen. Alle 10 Jahre ist eine innere Prüfung durch eine ZÜS (z.B. TÜV, DEKRA) notwendig. Wir unterstützen Sie gerne bei der Organisation." }
   ];
   return /* @__PURE__ */ jsxs("div", { className: "max-w-3xl mx-auto px-4 py-24", children: [
@@ -1307,7 +1312,7 @@ const getPlzError = (plz) => {
     return "Bitte geben Sie eine gültige 5-stellige PLZ ein.";
   }
   if (!validatePlz(plz)) {
-    return "Leider liefern wir aktuell nur in unserem Liefergebiet (Norddeutschland).";
+    return "Leider liefern wir noch nicht in dieses Gebiet.";
   }
   return "";
 };
@@ -2470,7 +2475,7 @@ const AboutPage = () => /* @__PURE__ */ jsx("section", { className: "bg-white", 
 const Footer = ({ setActiveSection, openLegal }) => /* @__PURE__ */ jsxs("footer", { className: "bg-gray-900 text-gray-400 py-20 border-t border-gray-800 text-sm", children: [
   /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12", children: [
     /* @__PURE__ */ jsxs("div", { className: "col-span-1", children: [
-      /* @__PURE__ */ jsx("img", { src: "/logos/Icon-01.webp", alt: "gasmöller", width: "2222", height: "747", className: "h-10 filter brightness-0 invert opacity-80 mb-6" }),
+      /* @__PURE__ */ jsx("img", { src: "/logos/Icon-01.webp", alt: "gasmöller", width: "2222", height: "747", className: "h-10 w-auto filter brightness-0 invert opacity-80 mb-6" }),
       /* @__PURE__ */ jsx("p", { className: "leading-relaxed mb-4", children: "Ihr unabhängiger Partner für Energie im Norden. Seit 2005." }),
       /* @__PURE__ */ jsxs("div", { className: "flex space-x-4", children: [
         /* @__PURE__ */ jsx("div", { className: "w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer", children: "f" }),
@@ -2629,6 +2634,8 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
     } else if (step === 4) {
       if (type === "tank") setStep(5);
       else handleSubmitWrapper();
+    } else if (step === 5) {
+      if (type === "tank") setStep(6);
     }
   };
   const handleBack = () => {
@@ -2676,7 +2683,7 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
       setSubmitting(false);
     }
   };
-  const totalSteps = type === "tank" ? 5 : 4;
+  const totalSteps = type === "tank" ? 6 : 4;
   const progress = step / totalSteps * 100;
   if (!isOpen) return null;
   return /* @__PURE__ */ jsx("div", { className: "fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md", children: /* @__PURE__ */ jsxs(
@@ -2905,65 +2912,43 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
             type !== "tank" && /* @__PURE__ */ jsx("button", { type: "button", onClick: handleBack, className: "w-full text-gray-400 hover:text-gray-600 font-bold mt-4", children: "Zurück" }),
             type === "tank" && /* @__PURE__ */ jsx("button", { type: "button", onClick: handleBack, className: "w-full text-gray-400 hover:text-gray-600 font-bold mt-4", children: "Zurück" })
           ] }, "step3"),
-          step === 4 && /* @__PURE__ */ jsx(motion.div, { initial: { opacity: 0, x: 20 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -20 }, children: type === "tank" ? (
-            /* Tank Specific Details */
-            /* @__PURE__ */ jsxs(Fragment, { children: [
-              /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-center mb-6 text-gray-900", children: "Projekt Details" }),
-              /* @__PURE__ */ jsxs("div", { className: "space-y-6 max-w-md mx-auto", children: [
-                /* @__PURE__ */ jsxs("div", { children: [
-                  /* @__PURE__ */ jsx("label", { className: "block text-sm font-bold text-gray-700 mb-2", children: "Art des Gebäudes" }),
-                  /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 gap-3", children: [
-                    { id: "bestand", label: "Haus (Bestand)", icon: Home },
-                    { id: "neubau", label: "Neubau", icon: Building2 },
-                    { id: "gewerbe", label: "Gewerbe", icon: Factory }
-                  ].map((b) => /* @__PURE__ */ jsxs(
-                    "button",
-                    {
-                      type: "button",
-                      onClick: () => setDetails({ ...details, building: b.label }),
-                      className: `flex items-center p-4 rounded-xl border-2 transition-all ${details.building === b.label ? "border-gas bg-gas-light/20 text-gas" : "border-gray-100 hover:border-gas-light"}`,
-                      children: [
-                        /* @__PURE__ */ jsx(b.icon, { size: 20, className: "mr-3" }),
-                        /* @__PURE__ */ jsx("span", { className: "font-bold", children: b.label }),
-                        details.building === b.label && /* @__PURE__ */ jsx(Check, { size: 16, className: "ml-auto" })
-                      ]
-                    },
-                    b.id
-                  )) })
-                ] }),
-                /* @__PURE__ */ jsxs("div", { children: [
-                  /* @__PURE__ */ jsx("label", { className: "block text-sm font-bold text-gray-700 mb-2", children: "Gewünschte Tankgröße" }),
-                  /* @__PURE__ */ jsx("div", { className: "grid grid-cols-3 gap-3", children: [{ l: "1,2 t", v: "1.2t" }, { l: "2,1 t", v: "2.1t" }, { l: "2,9 t", v: "2.9t" }].map((t) => /* @__PURE__ */ jsxs("button", { type: "button", onClick: () => setDetails({ ...details, tankSize: t.v }), className: `p-3 rounded-xl border-2 text-center transition-all ${details.tankSize === t.v ? "border-gas bg-gas text-white shadow-lg" : "border-gray-100 hover:border-gas-light"}`, children: [
-                    /* @__PURE__ */ jsx("div", { className: "text-xs uppercase font-bold tracking-wider opacity-70 mb-1", children: "Volumen" }),
-                    /* @__PURE__ */ jsx("div", { className: "font-extrabold text-lg", children: t.l })
-                  ] }, t.v)) })
-                ] }),
-                /* @__PURE__ */ jsxs("div", { children: [
-                  /* @__PURE__ */ jsx("label", { className: "block text-sm font-bold text-gray-700 mb-2", children: "Zustand des Tanks" }),
-                  /* @__PURE__ */ jsx("div", { className: "flex gap-4 mb-6", children: ["Neu", "Gebraucht / Aufbereitet"].map((opt) => /* @__PURE__ */ jsx("button", { type: "button", onClick: () => setDetails({ ...details, condition: opt }), className: `flex-1 py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all ${details.condition === opt ? "border-gas bg-gas-light/20 text-gas" : "border-gray-100 text-gray-500 hover:border-gas-light"}`, children: opt }, opt)) })
-                ] }),
-                /* @__PURE__ */ jsxs("div", { children: [
-                  /* @__PURE__ */ jsx("label", { className: "block text-sm font-bold text-gray-700 mb-2", children: "Interesse an" }),
-                  /* @__PURE__ */ jsxs(
-                    "select",
-                    {
-                      name: "interest",
-                      className: "w-full p-4 border-2 border-gray-100 rounded-xl outline-none bg-white focus:border-gas transition-colors",
-                      onChange: (e) => setDetails({ ...details, interest: e.target.value }),
-                      children: [
-                        /* @__PURE__ */ jsx("option", { children: "Bitte wählen..." }),
-                        /* @__PURE__ */ jsx("option", { children: "Kauf (Eigentum)" }),
-                        /* @__PURE__ */ jsx("option", { children: "Miete" }),
-                        /* @__PURE__ */ jsx("option", { children: "Beratung gewünscht" })
-                      ]
-                    }
-                  )
-                ] }),
-                /* @__PURE__ */ jsx("button", { type: "button", onClick: handleNext, className: "w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg shadow-gas/20 hover:bg-gas-dark transition-all mt-4", children: "Weiter zu Kontakt" }),
-                /* @__PURE__ */ jsx("button", { type: "button", onClick: handleBack, className: "w-full text-gray-400 hover:text-gray-600 font-bold mt-4", children: "Zurück" })
+          step === 4 && /* @__PURE__ */ jsx(motion.div, { initial: { opacity: 0, x: 20 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -20 }, children: type === "tank" ? /* @__PURE__ */ jsxs(Fragment, { children: [
+            /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-center mb-4 text-gray-900", children: "Zustand des Tanks" }),
+            /* @__PURE__ */ jsx("p", { className: "text-center text-gray-500 mb-8 max-w-sm mx-auto", children: "Wählen Sie zwischen einem fabrikneuen oder einem professionell aufbereiteten Tank." }),
+            /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6 mb-8", children: [
+              /* @__PURE__ */ jsx(
+                SelectionCard,
+                {
+                  title: "Neu",
+                  description: "Fabrikneuer Tank",
+                  icon: Sparkles,
+                  selected: details.condition === "Neu",
+                  onClick: () => setDetails({ ...details, condition: "Neu" }),
+                  className: "h-48"
+                }
+              ),
+              /* @__PURE__ */ jsxs("div", { className: "relative group", children: [
+                /* @__PURE__ */ jsx(
+                  SelectionCard,
+                  {
+                    title: "Gebraucht",
+                    description: "Geprüft & Aufbereitet",
+                    icon: RefreshCw,
+                    selected: details.condition === "Gebraucht / Aufbereitet",
+                    onClick: () => setDetails({ ...details, condition: "Gebraucht / Aufbereitet" }),
+                    className: "h-48"
+                  }
+                ),
+                /* @__PURE__ */ jsx("div", { className: "absolute -top-3 -right-3", children: /* @__PURE__ */ jsx("div", { className: "bg-gas text-white rounded-full p-1 shadow-lg", children: /* @__PURE__ */ jsx(Info, { size: 16 }) }) }),
+                /* @__PURE__ */ jsxs("div", { className: "mt-3 bg-blue-50 p-3 rounded-xl border border-blue-100 text-xs text-blue-800 leading-relaxed", children: [
+                  /* @__PURE__ */ jsx("strong", { children: "Spar-Tipp:" }),
+                  " Wir bereiten alte Tanks professionell auf (lackiert & geprüft). Eine nachhaltige und günstige Alternative!"
+                ] })
               ] })
-            ] })
-          ) : (
+            ] }),
+            /* @__PURE__ */ jsx("button", { type: "button", onClick: handleNext, disabled: !details.condition, className: "w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg shadow-gas/20 hover:bg-gas-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all mb-4", children: "Weiter" }),
+            /* @__PURE__ */ jsx("button", { type: "button", onClick: handleBack, className: "w-full text-gray-400 hover:text-gray-600 font-bold", children: "Zurück" })
+          ] }) : (
             /* CONTACT FORM for Gas/Service */
             /* @__PURE__ */ jsx(
               ContactForm,
@@ -2977,7 +2962,61 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
               }
             )
           ) }, "step4"),
-          step === 5 && type === "tank" && /* @__PURE__ */ jsx(motion.div, { initial: { opacity: 0, x: 20 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -20 }, children: /* @__PURE__ */ jsx(
+          step === 5 && type === "tank" && /* @__PURE__ */ jsxs(motion.div, { initial: { opacity: 0, x: 20 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -20 }, children: [
+            /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-center mb-6 text-gray-900", children: "Projekt Details" }),
+            /* @__PURE__ */ jsxs("div", { className: "space-y-8 max-w-md mx-auto", children: [
+              /* @__PURE__ */ jsxs("div", { children: [
+                /* @__PURE__ */ jsx("label", { className: "block text-sm font-bold text-gray-700 mb-3 ml-1", children: "Art des Gebäudes" }),
+                /* @__PURE__ */ jsx("div", { className: "grid grid-cols-3 gap-3", children: [
+                  { id: "bestand", label: "Haus", sub: "(Bestand)", icon: Home },
+                  { id: "neubau", label: "Neubau", sub: "", icon: Building2 },
+                  { id: "gewerbe", label: "Gewerbe", sub: "", icon: Factory }
+                ].map((b) => /* @__PURE__ */ jsxs(
+                  "button",
+                  {
+                    type: "button",
+                    onClick: () => setDetails({ ...details, building: b.label + (b.sub ? " " + b.sub : "") }),
+                    className: `flex flex-col items-center justify-center p-3 rounded-xl border-2 transition-all h-24 ${details.building === b.label + (b.sub ? " " + b.sub : "") ? "border-gas bg-gas-light/20 text-gas" : "border-gray-100 hover:border-gas-light text-gray-600"}`,
+                    children: [
+                      /* @__PURE__ */ jsx(b.icon, { size: 24, className: "mb-2", strokeWidth: 1.5 }),
+                      /* @__PURE__ */ jsx("span", { className: "font-bold text-xs", children: b.label }),
+                      b.sub && /* @__PURE__ */ jsx("span", { className: "text-[10px] opacity-70", children: b.sub })
+                    ]
+                  },
+                  b.id
+                )) })
+              ] }),
+              /* @__PURE__ */ jsxs("div", { children: [
+                /* @__PURE__ */ jsx("label", { className: "block text-sm font-bold text-gray-700 mb-3 ml-1", children: "Gewünschte Tankgröße" }),
+                /* @__PURE__ */ jsx("div", { className: "grid grid-cols-3 gap-3", children: [{ l: "1,2 t", v: "1.2t", vol: "2.700 L" }, { l: "2,1 t", v: "2.1t", vol: "4.850 L" }, { l: "2,9 t", v: "2.9t", vol: "6.400 L" }].map((t) => /* @__PURE__ */ jsxs("button", { type: "button", onClick: () => setDetails({ ...details, tankSize: t.v }), className: `p-3 rounded-xl border-2 text-center transition-all ${details.tankSize === t.v ? "border-gas bg-gas text-white shadow-lg" : "border-gray-100 hover:border-gas-light"}`, children: [
+                  /* @__PURE__ */ jsx("div", { className: "font-extrabold text-lg", children: t.l }),
+                  /* @__PURE__ */ jsx("div", { className: `text-[10px] font-bold tracking-wider uppercase mt-1 ${details.tankSize === t.v ? "opacity-80" : "text-gray-400"}`, children: "Volumen" }),
+                  /* @__PURE__ */ jsx("div", { className: `text-xs ${details.tankSize === t.v ? "opacity-100" : "text-gray-500"}`, children: t.vol })
+                ] }, t.v)) })
+              ] }),
+              /* @__PURE__ */ jsxs("div", { children: [
+                /* @__PURE__ */ jsx("label", { className: "block text-sm font-bold text-gray-700 mb-3 ml-1", children: "Interesse an" }),
+                /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 gap-2", children: ["Kauf (Eigentum)", "Miete", "Beratung gewünscht"].map((opt) => /* @__PURE__ */ jsxs(
+                  "button",
+                  {
+                    type: "button",
+                    onClick: () => setDetails({ ...details, interest: opt }),
+                    className: `w-full text-left px-5 py-4 rounded-xl border-2 font-bold transition-all flex justify-between items-center ${details.interest === opt ? "border-gas bg-gas-light/20 text-gas" : "border-gray-100 text-gray-600 hover:border-gas-light"}`,
+                    children: [
+                      opt,
+                      details.interest === opt && /* @__PURE__ */ jsx(Check, { size: 18 })
+                    ]
+                  },
+                  opt
+                )) })
+              ] }),
+              /* @__PURE__ */ jsxs("div", { className: "pt-2", children: [
+                /* @__PURE__ */ jsx("button", { type: "button", onClick: handleNext, className: "w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg shadow-gas/20 hover:bg-gas-dark transition-all", children: "Weiter zu Kontakt" }),
+                /* @__PURE__ */ jsx("button", { type: "button", onClick: handleBack, className: "w-full text-gray-400 hover:text-gray-600 font-bold mt-4", children: "Zurück" })
+              ] })
+            ] })
+          ] }, "step5"),
+          step === 6 && type === "tank" && /* @__PURE__ */ jsx(motion.div, { initial: { opacity: 0, x: 20 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -20 }, children: /* @__PURE__ */ jsx(
             ContactForm,
             {
               contact,
@@ -2987,7 +3026,7 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
               handleBack,
               stepName: "Kontakt"
             }
-          ) }, "step5")
+          ) }, "step6")
         ] }) }) })
       ]
     }
@@ -3173,20 +3212,20 @@ const NotFound = ({ onGoHome }) => {
 const ImprintContent = () => /* @__PURE__ */ jsxs("div", { className: "space-y-4 text-sm text-gray-700", children: [
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900", children: "Angaben gemäß § 5 TMG" }),
   /* @__PURE__ */ jsxs("p", { children: [
-    /* @__PURE__ */ jsx("strong", { children: "gasmöller" }),
+    /* @__PURE__ */ jsx("strong", { children: "Gas-Service Möller e.K." }),
     /* @__PURE__ */ jsx("br", {}),
-    "Musterstraße 1",
+    "Neuenteichweg 7a",
     /* @__PURE__ */ jsx("br", {}),
-    "12345 Musterstadt"
+    "23795 Schieren"
   ] }),
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "Vertreten durch" }),
-  /* @__PURE__ */ jsx("p", { children: "Thomas Möller" }),
+  /* @__PURE__ */ jsx("p", { children: "Anja Möller" }),
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "Kontakt" }),
   /* @__PURE__ */ jsxs("p", { children: [
     "Telefon: 04551 89 70 89",
     /* @__PURE__ */ jsx("br", {}),
     "E-Mail: ",
-    /* @__PURE__ */ jsx("a", { href: "mailto:info@gasmoeller.de", className: "text-gas hover:underline", children: "info@gasmoeller.de" })
+    /* @__PURE__ */ jsx("a", { href: "mailto:kontakt@gasmoeller.de", className: "text-gas hover:underline", children: "kontakt@gasmoeller.de" })
   ] }),
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "Registereintrag" }),
   /* @__PURE__ */ jsxs("p", { children: [
@@ -3194,13 +3233,13 @@ const ImprintContent = () => /* @__PURE__ */ jsxs("div", { className: "space-y-4
     /* @__PURE__ */ jsx("br", {}),
     "Registergericht: Amtsgericht Kiel",
     /* @__PURE__ */ jsx("br", {}),
-    "Registernummer: HRB 12345"
+    "Registernummer: HRA 11334 KI"
   ] }),
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "Umsatzsteuer-ID" }),
   /* @__PURE__ */ jsxs("p", { children: [
     "Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:",
     /* @__PURE__ */ jsx("br", {}),
-    "DE 123456789"
+    "DE 224162155"
   ] }),
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "Streitschlichtung" }),
   /* @__PURE__ */ jsxs("p", { children: [
@@ -3223,15 +3262,15 @@ const PrivacyContent = () => /* @__PURE__ */ jsxs("div", { className: "space-y-4
   /* @__PURE__ */ jsxs("p", { children: [
     "Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:",
     /* @__PURE__ */ jsx("br", {}),
-    "gasmöller",
+    "Gas-Service Möller e.K.",
     /* @__PURE__ */ jsx("br", {}),
-    "Musterstraße 1",
+    "Neuenteichweg 7a",
     /* @__PURE__ */ jsx("br", {}),
-    "12345 Musterstadt",
+    "23795 Schieren",
     /* @__PURE__ */ jsx("br", {}),
     "Telefon: 04551 89 70 89",
     /* @__PURE__ */ jsx("br", {}),
-    "E-Mail: info@gasmoeller.de"
+    "E-Mail: kontakt@gasmoeller.de"
   ] }),
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "3. Datenerfassung auf dieser Website" }),
   /* @__PURE__ */ jsx("p", { children: /* @__PURE__ */ jsx("strong", { children: "Kontaktformular / Anfrage-Assistent" }) }),
@@ -3243,7 +3282,7 @@ const TermsContent = () => /* @__PURE__ */ jsxs("div", { className: "space-y-4 t
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900", children: "1. Geltungsbereich" }),
   /* @__PURE__ */ jsx("p", { children: "Für alle Lieferungen von gasmöller an Verbraucher (§ 13 BGB) gelten diese Allgemeinen Geschäftsbedingungen (AGB). Verbraucher ist jede natürliche Person, die ein Rechtsgeschäft zu Zwecken abschließt, die überwiegend weder ihrer gewerblichen noch ihrer selbständigen beruflichen Tätigkeit zugerechnet werden können." }),
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "2. Vertragspartner" }),
-  /* @__PURE__ */ jsx("p", { children: "Der Kaufvertrag kommt zustande mit der gasmöller, Geschäftsführer: Thomas Möller, Musterstraße 1, 12345 Musterstadt." }),
+  /* @__PURE__ */ jsx("p", { children: "Der Kaufvertrag kommt zustande mit der Gas-Service Möller e.K., Inhaberin: Anja Möller, Neuenteichweg 7a, 23795 Schieren." }),
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "3. Vertragsabschluss" }),
   /* @__PURE__ */ jsx("p", { children: "Die Darstellung der Produkte im Online-Shop stellt kein rechtlich bindendes Angebot, sondern einen unverbindlichen Online-Katalog dar. Durch Anklicken des Bestellbuttons geben Sie eine verbindliche Bestellung der im Warenkorb enthaltenen Waren ab." }),
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "4. Preise und Versandkosten" }),
