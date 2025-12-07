@@ -44,7 +44,8 @@ const routesWith404 = [...routesToPrerender, '/404'];
     for (const url of routesWith404) {
         // Render app HTML
         // Note: '404' is not a valid section in App.jsx switch, so it falls to default (NotFound)
-        const { html } = render(url);
+        const context = {};
+        const { html } = render(url, context);
 
         // Get SEO Data
         const seoData = getSeoForPath(url);

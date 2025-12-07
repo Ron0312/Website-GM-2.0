@@ -23,7 +23,7 @@ import ScrollToTop from './components/ScrollToTop';
 import NotFound from './components/NotFound';
 import { ImprintContent, PrivacyContent, TermsContent } from './components/Legal';
 
-const App = ({ path }) => {
+const App = ({ path, context }) => {
     // Initial state based on path if provided (SSR), otherwise default to window location (CSR)
     const getInitialSection = () => {
         if (path) {
@@ -125,6 +125,10 @@ const App = ({ path }) => {
 
         // Return 404 if not a valid section
         if (!validSections.includes(activeSection)) {
+            // Signal 404 to Server
+            if (context) {
+                context.status = 404;
+            }
             return <><div className="pt-20"></div><NotFound onGoHome={() => changeSection('start')} /><ContactSection /></>;
         }
 
