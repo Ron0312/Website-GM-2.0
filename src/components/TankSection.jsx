@@ -2,30 +2,7 @@ import React, { useState, useMemo } from 'react';
 import TankCard from './TankCard';
 import EnergyCalculator from './EnergyCalculator';
 import { tankDetails } from '../data/tanks';
-import SelectionCard from './ui/SelectionCard';
-
-// Define the custom SVG icons for selection here or import them if available.
-// Using inline components for the specific tank visuals requested.
-const OberirdischIcon = ({ className }) => (
-    <svg viewBox="0 0 400 200" className={className} fill="currentColor">
-        <rect x="50" y="60" width="300" height="80" rx="40" opacity="0.2" />
-        <rect x="50" y="60" width="300" height="80" rx="40" stroke="currentColor" strokeWidth="8" fill="none" />
-        <rect x="80" y="140" width="20" height="30" />
-        <rect x="300" y="140" width="20" height="30" />
-        <rect x="190" y="50" width="20" height="10" />
-        <circle cx="200" cy="55" r="15" opacity="0.5"/>
-    </svg>
-);
-
-const UnterirdischIcon = ({ className }) => (
-    <svg viewBox="0 0 400 200" className={className} fill="currentColor">
-        <path d="M0 100 L400 100" stroke="currentColor" strokeWidth="4" strokeDasharray="20 10" opacity="0.5" />
-        <rect x="50" y="110" width="300" height="80" rx="40" opacity="0.2" />
-        <rect x="50" y="110" width="300" height="80" rx="40" stroke="currentColor" strokeWidth="8" fill="none" />
-        <rect x="180" y="80" width="40" height="30" />
-        <rect x="170" y="75" width="60" height="5" />
-    </svg>
-);
+import { motion } from 'framer-motion';
 
 const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = true }) => {
     const [filter, setFilter] = useState('oberirdisch');
@@ -70,24 +47,38 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                     <h2 className="text-gas font-bold tracking-widest uppercase text-sm mb-2">Unser Sortiment</h2>
                     <h3 className="text-4xl font-extrabold text-text mb-8">Tanks für jeden Bedarf</h3>
 
-                    {/* Visual Selection Area */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-                        <SelectionCard
-                            title="Oberirdisch"
-                            description="Der Klassiker für den Garten. Einfache Aufstellung."
-                            icon={OberirdischIcon}
-                            selected={filter === 'oberirdisch'}
-                            onClick={() => setFilter('oberirdisch')}
-                            className="h-full"
-                        />
-                        <SelectionCard
-                            title="Unterirdisch"
-                            description="Unsichtbar und platzsparend. Nur der Domdeckel ist zu sehen."
-                            icon={UnterirdischIcon}
-                            selected={filter === 'unterirdisch'}
-                            onClick={() => setFilter('unterirdisch')}
-                            className="h-full"
-                        />
+                    {/* Visual Selection Area - Upgraded Toggle */}
+                    <div className="flex justify-center">
+                        <div className="bg-gray-100 p-1.5 rounded-2xl inline-flex relative">
+                            {/* Sliding Background */}
+                            <motion.div
+                                className="absolute top-1.5 bottom-1.5 bg-white rounded-xl shadow-sm z-0"
+                                initial={false}
+                                animate={{
+                                    x: filter === 'oberirdisch' ? 0 : '100%',
+                                    width: '50%'
+                                }}
+                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                style={{ left: 6, right: '50%' }}
+                            />
+
+                            <button
+                                onClick={() => setFilter('oberirdisch')}
+                                className={`relative z-10 px-8 py-3 rounded-xl text-sm font-bold transition-colors w-40 ${
+                                    filter === 'oberirdisch' ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'
+                                }`}
+                            >
+                                Oberirdisch
+                            </button>
+                            <button
+                                onClick={() => setFilter('unterirdisch')}
+                                className={`relative z-10 px-8 py-3 rounded-xl text-sm font-bold transition-colors w-40 ${
+                                    filter === 'unterirdisch' ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'
+                                }`}
+                            >
+                                Unterirdisch
+                            </button>
+                        </div>
                     </div>
                 </div>
 

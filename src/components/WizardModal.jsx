@@ -224,7 +224,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                 placeholder="PLZ"
                                                 maxLength={5}
                                                 autoFocus
-                                                error={plzError}
+                                                error={!!plzError}
                                                 aria-describedby={plzError ? "plz-error" : undefined}
                                             />
                                             {plzError && <p id="plz-error" className="text-red-500 text-sm mt-2 tracking-tight text-center font-medium">{plzError}</p>}
