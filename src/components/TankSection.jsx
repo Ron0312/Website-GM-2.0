@@ -2,6 +2,30 @@ import React, { useState, useMemo } from 'react';
 import TankCard from './TankCard';
 import EnergyCalculator from './EnergyCalculator';
 import { tankDetails } from '../data/tanks';
+import SelectionCard from './ui/SelectionCard';
+
+// Define the custom SVG icons for selection here or import them if available.
+// Using inline components for the specific tank visuals requested.
+const OberirdischIcon = ({ className }) => (
+    <svg viewBox="0 0 400 200" className={className} fill="currentColor">
+        <rect x="50" y="60" width="300" height="80" rx="40" opacity="0.2" />
+        <rect x="50" y="60" width="300" height="80" rx="40" stroke="currentColor" strokeWidth="8" fill="none" />
+        <rect x="80" y="140" width="20" height="30" />
+        <rect x="300" y="140" width="20" height="30" />
+        <rect x="190" y="50" width="20" height="10" />
+        <circle cx="200" cy="55" r="15" opacity="0.5"/>
+    </svg>
+);
+
+const UnterirdischIcon = ({ className }) => (
+    <svg viewBox="0 0 400 200" className={className} fill="currentColor">
+        <path d="M0 100 L400 100" stroke="currentColor" strokeWidth="4" strokeDasharray="20 10" opacity="0.5" />
+        <rect x="50" y="110" width="300" height="80" rx="40" opacity="0.2" />
+        <rect x="50" y="110" width="300" height="80" rx="40" stroke="currentColor" strokeWidth="8" fill="none" />
+        <rect x="180" y="80" width="40" height="30" />
+        <rect x="170" y="75" width="60" height="5" />
+    </svg>
+);
 
 const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = true }) => {
     const [filter, setFilter] = useState('oberirdisch');
@@ -42,14 +66,28 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
             </div>
 
             <div className="py-24 max-w-7xl mx-auto px-4">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-12">
-                    <div>
-                        <h2 className="text-gas font-bold tracking-widest uppercase text-sm mb-2">Unser Sortiment</h2>
-                        <h3 className="text-4xl font-extrabold text-text">Tanks für jeden Bedarf</h3>
-                    </div>
-                    <div className="bg-gray-100 p-1 rounded-lg flex mt-4 md:mt-0">
-                        <button onClick={() => setFilter('oberirdisch')} className={`px-6 py-2 rounded-md text-sm font-bold transition-all ${filter === 'oberirdisch' ? 'bg-white shadow-sm text-gas' : 'text-gray-500'}`}>Oberirdisch</button>
-                        <button onClick={() => setFilter('unterirdisch')} className={`px-6 py-2 rounded-md text-sm font-bold transition-all ${filter === 'unterirdisch' ? 'bg-white shadow-sm text-gas' : 'text-gray-500'}`}>Unterirdisch</button>
+                <div className="text-center mb-16">
+                    <h2 className="text-gas font-bold tracking-widest uppercase text-sm mb-2">Unser Sortiment</h2>
+                    <h3 className="text-4xl font-extrabold text-text mb-8">Tanks für jeden Bedarf</h3>
+
+                    {/* Visual Selection Area */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                        <SelectionCard
+                            title="Oberirdisch"
+                            description="Der Klassiker für den Garten. Einfache Aufstellung."
+                            icon={OberirdischIcon}
+                            selected={filter === 'oberirdisch'}
+                            onClick={() => setFilter('oberirdisch')}
+                            className="h-full"
+                        />
+                        <SelectionCard
+                            title="Unterirdisch"
+                            description="Unsichtbar und platzsparend. Nur der Domdeckel ist zu sehen."
+                            icon={UnterirdischIcon}
+                            selected={filter === 'unterirdisch'}
+                            onClick={() => setFilter('unterirdisch')}
+                            className="h-full"
+                        />
                     </div>
                 </div>
 
@@ -57,7 +95,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                 <div className="md:hidden text-center text-xs text-gray-400 mb-2 animate-pulse">
                     ← Nach links wischen für mehr →
                 </div>
-                <div className="flex md:grid md:grid-cols-3 gap-8 overflow-x-auto md:overflow-visible snap-x md:snap-none pb-4 md:pb-0 px-4 md:px-0 -mx-4 md:mx-0 scrollbar-hide">
+                <div className="flex md:grid md:grid-cols-3 gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none pb-4 md:pb-0 px-4 md:px-0 -mx-4 md:mx-0 scrollbar-hide">
                     {visibleTanks.map((tank, i) => (
                         <div key={i} className="relative group min-w-[85vw] md:min-w-0 snap-center first:pl-0 last:pr-0">
                             <TankCard

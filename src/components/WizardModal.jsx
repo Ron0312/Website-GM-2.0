@@ -227,7 +227,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                 error={plzError}
                                                 aria-describedby={plzError ? "plz-error" : undefined}
                                             />
-                                            {plzError && <p id="plz-error" className="sr-only">{plzError}</p>}
+                                            {plzError && <p id="plz-error" className="text-red-500 text-sm mt-2 tracking-tight text-center font-medium">{plzError}</p>}
                                             <button
                                                 type="button"
                                                 onClick={handleNext}
