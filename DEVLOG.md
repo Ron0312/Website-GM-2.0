@@ -46,3 +46,37 @@ The changes directly address the user's feedback regarding accuracy and visual c
 1.  **Server-Side Analytics**: If analytics are needed in the future, implement a self-hosted solution like Plausible or Matomo to maintain the "No CDN / GDPR-safe" stance.
 2.  **Content Security Policy (CSP)**: Implement a strict CSP header in `server.js` to technically enforce the "No CDN" rule and prevent accidental inclusion of external resources in the future.
 3.  **Cookie Banner Refinement**: While a cookie banner exists, with the removal of most external trackers, it could potentially be simplified to only ask for consent for `Web3Forms` (if considered non-essential initially) or other future marketing tools.
+
+## UX/UI Improvements Proposals (v1.7)
+
+### 1. Sticky Navigation Header
+**Observation:** The navigation bar scrolls away with the page content.
+**Suggestion:** Implement a sticky header (using `sticky top-0 z-50` in Tailwind) that stays visible as the user scrolls. This improves navigation accessibility, especially on long pages like the landing page. Consider adding a subtle backdrop blur or shadow when scrolled.
+
+### 2. Loading Skeletons
+**Observation:** Some components like the map or images might take a moment to load, potentially causing layout shifts or empty spaces.
+**Suggestion:** Implement loading skeleton states for heavier components (e.g., `DeliveryMap`, `TankSection` images) to improve perceived performance and reduce CLS (Cumulative Layout Shift).
+
+### 3. Form Validation Feedback
+**Observation:** Current form validation relies mostly on border colors or error text after submission attempts.
+**Suggestion:** Add real-time, inline validation feedback with clear icons (checkmarks for valid, exclamation marks for invalid) next to input fields. This helps users correct errors immediately.
+
+### 4. Interactive "Scroll to Top" Button Visibility
+**Observation:** The "Scroll to Top" button is useful but could be more prominent or animated.
+**Suggestion:** Add a subtle entrance animation for the scroll-to-top button so it only appears after the user has scrolled down a certain distance (e.g., 300px), preventing it from being a distraction on the hero section.
+
+### 5. Enhanced Wizard Progress Indication
+**Observation:** The multi-step wizard is good, but the progress might be clearer.
+**Suggestion:** Add a visual progress bar or step indicator with labels (e.g., "Address", "Tank Type", "Contact") at the top of the `WizardModal` to give users a better sense of how far along they are in the process.
+
+### 6. Dark Mode Support
+**Observation:** The site is predominantly light-themed.
+**Suggestion:** Consider adding a toggle for Dark Mode, or at least ensuring that the "High-End" dark sections (like the tank hero) integrate smoothly if a user has system-wide dark mode enabled.
+
+### 7. Accessibility Enhancements (A11y)
+**Observation:** While basic accessibility is in place, contrast ratios on some gradient backgrounds might be borderline.
+**Suggestion:** Conduct a contrast audit on text over gradient buttons and headers. Ensure focus states are clearly visible for keyboard navigation users throughout the site.
+
+### 8. Micro-interactions
+**Observation:** The site is static in some areas.
+**Suggestion:** Add subtle hover effects to cards (lift up), buttons (scale/shadow), and interactive elements to make the interface feel more responsive and modern. The `EnergyCalculator` toggle is a good example of this; extend similar patterns elsewhere.
