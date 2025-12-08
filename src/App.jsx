@@ -22,6 +22,7 @@ import SimpleModal from './components/SimpleModal';
 import ScrollToTop from './components/ScrollToTop';
 import NotFound from './components/NotFound';
 import AccessibilityWidget from './components/AccessibilityWidget';
+import AccessibilityPage from './components/AccessibilityPage';
 import { ImprintContent, PrivacyContent, TermsContent, AccessibilityStatementContent } from './components/Legal';
 
 const App = ({ path, context }) => {
@@ -71,13 +72,6 @@ const App = ({ path, context }) => {
         }
         setLegalModal({ open: true, title, content });
     };
-
-    useEffect(() => {
-        if (typeof window !== 'undefined' && window.location.pathname === '/barrierefreiheit') {
-            openLegal('accessibility');
-            window.history.pushState({}, '', '/');
-        }
-    }, []);
 
     // Handle Browser Back/Forward
     useEffect(() => {
@@ -153,7 +147,7 @@ const App = ({ path, context }) => {
             case 'wissen': return <><div className="pt-20"></div><KnowledgeCenter setActiveSection={changeSection} /><ContactSection /></>;
             case 'ueber-uns': return <><div className="pt-20"></div><AboutPage setActiveSection={changeSection} /><ContactSection /></>;
             case 'kontakt': return <><div className="pt-32"></div><ContactSection /></>;
-            case 'barrierefreiheit': return <><Hero openWizard={openWizard} setActiveSection={changeSection} /><TrustBar /><div className="my-16 text-center"><div className="inline-block p-2 rounded-2xl bg-gradient-to-r from-gas-light to-white border border-gas/10 shadow-2xl animate-pulse hover:animate-none transition-all"><button onClick={() => openWizard('tank')} className="bg-gas text-white px-10 py-5 rounded-xl font-extrabold text-2xl shadow-lg hover:bg-gas-dark transition-all flex items-center gap-3"><Settings size={28}/> Zum Anfrage-Assistenten <ArrowRight size={28}/></button></div><p className="mt-4 text-gray-400 text-sm font-medium">Kostenlos & Unverbindlich</p></div><TankSection openWizard={openWizard} setActiveSection={changeSection} showTechnicalOverview={false} /><CommercialSection setActiveSection={changeSection} /><div className="max-w-7xl mx-auto px-4"><EnergyCalculator /></div><DeliveryMap /><FAQ /><ContactSection /></>;
+            case 'barrierefreiheit': return <><AccessibilityPage /><ContactSection /></>;
             default: return <><div className="pt-20"></div><NotFound onGoHome={changeSection} /><ContactSection /></>;
         }
     };

@@ -48,6 +48,16 @@ export const seoData = {
         title: 'Tankprüfungen & Service | Äußere & Innere Prüfung | gasmöller',
         description: 'Gesetzliche Tankprüfungen (2 & 10 Jahre) für Flüssiggastanks. Zuverlässiger Service, faire Preise. Jetzt Termin vereinbaren.',
         image: DEFAULT_IMAGE
+    },
+    'barrierefreiheit': {
+        title: 'Erklärung zur Barrierefreiheit | gasmöller',
+        description: 'Erklärung zur Barrierefreiheit der Website gasmoeller.de gemäß BITV 2.0 und WCAG 2.1.',
+        image: DEFAULT_IMAGE
+    },
+    '404': {
+        title: '404 - Seite nicht gefunden | gasmöller',
+        description: 'Die gesuchte Seite existiert leider nicht.',
+        image: DEFAULT_IMAGE
     }
 };
 
@@ -55,7 +65,7 @@ export const getSeoForPath = (path) => {
     // Normalize path first
     const cleanPath = path.replace(/^\//, '');
 
-    // Default SEO Data
+    // Default SEO Data (Start Page as fallback used to be here, now we are more strict)
     let data = {
         title: seoData['start'].title,
         description: seoData['start'].description,
@@ -82,11 +92,18 @@ export const getSeoForPath = (path) => {
     } else {
         // Normalize path to section key
         let section = 'start';
-        if (cleanPath === '' || cleanPath === 'index.html') section = 'start';
-        else {
+        // Handle root
+        if (cleanPath === '' || cleanPath === 'index.html' || cleanPath === 'start') {
+            section = 'start';
+        } else {
             // Remove trailing .html or slash if present for lookup
             const p = cleanPath.replace(/\/$/, '').replace(/\.html$/, '').toLowerCase();
-            if (seoData[p]) section = p;
+            if (seoData[p]) {
+                section = p;
+            } else {
+                // Return 404 data for unknown routes
+                section = '404';
+            }
         }
 
         if (seoData[section]) {

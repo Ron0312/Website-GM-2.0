@@ -29,6 +29,7 @@ const routesToPrerender = [
     '/kontakt',
     '/rechner',
     '/pruefungen',
+    '/barrierefreiheit',
     // Dynamic routes
     ...tankDetails.map(t => `/tanks/${t.slug}`)
 ];

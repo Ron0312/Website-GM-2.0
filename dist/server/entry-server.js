@@ -233,6 +233,16 @@ const seoData = {
     title: "Tankprüfungen & Service | Äußere & Innere Prüfung | gasmöller",
     description: "Gesetzliche Tankprüfungen (2 & 10 Jahre) für Flüssiggastanks. Zuverlässiger Service, faire Preise. Jetzt Termin vereinbaren.",
     image: DEFAULT_IMAGE
+  },
+  "barrierefreiheit": {
+    title: "Erklärung zur Barrierefreiheit | gasmöller",
+    description: "Erklärung zur Barrierefreiheit der Website gasmoeller.de gemäß BITV 2.0 und WCAG 2.1.",
+    image: DEFAULT_IMAGE
+  },
+  "404": {
+    title: "404 - Seite nicht gefunden | gasmöller",
+    description: "Die gesuchte Seite existiert leider nicht.",
+    image: DEFAULT_IMAGE
   }
 };
 const getSeoForPath = (path) => {
@@ -260,10 +270,15 @@ const getSeoForPath = (path) => {
     }
   } else {
     let section = "start";
-    if (cleanPath === "" || cleanPath === "index.html") section = "start";
-    else {
+    if (cleanPath === "" || cleanPath === "index.html" || cleanPath === "start") {
+      section = "start";
+    } else {
       const p = cleanPath.replace(/\/$/, "").replace(/\.html$/, "").toLowerCase();
-      if (seoData[p]) section = p;
+      if (seoData[p]) {
+        section = p;
+      } else {
+        section = "404";
+      }
     }
     if (seoData[section]) {
       data = {
@@ -3919,6 +3934,12 @@ const AccessibilityStatementContent = () => /* @__PURE__ */ jsxs("div", { classN
     /* @__PURE__ */ jsx("a", { href: "mailto:buit@landtag.ltsh.de", className: "text-gas hover:underline", children: "buit@landtag.ltsh.de" })
   ] })
 ] });
+const AccessibilityPage = () => {
+  return /* @__PURE__ */ jsx("div", { className: "pt-20 min-h-screen bg-white", children: /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 py-12", children: [
+    /* @__PURE__ */ jsx("h1", { className: "text-4xl font-extrabold text-gray-900 mb-8", children: "Erklärung zur Barrierefreiheit" }),
+    /* @__PURE__ */ jsx(AccessibilityStatementContent, {})
+  ] }) });
+};
 const App = ({ path, context }) => {
   const getInitialSection = () => {
     if (path) {
@@ -3960,12 +3981,6 @@ const App = ({ path, context }) => {
     }
     setLegalModal({ open: true, title, content });
   };
-  useEffect(() => {
-    if (typeof window !== "undefined" && window.location.pathname === "/barrierefreiheit") {
-      openLegal("accessibility");
-      window.history.pushState({}, "", "/");
-    }
-  }, []);
   useEffect(() => {
     const handlePopState = () => {
       const p = window.location.pathname.replace(/^\//, "").toLowerCase();
@@ -4084,21 +4099,7 @@ const App = ({ path, context }) => {
         ] });
       case "barrierefreiheit":
         return /* @__PURE__ */ jsxs(Fragment, { children: [
-          /* @__PURE__ */ jsx(Hero, { openWizard, setActiveSection: changeSection }),
-          /* @__PURE__ */ jsx(TrustBar, {}),
-          /* @__PURE__ */ jsxs("div", { className: "my-16 text-center", children: [
-            /* @__PURE__ */ jsx("div", { className: "inline-block p-2 rounded-2xl bg-gradient-to-r from-gas-light to-white border border-gas/10 shadow-2xl animate-pulse hover:animate-none transition-all", children: /* @__PURE__ */ jsxs("button", { onClick: () => openWizard("tank"), className: "bg-gas text-white px-10 py-5 rounded-xl font-extrabold text-2xl shadow-lg hover:bg-gas-dark transition-all flex items-center gap-3", children: [
-              /* @__PURE__ */ jsx(Settings, { size: 28 }),
-              " Zum Anfrage-Assistenten ",
-              /* @__PURE__ */ jsx(ArrowRight, { size: 28 })
-            ] }) }),
-            /* @__PURE__ */ jsx("p", { className: "mt-4 text-gray-400 text-sm font-medium", children: "Kostenlos & Unverbindlich" })
-          ] }),
-          /* @__PURE__ */ jsx(TankSection, { openWizard, setActiveSection: changeSection, showTechnicalOverview: false }),
-          /* @__PURE__ */ jsx(CommercialSection, { setActiveSection: changeSection }),
-          /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4", children: /* @__PURE__ */ jsx(EnergyCalculator, {}) }),
-          /* @__PURE__ */ jsx(DeliveryMap, {}),
-          /* @__PURE__ */ jsx(FAQ, {}),
+          /* @__PURE__ */ jsx(AccessibilityPage, {}),
           /* @__PURE__ */ jsx(ContactSection, {})
         ] });
       default:
