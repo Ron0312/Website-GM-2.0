@@ -43,7 +43,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                 <div className="absolute inset-0 z-0">
                     <div className="absolute inset-0 bg-gradient-to-r from-gray-900/60 to-gray-900/30 z-10"></div>
                      <img
-                        src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+                        src="/images/gas-order-background.jpg"
                         alt="Hintergrund Gas Lieferung Norddeutschland"
                         className="w-full h-full object-cover absolute inset-0"
                     />
@@ -205,7 +205,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                              <div className="absolute inset-0 bg-gradient-to-tr from-gas-dark/20 to-transparent pointer-events-none"></div>
-                             <img src="https://images.unsplash.com/photo-1621905251189-08b95d630445?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Sicherheitsprüfung Flüssiggastank" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700" />
+                        <img src="/images/inspection-background.jpg" alt="Sicherheitsprüfung Flüssiggastank" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700" />
                         </div>
                         <div>
                             <div className="inline-block px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-bold mb-6">DIN 51622</div>
