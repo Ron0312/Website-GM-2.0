@@ -133,7 +133,75 @@ const App = ({ path, context }) => {
         }
 
         switch(activeSection) {
-            case 'start': return <><Hero openWizard={openWizard} setActiveSection={changeSection} /><TrustBar /><div className="my-16 text-center"><div className="inline-block p-2 rounded-2xl bg-gradient-to-r from-gas-light to-white border border-gas/10 shadow-2xl animate-pulse hover:animate-none transition-all"><button onClick={() => openWizard('tank')} className="bg-gas text-white px-10 py-5 rounded-xl font-extrabold text-2xl shadow-lg hover:bg-gas-dark transition-all flex items-center gap-3"><Settings size={28}/> Zum Anfrage-Assistenten <ArrowRight size={28}/></button></div><p className="mt-4 text-gray-400 text-sm font-medium">Kostenlos & Unverbindlich</p></div><TankSection openWizard={openWizard} setActiveSection={changeSection} showTechnicalOverview={false} /><CommercialSection setActiveSection={changeSection} /><DeliveryMap /><FAQ /><ContactSection /></>;
+            case 'start': return <><Hero openWizard={openWizard} setActiveSection={changeSection} /><TrustBar />
+
+            {/* Selection Section */}
+            <section className="py-24 bg-white relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                            <div className="inline-flex items-center space-x-2 bg-gas-light/30 border border-gas-light px-4 py-1.5 rounded-full mb-6">
+                            <span className="text-gas font-bold text-xs uppercase tracking-widest">Individuelle Lösungen</span>
+                        </div>
+                        <h2 className="text-4xl font-extrabold text-gray-900 mb-6 tracking-tight">Wählen Sie Ihre Installation</h2>
+                        <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                            Wir bieten passende Tanklösungen für jeden Bedarf. Entscheiden Sie sich für die Installationsart, die am besten zu Ihrem Grundstück passt.
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                        {/* Oberirdisch */}
+                        <div
+                            className="group relative bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 cursor-pointer h-96"
+                            onClick={() => changeSection('tanks')}
+                        >
+                            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-10 opacity-60 group-hover:opacity-70 transition-opacity"></div>
+                            <img
+                                src="/images/gas-order-hero.webp"
+                                alt="Oberirdischer Gastank"
+                                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                            />
+                            <div className="absolute bottom-0 left-0 p-8 z-20 w-full">
+                                <div className="flex justify-between items-end">
+                                    <div>
+                                        <h3 className="text-3xl font-bold text-white mb-2">Oberirdisch</h3>
+                                        <p className="text-gray-200 font-medium">Der Klassiker. Einfache Installation & Wartung.</p>
+                                    </div>
+                                    <div className="bg-white/20 backdrop-blur-md p-3 rounded-full group-hover:bg-gas group-hover:text-white transition-colors text-white">
+                                        <ArrowRight size={24} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Unterirdisch */}
+                        <div
+                            className="group relative bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 cursor-pointer h-96"
+                            onClick={() => changeSection('tanks')}
+                        >
+                            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-10 opacity-60 group-hover:opacity-70 transition-opacity"></div>
+                            <img
+                                src="/images/inspection-background.jpg"
+                                alt="Unterirdischer Gastank"
+                                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                            />
+                            <div className="absolute bottom-0 left-0 p-8 z-20 w-full">
+                                <div className="flex justify-between items-end">
+                                        <div>
+                                        <h3 className="text-3xl font-bold text-white mb-2">Unterirdisch</h3>
+                                        <p className="text-gray-200 font-medium">Unsichtbar & Platzsparend. Perfekt für kleine Gärten.</p>
+                                    </div>
+                                        <div className="bg-white/20 backdrop-blur-md p-3 rounded-full group-hover:bg-gas group-hover:text-white transition-colors text-white">
+                                        <ArrowRight size={24} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <TankSection openWizard={openWizard} setActiveSection={changeSection} showTechnicalOverview={false} /><CommercialSection setActiveSection={changeSection} /><DeliveryMap /><FAQ /><ContactSection /></>;
             case 'tanks': return <><div className="pt-20"></div><TankSection openWizard={openWizard} setActiveSection={changeSection} /><ContactSection /></>;
             case 'gas': return <><div className="pt-20"></div><GasOrderSection onCheckAvailability={handleGasCheckAvailability} /><FAQ /><ContactSection /></>;
             case 'pruefungen': return <><div className="pt-20"></div><InspectionSection openWizard={openWizard} /><ContactSection /></>;

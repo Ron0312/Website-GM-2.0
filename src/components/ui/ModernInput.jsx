@@ -38,7 +38,7 @@ const ModernInput = ({ label, error, className = '', ...props }) => {
              </div>
         )}
       </motion.div>
-      {error && <p className="text-red-500 text-xs mt-1 ml-1 font-bold">{error}</p>}
+      {error && <p className="text-red-500 text-xs mt-1 ml-1 font-bold tracking-normal leading-normal text-left">{error}</p>}
     </div>
   );
 };
