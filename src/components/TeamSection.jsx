@@ -1,4 +1,5 @@
 import React from 'react';
+import { Phone } from 'lucide-react';
 
 const TeamSection = () => (
     <div className="py-24 bg-white">
@@ -8,7 +9,7 @@ const TeamSection = () => (
         </div>
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center">
             {[
-                { name: "Thomas Möller", role: "Geschäftsführung", img: "/images/team/thomas.jpg" },
+                { name: "Thomas Möller", role: "Geschäftsführung", img: "/images/team/thomas.jpg", phone: "+49 170 927 00 78" },
                 { name: "Hans Christian Möller", role: "Buchhaltung", img: "/images/team/hans.jpg" }
             ].map((member, i) => (
                 <div key={i} className="group relative overflow-hidden rounded-2xl aspect-[3/4] shadow-lg bg-gray-200 w-full max-w-sm">
@@ -20,6 +21,7 @@ const TeamSection = () => (
                         src={member.img}
                         alt={member.name}
                         width="300" height="400"
+                        loading="lazy"
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         onError={(e) => {e.target.style.display='none'; e.target.nextSibling.style.display='flex'}} // Hide img and show fallback
                     />
@@ -31,7 +33,12 @@ const TeamSection = () => (
 
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6">
                         <h4 className="text-white font-bold text-lg">{member.name}</h4>
-                        <p className="text-gas-light text-sm">{member.role}</p>
+                        <p className="text-gas-light text-sm mb-2">{member.role}</p>
+                        {member.phone && (
+                            <a href={`tel:${member.phone.replace(/\s/g, '')}`} className="flex items-center text-white/90 hover:text-white transition-colors text-sm font-semibold mt-1">
+                                <Phone size={14} className="mr-2" /> {member.phone}
+                            </a>
+                        )}
                     </div>
                 </div>
             ))}
