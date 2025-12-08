@@ -6,7 +6,7 @@ const DEFAULT_IMAGE = `${SITE_URL}/logos/Icon-01.webp`; // High contrast icon fo
 export const seoData = {
     'start': {
         title: 'gasmöller - Ihr Partner für Flüssiggas im Norden',
-        description: 'Unabhängig. Fair. Norddeutsch. Flüssiggastanks kaufen statt mieten. Ihr Experte seit 2005. Jetzt Angebot anfordern!',
+        description: 'Unabhängig. Fair. Norddeutsch. Flüssiggastanks kaufen statt mieten. Ihr Experte seit 2000. Jetzt Angebot anfordern!',
         image: `${SITE_URL}/images/gas-order-hero.webp` // Hero image
     },
     'tanks': {
@@ -31,7 +31,7 @@ export const seoData = {
     },
     'ueber-uns': {
         title: 'Über gasmöller | Ihr unabhängiger Energieversorger',
-        description: 'Lernen Sie gasmöller kennen. Seit 2005 Ihr zuverlässiger Partner für Flüssiggas im Norden. Unser Team und unsere Werte.',
+        description: 'Lernen Sie gasmöller kennen. Seit 2000 Ihr zuverlässiger Partner für Flüssiggas im Norden. Unser Team und unsere Werte.',
         image: DEFAULT_IMAGE
     },
     'kontakt': {
