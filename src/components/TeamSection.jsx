@@ -11,7 +11,7 @@ const TeamSection = () => (
             {[
                 { name: "Anja Möller", role: "Gründerin & Inhaberin", img: "/images/team/anja.jpg" },
                 { name: "Thomas Möller", role: "Geschäftsführung & Sachkundiger", img: "/images/team/thomas.jpg", phone: "+49 170 927 00 78" },
-                { name: "Hans Christian Möller", role: "Logistik & Büro", img: "/images/team/hans.jpg" }
+                { name: "Hans Christian Möller", role: "Logistik & Büro", img: "/images/team/hans.jpg", phone: "+49 1525 1771994" }
             ].map((member, i) => (
                 <div key={i} className="group relative overflow-hidden rounded-2xl aspect-[3/4] shadow-lg bg-gray-200 w-full max-w-sm">
                     {/* Using div as placeholder if image fails or using the external one if needed, but I should use local.
