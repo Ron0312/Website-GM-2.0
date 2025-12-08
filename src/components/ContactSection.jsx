@@ -123,7 +123,7 @@ const ContactSection = () => {
                                         aria-describedby={plzError ? "plz-error" : undefined}
                                         className={`w-full px-4 py-3 bg-gray-50 border rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans ${plzError ? 'border-red-300 bg-red-50 text-red-900' : 'border-gray-200'}`}
                                     />
-                                    {plzError && <p id="plz-error" className="text-red-500 text-xs mt-1 font-bold">{plzError}</p>}
+                                    {plzError && <p id="plz-error" className="text-red-500 text-xs mt-1 font-bold tracking-tight">{plzError}</p>}
                                 </div>
                                 <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">E-Mail</label><input type="email" name="email" autoComplete="email" inputMode="email" required aria-required="true" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" /></div>
                             </div>
