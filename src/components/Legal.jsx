@@ -129,3 +129,34 @@ export const TermsContent = () => (
         </p>
     </div>
 );
+
+export const AccessibilityStatementContent = () => (
+    <div className="space-y-4 text-sm text-gray-700">
+        <h3 className="text-lg font-bold text-gray-900">Erklärung zur Barrierefreiheit</h3>
+        <p>Gas-Service Möller e.K. ist bemüht, seine Website im Einklang mit den nationalen Rechtsvorschriften zur Umsetzung der Richtlinie (EU) 2016/2102 des Europäischen Parlaments und des Rates barrierefrei zugänglich zu machen.</p>
+
+        <h4 className="font-bold mt-4">Stand der Vereinbarkeit mit den Anforderungen</h4>
+        <p>Diese Website ist mit den geltenden Standards weitestgehend vereinbar. Wir arbeiten kontinuierlich daran, die Zugänglichkeit zu verbessern.</p>
+
+        <h4 className="font-bold mt-4">Nicht barrierefreie Inhalte</h4>
+        <p>Die nachstehend aufgeführten Inhalte sind aus folgenden Gründen nicht barrierefrei:</p>
+        <ul className="list-disc pl-5 space-y-1">
+            <li>Einige ältere PDF-Dokumente sind möglicherweise nicht vollständig barrierefrei.</li>
+            <li>Bei einigen Kartenanwendungen (z.B. Liefergebiet) kann die Bedienung per Tastatur eingeschränkt sein.</li>
+        </ul>
+
+        <h4 className="font-bold mt-4">Erstellung dieser Erklärung</h4>
+        <p>Diese Erklärung wurde am {new Date().toLocaleDateString('de-DE')} erstellt. Die Bewertung basiert auf einer Selbstbewertung.</p>
+
+        <h4 className="font-bold mt-4">Feedback und Kontakt</h4>
+        <p>Sind Ihnen Mängel beim barrierefreien Zugang zu Inhalten auf unserer Website aufgefallen? Dann können Sie sich gerne bei uns melden:</p>
+        <p>
+            <strong>Gas-Service Möller e.K.</strong><br/>
+            E-Mail: <a href="mailto:kontakt@gasmoeller.de" className="text-gas hover:underline">kontakt@gasmoeller.de</a><br/>
+            Telefon: 04551 89 70 89
+        </p>
+
+        <h4 className="font-bold mt-4">Schlichtungsverfahren</h4>
+        <p>Sollten Sie der Ansicht sein, dass Sie durch eine nicht ausreichende barrierefreie Gestaltung unserer Website benachteiligt sind, können Sie sich an die zuständige Schlichtungsstelle wenden.</p>
+    </div>
+);

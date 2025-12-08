@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CheckCircle, Loader2, Phone, User } from 'lucide-react';
 import { getPlzError } from '../utils/validation';
+import ModernInput from './ui/ModernInput';
 
 const ContactSection = () => {
     const [plz, setPlz] = useState('');
@@ -8,6 +9,20 @@ const ContactSection = () => {
     const [honeypot, setHoneypot] = useState('');
     const [status, setStatus] = useState('idle'); // idle, loading, success, error
     const [consent, setConsent] = useState(false);
+
+    // Form State for ModernInput
+    const [formData, setFormData] = useState({
+        name: '',
+        phone: '',
+        email: '',
+        subject: '',
+        message: ''
+    });
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
 
     const handlePlzChange = (e) => {
         const val = e.target.value;
@@ -27,20 +42,26 @@ const ContactSection = () => {
         setStatus('loading');
 
         const form = e.target;
-        const formData = new FormData(form);
-        formData.append("access_key", "f22052ed-455f-4e4d-9f5a-94a6e340426f"); // Assuming same key as footer or needing a new one. Using same for now as it's likely the same account.
-        formData.append("subject", "Neue Kontaktanfrage (Website)");
-        formData.append("from_name", "gasmöller Kontaktformular");
+        const submitData = new FormData();
+
+        submitData.append("access_key", "f22052ed-455f-4e4d-9f5a-94a6e340426f");
+        submitData.append("subject", "Neue Kontaktanfrage (Website)");
+        submitData.append("from_name", "gasmöller Kontaktformular");
+
+        // Add form fields
+        Object.keys(formData).forEach(key => submitData.append(key, formData[key]));
+        submitData.append("plz", plz);
 
         try {
             const response = await fetch("https://api.web3forms.com/submit", {
                 method: "POST",
-                body: formData
+                body: submitData
             });
             const result = await response.json();
             if (result.success) {
                 setStatus('success');
-                form.reset();
+                // Reset form
+                setFormData({ name: '', phone: '', email: '', subject: '', message: '' });
                 setPlz('');
                 setConsent(false);
             } else {
@@ -91,7 +112,7 @@ const ContactSection = () => {
                             <button onClick={() => setStatus('idle')} className="text-gas font-bold hover:underline">Neue Nachricht schreiben</button>
                         </div>
                     ) : (
-                        <form className="space-y-6" onSubmit={handleSubmit}>
+                        <form className="space-y-2" onSubmit={handleSubmit}>
                             {/* Honeypot field */}
                             <input
                                 type="text"
@@ -103,14 +124,35 @@ const ContactSection = () => {
                                 onChange={(e) => setHoneypot(e.target.value)}
                                 aria-hidden="true"
                             />
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Name</label><input type="text" name="name" autoComplete="name" required aria-required="true" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" /></div>
-                                <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Telefon</label><input type="tel" name="phone" autoComplete="tel" inputMode="tel" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" /></div>
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-bold text-gray-400 uppercase mb-1">Postleitzahl</label>
-                                    <input
+                                    <ModernInput
+                                        label="Name"
+                                        type="text"
+                                        name="name"
+                                        autoComplete="name"
+                                        required
+                                        aria-required="true"
+                                        value={formData.name}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                                <div>
+                                    <ModernInput
+                                        label="Telefon"
+                                        type="tel"
+                                        name="phone"
+                                        autoComplete="tel"
+                                        inputMode="tel"
+                                        value={formData.phone}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <ModernInput
+                                        label="Postleitzahl"
                                         type="text"
                                         name="plz"
                                         autoComplete="postal-code"
@@ -119,24 +161,49 @@ const ContactSection = () => {
                                         value={plz}
                                         onChange={handlePlzChange}
                                         maxLength={5}
-                                        aria-invalid={!!plzError}
-                                        aria-describedby={plzError ? "plz-error" : undefined}
-                                        className={`w-full px-4 py-3 bg-gray-50 border rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans ${plzError ? 'border-red-300 bg-red-50 text-red-900' : 'border-gray-200'}`}
+                                        error={plzError}
                                     />
-                                    {plzError && <p id="plz-error" className="text-red-500 text-xs mt-1 font-bold tracking-tight">{plzError}</p>}
                                 </div>
-                                <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">E-Mail</label><input type="email" name="email" autoComplete="email" inputMode="email" required aria-required="true" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" /></div>
+                                <div>
+                                    <ModernInput
+                                        label="E-Mail"
+                                        type="email"
+                                        name="email"
+                                        autoComplete="email"
+                                        inputMode="email"
+                                        required
+                                        aria-required="true"
+                                        value={formData.email}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
                             </div>
-                            <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Betreff</label><input type="text" name="subject" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" /></div>
-                            <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Nachricht</label><textarea name="message" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all h-32 font-sans"></textarea></div>
+                            <div>
+                                <ModernInput
+                                    label="Betreff"
+                                    type="text"
+                                    name="subject"
+                                    value={formData.subject}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                            <div>
+                                <ModernInput
+                                    label="Nachricht"
+                                    multiline={true}
+                                    name="message"
+                                    value={formData.message}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
 
-                            <div className="flex items-start gap-3">
+                            <div className="flex items-start gap-3 mt-4 mb-6">
                                 <input
                                     type="checkbox"
                                     id="contact-consent"
                                     checked={consent}
                                     onChange={(e) => setConsent(e.target.checked)}
-                                    className="mt-1 w-5 h-5 text-gas border-gray-300 rounded focus:ring-gas"
+                                    className="mt-1 w-5 h-5 text-gas border-gray-300 rounded focus:ring-gas flex-shrink-0"
                                     required
                                 />
                                 <label htmlFor="contact-consent" className="text-sm text-gray-600">
@@ -145,7 +212,7 @@ const ContactSection = () => {
                             </div>
 
                             {status === 'error' && (
-                                <div className="bg-red-50 text-red-600 p-4 rounded-lg text-sm text-center">
+                                <div className="bg-red-50 text-red-600 p-4 rounded-lg text-sm text-center mb-4">
                                     Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut oder rufen Sie uns an.
                                 </div>
                             )}

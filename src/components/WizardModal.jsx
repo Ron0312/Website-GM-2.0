@@ -174,13 +174,22 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                 </div>
 
                 {/* Progress Bar */}
-                <div className="h-1 bg-gray-100 w-full">
-                    <motion.div
-                        className="h-full bg-gas"
-                        initial={{ width: 0 }}
-                        animate={{ width: `${progress}%` }}
-                        transition={{ duration: 0.5, ease: "easeInOut" }}
-                    />
+                <div className="relative pt-6 pb-2 px-6">
+                    <div className="h-1 bg-gray-100 w-full rounded-full overflow-hidden">
+                        <motion.div
+                            className="h-full bg-gas"
+                            initial={{ width: 0 }}
+                            animate={{ width: `${progress}%` }}
+                            transition={{ duration: 0.5, ease: "easeInOut" }}
+                        />
+                    </div>
+                    {/* Step Labels */}
+                    <div className="flex justify-between mt-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+                        <span>Start</span>
+                        <span className={step >= 2 ? 'text-gas' : ''}>Kategorie</span>
+                        <span className={step >= 3 ? 'text-gas' : ''}>Details</span>
+                        <span className={step >= totalSteps ? 'text-gas' : ''}>Kontakt</span>
+                    </div>
                 </div>
 
                 {/* Content */}

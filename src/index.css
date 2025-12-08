@@ -82,3 +82,31 @@ input[type=range]::-webkit-slider-runnable-track {
     color: white;
     box-shadow: 0 6px 16px rgba(0,91,159,0.25);
 }
+
+/* Accessibility Modes */
+.a11y-high-contrast {
+    filter: contrast(1.3) saturate(0.8);
+}
+.a11y-high-contrast img {
+    filter: contrast(0.8) saturate(1.2); /* Revert image contrast partially */
+}
+
+html.a11y-large-text {
+    font-size: 110%;
+}
+@media (min-width: 1024px) {
+    html.a11y-large-text {
+        font-size: 120%;
+    }
+}
+
+.a11y-reduce-motion * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+}
+
+.a11y-highlight-links a {
+    text-decoration: underline !important;
+    text-decoration-thickness: 2px !important;
+}
