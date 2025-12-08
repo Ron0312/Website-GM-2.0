@@ -166,7 +166,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                         </div>
 
                         <div className="hidden lg:flex items-center space-x-4">
-                            <a href="tel:04551897089" aria-label="Rufen Sie uns an unter 04551 89 70 89" className="flex flex-col items-end text-right mr-2 group">
+                            <a href="tel:04551897089" aria-label="Kostenlose Beratung unter 04551 89 70 89 anrufen" title="Rufen Sie uns an: 04551 89 70 89" className="flex flex-col items-end text-right mr-2 group">
                                 <span className="text-[10px] uppercase font-bold text-gray-400 tracking-wider group-hover:text-gas transition-colors">Kostenlose Beratung</span>
                                 <span className="text-lg font-bold text-gas leading-none">04551 89 70 89</span>
                             </a>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import TankCard from './TankCard';
 import EnergyCalculator from './EnergyCalculator';
 import { tankDetails } from '../data/tanks';
@@ -6,21 +6,22 @@ import { tankDetails } from '../data/tanks';
 const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = true }) => {
     const [filter, setFilter] = useState('oberirdisch');
 
-    // Map the simple tank data to match TankCard props but enriched with slug for linking
-    const tanks = tankDetails.map(t => ({
-        type: t.type,
-        size: t.volume,
-        capacity: t.capacity,
-        name: t.name.split('(')[0].trim(), // Simplified name for card
-        usage: t.features[0], // Use first feature as usage
-        highlight: t.capacity === '2,1 t',
-        length: t.dimensions.split('x')[0].trim(),
-        diameter: t.dimensions.split('x')[1].replace('m', '').trim() + ' m',
-        weight: t.weight,
-        slug: t.slug
-    }));
-
-    const visibleTanks = tanks.filter(t => t.type === filter);
+    const visibleTanks = useMemo(() => {
+        return tankDetails
+            .filter(t => t.type === filter)
+            .map(t => ({
+                type: t.type,
+                size: t.volume,
+                capacity: t.capacity,
+                name: t.name.split('(')[0].trim(),
+                usage: t.features[0],
+                highlight: t.capacity === '2,1 t',
+                length: t.dimensions.split('x')[0].trim(),
+                diameter: t.dimensions.split('x')[1].replace('m', '').trim() + ' m',
+                weight: t.weight,
+                slug: t.slug
+            }));
+    }, [filter]);
 
     return (
         <section className="bg-white" id="tanks">
@@ -68,6 +69,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                                 <button
                                     onClick={() => setActiveSection ? setActiveSection(`tanks/${tank.slug}`) : null}
                                     className="text-sm font-bold text-gray-400 hover:text-gas transition-colors border-b border-transparent hover:border-gas pb-0.5"
+                                    aria-label={`Details und Maße für ${tank.name} ansehen`}
                                 >
                                     Details & Maße ansehen
                                 </button>
