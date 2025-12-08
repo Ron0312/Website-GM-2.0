@@ -133,30 +133,61 @@ export const TermsContent = () => (
 export const AccessibilityStatementContent = () => (
     <div className="space-y-4 text-sm text-gray-700">
         <h3 className="text-lg font-bold text-gray-900">Erklärung zur Barrierefreiheit</h3>
-        <p>Gas-Service Möller e.K. ist bemüht, seine Website im Einklang mit den nationalen Rechtsvorschriften zur Umsetzung der Richtlinie (EU) 2016/2102 des Europäischen Parlaments und des Rates barrierefrei zugänglich zu machen.</p>
-
-        <h4 className="font-bold mt-4">Stand der Vereinbarkeit mit den Anforderungen</h4>
-        <p>Diese Website ist mit den geltenden Standards weitestgehend vereinbar. Wir arbeiten kontinuierlich daran, die Zugänglichkeit zu verbessern.</p>
-
-        <h4 className="font-bold mt-4">Nicht barrierefreie Inhalte</h4>
-        <p>Die nachstehend aufgeführten Inhalte sind aus folgenden Gründen nicht barrierefrei:</p>
-        <ul className="list-disc pl-5 space-y-1">
-            <li>Einige ältere PDF-Dokumente sind möglicherweise nicht vollständig barrierefrei.</li>
-            <li>Bei einigen Kartenanwendungen (z.B. Liefergebiet) kann die Bedienung per Tastatur eingeschränkt sein.</li>
-        </ul>
-
-        <h4 className="font-bold mt-4">Erstellung dieser Erklärung</h4>
-        <p>Diese Erklärung wurde am {new Date().toLocaleDateString('de-DE')} erstellt. Die Bewertung basiert auf einer Selbstbewertung.</p>
-
-        <h4 className="font-bold mt-4">Feedback und Kontakt</h4>
-        <p>Sind Ihnen Mängel beim barrierefreien Zugang zu Inhalten auf unserer Website aufgefallen? Dann können Sie sich gerne bei uns melden:</p>
         <p>
-            <strong>Gas-Service Möller e.K.</strong><br/>
-            E-Mail: <a href="mailto:kontakt@gasmoeller.de" className="text-gas hover:underline">kontakt@gasmoeller.de</a><br/>
-            Telefon: 04551 89 70 89
+            Die <strong>Gas-Service Möller e.K.</strong> ist bemüht, ihre Website im Einklang mit den nationalen Rechtsvorschriften zur Umsetzung der Richtlinie (EU) 2016/2102 des Europäischen Parlaments und des Rates barrierefrei zugänglich zu machen.
+            Diese Erklärung zur Barrierefreiheit gilt für die Website <strong>www.gasmoeller.de</strong>.
         </p>
 
-        <h4 className="font-bold mt-4">Schlichtungsverfahren</h4>
-        <p>Sollten Sie der Ansicht sein, dass Sie durch eine nicht ausreichende barrierefreie Gestaltung unserer Website benachteiligt sind, können Sie sich an die zuständige Schlichtungsstelle wenden.</p>
+        <h4 className="font-bold text-md text-gray-900 mt-6">Stand der Vereinbarkeit mit den Anforderungen</h4>
+        <p>
+            Diese Website ist mit den Anforderungen der Barrierefreie-Informationstechnik-Verordnung (BITV 2.0) und den Web Content Accessibility Guidelines (WCAG 2.1) weitestgehend vereinbar.
+        </p>
+
+        <h4 className="font-bold text-md text-gray-900 mt-6">Nicht barrierefreie Inhalte</h4>
+        <p>
+            Die nachstehend aufgeführten Inhalte sind aus folgenden Gründen nicht vollständig barrierefrei:
+        </p>
+        <ul className="list-disc pl-5 space-y-2 mt-2">
+            <li>
+                <strong>Kartenmaterial:</strong> Die interaktive Liefergebietskarte ist visuell gestaltet und für Screenreader nur eingeschränkt nutzbar. Alternativ stehen Textinformationen zum Liefergebiet zur Verfügung oder können telefonisch erfragt werden.
+            </li>
+            <li>
+                <strong>PDF-Dokumente:</strong> Ältere PDF-Dokumente sind möglicherweise nicht vollständig barrierefrei nach PDF/UA-Standards.
+            </li>
+            <li>
+                <strong>Externe Inhalte:</strong> Eingebundene Inhalte Dritter (z.B. von Kartenanbietern oder externen Dienstleistern) sind möglicherweise nicht vollständig barrierefrei.
+            </li>
+        </ul>
+
+        <h4 className="font-bold text-md text-gray-900 mt-6">Erstellung dieser Erklärung</h4>
+        <p>
+            Diese Erklärung wurde am 02.05.2024 erstellt.
+            Die Bewertung basiert auf einer Selbstbewertung der Vereinbarkeit der Website mit den Anforderungen der BITV 2.0.
+        </p>
+
+        <h4 className="font-bold text-md text-gray-900 mt-6">Feedback und Kontakt</h4>
+        <p>
+            Sind Ihnen Mängel beim barrierefreien Zugang zu Inhalten auf unserer Website aufgefallen? Oder haben Sie Fragen zum Thema Barrierefreiheit?
+            Dann können Sie sich gerne bei uns melden:
+        </p>
+        <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-2">
+            <strong>Gas-Service Möller e.K.</strong><br/>
+            Neuenteichweg 7a<br/>
+            23795 Schieren<br/>
+            Telefon: <a href="tel:+494551897089" className="text-gas hover:underline">04551 89 70 89</a><br/>
+            E-Mail: <a href="mailto:kontakt@gasmoeller.de" className="text-gas hover:underline">kontakt@gasmoeller.de</a>
+        </div>
+
+        <h4 className="font-bold text-md text-gray-900 mt-6">Schlichtungsverfahren</h4>
+        <p>
+            Beim Landesbeauftragten für Menschen mit Behinderung gibt es eine Überwachungsstelle für barrierefreie Informationstechnik.
+            Sollten Sie der Ansicht sein, dass Sie durch eine nicht ausreichende barrierefreie Gestaltung unserer Website benachteiligt sind, können Sie sich an die Schlichtungsstelle wenden:
+        </p>
+        <p className="mt-2">
+            <strong>Schlichtungsstelle des Landes Schleswig-Holstein</strong><br/>
+            Karolinenweg 1<br/>
+            24105 Kiel<br/>
+            E-Mail: <a href="mailto:buit@landtag.ltsh.de" className="text-gas hover:underline">buit@landtag.ltsh.de</a>
+        </p>
     </div>
 );

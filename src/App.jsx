@@ -159,8 +159,11 @@ const App = ({ path, context }) => {
 
     return (
         <div className="min-h-screen flex flex-col bg-white">
+            <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-gas focus:text-white focus:rounded-md focus:shadow-lg">
+                Zum Hauptinhalt springen
+            </a>
             <Navigation activeSection={activeSection} setActiveSection={changeSection} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} openWizard={openWizard} />
-            <main className="flex-grow">{renderSection()}</main>
+            <main id="main-content" className="flex-grow focus:outline-none" tabIndex="-1">{renderSection()}</main>
             <Footer setActiveSection={changeSection} openLegal={openLegal} />
             <WizardModal isOpen={wizardOpen} onClose={() => setWizardOpen(false)} initialType={wizardType} initialData={wizardData} />
             <CookieBanner />
