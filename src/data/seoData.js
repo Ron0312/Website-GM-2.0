@@ -61,7 +61,9 @@ export const getSeoForPath = (path) => {
         description: seoData['start'].description,
         image: seoData['start'].image,
         url: `${SITE_URL}/${cleanPath}`,
-        type: 'website'
+        type: 'website',
+        locale: 'de_DE',
+        site_name: 'gasmöller'
     };
 
     // Check for dynamic tank routes

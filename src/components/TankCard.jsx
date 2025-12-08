@@ -12,7 +12,7 @@ const TankCard = ({ tank, onContact }) => {
             {tank.highlight && <div className="bg-gas text-white text-[10px] font-bold uppercase text-center py-1.5 tracking-widest">Empfehlung</div>}
             <div className="h-48 bg-gray-50 flex items-center justify-center p-6 relative">
                 <div className="absolute top-4 right-4 bg-white/80 backdrop-blur px-2 py-1 rounded text-[10px] font-bold text-gray-500 border border-gray-100">{tank.capacity}</div>
-                <svg viewBox="0 0 100 60" className={`${scaleClass} h-auto text-gray-300 fill-current drop-shadow-lg transition-all duration-300`} loading="lazy"><rect x="10" y="15" width="80" height="30" rx="10"/><rect x="5" y="25" width="5" height="10"/><rect x="90" y="25" width="5" height="10"/><rect x="40" y="10" width="20" height="5"/></svg>
+                <svg viewBox="0 0 100 60" className={`${scaleClass} h-auto text-gray-300 fill-current drop-shadow-lg transition-all duration-300`} role="img" aria-label={`Illustration von ${tank.name}`}><rect x="10" y="15" width="80" height="30" rx="10"/><rect x="5" y="25" width="5" height="10"/><rect x="90" y="25" width="5" height="10"/><rect x="40" y="10" width="20" height="5"/></svg>
             </div>
             <div className="p-6 text-center flex-1 flex flex-col">
                 <h4 className="text-xl font-bold text-text mb-1">{tank.name}</h4>

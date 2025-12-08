@@ -3,10 +3,12 @@ import { Send, CheckCircle, Loader2 } from 'lucide-react';
 
 const Footer = ({ setActiveSection, openLegal }) => {
     const [email, setEmail] = useState('');
+    const [honeypot, setHoneypot] = useState('');
     const [status, setStatus] = useState('idle'); // idle, loading, success, error
 
     const handleNewsletterSubmit = async (e) => {
         e.preventDefault();
+        if (honeypot) return;
         if (!email) return;
 
         setStatus('loading');
@@ -39,7 +41,7 @@ const Footer = ({ setActiveSection, openLegal }) => {
         <footer className="bg-gray-900 text-gray-400 py-20 border-t border-gray-800 text-sm">
             <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
                 <div className="col-span-1">
-                    <img src="/logos/Icon-01.webp" alt="gasmöller" width="2222" height="747" className="h-10 w-auto filter brightness-0 invert opacity-80 mb-6" />
+                    <img src="/logos/Icon-01.webp" alt="gasmöller" width="2222" height="747" loading="lazy" className="h-10 w-auto filter brightness-0 invert opacity-80 mb-6" />
                     <p className="leading-relaxed mb-4">Ihr unabhängiger Partner für Energie im Norden. Seit 2005.</p>
                     <div className="flex space-x-4">
                         <a href="https://facebook.com/gasmoeller" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer" aria-label="Facebook">f</a>
@@ -73,7 +75,17 @@ const Footer = ({ setActiveSection, openLegal }) => {
                             <span>Angemeldet!</span>
                         </div>
                     ) : (
-                        <form onSubmit={handleNewsletterSubmit} className="flex">
+                        <form onSubmit={handleNewsletterSubmit} className="flex relative">
+                            <input
+                                type="text"
+                                name="b_field"
+                                style={{ display: 'none' }}
+                                tabIndex="-1"
+                                autoComplete="off"
+                                value={honeypot}
+                                onChange={(e) => setHoneypot(e.target.value)}
+                                aria-hidden="true"
+                            />
                             <input
                                 type="email"
                                 required

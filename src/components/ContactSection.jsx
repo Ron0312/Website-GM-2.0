@@ -78,9 +78,10 @@ const ContactSection = () => {
                                 autoComplete="off"
                                 value={honeypot}
                                 onChange={(e) => setHoneypot(e.target.value)}
+                                aria-hidden="true"
                             />
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Name</label><input type="text" name="name" autoComplete="name" required className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" /></div>
+                                <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Name</label><input type="text" name="name" autoComplete="name" required aria-required="true" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" /></div>
                                 <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Telefon</label><input type="tel" name="phone" autoComplete="tel" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" /></div>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -93,11 +94,12 @@ const ContactSection = () => {
                                         value={plz}
                                         onChange={handlePlzChange}
                                         maxLength={5}
+                                        aria-invalid={!!plzError}
                                         className={`w-full px-4 py-3 bg-gray-50 border rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans ${plzError ? 'border-red-300 bg-red-50 text-red-900' : 'border-gray-200'}`}
                                     />
                                     {plzError && <p className="text-red-500 text-xs mt-1 font-bold">{plzError}</p>}
                                 </div>
-                                <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">E-Mail</label><input type="email" name="email" autoComplete="email" required className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" /></div>
+                                <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">E-Mail</label><input type="email" name="email" autoComplete="email" required aria-required="true" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" /></div>
                             </div>
                             <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Betreff</label><input type="text" name="subject" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" /></div>
                             <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">Nachricht</label><textarea name="message" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all h-32 font-sans"></textarea></div>
