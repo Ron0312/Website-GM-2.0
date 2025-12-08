@@ -2,10 +2,30 @@ import React, { useState, useMemo } from 'react';
 import TankCard from './TankCard';
 import EnergyCalculator from './EnergyCalculator';
 import { tankDetails } from '../data/tanks';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Check } from 'lucide-react';
 
 const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = true }) => {
     const [filter, setFilter] = useState('oberirdisch');
+
+    const tankInfo = {
+        oberirdisch: {
+            title: "Der sichtbare Klassiker",
+            description: "Oberirdische Tanks sind die meistgewählte Variante. Sie lassen sich einfach aufstellen, erfordern keine Erdarbeiten und sind kostengünstig in der Installation.",
+            benefits: ["Günstige Anschaffung", "Schnelle Installation", "Einfache Wartung"],
+            color: "bg-blue-50 border-blue-100",
+            iconColor: "text-blue-500"
+        },
+        unterirdisch: {
+            title: "Die unsichtbare Lösung",
+            description: "Unterirdische Tanks verschwinden komplett unter der Erde. Nur der Domschachtdeckel bleibt sichtbar – ideal für gepflegte Gärten und maximale Raumnutzung.",
+            benefits: ["Nicht sichtbar", "Maximale Gartennutzung", "Gut geschützt"],
+            color: "bg-green-50 border-green-100",
+            iconColor: "text-green-500"
+        }
+    };
+
+    const currentInfo = tankInfo[filter];
 
     const visibleTanks = useMemo(() => {
         return tankDetails
@@ -43,7 +63,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
             </div>
 
             <div className="py-24 max-w-7xl mx-auto px-4">
-                <div className="text-center mb-16">
+                <div className="text-center mb-8">
                     <h2 className="text-gas font-bold tracking-widest uppercase text-sm mb-2">Unser Sortiment</h2>
                     <h3 className="text-4xl font-extrabold text-text mb-8">Tanks für jeden Bedarf</h3>
 
@@ -82,6 +102,31 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                     </div>
                 </div>
 
+                {/* Info Block - Dynamic Content based on Filter */}
+                <div className="max-w-3xl mx-auto mb-12">
+                    <AnimatePresence mode='wait'>
+                        <motion.div
+                            key={filter}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.2 }}
+                            className={`rounded-2xl p-6 border ${currentInfo.color} text-center`}
+                        >
+                            <h4 className="text-xl font-bold text-gray-900 mb-2">{currentInfo.title}</h4>
+                            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">{currentInfo.description}</p>
+                            <div className="flex flex-wrap justify-center gap-3">
+                                {currentInfo.benefits.map((benefit, idx) => (
+                                    <span key={idx} className="inline-flex items-center text-sm font-medium text-gray-700 bg-white px-4 py-2 rounded-full shadow-sm border border-gray-100">
+                                        <Check className={`w-4 h-4 mr-2 ${currentInfo.iconColor}`} />
+                                        {benefit}
+                                    </span>
+                                ))}
+                            </div>
+                        </motion.div>
+                    </AnimatePresence>
+                </div>
+
                 {/* Tank Grid with Horizontal Scroll on Mobile */}
                 <div className="md:hidden text-center text-xs text-gray-400 mb-2 animate-pulse">
                     ← Nach links wischen für mehr →
@@ -91,6 +136,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                         <div key={i} className="relative group min-w-[85vw] md:min-w-0 snap-center first:pl-0 last:pr-0">
                             <TankCard
                                 tank={tank}
+                                type={filter}
                                 onContact={() => openWizard ? openWizard('tank') : null}
                             />
                             {/* Detail Link */}
