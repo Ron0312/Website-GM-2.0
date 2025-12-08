@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { MapPin, CheckCircle } from 'lucide-react';
+import Skeleton from './ui/Skeleton';
 
 const DeliveryMap = () => {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        // Simulate loading time (or wait for image load if using images)
+        const timer = setTimeout(() => setLoading(false), 500);
+        return () => clearTimeout(timer);
+    }, []);
+
     const cities = [
         { name: 'Hamburg', x: 345, y: 235, align: 'start' },
         { name: 'Kiel', x: 360, y: 125, align: 'start' },
@@ -118,33 +127,39 @@ const DeliveryMap = () => {
                     </div>
                 </div>
                 <div className="lg:w-1/2 mt-12 lg:mt-0 relative flex items-center justify-center p-4 lg:p-0">
-                    <svg viewBox="0 0 800 500" className="w-full h-auto max-w-md lg:max-w-full">
-                        {/* Flat Design Map */}
-                        <g stroke="white" strokeWidth="0.5" strokeLinejoin="round">
-                            <path d={pathNI} fill="#005b9f" />
-                            <path d={pathMV} fill="#4da6ff" />
-                            <path d={pathSH} fill="#8ecae6" />
-                            <path d={pathHH} fill="#003366" />
-                        </g>
-
-                        {/* Cities */}
-                        {cities.map((city, index) => (
-                            <g key={index} transform={`translate(${city.x}, ${city.y})`}>
-                                <circle cx="0" cy="0" r="3" fill="white" />
-                                <text
-                                    x={city.align === 'start' ? 8 : city.align === 'end' ? -8 : 0}
-                                    y={4}
-                                    fontFamily="Arial"
-                                    fontSize="12"
-                                    fill="white"
-                                    fontWeight="bold"
-                                    textAnchor={city.align}
-                                >
-                                    {city.name}
-                                </text>
+                    {loading ? (
+                        <div className="w-full max-w-md lg:max-w-full aspect-[8/5]">
+                            <Skeleton className="w-full h-full rounded-2xl bg-gray-800" />
+                        </div>
+                    ) : (
+                        <svg viewBox="0 0 800 500" className="w-full h-auto max-w-md lg:max-w-full">
+                            {/* Flat Design Map */}
+                            <g stroke="white" strokeWidth="0.5" strokeLinejoin="round">
+                                <path d={pathNI} fill="#005b9f" />
+                                <path d={pathMV} fill="#4da6ff" />
+                                <path d={pathSH} fill="#8ecae6" />
+                                <path d={pathHH} fill="#003366" />
                             </g>
-                        ))}
-                    </svg>
+
+                            {/* Cities */}
+                            {cities.map((city, index) => (
+                                <g key={index} transform={`translate(${city.x}, ${city.y})`}>
+                                    <circle cx="0" cy="0" r="3" fill="white" />
+                                    <text
+                                        x={city.align === 'start' ? 8 : city.align === 'end' ? -8 : 0}
+                                        y={4}
+                                        fontFamily="Arial"
+                                        fontSize="12"
+                                        fill="white"
+                                        fontWeight="bold"
+                                        textAnchor={city.align}
+                                    >
+                                        {city.name}
+                                    </text>
+                                </g>
+                            ))}
+                        </svg>
+                    )}
                 </div>
             </div>
         </div>

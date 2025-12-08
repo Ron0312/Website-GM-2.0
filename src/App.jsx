@@ -21,7 +21,8 @@ import CookieBanner from './components/CookieBanner';
 import SimpleModal from './components/SimpleModal';
 import ScrollToTop from './components/ScrollToTop';
 import NotFound from './components/NotFound';
-import { ImprintContent, PrivacyContent, TermsContent } from './components/Legal';
+import AccessibilityWidget from './components/AccessibilityWidget';
+import { ImprintContent, PrivacyContent, TermsContent, AccessibilityStatementContent } from './components/Legal';
 
 const App = ({ path, context }) => {
     // Initial state based on path if provided (SSR), otherwise default to window location (CSR)
@@ -64,9 +65,19 @@ const App = ({ path, context }) => {
         } else if (type === 'terms') {
             title = 'AGB';
             content = <TermsContent />;
+        } else if (type === 'accessibility') {
+            title = 'Barrierefreiheit';
+            content = <AccessibilityStatementContent />;
         }
         setLegalModal({ open: true, title, content });
     };
+
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.location.pathname === '/barrierefreiheit') {
+            openLegal('accessibility');
+            window.history.pushState({}, '', '/');
+        }
+    }, []);
 
     // Handle Browser Back/Forward
     useEffect(() => {
@@ -154,6 +165,7 @@ const App = ({ path, context }) => {
             <WizardModal isOpen={wizardOpen} onClose={() => setWizardOpen(false)} initialType={wizardType} initialData={wizardData} />
             <CookieBanner />
             <SimpleModal isOpen={legalModal.open} onClose={() => setLegalModal({ ...legalModal, open: false })} title={legalModal.title} content={legalModal.content} />
+            <AccessibilityWidget />
             <ScrollToTop />
         </div>
     );
