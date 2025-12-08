@@ -76,7 +76,7 @@ async function createServer() {
         }
 
     const isHomePage = url === '/' || url === '/index.html';
-    const preloadLink = isHomePage ? '<link rel="preload" as="image" href="/images/gas-order-hero.webp">' : '';
+    const preloadLink = isHomePage ? '<link rel="preload" as="image" href="/images/gas-order-hero.webp" fetchpriority="high">' : '';
 
     const metaTags = `
     ${preloadLink}
