@@ -84,7 +84,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                                     x: filter === 'oberirdisch' ? 0 : '100%',
                                     width: '50%'
                                 }}
-                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                transition={{ type: "spring", stiffness: 400, damping: 30 }}
                                 style={{ left: 6, right: '50%' }}
                             />
 
@@ -109,15 +109,15 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                 </div>
 
                 {/* Info Block - Dynamic Content based on Filter */}
-                <div className="max-w-3xl mx-auto mb-12">
-                    <AnimatePresence mode='wait'>
+                <div className="max-w-3xl mx-auto mb-12 min-h-[300px]">
+                    <AnimatePresence mode="popLayout">
                         <motion.div
                             key={filter}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            transition={{ duration: 0.2 }}
-                            className={`rounded-2xl p-8 border ${currentInfo.color} text-center`}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            transition={{ duration: 0.15 }}
+                            className={`rounded-2xl p-8 border ${currentInfo.color} text-center shadow-lg`}
                         >
                             <h4 className={`text-2xl font-bold mb-4 ${currentInfo.titleColor}`}>{currentInfo.title}</h4>
                             <p className={`mb-8 max-w-2xl mx-auto text-lg ${currentInfo.textColor}`}>{currentInfo.description}</p>
