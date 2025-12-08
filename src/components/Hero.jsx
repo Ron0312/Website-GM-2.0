@@ -11,7 +11,7 @@ const Hero = ({ setActiveSection, openWizard }) => (
                 alt="Landschaft Norddeutschland"
                 width="1920"
                 height="1080"
-                className="w-full h-full object-cover absolute inset-0"
+                className="w-full h-full object-cover absolute inset-0 object-[75%_center] lg:object-center"
                 loading="eager"
                 fetchpriority="high"
             />
