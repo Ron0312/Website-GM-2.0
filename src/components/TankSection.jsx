@@ -52,14 +52,12 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                         <div className="bg-gray-100 p-1.5 rounded-2xl inline-flex relative">
                             {/* Sliding Background */}
                             <motion.div
-                                className="absolute top-1.5 bottom-1.5 bg-white rounded-xl shadow-sm z-0"
+                                className="absolute top-1.5 bottom-1.5 bg-white rounded-xl shadow-sm z-0 w-40 left-1.5"
                                 initial={false}
                                 animate={{
                                     x: filter === 'oberirdisch' ? 0 : '100%',
-                                    width: '50%'
                                 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                style={{ left: 6, right: '50%' }}
                             />
 
                             <button
