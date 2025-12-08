@@ -4004,7 +4004,7 @@ const App = ({ path, context }) => {
       const slug = activeSection.split("/")[1];
       return /* @__PURE__ */ jsx(TankDetail, { slug, onBack: () => changeSection("tanks"), openWizard });
     }
-    const validSections = ["start", "tanks", "gas", "rechner", "gewerbe", "wissen", "ueber-uns", "kontakt", "pruefungen"];
+    const validSections = ["start", "tanks", "gas", "rechner", "gewerbe", "wissen", "ueber-uns", "kontakt", "pruefungen", "barrierefreiheit"];
     if (!validSections.includes(activeSection)) {
       if (context) {
         context.status = 404;
@@ -4080,6 +4080,25 @@ const App = ({ path, context }) => {
       case "kontakt":
         return /* @__PURE__ */ jsxs(Fragment, { children: [
           /* @__PURE__ */ jsx("div", { className: "pt-32" }),
+          /* @__PURE__ */ jsx(ContactSection, {})
+        ] });
+      case "barrierefreiheit":
+        return /* @__PURE__ */ jsxs(Fragment, { children: [
+          /* @__PURE__ */ jsx(Hero, { openWizard, setActiveSection: changeSection }),
+          /* @__PURE__ */ jsx(TrustBar, {}),
+          /* @__PURE__ */ jsxs("div", { className: "my-16 text-center", children: [
+            /* @__PURE__ */ jsx("div", { className: "inline-block p-2 rounded-2xl bg-gradient-to-r from-gas-light to-white border border-gas/10 shadow-2xl animate-pulse hover:animate-none transition-all", children: /* @__PURE__ */ jsxs("button", { onClick: () => openWizard("tank"), className: "bg-gas text-white px-10 py-5 rounded-xl font-extrabold text-2xl shadow-lg hover:bg-gas-dark transition-all flex items-center gap-3", children: [
+              /* @__PURE__ */ jsx(Settings, { size: 28 }),
+              " Zum Anfrage-Assistenten ",
+              /* @__PURE__ */ jsx(ArrowRight, { size: 28 })
+            ] }) }),
+            /* @__PURE__ */ jsx("p", { className: "mt-4 text-gray-400 text-sm font-medium", children: "Kostenlos & Unverbindlich" })
+          ] }),
+          /* @__PURE__ */ jsx(TankSection, { openWizard, setActiveSection: changeSection, showTechnicalOverview: false }),
+          /* @__PURE__ */ jsx(CommercialSection, { setActiveSection: changeSection }),
+          /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4", children: /* @__PURE__ */ jsx(EnergyCalculator, {}) }),
+          /* @__PURE__ */ jsx(DeliveryMap, {}),
+          /* @__PURE__ */ jsx(FAQ, {}),
           /* @__PURE__ */ jsx(ContactSection, {})
         ] });
       default:
