@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Check, Settings, Flame, Wrench, AlertTriangle, ArrowUpFromLine, ArrowDownToLine, Home, Building2, Factory, Sparkles, RefreshCw, Info } from 'lucide-react';
+import { X, Check, Settings, Flame, Wrench, AlertTriangle, ArrowUpFromLine, ArrowDownToLine, Home, Building2, Factory, Sparkles, RefreshCw, Info, Phone } from 'lucide-react';
 import { getPlzError } from '../utils/validation';
 import ModernInput from './ui/ModernInput';
 import SelectionCard from './ui/SelectionCard';
@@ -163,9 +163,14 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                         <h2 id="wizard-title" className="text-xl font-bold text-gray-900">Anfrage stellen</h2>
                         <p className="text-sm text-gray-400">Schritt {step} von {totalSteps}</p>
                     </div>
-                    <button onClick={onClose} aria-label="Schließen" className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors">
-                        <X size={24}/>
-                    </button>
+                    <div className="flex items-center gap-4">
+                        <a href="tel:04551897089" className="hidden sm:flex items-center gap-2 text-gas hover:text-gas-dark font-bold text-sm bg-gas-light/20 px-3 py-1.5 rounded-lg transition-colors">
+                            <Phone size={14} /> <span>Hilfe? 04551 89 70 89</span>
+                        </a>
+                        <button onClick={onClose} aria-label="Schließen" className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors">
+                            <X size={24}/>
+                        </button>
+                    </div>
                 </div>
 
                 {/* Progress Bar */}
@@ -220,7 +225,9 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                 maxLength={5}
                                                 autoFocus
                                                 error={plzError}
+                                                aria-describedby={plzError ? "plz-error" : undefined}
                                             />
+                                            {plzError && <p id="plz-error" className="sr-only">{plzError}</p>}
                                             <button
                                                 type="button"
                                                 onClick={handleNext}

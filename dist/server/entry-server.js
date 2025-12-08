@@ -1,7 +1,7 @@
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import ReactDOMServer from "react-dom/server";
-import { TrendingUp, Clock, ArrowUpFromLine, ArrowDownToLine, ShieldCheck, BookOpen, Phone, ChevronDown, ArrowRight, X, Menu, BadgeCheck, Star, Calculator, Zap, Info, Flame, Droplets, Leaf, Trees, ArrowLeft, Ruler, Weight, Check, Download, Tractor, Factory, Truck, MapPin, CheckCircle, Loader2, Coins, Heart, AlertTriangle, Settings, Home, Wrench, Lock, Unlock, ChevronRight, Send, Sparkles, RefreshCw, Building2, ChevronUp } from "lucide-react";
+import { TrendingUp, Clock, Phone, ArrowUpFromLine, ArrowDownToLine, ShieldCheck, BookOpen, ChevronDown, ArrowRight, X, Menu, BadgeCheck, Star, Calculator, Zap, Info, Flame, Droplets, Leaf, Trees, ArrowLeft, Ruler, Weight, Check, Download, Tractor, Factory, Truck, MapPin, CheckCircle, User, Loader2, Coins, Heart, AlertTriangle, Settings, Home, Wrench, Lock, Unlock, ChevronRight, Send, Sparkles, RefreshCw, Building2, ChevronUp } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 const tankDetails = [
   {
@@ -242,7 +242,9 @@ const getSeoForPath = (path) => {
     description: seoData["start"].description,
     image: seoData["start"].image,
     url: `${SITE_URL}/${cleanPath}`,
-    type: "website"
+    type: "website",
+    locale: "de_DE",
+    site_name: "gasmöller"
   };
   if (cleanPath.startsWith("tanks/")) {
     const slug = cleanPath.split("/")[1];
@@ -282,7 +284,11 @@ const TopBar = () => /* @__PURE__ */ jsx("div", { className: "bg-gas-dark text-w
     ] }),
     /* @__PURE__ */ jsxs("span", { className: "flex items-center text-white/80", children: [
       /* @__PURE__ */ jsx(Clock, { size: 12, className: "mr-1.5" }),
-      " Heute geöffnet bis 17:00"
+      " Mo-Fr 8:00 - 17:00"
+    ] }),
+    /* @__PURE__ */ jsxs("a", { href: "tel:04551897089", className: "flex items-center text-white/80 hover:text-white transition-colors font-semibold", children: [
+      /* @__PURE__ */ jsx(Phone, { size: 12, className: "mr-1.5" }),
+      " 04551 89 70 89"
     ] })
   ] }),
   /* @__PURE__ */ jsxs("div", { className: "flex space-x-6", children: [
@@ -371,6 +377,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                 "aria-expanded": openDropdown === link.id,
                 "aria-haspopup": !!link.subLinks,
                 "aria-label": link.label,
+                "aria-current": activeSection === link.id ? "page" : void 0,
                 className: `
                                             ${activeSection === link.id || link.subLinks && activeSection.startsWith(link.id) ? "bg-white text-gas shadow-sm font-bold" : "text-gray-500 hover:text-gas hover:bg-white/50"}
                                             px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 flex items-center whitespace-nowrap
@@ -434,7 +441,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
         link.id
       )) }),
       /* @__PURE__ */ jsxs("div", { className: "hidden lg:flex items-center space-x-4", children: [
-        /* @__PURE__ */ jsxs("a", { href: "tel:04551897089", "aria-label": "Rufen Sie uns an unter 04551 89 70 89", className: "flex flex-col items-end text-right mr-2 group", children: [
+        /* @__PURE__ */ jsxs("a", { href: "tel:04551897089", "aria-label": "Kostenlose Beratung unter 04551 89 70 89 anrufen", title: "Rufen Sie uns an: 04551 89 70 89", className: "flex flex-col items-end text-right mr-2 group", children: [
           /* @__PURE__ */ jsx("span", { className: "text-[10px] uppercase font-bold text-gray-400 tracking-wider group-hover:text-gas transition-colors", children: "Kostenlose Beratung" }),
           /* @__PURE__ */ jsx("span", { className: "text-lg font-bold text-gas leading-none", children: "04551 89 70 89" })
         ] }),
@@ -512,10 +519,16 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
           }
         ) })
       ] }, link.id)),
-      /* @__PURE__ */ jsx("button", { onClick: () => {
-        openWizard ? openWizard("tank") : setActiveSection("kontakt");
-        setMobileMenuOpen(false);
-      }, className: "w-full text-center px-4 py-4 text-lg font-bold text-white bg-gas rounded-xl mt-4 shadow-lg shadow-gas/20", children: "Jetzt Angebot anfordern" })
+      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-2 gap-4 mt-4", children: [
+        /* @__PURE__ */ jsxs("a", { href: "tel:04551897089", className: "w-full text-center px-4 py-4 text-base font-bold text-gas bg-gas-light/30 rounded-xl flex items-center justify-center", children: [
+          /* @__PURE__ */ jsx(Phone, { size: 18, className: "mr-2" }),
+          " Anrufen"
+        ] }),
+        /* @__PURE__ */ jsx("button", { onClick: () => {
+          openWizard ? openWizard("tank") : setActiveSection("kontakt");
+          setMobileMenuOpen(false);
+        }, className: "w-full text-center px-4 py-4 text-base font-bold text-white bg-gas rounded-xl shadow-lg shadow-gas/20", children: "Angebot" })
+      ] })
     ] }) }) })
   ] });
 };
@@ -538,7 +551,10 @@ const Hero = ({ setActiveSection, openWizard }) => /* @__PURE__ */ jsxs("header"
   /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20", children: /* @__PURE__ */ jsx("div", { className: "lg:grid lg:grid-cols-2 lg:gap-20 items-center", children: /* @__PURE__ */ jsx("div", { className: "text-left text-white", children: /* @__PURE__ */ jsxs(motion.div, { initial: { opacity: 0, y: 30 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.8 }, children: [
     /* @__PURE__ */ jsxs("div", { className: "inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md border border-white/30 px-4 py-1.5 rounded-full mb-8 shadow-sm", children: [
       /* @__PURE__ */ jsx("span", { className: "w-2 h-2 bg-green-400 rounded-full animate-pulse" }),
-      /* @__PURE__ */ jsx("span", { className: "text-white text-xs font-bold uppercase tracking-widest", children: "Seit 2005 · Norddeutsch · Ehrlich" })
+      /* @__PURE__ */ jsxs("span", { className: "text-white text-xs font-bold uppercase tracking-widest flex items-center gap-2", children: [
+        /* @__PURE__ */ jsx(ShieldCheck, { size: 14, className: "text-white" }),
+        " Seit 2005 · Norddeutsch · Ehrlich"
+      ] })
     ] }),
     /* @__PURE__ */ jsxs("h1", { className: "text-6xl tracking-tight font-extrabold sm:text-7xl lg:text-8xl mb-8 leading-tight drop-shadow-lg", children: [
       "Energie.",
@@ -587,7 +603,7 @@ const TankCard = ({ tank, onContact }) => {
     tank.highlight && /* @__PURE__ */ jsx("div", { className: "bg-gas text-white text-[10px] font-bold uppercase text-center py-1.5 tracking-widest", children: "Empfehlung" }),
     /* @__PURE__ */ jsxs("div", { className: "h-48 bg-gray-50 flex items-center justify-center p-6 relative", children: [
       /* @__PURE__ */ jsx("div", { className: "absolute top-4 right-4 bg-white/80 backdrop-blur px-2 py-1 rounded text-[10px] font-bold text-gray-500 border border-gray-100", children: tank.capacity }),
-      /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 100 60", className: `${scaleClass} h-auto text-gray-300 fill-current drop-shadow-lg transition-all duration-300`, loading: "lazy", children: [
+      /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 100 60", className: `${scaleClass} h-auto text-gray-300 fill-current drop-shadow-lg transition-all duration-300`, role: "img", "aria-label": `Illustration von ${tank.name}`, children: [
         /* @__PURE__ */ jsx("rect", { x: "10", y: "15", width: "80", height: "30", rx: "10" }),
         /* @__PURE__ */ jsx("rect", { x: "5", y: "25", width: "5", height: "10" }),
         /* @__PURE__ */ jsx("rect", { x: "90", y: "25", width: "5", height: "10" }),
@@ -875,21 +891,20 @@ const EnergyCalculator = () => {
 };
 const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = true }) => {
   const [filter, setFilter] = useState("oberirdisch");
-  const tanks = tankDetails.map((t) => ({
-    type: t.type,
-    size: t.volume,
-    capacity: t.capacity,
-    name: t.name.split("(")[0].trim(),
-    // Simplified name for card
-    usage: t.features[0],
-    // Use first feature as usage
-    highlight: t.capacity === "2,1 t",
-    length: t.dimensions.split("x")[0].trim(),
-    diameter: t.dimensions.split("x")[1].replace("m", "").trim() + " m",
-    weight: t.weight,
-    slug: t.slug
-  }));
-  const visibleTanks = tanks.filter((t) => t.type === filter);
+  const visibleTanks = useMemo(() => {
+    return tankDetails.filter((t) => t.type === filter).map((t) => ({
+      type: t.type,
+      size: t.volume,
+      capacity: t.capacity,
+      name: t.name.split("(")[0].trim(),
+      usage: t.features[0],
+      highlight: t.capacity === "2,1 t",
+      length: t.dimensions.split("x")[0].trim(),
+      diameter: t.dimensions.split("x")[1].replace("m", "").trim() + " m",
+      weight: t.weight,
+      slug: t.slug
+    }));
+  }, [filter]);
   return /* @__PURE__ */ jsxs("section", { className: "bg-white", id: "tanks", children: [
     /* @__PURE__ */ jsxs("div", { className: "relative bg-gray-900 py-32 lg:py-48 overflow-hidden", children: [
       /* @__PURE__ */ jsxs("div", { className: "absolute inset-0 z-0", children: [
@@ -930,6 +945,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
           {
             onClick: () => setActiveSection ? setActiveSection(`tanks/${tank.slug}`) : null,
             className: "text-sm font-bold text-gray-400 hover:text-gas transition-colors border-b border-transparent hover:border-gas pb-0.5",
+            "aria-label": `Details und Maße für ${tank.name} ansehen`,
             children: "Details & Maße ansehen"
           }
         ) })
@@ -1418,11 +1434,34 @@ const ContactSection = () => {
     /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 relative z-10 text-center", children: [
       /* @__PURE__ */ jsx("h2", { className: "text-3xl font-extrabold mb-6", children: "Noch Fragen?" }),
       /* @__PURE__ */ jsx("p", { className: "text-gas-light mb-10 text-lg", children: "Unser Team ist für Sie da. Persönlich und kompetent." }),
+      /* @__PURE__ */ jsxs("div", { className: "flex flex-col md:flex-row justify-center gap-6 mb-12", children: [
+        /* @__PURE__ */ jsxs("a", { href: "tel:04551897089", className: "flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 px-6 py-4 rounded-xl transition-all border border-white/10", children: [
+          /* @__PURE__ */ jsx(Phone, { className: "text-gas-light" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-left", children: [
+            /* @__PURE__ */ jsx("div", { className: "text-xs text-gray-400 uppercase font-bold tracking-wider", children: "Zentrale" }),
+            /* @__PURE__ */ jsx("div", { className: "font-bold text-lg", children: "04551 89 70 89" })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("a", { href: "tel:+491709270078", className: "flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 px-6 py-4 rounded-xl transition-all border border-white/10", children: [
+          /* @__PURE__ */ jsx(User, { className: "text-gas-light" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-left", children: [
+            /* @__PURE__ */ jsx("div", { className: "text-xs text-gray-400 uppercase font-bold tracking-wider", children: "Thomas Möller / Notfall" }),
+            /* @__PURE__ */ jsx("div", { className: "font-bold text-lg", children: "+49 170 927 00 78" })
+          ] })
+        ] })
+      ] }),
       /* @__PURE__ */ jsx("div", { className: "bg-white rounded-2xl p-8 md:p-12 shadow-2xl text-left max-w-2xl mx-auto text-text transform hover:-translate-y-1 transition-transform duration-500", children: status === "success" ? /* @__PURE__ */ jsxs("div", { className: "text-center py-12", children: [
         /* @__PURE__ */ jsx("div", { className: "inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-6", children: /* @__PURE__ */ jsx(CheckCircle, { size: 32, className: "text-green-600" }) }),
         /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-gray-900 mb-2", children: "Vielen Dank!" }),
-        /* @__PURE__ */ jsx("p", { className: "text-gray-600", children: "Ihre Nachricht wurde erfolgreich versendet. Wir melden uns in Kürze bei Ihnen." }),
-        /* @__PURE__ */ jsx("button", { onClick: () => setStatus("idle"), className: "mt-8 text-gas font-bold hover:underline", children: "Neue Nachricht schreiben" })
+        /* @__PURE__ */ jsx("p", { className: "text-gray-600 mb-6", children: "Ihre Nachricht wurde erfolgreich versendet. Wir melden uns in Kürze bei Ihnen." }),
+        /* @__PURE__ */ jsxs("div", { className: "bg-blue-50 p-4 rounded-xl border border-blue-100 text-sm text-blue-900 mb-8", children: [
+          /* @__PURE__ */ jsx("strong", { children: "Dringend?" }),
+          /* @__PURE__ */ jsx("br", {}),
+          "Rufen Sie uns direkt an unter ",
+          /* @__PURE__ */ jsx("a", { href: "tel:04551897089", className: "underline font-bold", children: "04551 89 70 89" }),
+          "."
+        ] }),
+        /* @__PURE__ */ jsx("button", { onClick: () => setStatus("idle"), className: "text-gas font-bold hover:underline", children: "Neue Nachricht schreiben" })
       ] }) : /* @__PURE__ */ jsxs("form", { className: "space-y-6", onSubmit: handleSubmit, children: [
         /* @__PURE__ */ jsx(
           "input",
@@ -1433,17 +1472,18 @@ const ContactSection = () => {
             tabIndex: "-1",
             autoComplete: "off",
             value: honeypot,
-            onChange: (e) => setHoneypot(e.target.value)
+            onChange: (e) => setHoneypot(e.target.value),
+            "aria-hidden": "true"
           }
         ),
         /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [
           /* @__PURE__ */ jsxs("div", { children: [
             /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "Name" }),
-            /* @__PURE__ */ jsx("input", { type: "text", name: "name", autoComplete: "name", required: true, className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" })
+            /* @__PURE__ */ jsx("input", { type: "text", name: "name", autoComplete: "name", required: true, "aria-required": "true", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" })
           ] }),
           /* @__PURE__ */ jsxs("div", { children: [
             /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "Telefon" }),
-            /* @__PURE__ */ jsx("input", { type: "tel", name: "phone", autoComplete: "tel", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" })
+            /* @__PURE__ */ jsx("input", { type: "tel", name: "phone", autoComplete: "tel", inputMode: "tel", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" })
           ] })
         ] }),
         /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [
@@ -1455,17 +1495,21 @@ const ContactSection = () => {
                 type: "text",
                 name: "plz",
                 autoComplete: "postal-code",
+                inputMode: "numeric",
+                pattern: "[0-9]*",
                 value: plz,
                 onChange: handlePlzChange,
                 maxLength: 5,
+                "aria-invalid": !!plzError,
+                "aria-describedby": plzError ? "plz-error" : void 0,
                 className: `w-full px-4 py-3 bg-gray-50 border rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans ${plzError ? "border-red-300 bg-red-50 text-red-900" : "border-gray-200"}`
               }
             ),
-            plzError && /* @__PURE__ */ jsx("p", { className: "text-red-500 text-xs mt-1 font-bold", children: plzError })
+            plzError && /* @__PURE__ */ jsx("p", { id: "plz-error", className: "text-red-500 text-xs mt-1 font-bold", children: plzError })
           ] }),
           /* @__PURE__ */ jsxs("div", { children: [
             /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "E-Mail" }),
-            /* @__PURE__ */ jsx("input", { type: "email", name: "email", autoComplete: "email", required: true, className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" })
+            /* @__PURE__ */ jsx("input", { type: "email", name: "email", autoComplete: "email", inputMode: "email", required: true, "aria-required": "true", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" })
           ] })
         ] }),
         /* @__PURE__ */ jsxs("div", { children: [
@@ -1611,6 +1655,8 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                         type: "text",
                         name: "plz",
                         autoComplete: "postal-code",
+                        inputMode: "numeric",
+                        pattern: "[0-9]*",
                         maxLength: "5",
                         value: plz,
                         onChange: (e) => {
@@ -2540,7 +2586,7 @@ const TeamSection = () => /* @__PURE__ */ jsxs("div", { className: "py-24 bg-whi
     /* @__PURE__ */ jsx("h3", { className: "text-3xl font-extrabold text-text", children: "Gesichter hinter der Energie" })
   ] }),
   /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center", children: [
-    { name: "Thomas Möller", role: "Geschäftsführung", img: "/images/team/thomas.jpg" },
+    { name: "Thomas Möller", role: "Geschäftsführung", img: "/images/team/thomas.jpg", phone: "+49 170 927 00 78" },
     { name: "Hans Christian Möller", role: "Buchhaltung", img: "/images/team/hans.jpg" }
   ].map((member, i) => /* @__PURE__ */ jsxs("div", { className: "group relative overflow-hidden rounded-2xl aspect-[3/4] shadow-lg bg-gray-200 w-full max-w-sm", children: [
     /* @__PURE__ */ jsx(
@@ -2550,6 +2596,7 @@ const TeamSection = () => /* @__PURE__ */ jsxs("div", { className: "py-24 bg-whi
         alt: member.name,
         width: "300",
         height: "400",
+        loading: "lazy",
         className: "w-full h-full object-cover transition-transform duration-700 group-hover:scale-110",
         onError: (e) => {
           e.target.style.display = "none";
@@ -2560,7 +2607,12 @@ const TeamSection = () => /* @__PURE__ */ jsxs("div", { className: "py-24 bg-whi
     /* @__PURE__ */ jsx("div", { className: "absolute inset-0 flex flex-col items-center justify-center bg-gray-300 text-gray-500 hidden gap-2", children: /* @__PURE__ */ jsx("div", { className: "w-20 h-20 rounded-full bg-gray-400 flex items-center justify-center text-white text-2xl font-bold", children: member.name.split(" ").map((n) => n[0]).join("") }) }),
     /* @__PURE__ */ jsxs("div", { className: "absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6", children: [
       /* @__PURE__ */ jsx("h4", { className: "text-white font-bold text-lg", children: member.name }),
-      /* @__PURE__ */ jsx("p", { className: "text-gas-light text-sm", children: member.role })
+      /* @__PURE__ */ jsx("p", { className: "text-gas-light text-sm mb-2", children: member.role }),
+      member.phone && /* @__PURE__ */ jsxs("a", { href: `tel:${member.phone.replace(/\s/g, "")}`, className: "flex items-center text-white/90 hover:text-white transition-colors text-sm font-semibold mt-1", children: [
+        /* @__PURE__ */ jsx(Phone, { size: 14, className: "mr-2" }),
+        " ",
+        member.phone
+      ] })
     ] })
   ] }, i)) })
 ] });
@@ -2594,9 +2646,11 @@ const AboutPage = () => /* @__PURE__ */ jsx("section", { className: "bg-white", 
 ] }) });
 const Footer = ({ setActiveSection, openLegal }) => {
   const [email, setEmail] = useState("");
+  const [honeypot, setHoneypot] = useState("");
   const [status, setStatus] = useState("idle");
   const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
+    if (honeypot) return;
     if (!email) return;
     setStatus("loading");
     try {
@@ -2623,7 +2677,7 @@ const Footer = ({ setActiveSection, openLegal }) => {
   return /* @__PURE__ */ jsxs("footer", { className: "bg-gray-900 text-gray-400 py-20 border-t border-gray-800 text-sm", children: [
     /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12", children: [
       /* @__PURE__ */ jsxs("div", { className: "col-span-1", children: [
-        /* @__PURE__ */ jsx("img", { src: "/logos/Icon-01.webp", alt: "gasmöller", width: "2222", height: "747", className: "h-10 w-auto filter brightness-0 invert opacity-80 mb-6" }),
+        /* @__PURE__ */ jsx("img", { src: "/logos/Icon-01.webp", alt: "gasmöller", width: "2222", height: "747", loading: "lazy", className: "h-10 w-auto filter brightness-0 invert opacity-80 mb-6" }),
         /* @__PURE__ */ jsx("p", { className: "leading-relaxed mb-4", children: "Ihr unabhängiger Partner für Energie im Norden. Seit 2005." }),
         /* @__PURE__ */ jsxs("div", { className: "flex space-x-4", children: [
           /* @__PURE__ */ jsx("a", { href: "https://facebook.com/gasmoeller", target: "_blank", rel: "noopener noreferrer", className: "w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer", "aria-label": "Facebook", children: "f" }),
@@ -2636,7 +2690,11 @@ const Footer = ({ setActiveSection, openLegal }) => {
           /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("gas"), className: "hover:text-white transition-colors", children: "Gas bestellen" }) }),
           /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("tanks"), className: "hover:text-white transition-colors", children: "Tanks kaufen" }) }),
           /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("rechner"), className: "hover:text-white transition-colors", children: "Spar-Rechner" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("kontakt"), className: "hover:text-white transition-colors", children: "Kontakt" }) })
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("kontakt"), className: "hover:text-white transition-colors", children: "Kontakt" }) }),
+          /* @__PURE__ */ jsx("li", { className: "pt-2 border-t border-gray-800 mt-2", children: /* @__PURE__ */ jsxs("a", { href: "tel:04551897089", className: "hover:text-white transition-colors flex items-center gap-2 font-semibold", children: [
+            /* @__PURE__ */ jsx(Phone, { size: 14 }),
+            " 04551 89 70 89"
+          ] }) })
         ] })
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
@@ -2653,12 +2711,26 @@ const Footer = ({ setActiveSection, openLegal }) => {
         status === "success" ? /* @__PURE__ */ jsxs("div", { className: "bg-green-500/10 text-green-400 p-3 rounded flex items-center border border-green-500/20", children: [
           /* @__PURE__ */ jsx(CheckCircle, { size: 16, className: "mr-2" }),
           /* @__PURE__ */ jsx("span", { children: "Angemeldet!" })
-        ] }) : /* @__PURE__ */ jsxs("form", { onSubmit: handleNewsletterSubmit, className: "flex", children: [
+        ] }) : /* @__PURE__ */ jsxs("form", { onSubmit: handleNewsletterSubmit, className: "flex relative", children: [
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "text",
+              name: "b_field",
+              style: { display: "none" },
+              tabIndex: "-1",
+              autoComplete: "off",
+              value: honeypot,
+              onChange: (e) => setHoneypot(e.target.value),
+              "aria-hidden": "true"
+            }
+          ),
           /* @__PURE__ */ jsx(
             "input",
             {
               type: "email",
               required: true,
+              autoComplete: "email",
               placeholder: "Ihre E-Mail Adresse",
               value: email,
               onChange: (e) => setEmail(e.target.value),
@@ -2679,7 +2751,11 @@ const Footer = ({ setActiveSection, openLegal }) => {
         status === "error" && /* @__PURE__ */ jsx("p", { className: "text-red-400 text-xs mt-2", children: "Ein Fehler ist aufgetreten." })
       ] })
     ] }),
-    /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-gray-800 text-center text-xs text-gray-600", children: "© 2025 Gas-Service Möller e.K. Alle Rechte vorbehalten." })
+    /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-gray-800 text-center text-xs text-gray-600", children: [
+      "© ",
+      (/* @__PURE__ */ new Date()).getFullYear(),
+      " Gas-Service Möller e.K. Alle Rechte vorbehalten."
+    ] })
   ] });
 };
 const ModernInput = ({ label, error, className = "", ...props }) => {
@@ -2696,6 +2772,9 @@ const ModernInput = ({ label, error, className = "", ...props }) => {
             "input",
             {
               ...props,
+              inputMode: props.inputMode,
+              pattern: props.pattern,
+              autoComplete: props.autoComplete,
               onFocus: (e) => {
                 setFocused(true);
                 props.onFocus && props.onFocus(e);
@@ -2878,7 +2957,14 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
                   totalSteps
                 ] })
               ] }),
-              /* @__PURE__ */ jsx("button", { onClick: onClose, "aria-label": "Schließen", className: "p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors", children: /* @__PURE__ */ jsx(X, { size: 24 }) })
+              /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-4", children: [
+                /* @__PURE__ */ jsxs("a", { href: "tel:04551897089", className: "hidden sm:flex items-center gap-2 text-gas hover:text-gas-dark font-bold text-sm bg-gas-light/20 px-3 py-1.5 rounded-lg transition-colors", children: [
+                  /* @__PURE__ */ jsx(Phone, { size: 14 }),
+                  " ",
+                  /* @__PURE__ */ jsx("span", { children: "Hilfe? 04551 89 70 89" })
+                ] }),
+                /* @__PURE__ */ jsx("button", { onClick: onClose, "aria-label": "Schließen", className: "p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors", children: /* @__PURE__ */ jsx(X, { size: 24 }) })
+              ] })
             ] }),
             /* @__PURE__ */ jsx("div", { className: "h-1 bg-gray-100 w-full", children: /* @__PURE__ */ jsx(
               motion.div,
@@ -2915,6 +3001,8 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
                       type: "text",
                       name: "plz",
                       autoComplete: "postal-code",
+                      inputMode: "numeric",
+                      pattern: "[0-9]*",
                       value: plz,
                       onChange: (e) => {
                         if (e.target.value.length <= 5 && /^\d*$/.test(e.target.value)) {
@@ -2925,9 +3013,11 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
                       placeholder: "PLZ",
                       maxLength: 5,
                       autoFocus: true,
-                      error: plzError
+                      error: plzError,
+                      "aria-describedby": plzError ? "plz-error" : void 0
                     }
                   ),
+                  plzError && /* @__PURE__ */ jsx("p", { id: "plz-error", className: "sr-only", children: plzError }),
                   /* @__PURE__ */ jsx(
                     "button",
                     {
@@ -3053,6 +3143,7 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
                           {
                             type: "number",
                             name: "amount",
+                            inputMode: "numeric",
                             className: "mb-0",
                             placeholder: "z.B. 2000",
                             value: details.amount || "",
@@ -3297,6 +3388,7 @@ const ContactForm = ({ contact, setContact, plz, submitting, handleBack, stepNam
         type: "email",
         name: "email",
         autoComplete: "email",
+        inputMode: "email",
         required: true,
         placeholder: "ihre@email.de",
         value: contact.email,
@@ -3310,6 +3402,7 @@ const ContactForm = ({ contact, setContact, plz, submitting, handleBack, stepNam
         type: "tel",
         name: "phone",
         autoComplete: "tel",
+        inputMode: "tel",
         placeholder: "Für Rückfragen",
         value: contact.phone,
         onChange: (e) => setContact({ ...contact, phone: e.target.value })
@@ -3381,16 +3474,16 @@ const NotFound = ({ onGoHome }) => {
     /* @__PURE__ */ jsx("h2", { className: "text-3xl font-bold text-gray-900 mb-4", children: "Upps! Seite nicht gefunden." }),
     /* @__PURE__ */ jsx("p", { className: "text-gray-600 mb-8 max-w-md text-lg", children: "Es scheint, als hätten Sie sich verlaufen. Die gesuchte Seite ist leider nicht verfügbar." }),
     /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap justify-center gap-3 mb-8", children: [
-      /* @__PURE__ */ jsx("button", { onClick: onGoHome, className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors", children: "Startseite" }),
-      /* @__PURE__ */ jsx("button", { onClick: () => window.location.href = "/tanks", className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors", children: "Tanks kaufen" }),
-      /* @__PURE__ */ jsx("button", { onClick: () => window.location.href = "/gas", className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors", children: "Gas bestellen" }),
-      /* @__PURE__ */ jsx("button", { onClick: () => window.location.href = "/kontakt", className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors", children: "Kontakt" })
+      /* @__PURE__ */ jsx("button", { onClick: () => onGoHome("start"), className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors", children: "Startseite" }),
+      /* @__PURE__ */ jsx("button", { onClick: () => onGoHome("tanks"), className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors", children: "Tanks kaufen" }),
+      /* @__PURE__ */ jsx("button", { onClick: () => onGoHome("gas"), className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors", children: "Gas bestellen" }),
+      /* @__PURE__ */ jsx("button", { onClick: () => onGoHome("kontakt"), className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors", children: "Kontakt" })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row gap-4", children: [
       /* @__PURE__ */ jsxs(
         "button",
         {
-          onClick: onGoHome,
+          onClick: () => onGoHome("start"),
           className: "bg-gas text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:bg-gas-dark transition-all flex items-center justify-center gap-2",
           children: [
             /* @__PURE__ */ jsx(Home, { size: 20 }),
@@ -3577,7 +3670,7 @@ const App = ({ path, context }) => {
       }
       return /* @__PURE__ */ jsxs(Fragment, { children: [
         /* @__PURE__ */ jsx("div", { className: "pt-20" }),
-        /* @__PURE__ */ jsx(NotFound, { onGoHome: () => changeSection("start") }),
+        /* @__PURE__ */ jsx(NotFound, { onGoHome: changeSection }),
         /* @__PURE__ */ jsx(ContactSection, {})
       ] });
     }
@@ -3650,7 +3743,7 @@ const App = ({ path, context }) => {
       default:
         return /* @__PURE__ */ jsxs(Fragment, { children: [
           /* @__PURE__ */ jsx("div", { className: "pt-20" }),
-          /* @__PURE__ */ jsx(NotFound, { onGoHome: () => changeSection("start") }),
+          /* @__PURE__ */ jsx(NotFound, { onGoHome: changeSection }),
           /* @__PURE__ */ jsx(ContactSection, {})
         ] });
     }

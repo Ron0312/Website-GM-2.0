@@ -253,9 +253,14 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                     </AnimatePresence>
                                 </div>
                             ))}
-                            <button onClick={() => { openWizard ? openWizard('tank') : setActiveSection('kontakt'); setMobileMenuOpen(false); }} className="w-full text-center px-4 py-4 text-lg font-bold text-white bg-gas rounded-xl mt-4 shadow-lg shadow-gas/20">
-                                Jetzt Angebot anfordern
-                            </button>
+                            <div className="grid grid-cols-2 gap-4 mt-4">
+                                <a href="tel:04551897089" className="w-full text-center px-4 py-4 text-base font-bold text-gas bg-gas-light/30 rounded-xl flex items-center justify-center">
+                                    <Phone size={18} className="mr-2"/> Anrufen
+                                </a>
+                                <button onClick={() => { openWizard ? openWizard('tank') : setActiveSection('kontakt'); setMobileMenuOpen(false); }} className="w-full text-center px-4 py-4 text-base font-bold text-white bg-gas rounded-xl shadow-lg shadow-gas/20">
+                                    Angebot
+                                </button>
+                            </div>
                         </div>
                     </motion.div>
                 )}

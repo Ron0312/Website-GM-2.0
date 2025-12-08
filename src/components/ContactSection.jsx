@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CheckCircle, Loader2 } from 'lucide-react';
+import { CheckCircle, Loader2, Phone, User } from 'lucide-react';
 import { getPlzError } from '../utils/validation';
 
 const ContactSection = () => {
@@ -57,6 +57,25 @@ const ContactSection = () => {
             <div className="max-w-4xl mx-auto px-4 relative z-10 text-center">
                 <h2 className="text-3xl font-extrabold mb-6">Noch Fragen?</h2>
                 <p className="text-gas-light mb-10 text-lg">Unser Team ist für Sie da. Persönlich und kompetent.</p>
+
+                 {/* Phone Numbers Block */}
+                 <div className="flex flex-col md:flex-row justify-center gap-6 mb-12">
+                    <a href="tel:04551897089" className="flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 px-6 py-4 rounded-xl transition-all border border-white/10">
+                        <Phone className="text-gas-light" />
+                        <div className="text-left">
+                            <div className="text-xs text-gray-400 uppercase font-bold tracking-wider">Zentrale</div>
+                            <div className="font-bold text-lg">04551 89 70 89</div>
+                        </div>
+                    </a>
+                    <a href="tel:+491709270078" className="flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 px-6 py-4 rounded-xl transition-all border border-white/10">
+                        <User className="text-gas-light" />
+                        <div className="text-left">
+                            <div className="text-xs text-gray-400 uppercase font-bold tracking-wider">Thomas Möller / Notfall</div>
+                            <div className="font-bold text-lg">+49 170 927 00 78</div>
+                        </div>
+                    </a>
+                </div>
+
                 <div className="bg-white rounded-2xl p-8 md:p-12 shadow-2xl text-left max-w-2xl mx-auto text-text transform hover:-translate-y-1 transition-transform duration-500">
                     {status === 'success' ? (
                         <div className="text-center py-12">
@@ -64,8 +83,12 @@ const ContactSection = () => {
                                 <CheckCircle size={32} className="text-green-600" />
                             </div>
                             <h3 className="text-2xl font-bold text-gray-900 mb-2">Vielen Dank!</h3>
-                            <p className="text-gray-600">Ihre Nachricht wurde erfolgreich versendet. Wir melden uns in Kürze bei Ihnen.</p>
-                            <button onClick={() => setStatus('idle')} className="mt-8 text-gas font-bold hover:underline">Neue Nachricht schreiben</button>
+                            <p className="text-gray-600 mb-6">Ihre Nachricht wurde erfolgreich versendet. Wir melden uns in Kürze bei Ihnen.</p>
+                             <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 text-sm text-blue-900 mb-8">
+                                <strong>Dringend?</strong><br/>
+                                Rufen Sie uns direkt an unter <a href="tel:04551897089" className="underline font-bold">04551 89 70 89</a>.
+                            </div>
+                            <button onClick={() => setStatus('idle')} className="text-gas font-bold hover:underline">Neue Nachricht schreiben</button>
                         </div>
                     ) : (
                         <form className="space-y-6" onSubmit={handleSubmit}>
@@ -97,9 +120,10 @@ const ContactSection = () => {
                                         onChange={handlePlzChange}
                                         maxLength={5}
                                         aria-invalid={!!plzError}
+                                        aria-describedby={plzError ? "plz-error" : undefined}
                                         className={`w-full px-4 py-3 bg-gray-50 border rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans ${plzError ? 'border-red-300 bg-red-50 text-red-900' : 'border-gray-200'}`}
                                     />
-                                    {plzError && <p className="text-red-500 text-xs mt-1 font-bold">{plzError}</p>}
+                                    {plzError && <p id="plz-error" className="text-red-500 text-xs mt-1 font-bold">{plzError}</p>}
                                 </div>
                                 <div><label className="block text-xs font-bold text-gray-400 uppercase mb-1">E-Mail</label><input type="email" name="email" autoComplete="email" inputMode="email" required aria-required="true" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" /></div>
                             </div>

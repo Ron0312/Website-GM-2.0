@@ -56,8 +56,8 @@ const Footer = ({ setActiveSection, openLegal }) => {
                         <li><button onClick={() => setActiveSection('rechner')} className="hover:text-white transition-colors">Spar-Rechner</button></li>
                         <li><button onClick={() => setActiveSection('kontakt')} className="hover:text-white transition-colors">Kontakt</button></li>
                         <li className="pt-2 border-t border-gray-800 mt-2">
-                            <a href="tel:04551999666" className="hover:text-white transition-colors flex items-center gap-2 font-semibold">
-                                <Phone size={14} /> 04551 999 666
+                            <a href="tel:04551897089" className="hover:text-white transition-colors flex items-center gap-2 font-semibold">
+                                <Phone size={14} /> 04551 89 70 89
                             </a>
                         </li>
                     </ul>
