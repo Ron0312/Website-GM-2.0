@@ -7,10 +7,11 @@ const TeamSection = () => (
             <h2 className="text-gas font-bold tracking-widest uppercase text-sm mb-4">Unser Team</h2>
             <h3 className="text-3xl font-extrabold text-text">Gesichter hinter der Energie</h3>
         </div>
-        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center">
+        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center">
             {[
-                { name: "Thomas Möller", role: "Geschäftsführung", img: "/images/team/thomas.jpg", phone: "+49 170 927 00 78" },
-                { name: "Hans Christian Möller", role: "Buchhaltung", img: "/images/team/hans.jpg" }
+                { name: "Anja Möller", role: "Gründerin & Inhaberin", img: "/images/team/anja.jpg" },
+                { name: "Thomas Möller", role: "Geschäftsführung & Sachkundiger", img: "/images/team/thomas.jpg", phone: "+49 170 927 00 78" },
+                { name: "Hans Christian Möller", role: "Logistik & Büro", img: "/images/team/hans.jpg" }
             ].map((member, i) => (
                 <div key={i} className="group relative overflow-hidden rounded-2xl aspect-[3/4] shadow-lg bg-gray-200 w-full max-w-sm">
                     {/* Using div as placeholder if image fails or using the external one if needed, but I should use local.

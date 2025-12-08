@@ -10,13 +10,13 @@ const AboutPage = () => (
                 <h1 className="text-4xl font-extrabold mb-6">Ehrlich. Norddeutsch.</h1>
                 <div className="max-w-3xl mx-auto text-lg leading-relaxed text-gray-600 space-y-6">
                     <p>
-                        Moin und herzlich willkommen bei gasmöller! Seit unserer Gründung im Jahr 2005 sind wir der zuverlässige Partner für Flüssiggas im echten Norden. Was als kleiner Familienbetrieb begann, ist heute eine feste Größe in Schleswig-Holstein, Hamburg und dem nördlichen Niedersachsen.
+                        Moin und herzlich willkommen bei gasmöller! Seit unserer Gründung im Jahr 2000 sind wir der zuverlässige Partner für Flüssiggas im echten Norden. Alles begann durch einen Zufall: Thomas Möller, damals als Auslieferungsfahrer unterwegs, wurde gefragt, ob er einen Erdtank besorgen könne. Fast zeitgleich wollte eine Kundin ihren Tank loswerden.
                     </p>
                     <p>
-                        Unter der Leitung von Thomas Möller setzen wir auf das, was hier zählt: Ein Wort ist ein Wort. Wir verstecken uns nicht hinter Callcentern oder anonymen Konzernstrukturen. Wenn Sie bei uns anrufen, sprechen Sie mit Menschen, die wissen, wovon sie reden – und die verstehen, dass Sie nicht irgendeine Nummer sind, sondern unser Nachbar.
+                        Kurzerhand trommelte Thomas zehn Freunde zusammen, und mit Spaten wurde der Tank ausgebuddelt und beim neuen Besitzer wieder eingesetzt. Das erste Geschäft war perfekt, und Anja Möller gründete daraufhin die Firma. Heute führen Anja, Thomas und Hans Christian Möller das Unternehmen gemeinsam als echten Familienbetrieb.
                     </p>
                     <p>
-                        Mit unserer eigenen Tankwagenflotte sind wir unabhängig und flexibel. Das bedeutet für Sie: Versorgungssicherheit auch im tiefsten Winter und faire Preise ohne versteckte Gebühren. Wir glauben daran, dass Energieversorgung Vertrauenssache ist. Egal ob Sie einen eigenen Tank kaufen oder Gas bestellen wollen – wir beraten Sie so, wie wir es uns selbst wünschen würden: ehrlich, direkt und kompetent.
+                        „Im Winter liefern wir Gas, im Sommer Gastanks“, sagt Anja Möller. Mit unserem eigenen Tankwagen und Kranwagen sind wir unabhängig und flexibel in ganz Schleswig-Holstein, Hamburg und dem nördlichen Niedersachsen unterwegs. Wir glauben daran, dass Energieversorgung Vertrauenssache ist. Egal ob Sie einen eigenen Tank kaufen oder Gas bestellen wollen – wir beraten Sie so, wie wir es uns selbst wünschen würden: ehrlich, direkt und kompetent.
                     </p>
                 </div>
             </div>

@@ -1,78 +1,81 @@
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, expect
 
 def verify_changes():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
 
-        # 1. Verify Footer Phone Number
-        print("Verifying Footer...")
-        page.goto("http://localhost:3000")
-        page.wait_for_selector('footer')
-        # Check for new phone number in Footer
-        footer_text = page.locator('footer').inner_text()
-        if "04551 89 70 89" in footer_text:
-            print("Footer Phone Number Verified: 04551 89 70 89")
-        else:
-            print("Footer Phone Number NOT FOUND!")
+        # Navigate to the home page (assuming port 5173 based on Vite defaults)
+        page.goto("http://localhost:5173")
 
-        page.screenshot(path="verification/verify_footer.png")
+        # 1. Verify Hero Section badge update
+        # Check for "Seit 2000" in the hero badge
+        # The badge contains text "Seit 2000 · Norddeutsch · Ehrlich"
+        hero_badge = page.locator("header").get_by_text("Seit 2000")
+        expect(hero_badge).to_be_visible()
+        print("Hero badge verified.")
 
-        # 2. Verify Contact Section Numbers
-        print("Verifying Contact Section...")
-        page.goto("http://localhost:3000/#kontakt")
-        page.wait_for_selector('#kontakt')
+        # 2. Verify Footer update
+        # Check for "Seit 2000" in the footer
+        footer_text = page.locator("footer").get_by_text("Seit 2000")
+        expect(footer_text).to_be_visible()
+        print("Footer text verified.")
 
-        contact_text = page.locator('#kontakt').inner_text()
-        if "04551 89 70 89" in contact_text and "+49 170 927 00 78" in contact_text:
-             print("Contact Section Phone Numbers Verified.")
-        else:
-             print("Contact Section Phone Numbers NOT FOUND!")
+        # 3. Verify About Us Page updates
+        page.goto("http://localhost:5173/ueber-uns")
 
-        page.screenshot(path="verification/verify_contact.png")
+        # Check for founding year in text
+        about_text = page.get_by_text("Seit unserer Gründung im Jahr 2000")
+        expect(about_text).to_be_visible()
+        print("About page founding year verified.")
 
-        # 3. Verify Team Section Number
-        print("Verifying Team Section...")
-        page.goto("http://localhost:3000")
-        page.click("text=Über Uns")
-        # Wait for team section
-        page.wait_for_selector('h2:has-text("Unser Team")', timeout=5000)
-        team_text = page.locator('h2:has-text("Unser Team")').locator('..').locator('..').inner_text()
+        # Check for origin story elements
+        origin_story = page.get_by_text("Alles begann durch einen Zufall")
+        expect(origin_story).to_be_visible()
 
-        if "+49 170 927 00 78" in team_text:
-            print("Team Section Boss Number Verified.")
-        else:
-            print("Team Section Boss Number NOT FOUND!")
+        spade_story = page.get_by_text("mit Spaten wurde der Tank ausgebuddelt")
+        expect(spade_story).to_be_visible()
+        print("About page origin story verified.")
 
-        page.screenshot(path="verification/verify_team.png")
+        # 4. Verify Team Section updates
+        # Check for Anja Möller (using heading to be specific and avoid strict mode violations)
+        anja_card = page.get_by_role("heading", name="Anja Möller")
+        expect(anja_card).to_be_visible()
 
-        # 4. Verify Wizard Modal Help Text
-        print("Verifying Wizard Modal...")
-        page.goto("http://localhost:3000")
-        # Desktop button in nav is "Angebot", sometimes icon only. Let's find by aria-label.
-        page.click('button[aria-label="Angebot anfordern"]')
-        page.wait_for_selector('div[role="dialog"]', timeout=5000)
+        # Check for Thomas Möller's new role
+        thomas_role = page.get_by_text("Geschäftsführung & Sachkundiger")
+        expect(thomas_role).to_be_visible()
 
-        dialog_text = page.locator('div[role="dialog"]').inner_text()
-        if "04551 89 70 89" in dialog_text:
-            print("Wizard Modal Help Text Verified.")
-        else:
-            print("Wizard Modal Help Text NOT FOUND!")
+        # Check for Hans Christian Möller's new role
+        hans_role = page.get_by_text("Logistik & Büro")
+        expect(hans_role).to_be_visible()
+        print("Team section verified.")
 
-        page.screenshot(path="verification/verify_wizard.png")
+        # 5. Verify Timeline updates
+        # Check for 2000 Founding (using exact match or refining locator)
+        # The timeline year is often a span or separate element
+        timeline_2000 = page.get_by_text("2000", exact=True)
+        expect(timeline_2000).to_be_visible()
 
-        # 5. Verify Hero Badge
-        print("Verifying Hero Badge...")
-        page.goto("http://localhost:3000")
-        hero_badge = page.locator('header').inner_text()
-        if "Seit 2005" in hero_badge:
-             print("Hero Badge Verified.")
-        else:
-             print("Hero Badge NOT FOUND!")
+        # Check for 2025 Jubilee
+        timeline_2025 = page.get_by_text("25 Jahre Jubiläum")
+        expect(timeline_2025).to_be_visible()
+        print("Timeline verified.")
 
-        page.screenshot(path="verification/verify_hero.png")
+        # Take screenshots
+        # About Page Screenshot (covers most changes)
+        page.screenshot(path="verification/about_page_verification.png", full_page=True)
+
+        # Home Page Screenshot (covers Hero and Footer)
+        page.goto("http://localhost:5173")
+        page.screenshot(path="verification/home_page_verification.png", full_page=True)
 
         browser.close()
 
 if __name__ == "__main__":
-    verify_changes()
+    try:
+        verify_changes()
+        print("Verification successful!")
+    except Exception as e:
+        print(f"Verification failed: {e}")
+        exit(1)
