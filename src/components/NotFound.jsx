@@ -11,15 +11,15 @@ const NotFound = ({ onGoHome }) => {
             </p>
 
             <div className="flex flex-wrap justify-center gap-3 mb-8">
-                <button onClick={onGoHome} className="px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors">Startseite</button>
-                <button onClick={() => window.location.href = '/tanks'} className="px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors">Tanks kaufen</button>
-                <button onClick={() => window.location.href = '/gas'} className="px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors">Gas bestellen</button>
-                <button onClick={() => window.location.href = '/kontakt'} className="px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors">Kontakt</button>
+                <button onClick={() => onGoHome('start')} className="px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors">Startseite</button>
+                <button onClick={() => onGoHome('tanks')} className="px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors">Tanks kaufen</button>
+                <button onClick={() => onGoHome('gas')} className="px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors">Gas bestellen</button>
+                <button onClick={() => onGoHome('kontakt')} className="px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors">Kontakt</button>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
                 <button
-                    onClick={onGoHome}
+                    onClick={() => onGoHome('start')}
                     className="bg-gas text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:bg-gas-dark transition-all flex items-center justify-center gap-2"
                 >
                     <Home size={20} />

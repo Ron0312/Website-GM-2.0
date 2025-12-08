@@ -19,6 +19,9 @@ const ModernInput = ({ label, error, className = '', ...props }) => {
       >
         <input
           {...props}
+          inputMode={props.inputMode}
+          pattern={props.pattern}
+          autoComplete={props.autoComplete}
           onFocus={(e) => {
             setFocused(true);
             props.onFocus && props.onFocus(e);

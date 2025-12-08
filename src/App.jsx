@@ -129,7 +129,7 @@ const App = ({ path, context }) => {
             if (context) {
                 context.status = 404;
             }
-            return <><div className="pt-20"></div><NotFound onGoHome={() => changeSection('start')} /><ContactSection /></>;
+            return <><div className="pt-20"></div><NotFound onGoHome={changeSection} /><ContactSection /></>;
         }
 
         switch(activeSection) {
@@ -142,7 +142,7 @@ const App = ({ path, context }) => {
             case 'wissen': return <><div className="pt-20"></div><KnowledgeCenter setActiveSection={changeSection} /><ContactSection /></>;
             case 'ueber-uns': return <><div className="pt-20"></div><AboutPage setActiveSection={changeSection} /><ContactSection /></>;
             case 'kontakt': return <><div className="pt-32"></div><ContactSection /></>;
-            default: return <><div className="pt-20"></div><NotFound onGoHome={() => changeSection('start')} /><ContactSection /></>;
+            default: return <><div className="pt-20"></div><NotFound onGoHome={changeSection} /><ContactSection /></>;
         }
     };
 
