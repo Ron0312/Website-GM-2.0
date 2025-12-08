@@ -107,9 +107,14 @@ export const getSchemaForPath = (path) => {
 
     const baseSchema = {
         "@context": "https://schema.org",
-        "@type": "GasStation", // Specific enough for gas supplier
-        "name": "gasmöller",
-        "image": DEFAULT_IMAGE,
+        "@type": "LocalBusiness",
+        "additionalType": ["https://schema.org/GasStation", "https://schema.org/HVACBusiness"],
+        "name": "Gas-Service Möller e.K.",
+        "image": [
+            DEFAULT_IMAGE,
+            `${SITE_URL}/images/gas-order-hero.webp`
+        ],
+        "logo": DEFAULT_IMAGE,
         "telephone": "04551 89 70 89",
         "email": "kontakt@gasmoeller.de",
         "url": SITE_URL,
@@ -125,6 +130,12 @@ export const getSchemaForPath = (path) => {
             "latitude": 53.944,
             "longitude": 10.390
         },
+        "areaServed": [
+             { "@type": "Place", "name": "Schleswig-Holstein" },
+             { "@type": "Place", "name": "Hamburg" },
+             { "@type": "Place", "name": "Niedersachsen (Nord)" },
+             { "@type": "Place", "name": "Mecklenburg-Vorpommern (West)" }
+        ],
         "openingHoursSpecification": {
             "@type": "OpeningHoursSpecification",
             "dayOfWeek": [
@@ -141,7 +152,14 @@ export const getSchemaForPath = (path) => {
         "sameAs": [
              "https://www.facebook.com/gasmoeller",
              "https://www.linkedin.com/company/gasmoeller"
-        ]
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "04551 89 70 89",
+            "contactType": "customer service",
+            "areaServed": "DE",
+            "availableLanguage": "German"
+        }
     };
 
     // Specific schema for Tank Detail pages

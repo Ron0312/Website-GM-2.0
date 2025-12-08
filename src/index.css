@@ -57,9 +57,9 @@ input[type=range]::-webkit-slider-runnable-track {
 /* Scroll to Top Button */
 .scroll-to-top {
     position: fixed;
-    bottom: 30px;
+    bottom: 100px;
     right: 30px;
-    z-index: 50;
+    z-index: 999;
     background: #ffffff;
     color: #005b9f;
     border: 1px solid #e2e8f0;
@@ -109,4 +109,27 @@ html.a11y-large-text {
 .a11y-highlight-links a {
     text-decoration: underline !important;
     text-decoration-thickness: 2px !important;
+}
+
+/* Print Styles */
+@media print {
+    header, footer, .no-print {
+        display: none !important;
+    }
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    #main-content {
+        padding-top: 0 !important;
+    }
+    .print-break {
+        page-break-before: always;
+    }
+}
+
+/* Accessibility: Focus Visible */
+:focus-visible {
+    outline: 3px solid #005b9f;
+    outline-offset: 2px;
 }

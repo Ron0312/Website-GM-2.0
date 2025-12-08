@@ -332,6 +332,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                             <ModernInput
                                                                 type="text"
                                                                 name="tankSizeGas"
+                                                                autoComplete="off"
                                                                 className="mb-0 bg-white"
                                                                 placeholder="z.B. 1,2t oder 2700 Liter"
                                                                 value={details.tankSizeGas || ''}
