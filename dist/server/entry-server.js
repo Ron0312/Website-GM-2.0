@@ -3480,23 +3480,19 @@ const PrivacyContent = () => /* @__PURE__ */ jsxs("div", { className: "space-y-4
 ] });
 const TermsContent = () => /* @__PURE__ */ jsxs("div", { className: "space-y-4 text-sm text-gray-700", children: [
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900", children: "1. Geltungsbereich" }),
-  /* @__PURE__ */ jsx("p", { children: "Für alle Lieferungen von gasmöller an Verbraucher (§ 13 BGB) gelten diese Allgemeinen Geschäftsbedingungen (AGB). Verbraucher ist jede natürliche Person, die ein Rechtsgeschäft zu Zwecken abschließt, die überwiegend weder ihrer gewerblichen noch ihrer selbständigen beruflichen Tätigkeit zugerechnet werden können." }),
-  /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "2. Vertragspartner" }),
-  /* @__PURE__ */ jsx("p", { children: "Der Kaufvertrag kommt zustande mit der Gas-Service Möller e.K., Inhaberin: Anja Möller, Neuenteichweg 7a, 23795 Schieren." }),
+  /* @__PURE__ */ jsx("p", { children: 'Für alle Geschäftsbeziehungen zwischen der Gas-Service Möller e.K. (nachfolgend "Anbieter") und dem Kunden gelten ausschließlich diese Allgemeinen Geschäftsbedingungen in ihrer zum Zeitpunkt der Bestellung gültigen Fassung.' }),
+  /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "2. Vertragsgegenstand" }),
+  /* @__PURE__ */ jsx("p", { children: "Gegenstand des Unternehmens ist der Vertrieb von Flüssiggas, der Verkauf und die Vermietung von Flüssiggastanks sowie damit verbundene Dienstleistungen. Diese Website dient der Information und der Möglichkeit zur unverbindlichen Kontaktaufnahme bzw. Angebotsanforderung." }),
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "3. Vertragsabschluss" }),
-  /* @__PURE__ */ jsx("p", { children: "Die Darstellung der Produkte im Online-Shop stellt kein rechtlich bindendes Angebot, sondern einen unverbindlichen Online-Katalog dar. Durch Anklicken des Bestellbuttons geben Sie eine verbindliche Bestellung der im Warenkorb enthaltenen Waren ab." }),
-  /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "4. Preise und Versandkosten" }),
-  /* @__PURE__ */ jsx("p", { children: "Die auf den Produktseiten genannten Preise enthalten die gesetzliche Mehrwertsteuer und sonstige Preisbestandteile." }),
+  /* @__PURE__ */ jsx("p", { children: "Die auf der Website dargestellten Produkte und Dienstleistungen stellen kein rechtlich bindendes Angebot dar. Durch das Absenden einer Anfrage (z.B. über das Kontaktformular, den Tank-Konfigurator oder die Gasbestellung) geben Sie noch keine verbindliche Bestellung ab. Sie fordern damit lediglich ein unverbindliches Angebot an. Ein Vertrag kommt erst zustande, wenn Sie das Ihnen daraufhin zugesandte individuelle Angebot annehmen oder wir eine Bestellung ausdrücklich bestätigen." }),
+  /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "4. Preise und Zahlungsbedingungen" }),
+  /* @__PURE__ */ jsx("p", { children: "Die konkreten Preise für Waren und Dienstleistungen werden im individuellen Angebot ausgewiesen. Sofern nichts anderes vereinbart ist, gelten die Preise ab Lager bzw. inklusive Lieferung im vereinbarten Liefergebiet." }),
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "5. Lieferung" }),
-  /* @__PURE__ */ jsx("p", { children: "Die Lieferung erfolgt nur innerhalb unseres Liefergebietes in Norddeutschland. Über Lieferzeiten informieren wir Sie im Rahmen des Angebotsprozesses." }),
+  /* @__PURE__ */ jsx("p", { children: "Die Lieferung erfolgt nur innerhalb unseres festgelegten Liefergebietes in Norddeutschland. Liefertermine werden individuell vereinbart. Voraussetzung für die Belieferung (insbesondere bei Gasbestellungen) ist die technische Mängelfreiheit und Zugänglichkeit der Tankanlage." }),
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "6. Eigentumsvorbehalt" }),
-  /* @__PURE__ */ jsx("p", { children: "Bis zur vollständigen Bezahlung bleibt die Ware unser Eigentum." }),
-  /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "7. Streitbeilegung" }),
-  /* @__PURE__ */ jsxs("p", { children: [
-    "Die EU-Kommission hat eine Internetplattform zur Online-Beilegung von Streitigkeiten geschaffen. Die Plattform dient als Anlaufstelle zur außergerichtlichen Beilegung von Streitigkeiten betreffend vertragliche Verpflichtungen, die aus Online-Kaufverträgen erwachsen. Nähere Informationen sind unter dem folgenden Link verfügbar: ",
-    /* @__PURE__ */ jsx("a", { href: "http://ec.europa.eu/consumers/odr", target: "_blank", rel: "noopener noreferrer", className: "text-gas hover:underline", children: "http://ec.europa.eu/consumers/odr" }),
-    "."
-  ] })
+  /* @__PURE__ */ jsx("p", { children: "Die gelieferte Ware bleibt bis zur vollständigen Bezahlung aller Forderungen aus dem Liefervertrag unser Eigentum. Bei Miettanks verbleibt das Eigentum am Tank beim Anbieter." }),
+  /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "7. Gewährleistung und Haftung" }),
+  /* @__PURE__ */ jsx("p", { children: "Es gelten die gesetzlichen Bestimmungen zur Gewährleistung. Die Haftung richtet sich nach den gesetzlichen Vorschriften, soweit in diesen AGB oder im individuellen Vertrag nichts anderes bestimmt ist." })
 ] });
 const App = ({ path, context }) => {
   const getInitialSection = () => {

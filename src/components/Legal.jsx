@@ -89,40 +89,43 @@ export const TermsContent = () => (
     <div className="space-y-4 text-sm text-gray-700">
         <h3 className="text-lg font-bold text-gray-900">1. Geltungsbereich</h3>
         <p>
-            Für alle Lieferungen von gasmöller an Verbraucher (§ 13 BGB) gelten diese Allgemeinen Geschäftsbedingungen (AGB).
-            Verbraucher ist jede natürliche Person, die ein Rechtsgeschäft zu Zwecken abschließt, die überwiegend weder ihrer gewerblichen
-            noch ihrer selbständigen beruflichen Tätigkeit zugerechnet werden können.
+            Für alle Geschäftsbeziehungen zwischen der Gas-Service Möller e.K. (nachfolgend "Anbieter") und dem Kunden gelten ausschließlich diese Allgemeinen Geschäftsbedingungen in ihrer zum Zeitpunkt der Bestellung gültigen Fassung.
         </p>
 
-        <h3 className="text-lg font-bold text-gray-900 mt-4">2. Vertragspartner</h3>
+        <h3 className="text-lg font-bold text-gray-900 mt-4">2. Vertragsgegenstand</h3>
         <p>
-            Der Kaufvertrag kommt zustande mit der Gas-Service Möller e.K., Inhaberin: Anja Möller, Neuenteichweg 7a, 23795 Schieren.
+            Gegenstand des Unternehmens ist der Vertrieb von Flüssiggas, der Verkauf und die Vermietung von Flüssiggastanks sowie damit verbundene Dienstleistungen.
+            Diese Website dient der Information und der Möglichkeit zur unverbindlichen Kontaktaufnahme bzw. Angebotsanforderung.
         </p>
 
         <h3 className="text-lg font-bold text-gray-900 mt-4">3. Vertragsabschluss</h3>
         <p>
-            Die Darstellung der Produkte im Online-Shop stellt kein rechtlich bindendes Angebot, sondern einen unverbindlichen Online-Katalog dar.
-            Durch Anklicken des Bestellbuttons geben Sie eine verbindliche Bestellung der im Warenkorb enthaltenen Waren ab.
+            Die auf der Website dargestellten Produkte und Dienstleistungen stellen kein rechtlich bindendes Angebot dar.
+            Durch das Absenden einer Anfrage (z.B. über das Kontaktformular, den Tank-Konfigurator oder die Gasbestellung) geben Sie noch keine verbindliche Bestellung ab.
+            Sie fordern damit lediglich ein unverbindliches Angebot an. Ein Vertrag kommt erst zustande, wenn Sie das Ihnen daraufhin zugesandte individuelle Angebot annehmen oder wir eine Bestellung ausdrücklich bestätigen.
         </p>
 
-        <h3 className="text-lg font-bold text-gray-900 mt-4">4. Preise und Versandkosten</h3>
+        <h3 className="text-lg font-bold text-gray-900 mt-4">4. Preise und Zahlungsbedingungen</h3>
         <p>
-            Die auf den Produktseiten genannten Preise enthalten die gesetzliche Mehrwertsteuer und sonstige Preisbestandteile.
+            Die konkreten Preise für Waren und Dienstleistungen werden im individuellen Angebot ausgewiesen.
+            Sofern nichts anderes vereinbart ist, gelten die Preise ab Lager bzw. inklusive Lieferung im vereinbarten Liefergebiet.
         </p>
 
         <h3 className="text-lg font-bold text-gray-900 mt-4">5. Lieferung</h3>
         <p>
-            Die Lieferung erfolgt nur innerhalb unseres Liefergebietes in Norddeutschland. Über Lieferzeiten informieren wir Sie im Rahmen des Angebotsprozesses.
+            Die Lieferung erfolgt nur innerhalb unseres festgelegten Liefergebietes in Norddeutschland. Liefertermine werden individuell vereinbart.
+            Voraussetzung für die Belieferung (insbesondere bei Gasbestellungen) ist die technische Mängelfreiheit und Zugänglichkeit der Tankanlage.
         </p>
 
         <h3 className="text-lg font-bold text-gray-900 mt-4">6. Eigentumsvorbehalt</h3>
         <p>
-            Bis zur vollständigen Bezahlung bleibt die Ware unser Eigentum.
+            Die gelieferte Ware bleibt bis zur vollständigen Bezahlung aller Forderungen aus dem Liefervertrag unser Eigentum.
+            Bei Miettanks verbleibt das Eigentum am Tank beim Anbieter.
         </p>
 
-        <h3 className="text-lg font-bold text-gray-900 mt-4">7. Streitbeilegung</h3>
+        <h3 className="text-lg font-bold text-gray-900 mt-4">7. Gewährleistung und Haftung</h3>
         <p>
-            Die EU-Kommission hat eine Internetplattform zur Online-Beilegung von Streitigkeiten geschaffen. Die Plattform dient als Anlaufstelle zur außergerichtlichen Beilegung von Streitigkeiten betreffend vertragliche Verpflichtungen, die aus Online-Kaufverträgen erwachsen. Nähere Informationen sind unter dem folgenden Link verfügbar: <a href="http://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer" className="text-gas hover:underline">http://ec.europa.eu/consumers/odr</a>.
+            Es gelten die gesetzlichen Bestimmungen zur Gewährleistung. Die Haftung richtet sich nach den gesetzlichen Vorschriften, soweit in diesen AGB oder im individuellen Vertrag nichts anderes bestimmt ist.
         </p>
     </div>
 );
