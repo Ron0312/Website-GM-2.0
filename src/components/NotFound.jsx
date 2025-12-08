@@ -26,7 +26,7 @@ const NotFound = ({ onGoHome }) => {
                     Zurück zur Startseite
                 </button>
                 <a
-                    href="mailto:kontakt@gasmoeller.de"
+                    href="mailto:kontakt@gasmoeller.de?subject=Fehler%20auf%20der%20Website"
                     className="bg-white text-gray-700 border border-gray-200 px-8 py-3 rounded-xl font-bold hover:bg-gray-100 transition-all flex items-center justify-center gap-2"
                 >
                     Problem melden

@@ -1,7 +1,7 @@
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import React, { useState, useEffect, useMemo } from "react";
 import ReactDOMServer from "react-dom/server";
-import { TrendingUp, Clock, Phone, ArrowUpFromLine, ArrowDownToLine, ShieldCheck, BookOpen, ChevronDown, ArrowRight, X, Menu, BadgeCheck, Star, Calculator, Zap, Info, Flame, Droplets, Leaf, Trees, ArrowLeft, Ruler, Weight, Check, Download, Tractor, Factory, Truck, MapPin, CheckCircle, User, Loader2, Coins, Heart, AlertTriangle, Settings, Home, Wrench, Lock, Unlock, ChevronRight, Send, Sparkles, RefreshCw, Building2, ChevronUp } from "lucide-react";
+import { TrendingUp, Clock, Phone, ArrowUpFromLine, ArrowDownToLine, ShieldCheck, BookOpen, ChevronDown, ArrowRight, X, Menu, BadgeCheck, Star, Calculator, Zap, Info, Flame, Droplets, Leaf, Trees, Check, ArrowLeft, Ruler, Weight, Download, Tractor, Factory, Truck, MapPin, CheckCircle, AlertCircle, User, Loader2, Coins, Heart, AlertTriangle, Settings, Home, Wrench, Lock, Unlock, ChevronRight, Send, Sparkles, RefreshCw, Building2, ChevronUp, Accessibility, Sun, Type, Link } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 const tankDetails = [
   {
@@ -190,7 +190,7 @@ const DEFAULT_IMAGE = `${SITE_URL}/logos/Icon-01.webp`;
 const seoData = {
   "start": {
     title: "gasmöller - Ihr Partner für Flüssiggas im Norden",
-    description: "Unabhängig. Fair. Norddeutsch. Flüssiggastanks kaufen statt mieten. Ihr Experte seit 2005. Jetzt Angebot anfordern!",
+    description: "Unabhängig. Fair. Norddeutsch. Flüssiggastanks kaufen statt mieten. Ihr Experte seit 2000. Jetzt Angebot anfordern!",
     image: `${SITE_URL}/images/gas-order-hero.webp`
     // Hero image
   },
@@ -216,7 +216,7 @@ const seoData = {
   },
   "ueber-uns": {
     title: "Über gasmöller | Ihr unabhängiger Energieversorger",
-    description: "Lernen Sie gasmöller kennen. Seit 2005 Ihr zuverlässiger Partner für Flüssiggas im Norden. Unser Team und unsere Werte.",
+    description: "Lernen Sie gasmöller kennen. Seit 2000 Ihr zuverlässiger Partner für Flüssiggas im Norden. Unser Team und unsere Werte.",
     image: DEFAULT_IMAGE
   },
   "kontakt": {
@@ -542,18 +542,18 @@ const Hero = ({ setActiveSection, openWizard }) => /* @__PURE__ */ jsxs("header"
         alt: "Landschaft Norddeutschland",
         width: "1920",
         height: "1080",
-        className: "w-full h-full object-cover absolute inset-0",
+        className: "w-full h-full object-cover absolute inset-0 object-[35%_center] md:object-[75%_center] lg:object-center",
         loading: "eager",
         fetchpriority: "high"
       }
     )
   ] }),
-  /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20", children: /* @__PURE__ */ jsx("div", { className: "lg:grid lg:grid-cols-2 lg:gap-20 items-center", children: /* @__PURE__ */ jsx("div", { className: "text-left text-white", children: /* @__PURE__ */ jsxs(motion.div, { initial: { opacity: 0, y: 30 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.8 }, children: [
+  /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20", children: /* @__PURE__ */ jsx("div", { className: "lg:grid lg:grid-cols-2 lg:gap-20 items-center", children: /* @__PURE__ */ jsx("div", { className: "text-left text-white", children: /* @__PURE__ */ jsxs(motion.div, { initial: { opacity: 1, y: 0 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.8 }, children: [
     /* @__PURE__ */ jsxs("div", { className: "inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md border border-white/30 px-4 py-1.5 rounded-full mb-8 shadow-sm", children: [
       /* @__PURE__ */ jsx("span", { className: "w-2 h-2 bg-green-400 rounded-full animate-pulse" }),
       /* @__PURE__ */ jsxs("span", { className: "text-white text-xs font-bold uppercase tracking-widest flex items-center gap-2", children: [
         /* @__PURE__ */ jsx(ShieldCheck, { size: 14, className: "text-white" }),
-        " Seit 2005 · Norddeutsch · Ehrlich"
+        " Seit 2000 · Norddeutsch · Ehrlich"
       ] })
     ] }),
     /* @__PURE__ */ jsxs("h1", { className: "text-6xl tracking-tight font-extrabold sm:text-7xl lg:text-8xl mb-8 leading-tight drop-shadow-lg", children: [
@@ -595,20 +595,26 @@ const TrustBar = () => /* @__PURE__ */ jsxs("div", { className: "bg-white py-8 m
     ] })
   ] })
 ] });
-const TankCard = ({ tank, onContact }) => {
+const TankCard = ({ tank, type, onContact }) => {
   let scaleClass = "w-24";
   if (tank.capacity === "2,1 t") scaleClass = "w-32";
   if (tank.capacity === "2,9 t") scaleClass = "w-40";
+  const isUnderground = type === "unterirdisch";
   return /* @__PURE__ */ jsxs(motion.div, { whileHover: { y: -8 }, className: `bg-white rounded-2xl overflow-hidden transition-all duration-300 flex flex-col ${tank.highlight ? "border-2 border-gas ring-4 ring-gas/10 shadow-2xl relative z-10" : "border border-gray-100 shadow-lg hover:shadow-xl"}`, children: [
     tank.highlight && /* @__PURE__ */ jsx("div", { className: "bg-gas text-white text-[10px] font-bold uppercase text-center py-1.5 tracking-widest", children: "Empfehlung" }),
-    /* @__PURE__ */ jsxs("div", { className: "h-48 bg-gray-50 flex items-center justify-center p-6 relative", children: [
+    /* @__PURE__ */ jsxs("div", { className: `h-48 flex items-center justify-center p-6 relative ${isUnderground ? "bg-green-50/50" : "bg-gray-50"}`, children: [
       /* @__PURE__ */ jsx("div", { className: "absolute top-4 right-4 bg-white/80 backdrop-blur px-2 py-1 rounded text-[10px] font-bold text-gray-500 border border-gray-100", children: tank.capacity }),
-      /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 100 60", className: `${scaleClass} h-auto text-gray-300 fill-current drop-shadow-lg transition-all duration-300`, role: "img", "aria-label": `Illustration von ${tank.name}`, children: [
+      /* @__PURE__ */ jsx("svg", { viewBox: "0 0 100 60", className: `${scaleClass} h-auto text-gray-300 fill-current drop-shadow-lg transition-all duration-300`, role: "img", "aria-label": `Illustration von ${tank.name}`, children: isUnderground ? /* @__PURE__ */ jsxs(Fragment, { children: [
+        /* @__PURE__ */ jsx("path", { d: "M0 20 H100", stroke: "#86efac", strokeWidth: "1.5", strokeDasharray: "4 4" }),
+        /* @__PURE__ */ jsx("rect", { x: "10", y: "22", width: "80", height: "30", rx: "10", className: "opacity-90" }),
+        /* @__PURE__ */ jsx("rect", { x: "42", y: "10", width: "16", height: "14", rx: "1" })
+      ] }) : /* @__PURE__ */ jsxs(Fragment, { children: [
         /* @__PURE__ */ jsx("rect", { x: "10", y: "15", width: "80", height: "30", rx: "10" }),
         /* @__PURE__ */ jsx("rect", { x: "5", y: "25", width: "5", height: "10" }),
         /* @__PURE__ */ jsx("rect", { x: "90", y: "25", width: "5", height: "10" }),
-        /* @__PURE__ */ jsx("rect", { x: "40", y: "10", width: "20", height: "5" })
-      ] })
+        /* @__PURE__ */ jsx("rect", { x: "40", y: "10", width: "20", height: "5" }),
+        /* @__PURE__ */ jsx("path", { d: "M15 48 H85", stroke: "#e2e8f0", strokeWidth: "2", strokeLinecap: "round" })
+      ] }) })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "p-6 text-center flex-1 flex flex-col", children: [
       /* @__PURE__ */ jsx("h4", { className: "text-xl font-bold text-text mb-1", children: tank.name }),
@@ -665,11 +671,11 @@ const CalculatorInput = ({ label, value, unit, onChange, icon: Icon, active, onF
     )
   ] });
 };
-const EnergyCalculator = () => {
+const EnergyCalculator = ({ defaultExpanded = false }) => {
   const [energyKwh, setEnergyKwh] = useState(9600);
   const [activeField, setActiveField] = useState(null);
   const [inputValue, setInputValue] = useState("");
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(defaultExpanded);
   const formatNumber = (num) => {
     if (!num && num !== 0) return "";
     return num.toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -713,7 +719,7 @@ const EnergyCalculator = () => {
           "button",
           {
             onClick: () => setIsExpanded(!isExpanded),
-            className: "w-full text-left bg-gradient-to-r from-gas to-gas-dark p-6 md:p-8 text-white relative overflow-hidden group focus:outline-none md:cursor-default",
+            className: "w-full text-left bg-gradient-to-r from-gas to-gas-dark p-6 md:p-8 text-white relative overflow-hidden group focus:outline-none",
             "aria-expanded": isExpanded,
             "aria-controls": "calculator-content",
             children: [
@@ -726,12 +732,12 @@ const EnergyCalculator = () => {
                   ] }),
                   /* @__PURE__ */ jsx("p", { className: "text-gas-light text-sm md:text-base max-w-lg pr-8", children: "Vergleichen Sie Heizwerte von Flüssiggas, Öl, Holz & mehr." })
                 ] }),
-                /* @__PURE__ */ jsx("div", { className: "md:hidden mt-1 bg-white/10 p-2 rounded-full backdrop-blur-sm transition-transform duration-300", style: { transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)" }, children: /* @__PURE__ */ jsx(ChevronDown, { size: 24 }) })
+                /* @__PURE__ */ jsx("div", { className: "mt-1 bg-white/10 p-2 rounded-full backdrop-blur-sm transition-transform duration-300", style: { transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)" }, children: /* @__PURE__ */ jsx(ChevronDown, { size: 24 }) })
               ] })
             ]
           }
         ),
-        /* @__PURE__ */ jsx("div", { className: `md:block ${isExpanded ? "block" : "hidden"} bg-gray-50/50`, id: "calculator-content", children: /* @__PURE__ */ jsxs("div", { className: "p-6 md:p-8", children: [
+        /* @__PURE__ */ jsx("div", { className: `${isExpanded ? "block" : "hidden"} bg-gray-50/50`, id: "calculator-content", children: /* @__PURE__ */ jsxs("div", { className: "p-6 md:p-8", children: [
           /* @__PURE__ */ jsxs("div", { className: "bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-8", children: [
             /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 mb-4 text-gas-dark", children: [
               /* @__PURE__ */ jsx(Zap, { size: 20, className: "text-yellow-500 fill-yellow-500" }),
@@ -891,6 +897,29 @@ const EnergyCalculator = () => {
 };
 const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = true }) => {
   const [filter, setFilter] = useState("oberirdisch");
+  const tankInfo = {
+    oberirdisch: {
+      title: "Der sichtbare Klassiker",
+      description: "Oberirdische Tanks sind die meistgewählte Variante. Sie lassen sich einfach aufstellen, erfordern keine Erdarbeiten und sind kostengünstig in der Installation.",
+      benefits: ["Günstige Anschaffung", "Schnelle Installation", "Einfache Wartung"],
+      color: "bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 border-gray-700 shadow-2xl",
+      iconColor: "text-green-400",
+      titleColor: "text-white",
+      textColor: "text-gray-300",
+      benefitClass: "bg-white/10 backdrop-blur text-white border-white/20"
+    },
+    unterirdisch: {
+      title: "Die unsichtbare Lösung",
+      description: "Unterirdische Tanks verschwinden komplett unter der Erde. Nur der Domschachtdeckel bleibt sichtbar – ideal für gepflegte Gärten und maximale Raumnutzung.",
+      benefits: ["Nicht sichtbar", "Maximale Gartennutzung", "Gut geschützt"],
+      color: "bg-green-50 border-green-100",
+      iconColor: "text-green-500",
+      titleColor: "text-gray-900",
+      textColor: "text-gray-600",
+      benefitClass: "bg-white text-gray-700 border-gray-100"
+    }
+  };
+  const currentInfo = tankInfo[filter];
   const visibleTanks = useMemo(() => {
     return tankDetails.filter((t) => t.type === filter).map((t) => ({
       type: t.type,
@@ -908,7 +937,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
   return /* @__PURE__ */ jsxs("section", { className: "bg-white", id: "tanks", children: [
     /* @__PURE__ */ jsxs("div", { className: "relative bg-gray-900 py-32 lg:py-48 overflow-hidden", children: [
       /* @__PURE__ */ jsxs("div", { className: "absolute inset-0 z-0", children: [
-        /* @__PURE__ */ jsx("img", { src: "/images/tank-section-background.jpg", alt: "Flüssiggastank im Garten", className: "w-full h-full object-cover opacity-40 mix-blend-overlay" }),
+        /* @__PURE__ */ jsx("img", { src: "/images/tank-section-hero.webp", alt: "Flüssiggastank im Garten", className: "w-full h-full object-cover opacity-40 mix-blend-overlay" }),
         /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent" })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 relative z-10 text-center", children: [
@@ -921,22 +950,67 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
       ] })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "py-24 max-w-7xl mx-auto px-4", children: [
-      /* @__PURE__ */ jsxs("div", { className: "flex flex-col md:flex-row justify-between items-end mb-12", children: [
-        /* @__PURE__ */ jsxs("div", { children: [
-          /* @__PURE__ */ jsx("h2", { className: "text-gas font-bold tracking-widest uppercase text-sm mb-2", children: "Unser Sortiment" }),
-          /* @__PURE__ */ jsx("h3", { className: "text-4xl font-extrabold text-text", children: "Tanks für jeden Bedarf" })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "bg-gray-100 p-1 rounded-lg flex mt-4 md:mt-0", children: [
-          /* @__PURE__ */ jsx("button", { onClick: () => setFilter("oberirdisch"), className: `px-6 py-2 rounded-md text-sm font-bold transition-all ${filter === "oberirdisch" ? "bg-white shadow-sm text-gas" : "text-gray-500"}`, children: "Oberirdisch" }),
-          /* @__PURE__ */ jsx("button", { onClick: () => setFilter("unterirdisch"), className: `px-6 py-2 rounded-md text-sm font-bold transition-all ${filter === "unterirdisch" ? "bg-white shadow-sm text-gas" : "text-gray-500"}`, children: "Unterirdisch" })
-        ] })
+      /* @__PURE__ */ jsxs("div", { className: "text-center mb-8", children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-gas font-bold tracking-widest uppercase text-sm mb-2", children: "Unser Sortiment" }),
+        /* @__PURE__ */ jsx("h3", { className: "text-4xl font-extrabold text-text mb-8", children: "Tanks für jeden Bedarf" }),
+        /* @__PURE__ */ jsx("div", { className: "flex justify-center", children: /* @__PURE__ */ jsxs("div", { className: "bg-gray-100 p-1.5 rounded-2xl inline-flex relative", children: [
+          /* @__PURE__ */ jsx(
+            motion.div,
+            {
+              className: "absolute top-1.5 bottom-1.5 bg-white rounded-xl shadow-sm z-0",
+              initial: false,
+              animate: {
+                x: filter === "oberirdisch" ? 0 : "100%",
+                width: "50%"
+              },
+              transition: { type: "spring", stiffness: 400, damping: 30 },
+              style: { left: 6, right: "50%" }
+            }
+          ),
+          /* @__PURE__ */ jsx(
+            "button",
+            {
+              onClick: () => setFilter("oberirdisch"),
+              className: `relative z-10 px-8 py-3 rounded-xl text-sm font-bold transition-colors w-40 ${filter === "oberirdisch" ? "text-gray-900" : "text-gray-500 hover:text-gray-700"}`,
+              children: "Oberirdisch"
+            }
+          ),
+          /* @__PURE__ */ jsx(
+            "button",
+            {
+              onClick: () => setFilter("unterirdisch"),
+              className: `relative z-10 px-8 py-3 rounded-xl text-sm font-bold transition-colors w-40 ${filter === "unterirdisch" ? "text-gray-900" : "text-gray-500 hover:text-gray-700"}`,
+              children: "Unterirdisch"
+            }
+          )
+        ] }) })
       ] }),
+      /* @__PURE__ */ jsx("div", { className: "max-w-3xl mx-auto mb-12 min-h-[300px]", children: /* @__PURE__ */ jsx(AnimatePresence, { mode: "popLayout", children: /* @__PURE__ */ jsxs(
+        motion.div,
+        {
+          initial: { opacity: 0, scale: 0.95 },
+          animate: { opacity: 1, scale: 1 },
+          exit: { opacity: 0, scale: 0.95 },
+          transition: { duration: 0.15 },
+          className: `rounded-2xl p-8 border ${currentInfo.color} text-center shadow-lg`,
+          children: [
+            /* @__PURE__ */ jsx("h4", { className: `text-2xl font-bold mb-4 ${currentInfo.titleColor}`, children: currentInfo.title }),
+            /* @__PURE__ */ jsx("p", { className: `mb-8 max-w-2xl mx-auto text-lg ${currentInfo.textColor}`, children: currentInfo.description }),
+            /* @__PURE__ */ jsx("div", { className: "flex flex-wrap justify-center gap-3", children: currentInfo.benefits.map((benefit, idx) => /* @__PURE__ */ jsxs("span", { className: `inline-flex items-center text-sm font-medium px-4 py-2 rounded-full shadow-sm border ${currentInfo.benefitClass}`, children: [
+              /* @__PURE__ */ jsx(Check, { className: `w-4 h-4 mr-2 ${currentInfo.iconColor}` }),
+              benefit
+            ] }, idx)) })
+          ]
+        },
+        filter
+      ) }) }),
       /* @__PURE__ */ jsx("div", { className: "md:hidden text-center text-xs text-gray-400 mb-2 animate-pulse", children: "← Nach links wischen für mehr →" }),
-      /* @__PURE__ */ jsx("div", { className: "flex md:grid md:grid-cols-3 gap-8 overflow-x-auto md:overflow-visible snap-x md:snap-none pb-4 md:pb-0 px-4 md:px-0 -mx-4 md:mx-0 scrollbar-hide", children: visibleTanks.map((tank, i) => /* @__PURE__ */ jsxs("div", { className: "relative group min-w-[85vw] md:min-w-0 snap-center first:pl-0 last:pr-0", children: [
+      /* @__PURE__ */ jsx("div", { className: "flex md:grid md:grid-cols-3 gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none pb-4 md:pb-0 px-4 md:px-0 -mx-4 md:mx-0 scrollbar-hide", children: visibleTanks.map((tank, i) => /* @__PURE__ */ jsxs("div", { className: "relative group min-w-[85vw] md:min-w-0 snap-center first:pl-0 last:pr-0", children: [
         /* @__PURE__ */ jsx(
           TankCard,
           {
             tank,
+            type: filter,
             onContact: () => openWizard ? openWizard("tank") : null
           }
         ),
@@ -950,40 +1024,37 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
           }
         ) })
       ] }, i)) }),
-      /* @__PURE__ */ jsxs("div", { className: "mt-20 grid grid-cols-1 md:grid-cols-3 gap-8", children: [
-        showTechnicalOverview && /* @__PURE__ */ jsxs("div", { className: "md:col-span-2 bg-gray-50 rounded-2xl p-8 border border-gray-100", children: [
-          /* @__PURE__ */ jsx("h4", { className: "font-bold text-xl mb-4", children: "Technische Übersicht" }),
-          /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "w-full text-sm text-left", children: [
-            /* @__PURE__ */ jsx("thead", { className: "text-xs text-gray-400 uppercase border-b border-gray-200", children: /* @__PURE__ */ jsxs("tr", { children: [
-              /* @__PURE__ */ jsx("th", { className: "py-3", children: "Modell" }),
-              /* @__PURE__ */ jsx("th", { className: "py-3", children: "Maße (L x H)" }),
-              /* @__PURE__ */ jsx("th", { className: "py-3", children: "Gewicht" }),
-              /* @__PURE__ */ jsx("th", { className: "py-3", children: "Leistung" })
-            ] }) }),
-            /* @__PURE__ */ jsxs("tbody", { className: "text-gray-600 divide-y divide-gray-100", children: [
-              /* @__PURE__ */ jsxs("tr", { children: [
-                /* @__PURE__ */ jsx("td", { className: "py-3 font-bold", children: "1,2 t" }),
-                /* @__PURE__ */ jsx("td", { className: "py-3", children: "2.500 x 1.250 mm" }),
-                /* @__PURE__ */ jsx("td", { className: "py-3", children: "~ 550 kg" }),
-                /* @__PURE__ */ jsx("td", { className: "py-3", children: "35 kW" })
-              ] }),
-              /* @__PURE__ */ jsxs("tr", { children: [
-                /* @__PURE__ */ jsx("td", { className: "py-3 font-bold", children: "2,1 t" }),
-                /* @__PURE__ */ jsx("td", { className: "py-3", children: "4.300 x 1.250 mm" }),
-                /* @__PURE__ */ jsx("td", { className: "py-3", children: "~ 980 kg" }),
-                /* @__PURE__ */ jsx("td", { className: "py-3", children: "60 kW" })
-              ] }),
-              /* @__PURE__ */ jsxs("tr", { children: [
-                /* @__PURE__ */ jsx("td", { className: "py-3 font-bold", children: "2,9 t" }),
-                /* @__PURE__ */ jsx("td", { className: "py-3", children: "5.500 x 1.250 mm" }),
-                /* @__PURE__ */ jsx("td", { className: "py-3", children: "~ 1.300 kg" }),
-                /* @__PURE__ */ jsx("td", { className: "py-3", children: "90 kW" })
-              ] })
+      showTechnicalOverview && /* @__PURE__ */ jsx("div", { className: "mt-20", children: /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto bg-gray-50 rounded-2xl p-8 border border-gray-100", children: [
+        /* @__PURE__ */ jsx("h4", { className: "font-bold text-xl mb-4 text-center", children: "Technische Übersicht" }),
+        /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "w-full text-sm text-left", children: [
+          /* @__PURE__ */ jsx("thead", { className: "text-xs text-gray-400 uppercase border-b border-gray-200", children: /* @__PURE__ */ jsxs("tr", { children: [
+            /* @__PURE__ */ jsx("th", { className: "py-3", children: "Modell" }),
+            /* @__PURE__ */ jsx("th", { className: "py-3", children: "Maße (L x H)" }),
+            /* @__PURE__ */ jsx("th", { className: "py-3", children: "Gewicht" }),
+            /* @__PURE__ */ jsx("th", { className: "py-3", children: "Leistung" })
+          ] }) }),
+          /* @__PURE__ */ jsxs("tbody", { className: "text-gray-600 divide-y divide-gray-100", children: [
+            /* @__PURE__ */ jsxs("tr", { children: [
+              /* @__PURE__ */ jsx("td", { className: "py-3 font-bold", children: "1,2 t" }),
+              /* @__PURE__ */ jsx("td", { className: "py-3", children: "2.500 x 1.250 mm" }),
+              /* @__PURE__ */ jsx("td", { className: "py-3", children: "~ 550 kg" }),
+              /* @__PURE__ */ jsx("td", { className: "py-3", children: "35 kW" })
+            ] }),
+            /* @__PURE__ */ jsxs("tr", { children: [
+              /* @__PURE__ */ jsx("td", { className: "py-3 font-bold", children: "2,1 t" }),
+              /* @__PURE__ */ jsx("td", { className: "py-3", children: "4.300 x 1.250 mm" }),
+              /* @__PURE__ */ jsx("td", { className: "py-3", children: "~ 980 kg" }),
+              /* @__PURE__ */ jsx("td", { className: "py-3", children: "60 kW" })
+            ] }),
+            /* @__PURE__ */ jsxs("tr", { children: [
+              /* @__PURE__ */ jsx("td", { className: "py-3 font-bold", children: "2,9 t" }),
+              /* @__PURE__ */ jsx("td", { className: "py-3", children: "5.500 x 1.250 mm" }),
+              /* @__PURE__ */ jsx("td", { className: "py-3", children: "~ 1.300 kg" }),
+              /* @__PURE__ */ jsx("td", { className: "py-3", children: "90 kW" })
             ] })
-          ] }) })
-        ] }),
-        /* @__PURE__ */ jsx("div", { className: showTechnicalOverview ? "" : "md:col-span-3", children: /* @__PURE__ */ jsx(EnergyCalculator, {}) })
-      ] })
+          ] })
+        ] }) })
+      ] }) })
     ] })
   ] });
 };
@@ -1215,7 +1286,21 @@ const InspectionSection = ({ openWizard }) => {
     ] })
   ] });
 };
+const Skeleton = ({ className = "", ...props }) => {
+  return /* @__PURE__ */ jsx(
+    "div",
+    {
+      className: `animate-pulse bg-gray-200 rounded-md ${className}`,
+      ...props
+    }
+  );
+};
 const DeliveryMap = () => {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 500);
+    return () => clearTimeout(timer);
+  }, []);
   const cities = [
     { name: "Hamburg", x: 345, y: 235, align: "start" },
     { name: "Kiel", x: 360, y: 125, align: "start" },
@@ -1311,7 +1396,7 @@ const DeliveryMap = () => {
           /* @__PURE__ */ jsx("span", { className: "font-medium text-sm", children: region })
         ] }, i)) })
       ] }),
-      /* @__PURE__ */ jsx("div", { className: "lg:w-1/2 mt-12 lg:mt-0 relative flex items-center justify-center p-4 lg:p-0", children: /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 800 500", className: "w-full h-auto max-w-md lg:max-w-full", children: [
+      /* @__PURE__ */ jsx("div", { className: "lg:w-1/2 mt-12 lg:mt-0 relative flex items-center justify-center p-4 lg:p-0", children: loading ? /* @__PURE__ */ jsx("div", { className: "w-full max-w-md lg:max-w-full aspect-[8/5]", children: /* @__PURE__ */ jsx(Skeleton, { className: "w-full h-full rounded-2xl bg-gray-800" }) }) : /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 800 500", className: "w-full h-auto max-w-md lg:max-w-full", children: [
         /* @__PURE__ */ jsxs("g", { stroke: "white", strokeWidth: "0.5", strokeLinejoin: "round", children: [
           /* @__PURE__ */ jsx("path", { d: pathNI, fill: "#005b9f" }),
           /* @__PURE__ */ jsx("path", { d: pathMV, fill: "#4da6ff" }),
@@ -1386,12 +1471,74 @@ const getPlzError = (plz) => {
   }
   return "";
 };
+const ModernInput = ({ label, error, className = "", multiline = false, ...props }) => {
+  const [focused, setFocused] = useState(false);
+  const [touched, setTouched] = useState(false);
+  const hasError = !!error;
+  const isValid = !hasError && props.value && props.value.length > 0 && !props.disabled;
+  const InputComponent = multiline ? "textarea" : "input";
+  return /* @__PURE__ */ jsxs("div", { className: `relative mb-4 ${className}`, children: [
+    /* @__PURE__ */ jsxs(
+      motion.div,
+      {
+        animate: focused ? { scale: 1.01 } : { scale: 1 },
+        transition: { duration: 0.2 },
+        className: `relative rounded-xl border-2 transition-colors flex items-start ${hasError ? "border-red-300 bg-red-50/50" : isValid && !focused ? "border-green-300 bg-green-50/10" : focused ? "border-gas bg-white shadow-lg shadow-gas/10" : "border-gray-100 bg-white"}`,
+        children: [
+          /* @__PURE__ */ jsx(
+            InputComponent,
+            {
+              ...props,
+              inputMode: props.inputMode,
+              pattern: props.pattern,
+              autoComplete: props.autoComplete,
+              onFocus: (e) => {
+                setFocused(true);
+                props.onFocus && props.onFocus(e);
+              },
+              onBlur: (e) => {
+                setFocused(false);
+                setTouched(true);
+                props.onBlur && props.onBlur(e);
+              },
+              className: `w-full p-4 bg-transparent outline-none text-gray-800 font-medium placeholder-gray-400 rounded-xl font-sans ${multiline ? "resize-none h-32" : ""}`
+            }
+          ),
+          label && /* @__PURE__ */ jsx("div", { className: "absolute -top-2.5 left-4 bg-white px-2 text-xs font-bold text-gray-500 uppercase tracking-wider pointer-events-none", children: label }),
+          !multiline && /* @__PURE__ */ jsxs("div", { className: "pr-4 py-4 flex items-center pointer-events-none h-full absolute right-0 top-0", children: [
+            hasError && /* @__PURE__ */ jsx(X, { size: 20, className: "text-red-500" }),
+            isValid && !focused && /* @__PURE__ */ jsx(Check, { size: 20, className: "text-green-500" })
+          ] }),
+          multiline && /* @__PURE__ */ jsxs("div", { className: "absolute right-4 top-4 pointer-events-none", children: [
+            hasError && /* @__PURE__ */ jsx(X, { size: 20, className: "text-red-500" }),
+            isValid && !focused && /* @__PURE__ */ jsx(Check, { size: 20, className: "text-green-500" })
+          ] })
+        ]
+      }
+    ),
+    typeof error === "string" && error.length > 0 && /* @__PURE__ */ jsxs("div", { className: "flex items-center text-red-500 text-xs mt-1 ml-1 font-bold animate-pulse", children: [
+      /* @__PURE__ */ jsx(AlertCircle, { size: 12, className: "mr-1" }),
+      error
+    ] })
+  ] });
+};
 const ContactSection = () => {
   const [plz, setPlz] = useState("");
   const [plzError, setPlzError] = useState("");
   const [honeypot, setHoneypot] = useState("");
   const [status, setStatus] = useState("idle");
   const [consent, setConsent] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    subject: "",
+    message: ""
+  });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
   const handlePlzChange = (e) => {
     const val = e.target.value;
     setPlz(val);
@@ -1406,20 +1553,22 @@ const ContactSection = () => {
     if (honeypot) return;
     if (!consent) return;
     setStatus("loading");
-    const form = e.target;
-    const formData = new FormData(form);
-    formData.append("access_key", "f22052ed-455f-4e4d-9f5a-94a6e340426f");
-    formData.append("subject", "Neue Kontaktanfrage (Website)");
-    formData.append("from_name", "gasmöller Kontaktformular");
+    e.target;
+    const submitData = new FormData();
+    submitData.append("access_key", "f22052ed-455f-4e4d-9f5a-94a6e340426f");
+    submitData.append("subject", "Neue Kontaktanfrage (Website)");
+    submitData.append("from_name", "gasmöller Kontaktformular");
+    Object.keys(formData).forEach((key) => submitData.append(key, formData[key]));
+    submitData.append("plz", plz);
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: formData
+        body: submitData
       });
       const result = await response.json();
       if (result.success) {
         setStatus("success");
-        form.reset();
+        setFormData({ name: "", phone: "", email: "", subject: "", message: "" });
         setPlz("");
         setConsent(false);
       } else {
@@ -1462,7 +1611,7 @@ const ContactSection = () => {
           "."
         ] }),
         /* @__PURE__ */ jsx("button", { onClick: () => setStatus("idle"), className: "text-gas font-bold hover:underline", children: "Neue Nachricht schreiben" })
-      ] }) : /* @__PURE__ */ jsxs("form", { className: "space-y-6", onSubmit: handleSubmit, children: [
+      ] }) : /* @__PURE__ */ jsxs("form", { className: "space-y-2", onSubmit: handleSubmit, children: [
         /* @__PURE__ */ jsx(
           "input",
           {
@@ -1476,51 +1625,85 @@ const ContactSection = () => {
             "aria-hidden": "true"
           }
         ),
-        /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [
-          /* @__PURE__ */ jsxs("div", { children: [
-            /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "Name" }),
-            /* @__PURE__ */ jsx("input", { type: "text", name: "name", autoComplete: "name", required: true, "aria-required": "true", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" })
-          ] }),
-          /* @__PURE__ */ jsxs("div", { children: [
-            /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "Telefon" }),
-            /* @__PURE__ */ jsx("input", { type: "tel", name: "phone", autoComplete: "tel", inputMode: "tel", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" })
-          ] })
+        /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+          /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx(
+            ModernInput,
+            {
+              label: "Name",
+              type: "text",
+              name: "name",
+              autoComplete: "name",
+              required: true,
+              "aria-required": "true",
+              value: formData.name,
+              onChange: handleInputChange
+            }
+          ) }),
+          /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx(
+            ModernInput,
+            {
+              label: "Telefon",
+              type: "tel",
+              name: "phone",
+              autoComplete: "tel",
+              inputMode: "tel",
+              value: formData.phone,
+              onChange: handleInputChange
+            }
+          ) })
         ] }),
-        /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [
-          /* @__PURE__ */ jsxs("div", { children: [
-            /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "Postleitzahl" }),
-            /* @__PURE__ */ jsx(
-              "input",
-              {
-                type: "text",
-                name: "plz",
-                autoComplete: "postal-code",
-                inputMode: "numeric",
-                pattern: "[0-9]*",
-                value: plz,
-                onChange: handlePlzChange,
-                maxLength: 5,
-                "aria-invalid": !!plzError,
-                "aria-describedby": plzError ? "plz-error" : void 0,
-                className: `w-full px-4 py-3 bg-gray-50 border rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans ${plzError ? "border-red-300 bg-red-50 text-red-900" : "border-gray-200"}`
-              }
-            ),
-            plzError && /* @__PURE__ */ jsx("p", { id: "plz-error", className: "text-red-500 text-xs mt-1 font-bold", children: plzError })
-          ] }),
-          /* @__PURE__ */ jsxs("div", { children: [
-            /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "E-Mail" }),
-            /* @__PURE__ */ jsx("input", { type: "email", name: "email", autoComplete: "email", inputMode: "email", required: true, "aria-required": "true", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" })
-          ] })
+        /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+          /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx(
+            ModernInput,
+            {
+              label: "Postleitzahl",
+              type: "text",
+              name: "plz",
+              autoComplete: "postal-code",
+              inputMode: "numeric",
+              pattern: "[0-9]*",
+              value: plz,
+              onChange: handlePlzChange,
+              maxLength: 5,
+              error: plzError
+            }
+          ) }),
+          /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx(
+            ModernInput,
+            {
+              label: "E-Mail",
+              type: "email",
+              name: "email",
+              autoComplete: "email",
+              inputMode: "email",
+              required: true,
+              "aria-required": "true",
+              value: formData.email,
+              onChange: handleInputChange
+            }
+          ) })
         ] }),
-        /* @__PURE__ */ jsxs("div", { children: [
-          /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "Betreff" }),
-          /* @__PURE__ */ jsx("input", { type: "text", name: "subject", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all font-sans" })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { children: [
-          /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold text-gray-400 uppercase mb-1", children: "Nachricht" }),
-          /* @__PURE__ */ jsx("textarea", { name: "message", className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-gas focus:ring-2 focus:ring-gas/20 transition-all h-32 font-sans" })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-3", children: [
+        /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx(
+          ModernInput,
+          {
+            label: "Betreff",
+            type: "text",
+            name: "subject",
+            value: formData.subject,
+            onChange: handleInputChange
+          }
+        ) }),
+        /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx(
+          ModernInput,
+          {
+            label: "Nachricht",
+            multiline: true,
+            name: "message",
+            value: formData.message,
+            onChange: handleInputChange
+          }
+        ) }),
+        /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-3 mt-4 mb-6", children: [
           /* @__PURE__ */ jsx(
             "input",
             {
@@ -1528,7 +1711,7 @@ const ContactSection = () => {
               id: "contact-consent",
               checked: consent,
               onChange: (e) => setConsent(e.target.checked),
-              className: "mt-1 w-5 h-5 text-gas border-gray-300 rounded focus:ring-gas",
+              className: "mt-1 w-5 h-5 text-gas border-gray-300 rounded focus:ring-gas flex-shrink-0",
               required: true
             }
           ),
@@ -1541,7 +1724,7 @@ const ContactSection = () => {
             "."
           ] })
         ] }),
-        status === "error" && /* @__PURE__ */ jsx("div", { className: "bg-red-50 text-red-600 p-4 rounded-lg text-sm text-center", children: "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut oder rufen Sie uns an." }),
+        status === "error" && /* @__PURE__ */ jsx("div", { className: "bg-red-50 text-red-600 p-4 rounded-lg text-sm text-center mb-4", children: "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut oder rufen Sie uns an." }),
         /* @__PURE__ */ jsx(
           "button",
           {
@@ -1674,7 +1857,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                     {
                       initial: { opacity: 0, y: -10 },
                       animate: { opacity: 1, y: 0 },
-                      className: "text-red-300 text-sm mt-3 font-medium flex items-center gap-2 bg-red-500/10 p-2 rounded-lg border border-red-500/20",
+                      className: "text-red-300 text-sm mt-3 font-medium flex items-center gap-2 bg-red-500/10 p-2 rounded-lg border border-red-500/20 tracking-tight",
                       children: [
                         /* @__PURE__ */ jsx("div", { className: "w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center text-xs font-bold", children: "!" }),
                         plzError
@@ -2585,9 +2768,10 @@ const TeamSection = () => /* @__PURE__ */ jsxs("div", { className: "py-24 bg-whi
     /* @__PURE__ */ jsx("h2", { className: "text-gas font-bold tracking-widest uppercase text-sm mb-4", children: "Unser Team" }),
     /* @__PURE__ */ jsx("h3", { className: "text-3xl font-extrabold text-text", children: "Gesichter hinter der Energie" })
   ] }),
-  /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center", children: [
-    { name: "Thomas Möller", role: "Geschäftsführung", img: "/images/team/thomas.jpg", phone: "+49 170 927 00 78" },
-    { name: "Hans Christian Möller", role: "Buchhaltung", img: "/images/team/hans.jpg" }
+  /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center", children: [
+    { name: "Anja Möller", role: "Gründerin & Inhaberin", img: "/images/team/anja.jpg" },
+    { name: "Thomas Möller", role: "Geschäftsführung & Sachkundiger", img: "/images/team/thomas-moeller-lkw.webp", phone: "+49 170 927 00 78" },
+    { name: "Hans Christian Möller", role: "Logistik & Büro", img: "/images/team/hans.jpg", phone: "+49 1525 1771994" }
   ].map((member, i) => /* @__PURE__ */ jsxs("div", { className: "group relative overflow-hidden rounded-2xl aspect-[3/4] shadow-lg bg-gray-200 w-full max-w-sm", children: [
     /* @__PURE__ */ jsx(
       "img",
@@ -2619,11 +2803,10 @@ const TeamSection = () => /* @__PURE__ */ jsxs("div", { className: "py-24 bg-whi
 const AboutTimeline = () => /* @__PURE__ */ jsxs("div", { className: "py-16 bg-white", children: [
   /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-center mb-12", children: "Unsere Geschichte" }),
   /* @__PURE__ */ jsx("div", { className: "max-w-3xl mx-auto px-4 border-l-2 border-gas/20 ml-4 md:ml-auto space-y-12", children: [
-    { year: "2005", title: "Gründung", text: "Start als Familienunternehmen 'Gas-Service Möller' mit Fokus auf faire Beratung." },
+    { year: "2000", title: "Gründung", text: "Gründung durch Anja Möller. Alles begann durch Zufall mit der Vermittlung eines gebrauchten Gastanks." },
     { year: "2012", title: "Expansion", text: "Erweiterung des Liefergebiets auf ganz Schleswig-Holstein und Hamburg." },
-    { year: "2018", title: "Eigene Logistik", text: "Investition in eigene Tankwagen für maximale Unabhängigkeit." },
-    { year: "2021", title: "e.K. Umfirmierung", text: "Wachstum zum eingetragenen Kaufmann. 5000+ zufriedene Kunden." },
-    { year: "2025", title: "Zukunft", text: "Start der Bio-LPG Initiative für klimaneutrales Heizen." }
+    { year: "2021", title: "Eigene Logistik", text: "Einstieg in die Flüssiggaslieferung mit eigenem Tankwagen und Eintritt von Thomas und Hans Christian Möller." },
+    { year: "2025", title: "25 Jahre Jubiläum", text: "Wir feiern ein Vierteljahrhundert gasmöller – ehrlich, norddeutsch, unabhängig." }
   ].map((item, i) => /* @__PURE__ */ jsxs("div", { className: "relative pl-8", children: [
     /* @__PURE__ */ jsx("div", { className: "absolute -left-[9px] top-0 bg-gas text-white font-bold text-xs w-5 h-5 flex items-center justify-center rounded-full border-4 border-white shadow-sm" }),
     /* @__PURE__ */ jsx("span", { className: "text-gas font-bold text-xl block mb-1", children: item.year }),
@@ -2636,9 +2819,9 @@ const AboutPage = () => /* @__PURE__ */ jsx("section", { className: "bg-white", 
     /* @__PURE__ */ jsx("h2", { className: "text-gas font-bold tracking-widest uppercase text-sm mb-4", children: "Über Uns" }),
     /* @__PURE__ */ jsx("h1", { className: "text-4xl font-extrabold mb-6", children: "Ehrlich. Norddeutsch." }),
     /* @__PURE__ */ jsxs("div", { className: "max-w-3xl mx-auto text-lg leading-relaxed text-gray-600 space-y-6", children: [
-      /* @__PURE__ */ jsx("p", { children: "Moin und herzlich willkommen bei gasmöller! Seit unserer Gründung im Jahr 2005 sind wir der zuverlässige Partner für Flüssiggas im echten Norden. Was als kleiner Familienbetrieb begann, ist heute eine feste Größe in Schleswig-Holstein, Hamburg und dem nördlichen Niedersachsen." }),
-      /* @__PURE__ */ jsx("p", { children: "Unter der Leitung von Thomas Möller setzen wir auf das, was hier zählt: Ein Wort ist ein Wort. Wir verstecken uns nicht hinter Callcentern oder anonymen Konzernstrukturen. Wenn Sie bei uns anrufen, sprechen Sie mit Menschen, die wissen, wovon sie reden – und die verstehen, dass Sie nicht irgendeine Nummer sind, sondern unser Nachbar." }),
-      /* @__PURE__ */ jsx("p", { children: "Mit unserer eigenen Tankwagenflotte sind wir unabhängig und flexibel. Das bedeutet für Sie: Versorgungssicherheit auch im tiefsten Winter und faire Preise ohne versteckte Gebühren. Wir glauben daran, dass Energieversorgung Vertrauenssache ist. Egal ob Sie einen eigenen Tank kaufen oder Gas bestellen wollen – wir beraten Sie so, wie wir es uns selbst wünschen würden: ehrlich, direkt und kompetent." })
+      /* @__PURE__ */ jsx("p", { children: "Moin und herzlich willkommen bei gasmöller! Seit unserer Gründung im Jahr 2000 sind wir der zuverlässige Partner für Flüssiggas im echten Norden. Alles begann durch einen Zufall: Thomas Möller, damals als Auslieferungsfahrer unterwegs, wurde gefragt, ob er einen Erdtank besorgen könne. Fast zeitgleich wollte eine Kundin ihren Tank loswerden." }),
+      /* @__PURE__ */ jsx("p", { children: "Kurzerhand trommelte Thomas zehn Freunde zusammen, und mit Spaten wurde der Tank ausgebuddelt und beim neuen Besitzer wieder eingesetzt. Das erste Geschäft war perfekt, und Anja Möller gründete daraufhin die Firma. Heute führen Anja, Thomas und Hans Christian Möller das Unternehmen gemeinsam als echten Familienbetrieb." }),
+      /* @__PURE__ */ jsx("p", { children: "Mit unserem eigenen Tankwagen und Kranwagen sind wir unabhängig und flexibel in ganz Schleswig-Holstein, Hamburg und dem nördlichen Niedersachsen unterwegs. Wir glauben daran, dass Energieversorgung Vertrauenssache ist. Egal ob Sie einen eigenen Tank kaufen oder Gas bestellen wollen – wir beraten Sie so, wie wir es uns selbst wünschen würden: ehrlich, direkt und kompetent." })
     ] })
   ] }),
   /* @__PURE__ */ jsx(TeamSection, {}),
@@ -2678,7 +2861,7 @@ const Footer = ({ setActiveSection, openLegal }) => {
     /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12", children: [
       /* @__PURE__ */ jsxs("div", { className: "col-span-1", children: [
         /* @__PURE__ */ jsx("img", { src: "/logos/Icon-01.webp", alt: "gasmöller", width: "2222", height: "747", loading: "lazy", className: "h-10 w-auto filter brightness-0 invert opacity-80 mb-6" }),
-        /* @__PURE__ */ jsx("p", { className: "leading-relaxed mb-4", children: "Ihr unabhängiger Partner für Energie im Norden. Seit 2005." }),
+        /* @__PURE__ */ jsx("p", { className: "leading-relaxed mb-4", children: "Ihr unabhängiger Partner für Energie im Norden. Seit 2000." }),
         /* @__PURE__ */ jsxs("div", { className: "flex space-x-4", children: [
           /* @__PURE__ */ jsx("a", { href: "https://facebook.com/gasmoeller", target: "_blank", rel: "noopener noreferrer", className: "w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer", "aria-label": "Facebook", children: "f" }),
           /* @__PURE__ */ jsx("a", { href: "https://linkedin.com/company/gasmoeller", target: "_blank", rel: "noopener noreferrer", className: "w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer", "aria-label": "LinkedIn", children: "in" })
@@ -2756,41 +2939,6 @@ const Footer = ({ setActiveSection, openLegal }) => {
       (/* @__PURE__ */ new Date()).getFullYear(),
       " Gas-Service Möller e.K. Alle Rechte vorbehalten."
     ] })
-  ] });
-};
-const ModernInput = ({ label, error, className = "", ...props }) => {
-  const [focused, setFocused] = useState(false);
-  return /* @__PURE__ */ jsxs("div", { className: `relative mb-4 ${className}`, children: [
-    /* @__PURE__ */ jsxs(
-      motion.div,
-      {
-        animate: focused ? { scale: 1.01 } : { scale: 1 },
-        transition: { duration: 0.2 },
-        className: `relative rounded-xl border-2 transition-colors ${error ? "border-red-300 bg-red-50/50" : focused ? "border-gas bg-white shadow-lg shadow-gas/10" : "border-gray-100 bg-white"}`,
-        children: [
-          /* @__PURE__ */ jsx(
-            "input",
-            {
-              ...props,
-              inputMode: props.inputMode,
-              pattern: props.pattern,
-              autoComplete: props.autoComplete,
-              onFocus: (e) => {
-                setFocused(true);
-                props.onFocus && props.onFocus(e);
-              },
-              onBlur: (e) => {
-                setFocused(false);
-                props.onBlur && props.onBlur(e);
-              },
-              className: "w-full p-4 bg-transparent outline-none text-gray-800 font-medium placeholder-gray-400 rounded-xl font-sans"
-            }
-          ),
-          label && /* @__PURE__ */ jsx("div", { className: "absolute -top-2.5 left-4 bg-white px-2 text-xs font-bold text-gray-500 uppercase tracking-wider pointer-events-none", children: label })
-        ]
-      }
-    ),
-    error && /* @__PURE__ */ jsx("p", { className: "text-red-500 text-xs mt-1 ml-1 font-bold", children: error })
   ] });
 };
 const SelectionCard = ({ selected, onClick, title, description, icon: Icon, className = "" }) => {
@@ -2966,15 +3114,23 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
                 /* @__PURE__ */ jsx("button", { onClick: onClose, "aria-label": "Schließen", className: "p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors", children: /* @__PURE__ */ jsx(X, { size: 24 }) })
               ] })
             ] }),
-            /* @__PURE__ */ jsx("div", { className: "h-1 bg-gray-100 w-full", children: /* @__PURE__ */ jsx(
-              motion.div,
-              {
-                className: "h-full bg-gas",
-                initial: { width: 0 },
-                animate: { width: `${progress}%` },
-                transition: { duration: 0.5, ease: "easeInOut" }
-              }
-            ) }),
+            /* @__PURE__ */ jsxs("div", { className: "relative pt-6 pb-2 px-6", children: [
+              /* @__PURE__ */ jsx("div", { className: "h-1 bg-gray-100 w-full rounded-full overflow-hidden", children: /* @__PURE__ */ jsx(
+                motion.div,
+                {
+                  className: "h-full bg-gas",
+                  initial: { width: 0 },
+                  animate: { width: `${progress}%` },
+                  transition: { duration: 0.5, ease: "easeInOut" }
+                }
+              ) }),
+              /* @__PURE__ */ jsxs("div", { className: "flex justify-between mt-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider", children: [
+                /* @__PURE__ */ jsx("span", { children: "Start" }),
+                /* @__PURE__ */ jsx("span", { className: step >= 2 ? "text-gas" : "", children: "Kategorie" }),
+                /* @__PURE__ */ jsx("span", { className: step >= 3 ? "text-gas" : "", children: "Details" }),
+                /* @__PURE__ */ jsx("span", { className: step >= totalSteps ? "text-gas" : "", children: "Kontakt" })
+              ] })
+            ] }),
             /* @__PURE__ */ jsx("div", { className: "p-8 md:p-10 overflow-y-auto custom-scrollbar flex-1 relative", children: success ? /* @__PURE__ */ jsxs("div", { className: "text-center py-12 flex flex-col items-center justify-center h-full", children: [
               /* @__PURE__ */ jsx(
                 motion.div,
@@ -3013,11 +3169,11 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
                       placeholder: "PLZ",
                       maxLength: 5,
                       autoFocus: true,
-                      error: plzError,
+                      error: !!plzError,
                       "aria-describedby": plzError ? "plz-error" : void 0
                     }
                   ),
-                  plzError && /* @__PURE__ */ jsx("p", { id: "plz-error", className: "sr-only", children: plzError }),
+                  plzError && /* @__PURE__ */ jsx("p", { id: "plz-error", className: "text-red-500 text-sm mt-2 tracking-tight text-center font-medium", children: plzError }),
                   /* @__PURE__ */ jsx(
                     "button",
                     {
@@ -3123,6 +3279,7 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
                           {
                             type: "text",
                             name: "tankSizeGas",
+                            autoComplete: "off",
                             className: "mb-0 bg-white",
                             placeholder: "z.B. 1,2t oder 2700 Liter",
                             value: details.tankSizeGas || "",
@@ -3494,7 +3651,7 @@ const NotFound = ({ onGoHome }) => {
       /* @__PURE__ */ jsx(
         "a",
         {
-          href: "mailto:kontakt@gasmoeller.de",
+          href: "mailto:kontakt@gasmoeller.de?subject=Fehler%20auf%20der%20Website",
           className: "bg-white text-gray-700 border border-gray-200 px-8 py-3 rounded-xl font-bold hover:bg-gray-100 transition-all flex items-center justify-center gap-2",
           children: "Problem melden"
         }
@@ -3502,6 +3659,124 @@ const NotFound = ({ onGoHome }) => {
     ] })
   ] });
 };
+const AccessibilityWidget = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [settings, setSettings] = useState({
+    highContrast: false,
+    largeText: false,
+    reduceMotion: false,
+    highlightLinks: false
+  });
+  useEffect(() => {
+    const stored = localStorage.getItem("a11y-settings");
+    if (stored) {
+      setSettings(JSON.parse(stored));
+    }
+  }, []);
+  useEffect(() => {
+    const body = document.body;
+    if (settings.highContrast) body.classList.add("a11y-high-contrast");
+    else body.classList.remove("a11y-high-contrast");
+    if (settings.largeText) document.documentElement.classList.add("a11y-large-text");
+    else document.documentElement.classList.remove("a11y-large-text");
+    if (settings.reduceMotion) body.classList.add("a11y-reduce-motion");
+    else body.classList.remove("a11y-reduce-motion");
+    if (settings.highlightLinks) body.classList.add("a11y-highlight-links");
+    else body.classList.remove("a11y-highlight-links");
+    localStorage.setItem("a11y-settings", JSON.stringify(settings));
+  }, [settings]);
+  const toggleSetting = (key) => {
+    setSettings((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+  return /* @__PURE__ */ jsxs("div", { className: "fixed bottom-4 left-4 z-[9999] font-sans", children: [
+    /* @__PURE__ */ jsx(AnimatePresence, { children: isOpen && /* @__PURE__ */ jsxs(
+      motion.div,
+      {
+        initial: { opacity: 0, y: 20, scale: 0.9 },
+        animate: { opacity: 1, y: 0, scale: 1 },
+        exit: { opacity: 0, y: 20, scale: 0.9 },
+        className: "mb-4 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden w-72",
+        role: "dialog",
+        "aria-label": "Barrierefreiheit Einstellungen",
+        children: [
+          /* @__PURE__ */ jsxs("div", { className: "bg-gray-50 p-4 border-b border-gray-100 flex justify-between items-center", children: [
+            /* @__PURE__ */ jsxs("h3", { className: "font-bold text-gray-900 flex items-center gap-2", children: [
+              /* @__PURE__ */ jsx(Accessibility, { size: 20, className: "text-gas" }),
+              " Barrierefreiheit"
+            ] }),
+            /* @__PURE__ */ jsx("button", { onClick: () => setIsOpen(false), "aria-label": "Schließen", className: "text-gray-400 hover:text-gray-600", children: /* @__PURE__ */ jsx(X, { size: 20 }) })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "p-2", children: [
+            /* @__PURE__ */ jsx(
+              OptionButton,
+              {
+                label: "Hoher Kontrast",
+                active: settings.highContrast,
+                onClick: () => toggleSetting("highContrast"),
+                icon: Sun
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              OptionButton,
+              {
+                label: "Größere Schrift",
+                active: settings.largeText,
+                onClick: () => toggleSetting("largeText"),
+                icon: Type
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              OptionButton,
+              {
+                label: "Animationen stopppen",
+                active: settings.reduceMotion,
+                onClick: () => toggleSetting("reduceMotion"),
+                icon: Zap
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              OptionButton,
+              {
+                label: "Links hervorheben",
+                active: settings.highlightLinks,
+                onClick: () => toggleSetting("highlightLinks"),
+                icon: Link
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsx("div", { className: "bg-gray-50 p-3 text-center border-t border-gray-100", children: /* @__PURE__ */ jsx("a", { href: "/barrierefreiheit", className: "text-xs font-bold text-gas hover:underline", children: "Barrierefreiheitserklärung" }) })
+        ]
+      }
+    ) }),
+    /* @__PURE__ */ jsx(
+      motion.button,
+      {
+        whileHover: { scale: 1.1 },
+        whileTap: { scale: 0.9 },
+        onClick: () => setIsOpen(!isOpen),
+        className: "bg-gas text-white p-3 rounded-full shadow-xl hover:bg-gas-dark transition-colors flex items-center justify-center border-2 border-white",
+        "aria-label": "Barrierefreiheit Optionen öffnen",
+        title: "Barrierefreiheit",
+        children: /* @__PURE__ */ jsx(Accessibility, { size: 28 })
+      }
+    )
+  ] });
+};
+const OptionButton = ({ label, active, onClick, icon: Icon }) => /* @__PURE__ */ jsxs(
+  "button",
+  {
+    onClick,
+    className: `w-full flex items-center justify-between p-3 rounded-xl transition-all mb-1 ${active ? "bg-gas text-white font-bold" : "hover:bg-gray-50 text-gray-600"}`,
+    "aria-pressed": active,
+    children: [
+      /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
+        /* @__PURE__ */ jsx(Icon, { size: 18 }),
+        /* @__PURE__ */ jsx("span", { children: label })
+      ] }),
+      /* @__PURE__ */ jsx("div", { className: `w-10 h-6 rounded-full p-1 transition-colors ${active ? "bg-white/20" : "bg-gray-200"}`, children: /* @__PURE__ */ jsx("div", { className: `w-4 h-4 bg-white rounded-full shadow-sm transition-transform ${active ? "translate-x-4" : "translate-x-0"}` }) })
+    ]
+  }
+);
 const ImprintContent = () => /* @__PURE__ */ jsxs("div", { className: "space-y-4 text-sm text-gray-700", children: [
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900", children: "Angaben gemäß § 5 TMG" }),
   /* @__PURE__ */ jsxs("p", { children: [
@@ -3587,6 +3862,63 @@ const TermsContent = () => /* @__PURE__ */ jsxs("div", { className: "space-y-4 t
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "7. Gewährleistung und Haftung" }),
   /* @__PURE__ */ jsx("p", { children: "Es gelten die gesetzlichen Bestimmungen zur Gewährleistung. Die Haftung richtet sich nach den gesetzlichen Vorschriften, soweit in diesen AGB oder im individuellen Vertrag nichts anderes bestimmt ist." })
 ] });
+const AccessibilityStatementContent = () => /* @__PURE__ */ jsxs("div", { className: "space-y-4 text-sm text-gray-700", children: [
+  /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900", children: "Erklärung zur Barrierefreiheit" }),
+  /* @__PURE__ */ jsxs("p", { children: [
+    "Die ",
+    /* @__PURE__ */ jsx("strong", { children: "Gas-Service Möller e.K." }),
+    " ist bemüht, ihre Website im Einklang mit den nationalen Rechtsvorschriften zur Umsetzung der Richtlinie (EU) 2016/2102 des Europäischen Parlaments und des Rates barrierefrei zugänglich zu machen. Diese Erklärung zur Barrierefreiheit gilt für die Website ",
+    /* @__PURE__ */ jsx("strong", { children: "www.gasmoeller.de" }),
+    "."
+  ] }),
+  /* @__PURE__ */ jsx("h4", { className: "font-bold text-md text-gray-900 mt-6", children: "Stand der Vereinbarkeit mit den Anforderungen" }),
+  /* @__PURE__ */ jsx("p", { children: "Diese Website ist mit den Anforderungen der Barrierefreie-Informationstechnik-Verordnung (BITV 2.0) und den Web Content Accessibility Guidelines (WCAG 2.1) weitestgehend vereinbar." }),
+  /* @__PURE__ */ jsx("h4", { className: "font-bold text-md text-gray-900 mt-6", children: "Nicht barrierefreie Inhalte" }),
+  /* @__PURE__ */ jsx("p", { children: "Die nachstehend aufgeführten Inhalte sind aus folgenden Gründen nicht vollständig barrierefrei:" }),
+  /* @__PURE__ */ jsxs("ul", { className: "list-disc pl-5 space-y-2 mt-2", children: [
+    /* @__PURE__ */ jsxs("li", { children: [
+      /* @__PURE__ */ jsx("strong", { children: "Kartenmaterial:" }),
+      " Die interaktive Liefergebietskarte ist visuell gestaltet und für Screenreader nur eingeschränkt nutzbar. Alternativ stehen Textinformationen zum Liefergebiet zur Verfügung oder können telefonisch erfragt werden."
+    ] }),
+    /* @__PURE__ */ jsxs("li", { children: [
+      /* @__PURE__ */ jsx("strong", { children: "PDF-Dokumente:" }),
+      " Ältere PDF-Dokumente sind möglicherweise nicht vollständig barrierefrei nach PDF/UA-Standards."
+    ] }),
+    /* @__PURE__ */ jsxs("li", { children: [
+      /* @__PURE__ */ jsx("strong", { children: "Externe Inhalte:" }),
+      " Eingebundene Inhalte Dritter (z.B. von Kartenanbietern oder externen Dienstleistern) sind möglicherweise nicht vollständig barrierefrei."
+    ] })
+  ] }),
+  /* @__PURE__ */ jsx("h4", { className: "font-bold text-md text-gray-900 mt-6", children: "Erstellung dieser Erklärung" }),
+  /* @__PURE__ */ jsx("p", { children: "Diese Erklärung wurde am 02.05.2024 erstellt. Die Bewertung basiert auf einer Selbstbewertung der Vereinbarkeit der Website mit den Anforderungen der BITV 2.0." }),
+  /* @__PURE__ */ jsx("h4", { className: "font-bold text-md text-gray-900 mt-6", children: "Feedback und Kontakt" }),
+  /* @__PURE__ */ jsx("p", { children: "Sind Ihnen Mängel beim barrierefreien Zugang zu Inhalten auf unserer Website aufgefallen? Oder haben Sie Fragen zum Thema Barrierefreiheit? Dann können Sie sich gerne bei uns melden:" }),
+  /* @__PURE__ */ jsxs("div", { className: "bg-gray-50 p-4 rounded-lg border border-gray-200 mt-2", children: [
+    /* @__PURE__ */ jsx("strong", { children: "Gas-Service Möller e.K." }),
+    /* @__PURE__ */ jsx("br", {}),
+    "Neuenteichweg 7a",
+    /* @__PURE__ */ jsx("br", {}),
+    "23795 Schieren",
+    /* @__PURE__ */ jsx("br", {}),
+    "Telefon: ",
+    /* @__PURE__ */ jsx("a", { href: "tel:+494551897089", className: "text-gas hover:underline", children: "04551 89 70 89" }),
+    /* @__PURE__ */ jsx("br", {}),
+    "E-Mail: ",
+    /* @__PURE__ */ jsx("a", { href: "mailto:kontakt@gasmoeller.de", className: "text-gas hover:underline", children: "kontakt@gasmoeller.de" })
+  ] }),
+  /* @__PURE__ */ jsx("h4", { className: "font-bold text-md text-gray-900 mt-6", children: "Schlichtungsverfahren" }),
+  /* @__PURE__ */ jsx("p", { children: "Beim Landesbeauftragten für Menschen mit Behinderung gibt es eine Überwachungsstelle für barrierefreie Informationstechnik. Sollten Sie der Ansicht sein, dass Sie durch eine nicht ausreichende barrierefreie Gestaltung unserer Website benachteiligt sind, können Sie sich an die Schlichtungsstelle wenden:" }),
+  /* @__PURE__ */ jsxs("p", { className: "mt-2", children: [
+    /* @__PURE__ */ jsx("strong", { children: "Schlichtungsstelle des Landes Schleswig-Holstein" }),
+    /* @__PURE__ */ jsx("br", {}),
+    "Karolinenweg 1",
+    /* @__PURE__ */ jsx("br", {}),
+    "24105 Kiel",
+    /* @__PURE__ */ jsx("br", {}),
+    "E-Mail: ",
+    /* @__PURE__ */ jsx("a", { href: "mailto:buit@landtag.ltsh.de", className: "text-gas hover:underline", children: "buit@landtag.ltsh.de" })
+  ] })
+] });
 const App = ({ path, context }) => {
   const getInitialSection = () => {
     if (path) {
@@ -3622,9 +3954,18 @@ const App = ({ path, context }) => {
     } else if (type === "terms") {
       title = "AGB";
       content = /* @__PURE__ */ jsx(TermsContent, {});
+    } else if (type === "accessibility") {
+      title = "Barrierefreiheit";
+      content = /* @__PURE__ */ jsx(AccessibilityStatementContent, {});
     }
     setLegalModal({ open: true, title, content });
   };
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.pathname === "/barrierefreiheit") {
+      openLegal("accessibility");
+      window.history.pushState({}, "", "/");
+    }
+  }, []);
   useEffect(() => {
     const handlePopState = () => {
       const p = window.location.pathname.replace(/^\//, "").toLowerCase();
@@ -3689,6 +4030,7 @@ const App = ({ path, context }) => {
           ] }),
           /* @__PURE__ */ jsx(TankSection, { openWizard, setActiveSection: changeSection, showTechnicalOverview: false }),
           /* @__PURE__ */ jsx(CommercialSection, { setActiveSection: changeSection }),
+          /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4", children: /* @__PURE__ */ jsx(EnergyCalculator, {}) }),
           /* @__PURE__ */ jsx(DeliveryMap, {}),
           /* @__PURE__ */ jsx(FAQ, {}),
           /* @__PURE__ */ jsx(ContactSection, {})
@@ -3714,7 +4056,7 @@ const App = ({ path, context }) => {
         ] });
       case "rechner":
         return /* @__PURE__ */ jsxs(Fragment, { children: [
-          /* @__PURE__ */ jsx("div", { className: "pt-32 max-w-4xl mx-auto px-4", children: /* @__PURE__ */ jsx(EnergyCalculator, {}) }),
+          /* @__PURE__ */ jsx("div", { className: "pt-32 max-w-4xl mx-auto px-4", children: /* @__PURE__ */ jsx(EnergyCalculator, { defaultExpanded: true }) }),
           /* @__PURE__ */ jsx(ContactSection, {})
         ] });
       case "gewerbe":
@@ -3749,18 +4091,63 @@ const App = ({ path, context }) => {
     }
   };
   return /* @__PURE__ */ jsxs("div", { className: "min-h-screen flex flex-col bg-white", children: [
+    /* @__PURE__ */ jsx("a", { href: "#main-content", className: "sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-gas focus:text-white focus:rounded-md focus:shadow-lg", children: "Zum Hauptinhalt springen" }),
     /* @__PURE__ */ jsx(Navigation, { activeSection, setActiveSection: changeSection, mobileMenuOpen, setMobileMenuOpen, openWizard }),
-    /* @__PURE__ */ jsx("main", { className: "flex-grow", children: renderSection() }),
+    /* @__PURE__ */ jsx("main", { id: "main-content", className: "flex-grow focus:outline-none", tabIndex: "-1", children: renderSection() }),
     /* @__PURE__ */ jsx(Footer, { setActiveSection: changeSection, openLegal }),
     /* @__PURE__ */ jsx(WizardModal, { isOpen: wizardOpen, onClose: () => setWizardOpen(false), initialType: wizardType, initialData: wizardData }),
     /* @__PURE__ */ jsx(CookieBanner, {}),
     /* @__PURE__ */ jsx(SimpleModal, { isOpen: legalModal.open, onClose: () => setLegalModal({ ...legalModal, open: false }), title: legalModal.title, content: legalModal.content }),
+    /* @__PURE__ */ jsx(AccessibilityWidget, {}),
     /* @__PURE__ */ jsx(ScrollToTop, {})
   ] });
 };
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+  componentDidCatch(error, errorInfo) {
+    console.error("Uncaught error:", error, errorInfo);
+  }
+  render() {
+    if (this.state.hasError) {
+      return /* @__PURE__ */ jsx("div", { className: "min-h-screen flex flex-col items-center justify-center p-6 bg-gray-50 text-center", children: /* @__PURE__ */ jsxs("div", { className: "bg-white p-8 rounded-2xl shadow-xl max-w-md w-full border border-gray-100", children: [
+        /* @__PURE__ */ jsx("div", { className: "w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6", children: /* @__PURE__ */ jsx(AlertTriangle, { size: 32, className: "text-red-500" }) }),
+        /* @__PURE__ */ jsx("h1", { className: "text-2xl font-bold text-gray-900 mb-2", children: "Da ist etwas schiefgelaufen" }),
+        /* @__PURE__ */ jsx("p", { className: "text-gray-600 mb-6", children: "Ein unerwarteter Fehler ist aufgetreten. Wir wurden benachrichtigt. Bitte laden Sie die Seite neu." }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx(
+            "button",
+            {
+              onClick: () => window.location.reload(),
+              className: "w-full bg-gas text-white px-6 py-3 rounded-xl font-bold hover:bg-gas-dark transition-colors",
+              children: "Seite neu laden"
+            }
+          ),
+          /* @__PURE__ */ jsxs(
+            "button",
+            {
+              onClick: () => window.location.href = "/",
+              className: "w-full bg-white text-gray-700 border border-gray-200 px-6 py-3 rounded-xl font-bold hover:bg-gray-50 transition-colors flex items-center justify-center gap-2",
+              children: [
+                /* @__PURE__ */ jsx(Home, { size: 18 }),
+                "Zur Startseite"
+              ]
+            }
+          )
+        ] })
+      ] }) });
+    }
+    return this.props.children;
+  }
+}
 function render(url, context = {}) {
   const html = ReactDOMServer.renderToString(
-    /* @__PURE__ */ jsx(React.StrictMode, { children: /* @__PURE__ */ jsx(App, { path: url, context }) })
+    /* @__PURE__ */ jsx(React.StrictMode, { children: /* @__PURE__ */ jsx(ErrorBoundary, { children: /* @__PURE__ */ jsx(App, { path: url, context }) }) })
   );
   return { html };
 }
