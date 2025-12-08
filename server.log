@@ -2,10 +2,3 @@
 > gasmoeller-vite@0.0.0 dev
 > node server.js
 
-Server started at http://localhost:5173
-3:27:51 PM [vite] hmr update /src/components/AboutPage.jsx, /src/index.css
-3:27:51 PM [vite] hmr update /src/components/TankSection.jsx, /src/index.css
-3:27:51 PM [vite] hmr update /src/components/TeamSection.jsx, /src/index.css
-3:35:25 PM [vite] hmr update /src/components/TeamSection.jsx, /src/index.css
-3:35:25 PM [vite] hmr update /src/components/AboutPage.jsx, /src/index.css
-3:35:25 PM [vite] hmr update /src/components/TankSection.jsx, /src/index.css

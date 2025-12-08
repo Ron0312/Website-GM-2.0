@@ -46,11 +46,11 @@ const CalculatorInput = ({ label, value, unit, onChange, icon: Icon, active, onF
     );
 };
 
-const EnergyCalculator = () => {
+const EnergyCalculator = ({ defaultExpanded = false }) => {
     const [energyKwh, setEnergyKwh] = useState(9600);
     const [activeField, setActiveField] = useState(null);
     const [inputValue, setInputValue] = useState('');
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(defaultExpanded);
 
     // Format number to German locale
     const formatNumber = (num) => {
@@ -101,7 +101,7 @@ const EnergyCalculator = () => {
             {/* Header / Toggle Button */}
             <button
                 onClick={() => setIsExpanded(!isExpanded)}
-                className="w-full text-left bg-gradient-to-r from-gas to-gas-dark p-6 md:p-8 text-white relative overflow-hidden group focus:outline-none md:cursor-default"
+                className="w-full text-left bg-gradient-to-r from-gas to-gas-dark p-6 md:p-8 text-white relative overflow-hidden group focus:outline-none"
                 aria-expanded={isExpanded}
                 aria-controls="calculator-content"
             >
@@ -120,15 +120,15 @@ const EnergyCalculator = () => {
                         </p>
                     </div>
 
-                    {/* Mobile Toggle Icon */}
-                    <div className="md:hidden mt-1 bg-white/10 p-2 rounded-full backdrop-blur-sm transition-transform duration-300" style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                    {/* Toggle Icon */}
+                    <div className="mt-1 bg-white/10 p-2 rounded-full backdrop-blur-sm transition-transform duration-300" style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>
                         <ChevronDown size={24} />
                     </div>
                 </div>
             </button>
 
             {/* Content Area */}
-            <div className={`md:block ${isExpanded ? 'block' : 'hidden'} bg-gray-50/50`} id="calculator-content">
+            <div className={`${isExpanded ? 'block' : 'hidden'} bg-gray-50/50`} id="calculator-content">
                 <div className="p-6 md:p-8">
                     {/* Main Input - Energy Basis */}
                     <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-8">

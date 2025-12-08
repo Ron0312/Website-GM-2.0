@@ -159,10 +159,10 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                     ))}
                 </div>
 
-                <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {showTechnicalOverview && (
-                        <div className="md:col-span-2 bg-gray-50 rounded-2xl p-8 border border-gray-100">
-                            <h4 className="font-bold text-xl mb-4">Technische Übersicht</h4>
+                {showTechnicalOverview && (
+                    <div className="mt-20">
+                        <div className="max-w-4xl mx-auto bg-gray-50 rounded-2xl p-8 border border-gray-100">
+                            <h4 className="font-bold text-xl mb-4 text-center">Technische Übersicht</h4>
                             <div className="overflow-x-auto">
                                 <table className="w-full text-sm text-left">
                                     <thead className="text-xs text-gray-400 uppercase border-b border-gray-200"><tr><th className="py-3">Modell</th><th className="py-3">Maße (L x H)</th><th className="py-3">Gewicht</th><th className="py-3">Leistung</th></tr></thead>
@@ -174,11 +174,8 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                                 </table>
                             </div>
                         </div>
-                    )}
-                    <div className={showTechnicalOverview ? "" : "md:col-span-3"}>
-                        <EnergyCalculator />
                     </div>
-                </div>
+                )}
             </div>
         </section>
     );
