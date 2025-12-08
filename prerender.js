@@ -29,6 +29,7 @@ const routesToPrerender = [
     '/kontakt',
     '/rechner',
     '/pruefungen',
+    '/barrierefreiheit',
     // Dynamic routes
     ...tankDetails.map(t => `/tanks/${t.slug}`)
 ];
@@ -88,7 +89,7 @@ const routesWith404 = [...routesToPrerender, '/404'];
 
         // 4. Schema.org JSON-LD
         const schemaScript = `<script type="application/ld+json">${JSON.stringify(schemaData)}</script>`;
-        pageHtml = pageHtml.replace('</head>', `${schemaScript}</head>`);
+        pageHtml = pageHtml.replace('</head>', () => `${schemaScript}</head>`);
 
         // --- File Writing ---
 

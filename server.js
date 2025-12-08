@@ -121,7 +121,7 @@ async function createServer() {
             template = template.replace('</head>', `<meta name="description" content="${siteData.description}"></head>`);
         }
         template = template.replace('</head>', `${siteData.metaTags}</head>`);
-        template = template.replace('</head>', `<script type="application/ld+json">${siteData.schema}</script></head>`);
+        template = template.replace('</head>', () => `<script type="application/ld+json">${siteData.schema}</script></head>`);
 
         template = await vite.transformIndexHtml(url, template)
         render = (await vite.ssrLoadModule('/src/entry-server.jsx')).render
@@ -137,7 +137,7 @@ async function createServer() {
             template = template.replace('</head>', `<meta name="description" content="${siteData.description}"></head>`);
         }
         template = template.replace('</head>', `${siteData.metaTags}</head>`);
-        template = template.replace('</head>', `<script type="application/ld+json">${siteData.schema}</script></head>`);
+        template = template.replace('</head>', () => `<script type="application/ld+json">${siteData.schema}</script></head>`);
       }
 
       // Context object for SSR to communicate status/redirects
