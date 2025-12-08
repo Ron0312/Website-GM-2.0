@@ -13,15 +13,21 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
             title: "Der sichtbare Klassiker",
             description: "Oberirdische Tanks sind die meistgewählte Variante. Sie lassen sich einfach aufstellen, erfordern keine Erdarbeiten und sind kostengünstig in der Installation.",
             benefits: ["Günstige Anschaffung", "Schnelle Installation", "Einfache Wartung"],
-            color: "bg-blue-50 border-blue-100",
-            iconColor: "text-blue-500"
+            color: "bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 border-gray-700 shadow-2xl",
+            iconColor: "text-green-400",
+            titleColor: "text-white",
+            textColor: "text-gray-300",
+            benefitClass: "bg-white/10 backdrop-blur text-white border-white/20"
         },
         unterirdisch: {
             title: "Die unsichtbare Lösung",
             description: "Unterirdische Tanks verschwinden komplett unter der Erde. Nur der Domschachtdeckel bleibt sichtbar – ideal für gepflegte Gärten und maximale Raumnutzung.",
             benefits: ["Nicht sichtbar", "Maximale Gartennutzung", "Gut geschützt"],
             color: "bg-green-50 border-green-100",
-            iconColor: "text-green-500"
+            iconColor: "text-green-500",
+            titleColor: "text-gray-900",
+            textColor: "text-gray-600",
+            benefitClass: "bg-white text-gray-700 border-gray-100"
         }
     };
 
@@ -49,7 +55,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
              {/* New Hero Section for Tanks & Kauf */}
              <div className="relative bg-gray-900 py-32 lg:py-48 overflow-hidden">
                 <div className="absolute inset-0 z-0">
-                    <img src="/images/tank-section-background.jpg" alt="Flüssiggastank im Garten" className="w-full h-full object-cover opacity-40 mix-blend-overlay" />
+                    <img src="/images/tank-section-hero.webp" alt="Flüssiggastank im Garten" className="w-full h-full object-cover opacity-40 mix-blend-overlay" />
                     <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent"></div>
                 </div>
                 <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
@@ -111,13 +117,13 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
                             transition={{ duration: 0.2 }}
-                            className={`rounded-2xl p-6 border ${currentInfo.color} text-center`}
+                            className={`rounded-2xl p-8 border ${currentInfo.color} text-center`}
                         >
-                            <h4 className="text-xl font-bold text-gray-900 mb-2">{currentInfo.title}</h4>
-                            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">{currentInfo.description}</p>
+                            <h4 className={`text-2xl font-bold mb-4 ${currentInfo.titleColor}`}>{currentInfo.title}</h4>
+                            <p className={`mb-8 max-w-2xl mx-auto text-lg ${currentInfo.textColor}`}>{currentInfo.description}</p>
                             <div className="flex flex-wrap justify-center gap-3">
                                 {currentInfo.benefits.map((benefit, idx) => (
-                                    <span key={idx} className="inline-flex items-center text-sm font-medium text-gray-700 bg-white px-4 py-2 rounded-full shadow-sm border border-gray-100">
+                                    <span key={idx} className={`inline-flex items-center text-sm font-medium px-4 py-2 rounded-full shadow-sm border ${currentInfo.benefitClass}`}>
                                         <Check className={`w-4 h-4 mr-2 ${currentInfo.iconColor}`} />
                                         {benefit}
                                     </span>

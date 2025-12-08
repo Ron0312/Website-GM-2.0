@@ -10,7 +10,7 @@ const TeamSection = () => (
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center">
             {[
                 { name: "Anja Möller", role: "Gründerin & Inhaberin", img: "/images/team/anja.jpg" },
-                { name: "Thomas Möller", role: "Geschäftsführung & Sachkundiger", img: "/images/team/thomas.jpg", phone: "+49 170 927 00 78" },
+                { name: "Thomas Möller", role: "Geschäftsführung & Sachkundiger", img: "/images/team/thomas-moeller-lkw.webp", phone: "+49 170 927 00 78" },
                 { name: "Hans Christian Möller", role: "Logistik & Büro", img: "/images/team/hans.jpg", phone: "+49 1525 1771994" }
             ].map((member, i) => (
                 <div key={i} className="group relative overflow-hidden rounded-2xl aspect-[3/4] shadow-lg bg-gray-200 w-full max-w-sm">

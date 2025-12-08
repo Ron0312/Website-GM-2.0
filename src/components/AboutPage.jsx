@@ -16,7 +16,7 @@ const AboutPage = () => (
                         Kurzerhand trommelte Thomas zehn Freunde zusammen, und mit Spaten wurde der Tank ausgebuddelt und beim neuen Besitzer wieder eingesetzt. Das erste Geschäft war perfekt, und Anja Möller gründete daraufhin die Firma. Heute führen Anja, Thomas und Hans Christian Möller das Unternehmen gemeinsam als echten Familienbetrieb.
                     </p>
                     <p>
-                        „Im Winter liefern wir Gas, im Sommer Gastanks“, sagt Anja Möller. Mit unserem eigenen Tankwagen und Kranwagen sind wir unabhängig und flexibel in ganz Schleswig-Holstein, Hamburg und dem nördlichen Niedersachsen unterwegs. Wir glauben daran, dass Energieversorgung Vertrauenssache ist. Egal ob Sie einen eigenen Tank kaufen oder Gas bestellen wollen – wir beraten Sie so, wie wir es uns selbst wünschen würden: ehrlich, direkt und kompetent.
+                        Mit unserem eigenen Tankwagen und Kranwagen sind wir unabhängig und flexibel in ganz Schleswig-Holstein, Hamburg und dem nördlichen Niedersachsen unterwegs. Wir glauben daran, dass Energieversorgung Vertrauenssache ist. Egal ob Sie einen eigenen Tank kaufen oder Gas bestellen wollen – wir beraten Sie so, wie wir es uns selbst wünschen würden: ehrlich, direkt und kompetent.
                     </p>
                 </div>
             </div>
