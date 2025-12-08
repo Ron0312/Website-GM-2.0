@@ -92,6 +92,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                         aria-expanded={openDropdown === link.id}
                                         aria-haspopup={!!link.subLinks}
                                         aria-label={link.label}
+                                        aria-current={activeSection === link.id ? 'page' : undefined}
                                         className={`
                                             ${activeSection === link.id || (link.subLinks && activeSection.startsWith(link.id))
                                                 ? 'bg-white text-gas shadow-sm font-bold'

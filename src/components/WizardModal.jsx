@@ -207,6 +207,8 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                 type="text"
                                                 name="plz"
                                                 autoComplete="postal-code"
+                                                inputMode="numeric"
+                                                pattern="[0-9]*"
                                                 value={plz}
                                                 onChange={(e) => {
                                                     if (e.target.value.length <= 5 && /^\d*$/.test(e.target.value)) {
@@ -331,6 +333,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                             <ModernInput
                                                                 type="number"
                                                                 name="amount"
+                                                                inputMode="numeric"
                                                                 className="mb-0"
                                                                 placeholder="z.B. 2000"
                                                                 value={details.amount || ''}
@@ -593,6 +596,7 @@ const ContactForm = ({ contact, setContact, plz, submitting, handleBack, stepNam
                 type="email"
                 name="email"
                 autoComplete="email"
+                inputMode="email"
                 required
                 placeholder="ihre@email.de"
                 value={contact.email}
@@ -603,6 +607,7 @@ const ContactForm = ({ contact, setContact, plz, submitting, handleBack, stepNam
                 type="tel"
                 name="phone"
                 autoComplete="tel"
+                inputMode="tel"
                 placeholder="Für Rückfragen"
                 value={contact.phone}
                 onChange={(e) => setContact({...contact, phone: e.target.value})}

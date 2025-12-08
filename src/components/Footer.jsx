@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, CheckCircle, Loader2 } from 'lucide-react';
+import { Send, CheckCircle, Loader2, Phone } from 'lucide-react';
 
 const Footer = ({ setActiveSection, openLegal }) => {
     const [email, setEmail] = useState('');
@@ -55,6 +55,11 @@ const Footer = ({ setActiveSection, openLegal }) => {
                         <li><button onClick={() => setActiveSection('tanks')} className="hover:text-white transition-colors">Tanks kaufen</button></li>
                         <li><button onClick={() => setActiveSection('rechner')} className="hover:text-white transition-colors">Spar-Rechner</button></li>
                         <li><button onClick={() => setActiveSection('kontakt')} className="hover:text-white transition-colors">Kontakt</button></li>
+                        <li className="pt-2 border-t border-gray-800 mt-2">
+                            <a href="tel:04551999666" className="hover:text-white transition-colors flex items-center gap-2 font-semibold">
+                                <Phone size={14} /> 04551 999 666
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <div>
@@ -89,6 +94,7 @@ const Footer = ({ setActiveSection, openLegal }) => {
                             <input
                                 type="email"
                                 required
+                                autoComplete="email"
                                 placeholder="Ihre E-Mail Adresse"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
@@ -108,7 +114,7 @@ const Footer = ({ setActiveSection, openLegal }) => {
                 </div>
             </div>
             <div className="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-gray-800 text-center text-xs text-gray-600">
-                &copy; 2025 Gas-Service Möller e.K. Alle Rechte vorbehalten.
+                &copy; {new Date().getFullYear()} Gas-Service Möller e.K. Alle Rechte vorbehalten.
             </div>
         </footer>
     );
