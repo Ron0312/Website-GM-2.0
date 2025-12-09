@@ -144,6 +144,10 @@ async function createServer() {
       const context = {};
       const { html } = render(url, context);
 
+      if (context.url) {
+        return res.redirect(context.status || 302, context.url);
+      }
+
       if (context.status === 404) {
           res.status(404);
       }

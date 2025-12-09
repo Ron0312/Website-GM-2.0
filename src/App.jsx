@@ -126,18 +126,27 @@ const App = ({ path, context }) => {
         }
 
         // Sections
-        const validSections = ['start', 'tanks', 'gas', 'rechner', 'gewerbe', 'wissen', 'ueber-uns', 'kontakt', 'pruefungen', 'barrierefreiheit'];
+        const validSections = ['start', 'tanks', 'gas', 'rechner', 'gewerbe', 'wissen', 'ueber-uns', 'kontakt', 'pruefungen', 'barrierefreiheit', '404'];
 
         // Return 404 if not a valid section
         if (!validSections.includes(activeSection)) {
-            // Signal 404 to Server
+            // Signal Redirect to Server
             if (context) {
-                context.status = 404;
+                context.url = '/404';
+                context.status = 302;
+            }
+            // Client side redirect
+            else if (typeof window !== 'undefined') {
+                 // Use replaceState to avoid history pollution or explicit navigation
+                 changeSection('404');
             }
             return <><div className="pt-20"></div><NotFound onGoHome={changeSection} /><ContactSection /></>;
         }
 
         switch(activeSection) {
+            case '404':
+                if (context) context.status = 404;
+                return <><div className="pt-20"></div><NotFound onGoHome={changeSection} /><ContactSection /></>;
             case 'start': return <><Hero openWizard={openWizard} setActiveSection={changeSection} /><TrustBar /><div className="my-16 text-center"><div className="inline-block p-2 rounded-2xl bg-gradient-to-r from-gas-light to-white border border-gas/10 shadow-2xl animate-pulse hover:animate-none transition-all"><button onClick={() => openWizard('tank')} className="bg-gas text-white px-10 py-5 rounded-xl font-extrabold text-2xl shadow-lg hover:bg-gas-dark transition-all flex items-center gap-3"><Settings size={28}/> Zum Anfrage-Assistenten <ArrowRight size={28}/></button></div><p className="mt-4 text-gray-400 text-sm font-medium">Kostenlos & Unverbindlich</p></div><TankSection openWizard={openWizard} setActiveSection={changeSection} showTechnicalOverview={false} /><CommercialSection setActiveSection={changeSection} /><div className="max-w-7xl mx-auto px-4"><EnergyCalculator /></div><DeliveryMap /><FAQ /><ContactSection /></>;
             case 'tanks': return <><div className="pt-20"></div><TankSection openWizard={openWizard} setActiveSection={changeSection} /><ContactSection /></>;
             case 'gas': return <><div className="pt-20"></div><GasOrderSection onCheckAvailability={handleGasCheckAvailability} /><FAQ /><ContactSection /></>;
