@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CheckCircle, Loader2, Phone, User } from 'lucide-react';
+import { CheckCircle, Loader2, Phone, User, Copy, Check } from 'lucide-react';
 import { getPlzError } from '../utils/validation';
 import ModernInput from './ui/ModernInput';
 
@@ -9,6 +9,8 @@ const ContactSection = () => {
     const [honeypot, setHoneypot] = useState('');
     const [status, setStatus] = useState('idle'); // idle, loading, success, error
     const [consent, setConsent] = useState(false);
+    const [copiedPhone, setCopiedPhone] = useState(false);
+    const [copiedMobile, setCopiedMobile] = useState(false);
 
     // Form State for ModernInput
     const [formData, setFormData] = useState({
@@ -31,6 +33,17 @@ const ContactSection = () => {
             setPlzError(getPlzError(val));
         } else {
             setPlzError('');
+        }
+    };
+
+    const copyToClipboard = (text, type) => {
+        navigator.clipboard.writeText(text);
+        if (type === 'phone') {
+            setCopiedPhone(true);
+            setTimeout(() => setCopiedPhone(false), 2000);
+        } else {
+            setCopiedMobile(true);
+            setTimeout(() => setCopiedMobile(false), 2000);
         }
     };
 
@@ -81,20 +94,39 @@ const ContactSection = () => {
 
                  {/* Phone Numbers Block */}
                  <div className="flex flex-col md:flex-row justify-center gap-6 mb-12">
-                    <a href="tel:04551897089" className="flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 px-6 py-4 rounded-xl transition-all border border-white/10">
-                        <Phone className="text-gas-light" />
-                        <div className="text-left">
-                            <div className="text-xs text-gray-400 uppercase font-bold tracking-wider">Zentrale</div>
-                            <div className="font-bold text-lg">04551 89 70 89</div>
-                        </div>
-                    </a>
-                    <a href="tel:+491709270078" className="flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 px-6 py-4 rounded-xl transition-all border border-white/10">
-                        <User className="text-gas-light" />
-                        <div className="text-left">
-                            <div className="text-xs text-gray-400 uppercase font-bold tracking-wider">Thomas Möller / Notfall</div>
-                            <div className="font-bold text-lg">+49 170 927 00 78</div>
-                        </div>
-                    </a>
+                    <div className="relative group">
+                        <a href="tel:04551897089" className="flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 px-6 py-4 rounded-xl transition-all border border-white/10">
+                            <Phone className="text-gas-light" />
+                            <div className="text-left">
+                                <div className="text-xs text-gray-400 uppercase font-bold tracking-wider">Zentrale</div>
+                                <div className="font-bold text-lg">04551 89 70 89</div>
+                            </div>
+                        </a>
+                        <button
+                            onClick={(e) => { e.preventDefault(); copyToClipboard('04551897089', 'phone'); }}
+                            className="absolute -top-3 -right-3 p-2 bg-white text-gas rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                            aria-label="Nummer kopieren"
+                        >
+                            {copiedPhone ? <Check size={14} /> : <Copy size={14} />}
+                        </button>
+                    </div>
+
+                    <div className="relative group">
+                        <a href="tel:+491709270078" className="flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 px-6 py-4 rounded-xl transition-all border border-white/10">
+                            <User className="text-gas-light" />
+                            <div className="text-left">
+                                <div className="text-xs text-gray-400 uppercase font-bold tracking-wider">Thomas Möller / Notfall</div>
+                                <div className="font-bold text-lg">+49 170 927 00 78</div>
+                            </div>
+                        </a>
+                        <button
+                            onClick={(e) => { e.preventDefault(); copyToClipboard('+491709270078', 'mobile'); }}
+                            className="absolute -top-3 -right-3 p-2 bg-white text-gas rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                            aria-label="Nummer kopieren"
+                        >
+                            {copiedMobile ? <Check size={14} /> : <Copy size={14} />}
+                        </button>
+                    </div>
                 </div>
 
                 <div className="bg-white rounded-2xl p-8 md:p-12 shadow-2xl text-left max-w-2xl mx-auto text-text transform hover:-translate-y-1 transition-transform duration-500">
