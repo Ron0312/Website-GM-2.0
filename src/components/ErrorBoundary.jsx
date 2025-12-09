@@ -1,47 +1,45 @@
-import React from 'react';
-import { AlertTriangle, Home } from 'lucide-react';
+import React, { Component } from 'react';
+import { RefreshCcw } from 'lucide-react';
 
-class ErrorBoundary extends React.Component {
+class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false, error: null };
+    this.state = { hasError: false, error: null, errorInfo: null };
   }
 
   static getDerivedStateFromError(error) {
+    // Update state so the next render will show the fallback UI.
     return { hasError: true, error };
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error("Uncaught error:", error, errorInfo);
+    // You can also log the error to an error reporting service
+    console.error("ErrorBoundary caught an error", error, errorInfo);
+    this.setState({ errorInfo });
   }
 
   render() {
     if (this.state.hasError) {
+      // You can render any custom fallback UI
       return (
-        <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gray-50 text-center">
-          <div className="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full border border-gray-100">
-            <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <AlertTriangle size={32} className="text-red-500" />
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+          <div className="max-w-md w-full text-center space-y-6 bg-white p-8 rounded-2xl shadow-xl">
+            <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto">
+                <RefreshCcw className="w-8 h-8 text-red-600" />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">Da ist etwas schiefgelaufen</h1>
-            <p className="text-gray-600 mb-6">
-              Ein unerwarteter Fehler ist aufgetreten. Wir wurden benachrichtigt. Bitte laden Sie die Seite neu.
+            <h1 className="text-2xl font-bold text-gray-900">Ups, da ist etwas schiefgelaufen.</h1>
+            <p className="text-gray-600">
+              Ein unerwarteter Fehler ist aufgetreten. Bitte laden Sie die Seite neu.
             </p>
-            <div className="space-y-3">
-                <button
-                onClick={() => window.location.reload()}
-                className="w-full bg-gas text-white px-6 py-3 rounded-xl font-bold hover:bg-gas-dark transition-colors"
-                >
-                Seite neu laden
-                </button>
-                <button
-                onClick={() => window.location.href = '/'}
-                className="w-full bg-white text-gray-700 border border-gray-200 px-6 py-3 rounded-xl font-bold hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
-                >
-                <Home size={18} />
-                Zur Startseite
-                </button>
+            <div className="bg-gray-100 p-4 rounded text-left overflow-auto max-h-32 text-xs text-gray-500 font-mono">
+                {this.state.error && this.state.error.toString()}
             </div>
+            <button
+              onClick={() => window.location.reload()}
+              className="w-full bg-gas text-white px-6 py-3 rounded-xl font-semibold hover:bg-gas-dark transition-colors"
+            >
+              Seite neu laden
+            </button>
           </div>
         </div>
       );

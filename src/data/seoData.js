@@ -176,7 +176,8 @@ export const getSchemaForPath = (path) => {
             "contactType": "customer service",
             "areaServed": "DE",
             "availableLanguage": "German"
-        }
+        },
+        "knowsAbout": ["Flüssiggas", "Gastanks", "Heizung", "Energie", "Gewerbegas", "Prozesswärme"]
     };
 
     // Specific schema for Tank Detail pages
