@@ -35,35 +35,33 @@ async function createServer() {
   }
 
   // Explicitly serve sitemap.xml and robots.txt globally (Dev & Prod)
-  // This ensures they are served even if environment flags are mismatched or paths vary.
-  app.get('/sitemap.xml', (req, res) => {
+  // Used by both explicit routes and the fail-safe fallback
+  const handleStaticSpecial = (res, filename, contentType) => {
     const pathsToCheck = [
-      path.resolve(__dirname, 'dist/client/sitemap.xml'), // Production build
-      path.resolve(__dirname, 'public/sitemap.xml'),      // Source/Dev
-      path.resolve(__dirname, 'sitemap.xml')              // Root fallback
+      path.resolve(__dirname, 'dist/client', filename), // Production build
+      path.resolve(__dirname, 'public', filename),      // Source/Dev
+      path.resolve(__dirname, filename)                 // Root fallback
     ]
 
     for (const p of pathsToCheck) {
-      if (serveStaticFile(res, p, 'application/xml')) return
+      if (serveStaticFile(res, p, contentType)) return true
     }
+    return false
+  }
 
-    console.error('Sitemap not found in paths:', pathsToCheck)
-    res.status(404).send('Sitemap not found')
+  // Use app.use to capture all methods (GET, HEAD) and potential path variations
+  app.use('/sitemap.xml', (req, res) => {
+    if (!handleStaticSpecial(res, 'sitemap.xml', 'application/xml')) {
+        console.error('Sitemap not found via explicit route');
+        res.status(404).send('Sitemap not found')
+    }
   })
 
-  app.get('/robots.txt', (req, res) => {
-    const pathsToCheck = [
-      path.resolve(__dirname, 'dist/client/robots.txt'), // Production build
-      path.resolve(__dirname, 'public/robots.txt'),      // Source/Dev
-      path.resolve(__dirname, 'robots.txt')              // Root fallback
-    ]
-
-    for (const p of pathsToCheck) {
-      if (serveStaticFile(res, p, 'text/plain')) return
+  app.use('/robots.txt', (req, res) => {
+    if (!handleStaticSpecial(res, 'robots.txt', 'text/plain')) {
+        console.error('Robots.txt not found via explicit route');
+        res.status(404).send('Robots.txt not found')
     }
-
-    console.error('Robots.txt not found in paths:', pathsToCheck)
-    res.status(404).send('Robots.txt not found')
   })
 
   let vite
@@ -91,6 +89,22 @@ async function createServer() {
 
   app.use(async (req, res) => {
     const url = req.originalUrl
+
+    // Fail-safe: If sitemap.xml or robots.txt reach here, try to serve them statically again
+    // This prevents them from falling into the SSR logic which might redirect to 404
+    if (url.includes('/sitemap.xml') || url.includes('/robots.txt')) {
+        const isSitemap = url.includes('sitemap.xml');
+        const filename = isSitemap ? 'sitemap.xml' : 'robots.txt';
+        const contentType = isSitemap ? 'application/xml' : 'text/plain';
+
+        if (handleStaticSpecial(res, filename, contentType)) {
+            console.warn(`Fallback served ${filename} successfully`);
+            return;
+        }
+
+        // If still not found, send text 404, do not render App
+        return res.status(404).send(`${filename} not found`);
+    }
 
     try {
         let tryFile;
