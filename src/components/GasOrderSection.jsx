@@ -44,7 +44,9 @@ const GasOrderSection = ({ onCheckAvailability }) => {
 
         setIsChecking(false);
         if (onCheckAvailability) {
-            onCheckAvailability(plz, calculatedLiters);
+            // Pass the calculated liters AND the calculator state (tank + fill level)
+            // so the Wizard can be pre-populated correctly.
+            onCheckAvailability(plz, calculatedLiters, selectedTank, fillLevel);
         }
     };
 
