@@ -1,7 +1,7 @@
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, Component } from "react";
 import ReactDOMServer from "react-dom/server";
-import { TrendingUp, Clock, Phone, ArrowUpFromLine, ArrowDownToLine, ShieldCheck, BookOpen, ChevronDown, ArrowRight, X, Menu, BadgeCheck, Star, Calculator, Zap, Info, Flame, Droplets, Leaf, Trees, Check, ArrowLeft, Ruler, Weight, Download, Tractor, Factory, Truck, MapPin, CheckCircle, AlertCircle, User, Loader2, Coins, Heart, AlertTriangle, Settings, Home, Wrench, Lock, Unlock, ChevronRight, Send, Sparkles, RefreshCw, Building2, ChevronUp, Accessibility, Sun, Type, Link } from "lucide-react";
+import { TrendingUp, Clock, Phone, ArrowUpFromLine, ArrowDownToLine, ShieldCheck, BookOpen, ChevronDown, ArrowRight, X, Menu, BadgeCheck, Star, Calculator, Zap, Info, Flame, Droplets, Leaf, Trees, Check, ArrowLeft, Ruler, Weight, Download, Tractor, Factory, Truck, MapPin, CheckCircle, AlertCircle, Copy, User, Loader2, Coins, Heart, AlertTriangle, Settings, Home, Wrench, Lock, Unlock, ChevronRight, Send, Sparkles, RefreshCw, Building2, ChevronUp, Accessibility, Sun, Type, Link, RefreshCcw } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 const tankDetails = [
   {
@@ -1321,7 +1321,6 @@ const DeliveryMap = () => {
     { name: "Kiel", x: 360, y: 125, align: "start" },
     { name: "Schwerin", x: 480, y: 250, align: "start" },
     { name: "Lüneburg", x: 380, y: 285, align: "start" },
-    { name: "Celle", x: 350, y: 355, align: "start" },
     { name: "Cuxhaven", x: 260, y: 175, align: "end" }
   ];
   const pathSH = `
@@ -1406,7 +1405,7 @@ const DeliveryMap = () => {
         ] }),
         /* @__PURE__ */ jsx("h2", { className: "text-4xl font-extrabold mb-6", children: "Zu Hause im Norden." }),
         /* @__PURE__ */ jsx("p", { className: "text-xl text-gray-400 mb-8 leading-relaxed", children: "Von der Nordsee bis zur Ostsee, von Hamburg bis zur dänischen Grenze. Wir liefern Energie dorthin, wo Sie sie brauchen." }),
-        /* @__PURE__ */ jsx("div", { className: "grid grid-cols-2 gap-4", children: ["Schleswig-Holstein", "Hamburg", "Niedersachsen (Nord)", "Mecklenburg"].map((region, i) => /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-3 p-3 rounded bg-white/5 border border-white/10", children: [
+        /* @__PURE__ */ jsx("div", { className: "grid grid-cols-2 gap-4", children: ["Schleswig-Holstein", "Hamburg", "Niedersachsen (auf Anfrage)", "Mecklenburg"].map((region, i) => /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-3 p-3 rounded bg-white/5 border border-white/10", children: [
           /* @__PURE__ */ jsx(CheckCircle, { size: 18, className: "text-gas-light" }),
           /* @__PURE__ */ jsx("span", { className: "font-medium text-sm", children: region })
         ] }, i)) })
@@ -1474,7 +1473,7 @@ const FAQ = () => {
   ] });
 };
 const validatePlz = (plz) => {
-  const regex = /^(1[7-9]\d{3}|2[0-5]\d{3}|27\d{3}|29[2-6]\d{2})$/;
+  const regex = /^(1[7-9]\d{3}|2[0-5]\d{3}|27\d{3})$/;
   return regex.test(plz);
 };
 const getPlzError = (plz) => {
@@ -1543,6 +1542,8 @@ const ContactSection = () => {
   const [honeypot, setHoneypot] = useState("");
   const [status, setStatus] = useState("idle");
   const [consent, setConsent] = useState(false);
+  const [copiedPhone, setCopiedPhone] = useState(false);
+  const [copiedMobile, setCopiedMobile] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -1561,6 +1562,16 @@ const ContactSection = () => {
       setPlzError(getPlzError(val));
     } else {
       setPlzError("");
+    }
+  };
+  const copyToClipboard = (text, type) => {
+    navigator.clipboard.writeText(text);
+    if (type === "phone") {
+      setCopiedPhone(true);
+      setTimeout(() => setCopiedPhone(false), 2e3);
+    } else {
+      setCopiedMobile(true);
+      setTimeout(() => setCopiedMobile(false), 2e3);
     }
   };
   const handleSubmit = async (e) => {
@@ -1599,19 +1610,47 @@ const ContactSection = () => {
       /* @__PURE__ */ jsx("h2", { className: "text-3xl font-extrabold mb-6", children: "Noch Fragen?" }),
       /* @__PURE__ */ jsx("p", { className: "text-gas-light mb-10 text-lg", children: "Unser Team ist für Sie da. Persönlich und kompetent." }),
       /* @__PURE__ */ jsxs("div", { className: "flex flex-col md:flex-row justify-center gap-6 mb-12", children: [
-        /* @__PURE__ */ jsxs("a", { href: "tel:04551897089", className: "flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 px-6 py-4 rounded-xl transition-all border border-white/10", children: [
-          /* @__PURE__ */ jsx(Phone, { className: "text-gas-light" }),
-          /* @__PURE__ */ jsxs("div", { className: "text-left", children: [
-            /* @__PURE__ */ jsx("div", { className: "text-xs text-gray-400 uppercase font-bold tracking-wider", children: "Zentrale" }),
-            /* @__PURE__ */ jsx("div", { className: "font-bold text-lg", children: "04551 89 70 89" })
-          ] })
+        /* @__PURE__ */ jsxs("div", { className: "relative group", children: [
+          /* @__PURE__ */ jsxs("a", { href: "tel:04551897089", className: "flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 px-6 py-4 rounded-xl transition-all border border-white/10", children: [
+            /* @__PURE__ */ jsx(Phone, { className: "text-gas-light" }),
+            /* @__PURE__ */ jsxs("div", { className: "text-left", children: [
+              /* @__PURE__ */ jsx("div", { className: "text-xs text-gray-400 uppercase font-bold tracking-wider", children: "Zentrale" }),
+              /* @__PURE__ */ jsx("div", { className: "font-bold text-lg", children: "04551 89 70 89" })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsx(
+            "button",
+            {
+              onClick: (e) => {
+                e.preventDefault();
+                copyToClipboard("04551897089", "phone");
+              },
+              className: "absolute -top-3 -right-3 p-2 bg-white text-gas rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity",
+              "aria-label": "Nummer kopieren",
+              children: copiedPhone ? /* @__PURE__ */ jsx(Check, { size: 14 }) : /* @__PURE__ */ jsx(Copy, { size: 14 })
+            }
+          )
         ] }),
-        /* @__PURE__ */ jsxs("a", { href: "tel:+491709270078", className: "flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 px-6 py-4 rounded-xl transition-all border border-white/10", children: [
-          /* @__PURE__ */ jsx(User, { className: "text-gas-light" }),
-          /* @__PURE__ */ jsxs("div", { className: "text-left", children: [
-            /* @__PURE__ */ jsx("div", { className: "text-xs text-gray-400 uppercase font-bold tracking-wider", children: "Thomas Möller / Notfall" }),
-            /* @__PURE__ */ jsx("div", { className: "font-bold text-lg", children: "+49 170 927 00 78" })
-          ] })
+        /* @__PURE__ */ jsxs("div", { className: "relative group", children: [
+          /* @__PURE__ */ jsxs("a", { href: "tel:+4917641684326", className: "flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 px-6 py-4 rounded-xl transition-all border border-white/10", children: [
+            /* @__PURE__ */ jsx(User, { className: "text-gas-light" }),
+            /* @__PURE__ */ jsxs("div", { className: "text-left", children: [
+              /* @__PURE__ */ jsx("div", { className: "text-xs text-gray-400 uppercase font-bold tracking-wider", children: "Thomas Möller / Notfall" }),
+              /* @__PURE__ */ jsx("div", { className: "font-bold text-lg", children: "+49 176 416 84 326" })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsx(
+            "button",
+            {
+              onClick: (e) => {
+                e.preventDefault();
+                copyToClipboard("+4917641684326", "mobile");
+              },
+              className: "absolute -top-3 -right-3 p-2 bg-white text-gas rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity",
+              "aria-label": "Nummer kopieren",
+              children: copiedMobile ? /* @__PURE__ */ jsx(Check, { size: 14 }) : /* @__PURE__ */ jsx(Copy, { size: 14 })
+            }
+          )
         ] })
       ] }),
       /* @__PURE__ */ jsx("div", { className: "bg-white rounded-2xl p-8 md:p-12 shadow-2xl text-left max-w-2xl mx-auto text-text transform hover:-translate-y-1 transition-transform duration-500", children: status === "success" ? /* @__PURE__ */ jsxs("div", { className: "text-center py-12", children: [
@@ -1754,11 +1793,19 @@ const ContactSection = () => {
   ] });
 };
 const GasOrderSection = ({ onCheckAvailability }) => {
-  const [liters, setLiters] = useState(3e3);
+  const tankSizes = [
+    { id: "1.2t", label: "1,2 t", volume: 2700 },
+    { id: "2.1t", label: "2,1 t", volume: 4850 },
+    { id: "2.9t", label: "2,9 t", volume: 6400 }
+  ];
+  const [selectedTank, setSelectedTank] = useState(tankSizes[0]);
+  const [fillLevel, setFillLevel] = useState(30);
   const [plz, setPlz] = useState("");
   const [plzError, setPlzError] = useState("");
   const [isChecking, setIsChecking] = useState(false);
-  const [consent, setConsent] = useState(false);
+  selectedTank.volume * 0.85;
+  selectedTank.volume * (fillLevel / 100);
+  const calculatedLiters = Math.max(0, Math.round(selectedTank.volume * ((85 - fillLevel) / 100)));
   const handleCheck = async () => {
     const error = getPlzError(plz);
     if (error) {
@@ -1770,7 +1817,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
     await new Promise((resolve) => setTimeout(resolve, 600));
     setIsChecking(false);
     if (onCheckAvailability) {
-      onCheckAvailability(plz, liters);
+      onCheckAvailability(plz, calculatedLiters);
     }
   };
   return /* @__PURE__ */ jsxs("div", { id: "gas", className: "bg-white", children: [
@@ -1817,31 +1864,49 @@ const GasOrderSection = ({ onCheckAvailability }) => {
               /* @__PURE__ */ jsx("div", { className: "absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gas-light to-blue-500" }),
               /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-white mb-2", children: "Liefergebiet prüfen" }),
               /* @__PURE__ */ jsx("p", { className: "text-gray-300 text-sm mb-8", children: "Erhalten Sie jetzt Ihr unverbindliches Angebot." }),
-              /* @__PURE__ */ jsxs("div", { className: "space-y-8", children: [
+              /* @__PURE__ */ jsxs("div", { className: "space-y-6", children: [
+                /* @__PURE__ */ jsxs("div", { children: [
+                  /* @__PURE__ */ jsx("label", { className: "block text-white font-medium mb-3", children: "Tankgröße" }),
+                  /* @__PURE__ */ jsx("div", { className: "grid grid-cols-3 gap-3", children: tankSizes.map((tank) => /* @__PURE__ */ jsx(
+                    "button",
+                    {
+                      onClick: () => setSelectedTank(tank),
+                      className: `py-2 px-3 rounded-lg text-sm font-bold transition-all ${selectedTank.id === tank.id ? "bg-gas-light text-gas-dark shadow-lg ring-2 ring-white/20" : "bg-white/10 text-gray-300 hover:bg-white/20"}`,
+                      children: tank.label
+                    },
+                    tank.id
+                  )) })
+                ] }),
                 /* @__PURE__ */ jsxs("div", { children: [
                   /* @__PURE__ */ jsxs("div", { className: "flex justify-between text-white font-medium mb-4", children: [
-                    /* @__PURE__ */ jsx("label", { children: "Benötigte Menge" }),
+                    /* @__PURE__ */ jsx("label", { children: "Aktueller Füllstand" }),
                     /* @__PURE__ */ jsxs("span", { className: "text-2xl font-bold text-gas-light", children: [
-                      liters.toLocaleString(),
-                      " ",
-                      /* @__PURE__ */ jsx("span", { className: "text-sm font-normal text-white", children: "Liter" })
+                      fillLevel,
+                      "%"
                     ] })
                   ] }),
                   /* @__PURE__ */ jsx(
                     "input",
                     {
                       type: "range",
-                      min: "1000",
-                      max: "6000",
-                      step: "100",
-                      value: liters,
-                      onChange: (e) => setLiters(parseInt(e.target.value)),
+                      min: "0",
+                      max: "85",
+                      step: "1",
+                      value: fillLevel,
+                      onChange: (e) => setFillLevel(parseInt(e.target.value)),
                       className: "w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer accent-gas-light hover:accent-white transition-all"
                     }
                   ),
                   /* @__PURE__ */ jsxs("div", { className: "flex justify-between text-xs text-gray-400 mt-2 font-medium", children: [
-                    /* @__PURE__ */ jsx("span", { children: "1.000 L" }),
-                    /* @__PURE__ */ jsx("span", { children: "6.000 L" })
+                    /* @__PURE__ */ jsx("span", { children: "0%" }),
+                    /* @__PURE__ */ jsx("span", { children: "85%" })
+                  ] }),
+                  /* @__PURE__ */ jsxs("div", { className: "mt-3 text-right text-sm text-gray-300", children: [
+                    "Voraussichtliche Liefermenge: ",
+                    /* @__PURE__ */ jsxs("strong", { className: "text-white", children: [
+                      calculatedLiters.toLocaleString(),
+                      " Liter"
+                    ] })
                   ] })
                 ] }),
                 /* @__PURE__ */ jsxs("div", { className: "relative", children: [
@@ -2785,7 +2850,7 @@ const TeamSection = () => /* @__PURE__ */ jsxs("div", { className: "py-24 bg-whi
   ] }),
   /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center", children: [
     { name: "Anja Möller", role: "Gründerin & Inhaberin", img: "/images/team/anja.jpg" },
-    { name: "Thomas Möller", role: "Geschäftsführung & Sachkundiger", img: "/images/team/thomas-moeller-lkw.webp", phone: "+49 170 927 00 78" },
+    { name: "Thomas Möller", role: "Geschäftsführung & Sachkundiger", img: "/images/team/thomas-moeller-lkw.webp", phone: "+49 176 416 84 326" },
     { name: "Hans Christian Möller", role: "Logistik & Büro", img: "/images/team/hans.jpg", phone: "+49 1525 1771994" }
   ].map((member, i) => /* @__PURE__ */ jsxs("div", { className: "group relative overflow-hidden rounded-2xl aspect-[3/4] shadow-lg bg-gray-200 w-full max-w-sm", children: [
     /* @__PURE__ */ jsx(
@@ -4019,10 +4084,13 @@ const App = ({ path, context }) => {
       const slug = activeSection.split("/")[1];
       return /* @__PURE__ */ jsx(TankDetail, { slug, onBack: () => changeSection("tanks"), openWizard });
     }
-    const validSections = ["start", "tanks", "gas", "rechner", "gewerbe", "wissen", "ueber-uns", "kontakt", "pruefungen", "barrierefreiheit"];
+    const validSections = ["start", "tanks", "gas", "rechner", "gewerbe", "wissen", "ueber-uns", "kontakt", "pruefungen", "barrierefreiheit", "404"];
     if (!validSections.includes(activeSection)) {
       if (context) {
-        context.status = 404;
+        context.url = "/404";
+        context.status = 302;
+      } else if (typeof window !== "undefined") {
+        changeSection("404");
       }
       return /* @__PURE__ */ jsxs(Fragment, { children: [
         /* @__PURE__ */ jsx("div", { className: "pt-20" }),
@@ -4031,6 +4099,13 @@ const App = ({ path, context }) => {
       ] });
     }
     switch (activeSection) {
+      case "404":
+        if (context) context.status = 404;
+        return /* @__PURE__ */ jsxs(Fragment, { children: [
+          /* @__PURE__ */ jsx("div", { className: "pt-20" }),
+          /* @__PURE__ */ jsx(NotFound, { onGoHome: changeSection }),
+          /* @__PURE__ */ jsx(ContactSection, {})
+        ] });
       case "start":
         return /* @__PURE__ */ jsxs(Fragment, { children: [
           /* @__PURE__ */ jsx(Hero, { openWizard, setActiveSection: changeSection }),
@@ -4122,44 +4197,33 @@ const App = ({ path, context }) => {
     /* @__PURE__ */ jsx(ScrollToTop, {})
   ] });
 };
-class ErrorBoundary extends React.Component {
+class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false, error: null };
+    this.state = { hasError: false, error: null, errorInfo: null };
   }
   static getDerivedStateFromError(error) {
     return { hasError: true, error };
   }
   componentDidCatch(error, errorInfo) {
-    console.error("Uncaught error:", error, errorInfo);
+    console.error("ErrorBoundary caught an error", error, errorInfo);
+    this.setState({ errorInfo });
   }
   render() {
     if (this.state.hasError) {
-      return /* @__PURE__ */ jsx("div", { className: "min-h-screen flex flex-col items-center justify-center p-6 bg-gray-50 text-center", children: /* @__PURE__ */ jsxs("div", { className: "bg-white p-8 rounded-2xl shadow-xl max-w-md w-full border border-gray-100", children: [
-        /* @__PURE__ */ jsx("div", { className: "w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6", children: /* @__PURE__ */ jsx(AlertTriangle, { size: 32, className: "text-red-500" }) }),
-        /* @__PURE__ */ jsx("h1", { className: "text-2xl font-bold text-gray-900 mb-2", children: "Da ist etwas schiefgelaufen" }),
-        /* @__PURE__ */ jsx("p", { className: "text-gray-600 mb-6", children: "Ein unerwarteter Fehler ist aufgetreten. Wir wurden benachrichtigt. Bitte laden Sie die Seite neu." }),
-        /* @__PURE__ */ jsxs("div", { className: "space-y-3", children: [
-          /* @__PURE__ */ jsx(
-            "button",
-            {
-              onClick: () => window.location.reload(),
-              className: "w-full bg-gas text-white px-6 py-3 rounded-xl font-bold hover:bg-gas-dark transition-colors",
-              children: "Seite neu laden"
-            }
-          ),
-          /* @__PURE__ */ jsxs(
-            "button",
-            {
-              onClick: () => window.location.href = "/",
-              className: "w-full bg-white text-gray-700 border border-gray-200 px-6 py-3 rounded-xl font-bold hover:bg-gray-50 transition-colors flex items-center justify-center gap-2",
-              children: [
-                /* @__PURE__ */ jsx(Home, { size: 18 }),
-                "Zur Startseite"
-              ]
-            }
-          )
-        ] })
+      return /* @__PURE__ */ jsx("div", { className: "min-h-screen flex items-center justify-center bg-gray-50 px-4", children: /* @__PURE__ */ jsxs("div", { className: "max-w-md w-full text-center space-y-6 bg-white p-8 rounded-2xl shadow-xl", children: [
+        /* @__PURE__ */ jsx("div", { className: "w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto", children: /* @__PURE__ */ jsx(RefreshCcw, { className: "w-8 h-8 text-red-600" }) }),
+        /* @__PURE__ */ jsx("h1", { className: "text-2xl font-bold text-gray-900", children: "Ups, da ist etwas schiefgelaufen." }),
+        /* @__PURE__ */ jsx("p", { className: "text-gray-600", children: "Ein unerwarteter Fehler ist aufgetreten. Bitte laden Sie die Seite neu." }),
+        /* @__PURE__ */ jsx("div", { className: "bg-gray-100 p-4 rounded text-left overflow-auto max-h-32 text-xs text-gray-500 font-mono", children: this.state.error && this.state.error.toString() }),
+        /* @__PURE__ */ jsx(
+          "button",
+          {
+            onClick: () => window.location.reload(),
+            className: "w-full bg-gas text-white px-6 py-3 rounded-xl font-semibold hover:bg-gas-dark transition-colors",
+            children: "Seite neu laden"
+          }
+        )
       ] }) });
     }
     return this.props.children;
