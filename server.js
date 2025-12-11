@@ -34,6 +34,30 @@ async function createServer() {
     app.use(vite.middlewares)
   } else {
     app.use(compression())
+
+    // Explicitly serve sitemap.xml and robots.txt
+    app.get('/sitemap.xml', (req, res) => {
+      const sitemapPath = path.resolve(__dirname, 'dist/client/sitemap.xml')
+      if (fs.existsSync(sitemapPath)) {
+        res.setHeader('Content-Type', 'application/xml')
+        res.sendFile(sitemapPath)
+      } else {
+        console.error(`Sitemap not found at ${sitemapPath}`)
+        res.status(404).send('Sitemap not found')
+      }
+    })
+
+    app.get('/robots.txt', (req, res) => {
+      const robotsPath = path.resolve(__dirname, 'dist/client/robots.txt')
+      if (fs.existsSync(robotsPath)) {
+        res.setHeader('Content-Type', 'text/plain')
+        res.sendFile(robotsPath)
+      } else {
+        console.error(`Robots.txt not found at ${robotsPath}`)
+        res.status(404).send('Robots.txt not found')
+      }
+    })
+
     app.use(
       '/',
       express.static(path.resolve(__dirname, 'dist/client'), {
