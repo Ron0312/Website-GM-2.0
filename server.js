@@ -24,45 +24,45 @@ async function createServer() {
     next();
   });
 
-  // Helper to serve static files if they exist
-  const serveStaticFile = (res, filePath, contentType) => {
-    if (fs.existsSync(filePath)) {
-      res.setHeader('Content-Type', contentType)
-      res.sendFile(filePath)
-      return true
-    }
-    return false
-  }
+  // Robust Static File Serving for Critical SEO Files
+  // serves sitemap.xml and robots.txt from multiple possible locations
+  const serveCriticalStatic = (res, filename, contentType) => {
+    const roots = [process.cwd(), __dirname];
+    const subdirs = ['dist/client', 'public', '']; // '' = root
 
-  // Explicitly serve sitemap.xml and robots.txt globally (Dev & Prod)
-  // Used by both explicit routes and the fail-safe fallback
-  const handleStaticSpecial = (res, filename, contentType) => {
-    const pathsToCheck = [
-      path.resolve(__dirname, 'dist/client', filename), // Production build
-      path.resolve(__dirname, 'public', filename),      // Source/Dev
-      path.resolve(__dirname, filename)                 // Root fallback
-    ]
-
-    for (const p of pathsToCheck) {
-      if (serveStaticFile(res, p, contentType)) return true
+    for (const root of roots) {
+        for (const subdir of subdirs) {
+            const filePath = path.resolve(root, subdir, filename);
+            if (fs.existsSync(filePath)) {
+                try {
+                    const content = fs.readFileSync(filePath, 'utf-8');
+                    res.setHeader('Content-Type', contentType);
+                    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+                    res.status(200).send(content);
+                    console.log(`Served ${filename} from ${filePath}`);
+                    return true;
+                } catch (err) {
+                    console.error(`Error reading ${filePath}:`, err);
+                }
+            }
+        }
     }
-    return false
-  }
+    return false;
+  };
 
-  // Use app.use to capture all methods (GET, HEAD) and potential path variations
-  app.use('/sitemap.xml', (req, res) => {
-    if (!handleStaticSpecial(res, 'sitemap.xml', 'application/xml')) {
-        console.error('Sitemap not found via explicit route');
-        res.status(404).send('Sitemap not found')
+  app.get('/sitemap.xml', (req, res) => {
+    if (!serveCriticalStatic(res, 'sitemap.xml', 'application/xml')) {
+        console.error('CRITICAL: sitemap.xml not found in any expected location.');
+        res.status(404).send('Sitemap not found');
     }
-  })
+  });
 
-  app.use('/robots.txt', (req, res) => {
-    if (!handleStaticSpecial(res, 'robots.txt', 'text/plain')) {
-        console.error('Robots.txt not found via explicit route');
-        res.status(404).send('Robots.txt not found')
+  app.get('/robots.txt', (req, res) => {
+    if (!serveCriticalStatic(res, 'robots.txt', 'text/plain')) {
+        console.error('CRITICAL: robots.txt not found in any expected location.');
+        res.status(404).send('Robots.txt not found');
     }
-  })
+  });
 
   let vite
   if (!isProd) {
@@ -89,22 +89,6 @@ async function createServer() {
 
   app.use(async (req, res) => {
     const url = req.originalUrl
-
-    // Fail-safe: If sitemap.xml or robots.txt reach here, try to serve them statically again
-    // This prevents them from falling into the SSR logic which might redirect to 404
-    if (url.includes('/sitemap.xml') || url.includes('/robots.txt')) {
-        const isSitemap = url.includes('sitemap.xml');
-        const filename = isSitemap ? 'sitemap.xml' : 'robots.txt';
-        const contentType = isSitemap ? 'application/xml' : 'text/plain';
-
-        if (handleStaticSpecial(res, filename, contentType)) {
-            console.warn(`Fallback served ${filename} successfully`);
-            return;
-        }
-
-        // If still not found, send text 404, do not render App
-        return res.status(404).send(`${filename} not found`);
-    }
 
     try {
         let tryFile;
