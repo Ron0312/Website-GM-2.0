@@ -49,9 +49,18 @@ async function createServer() {
     const url = req.originalUrl
 
     try {
-        let tryFile = url === '/' ? 'index.html' : (url.endsWith('/') ? url + 'index.html' : url + '.html');
-        // Handle tank slugs /tanks/slug -> /tanks/slug.html
-        if (!tryFile.endsWith('.html') && !tryFile.includes('.')) tryFile += '.html';
+        let tryFile;
+        if (url === '/') {
+            tryFile = 'index.html';
+        } else if (url.endsWith('/')) {
+            tryFile = url + 'index.html';
+        } else if (path.extname(url)) {
+            // It has an extension (e.g. sitemap.xml, robots.txt), keep it
+            tryFile = url;
+        } else {
+            // It's a route (e.g. /gas), append .html
+            tryFile = url + '.html';
+        }
 
         if (isProd) {
             const possibleStaticPath = path.join(__dirname, 'dist/client', tryFile.replace(/^\//, ''));
