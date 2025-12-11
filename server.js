@@ -100,7 +100,6 @@ async function createServer() {
         const contentType = isSitemap ? 'application/xml' : 'text/plain';
 
         if (serveCriticalStatic(res, filename, contentType)) {
-            console.warn(`Fallback served ${filename} successfully`);
             return;
         }
 
