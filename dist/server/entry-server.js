@@ -1817,7 +1817,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
     await new Promise((resolve) => setTimeout(resolve, 600));
     setIsChecking(false);
     if (onCheckAvailability) {
-      onCheckAvailability(plz, calculatedLiters);
+      onCheckAvailability(plz, calculatedLiters, selectedTank, fillLevel);
     }
   };
   return /* @__PURE__ */ jsxs("div", { id: "gas", className: "bg-white", children: [
@@ -3061,6 +3061,13 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
   const [installationType, setInstallationType] = useState("");
   const [details, setDetails] = useState({});
   const [contact, setContact] = useState({ name: "", street: "", city: "", email: "", phone: "", number: "", honeypot: "" });
+  const tankSizes = [
+    { id: "1.2t", label: "1,2 t", volume: 2700 },
+    { id: "2.1t", label: "2,1 t", volume: 4850 },
+    { id: "2.9t", label: "2,9 t", volume: 6400 }
+  ];
+  const [calcTank, setCalcTank] = useState(tankSizes[0]);
+  const [calcFillLevel, setCalcFillLevel] = useState(30);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   useEffect(() => {
@@ -3074,7 +3081,17 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
       setContact({ name: "", street: "", city: "", email: "", phone: "", number: "", honeypot: "" });
       if (initialData) {
         if (initialData.plz) setPlz(initialData.plz);
-        if (initialData.liters) {
+        if (initialData.selectedTank && initialData.fillLevel !== void 0) {
+          setCalcTank(initialData.selectedTank);
+          setCalcFillLevel(initialData.fillLevel);
+          const calculated = Math.max(0, Math.round(initialData.selectedTank.volume * ((85 - initialData.fillLevel) / 100)));
+          setDetails((prev) => ({
+            ...prev,
+            tankSizeGas: initialData.selectedTank.label,
+            amount: calculated.toString(),
+            fillUp: false
+          }));
+        } else if (initialData.liters) {
           setDetails((prev) => ({
             ...prev,
             amount: initialData.liters.toString(),
@@ -3352,43 +3369,68 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
                       ] })
                     ] }),
                     /* @__PURE__ */ jsxs("div", { className: "bg-gray-50 p-6 rounded-2xl border border-gray-100", children: [
-                      /* @__PURE__ */ jsxs("div", { className: "mb-4", children: [
-                        /* @__PURE__ */ jsx("label", { className: "text-sm font-bold text-gray-700 mb-2 block", children: "Tankgröße (falls bekannt)" }),
-                        /* @__PURE__ */ jsx(
-                          ModernInput,
+                      /* @__PURE__ */ jsxs("div", { className: "mb-6", children: [
+                        /* @__PURE__ */ jsx("label", { className: "text-sm font-bold text-gray-700 mb-3 block", children: "Tankgröße" }),
+                        /* @__PURE__ */ jsx("div", { className: "grid grid-cols-3 gap-3", children: tankSizes.map((t) => /* @__PURE__ */ jsx(
+                          "button",
                           {
-                            type: "text",
-                            name: "tankSizeGas",
-                            autoComplete: "off",
-                            className: "mb-0 bg-white",
-                            placeholder: "z.B. 1,2t oder 2700 Liter",
-                            value: details.tankSizeGas || "",
-                            onChange: (e) => setDetails({ ...details, tankSizeGas: e.target.value })
-                          }
-                        )
+                            type: "button",
+                            onClick: () => {
+                              setCalcTank(t);
+                              const newAmount = Math.max(0, Math.round(t.volume * ((85 - calcFillLevel) / 100)));
+                              setDetails((prev) => ({ ...prev, tankSizeGas: t.label, amount: newAmount.toString() }));
+                            },
+                            className: `py-2 px-2 rounded-lg text-sm font-bold transition-all border-2 ${calcTank.id === t.id ? "bg-gas text-white border-gas shadow-md" : "bg-white text-gray-600 border-gray-200 hover:border-gas-light"}`,
+                            children: t.label
+                          },
+                          t.id
+                        )) })
                       ] }),
-                      /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center mb-4", children: [
-                        /* @__PURE__ */ jsx("label", { className: "text-sm font-bold text-gray-700", children: "Wunschmenge" }),
-                        /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-2", children: [
-                          /* @__PURE__ */ jsx("input", { type: "checkbox", id: "fillUp", className: "w-4 h-4 accent-gas rounded", onChange: (e) => setDetails({ ...details, fillUp: e.target.checked }) }),
-                          /* @__PURE__ */ jsx("label", { htmlFor: "fillUp", className: "text-sm text-gray-600 font-medium cursor-pointer", children: "Bitte vollmachen" })
-                        ] })
-                      ] }),
-                      /* @__PURE__ */ jsxs("div", { className: `relative transition-opacity ${details.fillUp ? "opacity-50 pointer-events-none" : "opacity-100"}`, children: [
+                      /* @__PURE__ */ jsxs("div", { className: "mb-6", children: [
+                        /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-end mb-2", children: [
+                          /* @__PURE__ */ jsx("label", { className: "text-sm font-bold text-gray-700", children: "Aktueller Füllstand" }),
+                          /* @__PURE__ */ jsxs("span", { className: "text-xl font-bold text-gas", children: [
+                            calcFillLevel,
+                            "%"
+                          ] })
+                        ] }),
                         /* @__PURE__ */ jsx(
-                          ModernInput,
+                          "input",
                           {
-                            type: "number",
-                            name: "amount",
-                            inputMode: "numeric",
-                            className: "mb-0",
-                            placeholder: "z.B. 2000",
-                            value: details.amount || "",
-                            onChange: (e) => setDetails({ ...details, amount: e.target.value })
+                            type: "range",
+                            min: "0",
+                            max: "85",
+                            step: "5",
+                            value: calcFillLevel,
+                            onChange: (e) => {
+                              const val = parseInt(e.target.value);
+                              setCalcFillLevel(val);
+                              const newAmount = Math.max(0, Math.round(calcTank.volume * ((85 - val) / 100)));
+                              setDetails((prev) => ({ ...prev, amount: newAmount.toString() }));
+                            },
+                            className: "w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-gas"
                           }
                         ),
-                        /* @__PURE__ */ jsx("span", { className: "absolute right-6 top-4 text-gray-400 font-bold", children: "Liter" })
-                      ] })
+                        /* @__PURE__ */ jsxs("div", { className: "flex justify-between text-xs text-gray-400 mt-2 font-medium", children: [
+                          /* @__PURE__ */ jsx("span", { children: "Leer (0%)" }),
+                          /* @__PURE__ */ jsx("span", { children: "Voll (85%)" })
+                        ] })
+                      ] }),
+                      /* @__PURE__ */ jsxs("div", { className: "bg-white p-4 rounded-xl border-2 border-gas-light/30 flex justify-between items-center", children: [
+                        /* @__PURE__ */ jsx("span", { className: "text-sm font-bold text-gray-600", children: "Benötigte Menge:" }),
+                        /* @__PURE__ */ jsxs("span", { className: "text-xl font-extrabold text-gas", children: [
+                          Math.max(0, Math.round(calcTank.volume * ((85 - calcFillLevel) / 100))).toLocaleString(),
+                          " Liter"
+                        ] })
+                      ] }),
+                      /* @__PURE__ */ jsx("div", { className: "hidden", children: /* @__PURE__ */ jsx(
+                        "input",
+                        {
+                          readOnly: true,
+                          value: Math.max(0, Math.round(calcTank.volume * ((85 - calcFillLevel) / 100))),
+                          name: "amount_calculated"
+                        }
+                      ) })
                     ] }),
                     /* @__PURE__ */ jsx("button", { type: "button", onClick: handleNext, className: "w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg shadow-gas/20 hover:bg-gas-dark transition-all mt-4", children: "Weiter zu Kontakt" })
                   ] })
@@ -4074,8 +4116,8 @@ const App = ({ path, context }) => {
     }
     metaDesc.content = seoInfo.description;
   }, [activeSection]);
-  const handleGasCheckAvailability = (plz, liters) => {
-    setWizardData({ plz, liters });
+  const handleGasCheckAvailability = (plz, liters, selectedTank, fillLevel) => {
+    setWizardData({ plz, liters, selectedTank, fillLevel });
     setWizardType("gas");
     setWizardOpen(true);
   };
