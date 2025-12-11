@@ -5,6 +5,7 @@ import { tankDetails } from '../src/data/tanks.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PUBLIC_PATH = path.resolve(__dirname, '../public');
+const ROOT_PATH = path.resolve(__dirname, '../');
 const SITE_URL = 'https://www.gasmoeller.de';
 
 const staticRoutes = [
@@ -41,16 +42,21 @@ function generateSitemap() {
   }).join('')}
 </urlset>`;
 
-  // Ensure dist/client exists (for post-build) or public (for dev/pre-build)
-  // We prefer writing to dist/client if it exists, otherwise public
-  // But usually sitemap should be in public so it gets copied, OR generated into dist after build.
-
-  // Let's write to public so it's there for dev and build copies it (if run before build)
-  // OR write to dist if run after build.
-  // The plan is to run it.
-
+  // Write to public folder (for Dev and Vite copy)
   fs.writeFileSync(path.join(PUBLIC_PATH, 'sitemap.xml'), sitemap);
   console.log('✅ Sitemap generated at public/sitemap.xml');
+
+  // Write to Root folder (for Production fallback and Nginx/Passenger serving)
+  fs.writeFileSync(path.join(ROOT_PATH, 'sitemap.xml'), sitemap);
+  console.log('✅ Sitemap copied to root/sitemap.xml');
+
+  // Also copy robots.txt to root if it exists
+  const robotsSrc = path.join(PUBLIC_PATH, 'robots.txt');
+  const robotsDest = path.join(ROOT_PATH, 'robots.txt');
+  if (fs.existsSync(robotsSrc)) {
+    fs.copyFileSync(robotsSrc, robotsDest);
+    console.log('✅ Robots.txt copied to root/robots.txt');
+  }
 }
 
 generateSitemap();
