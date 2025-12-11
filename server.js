@@ -12,18 +12,6 @@ async function createServer() {
 
   const isProd = process.env.NODE_ENV === 'production'
 
-  // Security Headers (Basic)
-  app.use((req, res, next) => {
-    res.setHeader('X-Content-Type-Options', 'nosniff');
-    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
-    res.setHeader('X-XSS-Protection', '1; mode=block');
-    // Permissions Policy
-    res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=()');
-    // Content Security Policy
-    res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://api.web3forms.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https://api.web3forms.com; connect-src 'self' https://api.web3forms.com; frame-src 'self' https://www.google.com https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com; upgrade-insecure-requests;");
-    next();
-  });
-
   // Helper to serve static files if they exist
   const serveStaticFile = (res, filePath, contentType) => {
     if (fs.existsSync(filePath)) {
@@ -35,36 +23,59 @@ async function createServer() {
   }
 
   // Explicitly serve sitemap.xml and robots.txt globally (Dev & Prod)
-  // This ensures they are served even if environment flags are mismatched or paths vary.
+  // Check multiple paths including __dirname and process.cwd() to be robust against deployment variations.
   app.get('/sitemap.xml', (req, res) => {
     const pathsToCheck = [
-      path.resolve(__dirname, 'dist/client/sitemap.xml'), // Production build
-      path.resolve(__dirname, 'public/sitemap.xml'),      // Source/Dev
-      path.resolve(__dirname, 'sitemap.xml')              // Root fallback
+      path.resolve(__dirname, 'dist/client/sitemap.xml'),
+      path.resolve(__dirname, 'public/sitemap.xml'),
+      path.resolve(__dirname, 'sitemap.xml'),
+      path.resolve(process.cwd(), 'dist/client/sitemap.xml'),
+      path.resolve(process.cwd(), 'public/sitemap.xml'),
+      path.resolve(process.cwd(), 'sitemap.xml')
     ]
 
-    for (const p of pathsToCheck) {
+    // Remove duplicates
+    const uniquePaths = [...new Set(pathsToCheck)];
+
+    for (const p of uniquePaths) {
       if (serveStaticFile(res, p, 'application/xml')) return
     }
 
-    console.error('Sitemap not found in paths:', pathsToCheck)
+    console.error('Sitemap not found. Checked paths:', uniquePaths)
     res.status(404).send('Sitemap not found')
   })
 
   app.get('/robots.txt', (req, res) => {
     const pathsToCheck = [
-      path.resolve(__dirname, 'dist/client/robots.txt'), // Production build
-      path.resolve(__dirname, 'public/robots.txt'),      // Source/Dev
-      path.resolve(__dirname, 'robots.txt')              // Root fallback
+      path.resolve(__dirname, 'dist/client/robots.txt'),
+      path.resolve(__dirname, 'public/robots.txt'),
+      path.resolve(__dirname, 'robots.txt'),
+      path.resolve(process.cwd(), 'dist/client/robots.txt'),
+      path.resolve(process.cwd(), 'public/robots.txt'),
+      path.resolve(process.cwd(), 'robots.txt')
     ]
 
-    for (const p of pathsToCheck) {
+    const uniquePaths = [...new Set(pathsToCheck)];
+
+    for (const p of uniquePaths) {
       if (serveStaticFile(res, p, 'text/plain')) return
     }
 
-    console.error('Robots.txt not found in paths:', pathsToCheck)
+    console.error('Robots.txt not found. Checked paths:', uniquePaths)
     res.status(404).send('Robots.txt not found')
   })
+
+  // Security Headers (Basic)
+  app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+    // Permissions Policy
+    res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=()');
+    // Content Security Policy
+    res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://api.web3forms.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https://api.web3forms.com; connect-src 'self' https://api.web3forms.com; frame-src 'self' https://www.google.com https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com; upgrade-insecure-requests;");
+    next();
+  });
 
   let vite
   if (!isProd) {
