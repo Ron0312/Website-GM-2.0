@@ -25,6 +25,15 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
     const [details, setDetails] = useState({});
     const [contact, setContact] = useState({ name: '', street: '', city: '', email: '', phone: '', number: '', honeypot: '' });
 
+    // Calculator State for Wizard
+    const tankSizes = [
+        { id: '1.2t', label: '1,2 t', volume: 2700 },
+        { id: '2.1t', label: '2,1 t', volume: 4850 },
+        { id: '2.9t', label: '2,9 t', volume: 6400 },
+    ];
+    const [calcTank, setCalcTank] = useState(tankSizes[0]);
+    const [calcFillLevel, setCalcFillLevel] = useState(30);
+
     const [submitting, setSubmitting] = useState(false);
     const [success, setSuccess] = useState(false);
 
@@ -40,7 +49,20 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
 
             if (initialData) {
                 if (initialData.plz) setPlz(initialData.plz);
-                if (initialData.liters) {
+
+                // Initialize calculator from landing page data if available
+                if (initialData.selectedTank && initialData.fillLevel !== undefined) {
+                    setCalcTank(initialData.selectedTank);
+                    setCalcFillLevel(initialData.fillLevel);
+                    // Also set details immediately
+                    const calculated = Math.max(0, Math.round(initialData.selectedTank.volume * ((85 - initialData.fillLevel) / 100)));
+                    setDetails(prev => ({
+                        ...prev,
+                        tankSizeGas: initialData.selectedTank.label,
+                        amount: calculated.toString(),
+                        fillUp: false
+                    }));
+                } else if (initialData.liters) {
                     setDetails(prev => ({
                         ...prev,
                         amount: initialData.liters.toString(),
@@ -327,36 +349,72 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                     </div>
 
                                                     <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-                                                        <div className="mb-4">
-                                                            <label className="text-sm font-bold text-gray-700 mb-2 block">Tankgröße (falls bekannt)</label>
-                                                            <ModernInput
-                                                                type="text"
-                                                                name="tankSizeGas"
-                                                                autoComplete="off"
-                                                                className="mb-0 bg-white"
-                                                                placeholder="z.B. 1,2t oder 2700 Liter"
-                                                                value={details.tankSizeGas || ''}
-                                                                onChange={(e) => setDetails({...details, tankSizeGas: e.target.value})}
-                                                            />
-                                                        </div>
-                                                        <div className="flex justify-between items-center mb-4">
-                                                            <label className="text-sm font-bold text-gray-700">Wunschmenge</label>
-                                                            <div className="flex items-center space-x-2">
-                                                                <input type="checkbox" id="fillUp" className="w-4 h-4 accent-gas rounded" onChange={(e) => setDetails({...details, fillUp: e.target.checked})} />
-                                                                <label htmlFor="fillUp" className="text-sm text-gray-600 font-medium cursor-pointer">Bitte vollmachen</label>
+                                                        {/* Calculator UI */}
+                                                        <div className="mb-6">
+                                                            <label className="text-sm font-bold text-gray-700 mb-3 block">Tankgröße</label>
+                                                            <div className="grid grid-cols-3 gap-3">
+                                                                {tankSizes.map((t) => (
+                                                                    <button
+                                                                        key={t.id}
+                                                                        type="button"
+                                                                        onClick={() => {
+                                                                            setCalcTank(t);
+                                                                            // Recalculate immediately
+                                                                            const newAmount = Math.max(0, Math.round(t.volume * ((85 - calcFillLevel) / 100)));
+                                                                            setDetails(prev => ({ ...prev, tankSizeGas: t.label, amount: newAmount.toString() }));
+                                                                        }}
+                                                                        className={`py-2 px-2 rounded-lg text-sm font-bold transition-all border-2 ${
+                                                                            calcTank.id === t.id
+                                                                                ? 'bg-gas text-white border-gas shadow-md'
+                                                                                : 'bg-white text-gray-600 border-gray-200 hover:border-gas-light'
+                                                                        }`}
+                                                                    >
+                                                                        {t.label}
+                                                                    </button>
+                                                                ))}
                                                             </div>
                                                         </div>
-                                                        <div className={`relative transition-opacity ${details.fillUp ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
-                                                            <ModernInput
-                                                                type="number"
-                                                                name="amount"
-                                                                inputMode="numeric"
-                                                                className="mb-0"
-                                                                placeholder="z.B. 2000"
-                                                                value={details.amount || ''}
-                                                                onChange={(e) => setDetails({...details, amount: e.target.value})}
+
+                                                        <div className="mb-6">
+                                                            <div className="flex justify-between items-end mb-2">
+                                                                <label className="text-sm font-bold text-gray-700">Aktueller Füllstand</label>
+                                                                <span className="text-xl font-bold text-gas">{calcFillLevel}%</span>
+                                                            </div>
+                                                            <input
+                                                                type="range"
+                                                                min="0"
+                                                                max="85"
+                                                                step="5"
+                                                                value={calcFillLevel}
+                                                                onChange={(e) => {
+                                                                    const val = parseInt(e.target.value);
+                                                                    setCalcFillLevel(val);
+                                                                    // Recalculate
+                                                                    const newAmount = Math.max(0, Math.round(calcTank.volume * ((85 - val) / 100)));
+                                                                    setDetails(prev => ({ ...prev, amount: newAmount.toString() }));
+                                                                }}
+                                                                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-gas"
                                                             />
-                                                            <span className="absolute right-6 top-4 text-gray-400 font-bold">Liter</span>
+                                                            <div className="flex justify-between text-xs text-gray-400 mt-2 font-medium">
+                                                                <span>Leer (0%)</span>
+                                                                <span>Voll (85%)</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="bg-white p-4 rounded-xl border-2 border-gas-light/30 flex justify-between items-center">
+                                                            <span className="text-sm font-bold text-gray-600">Benötigte Menge:</span>
+                                                            <span className="text-xl font-extrabold text-gas">
+                                                                {Math.max(0, Math.round(calcTank.volume * ((85 - calcFillLevel) / 100))).toLocaleString()} Liter
+                                                            </span>
+                                                        </div>
+
+                                                        {/* Hidden Inputs for Form Submission Data Persistence */}
+                                                        <div className="hidden">
+                                                             <input
+                                                                readOnly
+                                                                value={Math.max(0, Math.round(calcTank.volume * ((85 - calcFillLevel) / 100)))}
+                                                                name="amount_calculated"
+                                                             />
                                                         </div>
                                                     </div>
                                                     <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg shadow-gas/20 hover:bg-gas-dark transition-all mt-4">Weiter zu Kontakt</button>

@@ -112,8 +112,8 @@ const App = ({ path, context }) => {
 
     }, [activeSection]);
 
-    const handleGasCheckAvailability = (plz, liters) => {
-        setWizardData({ plz, liters });
+    const handleGasCheckAvailability = (plz, liters, selectedTank, fillLevel) => {
+        setWizardData({ plz, liters, selectedTank, fillLevel });
         setWizardType('gas');
         setWizardOpen(true);
     };
