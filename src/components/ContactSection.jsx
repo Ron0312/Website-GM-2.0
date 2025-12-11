@@ -112,15 +112,15 @@ const ContactSection = () => {
                     </div>
 
                     <div className="relative group">
-                        <a href="tel:+491709270078" className="flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 px-6 py-4 rounded-xl transition-all border border-white/10">
+                        <a href="tel:+4917641684326" className="flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 px-6 py-4 rounded-xl transition-all border border-white/10">
                             <User className="text-gas-light" />
                             <div className="text-left">
                                 <div className="text-xs text-gray-400 uppercase font-bold tracking-wider">Thomas Möller / Notfall</div>
-                                <div className="font-bold text-lg">+49 170 927 00 78</div>
+                                <div className="font-bold text-lg">+49 176 416 84 326</div>
                             </div>
                         </a>
                         <button
-                            onClick={(e) => { e.preventDefault(); copyToClipboard('+491709270078', 'mobile'); }}
+                            onClick={(e) => { e.preventDefault(); copyToClipboard('+4917641684326', 'mobile'); }}
                             className="absolute -top-3 -right-3 p-2 bg-white text-gas rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
                             aria-label="Nummer kopieren"
                         >

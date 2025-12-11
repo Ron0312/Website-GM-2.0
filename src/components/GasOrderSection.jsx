@@ -5,16 +5,29 @@ import DeliveryMap from './DeliveryMap';
 import { getPlzError } from '../utils/validation';
 
 const GasOrderSection = ({ onCheckAvailability }) => {
-    const [liters, setLiters] = useState(3000);
+    // Tank sizes: 1.2t = ~2700L, 2.1t = ~4850L, 2.9t = ~6400L
+    const tankSizes = [
+        { id: '1.2t', label: '1,2 t', volume: 2700 },
+        { id: '2.1t', label: '2,1 t', volume: 4850 },
+        { id: '2.9t', label: '2,9 t', volume: 6400 },
+    ];
+
+    const [selectedTank, setSelectedTank] = useState(tankSizes[0]);
+    const [fillLevel, setFillLevel] = useState(30);
     const [plz, setPlz] = useState('');
     const [plzError, setPlzError] = useState('');
     const [isChecking, setIsChecking] = useState(false);
-    const [consent, setConsent] = useState(false); // Used if we were submitting directly, but here we just check availability.
-    // The actual form is in WizardModal, but let's keep consistent if this form submits data.
-    // Here we just "Check Availability" which opens the wizard. The Wizard has the form.
-    // So no consent needed here for the "Check" button itself as it doesn't submit personal data yet.
-    // However, if we want to be super strict, we could add it, but it's UX friction for a calculator.
-    // The wizard will handle consent.
+
+    // Calculate required liters: (TankVolume * 0.85) * (1 - CurrentLevel/100)
+    // 85% is the maximum fill level.
+    const maxFill = selectedTank.volume * 0.85;
+    const currentVolume = selectedTank.volume * (fillLevel / 100);
+    // We want to fill up to 85%. So we need: maxFill - currentVolume.
+    // Wait, simpler: We can fill UP TO 85%.
+    // If current level is 30%, we can add 55% of the TOTAL volume.
+    // Or just: (85 - fillLevel) % of volume.
+    // If fillLevel > 85, required is 0 (or error). But let's assume valid range.
+    const calculatedLiters = Math.max(0, Math.round(selectedTank.volume * ((85 - fillLevel) / 100)));
 
     const handleCheck = async () => {
         const error = getPlzError(plz);
@@ -31,7 +44,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
 
         setIsChecking(false);
         if (onCheckAvailability) {
-            onCheckAvailability(plz, liters);
+            onCheckAvailability(plz, calculatedLiters);
         }
     };
 
@@ -91,25 +104,48 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                             <h2 className="text-2xl font-bold text-white mb-2">Liefergebiet prüfen</h2>
                             <p className="text-gray-300 text-sm mb-8">Erhalten Sie jetzt Ihr unverbindliches Angebot.</p>
 
-                            <div className="space-y-8">
-                                {/* Slider Input */}
+                            <div className="space-y-6">
+                                {/* Tank Size Selection */}
+                                <div>
+                                    <label className="block text-white font-medium mb-3">Tankgröße</label>
+                                    <div className="grid grid-cols-3 gap-3">
+                                        {tankSizes.map((tank) => (
+                                            <button
+                                                key={tank.id}
+                                                onClick={() => setSelectedTank(tank)}
+                                                className={`py-2 px-3 rounded-lg text-sm font-bold transition-all ${
+                                                    selectedTank.id === tank.id
+                                                        ? 'bg-gas-light text-gas-dark shadow-lg ring-2 ring-white/20'
+                                                        : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                                                }`}
+                                            >
+                                                {tank.label}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Fill Level Input */}
                                 <div>
                                     <div className="flex justify-between text-white font-medium mb-4">
-                                        <label>Benötigte Menge</label>
-                                        <span className="text-2xl font-bold text-gas-light">{liters.toLocaleString()} <span className="text-sm font-normal text-white">Liter</span></span>
+                                        <label>Aktueller Füllstand</label>
+                                        <span className="text-2xl font-bold text-gas-light">{fillLevel}%</span>
                                     </div>
                                     <input
                                         type="range"
-                                        min="1000"
-                                        max="6000"
-                                        step="100"
-                                        value={liters}
-                                        onChange={(e) => setLiters(parseInt(e.target.value))}
+                                        min="0"
+                                        max="85"
+                                        step="1"
+                                        value={fillLevel}
+                                        onChange={(e) => setFillLevel(parseInt(e.target.value))}
                                         className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer accent-gas-light hover:accent-white transition-all"
                                     />
                                     <div className="flex justify-between text-xs text-gray-400 mt-2 font-medium">
-                                        <span>1.000 L</span>
-                                        <span>6.000 L</span>
+                                        <span>0%</span>
+                                        <span>85%</span>
+                                    </div>
+                                    <div className="mt-3 text-right text-sm text-gray-300">
+                                        Voraussichtliche Liefermenge: <strong className="text-white">{calculatedLiters.toLocaleString()} Liter</strong>
                                     </div>
                                 </div>
 

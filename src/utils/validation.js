@@ -1,7 +1,8 @@
 export const validatePlz = (plz) => {
     // Validation for specific regions:
-    // 17-19 (MV), 20-22 (HH), 21-25 (SH/Niedersachsen mix), 27 (SH), 292-296 (Niedersachsen)
-    const regex = /^(1[7-9]\d{3}|2[0-5]\d{3}|27\d{3}|29[2-6]\d{2})$/;
+    // 17-19 (MV), 20-22 (HH), 21-25 (SH/Niedersachsen mix), 27 (SH)
+    // 292-296 (Niedersachsen) REMOVED as per customer request "Bis Celle ist zu weit".
+    const regex = /^(1[7-9]\d{3}|2[0-5]\d{3}|27\d{3})$/;
     return regex.test(plz);
 };
 

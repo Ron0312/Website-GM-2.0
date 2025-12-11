@@ -16,7 +16,6 @@ const DeliveryMap = () => {
         { name: 'Kiel', x: 360, y: 125, align: 'start' },
         { name: 'Schwerin', x: 480, y: 250, align: 'start' },
         { name: 'Lüneburg', x: 380, y: 285, align: 'start' },
-        { name: 'Celle', x: 350, y: 355, align: 'start' },
         { name: 'Cuxhaven', x: 260, y: 175, align: 'end' },
     ];
 
@@ -118,7 +117,7 @@ const DeliveryMap = () => {
                         Von der Nordsee bis zur Ostsee, von Hamburg bis zur dänischen Grenze. Wir liefern Energie dorthin, wo Sie sie brauchen.
                     </p>
                     <div className="grid grid-cols-2 gap-4">
-                        {['Schleswig-Holstein', 'Hamburg', 'Niedersachsen (Nord)', 'Mecklenburg'].map((region, i) => (
+                        {['Schleswig-Holstein', 'Hamburg', 'Niedersachsen (auf Anfrage)', 'Mecklenburg'].map((region, i) => (
                             <div key={i} className="flex items-center space-x-3 p-3 rounded bg-white/5 border border-white/10">
                                 <CheckCircle size={18} className="text-gas-light"/>
                                 <span className="font-medium text-sm">{region}</span>
