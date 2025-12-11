@@ -24,8 +24,39 @@ async function createServer() {
     next();
   });
 
-  // Bulletproof static file server for critical files (sitemap.xml, robots.txt)
-  const serveCriticalStatic = (res, filename, contentType) => {
+  // Dynamic Sitemap Generation (Fail-safe)
+  // Inlined slugs to ensure 100% independence from source files in production
+  const generateSitemapXml = () => {
+      const SITE_URL = 'https://www.gasmoeller.de';
+      const staticRoutes = [
+          '', 'tanks', 'gas', 'rechner', 'gewerbe',
+          'wissen', 'ueber-uns', 'kontakt', 'pruefungen', 'barrierefreiheit'
+      ];
+      // Hardcoded tank slugs to avoid dependency on src/data/tanks.js in production build
+      const tankSlugs = [
+        '1-2t-oberirdisch',
+        '2-1t-oberirdisch',
+        '2-9t-oberirdisch',
+        '1-2t-unterirdisch',
+        '2-1t-unterirdisch',
+        '2-9t-unterirdisch'
+      ];
+      const routes = [...staticRoutes];
+      tankSlugs.forEach(slug => routes.push(`tanks/${slug}`));
+
+      return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${routes.map(route => `  <url>
+    <loc>${SITE_URL}/${route}</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>${route === '' ? 'daily' : 'weekly'}</changefreq>
+    <priority>${route === '' ? '1.0' : '0.8'}</priority>
+  </url>`).join('\n')}
+</urlset>`;
+  };
+
+  // Helper to serve file or fallback to generator
+  const serveOrGenerate = (res, filename, contentType, generator) => {
     const pathsToCheck = [
       path.resolve(process.cwd(), filename),
       path.resolve(__dirname, filename),
@@ -36,10 +67,8 @@ async function createServer() {
     for (const filePath of pathsToCheck) {
       if (fs.existsSync(filePath)) {
         try {
-          // Read synchronously to ensure immediate response
           const content = fs.readFileSync(filePath)
           res.setHeader('Content-Type', contentType)
-          // Prevent caching to avoid stuck 302s/404s
           res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate')
           res.send(content)
           return true
@@ -48,20 +77,32 @@ async function createServer() {
         }
       }
     }
+
+    if (generator) {
+        try {
+            const content = generator();
+            res.setHeader('Content-Type', contentType);
+            res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+            res.send(content);
+            console.log(`Generated ${filename} dynamically.`);
+            return true;
+        } catch (e) {
+            console.error(`Error generating ${filename}:`, e);
+        }
+    }
     return false
   }
 
-  // Explicitly serve sitemap.xml and robots.txt globally (Dev & Prod)
-  app.use('/sitemap.xml', (req, res) => {
-    if (!serveCriticalStatic(res, 'sitemap.xml', 'application/xml')) {
-        console.error('Sitemap not found via explicit route');
+  // Explicitly serve sitemap.xml
+  app.get('/sitemap.xml', (req, res) => {
+    if (!serveOrGenerate(res, 'sitemap.xml', 'application/xml', generateSitemapXml)) {
         res.status(404).send('Sitemap not found')
     }
   })
 
-  app.use('/robots.txt', (req, res) => {
-    if (!serveCriticalStatic(res, 'robots.txt', 'text/plain')) {
-        console.error('Robots.txt not found via explicit route');
+  // Explicitly serve robots.txt
+  app.get('/robots.txt', (req, res) => {
+    if (!serveOrGenerate(res, 'robots.txt', 'text/plain', null)) {
         res.status(404).send('Robots.txt not found')
     }
   })
@@ -92,19 +133,9 @@ async function createServer() {
   app.use(async (req, res) => {
     const url = req.originalUrl
 
-    // Fail-safe: If sitemap.xml or robots.txt reach here, try to serve them statically again
-    // This prevents them from falling into the SSR logic which might redirect to 404
-    if (url.includes('/sitemap.xml') || url.includes('/robots.txt')) {
-        const isSitemap = url.includes('sitemap.xml');
-        const filename = isSitemap ? 'sitemap.xml' : 'robots.txt';
-        const contentType = isSitemap ? 'application/xml' : 'text/plain';
-
-        if (serveCriticalStatic(res, filename, contentType)) {
-            return;
-        }
-
-        // If still not found, send text 404, do not render App
-        return res.status(404).send(`${filename} not found`);
+    // Fail-safe fallback in case app.get missed it (unlikely with strict routing)
+    if (url === '/sitemap.xml') {
+         if (serveOrGenerate(res, 'sitemap.xml', 'application/xml', generateSitemapXml)) return;
     }
 
     try {
