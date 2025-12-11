@@ -24,6 +24,48 @@ async function createServer() {
     next();
   });
 
+  // Helper to serve static files if they exist
+  const serveStaticFile = (res, filePath, contentType) => {
+    if (fs.existsSync(filePath)) {
+      res.setHeader('Content-Type', contentType)
+      res.sendFile(filePath)
+      return true
+    }
+    return false
+  }
+
+  // Explicitly serve sitemap.xml and robots.txt globally (Dev & Prod)
+  // This ensures they are served even if environment flags are mismatched or paths vary.
+  app.get('/sitemap.xml', (req, res) => {
+    const pathsToCheck = [
+      path.resolve(__dirname, 'dist/client/sitemap.xml'), // Production build
+      path.resolve(__dirname, 'public/sitemap.xml'),      // Source/Dev
+      path.resolve(__dirname, 'sitemap.xml')              // Root fallback
+    ]
+
+    for (const p of pathsToCheck) {
+      if (serveStaticFile(res, p, 'application/xml')) return
+    }
+
+    console.error('Sitemap not found in paths:', pathsToCheck)
+    res.status(404).send('Sitemap not found')
+  })
+
+  app.get('/robots.txt', (req, res) => {
+    const pathsToCheck = [
+      path.resolve(__dirname, 'dist/client/robots.txt'), // Production build
+      path.resolve(__dirname, 'public/robots.txt'),      // Source/Dev
+      path.resolve(__dirname, 'robots.txt')              // Root fallback
+    ]
+
+    for (const p of pathsToCheck) {
+      if (serveStaticFile(res, p, 'text/plain')) return
+    }
+
+    console.error('Robots.txt not found in paths:', pathsToCheck)
+    res.status(404).send('Robots.txt not found')
+  })
+
   let vite
   if (!isProd) {
     const { createServer: createViteServer } = await import('vite')
@@ -35,29 +77,7 @@ async function createServer() {
   } else {
     app.use(compression())
 
-    // Explicitly serve sitemap.xml and robots.txt
-    app.get('/sitemap.xml', (req, res) => {
-      const sitemapPath = path.resolve(__dirname, 'dist/client/sitemap.xml')
-      if (fs.existsSync(sitemapPath)) {
-        res.setHeader('Content-Type', 'application/xml')
-        res.sendFile(sitemapPath)
-      } else {
-        console.error(`Sitemap not found at ${sitemapPath}`)
-        res.status(404).send('Sitemap not found')
-      }
-    })
-
-    app.get('/robots.txt', (req, res) => {
-      const robotsPath = path.resolve(__dirname, 'dist/client/robots.txt')
-      if (fs.existsSync(robotsPath)) {
-        res.setHeader('Content-Type', 'text/plain')
-        res.sendFile(robotsPath)
-      } else {
-        console.error(`Robots.txt not found at ${robotsPath}`)
-        res.status(404).send('Robots.txt not found')
-      }
-    })
-
+    // Static assets
     app.use(
       '/',
       express.static(path.resolve(__dirname, 'dist/client'), {
