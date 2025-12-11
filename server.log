@@ -2,7 +2,4 @@
 > gasmoeller-vite@0.0.0 dev
 > node server.js
 
-WebSocket server error: Port is already 9:36:55 AM [vite] hmr update /src/components/WizardModal.jsx, /src/index.css
-9:37:05 AM [vite] hmr update /src/components/GasOrderSection.jsx, /src/index.css
-9:37:18 AM [vite] hmr update /src/App.jsx, /src/index.css
-Terminated
+Server started at http://localhost:5173

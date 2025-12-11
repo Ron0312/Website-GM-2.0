@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Calculator, Flame, Droplets, Zap, Leaf, Trees, ChevronDown, ChevronUp, Info } from 'lucide-react';
+import { Calculator, ChevronDown, Info, Zap } from 'lucide-react';
 
 const FACTORS = {
     kwh: 1,
@@ -10,18 +9,18 @@ const FACTORS = {
     nat_gas_m3: 10.0,
     oil_l: 9.7,
     pellets_kg: 4.9,
-    wood_hard_rm: 2100, // Buche, Eiche, etc.
-    wood_soft_rm: 1500, // Fichte, Kiefer, etc.
+    wood_hard_rm: 2100, // Buche, Eiche, Esche, Robinie
+    wood_soft_rm: 1500, // Erle, Fichte, Linde
 };
 
-const CalculatorInput = ({ label, value, unit, onChange, icon: Icon, active, onFocus, onBlur }) => {
+const CalculatorInput = ({ label, value, unit, onChange, active, onFocus, onBlur, placeholder }) => {
     return (
         <div className="relative group">
-            <label className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block pl-1">{label}</label>
+            <label className="text-sm font-bold text-gray-700 mb-2 block">{label}</label>
             <div
                 className={`
-                    flex items-center bg-white p-3 rounded-xl border-2 transition-all duration-200
-                    ${active ? 'border-gas shadow-lg shadow-gas/10 scale-[1.02]' : 'border-gray-100 hover:border-gray-200'}
+                    flex items-center bg-white p-3 rounded-lg border transition-all duration-200
+                    ${active ? 'border-gas ring-4 ring-gas/10' : 'border-gray-300 hover:border-gray-400'}
                 `}
             >
                 <div className="flex-1 min-w-0">
@@ -32,14 +31,13 @@ const CalculatorInput = ({ label, value, unit, onChange, icon: Icon, active, onF
                         onChange={(e) => onChange(e.target.value)}
                         onFocus={onFocus}
                         onBlur={onBlur}
-                        className="w-full text-xl md:text-2xl font-bold text-gray-800 outline-none bg-transparent placeholder-gray-200 font-mono"
-                        placeholder="0"
+                        className="w-full text-lg text-gray-900 outline-none bg-transparent placeholder-gray-400 font-sans"
+                        placeholder={placeholder}
                         aria-label={`${label} in ${unit}`}
                     />
                 </div>
-                <div className="flex items-center gap-2 ml-2 pl-2 border-l border-gray-100">
-                    <span className="text-gray-400 font-medium text-sm whitespace-nowrap">{unit}</span>
-                    {Icon && <Icon size={18} className={`${active ? 'text-gas' : 'text-gray-300'}`} />}
+                <div className="flex items-center gap-2 ml-2 pl-3 border-l border-gray-200">
+                    <span className="text-gray-500 font-medium text-base whitespace-nowrap">{unit}</span>
                 </div>
             </div>
         </div>
@@ -89,12 +87,12 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
 
     return (
         <section
-            className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden my-8 md:my-12 transition-all"
+            className="bg-gray-50 rounded-3xl shadow-xl border border-gray-100 overflow-hidden my-8 md:my-12 transition-all"
             id="calculator"
             itemScope
             itemType="http://schema.org/SoftwareApplication"
         >
-            <meta itemProp="name" content="Energie-Vergleichsrechner" />
+            <meta itemProp="name" content="Profi-Energie-Rechner" />
             <meta itemProp="applicationCategory" content="UtilityApplication" />
             <meta itemProp="operatingSystem" content="Web Browser" />
 
@@ -112,11 +110,11 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
                 <div className="relative z-10 flex justify-between items-start md:items-center">
                     <div>
                         <div className="flex items-center gap-3 mb-2">
-                            <h2 className="text-2xl md:text-3xl font-bold">Energie-Rechner</h2>
+                            <h2 className="text-2xl md:text-3xl font-bold">Profi-Rechner</h2>
                             <span className="bg-white/20 text-xs px-2 py-0.5 rounded text-white/90 font-medium hidden md:inline-block">Interaktiv</span>
                         </div>
                         <p className="text-gas-light text-sm md:text-base max-w-lg pr-8">
-                            Vergleichen Sie Heizwerte von Flüssiggas, Öl, Holz & mehr.
+                            Berechnen und Vergleichen Sie präzise Energiewerte für Flüssiggas, Erdgas, Heizöl, Pellets und Holz.
                         </p>
                     </div>
 
@@ -128,127 +126,123 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
             </button>
 
             {/* Content Area */}
-            <div className={`${isExpanded ? 'block' : 'hidden'} bg-gray-50/50`} id="calculator-content">
-                <div className="p-6 md:p-8">
-                    {/* Main Input - Energy Basis */}
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-8">
-                        <div className="flex items-center gap-2 mb-4 text-gas-dark">
-                            <Zap size={20} className="text-yellow-500 fill-yellow-500" />
-                            <h3 className="font-bold text-lg">Basis-Energiebedarf</h3>
-                        </div>
-                        <CalculatorInput
-                            label="Energiegehalt in kWh"
-                            value={getValue('kwh')}
-                            unit="kWh"
-                            active={activeField === 'kwh'}
-                            onFocus={() => handleFocus('kwh', energyKwh)}
-                            onChange={handleChange}
-                            onBlur={() => setActiveField(null)}
-                        />
-                        <p className="text-xs text-gray-400 mt-2 flex items-center gap-1">
-                            <Info size={12} />
-                            Geben Sie hier einen Wert ein, um alle anderen Energieträger zu berechnen.
-                        </p>
+            <div className={`${isExpanded ? 'block' : 'hidden'} bg-white`} id="calculator-content">
+                <div className="p-6 md:p-8 space-y-8">
+
+                     {/* Basis / Hidden KWH */}
+                    <div className="hidden">
+                        <label>Basis kWh</label>
+                        <input value={energyKwh} readOnly />
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {/* Liquid Gas Group */}
-                        <div className="space-y-4">
-                            <h4 className="font-bold text-gray-800 flex items-center gap-2 border-b border-gray-200 pb-2">
-                                <div className="p-1.5 bg-blue-100 rounded-lg text-blue-600">
-                                    <Flame size={18} />
-                                </div>
-                                Flüssiggas
-                            </h4>
+                    {/* Row 1: LPG */}
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-end">
+                         <div className="md:col-span-3 md:col-start-2">
                             <CalculatorInput
-                                label="Gewicht"
+                                label="Gewicht Flüssiggas"
                                 value={getValue('lpg_kg')}
                                 unit="kg"
+                                placeholder="686,70"
                                 active={activeField === 'lpg_kg'}
                                 onFocus={() => handleFocus('lpg_kg', energyKwh / FACTORS.lpg_kg)}
                                 onChange={handleChange}
                                 onBlur={() => setActiveField(null)}
                             />
+                        </div>
+                        <div className="md:col-span-3">
                             <CalculatorInput
-                                label="Volumen (gasförmig)"
+                                label="Volumen Flüssiggas (gasförmig)"
                                 value={getValue('lpg_m3_gas')}
                                 unit="m³"
+                                placeholder="341,70"
                                 active={activeField === 'lpg_m3_gas'}
                                 onFocus={() => handleFocus('lpg_m3_gas', energyKwh / FACTORS.lpg_m3_gas)}
                                 onChange={handleChange}
                                 onBlur={() => setActiveField(null)}
                             />
+                        </div>
+                         <div className="md:col-span-3">
                             <CalculatorInput
-                                label="Volumen (flüssig)"
+                                label="Volumen Flüssiggas (flüssig)"
                                 value={getValue('lpg_l_liquid')}
                                 unit="l"
+                                placeholder="1351,08"
                                 active={activeField === 'lpg_l_liquid'}
                                 onFocus={() => handleFocus('lpg_l_liquid', energyKwh / FACTORS.lpg_l_liquid)}
                                 onChange={handleChange}
                                 onBlur={() => setActiveField(null)}
                             />
                         </div>
+                    </div>
 
-                        {/* Fossil Fuels */}
-                        <div className="space-y-4">
-                            <h4 className="font-bold text-gray-800 flex items-center gap-2 border-b border-gray-200 pb-2">
-                                <div className="p-1.5 bg-gray-200 rounded-lg text-gray-600">
-                                    <Droplets size={18} />
-                                </div>
-                                Fossile Brennstoffe
-                            </h4>
-                            <CalculatorInput
-                                label="Erdgas H"
+                    {/* Row 2: Nat Gas */}
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+                        <div className="md:col-span-3 md:col-start-2">
+                             <CalculatorInput
+                                label="Volumen Erdgas"
                                 value={getValue('nat_gas_m3')}
                                 unit="m³"
+                                placeholder="960"
                                 active={activeField === 'nat_gas_m3'}
                                 onFocus={() => handleFocus('nat_gas_m3', energyKwh / FACTORS.nat_gas_m3)}
                                 onChange={handleChange}
                                 onBlur={() => setActiveField(null)}
                             />
+                        </div>
+                    </div>
+
+                    {/* Row 3: Oil */}
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+                        <div className="md:col-span-3 md:col-start-2">
                             <CalculatorInput
-                                label="Heizöl EL"
+                                label="Volumen Heizöl"
                                 value={getValue('oil_l')}
                                 unit="l"
+                                placeholder="989,88"
                                 active={activeField === 'oil_l'}
                                 onFocus={() => handleFocus('oil_l', energyKwh / FACTORS.oil_l)}
                                 onChange={handleChange}
                                 onBlur={() => setActiveField(null)}
                             />
                         </div>
+                    </div>
 
-                        {/* Biomass */}
-                        <div className="space-y-4">
-                            <h4 className="font-bold text-gray-800 flex items-center gap-2 border-b border-gray-200 pb-2">
-                                <div className="p-1.5 bg-green-100 rounded-lg text-green-600">
-                                    <Leaf size={18} />
-                                </div>
-                                Biomasse & Holz
-                            </h4>
-                            <CalculatorInput
-                                label="Holzpellets"
+                    {/* Row 4: Pellets */}
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+                        <div className="md:col-span-3 md:col-start-2">
+                             <CalculatorInput
+                                label="Gewicht Pellets"
                                 value={getValue('pellets_kg')}
                                 unit="kg"
+                                placeholder="1959,18"
                                 active={activeField === 'pellets_kg'}
                                 onFocus={() => handleFocus('pellets_kg', energyKwh / FACTORS.pellets_kg)}
                                 onChange={handleChange}
                                 onBlur={() => setActiveField(null)}
                             />
-                            <CalculatorInput
-                                label="Hartholz (Buche/Eiche)"
+                        </div>
+                    </div>
+
+                    {/* Row 5: Wood */}
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+                         <div className="md:col-span-3 md:col-start-2">
+                             <CalculatorInput
+                                label="Volumen Holz (Buche, Eiche, Esche, Robinie)"
                                 value={getValue('wood_hard_rm')}
                                 unit="rm"
-                                icon={Trees}
+                                placeholder="4,57"
                                 active={activeField === 'wood_hard_rm'}
                                 onFocus={() => handleFocus('wood_hard_rm', energyKwh / FACTORS.wood_hard_rm)}
                                 onChange={handleChange}
                                 onBlur={() => setActiveField(null)}
                             />
-                            <CalculatorInput
-                                label="Weichholz (Fichte/Kiefer)"
+                        </div>
+                        <div className="md:col-span-3">
+                             <CalculatorInput
+                                label="Volumen Holz (Erle, Fichte, Linde)"
                                 value={getValue('wood_soft_rm')}
                                 unit="rm"
-                                icon={Trees}
+                                placeholder="6,40"
                                 active={activeField === 'wood_soft_rm'}
                                 onFocus={() => handleFocus('wood_soft_rm', energyKwh / FACTORS.wood_soft_rm)}
                                 onChange={handleChange}
@@ -257,17 +251,23 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
                         </div>
                     </div>
 
-                    <div className="mt-8 bg-blue-50/50 rounded-xl p-6 text-sm text-gray-500 border border-blue-100/50">
-                        <p className="font-bold mb-2 text-gas-dark flex items-center gap-2">
-                            <Info size={16} />
-                            Hinweise zur Berechnung:
-                        </p>
-                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2 list-disc list-inside">
-                            <li>1 Raummeter (rm) Buchenholz ≈ 528 kg</li>
-                            <li>1 Raummeter (rm) Fichtenholz ≈ 355 kg</li>
-                            <li>Werte basieren auf durchschnittlichen Heizwerten (Hi)</li>
-                            <li>Dient der Orientierung, tatsächliche Werte variieren je nach Qualität</li>
-                        </ul>
+                    {/* Footer / Notes */}
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-6 pt-4 border-t border-gray-100">
+                        <div className="md:col-span-10 md:col-start-2 text-gray-600">
+                             <p className="font-bold mb-2">Zum Vergleich:</p>
+                             <ul className="list-disc list-inside space-y-1">
+                                <li>1 rm Buchenholz = ca. 528 kg</li>
+                                <li>1 rm Fichtenholz = ca. 355 kg</li>
+                             </ul>
+                        </div>
+                    </div>
+
+                    {/* Optional Base Energy Display */}
+                    <div className="flex justify-end pt-4">
+                         <div className="bg-gray-50 px-4 py-2 rounded-lg border border-gray-200 flex items-center gap-2 text-sm text-gray-500">
+                             <Zap size={14} className="text-yellow-500 fill-yellow-500" />
+                             <span>Basis: <strong>{formatNumber(energyKwh)} kWh</strong></span>
+                         </div>
                     </div>
                 </div>
             </div>
