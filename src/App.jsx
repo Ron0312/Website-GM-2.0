@@ -24,6 +24,7 @@ import NotFound from './components/NotFound';
 import AccessibilityWidget from './components/AccessibilityWidget';
 import AccessibilityPage from './components/AccessibilityPage';
 import { ImprintContent, PrivacyContent, TermsContent, AccessibilityStatementContent } from './components/Legal';
+import { findClientRedirect } from './utils/clientRedirect';
 
 const App = ({ path, context }) => {
     // Initial state based on path if provided (SSR), otherwise default to window location (CSR)
@@ -94,6 +95,23 @@ const App = ({ path, context }) => {
     };
 
     useEffect(() => {
+        // Check for client-side legacy redirect if on 404/invalid section
+        const validSections = ['start', 'tanks', 'gas', 'rechner', 'gewerbe', 'wissen', 'ueber-uns', 'kontakt', 'pruefungen', 'barrierefreiheit', '404'];
+
+        // Only run this check if we are truly in an invalid state.
+        if (!activeSection.startsWith('tanks/') && !validSections.includes(activeSection)) {
+             const legacyTarget = findClientRedirect(activeSection);
+             if (legacyTarget) {
+                 const cleanTarget = legacyTarget.replace(/^\//, '');
+                 changeSection(cleanTarget);
+                 return;
+             } else if (activeSection !== '404') {
+                 // If really not found and not 404 yet, go to 404
+                 changeSection('404');
+                 return;
+             }
+        }
+
         // Initial scroll is handled by browser usually, but we ensure top
         window.scrollTo(0, 0);
 
@@ -130,16 +148,38 @@ const App = ({ path, context }) => {
 
         // Return 404 if not a valid section
         if (!validSections.includes(activeSection)) {
-            // Signal Redirect to Server
-            if (context) {
+            // Check for legacy redirects (Client Side Fallback)
+            const legacyTarget = findClientRedirect(activeSection);
+            if (legacyTarget) {
+                 // Clean up leading slash for client routing
+                 const cleanTarget = legacyTarget.replace(/^\//, '');
+
+                 // If valid section or tank route
+                 if (validSections.includes(cleanTarget) || cleanTarget.startsWith('tanks/')) {
+                     if (context) {
+                         // SSR Redirect
+                         context.url = legacyTarget;
+                         context.status = 301;
+                     } else if (typeof window !== 'undefined') {
+                         // Client Redirect
+                         console.log(`Client Redirect: ${activeSection} -> ${cleanTarget}`);
+                         // We use setTimeout to break the render cycle or useEffect,
+                         // but here we are in render. We must NOT update state in render.
+                         // But we can return a component that redirects on mount.
+                         // Or better: handle this in useEffect or derived state.
+                         // However, for immediate response, let's assume we render nothing and redirect.
+                     }
+                 }
+            }
+
+            // Signal Redirect to Server (if no legacy match found or processed)
+            if (context && !context.url) {
                 context.url = '/404';
                 context.status = 302;
             }
-            // Client side redirect
-            else if (typeof window !== 'undefined') {
-                 // Use replaceState to avoid history pollution or explicit navigation
-                 changeSection('404');
-            }
+
+            // Client side redirect behavior is handled in useEffect below now
+
             return <><div className="pt-20"></div><NotFound onGoHome={changeSection} /><ContactSection /></>;
         }
 

@@ -4047,6 +4047,76 @@ const AccessibilityPage = () => {
     /* @__PURE__ */ jsx(AccessibilityStatementContent, {})
   ] }) });
 };
+const legacyRedirects = {
+  "/impressum-2": "/",
+  "/impressum": "/",
+  "/datenschutzerklaerung-eu": "/",
+  "/allgemeine-geschaeftsbediungungen": "/",
+  "/haftungsausschluss": "/",
+  "/cookie-richtlinie-eu": "/",
+  "/sonderpreise-und-entsorgung": "/tanks",
+  // Explicit Tank redirects
+  "/flussiggastank-oberirdisch-4850l-21t-fassungsvermogen": "/tanks/2-1t-oberirdisch",
+  "/fluessiggastank-unterirdisch-4850l-21t-fassungsvermoegen": "/tanks/2-1t-unterirdisch",
+  "/fluessiggastank-unterirdisch-2700l-12t-fassungsvermoegen": "/tanks/1-2t-unterirdisch",
+  "/flussiggastank-oberirdisch-6400l": "/tanks/2-9t-oberirdisch",
+  "/fluessiggastank-unterirdisch-6400l-29t-fassungsvermoegen": "/tanks/2-9t-unterirdisch",
+  "/flussiggastank-oberirdisch-2700l": "/tanks/1-2t-oberirdisch",
+  "/fluessiggastank-kaufen": "/tanks",
+  "/fluessiggastank-kaufen-2": "/tanks",
+  "/flussiggastank-mieten-oder-kaufen": "/tanks",
+  // Normalized variants
+  "/fluessiggastank-oberirdisch-4850l-21t-fassungsvermoegen": "/tanks/2-1t-oberirdisch",
+  "/fluessiggastank-oberirdisch-6400l": "/tanks/2-9t-oberirdisch",
+  "/fluessiggastank-oberirdisch-2700l": "/tanks/1-2t-oberirdisch",
+  // Gas
+  "/fluessiggas-bestellen": "/gas",
+  // Content / Knowledge
+  "/was-ist-ein-fluessiggastank": "/wissen",
+  "/was-ist-fluessiggas": "/wissen",
+  "/fluessiggas-eine-vielfaeltige-energiequelle": "/wissen",
+  "/von-oel-auf-gas-umruesten": "/wissen",
+  // Service
+  "/flussiggasbehalter-vorschriften-und-prufungen": "/pruefungen",
+  "/aeussere-pruefung": "/pruefungen"
+};
+const findClientRedirect = (pathStr) => {
+  if (!pathStr || typeof pathStr !== "string") return null;
+  let p = pathStr;
+  try {
+    if (p.includes("%")) {
+      p = decodeURIComponent(p);
+    }
+  } catch (e) {
+  }
+  if (p.length > 1 && p.endsWith("/")) {
+    p = p.slice(0, -1);
+  }
+  p = p.toLowerCase();
+  p = p.replace(/\.(php|html|htm)$/, "");
+  if (legacyRedirects[p]) return legacyRedirects[p];
+  if (!p.startsWith("/") && legacyRedirects["/" + p]) return legacyRedirects["/" + p];
+  const pNorm = p.replace(/ä/g, "ae").replace(/ö/g, "oe").replace(/ü/g, "ue").replace(/ß/g, "ss");
+  if (legacyRedirects[pNorm]) return legacyRedirects[pNorm];
+  if (!pNorm.startsWith("/") && legacyRedirects["/" + pNorm]) return legacyRedirects["/" + pNorm];
+  const isTank = p.includes("tank") || p.includes("behaelter") || p.includes("behälter") || pNorm.includes("tank");
+  const isOberirdisch = p.includes("oberirdisch") || pNorm.includes("oberirdisch");
+  const isUnterirdisch = p.includes("unterirdisch") || pNorm.includes("unterirdisch");
+  let size = null;
+  if (p.match(/(1\.2|1,2|12)t/) || p.includes("2700")) size = "1-2t";
+  if (p.match(/(2\.1|2,1|21)t/) || p.includes("4850")) size = "2-1t";
+  if (p.match(/(2\.9|2,9|29)t/) || p.includes("6400")) size = "2-9t";
+  if (size) {
+    if (isOberirdisch) return `/tanks/${size}-oberirdisch`;
+    if (isUnterirdisch) return `/tanks/${size}-unterirdisch`;
+  }
+  if (isTank && (p.includes("kaufen") || p.includes("mieten") || p.includes("preis") || p.includes("angebot"))) return "tanks";
+  if (p.includes("gas") && (p.includes("bestellen") || p.includes("liefern") || p.includes("preis"))) return "gas";
+  if (p.includes("wissen") || p.includes("ratgeber") || p.includes("faq") || p.includes("frage") || p.includes("was-ist") || p.includes("umruesten") || p.includes("umrüsten") || pNorm.includes("umruesten")) return "wissen";
+  if (p.includes("pruefung") || p.includes("prüfung") || p.includes("vorschriften") || pNorm.includes("pruefung")) return "pruefungen";
+  if (p.includes("impressum") || p.includes("datenschutz") || p.includes("agb")) return "start";
+  return null;
+};
 const App = ({ path, context }) => {
   const getInitialSection = () => {
     if (path) {
@@ -4105,6 +4175,18 @@ const App = ({ path, context }) => {
     }
   };
   useEffect(() => {
+    const validSections = ["start", "tanks", "gas", "rechner", "gewerbe", "wissen", "ueber-uns", "kontakt", "pruefungen", "barrierefreiheit", "404"];
+    if (!activeSection.startsWith("tanks/") && !validSections.includes(activeSection)) {
+      const legacyTarget = findClientRedirect(activeSection);
+      if (legacyTarget) {
+        const cleanTarget = legacyTarget.replace(/^\//, "");
+        changeSection(cleanTarget);
+        return;
+      } else if (activeSection !== "404") {
+        changeSection("404");
+        return;
+      }
+    }
     window.scrollTo(0, 0);
     const seoInfo = getSeoForPath(activeSection);
     document.title = seoInfo.title;
@@ -4128,11 +4210,21 @@ const App = ({ path, context }) => {
     }
     const validSections = ["start", "tanks", "gas", "rechner", "gewerbe", "wissen", "ueber-uns", "kontakt", "pruefungen", "barrierefreiheit", "404"];
     if (!validSections.includes(activeSection)) {
-      if (context) {
+      const legacyTarget = findClientRedirect(activeSection);
+      if (legacyTarget) {
+        const cleanTarget = legacyTarget.replace(/^\//, "");
+        if (validSections.includes(cleanTarget) || cleanTarget.startsWith("tanks/")) {
+          if (context) {
+            context.url = legacyTarget;
+            context.status = 301;
+          } else if (typeof window !== "undefined") {
+            console.log(`Client Redirect: ${activeSection} -> ${cleanTarget}`);
+          }
+        }
+      }
+      if (context && !context.url) {
         context.url = "/404";
         context.status = 302;
-      } else if (typeof window !== "undefined") {
-        changeSection("404");
       }
       return /* @__PURE__ */ jsxs(Fragment, { children: [
         /* @__PURE__ */ jsx("div", { className: "pt-20" }),
