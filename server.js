@@ -21,9 +21,9 @@ async function createServer() {
   const app = express()
   const port = process.env.PORT || 5173
 
-  const isProd = process.env.NODE_ENV === 'production'
+  let isProd = process.env.NODE_ENV === 'production'
 
-  console.log(`Starting server in ${isProd ? 'PRODUCTION' : 'DEVELOPMENT'} mode.`);
+  console.log(`Starting server. Initial mode: ${isProd ? 'PRODUCTION' : 'DEVELOPMENT'}`);
 
   // Security Headers (Basic)
   app.use((req, res, next) => {
@@ -64,11 +64,36 @@ async function createServer() {
     '/haftungsausschluss': '/',
     '/cookie-richtlinie-eu': '/',
     '/sonderpreise-und-entsorgung': '/tanks',
+
+    // Explicit Tank redirects from user list
+    '/flussiggastank-oberirdisch-4850l-21t-fassungsvermogen': '/tanks/2-1t-oberirdisch',
+    '/fluessiggastank-unterirdisch-4850l-21t-fassungsvermoegen': '/tanks/2-1t-unterirdisch',
+    '/fluessiggastank-unterirdisch-2700l-12t-fassungsvermoegen': '/tanks/1-2t-unterirdisch',
+    '/flussiggastank-oberirdisch-6400l': '/tanks/2-9t-oberirdisch',
+    '/fluessiggastank-unterirdisch-6400l-29t-fassungsvermoegen': '/tanks/2-9t-unterirdisch',
+    '/flussiggastank-oberirdisch-2700l': '/tanks/1-2t-oberirdisch',
+    '/fluessiggastank-kaufen': '/tanks',
+    '/fluessiggastank-kaufen-2': '/tanks',
+    '/flussiggastank-mieten-oder-kaufen': '/tanks', // Intent: buy/rent -> tanks
+
+    // Gas
+    '/fluessiggas-bestellen': '/gas',
+
+    // Content / Knowledge
+    '/was-ist-ein-fluessiggastank': '/wissen',
+    '/was-ist-fluessiggas': '/wissen',
+    '/fluessiggas-eine-vielfaeltige-energiequelle': '/wissen',
+    '/von-oel-auf-gas-umruesten': '/wissen',
+
+    // Service
+    '/flussiggasbehalter-vorschriften-und-prufungen': '/pruefungen',
+    '/aeussere-pruefung': '/pruefungen'
   };
 
   // Smart Redirect Logic
   const findRedirect = (pathStr) => {
-    if (typeof pathStr !== 'string') return null;
+    // Robustness: Handle non-string inputs
+    if (!pathStr || typeof pathStr !== 'string') return null;
 
     // req.path is already decoded by Express. We do NOT decode it again to avoid URIError.
     let p = pathStr;
@@ -83,14 +108,11 @@ async function createServer() {
     // Strip common legacy extensions (.php, .html, .htm)
     p = p.replace(/\.(php|html|htm)$/, '');
 
-    // 0. Check if it's a valid route (ignore if so) - Optimization
-
     // 1. Check Legacy Map
     // Check exact match after stripping extension
     if (legacyRedirects[p]) return legacyRedirects[p];
-    // Check with slash if missing
+    // Check with slash if missing (legacy map has keys with leading slash)
     if (!p.startsWith('/') && legacyRedirects['/' + p]) return legacyRedirects['/' + p];
-    // Check if original had slash but we stripped it? p usually starts with / from req.path
 
     // 2. Tank Logic
     const isTank = p.includes('tank') || p.includes('behaelter') || p.includes('behälter');
@@ -151,7 +173,6 @@ async function createServer() {
         }
 
         // Not a valid known route, try to redirect
-        // We use req.path (original path) for matching to preserve extension info if needed
         const target = findRedirect(req.path);
         if (target && target !== normalizedPath) {
           return res.redirect(301, target);
@@ -244,10 +265,14 @@ ${routes.map(route => `  <url>
         app.use(vite.middlewares)
     } catch (e) {
         console.error('Failed to load Vite in development mode:', e);
-        // If we can't load vite, we can't run in dev mode.
-        process.exit(1);
+        console.warn('Switching to PRODUCTION mode due to missing Vite.');
+        // If we can't load vite (e.g. in production environment), switch to prod mode
+        isProd = true;
     }
-  } else {
+  }
+
+  // Note: We don't use 'else' here because isProd might have changed in the catch block above
+  if (isProd) {
     app.use(compression())
 
     // Static assets
@@ -368,7 +393,16 @@ ${routes.map(route => `  <url>
         render = (await vite.ssrLoadModule('/src/entry-server.jsx')).render
       } else {
         templatePath = path.resolve(__dirname, 'dist/client/index.html')
-        template = fs.readFileSync(templatePath, 'utf-8')
+        // In production, index.html might not be used directly if we serve pre-rendered files,
+        // but for dynamic routes (or if pre-rendering is missed) we use it as template.
+        if (fs.existsSync(templatePath)) {
+             template = fs.readFileSync(templatePath, 'utf-8')
+        } else {
+             // Fallback if dist/client/index.html is missing (rare in prod)
+             throw new Error('Production index.html not found');
+        }
+
+        // Load SSR entry
         render = (await import('./dist/server/entry-server.js')).render
 
         template = template.replace(/<title>.*?<\/title>/, `<title>${siteData.title}</title>`);
@@ -398,7 +432,7 @@ ${routes.map(route => `  <url>
     } catch (e) {
       // Emergency Error Handling: Redirect to Home or serve a safe error message
       console.error('CRITICAL SSR ERROR:', e);
-      if (process.env.NODE_ENV === 'production') {
+      if (process.env.NODE_ENV === 'production' || isProd) {
          // Avoid infinite redirect loops
          if (url === '/' || url.includes('error=server_error')) {
              return res.status(500).send(`
@@ -431,7 +465,7 @@ ${routes.map(route => `  <url>
   app.use((err, req, res, next) => {
     console.error('Unhandled Global Error:', err);
     if (!res.headersSent) {
-         if (process.env.NODE_ENV === 'production') {
+         if (process.env.NODE_ENV === 'production' || isProd) {
             if (req.url.includes('error=')) {
                 res.status(500).send('Internal Server Error');
             } else {
