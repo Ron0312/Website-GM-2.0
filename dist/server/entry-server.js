@@ -4069,6 +4069,13 @@ const legacyRedirects = {
   "/fluessiggastank-oberirdisch-4850l-21t-fassungsvermoegen": "/tanks/2-1t-oberirdisch",
   "/fluessiggastank-oberirdisch-6400l": "/tanks/2-9t-oberirdisch",
   "/fluessiggastank-oberirdisch-2700l": "/tanks/1-2t-oberirdisch",
+  // Generic Fallbacks
+  "/flussiggastank": "/tanks",
+  "/fluessiggastank": "/tanks",
+  "/flüssiggastank": "/tanks",
+  "/flussiggas": "/wissen",
+  "/fluessiggas": "/wissen",
+  "/flüssiggas": "/wissen",
   // Gas
   "/fluessiggas-bestellen": "/gas",
   // Content / Knowledge
@@ -4110,8 +4117,8 @@ const findClientRedirect = (pathStr) => {
     if (isOberirdisch) return `/tanks/${size}-oberirdisch`;
     if (isUnterirdisch) return `/tanks/${size}-unterirdisch`;
   }
-  if (isTank && (p.includes("kaufen") || p.includes("mieten") || p.includes("preis") || p.includes("angebot"))) return "tanks";
-  if (p.includes("gas") && (p.includes("bestellen") || p.includes("liefern") || p.includes("preis"))) return "gas";
+  if (isTank) return "tanks";
+  if (p.includes("gas") && (p.includes("bestellen") || p.includes("liefern") || p.includes("preis") || p.includes("kaufen"))) return "gas";
   if (p.includes("wissen") || p.includes("ratgeber") || p.includes("faq") || p.includes("frage") || p.includes("was-ist") || p.includes("umruesten") || p.includes("umrüsten") || pNorm.includes("umruesten")) return "wissen";
   if (p.includes("pruefung") || p.includes("prüfung") || p.includes("vorschriften") || pNorm.includes("pruefung")) return "pruefungen";
   if (p.includes("impressum") || p.includes("datenschutz") || p.includes("agb")) return "start";

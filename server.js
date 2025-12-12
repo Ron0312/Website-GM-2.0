@@ -79,6 +79,14 @@ async function createServer() {
     '/fluessiggastank-oberirdisch-6400l': '/tanks/2-9t-oberirdisch',
     '/fluessiggastank-oberirdisch-2700l': '/tanks/1-2t-oberirdisch',
 
+    // Generic Fallbacks
+    '/flussiggastank': '/tanks',
+    '/fluessiggastank': '/tanks',
+    '/flüssiggastank': '/tanks',
+    '/flussiggas': '/wissen',
+    '/fluessiggas': '/wissen',
+    '/flüssiggas': '/wissen',
+
     // Gas
     '/fluessiggas-bestellen': '/gas',
 
@@ -150,10 +158,11 @@ async function createServer() {
     }
 
     // Fallback for general Tank intents
-    if (isTank && (p.includes('kaufen') || p.includes('mieten') || p.includes('preis') || p.includes('angebot'))) return '/tanks';
+    // If it clearly mentions 'tank' and isn't caught above, send to tanks page
+    if (isTank) return '/tanks';
 
     // 3. Gas Logic
-    if (p.includes('gas') && (p.includes('bestellen') || p.includes('liefern') || p.includes('preis'))) return '/gas';
+    if (p.includes('gas') && (p.includes('bestellen') || p.includes('liefern') || p.includes('preis') || p.includes('kaufen'))) return '/gas';
 
     // 4. Knowledge / Content
     if (p.includes('wissen') || p.includes('ratgeber') || p.includes('faq') || p.includes('frage') || p.includes('was-ist') || p.includes('umruesten') || p.includes('umrüsten') || pNorm.includes('umruesten')) return '/wissen';
