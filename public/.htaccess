@@ -1,5 +1,104 @@
+# Apache Configuration for Static Hosting (Plesk/Apache)
+
+# 1. Security Headers
+<IfModule mod_headers.c>
+    # Security
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+    # CSP (Matched from server.js)
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://api.web3forms.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https://api.web3forms.com; connect-src 'self' https://api.web3forms.com; frame-src 'self' https://www.google.com https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com; upgrade-insecure-requests;"
+
+    # Hide Backend info
+    Header unset X-Powered-By
+</IfModule>
+
+# 2. Caching Strategy
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 week"
+    ExpiresByType text/html "access plus 0 seconds"
+    ExpiresByType text/xml "access plus 1 hour"
+    ExpiresByType application/xml "access plus 1 hour"
+    ExpiresByType application/json "access plus 1 hour"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+</IfModule>
+
+# 3. Rewrites & Redirects
 <IfModule mod_rewrite.c>
-  RewriteEngine On
-  # Explicitly allow access to all files
-  Require all granted
+    RewriteEngine On
+
+    # Force HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # --- Legacy Redirects (Ported from server.js) ---
+
+    # Legal pages -> Home (as they are modals now)
+    RewriteRule ^impressum-2/?$ / [R=301,L]
+    RewriteRule ^impressum/?$ / [R=301,L]
+    RewriteRule ^datenschutzerklaerung-eu/?$ / [R=301,L]
+    RewriteRule ^allgemeine-geschaeftsbediungungen/?$ / [R=301,L]
+    RewriteRule ^haftungsausschluss/?$ / [R=301,L]
+    RewriteRule ^cookie-richtlinie-eu/?$ / [R=301,L]
+
+    # Specific Tank Redirects
+    RewriteRule ^flussiggastank-oberirdisch-4850l-21t-fassungsvermogen/?$ /tanks/2-1t-oberirdisch [R=301,L]
+    RewriteRule ^fluessiggastank-oberirdisch-4850l-21t-fassungsvermoegen/?$ /tanks/2-1t-oberirdisch [R=301,L]
+    RewriteRule ^fluessiggastank-unterirdisch-4850l-21t-fassungsvermoegen/?$ /tanks/2-1t-unterirdisch [R=301,L]
+    RewriteRule ^fluessiggastank-unterirdisch-2700l-12t-fassungsvermoegen/?$ /tanks/1-2t-unterirdisch [R=301,L]
+    RewriteRule ^flussiggastank-oberirdisch-6400l/?$ /tanks/2-9t-oberirdisch [R=301,L]
+    RewriteRule ^fluessiggastank-oberirdisch-6400l/?$ /tanks/2-9t-oberirdisch [R=301,L]
+    RewriteRule ^fluessiggastank-unterirdisch-6400l-29t-fassungsvermoegen/?$ /tanks/2-9t-unterirdisch [R=301,L]
+    RewriteRule ^flussiggastank-oberirdisch-2700l/?$ /tanks/1-2t-oberirdisch [R=301,L]
+    RewriteRule ^fluessiggastank-oberirdisch-2700l/?$ /tanks/1-2t-oberirdisch [R=301,L]
+
+    # General Fallbacks
+    RewriteRule ^fluessiggastank-kaufen/?$ /tanks [R=301,L]
+    RewriteRule ^fluessiggastank-kaufen-2/?$ /tanks [R=301,L]
+    RewriteRule ^flussiggastank-mieten-oder-kaufen/?$ /tanks [R=301,L]
+    RewriteRule ^sonderpreise-und-entsorgung/?$ /tanks [R=301,L]
+    RewriteRule ^fluessiggas-bestellen/?$ /gas [R=301,L]
+
+    # Content Redirects
+    RewriteRule ^was-ist-ein-fluessiggastank/?$ /wissen [R=301,L]
+    RewriteRule ^was-ist-fluessiggas/?$ /wissen [R=301,L]
+    RewriteRule ^fluessiggas-eine-vielfaeltige-energiequelle/?$ /wissen [R=301,L]
+    RewriteRule ^von-oel-auf-gas-umruesten/?$ /wissen [R=301,L]
+    RewriteRule ^flussiggasbehalter-vorschriften-und-prufungen/?$ /pruefungen [R=301,L]
+    RewriteRule ^aeussere-pruefung/?$ /pruefungen [R=301,L]
+
+    # --- Clean URL Handling (SPA/SSG) ---
+
+    # 1. If the request points to a file that exists, serve it
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # 2. Check if a corresponding HTML file exists (e.g. /kontakt -> /kontakt.html)
+    # This supports the pre-rendered static files
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+    RewriteRule ^([^/]+)/?$ $1.html [L]
+
+    # 3. Check for nested HTML files (e.g. /tanks/1-2t -> /tanks/1-2t.html)
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{DOCUMENT_ROOT}/$1/$2.html -f
+    RewriteRule ^([^/]+)/([^/]+)/?$ $1/$2.html [L]
+
+    # 4. Fallback for Client-Side Routing (SPA)
+    # If no file matched, serve index.html (Client will handle 404 if needed)
+    # Exception: Do not rewrite 404 to index if 404.html exists
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /index.html [L]
 </IfModule>
