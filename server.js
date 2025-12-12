@@ -4,6 +4,17 @@ import { fileURLToPath } from 'url'
 import express from 'express'
 import compression from 'compression'
 
+// Prevent crash on unhandled exceptions
+process.on('uncaughtException', (err) => {
+  console.error('UNCAUGHT EXCEPTION:', err);
+  // In a managed environment like Passenger, we might want to let it crash to restart,
+  // but logging it first is crucial.
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('UNHANDLED REJECTION:', reason);
+});
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 async function createServer() {
@@ -11,6 +22,8 @@ async function createServer() {
   const port = process.env.PORT || 5173
 
   const isProd = process.env.NODE_ENV === 'production'
+
+  console.log(`Starting server in ${isProd ? 'PRODUCTION' : 'DEVELOPMENT'} mode.`);
 
   // Security Headers (Basic)
   app.use((req, res, next) => {
@@ -54,9 +67,11 @@ async function createServer() {
   };
 
   // Smart Redirect Logic
-  const findRedirect = (path) => {
+  const findRedirect = (pathStr) => {
+    if (typeof pathStr !== 'string') return null;
+
     // req.path is already decoded by Express. We do NOT decode it again to avoid URIError.
-    let p = path;
+    let p = pathStr;
 
     if (p.length > 1 && p.endsWith('/')) {
       p = p.slice(0, -1);
@@ -113,6 +128,10 @@ async function createServer() {
   app.use((req, res, next) => {
     try {
         let normalizedPath = req.path;
+
+        // Safety check for malformed requests where path might be undefined/null
+        if (!normalizedPath) return next();
+
         if (normalizedPath.length > 1 && normalizedPath.endsWith('/')) {
           normalizedPath = normalizedPath.slice(0, -1);
         }
@@ -216,12 +235,18 @@ ${routes.map(route => `  <url>
 
   let vite
   if (!isProd) {
-    const { createServer: createViteServer } = await import('vite')
-    vite = await createViteServer({
-      server: { middlewareMode: true },
-      appType: 'custom'
-    })
-    app.use(vite.middlewares)
+    try {
+        const { createServer: createViteServer } = await import('vite')
+        vite = await createViteServer({
+          server: { middlewareMode: true },
+          appType: 'custom'
+        })
+        app.use(vite.middlewares)
+    } catch (e) {
+        console.error('Failed to load Vite in development mode:', e);
+        // If we can't load vite, we can't run in dev mode.
+        process.exit(1);
+    }
   } else {
     app.use(compression())
 
@@ -374,8 +399,21 @@ ${routes.map(route => `  <url>
       // Emergency Error Handling: Redirect to Home or serve a safe error message
       console.error('CRITICAL SSR ERROR:', e);
       if (process.env.NODE_ENV === 'production') {
-         // In production, try to redirect to Home instead of showing a crash page
-         // This avoids the Phusion Passenger error page
+         // Avoid infinite redirect loops
+         if (url === '/' || url.includes('error=server_error')) {
+             return res.status(500).send(`
+                <!DOCTYPE html>
+                <html>
+                <head><title>Server Error</title></head>
+                <body style="font-family: sans-serif; text-align: center; padding: 50px;">
+                    <h1>Wartungsarbeiten</h1>
+                    <p>Die Anwendung ist momentan nicht erreichbar. Bitte versuchen Sie es später erneut.</p>
+                </body>
+                </html>
+             `);
+         }
+
+         // In production, try to redirect to Home with error flag
          try {
              return res.redirect(302, '/?error=server_error');
          } catch (redirErr) {
@@ -383,7 +421,7 @@ ${routes.map(route => `  <url>
          }
       }
 
-      !isProd && vite.ssrFixStacktrace(e)
+      if (!isProd && vite) vite.ssrFixStacktrace(e)
       console.log(e.stack)
       res.status(500).end(e.stack)
     }
@@ -394,7 +432,11 @@ ${routes.map(route => `  <url>
     console.error('Unhandled Global Error:', err);
     if (!res.headersSent) {
          if (process.env.NODE_ENV === 'production') {
-            res.redirect(302, '/?error=global_crash');
+            if (req.url.includes('error=')) {
+                res.status(500).send('Internal Server Error');
+            } else {
+                res.redirect(302, '/?error=global_crash');
+            }
          } else {
             res.status(500).send('Internal Server Error: ' + err.message);
          }
