@@ -21,9 +21,41 @@ async function createServer() {
   const app = express()
   const port = process.env.PORT || 5173
 
-  const isProd = process.env.NODE_ENV === 'production'
+  // Determine mode, but be flexible if dependencies are missing
+  let isProd = process.env.NODE_ENV === 'production'
+
+  // Attempt to load Vite if we think we are in Dev mode.
+  // If Vite fails to load (e.g. missing in production environment where NODE_ENV wasn't set correctly),
+  // we FORCE Production mode to avoid startup crashes.
+  let vite
+  if (!isProd) {
+    try {
+        const { createServer: createViteServer } = await import('vite')
+        vite = await createViteServer({
+          server: { middlewareMode: true },
+          appType: 'custom'
+        })
+        app.use(vite.middlewares)
+    } catch (e) {
+        console.warn('WARNING: Failed to load Vite in development mode. Falling back to PRODUCTION mode.', e.message);
+        // Force Production Mode since we can't run Dev mode without Vite
+        isProd = true;
+    }
+  }
 
   console.log(`Starting server in ${isProd ? 'PRODUCTION' : 'DEVELOPMENT'} mode.`);
+
+  if (isProd) {
+    app.use(compression())
+
+    // Static assets
+    app.use(
+      '/',
+      express.static(path.resolve(__dirname, 'dist/client'), {
+        index: false,
+      })
+    )
+  }
 
   // Security Headers (Basic)
   app.use((req, res, next) => {
@@ -64,6 +96,8 @@ async function createServer() {
     '/haftungsausschluss': '/',
     '/cookie-richtlinie-eu': '/',
     '/sonderpreise-und-entsorgung': '/tanks',
+    // Fix for broken link reported by user
+    '/fluessiggas-eine-vielfaeltige-energiequelle': '/wissen',
   };
 
   // Smart Redirect Logic
@@ -233,32 +267,6 @@ ${routes.map(route => `  <url>
     }
   })
 
-  let vite
-  if (!isProd) {
-    try {
-        const { createServer: createViteServer } = await import('vite')
-        vite = await createViteServer({
-          server: { middlewareMode: true },
-          appType: 'custom'
-        })
-        app.use(vite.middlewares)
-    } catch (e) {
-        console.error('Failed to load Vite in development mode:', e);
-        // If we can't load vite, we can't run in dev mode.
-        process.exit(1);
-    }
-  } else {
-    app.use(compression())
-
-    // Static assets
-    app.use(
-      '/',
-      express.static(path.resolve(__dirname, 'dist/client'), {
-        index: false,
-      })
-    )
-  }
-
   // Import SEO Data
   // Wrapped in try-catch to prevent startup crash if file missing
   let getSeoForPath, getSchemaForPath;
@@ -398,7 +406,7 @@ ${routes.map(route => `  <url>
     } catch (e) {
       // Emergency Error Handling: Redirect to Home or serve a safe error message
       console.error('CRITICAL SSR ERROR:', e);
-      if (process.env.NODE_ENV === 'production') {
+      if (process.env.NODE_ENV === 'production' || isProd) {
          // Avoid infinite redirect loops
          if (url === '/' || url.includes('error=server_error')) {
              return res.status(500).send(`
@@ -431,7 +439,7 @@ ${routes.map(route => `  <url>
   app.use((err, req, res, next) => {
     console.error('Unhandled Global Error:', err);
     if (!res.headersSent) {
-         if (process.env.NODE_ENV === 'production') {
+         if (process.env.NODE_ENV === 'production' || isProd) {
             if (req.url.includes('error=')) {
                 res.status(500).send('Internal Server Error');
             } else {
