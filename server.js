@@ -3,6 +3,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import express from 'express'
 import compression from 'compression'
+import { findClientRedirect } from './src/utils/clientRedirect.js'
 
 // Prevent crash on unhandled exceptions
 process.on('uncaughtException', (err) => {
@@ -53,119 +54,6 @@ async function createServer() {
     '2-9t-unterirdisch'
   ];
 
-  // Legacy Redirects Map (Specific overrides)
-  const legacyRedirects = {
-    '/impressum-2': '/',
-    '/impressum': '/',
-    '/datenschutzerklaerung-eu': '/',
-    '/allgemeine-geschaeftsbediungungen': '/',
-    '/haftungsausschluss': '/',
-    '/cookie-richtlinie-eu': '/',
-    '/sonderpreise-und-entsorgung': '/tanks',
-
-    // Explicit Tank redirects from user list
-    '/flussiggastank-oberirdisch-4850l-21t-fassungsvermogen': '/tanks/2-1t-oberirdisch',
-    '/fluessiggastank-unterirdisch-4850l-21t-fassungsvermoegen': '/tanks/2-1t-unterirdisch',
-    '/fluessiggastank-unterirdisch-2700l-12t-fassungsvermoegen': '/tanks/1-2t-unterirdisch',
-    '/flussiggastank-oberirdisch-6400l': '/tanks/2-9t-oberirdisch',
-    '/fluessiggastank-unterirdisch-6400l-29t-fassungsvermoegen': '/tanks/2-9t-unterirdisch',
-    '/flussiggastank-oberirdisch-2700l': '/tanks/1-2t-oberirdisch',
-    '/fluessiggastank-kaufen': '/tanks',
-    '/fluessiggastank-kaufen-2': '/tanks',
-    '/flussiggastank-mieten-oder-kaufen': '/tanks', // Intent: buy/rent -> tanks
-
-    // Normalized variants (handling umlaut expansion manually just in case)
-    '/fluessiggastank-oberirdisch-4850l-21t-fassungsvermoegen': '/tanks/2-1t-oberirdisch',
-    '/fluessiggastank-oberirdisch-6400l': '/tanks/2-9t-oberirdisch',
-    '/fluessiggastank-oberirdisch-2700l': '/tanks/1-2t-oberirdisch',
-
-    // Gas
-    '/fluessiggas-bestellen': '/gas',
-
-    // Content / Knowledge
-    '/was-ist-ein-fluessiggastank': '/wissen',
-    '/was-ist-fluessiggas': '/wissen',
-    '/fluessiggas-eine-vielfaeltige-energiequelle': '/wissen',
-    '/von-oel-auf-gas-umruesten': '/wissen',
-
-    // Service
-    '/flussiggasbehalter-vorschriften-und-prufungen': '/pruefungen',
-    '/aeussere-pruefung': '/pruefungen'
-  };
-
-  // Smart Redirect Logic
-  const findRedirect = (pathStr) => {
-    // Robustness: Handle non-string inputs
-    if (!pathStr || typeof pathStr !== 'string') return null;
-
-    let p = pathStr;
-
-    // Attempt to decode URI if it looks encoded, but safely
-    try {
-        if (p.includes('%')) {
-            p = decodeURIComponent(p);
-        }
-    } catch (e) {
-        // Fallback to original path if decode fails
-        console.warn('Failed to decode path:', pathStr);
-    }
-
-    if (p.length > 1 && p.endsWith('/')) {
-      p = p.slice(0, -1);
-    }
-
-    // Normalize to lowercase
-    p = p.toLowerCase();
-
-    // Strip common legacy extensions (.php, .html, .htm)
-    p = p.replace(/\.(php|html|htm)$/, '');
-
-    // 1. Check Legacy Map
-    // Check exact match after stripping extension
-    if (legacyRedirects[p]) return legacyRedirects[p];
-    // Check with slash if missing (legacy map has keys with leading slash)
-    if (!p.startsWith('/') && legacyRedirects['/' + p]) return legacyRedirects['/' + p];
-
-    // Check normalized version (replacing umlauts with ae, oe, ue, ss)
-    // This helps if the map uses 'ue' but the URL uses 'ü'
-    const pNorm = p.replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss');
-    if (legacyRedirects[pNorm]) return legacyRedirects[pNorm];
-    if (!pNorm.startsWith('/') && legacyRedirects['/' + pNorm]) return legacyRedirects['/' + pNorm];
-
-
-    // 2. Tank Logic
-    // Check both raw and normalized for keywords
-    const isTank = p.includes('tank') || p.includes('behaelter') || p.includes('behälter') || pNorm.includes('tank');
-    const isOberirdisch = p.includes('oberirdisch') || pNorm.includes('oberirdisch');
-    const isUnterirdisch = p.includes('unterirdisch') || pNorm.includes('unterirdisch');
-
-    let size = null;
-    if (p.match(/(1\.2|1,2|12)t/) || p.includes('2700')) size = '1-2t';
-    if (p.match(/(2\.1|2,1|21)t/) || p.includes('4850')) size = '2-1t';
-    if (p.match(/(2\.9|2,9|29)t/) || p.includes('6400')) size = '2-9t';
-
-    if (size) {
-        if (isOberirdisch) return `/tanks/${size}-oberirdisch`;
-        if (isUnterirdisch) return `/tanks/${size}-unterirdisch`;
-    }
-
-    // Fallback for general Tank intents
-    if (isTank && (p.includes('kaufen') || p.includes('mieten') || p.includes('preis') || p.includes('angebot'))) return '/tanks';
-
-    // 3. Gas Logic
-    if (p.includes('gas') && (p.includes('bestellen') || p.includes('liefern') || p.includes('preis'))) return '/gas';
-
-    // 4. Knowledge / Content
-    if (p.includes('wissen') || p.includes('ratgeber') || p.includes('faq') || p.includes('frage') || p.includes('was-ist') || p.includes('umruesten') || p.includes('umrüsten') || pNorm.includes('umruesten')) return '/wissen';
-
-    // 5. Service / Inspections
-    if (p.includes('pruefung') || p.includes('prüfung') || p.includes('vorschriften') || pNorm.includes('pruefung')) return '/pruefungen';
-
-    // 6. Legal / Home
-    if (p.includes('impressum') || p.includes('datenschutz') || p.includes('agb')) return '/';
-
-    return null;
-  };
 
   app.use((req, res, next) => {
     try {
@@ -202,18 +90,22 @@ async function createServer() {
         }
 
         // Not a valid known route, try to redirect
-        // We pass the RAW req.path to findRedirect to let it handle decoding logic
-        // explicitly, but we also pass normalizedPath if needed.
-        // Actually, findRedirect logic is robust enough now.
-        const target = findRedirect(req.path);
+        // We pass the RAW req.path to findClientRedirect to let it handle decoding logic
+        let target = findClientRedirect(req.path);
 
-        // Prevent redirect loops
-        // Check if target matches the current clean path
-        const cleanTarget = target ? target.replace(/^\//, '') : '';
+        if (target) {
+            // Normalize target for server redirect
+            if (target === 'start') target = '/';
+            else if (!target.startsWith('/')) target = '/' + target;
 
-        if (target && cleanTarget !== cleanPath && target !== req.originalUrl) {
-             console.log(`Redirecting: ${req.url} -> ${target}`);
-             return res.redirect(301, target);
+            // Prevent redirect loops
+            // Check if target matches the current clean path
+            const cleanTarget = target.replace(/^\//, '');
+
+            if (cleanTarget !== cleanPath && target !== req.originalUrl) {
+                 console.log(`Redirecting: ${req.url} -> ${target}`);
+                 return res.redirect(301, target);
+            }
         }
         next();
     } catch (err) {
