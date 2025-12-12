@@ -21,6 +21,9 @@ async function createServer() {
     res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=()');
     // Content Security Policy
     res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://api.web3forms.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https://api.web3forms.com; connect-src 'self' https://api.web3forms.com; frame-src 'self' https://www.google.com https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com; upgrade-insecure-requests;");
+
+    // Remove X-Powered-By
+    res.removeHeader('X-Powered-By');
     next();
   });
 
@@ -52,19 +55,27 @@ async function createServer() {
 
   // Smart Redirect Logic
   const findRedirect = (path) => {
-    let p = decodeURIComponent(path);
+    // req.path is already decoded by Express. We do NOT decode it again to avoid URIError.
+    let p = path;
+
     if (p.length > 1 && p.endsWith('/')) {
       p = p.slice(0, -1);
     }
-    p = p.toLowerCase(); // Normalize to lowercase
 
-    // 0. Check if it's a valid route (ignore if so)
-    // Note: This check usually happens before calling findRedirect, but good as safety.
-    // However, we want to redirect typos of valid routes if possible, so we proceed.
+    // Normalize to lowercase
+    p = p.toLowerCase();
+
+    // Strip common legacy extensions (.php, .html, .htm)
+    p = p.replace(/\.(php|html|htm)$/, '');
+
+    // 0. Check if it's a valid route (ignore if so) - Optimization
 
     // 1. Check Legacy Map
+    // Check exact match after stripping extension
     if (legacyRedirects[p]) return legacyRedirects[p];
-    if (legacyRedirects['/' + p]) return legacyRedirects['/' + p];
+    // Check with slash if missing
+    if (!p.startsWith('/') && legacyRedirects['/' + p]) return legacyRedirects['/' + p];
+    // Check if original had slash but we stripped it? p usually starts with / from req.path
 
     // 2. Tank Logic
     const isTank = p.includes('tank') || p.includes('behaelter') || p.includes('behälter');
@@ -100,31 +111,38 @@ async function createServer() {
   };
 
   app.use((req, res, next) => {
-    let normalizedPath = req.path;
-    if (normalizedPath.length > 1 && normalizedPath.endsWith('/')) {
-      normalizedPath = normalizedPath.slice(0, -1);
-    }
+    try {
+        let normalizedPath = req.path;
+        if (normalizedPath.length > 1 && normalizedPath.endsWith('/')) {
+          normalizedPath = normalizedPath.slice(0, -1);
+        }
 
-    // Check if the path is a valid static route
-    const cleanPath = normalizedPath.replace(/^\//, '');
-    if (staticRoutes.includes(cleanPath)) {
-        return next();
-    }
-
-    // Check if the path is a valid tank route
-    if (cleanPath.startsWith('tanks/')) {
-        const slug = cleanPath.split('/')[1];
-        if (tankSlugs.includes(slug)) {
+        // Check if the path is a valid static route
+        const cleanPath = normalizedPath.replace(/^\//, '');
+        if (staticRoutes.includes(cleanPath)) {
             return next();
         }
-    }
 
-    // Not a valid known route, try to redirect
-    const target = findRedirect(req.path);
-    if (target && target !== normalizedPath) {
-      return res.redirect(301, target);
+        // Check if the path is a valid tank route
+        if (cleanPath.startsWith('tanks/')) {
+            const slug = cleanPath.split('/')[1];
+            if (tankSlugs.includes(slug)) {
+                return next();
+            }
+        }
+
+        // Not a valid known route, try to redirect
+        // We use req.path (original path) for matching to preserve extension info if needed
+        const target = findRedirect(req.path);
+        if (target && target !== normalizedPath) {
+          return res.redirect(301, target);
+        }
+        next();
+    } catch (err) {
+        // Log the error but do NOT crash. Pass to next middleware (likely 404/SSR)
+        console.error('Redirect Middleware Error:', err);
+        next();
     }
-    next();
   });
 
   // Dynamic Sitemap Generation (Fail-safe)
@@ -217,7 +235,18 @@ ${routes.map(route => `  <url>
   }
 
   // Import SEO Data
-  const { getSeoForPath, getSchemaForPath } = await import('./src/data/seoData.js');
+  // Wrapped in try-catch to prevent startup crash if file missing
+  let getSeoForPath, getSchemaForPath;
+  try {
+     const seoModule = await import('./src/data/seoData.js');
+     getSeoForPath = seoModule.getSeoForPath;
+     getSchemaForPath = seoModule.getSchemaForPath;
+  } catch (err) {
+      console.error('Failed to load SEO Data:', err);
+      // Fallback mocks
+      getSeoForPath = () => ({ title: 'gasmöller', description: '', image: '', url: '' });
+      getSchemaForPath = () => ({});
+  }
 
   app.use(async (req, res) => {
     const url = req.originalUrl
@@ -359,6 +388,18 @@ ${routes.map(route => `  <url>
       res.status(500).end(e.stack)
     }
   })
+
+  // Global Error Handler (Last resort for sync errors)
+  app.use((err, req, res, next) => {
+    console.error('Unhandled Global Error:', err);
+    if (!res.headersSent) {
+         if (process.env.NODE_ENV === 'production') {
+            res.redirect(302, '/?error=global_crash');
+         } else {
+            res.status(500).send('Internal Server Error: ' + err.message);
+         }
+    }
+  });
 
   app.listen(port, () => {
     console.log(`Server started at http://localhost:${port}`)
