@@ -24,6 +24,48 @@ async function createServer() {
     next();
   });
 
+  // 301 Redirects for SEO
+  const redirects = {
+    '/flussiggastank-oberirdisch-4850l-21t-fassungsvermogen': '/tanks/2-1t-oberirdisch',
+    '/flussiggastank-oberirdisch-6400l': '/tanks/2-9t-oberirdisch',
+    '/flussiggastank-oberirdisch-2700l': '/tanks/1-2t-oberirdisch',
+    '/fluessiggastank-unterirdisch-4850l-21t-fassungsvermoegen': '/tanks/2-1t-unterirdisch',
+    '/fluessiggastank-unterirdisch-2700l-12t-fassungsvermoegen': '/tanks/1-2t-unterirdisch',
+    '/fluessiggastank-unterirdisch-6400l-29t-fassungsvermoegen': '/tanks/2-9t-unterirdisch',
+    '/fluessiggastank-kaufen': '/tanks',
+    '/fluessiggastank-kaufen-2': '/tanks',
+    '/flussiggastank-mieten-oder-kaufen': '/tanks',
+    '/sonderpreise-und-entsorgung': '/tanks',
+    '/fluessiggas-bestellen': '/gas',
+    '/flussiggasbehalter-vorschriften-und-prufungen': '/pruefungen',
+    '/aeussere-pruefung': '/pruefungen',
+    '/was-ist-ein-fluessiggastank': '/wissen',
+    '/was-ist-fluessiggas': '/wissen',
+    '/fluessiggas-eine-vielfaeltige-energiequelle': '/wissen',
+    '/von-oel-auf-gas-umruesten': '/wissen',
+    // Removed identity mappings (/kontakt, /ueber-uns) to prevent redirect loops
+    // Legal pages mapped to Home because they are modals
+    '/impressum': '/',
+    '/impressum-2': '/',
+    '/datenschutzerklaerung-eu': '/',
+    '/allgemeine-geschaeftsbediungungen': '/',
+    '/haftungsausschluss': '/',
+    '/cookie-richtlinie-eu': '/'
+  };
+
+  app.use((req, res, next) => {
+    // clean path: remove trailing slash (if length > 1), lowercase
+    let cleanPath = req.path.toLowerCase();
+    if (cleanPath.endsWith('/') && cleanPath.length > 1) {
+        cleanPath = cleanPath.slice(0, -1);
+    }
+
+    if (redirects[cleanPath]) {
+        return res.redirect(301, redirects[cleanPath]);
+    }
+    next();
+  });
+
   // Dynamic Sitemap Generation (Fail-safe)
   // Inlined slugs to ensure 100% independence from source files in production
   const generateSitemapXml = () => {
