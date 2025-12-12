@@ -52,79 +52,89 @@ async function createServer() {
 
   // Smart Redirect Logic
   const findRedirect = (path) => {
-    let p = decodeURIComponent(path);
-    if (p.length > 1 && p.endsWith('/')) {
-      p = p.slice(0, -1);
+    try {
+        // NOTE: req.path is already decoded by Express.
+        // Do NOT call decodeURIComponent here as it will throw on malformed URIs.
+        let p = path;
+
+        if (p.length > 1 && p.endsWith('/')) {
+          p = p.slice(0, -1);
+        }
+        p = p.toLowerCase(); // Normalize to lowercase
+
+        // 1. Check Legacy Map
+        if (legacyRedirects[p]) return legacyRedirects[p];
+        if (legacyRedirects['/' + p]) return legacyRedirects['/' + p];
+
+        // 2. Tank Logic
+        const isTank = p.includes('tank') || p.includes('behaelter') || p.includes('behälter');
+        const isOberirdisch = p.includes('oberirdisch');
+        const isUnterirdisch = p.includes('unterirdisch');
+
+        let size = null;
+        if (p.match(/(1\.2|1,2|12)t/) || p.includes('2700')) size = '1-2t';
+        if (p.match(/(2\.1|2,1|21)t/) || p.includes('4850')) size = '2-1t';
+        if (p.match(/(2\.9|2,9|29)t/) || p.includes('6400')) size = '2-9t';
+
+        if (size) {
+            if (isOberirdisch) return `/tanks/${size}-oberirdisch`;
+            if (isUnterirdisch) return `/tanks/${size}-unterirdisch`;
+        }
+
+        // Fallback for general Tank intents
+        if (isTank && (p.includes('kaufen') || p.includes('mieten') || p.includes('preis') || p.includes('angebot'))) return '/tanks';
+
+        // 3. Gas Logic
+        if (p.includes('gas') && (p.includes('bestellen') || p.includes('liefern') || p.includes('preis'))) return '/gas';
+
+        // 4. Knowledge / Content
+        if (p.includes('wissen') || p.includes('ratgeber') || p.includes('faq') || p.includes('frage') || p.includes('was-ist') || p.includes('umruesten') || p.includes('umrüsten')) return '/wissen';
+
+        // 5. Service / Inspections
+        if (p.includes('pruefung') || p.includes('prüfung') || p.includes('vorschriften')) return '/pruefungen';
+
+        // 6. Legal / Home
+        if (p.includes('impressum') || p.includes('datenschutz') || p.includes('agb')) return '/';
+
+        return null;
+    } catch (e) {
+        console.error('Error in findRedirect logic:', e);
+        return null;
     }
-    p = p.toLowerCase(); // Normalize to lowercase
-
-    // 0. Check if it's a valid route (ignore if so)
-    // Note: This check usually happens before calling findRedirect, but good as safety.
-    // However, we want to redirect typos of valid routes if possible, so we proceed.
-
-    // 1. Check Legacy Map
-    if (legacyRedirects[p]) return legacyRedirects[p];
-    if (legacyRedirects['/' + p]) return legacyRedirects['/' + p];
-
-    // 2. Tank Logic
-    const isTank = p.includes('tank') || p.includes('behaelter') || p.includes('behälter');
-    const isOberirdisch = p.includes('oberirdisch');
-    const isUnterirdisch = p.includes('unterirdisch');
-
-    let size = null;
-    if (p.match(/(1\.2|1,2|12)t/) || p.includes('2700')) size = '1-2t';
-    if (p.match(/(2\.1|2,1|21)t/) || p.includes('4850')) size = '2-1t';
-    if (p.match(/(2\.9|2,9|29)t/) || p.includes('6400')) size = '2-9t';
-
-    if (size) {
-        if (isOberirdisch) return `/tanks/${size}-oberirdisch`;
-        if (isUnterirdisch) return `/tanks/${size}-unterirdisch`;
-    }
-
-    // Fallback for general Tank intents
-    if (isTank && (p.includes('kaufen') || p.includes('mieten') || p.includes('preis') || p.includes('angebot'))) return '/tanks';
-
-    // 3. Gas Logic
-    if (p.includes('gas') && (p.includes('bestellen') || p.includes('liefern') || p.includes('preis'))) return '/gas';
-
-    // 4. Knowledge / Content
-    if (p.includes('wissen') || p.includes('ratgeber') || p.includes('faq') || p.includes('frage') || p.includes('was-ist') || p.includes('umruesten') || p.includes('umrüsten')) return '/wissen';
-
-    // 5. Service / Inspections
-    if (p.includes('pruefung') || p.includes('prüfung') || p.includes('vorschriften')) return '/pruefungen';
-
-    // 6. Legal / Home
-    if (p.includes('impressum') || p.includes('datenschutz') || p.includes('agb')) return '/';
-
-    return null;
   };
 
   app.use((req, res, next) => {
-    let normalizedPath = req.path;
-    if (normalizedPath.length > 1 && normalizedPath.endsWith('/')) {
-      normalizedPath = normalizedPath.slice(0, -1);
-    }
+    try {
+        let normalizedPath = req.path;
+        if (normalizedPath.length > 1 && normalizedPath.endsWith('/')) {
+          normalizedPath = normalizedPath.slice(0, -1);
+        }
 
-    // Check if the path is a valid static route
-    const cleanPath = normalizedPath.replace(/^\//, '');
-    if (staticRoutes.includes(cleanPath)) {
-        return next();
-    }
-
-    // Check if the path is a valid tank route
-    if (cleanPath.startsWith('tanks/')) {
-        const slug = cleanPath.split('/')[1];
-        if (tankSlugs.includes(slug)) {
+        // Check if the path is a valid static route
+        const cleanPath = normalizedPath.replace(/^\//, '');
+        if (staticRoutes.includes(cleanPath)) {
             return next();
         }
-    }
 
-    // Not a valid known route, try to redirect
-    const target = findRedirect(req.path);
-    if (target && target !== normalizedPath) {
-      return res.redirect(301, target);
+        // Check if the path is a valid tank route
+        if (cleanPath.startsWith('tanks/')) {
+            const slug = cleanPath.split('/')[1];
+            if (tankSlugs.includes(slug)) {
+                return next();
+            }
+        }
+
+        // Not a valid known route, try to redirect
+        const target = findRedirect(req.path);
+        if (target && target !== normalizedPath) {
+          return res.redirect(301, target);
+        }
+        next();
+    } catch (err) {
+        // If anything in the redirect/path logic fails, just proceed to main handler (which might 404)
+        console.error('Middleware Redirect Error:', err);
+        next();
     }
-    next();
   });
 
   // Dynamic Sitemap Generation (Fail-safe)
@@ -216,10 +226,20 @@ ${routes.map(route => `  <url>
     )
   }
 
-  // Import SEO Data
-  const { getSeoForPath, getSchemaForPath } = await import('./src/data/seoData.js');
+  // Import SEO Data (Safe Import)
+  let getSeoForPath, getSchemaForPath;
+  try {
+      const seoModule = await import('./src/data/seoData.js');
+      getSeoForPath = seoModule.getSeoForPath;
+      getSchemaForPath = seoModule.getSchemaForPath;
+  } catch (e) {
+      console.error('Failed to import SEO Data (src/data/seoData.js). Proceeding with defaults.', e);
+      // Fallback dummies to prevent crash
+      getSeoForPath = () => ({ title: 'gasmöller', description: '', image: '', url: '', type: 'website' });
+      getSchemaForPath = () => ({});
+  }
 
-  app.use(async (req, res) => {
+  app.use(async (req, res, next) => {
     const url = req.originalUrl
 
     // Fail-safe fallback in case app.get missed it (unlikely with strict routing)
@@ -359,6 +379,12 @@ ${routes.map(route => `  <url>
       res.status(500).end(e.stack)
     }
   })
+
+  // Global Error Handler
+  app.use((err, req, res, next) => {
+      console.error('Unhandled Express Error:', err);
+      res.status(500).send('Something went wrong!');
+  });
 
   app.listen(port, () => {
     console.log(`Server started at http://localhost:${port}`)
