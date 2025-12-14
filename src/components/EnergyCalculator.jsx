@@ -93,6 +93,7 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
             id="calculator"
             itemScope
             itemType="http://schema.org/SoftwareApplication"
+            data-nosnippet
         >
             <meta itemProp="name" content="Energie-Vergleichsrechner" />
             <meta itemProp="applicationCategory" content="UtilityApplication" />
