@@ -11,7 +11,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
     const tankInfo = {
         oberirdisch: {
             title: "Der sichtbare Klassiker",
-            description: "Oberirdische Tanks sind die meistgewählte Variante. Sie lassen sich einfach aufstellen, erfordern keine Erdarbeiten und sind kostengünstig in der Installation.",
+            description: "Oberirdische Flüssiggastanks sind die meistgewählte Variante. Sie lassen sich einfach aufstellen, erfordern keine Erdarbeiten und sind kostengünstig in der Installation.",
             benefits: ["Günstige Anschaffung", "Schnelle Installation", "Einfache Wartung"],
             color: "bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 border-gray-700 shadow-2xl",
             iconColor: "text-green-400",
@@ -21,7 +21,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
         },
         unterirdisch: {
             title: "Die unsichtbare Lösung",
-            description: "Unterirdische Tanks verschwinden komplett unter der Erde. Nur der Domschachtdeckel bleibt sichtbar – ideal für gepflegte Gärten und maximale Raumnutzung.",
+            description: "Unterirdische Flüssiggastanks verschwinden komplett unter der Erde. Nur der Domschachtdeckel bleibt sichtbar – ideal für gepflegte Gärten und maximale Raumnutzung.",
             benefits: ["Nicht sichtbar", "Maximale Gartennutzung", "Gut geschützt"],
             color: "bg-green-50 border-green-100",
             iconColor: "text-green-500",
@@ -75,14 +75,14 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                     ) : (
                          <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-6">Ihr neuer Flüssiggastank</h2>
                     )}
-                    <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8">Kaufen oder Mieten – Sie haben die Wahl. Wir bieten Ihnen Tanks in allen gängigen Größen, oberirdisch und unterirdisch.</p>
+                    <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8">Kaufen oder Mieten – Sie haben die Wahl. Wir bieten Ihnen Flüssiggastanks in allen gängigen Größen, oberirdisch und unterirdisch.</p>
                 </div>
             </div>
 
             <div className="py-24 max-w-7xl mx-auto px-4">
                 <div className="text-center mb-8">
                     <h2 className="text-gas font-bold tracking-widest uppercase text-sm mb-2">Unser Sortiment</h2>
-                    <h3 className="text-4xl font-extrabold text-text mb-8">Tanks für jeden Bedarf</h3>
+                    <h3 className="text-4xl font-extrabold text-text mb-8">Flüssiggastanks für jeden Bedarf</h3>
 
                     {/* Visual Selection Area - Upgraded Toggle */}
                     <div className="flex justify-center">

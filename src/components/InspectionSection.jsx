@@ -17,7 +17,7 @@ const InspectionSection = ({ openWizard }) => {
                             <ShieldCheck className="text-green-400" size={16} />
                             <span className="text-white text-xs font-bold uppercase tracking-widest">Sicherheit zuerst</span>
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">Tankprüfungen & Service</h1>
+                        <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">Flüssiggastank-Prüfungen & Service</h1>
                         <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8">Wir kümmern uns um die gesetzlich vorgeschriebenen Prüfungen (Innere & Äußere) für Ihren Flüssiggastank. Zuverlässig und zertifiziert.</p>
                         <button onClick={() => openWizard('service')} className="bg-gas hover:bg-gas-dark text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl shadow-gas/20 transition-all transform hover:scale-105">
                             Prüfung anfragen

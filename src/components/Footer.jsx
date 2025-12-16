@@ -51,8 +51,8 @@ const Footer = ({ setActiveSection, openLegal }) => {
                 <div>
                     <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-wider">Schnellzugriff</h4>
                     <ul className="space-y-2">
-                        <li><button onClick={() => setActiveSection('gas')} className="hover:text-white transition-colors">Gas bestellen</button></li>
-                        <li><button onClick={() => setActiveSection('tanks')} className="hover:text-white transition-colors">Tanks kaufen</button></li>
+                        <li><button onClick={() => setActiveSection('gas')} className="hover:text-white transition-colors">Flüssiggas bestellen</button></li>
+                        <li><button onClick={() => setActiveSection('tanks')} className="hover:text-white transition-colors">Flüssiggastank kaufen</button></li>
                         <li><button onClick={() => setActiveSection('rechner')} className="hover:text-white transition-colors">Spar-Rechner</button></li>
                         <li><button onClick={() => setActiveSection('kontakt')} className="hover:text-white transition-colors">Kontakt</button></li>
                         <li className="pt-2 border-t border-gray-800 mt-2">
@@ -73,7 +73,7 @@ const Footer = ({ setActiveSection, openLegal }) => {
                 </div>
                 <div>
                     <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-wider">Newsletter</h4>
-                    <p className="mb-4 text-xs">Bleiben Sie über Gaspreise informiert.</p>
+                    <p className="mb-4 text-xs">Bleiben Sie über Flüssiggaspreise informiert.</p>
 
                     {status === 'success' ? (
                         <div className="bg-green-500/10 text-green-400 p-3 rounded flex items-center border border-green-500/20">
