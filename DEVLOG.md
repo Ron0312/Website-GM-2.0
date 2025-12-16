@@ -31,3 +31,27 @@
 8.  **Customer Portal**: Create a login area for existing customers to view their tank level (if telemetry exists), order history, and download invoices.
 9.  **Blog/News Integration**: Build a simple Markdown-based blog system (using the existing SSG setup) to publish industry news, safety tips, and company updates regularly for SEO.
 10. **AB Testing Framework**: Implement a lightweight A/B testing mechanism (e.g., splitting traffic between two different Hero designs) to optimize conversion rates for "Angebot anfordern".
+
+### Vorschläge für mehr Professionalität
+1.  **Rate Limiting & Spam-Schutz**: Implementieren Sie serverseitiges Rate Limiting (z.B. `express-rate-limit`) für alle Formular-Endpunkte (Kontakt, Wizard), um Missbrauch über das Honeypot-Feld hinaus zu verhindern.
+2.  **DSGVO Audit-Trail**: Protokollieren Sie bei Zustimmung zur Datenverarbeitung den genauen Zeitstempel und die anonymisierte IP-Adresse in der Web3Forms-Payload, um im Zweifelsfall einen besseren Nachweis (Audit Trail) zu haben.
+3.  **Strict Content Security Policy (CSP)**: Härten Sie die CSP in `server.js` weiter ab. Ersetzen Sie `'unsafe-inline'` für Styles durch Nonces oder Hashes und blockieren Sie strikt alle nicht genehmigten Skript-Quellen, um Cross-Site-Scripting (XSS) unmöglich zu machen.
+4.  **Automatisierter Link-Check**: Integrieren Sie einen CI/CD-Schritt oder ein Skript, das regelmäßig alle externen Links (Social Media, Partner) auf Erreichbarkeit prüft, um "Dead Links" zu vermeiden, die das Vertrauen mindern.
+5.  **Erweitertes Product Schema (SEO)**: Ergänzen Sie `seoData.js` um detaillierte Schema.org `Product` Daten für jeden Tank (inkl. `sku`, `brand`, `mpn` und `offers`), um in den Google Shopping Ergebnissen und Rich Snippets professioneller zu erscheinen.
+6.  **Automatisierte Barrierefreiheits-Tests**: Integrieren Sie Tools wie `pa11y` oder `axe-core` in die Build-Pipeline, um sicherzustellen, dass neue Änderungen keine Barrierefreiheits-Standards verletzen (z.B. fehlende `aria-labels`).
+7.  **Professionelles Logging**: Ersetzen Sie `console.log` in `server.js` durch eine Logging-Bibliothek wie `winston` oder `morgan` mit Log-Rotation und strukturiertem Output (JSON), um Fehler in der Produktion effizienter analysieren zu können.
+8.  **Graceful Shutdown**: Implementieren Sie `process.on('SIGTERM')` Logik im Server, um offene Verbindungen sauber zu schließen, bevor der Node-Prozess beendet wird – essenziell für Zero-Downtime Deployments.
+9.  **Canonical & HTTPS Enforcing**: Stellen Sie sicher, dass der Server strikt `www.` auf `non-www` (oder umgekehrt) umleitet und HTTPS erzwingt, um "Duplicate Content" Probleme bei Suchmaschinen zu vermeiden und Sicherheit zu signalisieren.
+10. **Sentry / Fehler-Monitoring**: Integrieren Sie einen Dienst wie Sentry im Frontend (`ErrorBoundary.jsx`), um JavaScript-Abstürze, die Nutzer erleben, automatisch zu erfassen, bevor diese sich beschweren müssen.
+
+### Vorschläge zur optischen Aufwertung und UX/UI-Verbesserung
+1.  **Micro-Interactions in Formularen**: Fügen Sie in `ModernInput.jsx` subtile Animationen hinzu, z.B. ein kurzes Aufleuchten oder ein animiertes Häkchen, sobald ein Feld validiert wurde, um dem Nutzer sofortiges positives Feedback zu geben.
+2.  **Sticky Mobile CTA**: Fixieren Sie auf mobilen Geräten den "Angebot anfordern" oder "Anrufen" Button am unteren Bildschirmrand, damit der Conversion-Pfad unabhängig von der Scrollposition immer nur einen Klick entfernt ist.
+3.  **Progressive Image Loading (Blur-Up)**: Implementieren Sie einen "Blur-Up" Effekt für Hero- und Produktbilder. Laden Sie zuerst ein winziges Base64-Bild und blenden Sie das hochauflösende Bild weich ein, um weißes Flackern beim Laden zu vermeiden.
+4.  **Interaktive Lieferkarte**: Machen Sie die `DeliveryMap.jsx` lebendiger. Wenn Nutzer mit der Maus über ihre Region fahren, sollte diese aufleuchten und ein Tooltip ("Wir liefern hier!") erscheinen, statt nur eine statische Grafik zu sein.
+5.  **Scroll-Driven Animations**: Nutzen Sie `framer-motion` (z.B. `useScroll`), um Elemente wie die Vorteilskarten in der `TankSection` sanft einblenden oder leicht versetzt (Parallax) bewegen zu lassen, wenn der Nutzer scrollt.
+6.  **Haptisches Feedback (Mobile)**: Lösen Sie bei erfolgreichen Aktionen im `WizardModal` (z.B. Schritt abgeschlossen) eine leichte Vibration (`navigator.vibrate`) auf Smartphones aus, um die Interaktion "fühlbar" zu machen.
+7.  **Live-Status "Geöffnet/Geschlossen"**: Zeigen Sie im Header oder Footer basierend auf der aktuellen Uhrzeit dynamisch an, ob das Büro gerade besetzt ist ("🟢 Jetzt geöffnet" vs. "🔴 Morgen ab 8:00 wieder da"), um Dringlichkeit und Erreichbarkeit zu kommunizieren.
+8.  **Custom 404 Experience**: Gestalten Sie die 404-Seite kreativer, z.B. mit einer Illustration eines "verlorenen Tanklasters" oder eines "leeren Tanks" und einem humorvollen Text, der sympathisch zur Startseite zurückleitet.
+9.  **Skeleton Loading im Rechner**: Zeigen Sie während Berechnungen oder Modus-Wechseln im `EnergyCalculator` ein "Skeleton UI" (graue Platzhalter-Balken) statt eines Spinners an, um die wahrgenommene Ladezeit zu verkürzen.
+10. **Glassmorphism Hover-Effekte**: Verleihen Sie den Team-Karten oder Produkt-Karten beim Hover einen modernen "Milchglas"-Effekt (Backdrop-Blur) über den Informationen, um Tiefe und Modernität zu vermitteln.
