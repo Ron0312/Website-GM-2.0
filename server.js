@@ -41,7 +41,8 @@ async function createServer() {
   // Valid Routes Configuration
   const staticRoutes = [
       '', 'tanks', 'gas', 'rechner', 'gewerbe',
-      'wissen', 'ueber-uns', 'kontakt', 'pruefungen', 'barrierefreiheit', '404'
+      'wissen', 'ueber-uns', 'kontakt', 'pruefungen', 'barrierefreiheit', '404',
+      'sitemap.xml', 'robots.txt'
   ];
 
   const tankSlugs = [
@@ -52,6 +53,76 @@ async function createServer() {
     '2-1t-unterirdisch',
     '2-9t-unterirdisch'
   ];
+
+  // Dynamic Sitemap Generation (Fail-safe)
+  const generateSitemapXml = () => {
+      const SITE_URL = 'https://www.gasmoeller.de';
+      const routes = [...staticRoutes.filter(r => r !== '404' && r !== 'sitemap.xml' && r !== 'robots.txt')]; // Exclude technical routes from sitemap
+      tankSlugs.forEach(slug => routes.push(`tanks/${slug}`));
+
+      return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${routes.map(route => `  <url>
+    <loc>${SITE_URL}/${route}</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>${route === '' ? 'daily' : 'weekly'}</changefreq>
+    <priority>${route === '' ? '1.0' : '0.8'}</priority>
+  </url>`).join('\n')}
+</urlset>`;
+  };
+
+  // Helper to serve file or fallback to generator
+  const serveOrGenerate = (res, filename, contentType, generator) => {
+    const pathsToCheck = [
+      path.resolve(process.cwd(), filename),
+      path.resolve(__dirname, filename),
+      path.resolve(__dirname, 'dist/client', filename),
+      path.resolve(__dirname, 'public', filename)
+    ]
+
+    for (const filePath of pathsToCheck) {
+      if (fs.existsSync(filePath)) {
+        try {
+          const content = fs.readFileSync(filePath)
+          res.setHeader('Content-Type', contentType)
+          res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate')
+          res.send(content)
+          return true
+        } catch (e) {
+          console.error(`Error serving ${filename} from ${filePath}:`, e)
+        }
+      }
+    }
+
+    if (generator) {
+        try {
+            const content = generator();
+            res.setHeader('Content-Type', contentType);
+            res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+            res.send(content);
+            console.log(`Generated ${filename} dynamically.`);
+            return true;
+        } catch (e) {
+            console.error(`Error generating ${filename}:`, e);
+        }
+    }
+    return false
+  }
+
+  // Explicitly serve sitemap.xml - MOVED TO TOP to prevent Redirect/SSR interference
+  app.get('/sitemap.xml', (req, res) => {
+    if (!serveOrGenerate(res, 'sitemap.xml', 'application/xml', generateSitemapXml)) {
+        res.status(404).send('Sitemap not found')
+    }
+  })
+
+  // Explicitly serve robots.txt - MOVED TO TOP
+  app.get('/robots.txt', (req, res) => {
+    if (!serveOrGenerate(res, 'robots.txt', 'text/plain', null)) {
+        res.status(404).send('Robots.txt not found')
+    }
+  })
+
 
   // Legacy Redirects Map (Specific overrides)
   const legacyRedirects = {
@@ -222,75 +293,6 @@ async function createServer() {
         next();
     }
   });
-
-  // Dynamic Sitemap Generation (Fail-safe)
-  const generateSitemapXml = () => {
-      const SITE_URL = 'https://www.gasmoeller.de';
-      const routes = [...staticRoutes.filter(r => r !== '404')]; // Exclude 404 from sitemap
-      tankSlugs.forEach(slug => routes.push(`tanks/${slug}`));
-
-      return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${routes.map(route => `  <url>
-    <loc>${SITE_URL}/${route}</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
-    <changefreq>${route === '' ? 'daily' : 'weekly'}</changefreq>
-    <priority>${route === '' ? '1.0' : '0.8'}</priority>
-  </url>`).join('\n')}
-</urlset>`;
-  };
-
-  // Helper to serve file or fallback to generator
-  const serveOrGenerate = (res, filename, contentType, generator) => {
-    const pathsToCheck = [
-      path.resolve(process.cwd(), filename),
-      path.resolve(__dirname, filename),
-      path.resolve(__dirname, 'dist/client', filename),
-      path.resolve(__dirname, 'public', filename)
-    ]
-
-    for (const filePath of pathsToCheck) {
-      if (fs.existsSync(filePath)) {
-        try {
-          const content = fs.readFileSync(filePath)
-          res.setHeader('Content-Type', contentType)
-          res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate')
-          res.send(content)
-          return true
-        } catch (e) {
-          console.error(`Error serving ${filename} from ${filePath}:`, e)
-        }
-      }
-    }
-
-    if (generator) {
-        try {
-            const content = generator();
-            res.setHeader('Content-Type', contentType);
-            res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-            res.send(content);
-            console.log(`Generated ${filename} dynamically.`);
-            return true;
-        } catch (e) {
-            console.error(`Error generating ${filename}:`, e);
-        }
-    }
-    return false
-  }
-
-  // Explicitly serve sitemap.xml
-  app.get('/sitemap.xml', (req, res) => {
-    if (!serveOrGenerate(res, 'sitemap.xml', 'application/xml', generateSitemapXml)) {
-        res.status(404).send('Sitemap not found')
-    }
-  })
-
-  // Explicitly serve robots.txt
-  app.get('/robots.txt', (req, res) => {
-    if (!serveOrGenerate(res, 'robots.txt', 'text/plain', null)) {
-        res.status(404).send('Robots.txt not found')
-    }
-  })
 
   let vite
   if (!isProd) {
