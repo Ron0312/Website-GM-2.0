@@ -5,7 +5,7 @@ import { tankDetails } from '../data/tanks';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check } from 'lucide-react';
 
-const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = true }) => {
+const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = true, isPageTitle = false }) => {
     const [filter, setFilter] = useState('oberirdisch');
 
     const tankInfo = {
@@ -70,7 +70,11 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                          <span className="w-3 h-3 bg-green-400 rounded-full mr-3 animate-pulse"></span>
                          <span className="text-white font-bold text-sm">Sofort verfügbar & Installation durch Fachpartner</span>
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">Ihr neuer Flüssiggastank</h1>
+                    {isPageTitle ? (
+                         <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">Ihr neuer Flüssiggastank</h1>
+                    ) : (
+                         <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-6">Ihr neuer Flüssiggastank</h2>
+                    )}
                     <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8">Kaufen oder Mieten – Sie haben die Wahl. Wir bieten Ihnen Tanks in allen gängigen Größen, oberirdisch und unterirdisch.</p>
                 </div>
             </div>

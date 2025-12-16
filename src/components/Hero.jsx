@@ -20,13 +20,14 @@ const Hero = ({ setActiveSection, openWizard }) => (
             <div className="lg:grid lg:grid-cols-2 lg:gap-20 items-center">
                 <div className="text-left text-white">
                     <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-                        <div className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md border border-white/30 px-4 py-1.5 rounded-full mb-8 shadow-sm">
+                        <div className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md border border-white/30 px-4 py-1.5 rounded-full mb-6 shadow-sm">
                             <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
                             <span className="text-white text-xs font-bold uppercase tracking-widest flex items-center gap-2">
                                 <ShieldCheck size={14} className="text-white" /> Seit 2000 · Norddeutsch · Ehrlich
                             </span>
                         </div>
-                        <h1 className="text-6xl tracking-tight font-extrabold sm:text-7xl lg:text-8xl mb-8 leading-tight drop-shadow-lg">Energie.<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Freiheit.</span></h1>
+                        <h1 className="text-blue-100 font-bold tracking-[0.2em] uppercase text-sm mb-2 drop-shadow-md">Gas-Service Möller</h1>
+                        <h2 className="text-6xl tracking-tight font-extrabold sm:text-7xl lg:text-8xl mb-8 leading-tight drop-shadow-lg">Energie.<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Freiheit.</span></h2>
                         <p className="mt-4 text-xl text-gray-100 leading-relaxed mb-10 max-w-lg font-medium drop-shadow-md">Schluss mit teuren Mietverträgen. Werden Sie Eigentümer Ihres Tanks und kaufen Sie Gas, wo es am günstigsten ist.</p>
                         <div className="flex flex-col sm:flex-row gap-4">
                             <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => openWizard ? openWizard('tank') : setActiveSection('tanks')} className="px-8 py-4 bg-gas hover:bg-gas-dark text-white text-base font-bold rounded-full shadow-xl shadow-gas/30 transition-all uppercase tracking-wide border-2 border-transparent">Tank kaufen</motion.button>

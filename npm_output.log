@@ -1,0 +1,7 @@
+
+> gasmoeller-vite@0.0.0 start
+> node server.js
+
+Starting server. Initial mode: DEVELOPMENT
+Server started at http://localhost:5173
+Redirecting: /src/components/FAQ.jsx -> /wissen
