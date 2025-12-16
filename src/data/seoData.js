@@ -192,6 +192,7 @@ export const getSchemaForPath = (path) => {
                 "image": DEFAULT_IMAGE,
                 "description": tank.description,
                 "sku": tank.slug,
+                "mpn": tank.slug.toUpperCase(),
                 "brand": {
                     "@type": "Brand",
                     "name": "Gas-Service Möller"
@@ -202,13 +203,44 @@ export const getSchemaForPath = (path) => {
                     "priceCurrency": "EUR",
                     "price": "0", // Price on request
                     "availability": "https://schema.org/InStock",
-                    "itemCondition": "https://schema.org/NewCondition"
+                    "itemCondition": "https://schema.org/NewCondition",
+                    "priceValidUntil": new Date(new Date().getFullYear() + 1, 0, 1).toISOString().split('T')[0], // End of current/next year
+                    "shippingDetails": {
+                        "@type": "OfferShippingDetails",
+                        "shippingRate": {
+                             "@type": "MonetaryAmount",
+                             "value": "0",
+                             "currency": "EUR"
+                        },
+                        "shippingDestination": {
+                             "@type": "DefinedRegion",
+                             "addressCountry": "DE",
+                             "addressRegion": ["SH", "HH", "NI", "MV"]
+                        },
+                         "deliveryTime": {
+                            "@type": "ShippingDeliveryTime",
+                            "handlingTime": {
+                                "@type": "QuantitativeValue",
+                                "minValue": 0,
+                                "maxValue": 1,
+                                "unitCode": "DAY"
+                            },
+                            "transitTime": {
+                                "@type": "QuantitativeValue",
+                                "minValue": 1,
+                                "maxValue": 14,
+                                "unitCode": "DAY"
+                            }
+                        }
+                    }
                 },
                 "additionalProperty": [
                     { "@type": "PropertyValue", "name": "Kapazität", "value": tank.capacity },
                     { "@type": "PropertyValue", "name": "Volumen", "value": tank.volume },
                     { "@type": "PropertyValue", "name": "Abmessungen", "value": tank.dimensions },
-                    { "@type": "PropertyValue", "name": "Installation", "value": tank.installation }
+                    { "@type": "PropertyValue", "name": "Installation", "value": tank.installation },
+                    { "@type": "PropertyValue", "name": "Material", "value": "Stahl" },
+                    { "@type": "PropertyValue", "name": "Beschichtung", "value": "Epoxidharz (hellgrün)" }
                 ]
             };
         }
@@ -227,7 +259,12 @@ export const getSchemaForPath = (path) => {
                         "@type": "Product",
                         "name": t.name,
                         "description": t.description,
-                        "url": `${SITE_URL}/tanks/${t.slug}`
+                        "sku": t.slug,
+                        "url": `${SITE_URL}/tanks/${t.slug}`,
+                        "brand": {
+                             "@type": "Brand",
+                             "name": "Gas-Service Möller"
+                        }
                     }
                 }))
             }

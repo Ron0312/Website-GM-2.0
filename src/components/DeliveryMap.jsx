@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { MapPin, CheckCircle } from 'lucide-react';
+import { MapPin, CheckCircle, MousePointer2 } from 'lucide-react';
 import Skeleton from './ui/Skeleton';
+import { motion } from 'framer-motion';
 
 const DeliveryMap = () => {
     const [loading, setLoading] = useState(true);
+    const [hoveredRegion, setHoveredRegion] = useState(null);
 
     useEffect(() => {
         // Simulate loading time (or wait for image load if using images)
@@ -103,6 +105,13 @@ const DeliveryMap = () => {
         Z
     `;
 
+    const regions = [
+        { id: 'SH', name: 'Schleswig-Holstein', path: pathSH, color: '#8ecae6', hoverColor: '#b9e6ff' },
+        { id: 'HH', name: 'Hamburg', path: pathHH, color: '#003366', hoverColor: '#004a8f' },
+        { id: 'MV', name: 'Mecklenburg-Vorpommern', path: pathMV, color: '#4da6ff', hoverColor: '#80c2ff' },
+        { id: 'NI', name: 'Niedersachsen (Nord)', path: pathNI, color: '#005b9f', hoverColor: '#2b8ad6' },
+    ];
+
     return (
         <div className="py-20 bg-gray-900 text-white overflow-hidden relative">
             <div className="absolute inset-0 opacity-10 bg-gray-800"></div>
@@ -118,11 +127,18 @@ const DeliveryMap = () => {
                     </p>
                     <div className="grid grid-cols-2 gap-4">
                         {['Schleswig-Holstein', 'Hamburg', 'Niedersachsen (auf Anfrage)', 'Mecklenburg'].map((region, i) => (
-                            <div key={i} className="flex items-center space-x-3 p-3 rounded bg-white/5 border border-white/10">
+                            <motion.div
+                                key={i}
+                                className={`flex items-center space-x-3 p-3 rounded border transition-colors ${hoveredRegion && region.startsWith(hoveredRegion.split(' ')[0]) ? 'bg-white/20 border-white/40' : 'bg-white/5 border-white/10'}`}
+                            >
                                 <CheckCircle size={18} className="text-gas-light"/>
                                 <span className="font-medium text-sm">{region}</span>
-                            </div>
+                            </motion.div>
                         ))}
+                    </div>
+                    <div className="mt-6 flex items-center text-xs text-gray-500 gap-2">
+                        <MousePointer2 size={12} className="animate-bounce" />
+                        <span>Fahren Sie über die Karte für Details</span>
                     </div>
                 </div>
                 <div className="lg:w-1/2 mt-12 lg:mt-0 relative flex items-center justify-center p-4 lg:p-0">
@@ -131,27 +147,59 @@ const DeliveryMap = () => {
                             <Skeleton className="w-full h-full rounded-2xl bg-gray-800" />
                         </div>
                     ) : (
-                        <svg viewBox="0 0 800 500" className="w-full h-auto max-w-md lg:max-w-full">
-                            {/* Flat Design Map */}
-                            <g stroke="white" strokeWidth="0.5" strokeLinejoin="round">
-                                <path d={pathNI} fill="#005b9f" />
-                                <path d={pathMV} fill="#4da6ff" />
-                                <path d={pathSH} fill="#8ecae6" />
-                                <path d={pathHH} fill="#003366" />
+                        <svg viewBox="0 0 800 500" className="w-full h-auto max-w-md lg:max-w-full drop-shadow-2xl">
+                            <defs>
+                                <filter id="glow">
+                                    <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+                                    <feMerge>
+                                        <feMergeNode in="coloredBlur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+                            <g stroke="white" strokeWidth="1" strokeLinejoin="round">
+                                {regions.map((region) => (
+                                    <motion.path
+                                        key={region.id}
+                                        d={region.path}
+                                        fill={region.color}
+                                        initial={{ fill: region.color }}
+                                        whileHover={{ fill: region.hoverColor, scale: 1.01, zIndex: 10 }}
+                                        transition={{ duration: 0.2 }}
+                                        onHoverStart={() => setHoveredRegion(region.name)}
+                                        onHoverEnd={() => setHoveredRegion(null)}
+                                        className="cursor-pointer"
+                                        style={{ originX: 0.5, originY: 0.5 }}
+                                    />
+                                ))}
                             </g>
+
+                            {/* Tooltip-like label on hover */}
+                             <motion.g
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: hoveredRegion ? 1 : 0 }}
+                                className="pointer-events-none"
+                            >
+                                {hoveredRegion && (
+                                     <text x="400" y="480" textAnchor="middle" fill="white" fontSize="16" fontWeight="bold" className="uppercase tracking-widest drop-shadow-md">
+                                        Wir liefern nach {hoveredRegion}
+                                     </text>
+                                )}
+                            </motion.g>
 
                             {/* Cities */}
                             {cities.map((city, index) => (
-                                <g key={index} transform={`translate(${city.x}, ${city.y})`}>
-                                    <circle cx="0" cy="0" r="3" fill="white" />
+                                <g key={index} transform={`translate(${city.x}, ${city.y})`} className="pointer-events-none">
+                                    <circle cx="0" cy="0" r="4" fill="white" className="drop-shadow-lg" />
                                     <text
-                                        x={city.align === 'start' ? 8 : city.align === 'end' ? -8 : 0}
-                                        y={4}
-                                        fontFamily="Arial"
-                                        fontSize="12"
+                                        x={city.align === 'start' ? 10 : city.align === 'end' ? -10 : 0}
+                                        y={5}
+                                        fontFamily="sans-serif"
+                                        fontSize="14"
                                         fill="white"
                                         fontWeight="bold"
                                         textAnchor={city.align}
+                                        style={{ textShadow: '0px 2px 4px rgba(0,0,0,0.5)' }}
                                     >
                                         {city.name}
                                     </text>

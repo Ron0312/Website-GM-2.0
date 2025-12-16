@@ -1,5 +1,5 @@
 import React, { useState, useId } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Check, X, AlertCircle } from 'lucide-react';
 
 const ModernInput = ({ label, error, className = '', multiline = false, id: providedId, ...props }) => {
@@ -56,27 +56,67 @@ const ModernInput = ({ label, error, className = '', multiline = false, id: prov
              </label>
         )}
 
-        {/* Validation Icons - Only for single line inputs usually, but can work for textarea too if positioned top right */}
+        {/* Validation Icons with Micro-Interactions */}
         {!multiline && (
             <div className="pr-4 py-4 flex items-center pointer-events-none h-full absolute right-0 top-0">
-                {hasError && <X size={20} className="text-red-500" />}
-                {isValid && !focused && <Check size={20} className="text-green-500" />}
+                <AnimatePresence>
+                    {hasError && (
+                        <motion.div
+                            initial={{ scale: 0, rotate: -45 }}
+                            animate={{ scale: 1, rotate: 0 }}
+                            exit={{ scale: 0 }}
+                        >
+                            <X size={20} className="text-red-500" />
+                        </motion.div>
+                    )}
+                    {isValid && !focused && (
+                        <motion.div
+                             initial={{ scale: 0, rotate: 45 }}
+                             animate={{ scale: 1, rotate: 0 }}
+                             exit={{ scale: 0 }}
+                        >
+                            <Check size={20} className="text-green-500" />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         )}
-        {/* For multiline, we might want icons at the top right too, but let's keep it simple for now or position absolute */}
         {multiline && (
              <div className="absolute right-4 top-4 pointer-events-none">
-                {hasError && <X size={20} className="text-red-500" />}
-                {isValid && !focused && <Check size={20} className="text-green-500" />}
+                <AnimatePresence>
+                    {hasError && (
+                         <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            exit={{ scale: 0 }}
+                         >
+                            <X size={20} className="text-red-500" />
+                        </motion.div>
+                    )}
+                    {isValid && !focused && (
+                        <motion.div
+                             initial={{ scale: 0 }}
+                             animate={{ scale: 1 }}
+                             exit={{ scale: 0 }}
+                        >
+                            <Check size={20} className="text-green-500" />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         )}
 
       </motion.div>
       {typeof error === 'string' && error.length > 0 && (
-          <div id={errorId} className="flex items-center text-red-500 text-xs mt-1 ml-1 font-bold animate-pulse">
+          <motion.div
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            id={errorId}
+            className="flex items-center text-red-500 text-xs mt-1 ml-1 font-bold"
+          >
               <AlertCircle size={12} className="mr-1" />
               {error}
-          </div>
+          </motion.div>
       )}
     </div>
   );

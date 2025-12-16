@@ -15,6 +15,71 @@ process.on('unhandledRejection', (reason, promise) => {
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
+// Simple In-Memory Rate Limiter
+const rateLimitMap = new Map();
+const RATE_LIMIT_WINDOW = 15 * 60 * 1000; // 15 minutes
+const MAX_REQUESTS = 2000; // Increased for Vite dev mode (many requests)
+
+// Clean up old rate limit entries every hour to prevent memory leaks
+setInterval(() => {
+    const now = Date.now();
+    for (const [ip, data] of rateLimitMap.entries()) {
+        if (now - data.startTime > RATE_LIMIT_WINDOW) {
+            rateLimitMap.delete(ip);
+        }
+    }
+}, 60 * 60 * 1000);
+
+function rateLimiter(req, res, next) {
+    // Skip static assets from rate limiting
+    if (req.url.match(/\.(js|css|png|jpg|jpeg|webp|gif|svg|ico|woff|woff2)$/)) {
+        return next();
+    }
+
+    const ip = req.ip || req.connection.remoteAddress;
+    const now = Date.now();
+
+    if (!rateLimitMap.has(ip)) {
+        rateLimitMap.set(ip, { count: 1, startTime: now });
+        return next();
+    }
+
+    const data = rateLimitMap.get(ip);
+
+    if (now - data.startTime > RATE_LIMIT_WINDOW) {
+        // Reset window
+        data.count = 1;
+        data.startTime = now;
+        return next();
+    }
+
+    if (data.count >= MAX_REQUESTS) {
+        return res.status(429).send('Too Many Requests');
+    }
+
+    data.count++;
+    next();
+}
+
+// Custom Logger Middleware
+function requestLogger(req, res, next) {
+    const start = Date.now();
+    res.on('finish', () => {
+        const duration = Date.now() - start;
+        const logEntry = {
+            method: req.method,
+            url: req.url,
+            status: res.statusCode,
+            duration: `${duration}ms`,
+            timestamp: new Date().toISOString(),
+            ip: req.ip || req.connection.remoteAddress
+        };
+        // Use JSON format for production-grade logging
+        console.log(JSON.stringify(logEntry));
+    });
+    next();
+}
+
 async function createServer() {
   const app = express()
   const port = process.env.PORT || 5173
@@ -23,18 +88,39 @@ async function createServer() {
 
   console.log(`Starting server. Initial mode: ${isProd ? 'PRODUCTION' : 'DEVELOPMENT'}`);
 
-  // Security Headers (Basic)
+  // Apply Rate Limiter and Logger
+  app.use(requestLogger);
+  // Only rate limit SSR/dynamic requests, not static assets ideally, but simpler to apply globally for now
+  // and maybe exclude static extension in the limiter logic if needed.
+  // For now, applying to all to protect the server process.
+  app.use(rateLimiter);
+
+  // Security Headers (Enhanced)
   app.use((req, res, next) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('X-Frame-Options', 'SAMEORIGIN');
     res.setHeader('X-XSS-Protection', '1; mode=block');
     // Permissions Policy
     res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=()');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+
     // Content Security Policy
-    res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://api.web3forms.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https://api.web3forms.com; connect-src 'self' https://api.web3forms.com; frame-src 'self' https://www.google.com https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com; upgrade-insecure-requests;");
+    // Production: stricter (no unsafe-eval)
+    // Development: looser (unsafe-eval required for Vite)
+    const scriptSrc = isProd
+        ? "'self' https://api.web3forms.com"
+        : "'self' 'unsafe-inline' 'unsafe-eval' https://api.web3forms.com";
+
+    res.setHeader("Content-Security-Policy", `default-src 'self'; script-src ${scriptSrc}; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https://api.web3forms.com; connect-src 'self' https://api.web3forms.com; frame-src 'self' https://www.google.com https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com; upgrade-insecure-requests;`);
 
     // Remove X-Powered-By
     res.removeHeader('X-Powered-By');
+
+    // Strict Transport Security (HSTS) - 1 year
+    if (isProd) {
+        res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+    }
+
     next();
   });
 
@@ -515,9 +601,27 @@ ${routes.map(route => `  <url>
     }
   });
 
-  app.listen(port, () => {
+  const server = app.listen(port, () => {
     console.log(`Server started at http://localhost:${port}`)
   })
+
+  // Graceful Shutdown
+  const shutdown = () => {
+      console.log('Received kill signal, shutting down gracefully');
+      server.close(() => {
+          console.log('Closed out remaining connections');
+          process.exit(0);
+      });
+
+      // Force close after 10s
+      setTimeout(() => {
+          console.error('Could not close connections in time, forcefully shutting down');
+          process.exit(1);
+      }, 10000);
+  };
+
+  process.on('SIGTERM', shutdown);
+  process.on('SIGINT', shutdown);
 }
 
 createServer()

@@ -1,10 +1,39 @@
-import React, { useState } from 'react';
-import { Send, CheckCircle, Loader2, Phone } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Send, CheckCircle, Loader2, Phone, Clock } from 'lucide-react';
 
 const Footer = ({ setActiveSection, openLegal }) => {
     const [email, setEmail] = useState('');
     const [honeypot, setHoneypot] = useState('');
     const [status, setStatus] = useState('idle'); // idle, loading, success, error
+    const [isOpenStatus, setIsOpenStatus] = useState(false);
+
+    // Calculate Open Status (Mo-Fr 8:00 - 17:00)
+    useEffect(() => {
+        const checkTime = () => {
+            // Use German time for business logic regardless of user location
+            const now = new Date();
+            const formatter = new Intl.DateTimeFormat('en-US', {
+                timeZone: 'Europe/Berlin',
+                weekday: 'short',
+                hour: 'numeric',
+                hour12: false
+            });
+
+            const parts = formatter.formatToParts(now);
+            const weekday = parts.find(p => p.type === 'weekday').value;
+            const hour = parseInt(parts.find(p => p.type === 'hour').value, 10);
+
+            // Mo-Fr (Mon, Tue, Wed, Thu, Fri)
+            const isWeekday = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].includes(weekday);
+            const isWorkingHours = hour >= 8 && hour < 17;
+
+            setIsOpenStatus(isWeekday && isWorkingHours);
+        };
+
+        checkTime();
+        const interval = setInterval(checkTime, 60000); // Check every minute
+        return () => clearInterval(interval);
+    }, []);
 
     const handleNewsletterSubmit = async (e) => {
         e.preventDefault();
@@ -43,6 +72,15 @@ const Footer = ({ setActiveSection, openLegal }) => {
                 <div className="col-span-1">
                     <img src="/logos/Icon-01.webp" alt="gasmöller" width="2222" height="747" loading="lazy" className="h-10 w-auto filter brightness-0 invert opacity-80 mb-6" />
                     <p className="leading-relaxed mb-4">Ihr unabhängiger Partner für Energie im Norden. Seit 2000.</p>
+
+                    {/* Live Status Indicator */}
+                    <div className="inline-flex items-center gap-2 bg-gray-800 px-3 py-1.5 rounded-full text-xs font-semibold mb-6">
+                        <div className={`w-2 h-2 rounded-full ${isOpenStatus ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`} />
+                        <span className={isOpenStatus ? 'text-green-400' : 'text-gray-400'}>
+                            {isOpenStatus ? 'Jetzt geöffnet' : 'Geschlossen'}
+                        </span>
+                    </div>
+
                     <div className="flex space-x-4">
                         <a href="https://facebook.com/gasmoeller" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer" aria-label="Facebook">f</a>
                         <a href="https://linkedin.com/company/gasmoeller" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer" aria-label="LinkedIn">in</a>

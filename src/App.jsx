@@ -21,6 +21,7 @@ import CookieBanner from './components/CookieBanner';
 import SimpleModal from './components/SimpleModal';
 import ScrollToTop from './components/ScrollToTop';
 import NotFound from './components/NotFound';
+import StickyCTA from './components/StickyCTA';
 import AccessibilityWidget from './components/AccessibilityWidget';
 import AccessibilityPage from './components/AccessibilityPage';
 import { ImprintContent, PrivacyContent, TermsContent, AccessibilityStatementContent } from './components/Legal';
@@ -212,6 +213,7 @@ const App = ({ path, context }) => {
             <WizardModal isOpen={wizardOpen} onClose={() => setWizardOpen(false)} initialType={wizardType} initialData={wizardData} />
             <CookieBanner />
             <SimpleModal isOpen={legalModal.open} onClose={() => setLegalModal({ ...legalModal, open: false })} title={legalModal.title} content={legalModal.content} />
+            <StickyCTA openWizard={openWizard} />
             <AccessibilityWidget />
             <ScrollToTop />
         </div>
