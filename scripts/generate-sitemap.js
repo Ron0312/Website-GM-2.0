@@ -22,6 +22,7 @@ const staticRoutes = [
 ];
 
 function generateSitemap() {
+  console.log('🔄 Starting Sitemap & Robots generation...');
   const routes = [...staticRoutes];
 
   // Add dynamic tank routes
@@ -42,20 +43,26 @@ function generateSitemap() {
   }).join('')}
 </urlset>`;
 
-  // Write to public folder (for Dev and Vite copy)
+  // 1. Write Sitemap to public/sitemap.xml
   fs.writeFileSync(path.join(PUBLIC_PATH, 'sitemap.xml'), sitemap);
   console.log('✅ Sitemap generated at public/sitemap.xml');
 
-  // Write to Root folder (for Production fallback and Nginx/Passenger serving)
-  fs.writeFileSync(path.join(ROOT_PATH, 'sitemap.xml'), sitemap);
-  console.log('✅ Sitemap copied to root/sitemap.xml');
+  // 2. Generate and Write Robots.txt
+  const robotsTxt = `User-agent: *
+Allow: /
+Sitemap: ${SITE_URL}/sitemap.xml
+`;
 
-  // Also copy robots.txt to root if it exists
-  const robotsSrc = path.join(PUBLIC_PATH, 'robots.txt');
-  const robotsDest = path.join(ROOT_PATH, 'robots.txt');
-  if (fs.existsSync(robotsSrc)) {
-    fs.copyFileSync(robotsSrc, robotsDest);
-    console.log('✅ Robots.txt copied to root/robots.txt');
+  fs.writeFileSync(path.join(PUBLIC_PATH, 'robots.txt'), robotsTxt);
+  console.log('✅ Robots.txt generated at public/robots.txt');
+
+  // 3. Fallback: Copy to Root (often helps with certain deployment setups)
+  try {
+      fs.writeFileSync(path.join(ROOT_PATH, 'sitemap.xml'), sitemap);
+      fs.writeFileSync(path.join(ROOT_PATH, 'robots.txt'), robotsTxt);
+      console.log('✅ Copies created in project root.');
+  } catch (e) {
+      console.warn('⚠️ Could not copy to root (might be permission issue, but public/ is fine):', e.message);
   }
 }
 
