@@ -10,7 +10,7 @@ export const CONTENT = {
     knowledge: [
         {
             id: 'tank-technik',
-            title: 'Tank & Technik',
+            title: 'Flüssiggastank & Technik',
             icon: Settings,
             articles: [
                 {
@@ -22,26 +22,26 @@ export const CONTENT = {
                             <div className="bg-blue-50 border-l-4 border-gas p-6 my-6 rounded-r-lg">
                                 <p className="font-bold text-gas-dark mb-2">Das Wichtigste in Kürze:</p>
                                 <ul className="space-y-2">
-                                    <li className="flex items-start"><CheckCircle size={16} className="text-gas mr-2 mt-1 flex-shrink-0"/> Miettanks binden Sie oft jahrelang an einen Lieferanten (hohe Gaspreise).</li>
+                                    <li className="flex items-start"><CheckCircle size={16} className="text-gas mr-2 mt-1 flex-shrink-0"/> Miettanks binden Sie oft jahrelang an einen Lieferanten (hohe Flüssiggaspreise).</li>
                                     <li className="flex items-start"><CheckCircle size={16} className="text-gas mr-2 mt-1 flex-shrink-0"/> Kauftanks machen Sie zum "Free Agent" auf dem freien Markt.</li>
                                     <li className="flex items-start"><CheckCircle size={16} className="text-gas mr-2 mt-1 flex-shrink-0"/> Die Amortisation eines Kaufs erfolgt oft schon nach 3-5 Jahren.</li>
                                 </ul>
                             </div>
                             <h4 className="text-xl font-bold text-gas mb-4">Das Problem mit der Miete</h4>
-                            <p className="mb-4 leading-relaxed text-gray-600">Viele Anbieter locken mit günstigen Einmalzahlungen für die Aufstellung. Doch das "Kleingedruckte" hat es in sich: Sie dürfen das Gas nur bei diesem einen Anbieter bestellen. Da der Wettbewerb fehlt, liegen die Literpreise oft 15-25 Cent über dem freien Marktpreis. Hinzu kommen monatliche Zählermieten oder Wartungspauschalen.</p>
+                            <p className="mb-4 leading-relaxed text-gray-600">Viele Anbieter locken mit günstigen Einmalzahlungen für die Aufstellung. Doch das "Kleingedruckte" hat es in sich: Sie dürfen das Flüssiggas nur bei diesem einen Anbieter bestellen. Da der Wettbewerb fehlt, liegen die Literpreise oft 15-25 Cent über dem freien Marktpreis. Hinzu kommen monatliche Zählermieten oder Wartungspauschalen.</p>
                             <h4 className="text-xl font-bold text-gas mb-4">Der Vorteil des Eigentums</h4>
-                            <p className="mb-4 leading-relaxed text-gray-600">Ein eigener Tank gehört Ihnen (oder wird durch Einmalzahlung erworben). Sie können bei jeder Füllung den günstigsten Anbieter wählen – ähnlich wie bei Heizöl. Die Wartungspflichten (2- und 10-Jahres-Prüfung) organisieren wir für Sie kostengünstig und unbürokratisch.</p>
+                            <p className="mb-4 leading-relaxed text-gray-600">Ein eigener Flüssiggastank gehört Ihnen (oder wird durch Einmalzahlung erworben). Sie können bei jeder Füllung den günstigsten Anbieter wählen – ähnlich wie bei Heizöl. Die Wartungspflichten (2- und 10-Jahres-Prüfung) organisieren wir für Sie kostengünstig und unbürokratisch.</p>
                         </div>
                     )
                 },
                 {
                     id: 'tank-entsorgen',
                     title: 'Flüssiggastank entsorgen',
-                    description: 'So werden Sie den alten Tank los.',
+                    description: 'So werden Sie den alten Flüssiggastank los.',
                     content: (
                         <div>
                             <SourceBadge text="Fachbetriebspflicht" />
-                            <p>Denn der Tank wird nicht gereinigt und auch nicht zersägt, aber natürlich vorher geleert. gasmöller nimmt den Tank aber gerne mit.</p>
+                            <p>Denn der Flüssiggastank wird nicht gereinigt und auch nicht zersägt, aber natürlich vorher geleert. gasmöller nimmt den Flüssiggastank aber gerne mit.</p>
                         </div>
                     )
                 },
@@ -52,12 +52,12 @@ export const CONTENT = {
                     content: (
                         <div>
                             <h4>Oberirdisch vs. Unterirdisch</h4>
-                            <p><strong>Oberirdisch:</strong> Die günstige Standardlösung. Der Tank steht auf einer Betonplatte im Garten. Ideal, wenn Optik zweitrangig ist oder der Tank versteckt (hinter Hecken) stehen kann.</p>
+                            <p><strong>Oberirdisch:</strong> Die günstige Standardlösung. Der Flüssiggastank steht auf einer Betonplatte im Garten. Ideal, wenn Optik zweitrangig ist oder der Tank versteckt (hinter Hecken) stehen kann.</p>
                             <p><strong>Unterirdisch:</strong> Die elegante Lösung. Nur der Domdeckel ist sichtbar. Perfekt für kleine Grundstücke, da die Oberfläche begehbar bleibt (nicht befahrbar ohne Sondermaßnahmen).</p>
                             <h4>Sicherheitsabstände (TRF 2021)</h4>
                             <ul>
                                 <li><strong>Brandlasten:</strong> 3m Abstand zu Holzhütten, Stroh, etc.</li>
-                                <li><strong>Öffnungen:</strong> 3m Abstand zu Kellerfenstern, Lichtschächten, Gullys (da Gas schwerer als Luft ist).</li>
+                                <li><strong>Öffnungen:</strong> 3m Abstand zu Kellerfenstern, Lichtschächten, Gullys (da Flüssiggas schwerer als Luft ist).</li>
                                 <li><strong>Grenzen:</strong> Mit einer Strahlungsschutzwand können Abstände oft auf 1m reduziert werden.</li>
                             </ul>
                         </div>
@@ -65,8 +65,8 @@ export const CONTENT = {
                 },
                 {
                     id: 'groessen',
-                    title: 'Tankgrößen & Maße',
-                    description: 'Welcher Tank passt zu meinem Haus?',
+                    title: 'Flüssiggastank-Größen & Maße',
+                    description: 'Welcher Flüssiggastank passt zu meinem Haus?',
                     content: (
                         <div>
                             <p>Die Wahl der Tankgröße hängt von Ihrem Jahresverbrauch und dem Platzangebot ab.</p>
@@ -136,7 +136,7 @@ export const CONTENT = {
                                 <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 text-center">
                                     <div className="bg-white w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2 shadow-sm text-gas font-bold">2</div>
                                     <h5 className="font-bold text-gas">Die Leitung</h5>
-                                    <p className="text-xs text-gray-600 mt-1">Vom Tank führt ein erdverlegtes Rohr ins Haus. Ein Regler reduziert den Druck auf 50mbar.</p>
+                                    <p className="text-xs text-gray-600 mt-1">Vom Flüssiggastank führt ein erdverlegtes Rohr ins Haus. Ein Regler reduziert den Druck auf 50mbar.</p>
                                 </div>
                                 <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 text-center">
                                     <div className="bg-white w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2 shadow-sm text-gas font-bold">3</div>
@@ -152,31 +152,31 @@ export const CONTENT = {
             id: 'heizung',
             title: 'Heizung & Modernisierung',
             icon: Home,
-            articles: [{id: 'hybrid', title: 'Gas-Hybridheizung', description: 'Die ideale Kombi aus Erneuerbaren und Bewährtem.', content: (<div>
-            <p>Eine Hybridheizung kombiniert eine Gasbrennwerttherme mit erneuerbaren Energien, meist einer Wärmepumpe oder Solarthermie.</p>
+            articles: [{id: 'hybrid', title: 'Flüssiggas-Hybridheizung', description: 'Die ideale Kombi aus Erneuerbaren und Bewährtem.', content: (<div>
+            <p>Eine Hybridheizung kombiniert eine Flüssiggasbrennwerttherme mit erneuerbaren Energien, meist einer Wärmepumpe oder Solarthermie.</p>
             <h4>So funktioniert es</h4>
             <ul>
                 <li><strong>Grundlast:</strong> Die Wärmepumpe übernimmt die Wärmeversorgung an milden Tagen (ca. 70-80% des Jahres).</li>
-                <li><strong>Spitzenlast:</strong> An eiskalten Tagen oder bei hohem Warmwasserbedarf springt automatisch das Gas ein.</li>
+                <li><strong>Spitzenlast:</strong> An eiskalten Tagen oder bei hohem Warmwasserbedarf springt automatisch das Flüssiggas ein.</li>
             </ul>
             <h4>Vorteile</h4>
             <p>Sie erfüllen die 65%-Regel des GEG, sparen Investitionskosten im Vergleich zur Voll-Wärmepumpe (keine teure Dämmung nötig) und haben 100% Versorgungssicherheit.</p>
-        </div>)},{id: 'mfh', title: 'Lösungen für Mehrfamilienhäuser', description: 'Zentralheizung oder Etagenheizung mit Gas.', content: (<div>
-            <p>Auch für Vermieter und WEGs ist Flüssiggas attraktiv. Mit einem zentralen unterirdischen Tank (oder einer Tankbatterie) können beliebig viele Wohneinheiten versorgt werden.</p>
+        </div>)},{id: 'mfh', title: 'Lösungen für Mehrfamilienhäuser', description: 'Zentralheizung oder Etagenheizung mit Flüssiggas.', content: (<div>
+            <p>Auch für Vermieter und WEGs ist Flüssiggas attraktiv. Mit einem zentralen unterirdischen Flüssiggastank (oder einer Tankbatterie) können beliebig viele Wohneinheiten versorgt werden.</p>
         </div>)},
                 {
                     id: 'geg',
                     title: 'Heizungsgesetz (GEG) 2024',
-                    description: 'Was gilt für Gasheizungen?',
+                    description: 'Was gilt für Flüssiggasheizungen?',
                     content: (
                         <div>
                             <p>Das Gebäudeenergiegesetz (GEG) verunsichert viele Hausbesitzer. Hier sind die Fakten für Flüssiggas:</p>
                             <h4>Bestandsgebäude</h4>
-                            <p>Funktionierende Gasheizungen dürfen weiter betrieben und repariert werden. Es gibt keine sofortige Austauschpflicht. Auch neue Gasheizungen dürfen eingebaut werden, solange keine kommunale Wärmeplanung vorliegt (mit Beratungspflicht).</p>
+                            <p>Funktionierende Flüssiggasheizungen dürfen weiter betrieben und repariert werden. Es gibt keine sofortige Austauschpflicht. Auch neue Flüssiggasheizungen dürfen eingebaut werden, solange keine kommunale Wärmeplanung vorliegt (mit Beratungspflicht).</p>
                             <h4>Die 65% Erneuerbare-Energien-Regel</h4>
                             <p>Sollte die 65%-Pflicht greifen (z.B. in Neubaugebieten), ist Flüssiggas weiterhin eine Option:</p>
                             <ul>
-                                <li><strong>Hybridheizung:</strong> Gasbrennwert + kleine Wärmepumpe.</li>
+                                <li><strong>Hybridheizung:</strong> Flüssiggasbrennwert + kleine Wärmepumpe.</li>
                                 <li><strong>Bio-LPG:</strong> Nutzung von biogenem Flüssiggas (sofern verfügbar und anerkannt).</li>
                             </ul>
                         </div>
@@ -185,14 +185,14 @@ export const CONTENT = {
                 {
                     id: 'waermepumpe',
                     title: 'Alternative zur Wärmepumpe?',
-                    description: 'Warum Gas im Altbau oft gewinnt.',
+                    description: 'Warum Flüssiggas im Altbau oft gewinnt.',
                     content: (
                         <div>
                             <p>Wärmepumpen sind effizient – aber oft nicht im ungedämmten Altbau. Wenn Vorlauftemperaturen über 55°C benötigt werden (alte Heizkörper), sinkt die Effizienz der Wärmepumpe drastisch und die Stromkosten explodieren.</p>
-                            <h4>Vorteile Gas im Altbau</h4>
+                            <h4>Vorteile Flüssiggas im Altbau</h4>
                             <ul>
                                 <li><strong>Hohe Vorlauftemperaturen:</strong> Problemlos möglich, alte Heizkörper können bleiben.</li>
-                                <li><strong>Geringe Investition:</strong> Eine Gasheizung kostet oft nur 1/3 einer Wärmepumpe.</li>
+                                <li><strong>Geringe Investition:</strong> Eine Flüssiggasheizung kostet oft nur 1/3 einer Wärmepumpe.</li>
                                 <li><strong>Platzsparend:</strong> Kein Außengerät, kein Lärm.</li>
                             </ul>
                         </div>
@@ -200,14 +200,14 @@ export const CONTENT = {
                 },
                 {
                     id: 'oel-wechsel',
-                    title: 'Wechsel von Öl auf Gas',
+                    title: 'Wechsel von Öl auf Flüssiggas',
                     description: 'Sauberer, platzsparender, günstiger.',
                     content: (
                         <div>
                             <h4>Öltank raus – Platz gewinnen</h4>
                             <p>Der alte Öltank im Keller nimmt wertvollen Platz weg und riecht oft unangenehm. Ein Flüssiggastank im Garten schafft im Keller Platz für einen Hobbyraum oder Wellnessbereich.</p>
                             <h4>Umwelt & Technik</h4>
-                            <p>Gas verbrennt fast rückstandsfrei (kein Ruß) und hat geringere CO2-Emissionen als Öl. Moderne Gas-Brennwertthermen sind hocheffizient, leise und können stufenlos modulieren.</p>
+                            <p>Flüssiggas verbrennt fast rückstandsfrei (kein Ruß) und hat geringere CO2-Emissionen als Öl. Moderne Flüssiggas-Brennwertthermen sind hocheffizient, leise und können stufenlos modulieren.</p>
                         </div>
                     )
                 },
@@ -223,9 +223,9 @@ export const CONTENT = {
                                 <li><strong>Wartung:</strong> Asche muss regelmäßig entleert werden. Mechanische Teile (Förderschnecke) sind störanfällig.</li>
                                 <li><strong>Feinstaub:</strong> Hohe Emissionen, oft sind Filter nötig.</li>
                                 <li><strong>Platz:</strong> Pelletlager benötigt viel trockenen Raum im Keller.</li>
-                                <li><strong>Kosten:</strong> Anschaffung oft doppelt so teuer wie Gasheizung.</li>
+                                <li><strong>Kosten:</strong> Anschaffung oft doppelt so teuer wie Flüssiggasheizung.</li>
                             </ul>
-                            <h4>Vorteil Gas</h4>
+                            <h4>Vorteil Flüssiggas</h4>
                             <p>Sauber, wartungsarm, leise und günstig in der Anschaffung. BioLPG macht es ebenso grün.</p>
                         </div>
                     )
@@ -233,7 +233,7 @@ export const CONTENT = {
             ,
                 {
                     id: 'gaswaermepumpe',
-                    title: 'Gas-Wärmepumpe',
+                    title: 'Flüssiggas-Wärmepumpe',
                     description: 'Die unbekannte Effizienzmaschine.',
                     content: (
                         <div>
@@ -258,7 +258,7 @@ export const CONTENT = {
                                 <li><strong>2. Stoßlüften:</strong> Fenster nicht auf Kipp! 5 Min. ganz auf.</li>
                                 <li><strong>3. Dämmen:</strong> Heizungsrohre im Keller dämmen kostet wenig und bringt viel.</li>
                                 <li><strong>4. Thermostate:</strong> Programmierbare Thermostate senken die Temperatur, wenn niemand da ist.</li>
-                                <li><strong>5. Wartung:</strong> Eine gewartete Heizung verbraucht weniger Gas.</li>
+                                <li><strong>5. Wartung:</strong> Eine gewartete Heizung verbraucht weniger Flüssiggas.</li>
                                 <li><strong>6. Heizkörper freihalten:</strong> Verdecken Sie Heizkörper nicht mit Möbeln oder langen Vorhängen. Die Wärme staut sich sonst.</li>
                                 <li><strong>7. Fenster abdichten:</strong> Prüfen Sie die Dichtungen. Zugluft ist ein teurer Wärmedieb.</li>
                                 <li><strong>8. Raumtemperatur anpassen:</strong> 1 Grad weniger spart ca. 6% Energie. Im Schlafzimmer reichen oft 17-18 Grad.</li>
@@ -388,7 +388,7 @@ export const CONTENT = {
                         <div>
                             <p>Bevor Sie den Techniker rufen, prüfen Sie bitte:</p>
                             <ul className="mb-6">
-                                <li><strong>Füllstand:</strong> Ist noch Gas im Tank? (Anzeige am Tank, nicht im Haus)</li>
+                                <li><strong>Füllstand:</strong> Ist noch Flüssiggas im Tank? (Anzeige am Tank, nicht im Haus)</li>
                                 <li><strong>Strom:</strong> Hat die Heizung Strom? (Sicherung prüfen)</li>
                                 <li><strong>Störungscode:</strong> Zeigt das Display einen Fehlercode? (Handbuch prüfen, oft hilft ein Reset)</li>
                             </ul>
@@ -402,7 +402,7 @@ export const CONTENT = {
                 },
                 {
                     id: 'nahwaerme',
-                    title: 'Nahwärme vs. Einzeltank',
+                    title: 'Nahwärme vs. Flüssiggastank',
                     description: 'Warum wir Fans der Unabhängigkeit sind.',
                     content: (
                         <div>

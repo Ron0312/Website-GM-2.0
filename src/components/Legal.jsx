@@ -101,7 +101,7 @@ export const TermsContent = () => (
         <h3 className="text-lg font-bold text-gray-900 mt-4">3. Vertragsabschluss</h3>
         <p>
             Die auf der Website dargestellten Produkte und Dienstleistungen stellen kein rechtlich bindendes Angebot dar.
-            Durch das Absenden einer Anfrage (z.B. über das Kontaktformular, den Tank-Konfigurator oder die Gasbestellung) geben Sie noch keine verbindliche Bestellung ab.
+            Durch das Absenden einer Anfrage (z.B. über das Kontaktformular, den Konfigurator oder die Flüssiggasbestellung) geben Sie noch keine verbindliche Bestellung ab.
             Sie fordern damit lediglich ein unverbindliches Angebot an. Ein Vertrag kommt erst zustande, wenn Sie das Ihnen daraufhin zugesandte individuelle Angebot annehmen oder wir eine Bestellung ausdrücklich bestätigen.
         </p>
 
@@ -114,7 +114,7 @@ export const TermsContent = () => (
         <h3 className="text-lg font-bold text-gray-900 mt-4">5. Lieferung</h3>
         <p>
             Die Lieferung erfolgt nur innerhalb unseres festgelegten Liefergebietes in Norddeutschland. Liefertermine werden individuell vereinbart.
-            Voraussetzung für die Belieferung (insbesondere bei Gasbestellungen) ist die technische Mängelfreiheit und Zugänglichkeit der Tankanlage.
+            Voraussetzung für die Belieferung (insbesondere bei Flüssiggasbestellungen) ist die technische Mängelfreiheit und Zugänglichkeit der Tankanlage.
         </p>
 
         <h3 className="text-lg font-bold text-gray-900 mt-4">6. Eigentumsvorbehalt</h3>

@@ -6,27 +6,27 @@ const DEFAULT_IMAGE = `${SITE_URL}/logos/Icon-01.webp`; // High contrast icon fo
 export const seoData = {
     'start': {
         title: 'Flüssiggastank kaufen & Geld sparen | gasmöller - Ihr Experte im Norden',
-        description: 'Unabhängig & Fair. Gastanks (1,2t - 2,9t) zum Kauf statt Miete. Eigener Fuhrpark, Express-Lieferung. Seit 2000 in Schleswig-Holstein & Hamburg.',
+        description: 'Unabhängig & Fair. Flüssiggastanks (1,2t - 2,9t) zum Kauf statt Miete. Eigener Fuhrpark, Express-Lieferung. Seit 2000 in Schleswig-Holstein & Hamburg.',
         image: `${SITE_URL}/images/gas-order-hero.webp`
     },
     'tanks': {
         title: 'Flüssiggastank kaufen statt mieten | Alle Größen (1,2t - 2,9t) | gasmöller',
-        description: 'Sparen Sie Mietkosten! Neue & geprüfte Tanks zum fairen Preis. Oberirdisch & unterirdisch. Jetzt Angebot für Ihren Gastank anfordern.',
+        description: 'Sparen Sie Mietkosten! Neue & geprüfte Flüssiggastanks zum fairen Preis. Oberirdisch & unterirdisch. Jetzt Angebot für Ihren Flüssiggastank anfordern.',
         image: DEFAULT_IMAGE
     },
     'gas': {
         title: 'Flüssiggas bestellen | Aktueller Tagespreis & Express-Lieferung | gasmöller',
-        description: 'Günstiges Flüssiggas für den Norden. Zuverlässige Lieferung mit eigener Flotte. Keine versteckten Kosten. Hier aktuellen Gaspreis anfragen!',
+        description: 'Günstiges Flüssiggas für den Norden. Zuverlässige Lieferung mit eigener Flotte. Keine versteckten Kosten. Hier aktuellen Flüssiggaspreis anfragen!',
         image: `${SITE_URL}/images/gas-order-hero.webp`
     },
     'wissen': {
-        title: 'Wissen & Ratgeber | Alles über Flüssiggas & Tanks | gasmöller',
-        description: 'Expertenwissen: Wie sicher sind Gastanks? Wie oft prüfen? Tipps zum Energiesparen & Umrüsten von Öl auf Gas. Hier informieren.',
+        title: 'Wissen & Ratgeber | Alles über Flüssiggas & Flüssiggastanks | gasmöller',
+        description: 'Expertenwissen: Wie sicher sind Flüssiggastanks? Wie oft prüfen? Tipps zum Energiesparen & Umrüsten von Öl auf Flüssiggas. Hier informieren.',
         image: DEFAULT_IMAGE
     },
     'gewerbe': {
         title: 'Gewerbegas & Prozesswärme | Individuelle Lösungen | gasmöller',
-        description: 'Effizientes Flüssiggas für Landwirtschaft, Industrie & Gewerbe. Prozesswärme, Hallenheizung & Staplergas. Jetzt Gewerbe-Angebot sichern.',
+        description: 'Effizientes Flüssiggas für Landwirtschaft, Industrie & Gewerbe. Prozesswärme, Hallenheizung & Staplergas (Flüssiggas). Jetzt Gewerbe-Angebot sichern.',
         image: DEFAULT_IMAGE
     },
     'ueber-uns': {
@@ -36,7 +36,7 @@ export const seoData = {
     },
     'kontakt': {
         title: 'Kontakt & Service | Wir sind für Sie da | gasmöller',
-        description: 'Fragen zu Tank oder Gas? Rufen Sie uns an: 04551 89 70 89. Kompetente Beratung, schneller Service. Schreiben Sie uns!',
+        description: 'Fragen zu Flüssiggastank oder Flüssiggas? Rufen Sie uns an: 04551 89 70 89. Kompetente Beratung, schneller Service. Schreiben Sie uns!',
         image: DEFAULT_IMAGE
     },
     'rechner': {
@@ -194,7 +194,7 @@ export const getSchemaForPath = (path) => {
                 "sku": tank.slug,
                 "brand": {
                     "@type": "Brand",
-                    "name": "gasmöller"
+                    "name": "Gas-Service Möller"
                 },
                 "offers": {
                     "@type": "Offer",

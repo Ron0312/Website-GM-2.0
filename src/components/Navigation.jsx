@@ -22,7 +22,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
     };
 
     const navLinks = [
-        { id: 'start', label: 'Startseite' },
+        { id: 'gas', label: 'Flüssiggas bestellen' },
         {
             id: 'tanks',
             label: 'Tanks & Kauf',

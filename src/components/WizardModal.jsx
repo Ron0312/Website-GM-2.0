@@ -284,7 +284,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                 onClick={() => { setType('tank'); }}
                                             />
                                             <SelectionCard
-                                                title="Gas bestellen"
+                                                    title="Flüssiggas bestellen"
                                                 description="Befüllung"
                                                 icon={Flame}
                                                 selected={type === 'gas'}
@@ -343,7 +343,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                         {details.ownership === 'Nein, Mietvertrag' && (
                                                             <div className="bg-yellow-50 p-4 rounded-xl border border-yellow-200 text-yellow-800 text-sm mt-4 flex items-start">
                                                                 <AlertTriangle className="mr-3 flex-shrink-0" size={20} />
-                                                                <p><strong>Hinweis:</strong> Wenn Sie den Tank gemietet haben, sind Sie meist vertraglich an Ihren Anbieter gebunden. Eine Befüllung durch uns ist dann rechtlich oft nicht möglich. Bitte prüfen Sie Ihren Vertrag.</p>
+                                                                <p><strong>Hinweis:</strong> Wenn Sie den Flüssiggastank gemietet haben, sind Sie meist vertraglich an Ihren Anbieter gebunden. Eine Befüllung durch uns ist dann rechtlich oft nicht möglich. Bitte prüfen Sie Ihren Vertrag.</p>
                                                             </div>
                                                         )}
                                                     </div>
@@ -351,7 +351,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                     <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
                                                         {/* Calculator UI */}
                                                         <div className="mb-6">
-                                                            <label className="text-sm font-bold text-gray-700 mb-3 block">Tankgröße</label>
+                                                            <label className="text-sm font-bold text-gray-700 mb-3 block">Flüssiggastank-Größe</label>
                                                             <div className="grid grid-cols-3 gap-3">
                                                                 {tankSizes.map((t) => (
                                                                     <button
@@ -452,13 +452,13 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                     <motion.div key="step4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                                         {type === 'tank' ? (
                                             <>
-                                                <h3 className="text-2xl font-bold text-center mb-4 text-gray-900">Zustand des Tanks</h3>
-                                                <p className="text-center text-gray-500 mb-8 max-w-sm mx-auto">Wählen Sie zwischen einem fabrikneuen oder einem professionell aufbereiteten Tank.</p>
+                                                <h3 className="text-2xl font-bold text-center mb-4 text-gray-900">Zustand des Flüssiggastanks</h3>
+                                                <p className="text-center text-gray-500 mb-8 max-w-sm mx-auto">Wählen Sie zwischen einem fabrikneuen oder einem professionell aufbereiteten Flüssiggastank.</p>
 
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                                                     <SelectionCard
                                                         title="Neu"
-                                                        description="Fabrikneuer Tank"
+                                                        description="Fabrikneuer Flüssiggastank"
                                                         icon={Sparkles}
                                                         selected={details.condition === 'Neu'}
                                                         onClick={() => setDetails({...details, condition: 'Neu'})}
@@ -480,7 +480,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                              </div>
                                                         </div>
                                                         <div className="mt-3 bg-blue-50 p-3 rounded-xl border border-blue-100 text-xs text-blue-800 leading-relaxed">
-                                                            <strong>Spar-Tipp:</strong> Wir bereiten alte Tanks professionell auf (lackiert & geprüft). Eine nachhaltige und günstige Alternative!
+                                                            <strong>Spar-Tipp:</strong> Wir bereiten alte Flüssiggastanks professionell auf (lackiert & geprüft). Eine nachhaltige und günstige Alternative!
                                                         </div>
                                                     </div>
                                                 </div>

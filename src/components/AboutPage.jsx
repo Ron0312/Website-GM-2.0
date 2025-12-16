@@ -13,10 +13,10 @@ const AboutPage = () => (
                         Moin und herzlich willkommen bei gasmöller! Seit unserer Gründung im Jahr 2000 sind wir der zuverlässige Partner für Flüssiggas im echten Norden. Alles begann durch einen Zufall: Thomas Möller, damals als Auslieferungsfahrer unterwegs, wurde gefragt, ob er einen Erdtank besorgen könne. Fast zeitgleich wollte eine Kundin ihren Tank loswerden.
                     </p>
                     <p>
-                        Kurzerhand trommelte Thomas zehn Freunde zusammen, und mit Spaten wurde der Tank ausgebuddelt und beim neuen Besitzer wieder eingesetzt. Das erste Geschäft war perfekt, und Anja Möller gründete daraufhin die Firma. Heute führen Anja, Thomas und Hans Christian Möller das Unternehmen gemeinsam als echten Familienbetrieb.
+                        Kurzerhand trommelte Thomas zehn Freunde zusammen, und mit Spaten wurde der Flüssiggastank ausgebuddelt und beim neuen Besitzer wieder eingesetzt. Das erste Geschäft war perfekt, und Anja Möller gründete daraufhin die Firma. Heute führen Anja, Thomas und Hans Christian Möller das Unternehmen gemeinsam als echten Familienbetrieb.
                     </p>
                     <p>
-                        Mit unserem eigenen Tankwagen und Kranwagen sind wir unabhängig und flexibel in ganz Schleswig-Holstein, Hamburg und dem nördlichen Niedersachsen unterwegs. Wir glauben daran, dass Energieversorgung Vertrauenssache ist. Egal ob Sie einen eigenen Tank kaufen oder Gas bestellen wollen – wir beraten Sie so, wie wir es uns selbst wünschen würden: ehrlich, direkt und kompetent.
+                        Mit unserem eigenen Tankwagen und Kranwagen sind wir unabhängig und flexibel in ganz Schleswig-Holstein, Hamburg und dem nördlichen Niedersachsen unterwegs. Wir glauben daran, dass Energieversorgung Vertrauenssache ist. Egal ob Sie einen eigenen Flüssiggastank kaufen oder Flüssiggas bestellen wollen – wir beraten Sie so, wie wir es uns selbst wünschen würden: ehrlich, direkt und kompetent.
                     </p>
                 </div>
             </div>

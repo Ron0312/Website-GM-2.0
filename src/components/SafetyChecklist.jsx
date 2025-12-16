@@ -9,7 +9,7 @@ const SafetyChecklist = () => (
         <ul className="space-y-3">
             <li className="flex items-start">
                 <div className="bg-red-200 text-red-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-3 mt-0.5 flex-shrink-0">1</div>
-                <span className="text-red-900"><strong>Ruhe bewahren.</strong> Keine Panik. Gasaustritt riecht stark nach faulen Eiern.</span>
+                <span className="text-red-900"><strong>Ruhe bewahren.</strong> Keine Panik. Flüssiggasaustritt riecht stark nach faulen Eiern.</span>
             </li>
             <li className="flex items-start">
                 <div className="bg-red-200 text-red-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-3 mt-0.5 flex-shrink-0">2</div>
@@ -17,7 +17,7 @@ const SafetyChecklist = () => (
             </li>
             <li className="flex items-start">
                 <div className="bg-red-200 text-red-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-3 mt-0.5 flex-shrink-0">3</div>
-                <span className="text-red-900"><strong>Haupthahn schließen.</strong> Wenn möglich, schließen Sie den Haupthahn am Tank oder Hauseingang.</span>
+                <span className="text-red-900"><strong>Haupthahn schließen.</strong> Wenn möglich, schließen Sie den Haupthahn am Flüssiggastank oder Hauseingang.</span>
             </li>
             <li className="flex items-start">
                 <div className="bg-red-200 text-red-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-3 mt-0.5 flex-shrink-0">4</div>

@@ -44,7 +44,7 @@ const tankDetails = [
     weight: "980 kg",
     power: "60 kW",
     image: null,
-    description: "Unser Standard-Tank für das klassische Einfamilienhaus. Mit 4.850 Litern Volumen deckt dieser Tank in der Regel den Jahresbedarf eines 4-Personen-Haushalts ab, sodass Sie nur einmal im Jahr tanken müssen.",
+    description: "Unser Standard-Flüssiggastank für das klassische Einfamilienhaus. Mit 4.850 Litern Volumen deckt dieser Tank in der Regel den Jahresbedarf eines 4-Personen-Haushalts ab, sodass Sie nur einmal im Jahr tanken müssen.",
     features: [
       "Der Klassiker für Eigenheime",
       "Nur 1x jährlich tanken (bei Standard-Verbrauch)",
@@ -74,7 +74,7 @@ const tankDetails = [
     weight: "1.300 kg",
     power: "90 kW",
     image: null,
-    description: "Der Maxi-Tank für Mehrfamilienhäuser, große Villen oder gewerbliche Anwendungen. Er bietet maximale Unabhängigkeit und Versorgungssicherheit auch bei hohem Verbrauch.",
+    description: "Der Maxi-Flüssiggastank für Mehrfamilienhäuser, große Villen oder gewerbliche Anwendungen. Er bietet maximale Unabhängigkeit und Versorgungssicherheit auch bei hohem Verbrauch.",
     features: [
       "Großes Speichervolumen",
       "Für Mehrfamilienhäuser und Gewerbe",
@@ -104,7 +104,7 @@ const tankDetails = [
     weight: "600 kg",
     power: "35 kW",
     image: null,
-    description: "Die unsichtbare Lösung für kleine Gärten. Der 1,2 t Tank verschwindet komplett unter der Erde, nur der Domdeckel bleibt sichtbar. Perfekt, wenn die Optik des Gartens nicht gestört werden soll.",
+    description: "Die unsichtbare Lösung für kleine Gärten. Der 1,2 t Flüssiggastank verschwindet komplett unter der Erde, nur der Domdeckel bleibt sichtbar. Perfekt, wenn die Optik des Gartens nicht gestört werden soll.",
     features: [
       "Unsichtbar im Garten",
       "Begehbar (Deckel)",
@@ -120,9 +120,9 @@ const tankDetails = [
       "Material": "Feinkornbaustahl",
       "Beschichtung": "Epoxidharz-Beschichtung (hellgrün)"
     },
-    installation: "Erfordert Erdarbeiten (Grube). Der Tank wird in ein Sandbett gelegt. Auftriebssicherung bei hohem Grundwasser beachten. Wir unterstützen Sie gerne bei der Planung und vermitteln qualifizierte Partner für Erdarbeiten.",
+    installation: "Erfordert Erdarbeiten (Grube). Der Flüssiggastank wird in ein Sandbett gelegt. Auftriebssicherung bei hohem Grundwasser beachten. Wir unterstützen Sie gerne bei der Planung und vermitteln qualifizierte Partner für Erdarbeiten.",
     seoTitle: "1,2 t Flüssiggastank unterirdisch | Unsichtbar & Platzsparend",
-    seoDesc: "Unterirdischer 1,2t Tank (2700l). Perfekt für kleine Gärten. Verschwindet im Boden. Jetzt informieren & Angebot holen."
+    seoDesc: "Unterirdischer 1,2t Flüssiggastank (2700l). Perfekt für kleine Gärten. Verschwindet im Boden. Jetzt informieren & Angebot holen."
   },
   {
     slug: "2-1t-unterirdisch",
@@ -134,7 +134,7 @@ const tankDetails = [
     weight: "1.100 kg",
     power: "60 kW",
     image: null,
-    description: "Der beliebteste unterirdische Tank. Er kombiniert das Volumen für ein klassisches Einfamilienhaus mit der unauffälligen Optik einer Erddeckung. Die Gartenfläche bleibt nutzbar.",
+    description: "Der beliebteste unterirdische Flüssiggastank. Er kombiniert das Volumen für ein klassisches Einfamilienhaus mit der unauffälligen Optik einer Erddeckung. Die Gartenfläche bleibt nutzbar.",
     features: [
       "Standardgröße für EFH",
       "Keine Störung der Gartenoptik",
@@ -190,27 +190,27 @@ const DEFAULT_IMAGE = `${SITE_URL}/logos/Icon-01.webp`;
 const seoData = {
   "start": {
     title: "Flüssiggastank kaufen & Geld sparen | gasmöller - Ihr Experte im Norden",
-    description: "Unabhängig & Fair. Gastanks (1,2t - 2,9t) zum Kauf statt Miete. Eigener Fuhrpark, Express-Lieferung. Seit 2000 in Schleswig-Holstein & Hamburg.",
+    description: "Unabhängig & Fair. Flüssiggastanks (1,2t - 2,9t) zum Kauf statt Miete. Eigener Fuhrpark, Express-Lieferung. Seit 2000 in Schleswig-Holstein & Hamburg.",
     image: `${SITE_URL}/images/gas-order-hero.webp`
   },
   "tanks": {
     title: "Flüssiggastank kaufen statt mieten | Alle Größen (1,2t - 2,9t) | gasmöller",
-    description: "Sparen Sie Mietkosten! Neue & geprüfte Tanks zum fairen Preis. Oberirdisch & unterirdisch. Jetzt Angebot für Ihren Gastank anfordern.",
+    description: "Sparen Sie Mietkosten! Neue & geprüfte Flüssiggastanks zum fairen Preis. Oberirdisch & unterirdisch. Jetzt Angebot für Ihren Flüssiggastank anfordern.",
     image: DEFAULT_IMAGE
   },
   "gas": {
     title: "Flüssiggas bestellen | Aktueller Tagespreis & Express-Lieferung | gasmöller",
-    description: "Günstiges Flüssiggas für den Norden. Zuverlässige Lieferung mit eigener Flotte. Keine versteckten Kosten. Hier aktuellen Gaspreis anfragen!",
+    description: "Günstiges Flüssiggas für den Norden. Zuverlässige Lieferung mit eigener Flotte. Keine versteckten Kosten. Hier aktuellen Flüssiggaspreis anfragen!",
     image: `${SITE_URL}/images/gas-order-hero.webp`
   },
   "wissen": {
-    title: "Wissen & Ratgeber | Alles über Flüssiggas & Tanks | gasmöller",
-    description: "Expertenwissen: Wie sicher sind Gastanks? Wie oft prüfen? Tipps zum Energiesparen & Umrüsten von Öl auf Gas. Hier informieren.",
+    title: "Wissen & Ratgeber | Alles über Flüssiggas & Flüssiggastanks | gasmöller",
+    description: "Expertenwissen: Wie sicher sind Flüssiggastanks? Wie oft prüfen? Tipps zum Energiesparen & Umrüsten von Öl auf Flüssiggas. Hier informieren.",
     image: DEFAULT_IMAGE
   },
   "gewerbe": {
     title: "Gewerbegas & Prozesswärme | Individuelle Lösungen | gasmöller",
-    description: "Effizientes Flüssiggas für Landwirtschaft, Industrie & Gewerbe. Prozesswärme, Hallenheizung & Staplergas. Jetzt Gewerbe-Angebot sichern.",
+    description: "Effizientes Flüssiggas für Landwirtschaft, Industrie & Gewerbe. Prozesswärme, Hallenheizung & Staplergas (Flüssiggas). Jetzt Gewerbe-Angebot sichern.",
     image: DEFAULT_IMAGE
   },
   "ueber-uns": {
@@ -220,7 +220,7 @@ const seoData = {
   },
   "kontakt": {
     title: "Kontakt & Service | Wir sind für Sie da | gasmöller",
-    description: "Fragen zu Tank oder Gas? Rufen Sie uns an: 04551 89 70 89. Kompetente Beratung, schneller Service. Schreiben Sie uns!",
+    description: "Fragen zu Flüssiggastank oder Flüssiggas? Rufen Sie uns an: 04551 89 70 89. Kompetente Beratung, schneller Service. Schreiben Sie uns!",
     image: DEFAULT_IMAGE
   },
   "rechner": {
@@ -326,7 +326,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
     }));
   };
   const navLinks = [
-    { id: "start", label: "Startseite" },
+    { id: "gas", label: "Flüssiggas bestellen" },
     {
       id: "tanks",
       label: "Tanks & Kauf",
@@ -563,22 +563,23 @@ const Hero = ({ setActiveSection, openWizard }) => /* @__PURE__ */ jsxs("header"
     )
   ] }),
   /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20", children: /* @__PURE__ */ jsx("div", { className: "lg:grid lg:grid-cols-2 lg:gap-20 items-center", children: /* @__PURE__ */ jsx("div", { className: "text-left text-white", children: /* @__PURE__ */ jsxs(motion.div, { initial: { opacity: 1, y: 0 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.8 }, children: [
-    /* @__PURE__ */ jsxs("div", { className: "inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md border border-white/30 px-4 py-1.5 rounded-full mb-8 shadow-sm", children: [
+    /* @__PURE__ */ jsxs("div", { className: "inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md border border-white/30 px-4 py-1.5 rounded-full mb-6 shadow-sm", children: [
       /* @__PURE__ */ jsx("span", { className: "w-2 h-2 bg-green-400 rounded-full animate-pulse" }),
       /* @__PURE__ */ jsxs("span", { className: "text-white text-xs font-bold uppercase tracking-widest flex items-center gap-2", children: [
         /* @__PURE__ */ jsx(ShieldCheck, { size: 14, className: "text-white" }),
         " Seit 2000 · Norddeutsch · Ehrlich"
       ] })
     ] }),
-    /* @__PURE__ */ jsxs("h1", { className: "text-6xl tracking-tight font-extrabold sm:text-7xl lg:text-8xl mb-8 leading-tight drop-shadow-lg", children: [
+    /* @__PURE__ */ jsx("h1", { className: "text-blue-100 font-bold tracking-[0.2em] uppercase text-sm mb-2 drop-shadow-md", children: "Gas-Service Möller" }),
+    /* @__PURE__ */ jsxs("h2", { className: "text-6xl tracking-tight font-extrabold sm:text-7xl lg:text-8xl mb-8 leading-tight drop-shadow-lg", children: [
       "Energie.",
       /* @__PURE__ */ jsx("br", {}),
       /* @__PURE__ */ jsx("span", { className: "text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300", children: "Freiheit." })
     ] }),
-    /* @__PURE__ */ jsx("p", { className: "mt-4 text-xl text-gray-100 leading-relaxed mb-10 max-w-lg font-medium drop-shadow-md", children: "Schluss mit teuren Mietverträgen. Werden Sie Eigentümer Ihres Tanks und kaufen Sie Gas, wo es am günstigsten ist." }),
+    /* @__PURE__ */ jsx("p", { className: "mt-4 text-xl text-gray-100 leading-relaxed mb-10 max-w-lg font-medium drop-shadow-md", children: "Schluss mit teuren Mietverträgen. Werden Sie Eigentümer Ihres Flüssiggastanks und kaufen Sie Flüssiggas, wo es am günstigsten ist." }),
     /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row gap-4", children: [
       /* @__PURE__ */ jsx(motion.button, { whileHover: { scale: 1.05 }, whileTap: { scale: 0.95 }, onClick: () => openWizard ? openWizard("tank") : setActiveSection("tanks"), className: "px-8 py-4 bg-gas hover:bg-gas-dark text-white text-base font-bold rounded-full shadow-xl shadow-gas/30 transition-all uppercase tracking-wide border-2 border-transparent", children: "Tank kaufen" }),
-      /* @__PURE__ */ jsx(motion.button, { whileHover: { scale: 1.05 }, whileTap: { scale: 0.95 }, onClick: () => openWizard ? openWizard("gas") : setActiveSection("gas"), className: "px-8 py-4 bg-transparent border-2 border-white text-white hover:bg-white hover:text-gas text-base font-bold rounded-full shadow-lg transition-all uppercase tracking-wide flex items-center justify-center backdrop-blur-sm", children: "Gas bestellen" })
+      /* @__PURE__ */ jsx(motion.button, { whileHover: { scale: 1.05 }, whileTap: { scale: 0.95 }, onClick: () => openWizard ? openWizard("gas") : setActiveSection("gas"), className: "px-8 py-4 bg-transparent border-2 border-white text-white hover:bg-white hover:text-gas text-base font-bold rounded-full shadow-lg transition-all uppercase tracking-wide flex items-center justify-center backdrop-blur-sm", children: "Flüssiggas bestellen" })
     ] })
   ] }) }) }) })
 ] });
@@ -909,12 +910,12 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
     }
   );
 };
-const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = true }) => {
+const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = true, isPageTitle = false }) => {
   const [filter, setFilter] = useState("oberirdisch");
   const tankInfo = {
     oberirdisch: {
       title: "Der sichtbare Klassiker",
-      description: "Oberirdische Tanks sind die meistgewählte Variante. Sie lassen sich einfach aufstellen, erfordern keine Erdarbeiten und sind kostengünstig in der Installation.",
+      description: "Oberirdische Flüssiggastanks sind die meistgewählte Variante. Sie lassen sich einfach aufstellen, erfordern keine Erdarbeiten und sind kostengünstig in der Installation.",
       benefits: ["Günstige Anschaffung", "Schnelle Installation", "Einfache Wartung"],
       color: "bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 border-gray-700 shadow-2xl",
       iconColor: "text-green-400",
@@ -924,7 +925,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
     },
     unterirdisch: {
       title: "Die unsichtbare Lösung",
-      description: "Unterirdische Tanks verschwinden komplett unter der Erde. Nur der Domschachtdeckel bleibt sichtbar – ideal für gepflegte Gärten und maximale Raumnutzung.",
+      description: "Unterirdische Flüssiggastanks verschwinden komplett unter der Erde. Nur der Domschachtdeckel bleibt sichtbar – ideal für gepflegte Gärten und maximale Raumnutzung.",
       benefits: ["Nicht sichtbar", "Maximale Gartennutzung", "Gut geschützt"],
       color: "bg-green-50 border-green-100",
       iconColor: "text-green-500",
@@ -969,14 +970,14 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
           /* @__PURE__ */ jsx("span", { className: "w-3 h-3 bg-green-400 rounded-full mr-3 animate-pulse" }),
           /* @__PURE__ */ jsx("span", { className: "text-white font-bold text-sm", children: "Sofort verfügbar & Installation durch Fachpartner" })
         ] }),
-        /* @__PURE__ */ jsx("h1", { className: "text-4xl md:text-6xl font-extrabold text-white mb-6", children: "Ihr neuer Flüssiggastank" }),
-        /* @__PURE__ */ jsx("p", { className: "text-xl text-gray-300 max-w-2xl mx-auto mb-8", children: "Kaufen oder Mieten – Sie haben die Wahl. Wir bieten Ihnen Tanks in allen gängigen Größen, oberirdisch und unterirdisch." })
+        isPageTitle ? /* @__PURE__ */ jsx("h1", { className: "text-4xl md:text-6xl font-extrabold text-white mb-6", children: "Ihr neuer Flüssiggastank" }) : /* @__PURE__ */ jsx("h2", { className: "text-4xl md:text-6xl font-extrabold text-white mb-6", children: "Ihr neuer Flüssiggastank" }),
+        /* @__PURE__ */ jsx("p", { className: "text-xl text-gray-300 max-w-2xl mx-auto mb-8", children: "Kaufen oder Mieten – Sie haben die Wahl. Wir bieten Ihnen Flüssiggastanks in allen gängigen Größen, oberirdisch und unterirdisch." })
       ] })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "py-24 max-w-7xl mx-auto px-4", children: [
       /* @__PURE__ */ jsxs("div", { className: "text-center mb-8", children: [
         /* @__PURE__ */ jsx("h2", { className: "text-gas font-bold tracking-widest uppercase text-sm mb-2", children: "Unser Sortiment" }),
-        /* @__PURE__ */ jsx("h3", { className: "text-4xl font-extrabold text-text mb-8", children: "Tanks für jeden Bedarf" }),
+        /* @__PURE__ */ jsx("h3", { className: "text-4xl font-extrabold text-text mb-8", children: "Flüssiggastanks für jeden Bedarf" }),
         /* @__PURE__ */ jsx("div", { className: "flex justify-center", children: /* @__PURE__ */ jsxs("div", { className: "bg-gray-100 p-1.5 rounded-2xl inline-flex relative", children: [
           /* @__PURE__ */ jsx(
             motion.div,
@@ -1217,7 +1218,7 @@ const CommercialSection = ({ setActiveSection }) => /* @__PURE__ */ jsx("section
   /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-8 mb-16", children: [
     { t: "Landwirtschaft", d: "Stallheizung & Trocknung", i: Tractor, desc: "Leistungsstarke Trocknungsanlagen und Stallheizungen. Auch mit BioLPG für nachhaltige Betriebe." },
     { t: "Industrie", d: "Prozesswärme & Hallen", i: Factory, desc: "Effiziente Dunkelstrahler für hohe Hallen und präzise Prozesswärme für Lackierkabinen." },
-    { t: "Logistik", d: "Staplergas & Tankstellen", i: Truck, desc: "Treibgas für Gabelstapler. Sauberer als Diesel, stärker als Elektro. Innen und Außen." }
+    { t: "Logistik", d: "Staplergas (Flüssiggas) & Tankstellen", i: Truck, desc: "Treibgas für Gabelstapler. Sauberer als Diesel, stärker als Elektro. Innen und Außen." }
   ].map((item, i) => /* @__PURE__ */ jsxs("div", { className: "bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group", children: [
     /* @__PURE__ */ jsx(item.i, { size: 40, className: "text-gray-300 group-hover:text-gas mb-6 transition-colors" }),
     /* @__PURE__ */ jsx("h3", { className: "font-bold text-xl mb-2", children: item.t }),
@@ -1261,7 +1262,7 @@ const InspectionSection = ({ openWizard }) => {
           /* @__PURE__ */ jsx(ShieldCheck, { className: "text-green-400", size: 16 }),
           /* @__PURE__ */ jsx("span", { className: "text-white text-xs font-bold uppercase tracking-widest", children: "Sicherheit zuerst" })
         ] }),
-        /* @__PURE__ */ jsx("h1", { className: "text-4xl md:text-6xl font-extrabold text-white mb-6", children: "Tankprüfungen & Service" }),
+        /* @__PURE__ */ jsx("h1", { className: "text-4xl md:text-6xl font-extrabold text-white mb-6", children: "Flüssiggastank-Prüfungen & Service" }),
         /* @__PURE__ */ jsx("p", { className: "text-xl text-gray-300 max-w-2xl mx-auto mb-8", children: "Wir kümmern uns um die gesetzlich vorgeschriebenen Prüfungen (Innere & Äußere) für Ihren Flüssiggastank. Zuverlässig und zertifiziert." }),
         /* @__PURE__ */ jsx("button", { onClick: () => openWizard("service"), className: "bg-gas hover:bg-gas-dark text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl shadow-gas/20 transition-all transform hover:scale-105", children: "Prüfung anfragen" })
       ] }) })
@@ -1450,12 +1451,12 @@ const FAQ = () => {
   const [open, setOpen] = useState(0);
   const faqs = [
     { q: "Wie lange dauert die Lieferung?", a: "In der Regel liefern wir innerhalb von 5-10 Werktagen. In dringenden Notfällen bieten wir einen 24h-Express-Service an." },
-    { q: "Kann ich meinen Gastank kaufen?", a: "Ja! Wir sind spezialisiert auf den Verkauf von Eigentumstanks (oberirdisch und unterirdisch). Damit sparen Sie sich langfristig die teure Miete und sind frei in der Händlerwahl. Wir bieten Größen von 1,2 t bis 2,9 t an." },
+    { q: "Kann ich meinen Flüssiggastank kaufen?", a: "Ja! Wir sind spezialisiert auf den Verkauf von Eigentumstanks (oberirdisch und unterirdisch). Damit sparen Sie sich langfristig die teure Miete und sind frei in der Händlerwahl. Wir bieten Größen von 1,2 t bis 2,9 t an." },
     { q: "Was kostet Flüssiggas aktuell?", a: "Der Preis ändert sich täglich analog zu den Ölbörsen. Da wir unabhängig sind, können wir oft günstigere Konditionen anbieten als Großkonzerne. Nutzen Sie unseren Preisrechner oder rufen Sie uns an für ein tagesaktuelles Angebot." },
-    { q: "Muss ich bei der Lieferung zu Hause sein?", a: "Nicht zwingend, sofern der Tank und der Füllanschluss für unseren Fahrer frei zugänglich sind. Wir informieren Sie vorab über den Liefertermin." },
+    { q: "Muss ich bei der Lieferung zu Hause sein?", a: "Nicht zwingend, sofern der Flüssiggastank und der Füllanschluss für unseren Fahrer frei zugänglich sind. Wir informieren Sie vorab über den Liefertermin." },
     { q: "Liefern Sie auch im Notfall?", a: "Ja, wenn Ihre Heizung kalt bleibt, versuchen wir schnellstmöglich zu helfen. Rufen Sie uns direkt an unter 04551 89 70 89." },
     { q: "Was genau ist Flüssiggas?", a: "Flüssiggas (LPG) besteht aus Propan und Butan. Als Heizgas verwenden wir in Deutschland gemäß DIN 51622 fast ausschließlich reines Propan, da dieses auch bei tiefen Temperaturen im Winter zuverlässig verdampft." },
-    { q: "Welche Prüfungen sind beim Gastank vorgeschrieben?", a: "Alle 2 Jahre muss eine äußere Prüfung durch eine befähigte Person erfolgen. Alle 10 Jahre ist eine innere Prüfung durch eine ZÜS (z.B. TÜV, DEKRA) notwendig. Wir unterstützen Sie gerne bei der Organisation." }
+    { q: "Welche Prüfungen sind beim Flüssiggastank vorgeschrieben?", a: "Alle 2 Jahre muss eine äußere Prüfung durch eine befähigte Person erfolgen. Alle 10 Jahre ist eine innere Prüfung durch eine ZÜS (z.B. TÜV, DEKRA) notwendig. Wir unterstützen Sie gerne bei der Organisation." }
   ];
   const faqSchema = {
     "@context": "https://schema.org",
@@ -1980,7 +1981,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
     ] }),
     /* @__PURE__ */ jsx("section", { className: "py-24 bg-gray-50", children: /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8", children: [
       /* @__PURE__ */ jsxs("div", { className: "text-center mb-16", children: [
-        /* @__PURE__ */ jsx("h2", { className: "text-3xl font-bold text-gray-900 mb-4", children: "In 3 Schritten zum vollen Tank" }),
+        /* @__PURE__ */ jsx("h2", { className: "text-3xl font-bold text-gray-900 mb-4", children: "In 3 Schritten zum vollen Flüssiggastank" }),
         /* @__PURE__ */ jsx("p", { className: "text-gray-600", children: "Unkompliziert, transparent und schnell." })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "grid md:grid-cols-3 gap-8", children: [
@@ -2002,7 +2003,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
           /* @__PURE__ */ jsx("div", { className: "text-9xl font-bold text-gray-100 absolute -top-10 -left-4 z-0 group-hover:text-blue-50 transition-colors", children: "3" }),
           /* @__PURE__ */ jsxs("div", { className: "relative z-10 bg-white p-8 rounded-2xl shadow-sm border border-gray-100 h-full hover:shadow-lg transition-shadow", children: [
             /* @__PURE__ */ jsx("h3", { className: "text-xl font-bold text-gas mb-3", children: "Lieferung erhalten" }),
-            /* @__PURE__ */ jsx("p", { className: "text-gray-600 leading-relaxed", children: "Unsere Fahrer füllen Ihren Tank sicher und zuverlässig auf. Sie zahlen bequem per Rechnung nach der Lieferung." })
+            /* @__PURE__ */ jsx("p", { className: "text-gray-600 leading-relaxed", children: "Unsere Fahrer füllen Ihren Flüssiggastank sicher und zuverlässig auf. Sie zahlen bequem per Rechnung nach der Lieferung." })
           ] })
         ] })
       ] })
@@ -2096,7 +2097,7 @@ const SafetyChecklist = () => /* @__PURE__ */ jsxs("div", { className: "bg-red-5
       /* @__PURE__ */ jsx("div", { className: "bg-red-200 text-red-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-3 mt-0.5 flex-shrink-0", children: "1" }),
       /* @__PURE__ */ jsxs("span", { className: "text-red-900", children: [
         /* @__PURE__ */ jsx("strong", { children: "Ruhe bewahren." }),
-        " Keine Panik. Gasaustritt riecht stark nach faulen Eiern."
+        " Keine Panik. Flüssiggasaustritt riecht stark nach faulen Eiern."
       ] })
     ] }),
     /* @__PURE__ */ jsxs("li", { className: "flex items-start", children: [
@@ -2110,7 +2111,7 @@ const SafetyChecklist = () => /* @__PURE__ */ jsxs("div", { className: "bg-red-5
       /* @__PURE__ */ jsx("div", { className: "bg-red-200 text-red-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-3 mt-0.5 flex-shrink-0", children: "3" }),
       /* @__PURE__ */ jsxs("span", { className: "text-red-900", children: [
         /* @__PURE__ */ jsx("strong", { children: "Haupthahn schließen." }),
-        " Wenn möglich, schließen Sie den Haupthahn am Tank oder Hauseingang."
+        " Wenn möglich, schließen Sie den Haupthahn am Flüssiggastank oder Hauseingang."
       ] })
     ] }),
     /* @__PURE__ */ jsxs("li", { className: "flex items-start", children: [
@@ -2133,7 +2134,7 @@ const CONTENT = {
   knowledge: [
     {
       id: "tank-technik",
-      title: "Tank & Technik",
+      title: "Flüssiggastank & Technik",
       icon: Settings,
       articles: [
         {
@@ -2146,7 +2147,7 @@ const CONTENT = {
               /* @__PURE__ */ jsxs("ul", { className: "space-y-2", children: [
                 /* @__PURE__ */ jsxs("li", { className: "flex items-start", children: [
                   /* @__PURE__ */ jsx(CheckCircle, { size: 16, className: "text-gas mr-2 mt-1 flex-shrink-0" }),
-                  " Miettanks binden Sie oft jahrelang an einen Lieferanten (hohe Gaspreise)."
+                  " Miettanks binden Sie oft jahrelang an einen Lieferanten (hohe Flüssiggaspreise)."
                 ] }),
                 /* @__PURE__ */ jsxs("li", { className: "flex items-start", children: [
                   /* @__PURE__ */ jsx(CheckCircle, { size: 16, className: "text-gas mr-2 mt-1 flex-shrink-0" }),
@@ -2159,18 +2160,18 @@ const CONTENT = {
               ] })
             ] }),
             /* @__PURE__ */ jsx("h4", { className: "text-xl font-bold text-gas mb-4", children: "Das Problem mit der Miete" }),
-            /* @__PURE__ */ jsx("p", { className: "mb-4 leading-relaxed text-gray-600", children: 'Viele Anbieter locken mit günstigen Einmalzahlungen für die Aufstellung. Doch das "Kleingedruckte" hat es in sich: Sie dürfen das Gas nur bei diesem einen Anbieter bestellen. Da der Wettbewerb fehlt, liegen die Literpreise oft 15-25 Cent über dem freien Marktpreis. Hinzu kommen monatliche Zählermieten oder Wartungspauschalen.' }),
+            /* @__PURE__ */ jsx("p", { className: "mb-4 leading-relaxed text-gray-600", children: 'Viele Anbieter locken mit günstigen Einmalzahlungen für die Aufstellung. Doch das "Kleingedruckte" hat es in sich: Sie dürfen das Flüssiggas nur bei diesem einen Anbieter bestellen. Da der Wettbewerb fehlt, liegen die Literpreise oft 15-25 Cent über dem freien Marktpreis. Hinzu kommen monatliche Zählermieten oder Wartungspauschalen.' }),
             /* @__PURE__ */ jsx("h4", { className: "text-xl font-bold text-gas mb-4", children: "Der Vorteil des Eigentums" }),
-            /* @__PURE__ */ jsx("p", { className: "mb-4 leading-relaxed text-gray-600", children: "Ein eigener Tank gehört Ihnen (oder wird durch Einmalzahlung erworben). Sie können bei jeder Füllung den günstigsten Anbieter wählen – ähnlich wie bei Heizöl. Die Wartungspflichten (2- und 10-Jahres-Prüfung) organisieren wir für Sie kostengünstig und unbürokratisch." })
+            /* @__PURE__ */ jsx("p", { className: "mb-4 leading-relaxed text-gray-600", children: "Ein eigener Flüssiggastank gehört Ihnen (oder wird durch Einmalzahlung erworben). Sie können bei jeder Füllung den günstigsten Anbieter wählen – ähnlich wie bei Heizöl. Die Wartungspflichten (2- und 10-Jahres-Prüfung) organisieren wir für Sie kostengünstig und unbürokratisch." })
           ] })
         },
         {
           id: "tank-entsorgen",
           title: "Flüssiggastank entsorgen",
-          description: "So werden Sie den alten Tank los.",
+          description: "So werden Sie den alten Flüssiggastank los.",
           content: /* @__PURE__ */ jsxs("div", { children: [
             /* @__PURE__ */ jsx(SourceBadge, { text: "Fachbetriebspflicht" }),
-            /* @__PURE__ */ jsx("p", { children: "Denn der Tank wird nicht gereinigt und auch nicht zersägt, aber natürlich vorher geleert. gasmöller nimmt den Tank aber gerne mit." })
+            /* @__PURE__ */ jsx("p", { children: "Denn der Flüssiggastank wird nicht gereinigt und auch nicht zersägt, aber natürlich vorher geleert. gasmöller nimmt den Flüssiggastank aber gerne mit." })
           ] })
         },
         {
@@ -2181,7 +2182,7 @@ const CONTENT = {
             /* @__PURE__ */ jsx("h4", { children: "Oberirdisch vs. Unterirdisch" }),
             /* @__PURE__ */ jsxs("p", { children: [
               /* @__PURE__ */ jsx("strong", { children: "Oberirdisch:" }),
-              " Die günstige Standardlösung. Der Tank steht auf einer Betonplatte im Garten. Ideal, wenn Optik zweitrangig ist oder der Tank versteckt (hinter Hecken) stehen kann."
+              " Die günstige Standardlösung. Der Flüssiggastank steht auf einer Betonplatte im Garten. Ideal, wenn Optik zweitrangig ist oder der Tank versteckt (hinter Hecken) stehen kann."
             ] }),
             /* @__PURE__ */ jsxs("p", { children: [
               /* @__PURE__ */ jsx("strong", { children: "Unterirdisch:" }),
@@ -2195,7 +2196,7 @@ const CONTENT = {
               ] }),
               /* @__PURE__ */ jsxs("li", { children: [
                 /* @__PURE__ */ jsx("strong", { children: "Öffnungen:" }),
-                " 3m Abstand zu Kellerfenstern, Lichtschächten, Gullys (da Gas schwerer als Luft ist)."
+                " 3m Abstand zu Kellerfenstern, Lichtschächten, Gullys (da Flüssiggas schwerer als Luft ist)."
               ] }),
               /* @__PURE__ */ jsxs("li", { children: [
                 /* @__PURE__ */ jsx("strong", { children: "Grenzen:" }),
@@ -2206,8 +2207,8 @@ const CONTENT = {
         },
         {
           id: "groessen",
-          title: "Tankgrößen & Maße",
-          description: "Welcher Tank passt zu meinem Haus?",
+          title: "Flüssiggastank-Größen & Maße",
+          description: "Welcher Flüssiggastank passt zu meinem Haus?",
           content: /* @__PURE__ */ jsxs("div", { children: [
             /* @__PURE__ */ jsx("p", { children: "Die Wahl der Tankgröße hängt von Ihrem Jahresverbrauch und dem Platzangebot ab." }),
             /* @__PURE__ */ jsxs("table", { className: "w-full text-left text-sm border-collapse mb-8", children: [
@@ -2278,7 +2279,7 @@ const CONTENT = {
               /* @__PURE__ */ jsxs("div", { className: "bg-blue-50 p-4 rounded-lg border border-blue-100 text-center", children: [
                 /* @__PURE__ */ jsx("div", { className: "bg-white w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2 shadow-sm text-gas font-bold", children: "2" }),
                 /* @__PURE__ */ jsx("h5", { className: "font-bold text-gas", children: "Die Leitung" }),
-                /* @__PURE__ */ jsx("p", { className: "text-xs text-gray-600 mt-1", children: "Vom Tank führt ein erdverlegtes Rohr ins Haus. Ein Regler reduziert den Druck auf 50mbar." })
+                /* @__PURE__ */ jsx("p", { className: "text-xs text-gray-600 mt-1", children: "Vom Flüssiggastank führt ein erdverlegtes Rohr ins Haus. Ein Regler reduziert den Druck auf 50mbar." })
               ] }),
               /* @__PURE__ */ jsxs("div", { className: "bg-blue-50 p-4 rounded-lg border border-blue-100 text-center", children: [
                 /* @__PURE__ */ jsx("div", { className: "bg-white w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2 shadow-sm text-gas font-bold", children: "3" }),
@@ -2295,8 +2296,8 @@ const CONTENT = {
       title: "Heizung & Modernisierung",
       icon: Home,
       articles: [
-        { id: "hybrid", title: "Gas-Hybridheizung", description: "Die ideale Kombi aus Erneuerbaren und Bewährtem.", content: /* @__PURE__ */ jsxs("div", { children: [
-          /* @__PURE__ */ jsx("p", { children: "Eine Hybridheizung kombiniert eine Gasbrennwerttherme mit erneuerbaren Energien, meist einer Wärmepumpe oder Solarthermie." }),
+        { id: "hybrid", title: "Flüssiggas-Hybridheizung", description: "Die ideale Kombi aus Erneuerbaren und Bewährtem.", content: /* @__PURE__ */ jsxs("div", { children: [
+          /* @__PURE__ */ jsx("p", { children: "Eine Hybridheizung kombiniert eine Flüssiggasbrennwerttherme mit erneuerbaren Energien, meist einer Wärmepumpe oder Solarthermie." }),
           /* @__PURE__ */ jsx("h4", { children: "So funktioniert es" }),
           /* @__PURE__ */ jsxs("ul", { children: [
             /* @__PURE__ */ jsxs("li", { children: [
@@ -2305,27 +2306,27 @@ const CONTENT = {
             ] }),
             /* @__PURE__ */ jsxs("li", { children: [
               /* @__PURE__ */ jsx("strong", { children: "Spitzenlast:" }),
-              " An eiskalten Tagen oder bei hohem Warmwasserbedarf springt automatisch das Gas ein."
+              " An eiskalten Tagen oder bei hohem Warmwasserbedarf springt automatisch das Flüssiggas ein."
             ] })
           ] }),
           /* @__PURE__ */ jsx("h4", { children: "Vorteile" }),
           /* @__PURE__ */ jsx("p", { children: "Sie erfüllen die 65%-Regel des GEG, sparen Investitionskosten im Vergleich zur Voll-Wärmepumpe (keine teure Dämmung nötig) und haben 100% Versorgungssicherheit." })
         ] }) },
-        { id: "mfh", title: "Lösungen für Mehrfamilienhäuser", description: "Zentralheizung oder Etagenheizung mit Gas.", content: /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "Auch für Vermieter und WEGs ist Flüssiggas attraktiv. Mit einem zentralen unterirdischen Tank (oder einer Tankbatterie) können beliebig viele Wohneinheiten versorgt werden." }) }) },
+        { id: "mfh", title: "Lösungen für Mehrfamilienhäuser", description: "Zentralheizung oder Etagenheizung mit Flüssiggas.", content: /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "Auch für Vermieter und WEGs ist Flüssiggas attraktiv. Mit einem zentralen unterirdischen Flüssiggastank (oder einer Tankbatterie) können beliebig viele Wohneinheiten versorgt werden." }) }) },
         {
           id: "geg",
           title: "Heizungsgesetz (GEG) 2024",
-          description: "Was gilt für Gasheizungen?",
+          description: "Was gilt für Flüssiggasheizungen?",
           content: /* @__PURE__ */ jsxs("div", { children: [
             /* @__PURE__ */ jsx("p", { children: "Das Gebäudeenergiegesetz (GEG) verunsichert viele Hausbesitzer. Hier sind die Fakten für Flüssiggas:" }),
             /* @__PURE__ */ jsx("h4", { children: "Bestandsgebäude" }),
-            /* @__PURE__ */ jsx("p", { children: "Funktionierende Gasheizungen dürfen weiter betrieben und repariert werden. Es gibt keine sofortige Austauschpflicht. Auch neue Gasheizungen dürfen eingebaut werden, solange keine kommunale Wärmeplanung vorliegt (mit Beratungspflicht)." }),
+            /* @__PURE__ */ jsx("p", { children: "Funktionierende Flüssiggasheizungen dürfen weiter betrieben und repariert werden. Es gibt keine sofortige Austauschpflicht. Auch neue Flüssiggasheizungen dürfen eingebaut werden, solange keine kommunale Wärmeplanung vorliegt (mit Beratungspflicht)." }),
             /* @__PURE__ */ jsx("h4", { children: "Die 65% Erneuerbare-Energien-Regel" }),
             /* @__PURE__ */ jsx("p", { children: "Sollte die 65%-Pflicht greifen (z.B. in Neubaugebieten), ist Flüssiggas weiterhin eine Option:" }),
             /* @__PURE__ */ jsxs("ul", { children: [
               /* @__PURE__ */ jsxs("li", { children: [
                 /* @__PURE__ */ jsx("strong", { children: "Hybridheizung:" }),
-                " Gasbrennwert + kleine Wärmepumpe."
+                " Flüssiggasbrennwert + kleine Wärmepumpe."
               ] }),
               /* @__PURE__ */ jsxs("li", { children: [
                 /* @__PURE__ */ jsx("strong", { children: "Bio-LPG:" }),
@@ -2337,10 +2338,10 @@ const CONTENT = {
         {
           id: "waermepumpe",
           title: "Alternative zur Wärmepumpe?",
-          description: "Warum Gas im Altbau oft gewinnt.",
+          description: "Warum Flüssiggas im Altbau oft gewinnt.",
           content: /* @__PURE__ */ jsxs("div", { children: [
             /* @__PURE__ */ jsx("p", { children: "Wärmepumpen sind effizient – aber oft nicht im ungedämmten Altbau. Wenn Vorlauftemperaturen über 55°C benötigt werden (alte Heizkörper), sinkt die Effizienz der Wärmepumpe drastisch und die Stromkosten explodieren." }),
-            /* @__PURE__ */ jsx("h4", { children: "Vorteile Gas im Altbau" }),
+            /* @__PURE__ */ jsx("h4", { children: "Vorteile Flüssiggas im Altbau" }),
             /* @__PURE__ */ jsxs("ul", { children: [
               /* @__PURE__ */ jsxs("li", { children: [
                 /* @__PURE__ */ jsx("strong", { children: "Hohe Vorlauftemperaturen:" }),
@@ -2348,7 +2349,7 @@ const CONTENT = {
               ] }),
               /* @__PURE__ */ jsxs("li", { children: [
                 /* @__PURE__ */ jsx("strong", { children: "Geringe Investition:" }),
-                " Eine Gasheizung kostet oft nur 1/3 einer Wärmepumpe."
+                " Eine Flüssiggasheizung kostet oft nur 1/3 einer Wärmepumpe."
               ] }),
               /* @__PURE__ */ jsxs("li", { children: [
                 /* @__PURE__ */ jsx("strong", { children: "Platzsparend:" }),
@@ -2359,13 +2360,13 @@ const CONTENT = {
         },
         {
           id: "oel-wechsel",
-          title: "Wechsel von Öl auf Gas",
+          title: "Wechsel von Öl auf Flüssiggas",
           description: "Sauberer, platzsparender, günstiger.",
           content: /* @__PURE__ */ jsxs("div", { children: [
             /* @__PURE__ */ jsx("h4", { children: "Öltank raus – Platz gewinnen" }),
             /* @__PURE__ */ jsx("p", { children: "Der alte Öltank im Keller nimmt wertvollen Platz weg und riecht oft unangenehm. Ein Flüssiggastank im Garten schafft im Keller Platz für einen Hobbyraum oder Wellnessbereich." }),
             /* @__PURE__ */ jsx("h4", { children: "Umwelt & Technik" }),
-            /* @__PURE__ */ jsx("p", { children: "Gas verbrennt fast rückstandsfrei (kein Ruß) und hat geringere CO2-Emissionen als Öl. Moderne Gas-Brennwertthermen sind hocheffizient, leise und können stufenlos modulieren." })
+            /* @__PURE__ */ jsx("p", { children: "Flüssiggas verbrennt fast rückstandsfrei (kein Ruß) und hat geringere CO2-Emissionen als Öl. Moderne Flüssiggas-Brennwertthermen sind hocheffizient, leise und können stufenlos modulieren." })
           ] })
         },
         {
@@ -2390,16 +2391,16 @@ const CONTENT = {
               ] }),
               /* @__PURE__ */ jsxs("li", { children: [
                 /* @__PURE__ */ jsx("strong", { children: "Kosten:" }),
-                " Anschaffung oft doppelt so teuer wie Gasheizung."
+                " Anschaffung oft doppelt so teuer wie Flüssiggasheizung."
               ] })
             ] }),
-            /* @__PURE__ */ jsx("h4", { children: "Vorteil Gas" }),
+            /* @__PURE__ */ jsx("h4", { children: "Vorteil Flüssiggas" }),
             /* @__PURE__ */ jsx("p", { children: "Sauber, wartungsarm, leise und günstig in der Anschaffung. BioLPG macht es ebenso grün." })
           ] })
         },
         {
           id: "gaswaermepumpe",
-          title: "Gas-Wärmepumpe",
+          title: "Flüssiggas-Wärmepumpe",
           description: "Die unbekannte Effizienzmaschine.",
           content: /* @__PURE__ */ jsxs("div", { children: [
             /* @__PURE__ */ jsxs("p", { children: [
@@ -2447,7 +2448,7 @@ const CONTENT = {
             ] }),
             /* @__PURE__ */ jsxs("li", { children: [
               /* @__PURE__ */ jsx("strong", { children: "5. Wartung:" }),
-              " Eine gewartete Heizung verbraucht weniger Gas."
+              " Eine gewartete Heizung verbraucht weniger Flüssiggas."
             ] }),
             /* @__PURE__ */ jsxs("li", { children: [
               /* @__PURE__ */ jsx("strong", { children: "6. Heizkörper freihalten:" }),
@@ -2598,7 +2599,7 @@ const CONTENT = {
             /* @__PURE__ */ jsxs("ul", { className: "mb-6", children: [
               /* @__PURE__ */ jsxs("li", { children: [
                 /* @__PURE__ */ jsx("strong", { children: "Füllstand:" }),
-                " Ist noch Gas im Tank? (Anzeige am Tank, nicht im Haus)"
+                " Ist noch Flüssiggas im Tank? (Anzeige am Tank, nicht im Haus)"
               ] }),
               /* @__PURE__ */ jsxs("li", { children: [
                 /* @__PURE__ */ jsx("strong", { children: "Strom:" }),
@@ -2618,7 +2619,7 @@ const CONTENT = {
         },
         {
           id: "nahwaerme",
-          title: "Nahwärme vs. Einzeltank",
+          title: "Nahwärme vs. Flüssiggastank",
           description: "Warum wir Fans der Unabhängigkeit sind.",
           content: /* @__PURE__ */ jsxs("div", { children: [
             /* @__PURE__ */ jsx("p", { children: "In Neubaugebieten wird oft Nahwärme angeboten (ein zentrales Heizkraftwerk für alle). Das klingt bequem, hat aber Tücken:" }),
@@ -2898,7 +2899,7 @@ const TeamSection = () => /* @__PURE__ */ jsxs("div", { className: "py-24 bg-whi
 const AboutTimeline = () => /* @__PURE__ */ jsxs("div", { className: "py-16 bg-white", children: [
   /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-center mb-12", children: "Unsere Geschichte" }),
   /* @__PURE__ */ jsx("div", { className: "max-w-3xl mx-auto px-4 border-l-2 border-gas/20 ml-4 md:ml-auto space-y-12", children: [
-    { year: "2000", title: "Gründung", text: "Gründung durch Anja Möller. Alles begann durch Zufall mit der Vermittlung eines gebrauchten Gastanks." },
+    { year: "2000", title: "Gründung", text: "Gründung durch Anja Möller. Alles begann durch Zufall mit der Vermittlung eines gebrauchten Flüssiggastanks." },
     { year: "2012", title: "Expansion", text: "Erweiterung des Liefergebiets auf ganz Schleswig-Holstein und Hamburg." },
     { year: "2021", title: "Eigene Logistik", text: "Einstieg in die Flüssiggaslieferung mit eigenem Tankwagen und Eintritt von Thomas und Hans Christian Möller." },
     { year: "2025", title: "25 Jahre Jubiläum", text: "Wir feiern ein Vierteljahrhundert gasmöller – ehrlich, norddeutsch, unabhängig." }
@@ -2915,8 +2916,8 @@ const AboutPage = () => /* @__PURE__ */ jsx("section", { className: "bg-white", 
     /* @__PURE__ */ jsx("h1", { className: "text-4xl font-extrabold mb-6", children: "Ehrlich. Norddeutsch." }),
     /* @__PURE__ */ jsxs("div", { className: "max-w-3xl mx-auto text-lg leading-relaxed text-gray-600 space-y-6", children: [
       /* @__PURE__ */ jsx("p", { children: "Moin und herzlich willkommen bei gasmöller! Seit unserer Gründung im Jahr 2000 sind wir der zuverlässige Partner für Flüssiggas im echten Norden. Alles begann durch einen Zufall: Thomas Möller, damals als Auslieferungsfahrer unterwegs, wurde gefragt, ob er einen Erdtank besorgen könne. Fast zeitgleich wollte eine Kundin ihren Tank loswerden." }),
-      /* @__PURE__ */ jsx("p", { children: "Kurzerhand trommelte Thomas zehn Freunde zusammen, und mit Spaten wurde der Tank ausgebuddelt und beim neuen Besitzer wieder eingesetzt. Das erste Geschäft war perfekt, und Anja Möller gründete daraufhin die Firma. Heute führen Anja, Thomas und Hans Christian Möller das Unternehmen gemeinsam als echten Familienbetrieb." }),
-      /* @__PURE__ */ jsx("p", { children: "Mit unserem eigenen Tankwagen und Kranwagen sind wir unabhängig und flexibel in ganz Schleswig-Holstein, Hamburg und dem nördlichen Niedersachsen unterwegs. Wir glauben daran, dass Energieversorgung Vertrauenssache ist. Egal ob Sie einen eigenen Tank kaufen oder Gas bestellen wollen – wir beraten Sie so, wie wir es uns selbst wünschen würden: ehrlich, direkt und kompetent." })
+      /* @__PURE__ */ jsx("p", { children: "Kurzerhand trommelte Thomas zehn Freunde zusammen, und mit Spaten wurde der Flüssiggastank ausgebuddelt und beim neuen Besitzer wieder eingesetzt. Das erste Geschäft war perfekt, und Anja Möller gründete daraufhin die Firma. Heute führen Anja, Thomas und Hans Christian Möller das Unternehmen gemeinsam als echten Familienbetrieb." }),
+      /* @__PURE__ */ jsx("p", { children: "Mit unserem eigenen Tankwagen und Kranwagen sind wir unabhängig und flexibel in ganz Schleswig-Holstein, Hamburg und dem nördlichen Niedersachsen unterwegs. Wir glauben daran, dass Energieversorgung Vertrauenssache ist. Egal ob Sie einen eigenen Flüssiggastank kaufen oder Flüssiggas bestellen wollen – wir beraten Sie so, wie wir es uns selbst wünschen würden: ehrlich, direkt und kompetent." })
     ] })
   ] }),
   /* @__PURE__ */ jsx(TeamSection, {}),
@@ -2965,8 +2966,8 @@ const Footer = ({ setActiveSection, openLegal }) => {
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("h4", { className: "text-white font-bold mb-4 uppercase text-xs tracking-wider", children: "Schnellzugriff" }),
         /* @__PURE__ */ jsxs("ul", { className: "space-y-2", children: [
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("gas"), className: "hover:text-white transition-colors", children: "Gas bestellen" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("tanks"), className: "hover:text-white transition-colors", children: "Tanks kaufen" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("gas"), className: "hover:text-white transition-colors", children: "Flüssiggas bestellen" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("tanks"), className: "hover:text-white transition-colors", children: "Flüssiggastank kaufen" }) }),
           /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("rechner"), className: "hover:text-white transition-colors", children: "Spar-Rechner" }) }),
           /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("kontakt"), className: "hover:text-white transition-colors", children: "Kontakt" }) }),
           /* @__PURE__ */ jsx("li", { className: "pt-2 border-t border-gray-800 mt-2", children: /* @__PURE__ */ jsxs("a", { href: "tel:04551897089", className: "hover:text-white transition-colors flex items-center gap-2 font-semibold", children: [
@@ -2986,7 +2987,7 @@ const Footer = ({ setActiveSection, openLegal }) => {
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("h4", { className: "text-white font-bold mb-4 uppercase text-xs tracking-wider", children: "Newsletter" }),
-        /* @__PURE__ */ jsx("p", { className: "mb-4 text-xs", children: "Bleiben Sie über Gaspreise informiert." }),
+        /* @__PURE__ */ jsx("p", { className: "mb-4 text-xs", children: "Bleiben Sie über Flüssiggaspreise informiert." }),
         status === "success" ? /* @__PURE__ */ jsxs("div", { className: "bg-green-500/10 text-green-400 p-3 rounded flex items-center border border-green-500/20", children: [
           /* @__PURE__ */ jsx(CheckCircle, { size: 16, className: "mr-2" }),
           /* @__PURE__ */ jsx("span", { children: "Angemeldet!" })
@@ -3317,7 +3318,7 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
                   /* @__PURE__ */ jsx(
                     SelectionCard,
                     {
-                      title: "Gas bestellen",
+                      title: "Flüssiggas bestellen",
                       description: "Befüllung",
                       icon: Flame,
                       selected: type === "gas",
@@ -3380,13 +3381,13 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
                         /* @__PURE__ */ jsx(AlertTriangle, { className: "mr-3 flex-shrink-0", size: 20 }),
                         /* @__PURE__ */ jsxs("p", { children: [
                           /* @__PURE__ */ jsx("strong", { children: "Hinweis:" }),
-                          " Wenn Sie den Tank gemietet haben, sind Sie meist vertraglich an Ihren Anbieter gebunden. Eine Befüllung durch uns ist dann rechtlich oft nicht möglich. Bitte prüfen Sie Ihren Vertrag."
+                          " Wenn Sie den Flüssiggastank gemietet haben, sind Sie meist vertraglich an Ihren Anbieter gebunden. Eine Befüllung durch uns ist dann rechtlich oft nicht möglich. Bitte prüfen Sie Ihren Vertrag."
                         ] })
                       ] })
                     ] }),
                     /* @__PURE__ */ jsxs("div", { className: "bg-gray-50 p-6 rounded-2xl border border-gray-100", children: [
                       /* @__PURE__ */ jsxs("div", { className: "mb-6", children: [
-                        /* @__PURE__ */ jsx("label", { className: "text-sm font-bold text-gray-700 mb-3 block", children: "Tankgröße" }),
+                        /* @__PURE__ */ jsx("label", { className: "text-sm font-bold text-gray-700 mb-3 block", children: "Flüssiggastank-Größe" }),
                         /* @__PURE__ */ jsx("div", { className: "grid grid-cols-3 gap-3", children: tankSizes.map((t) => /* @__PURE__ */ jsx(
                           "button",
                           {
@@ -3474,14 +3475,14 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
                 type === "tank" && /* @__PURE__ */ jsx("button", { type: "button", onClick: handleBack, className: "w-full text-gray-400 hover:text-gray-600 font-bold mt-4", children: "Zurück" })
               ] }, "step3"),
               step === 4 && /* @__PURE__ */ jsx(motion.div, { initial: { opacity: 0, x: 20 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -20 }, children: type === "tank" ? /* @__PURE__ */ jsxs(Fragment, { children: [
-                /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-center mb-4 text-gray-900", children: "Zustand des Tanks" }),
-                /* @__PURE__ */ jsx("p", { className: "text-center text-gray-500 mb-8 max-w-sm mx-auto", children: "Wählen Sie zwischen einem fabrikneuen oder einem professionell aufbereiteten Tank." }),
+                /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-center mb-4 text-gray-900", children: "Zustand des Flüssiggastanks" }),
+                /* @__PURE__ */ jsx("p", { className: "text-center text-gray-500 mb-8 max-w-sm mx-auto", children: "Wählen Sie zwischen einem fabrikneuen oder einem professionell aufbereiteten Flüssiggastank." }),
                 /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6 mb-8", children: [
                   /* @__PURE__ */ jsx(
                     SelectionCard,
                     {
                       title: "Neu",
-                      description: "Fabrikneuer Tank",
+                      description: "Fabrikneuer Flüssiggastank",
                       icon: Sparkles,
                       selected: details.condition === "Neu",
                       onClick: () => setDetails({ ...details, condition: "Neu" }),
@@ -3503,7 +3504,7 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
                     /* @__PURE__ */ jsx("div", { className: "absolute -top-3 -right-3", children: /* @__PURE__ */ jsx("div", { className: "bg-gas text-white rounded-full p-1 shadow-lg", children: /* @__PURE__ */ jsx(Info, { size: 16 }) }) }),
                     /* @__PURE__ */ jsxs("div", { className: "mt-3 bg-blue-50 p-3 rounded-xl border border-blue-100 text-xs text-blue-800 leading-relaxed", children: [
                       /* @__PURE__ */ jsx("strong", { children: "Spar-Tipp:" }),
-                      " Wir bereiten alte Tanks professionell auf (lackiert & geprüft). Eine nachhaltige und günstige Alternative!"
+                      " Wir bereiten alte Flüssiggastanks professionell auf (lackiert & geprüft). Eine nachhaltige und günstige Alternative!"
                     ] })
                   ] })
                 ] }),
@@ -3990,11 +3991,11 @@ const TermsContent = () => /* @__PURE__ */ jsxs("div", { className: "space-y-4 t
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "2. Vertragsgegenstand" }),
   /* @__PURE__ */ jsx("p", { children: "Gegenstand des Unternehmens ist der Vertrieb von Flüssiggas, der Verkauf und die Vermietung von Flüssiggastanks sowie damit verbundene Dienstleistungen. Diese Website dient der Information und der Möglichkeit zur unverbindlichen Kontaktaufnahme bzw. Angebotsanforderung." }),
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "3. Vertragsabschluss" }),
-  /* @__PURE__ */ jsx("p", { children: "Die auf der Website dargestellten Produkte und Dienstleistungen stellen kein rechtlich bindendes Angebot dar. Durch das Absenden einer Anfrage (z.B. über das Kontaktformular, den Tank-Konfigurator oder die Gasbestellung) geben Sie noch keine verbindliche Bestellung ab. Sie fordern damit lediglich ein unverbindliches Angebot an. Ein Vertrag kommt erst zustande, wenn Sie das Ihnen daraufhin zugesandte individuelle Angebot annehmen oder wir eine Bestellung ausdrücklich bestätigen." }),
+  /* @__PURE__ */ jsx("p", { children: "Die auf der Website dargestellten Produkte und Dienstleistungen stellen kein rechtlich bindendes Angebot dar. Durch das Absenden einer Anfrage (z.B. über das Kontaktformular, den Konfigurator oder die Flüssiggasbestellung) geben Sie noch keine verbindliche Bestellung ab. Sie fordern damit lediglich ein unverbindliches Angebot an. Ein Vertrag kommt erst zustande, wenn Sie das Ihnen daraufhin zugesandte individuelle Angebot annehmen oder wir eine Bestellung ausdrücklich bestätigen." }),
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "4. Preise und Zahlungsbedingungen" }),
   /* @__PURE__ */ jsx("p", { children: "Die konkreten Preise für Waren und Dienstleistungen werden im individuellen Angebot ausgewiesen. Sofern nichts anderes vereinbart ist, gelten die Preise ab Lager bzw. inklusive Lieferung im vereinbarten Liefergebiet." }),
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "5. Lieferung" }),
-  /* @__PURE__ */ jsx("p", { children: "Die Lieferung erfolgt nur innerhalb unseres festgelegten Liefergebietes in Norddeutschland. Liefertermine werden individuell vereinbart. Voraussetzung für die Belieferung (insbesondere bei Gasbestellungen) ist die technische Mängelfreiheit und Zugänglichkeit der Tankanlage." }),
+  /* @__PURE__ */ jsx("p", { children: "Die Lieferung erfolgt nur innerhalb unseres festgelegten Liefergebietes in Norddeutschland. Liefertermine werden individuell vereinbart. Voraussetzung für die Belieferung (insbesondere bei Flüssiggasbestellungen) ist die technische Mängelfreiheit und Zugänglichkeit der Tankanlage." }),
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "6. Eigentumsvorbehalt" }),
   /* @__PURE__ */ jsx("p", { children: "Die gelieferte Ware bleibt bis zur vollständigen Bezahlung aller Forderungen aus dem Liefervertrag unser Eigentum. Bei Miettanks verbleibt das Eigentum am Tank beim Anbieter." }),
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900 mt-4", children: "7. Gewährleistung und Haftung" }),
@@ -4278,7 +4279,7 @@ const App = ({ path, context }) => {
       case "tanks":
         return /* @__PURE__ */ jsxs(Fragment, { children: [
           /* @__PURE__ */ jsx("div", { className: "pt-20" }),
-          /* @__PURE__ */ jsx(TankSection, { openWizard, setActiveSection: changeSection }),
+          /* @__PURE__ */ jsx(TankSection, { openWizard, setActiveSection: changeSection, isPageTitle: true }),
           /* @__PURE__ */ jsx(ContactSection, {})
         ] });
       case "gas":

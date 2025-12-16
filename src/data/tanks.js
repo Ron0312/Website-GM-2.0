@@ -39,7 +39,7 @@ export const tankDetails = [
         weight: '980 kg',
         power: '60 kW',
         image: null,
-        description: 'Unser Standard-Tank für das klassische Einfamilienhaus. Mit 4.850 Litern Volumen deckt dieser Tank in der Regel den Jahresbedarf eines 4-Personen-Haushalts ab, sodass Sie nur einmal im Jahr tanken müssen.',
+        description: 'Unser Standard-Flüssiggastank für das klassische Einfamilienhaus. Mit 4.850 Litern Volumen deckt dieser Tank in der Regel den Jahresbedarf eines 4-Personen-Haushalts ab, sodass Sie nur einmal im Jahr tanken müssen.',
         features: [
             'Der Klassiker für Eigenheime',
             'Nur 1x jährlich tanken (bei Standard-Verbrauch)',
@@ -69,7 +69,7 @@ export const tankDetails = [
         weight: '1.300 kg',
         power: '90 kW',
         image: null,
-        description: 'Der Maxi-Tank für Mehrfamilienhäuser, große Villen oder gewerbliche Anwendungen. Er bietet maximale Unabhängigkeit und Versorgungssicherheit auch bei hohem Verbrauch.',
+        description: 'Der Maxi-Flüssiggastank für Mehrfamilienhäuser, große Villen oder gewerbliche Anwendungen. Er bietet maximale Unabhängigkeit und Versorgungssicherheit auch bei hohem Verbrauch.',
         features: [
             'Großes Speichervolumen',
             'Für Mehrfamilienhäuser und Gewerbe',
@@ -99,7 +99,7 @@ export const tankDetails = [
         weight: '600 kg',
         power: '35 kW',
         image: null,
-        description: 'Die unsichtbare Lösung für kleine Gärten. Der 1,2 t Tank verschwindet komplett unter der Erde, nur der Domdeckel bleibt sichtbar. Perfekt, wenn die Optik des Gartens nicht gestört werden soll.',
+        description: 'Die unsichtbare Lösung für kleine Gärten. Der 1,2 t Flüssiggastank verschwindet komplett unter der Erde, nur der Domdeckel bleibt sichtbar. Perfekt, wenn die Optik des Gartens nicht gestört werden soll.',
         features: [
             'Unsichtbar im Garten',
             'Begehbar (Deckel)',
@@ -115,9 +115,9 @@ export const tankDetails = [
             'Material': 'Feinkornbaustahl',
             'Beschichtung': 'Epoxidharz-Beschichtung (hellgrün)'
         },
-        installation: 'Erfordert Erdarbeiten (Grube). Der Tank wird in ein Sandbett gelegt. Auftriebssicherung bei hohem Grundwasser beachten. Wir unterstützen Sie gerne bei der Planung und vermitteln qualifizierte Partner für Erdarbeiten.',
+        installation: 'Erfordert Erdarbeiten (Grube). Der Flüssiggastank wird in ein Sandbett gelegt. Auftriebssicherung bei hohem Grundwasser beachten. Wir unterstützen Sie gerne bei der Planung und vermitteln qualifizierte Partner für Erdarbeiten.',
         seoTitle: '1,2 t Flüssiggastank unterirdisch | Unsichtbar & Platzsparend',
-        seoDesc: 'Unterirdischer 1,2t Tank (2700l). Perfekt für kleine Gärten. Verschwindet im Boden. Jetzt informieren & Angebot holen.'
+        seoDesc: 'Unterirdischer 1,2t Flüssiggastank (2700l). Perfekt für kleine Gärten. Verschwindet im Boden. Jetzt informieren & Angebot holen.'
     },
     {
         slug: '2-1t-unterirdisch',
@@ -129,7 +129,7 @@ export const tankDetails = [
         weight: '1.100 kg',
         power: '60 kW',
         image: null,
-        description: 'Der beliebteste unterirdische Tank. Er kombiniert das Volumen für ein klassisches Einfamilienhaus mit der unauffälligen Optik einer Erddeckung. Die Gartenfläche bleibt nutzbar.',
+        description: 'Der beliebteste unterirdische Flüssiggastank. Er kombiniert das Volumen für ein klassisches Einfamilienhaus mit der unauffälligen Optik einer Erddeckung. Die Gartenfläche bleibt nutzbar.',
         features: [
             'Standardgröße für EFH',
             'Keine Störung der Gartenoptik',
