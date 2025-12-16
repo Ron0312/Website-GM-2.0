@@ -5,21 +5,20 @@
   # Explicitly allow access
   Require all granted
 
+  # ----------------------------------------------------------------------
+  # Vital Files Protection (Sitemap & Robots)
+  # ----------------------------------------------------------------------
+  # Explicitly exclude sitemap.xml and robots.txt from ANY rewrites to prevent 404s
+  # This ensures Apache tries to serve them physically first.
+  RewriteRule ^sitemap\.xml$ - [L]
+  RewriteRule ^robots\.txt$ - [L]
+
   # Security Headers
   <IfModule mod_headers.c>
     Header set X-Content-Type-Options "nosniff"
     Header set X-Frame-Options "SAMEORIGIN"
     Header set X-XSS-Protection "1; mode=block"
   </IfModule>
-
-  # ----------------------------------------------------------------------
-  # Vital Files Protection (Sitemap & Robots)
-  # ----------------------------------------------------------------------
-  # Explicitly exclude sitemap.xml and robots.txt from ANY rewrites to prevent 404s
-  # This ensures Apache tries to serve them physically first, and fails normally if missing
-  # rather than redirecting to a custom 404 page which might be confusing for bots.
-  RewriteRule ^sitemap\.xml$ - [L]
-  RewriteRule ^robots\.txt$ - [L]
 
   # ----------------------------------------------------------------------
   # Legacy Redirects (301 Permanent)
