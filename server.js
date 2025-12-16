@@ -136,19 +136,17 @@ ${routes.map(route => `  <url>
 
     // Explicit Tank redirects from user list
     '/flussiggastank-oberirdisch-4850l-21t-fassungsvermogen': '/tanks/2-1t-oberirdisch',
+    '/fluessiggastank-oberirdisch-4850l-21t-fassungsvermoegen': '/tanks/2-1t-oberirdisch',
     '/fluessiggastank-unterirdisch-4850l-21t-fassungsvermoegen': '/tanks/2-1t-unterirdisch',
     '/fluessiggastank-unterirdisch-2700l-12t-fassungsvermoegen': '/tanks/1-2t-unterirdisch',
     '/flussiggastank-oberirdisch-6400l': '/tanks/2-9t-oberirdisch',
+    '/fluessiggastank-oberirdisch-6400l': '/tanks/2-9t-oberirdisch',
     '/fluessiggastank-unterirdisch-6400l-29t-fassungsvermoegen': '/tanks/2-9t-unterirdisch',
     '/flussiggastank-oberirdisch-2700l': '/tanks/1-2t-oberirdisch',
+    '/fluessiggastank-oberirdisch-2700l': '/tanks/1-2t-oberirdisch',
     '/fluessiggastank-kaufen': '/tanks',
     '/fluessiggastank-kaufen-2': '/tanks',
     '/flussiggastank-mieten-oder-kaufen': '/tanks', // Intent: buy/rent -> tanks
-
-    // Normalized variants (handling umlaut expansion manually just in case)
-    '/fluessiggastank-oberirdisch-4850l-21t-fassungsvermoegen': '/tanks/2-1t-oberirdisch',
-    '/fluessiggastank-oberirdisch-6400l': '/tanks/2-9t-oberirdisch',
-    '/fluessiggastank-oberirdisch-2700l': '/tanks/1-2t-oberirdisch',
 
     // Gas
     '/fluessiggas-bestellen': '/gas',
