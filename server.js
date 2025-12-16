@@ -109,15 +109,16 @@ ${routes.map(route => `  <url>
     return false
   }
 
-  // Explicitly serve sitemap.xml - MOVED TO TOP to prevent Redirect/SSR interference
-  app.get('/sitemap.xml', (req, res) => {
+  // Explicitly serve sitemap.xml - MOVED TO TOP and handled strictly
+  // We use an array to catch both /sitemap.xml and /sitemap.xml/ to prevent fallthrough
+  app.get(['/sitemap.xml', '/sitemap.xml/'], (req, res) => {
     if (!serveOrGenerate(res, 'sitemap.xml', 'application/xml', generateSitemapXml)) {
         res.status(404).send('Sitemap not found')
     }
   })
 
-  // Explicitly serve robots.txt - MOVED TO TOP
-  app.get('/robots.txt', (req, res) => {
+  // Explicitly serve robots.txt - MOVED TO TOP and handled strictly
+  app.get(['/robots.txt', '/robots.txt/'], (req, res) => {
     if (!serveOrGenerate(res, 'robots.txt', 'text/plain', null)) {
         res.status(404).send('Robots.txt not found')
     }
@@ -254,11 +255,16 @@ ${routes.map(route => `  <url>
             // ignore
         }
 
+        // Check if the path is a valid static route
+        // We do this BEFORE removing trailing slash because staticRoutes elements (like 'sitemap.xml') don't have slashes
+        // But if the request is /sitemap.xml/, we want to allow it?
+        // Actually, if we are here, app.get missed it (or we are in a middleware that runs for everything).
+        // Since app.get takes precedence for sitemap/robots, we shouldn't worry about them here unless we want to be double safe.
+
         if (normalizedPath.length > 1 && normalizedPath.endsWith('/')) {
           normalizedPath = normalizedPath.slice(0, -1);
         }
 
-        // Check if the path is a valid static route
         const cleanPath = normalizedPath.replace(/^\//, '');
         if (staticRoutes.includes(cleanPath)) {
             return next();
@@ -342,7 +348,7 @@ ${routes.map(route => `  <url>
     const url = req.originalUrl
 
     // Fail-safe fallback in case app.get missed it (unlikely with strict routing)
-    if (url === '/sitemap.xml') {
+    if (url === '/sitemap.xml' || url === '/sitemap.xml/') {
          if (serveOrGenerate(res, 'sitemap.xml', 'application/xml', generateSitemapXml)) return;
     }
 
