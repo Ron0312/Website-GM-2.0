@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useId } from 'react';
 import { motion } from 'framer-motion';
 import { Check, X, AlertCircle } from 'lucide-react';
 
-const ModernInput = ({ label, error, className = '', multiline = false, ...props }) => {
+const ModernInput = ({ label, error, className = '', multiline = false, id: providedId, ...props }) => {
   const [focused, setFocused] = useState(false);
   const [touched, setTouched] = useState(false);
+
+  const generatedId = useId();
+  const inputId = providedId || generatedId;
+  const errorId = `${inputId}-error`;
 
   // Determine state
   const hasError = !!error;
@@ -29,9 +33,12 @@ const ModernInput = ({ label, error, className = '', multiline = false, ...props
       >
         <InputComponent
           {...props}
+          id={inputId}
           inputMode={props.inputMode}
           pattern={props.pattern}
           autoComplete={props.autoComplete}
+          aria-invalid={hasError}
+          aria-errormessage={hasError ? errorId : undefined}
           onFocus={(e) => {
             setFocused(true);
             props.onFocus && props.onFocus(e);
@@ -44,9 +51,9 @@ const ModernInput = ({ label, error, className = '', multiline = false, ...props
           className={`w-full p-4 bg-transparent outline-none text-gray-800 font-medium placeholder-gray-400 rounded-xl font-sans ${multiline ? 'resize-none h-32' : ''}`}
         />
         {label && (
-             <div className="absolute -top-2.5 left-4 bg-white px-2 text-xs font-bold text-gray-500 uppercase tracking-wider pointer-events-none">
+             <label htmlFor={inputId} className="absolute -top-2.5 left-4 bg-white px-2 text-xs font-bold text-gray-500 uppercase tracking-wider pointer-events-none">
                  {label}
-             </div>
+             </label>
         )}
 
         {/* Validation Icons - Only for single line inputs usually, but can work for textarea too if positioned top right */}
@@ -66,7 +73,7 @@ const ModernInput = ({ label, error, className = '', multiline = false, ...props
 
       </motion.div>
       {typeof error === 'string' && error.length > 0 && (
-          <div className="flex items-center text-red-500 text-xs mt-1 ml-1 font-bold animate-pulse">
+          <div id={errorId} className="flex items-center text-red-500 text-xs mt-1 ml-1 font-bold animate-pulse">
               <AlertCircle size={12} className="mr-1" />
               {error}
           </div>

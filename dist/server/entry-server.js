@@ -1,5 +1,5 @@
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
-import React, { useState, useEffect, useMemo, Component } from "react";
+import React, { useState, useEffect, useMemo, useId, Component } from "react";
 import ReactDOMServer from "react-dom/server";
 import { TrendingUp, Clock, Phone, ArrowUpFromLine, ArrowDownToLine, ShieldCheck, BookOpen, ChevronDown, ArrowRight, X, Menu, BadgeCheck, Star, Calculator, Zap, Info, Flame, Droplets, Leaf, Trees, Check, ArrowLeft, Ruler, Weight, Download, Tractor, Factory, Truck, MapPin, CheckCircle, AlertCircle, Copy, User, Loader2, Coins, Heart, AlertTriangle, Settings, Home, Wrench, Lock, Unlock, ChevronRight, Send, Sparkles, RefreshCw, Building2, ChevronUp, Accessibility, Sun, Type, Link, RefreshCcw } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -951,7 +951,17 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
   return /* @__PURE__ */ jsxs("section", { className: "bg-white", id: "tanks", children: [
     /* @__PURE__ */ jsxs("div", { className: "relative bg-gray-900 py-32 lg:py-48 overflow-hidden", children: [
       /* @__PURE__ */ jsxs("div", { className: "absolute inset-0 z-0", children: [
-        /* @__PURE__ */ jsx("img", { src: "/images/tank-section-hero.webp", alt: "Flüssiggastank im Garten", className: "w-full h-full object-cover opacity-40 mix-blend-overlay" }),
+        /* @__PURE__ */ jsx(
+          "img",
+          {
+            src: "/images/tank-section-hero.webp",
+            alt: "Flüssiggastank im Garten",
+            width: "1531",
+            height: "991",
+            loading: "lazy",
+            className: "w-full h-full object-cover opacity-40 mix-blend-overlay"
+          }
+        ),
         /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent" })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 relative z-10 text-center", children: [
@@ -1201,8 +1211,8 @@ const TankDetail = ({ slug, onBack, openWizard }) => {
 };
 const CommercialSection = ({ setActiveSection }) => /* @__PURE__ */ jsx("section", { className: "py-24 bg-gray-50", id: "gewerbe", children: /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4", children: [
   /* @__PURE__ */ jsxs("div", { className: "text-center mb-16", children: [
-    /* @__PURE__ */ jsx("h2", { className: "text-gas font-bold tracking-widest uppercase text-sm mb-2", children: "B2B Lösungen" }),
-    /* @__PURE__ */ jsx("h3", { className: "text-3xl font-extrabold", children: "Energie für Macher" })
+    /* @__PURE__ */ jsx("div", { className: "text-gas font-bold tracking-widest uppercase text-sm mb-2", children: "B2B Lösungen" }),
+    /* @__PURE__ */ jsx("h2", { className: "text-3xl font-extrabold", children: "Energie für Macher" })
   ] }),
   /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-8 mb-16", children: [
     { t: "Landwirtschaft", d: "Stallheizung & Trocknung", i: Tractor, desc: "Leistungsstarke Trocknungsanlagen und Stallheizungen. Auch mit BioLPG für nachhaltige Betriebe." },
@@ -1210,7 +1220,7 @@ const CommercialSection = ({ setActiveSection }) => /* @__PURE__ */ jsx("section
     { t: "Logistik", d: "Staplergas & Tankstellen", i: Truck, desc: "Treibgas für Gabelstapler. Sauberer als Diesel, stärker als Elektro. Innen und Außen." }
   ].map((item, i) => /* @__PURE__ */ jsxs("div", { className: "bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group", children: [
     /* @__PURE__ */ jsx(item.i, { size: 40, className: "text-gray-300 group-hover:text-gas mb-6 transition-colors" }),
-    /* @__PURE__ */ jsx("h4", { className: "font-bold text-xl mb-2", children: item.t }),
+    /* @__PURE__ */ jsx("h3", { className: "font-bold text-xl mb-2", children: item.t }),
     /* @__PURE__ */ jsx("p", { className: "text-gray-500 font-medium mb-3", children: item.d }),
     /* @__PURE__ */ jsx("p", { className: "text-sm text-gray-400 leading-relaxed", children: item.desc })
   ] }, i)) }),
@@ -1232,7 +1242,7 @@ const CommercialSection = ({ setActiveSection }) => /* @__PURE__ */ jsx("section
         ] }, i)) })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "bg-gray-50 rounded-2xl p-8 text-center border border-gray-100", children: [
-        /* @__PURE__ */ jsx("h4", { className: "font-bold text-xl mb-2", children: "Individuelles Angebot" }),
+        /* @__PURE__ */ jsx("h3", { className: "font-bold text-xl mb-2", children: "Individuelles Angebot" }),
         /* @__PURE__ */ jsx("p", { className: "text-gray-500 text-sm mb-6", children: "Lassen Sie uns über Ihren Energiebedarf sprechen. Wir erstellen Ihnen ein maßgeschneidertes Konzept." }),
         /* @__PURE__ */ jsx("button", { onClick: () => setActiveSection("kontakt"), className: "w-full bg-gas text-white py-4 rounded-xl font-bold hover:bg-gas-dark transition-all shadow-lg hover:shadow-xl", children: "Jetzt anfragen" })
       ] })
@@ -1484,9 +1494,12 @@ const getPlzError = (plz) => {
   }
   return "";
 };
-const ModernInput = ({ label, error, className = "", multiline = false, ...props }) => {
+const ModernInput = ({ label, error, className = "", multiline = false, id: providedId, ...props }) => {
   const [focused, setFocused] = useState(false);
   const [touched, setTouched] = useState(false);
+  const generatedId = useId();
+  const inputId = providedId || generatedId;
+  const errorId = `${inputId}-error`;
   const hasError = !!error;
   const isValid = !hasError && props.value && props.value.length > 0 && !props.disabled;
   const InputComponent = multiline ? "textarea" : "input";
@@ -1502,9 +1515,12 @@ const ModernInput = ({ label, error, className = "", multiline = false, ...props
             InputComponent,
             {
               ...props,
+              id: inputId,
               inputMode: props.inputMode,
               pattern: props.pattern,
               autoComplete: props.autoComplete,
+              "aria-invalid": hasError,
+              "aria-errormessage": hasError ? errorId : void 0,
               onFocus: (e) => {
                 setFocused(true);
                 props.onFocus && props.onFocus(e);
@@ -1517,7 +1533,7 @@ const ModernInput = ({ label, error, className = "", multiline = false, ...props
               className: `w-full p-4 bg-transparent outline-none text-gray-800 font-medium placeholder-gray-400 rounded-xl font-sans ${multiline ? "resize-none h-32" : ""}`
             }
           ),
-          label && /* @__PURE__ */ jsx("div", { className: "absolute -top-2.5 left-4 bg-white px-2 text-xs font-bold text-gray-500 uppercase tracking-wider pointer-events-none", children: label }),
+          label && /* @__PURE__ */ jsx("label", { htmlFor: inputId, className: "absolute -top-2.5 left-4 bg-white px-2 text-xs font-bold text-gray-500 uppercase tracking-wider pointer-events-none", children: label }),
           !multiline && /* @__PURE__ */ jsxs("div", { className: "pr-4 py-4 flex items-center pointer-events-none h-full absolute right-0 top-0", children: [
             hasError && /* @__PURE__ */ jsx(X, { size: 20, className: "text-red-500" }),
             isValid && !focused && /* @__PURE__ */ jsx(Check, { size: 20, className: "text-green-500" })
@@ -1529,7 +1545,7 @@ const ModernInput = ({ label, error, className = "", multiline = false, ...props
         ]
       }
     ),
-    typeof error === "string" && error.length > 0 && /* @__PURE__ */ jsxs("div", { className: "flex items-center text-red-500 text-xs mt-1 ml-1 font-bold animate-pulse", children: [
+    typeof error === "string" && error.length > 0 && /* @__PURE__ */ jsxs("div", { id: errorId, className: "flex items-center text-red-500 text-xs mt-1 ml-1 font-bold animate-pulse", children: [
       /* @__PURE__ */ jsx(AlertCircle, { size: 12, className: "mr-1" }),
       error
     ] })
@@ -2781,7 +2797,7 @@ const KnowledgeCenter = ({ setActiveSection }) => {
   };
   return /* @__PURE__ */ jsx("section", { className: "bg-gray-50 pt-32 pb-24 min-h-screen", id: "wissen", children: /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8", children: [
     /* @__PURE__ */ jsxs("div", { className: "text-center mb-16", children: [
-      /* @__PURE__ */ jsx("h3", { className: "text-3xl font-extrabold text-text mb-4", children: "Wissen & Ratgeber" }),
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl font-extrabold text-text mb-4", children: "Wissen & Ratgeber" }),
       /* @__PURE__ */ jsx("p", { className: "text-xl text-gray-500 max-w-2xl mx-auto", children: "Expertenwissen verständlich erklärt." })
     ] }),
     /* @__PURE__ */ jsx("div", { className: "flex flex-wrap justify-center gap-4 mb-12", children: CONTENT.knowledge.map((cat) => /* @__PURE__ */ jsxs(
@@ -2798,7 +2814,7 @@ const KnowledgeCenter = ({ setActiveSection }) => {
     )) }),
     /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-12 gap-8", children: [
       /* @__PURE__ */ jsx("div", { className: "lg:col-span-4 lg:col-start-1", children: /* @__PURE__ */ jsxs("div", { className: "bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden sticky top-24", children: [
-        /* @__PURE__ */ jsx("div", { className: "p-4 bg-gray-50 border-b border-gray-200", children: /* @__PURE__ */ jsxs("h3", { className: "font-bold text-gray-700 flex items-center", children: [
+        /* @__PURE__ */ jsx("div", { className: "p-4 bg-gray-50 border-b border-gray-200", children: /* @__PURE__ */ jsxs("h2", { className: "font-bold text-gray-700 flex items-center", children: [
           /* @__PURE__ */ jsx(BookOpen, { size: 18, className: "mr-2" }),
           " Artikelübersicht"
         ] }) }),

@@ -25,7 +25,7 @@ const KnowledgeCenter = ({ setActiveSection }) => {
         <section className="bg-gray-50 pt-32 pb-24 min-h-screen" id="wissen">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
-                    <h3 className="text-3xl font-extrabold text-text mb-4">Wissen & Ratgeber</h3>
+                    <h1 className="text-3xl font-extrabold text-text mb-4">Wissen & Ratgeber</h1>
                     <p className="text-xl text-gray-500 max-w-2xl mx-auto">Expertenwissen verständlich erklärt.</p>
                 </div>
 
@@ -48,7 +48,7 @@ const KnowledgeCenter = ({ setActiveSection }) => {
                     <div className="lg:col-span-4 lg:col-start-1">
                         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden sticky top-24">
                             <div className="p-4 bg-gray-50 border-b border-gray-200">
-                                <h3 className="font-bold text-gray-700 flex items-center"><BookOpen size={18} className="mr-2"/> Artikelübersicht</h3>
+                                <h2 className="font-bold text-gray-700 flex items-center"><BookOpen size={18} className="mr-2"/> Artikelübersicht</h2>
                             </div>
                             <div className="divide-y divide-gray-100">
                                 {currentCategory.articles.map((article) => (

@@ -55,7 +55,14 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
              {/* New Hero Section for Tanks & Kauf */}
              <div className="relative bg-gray-900 py-32 lg:py-48 overflow-hidden">
                 <div className="absolute inset-0 z-0">
-                    <img src="/images/tank-section-hero.webp" alt="Flüssiggastank im Garten" className="w-full h-full object-cover opacity-40 mix-blend-overlay" />
+                    <img
+                        src="/images/tank-section-hero.webp"
+                        alt="Flüssiggastank im Garten"
+                        width="1531"
+                        height="991"
+                        loading="lazy"
+                        className="w-full h-full object-cover opacity-40 mix-blend-overlay"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent"></div>
                 </div>
                 <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
