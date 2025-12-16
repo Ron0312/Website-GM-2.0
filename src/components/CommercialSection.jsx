@@ -5,8 +5,8 @@ const CommercialSection = ({ setActiveSection }) => (
     <section className="py-24 bg-gray-50" id="gewerbe">
         <div className="max-w-7xl mx-auto px-4">
             <div className="text-center mb-16">
-                <h2 className="text-gas font-bold tracking-widest uppercase text-sm mb-2">B2B Lösungen</h2>
-                <h3 className="text-3xl font-extrabold">Energie für Macher</h3>
+                <div className="text-gas font-bold tracking-widest uppercase text-sm mb-2">B2B Lösungen</div>
+                <h2 className="text-3xl font-extrabold">Energie für Macher</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
                 {[
@@ -16,7 +16,7 @@ const CommercialSection = ({ setActiveSection }) => (
                 ].map((item, i) => (
                     <div key={i} className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group">
                         <item.i size={40} className="text-gray-300 group-hover:text-gas mb-6 transition-colors"/>
-                        <h4 className="font-bold text-xl mb-2">{item.t}</h4>
+                        <h3 className="font-bold text-xl mb-2">{item.t}</h3>
                         <p className="text-gray-500 font-medium mb-3">{item.d}</p>
                         <p className="text-sm text-gray-400 leading-relaxed">{item.desc}</p>
                     </div>
@@ -46,7 +46,7 @@ const CommercialSection = ({ setActiveSection }) => (
                         </div>
                     </div>
                     <div className="bg-gray-50 rounded-2xl p-8 text-center border border-gray-100">
-                        <h4 className="font-bold text-xl mb-2">Individuelles Angebot</h4>
+                        <h3 className="font-bold text-xl mb-2">Individuelles Angebot</h3>
                         <p className="text-gray-500 text-sm mb-6">Lassen Sie uns über Ihren Energiebedarf sprechen. Wir erstellen Ihnen ein maßgeschneidertes Konzept.</p>
                         <button onClick={() => setActiveSection('kontakt')} className="w-full bg-gas text-white py-4 rounded-xl font-bold hover:bg-gas-dark transition-all shadow-lg hover:shadow-xl">
                             Jetzt anfragen
