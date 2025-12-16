@@ -10,8 +10,10 @@
   # ----------------------------------------------------------------------
   # Explicitly exclude sitemap.xml and robots.txt from ANY rewrites to prevent 404s
   # This ensures Apache tries to serve them physically first.
-  RewriteRule ^sitemap\.xml$ - [L]
-  RewriteRule ^robots\.txt$ - [L]
+  # We use REQUEST_URI to be absolutely sure we catch the path
+  RewriteCond %{REQUEST_URI} ^/sitemap\.xml$ [OR]
+  RewriteCond %{REQUEST_URI} ^/robots\.txt$
+  RewriteRule ^ - [L]
 
   # Security Headers
   <IfModule mod_headers.c>
@@ -95,6 +97,8 @@
 
   # Fallback for 404
   # If no file found and no html mapping, serve 404.html if it exists
+  # IMPORTANT: Do not rewrite sitemap.xml to 404 even if check fails,
+  # although the top rule should have prevented this.
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^ 404.html [L]

@@ -31,6 +31,9 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff,woff2}'],
+        // Explicitly exclude sitemap.xml and robots.txt from navigation fallback
+        // This ensures the SW does not serve index.html for these static files
+        navigateFallbackDenylist: [/^\/sitemap\.xml$/, /^\/robots\.txt$/],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/api\.web3forms\.com\/.*/i,
