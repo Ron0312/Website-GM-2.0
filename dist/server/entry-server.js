@@ -189,59 +189,58 @@ const SITE_URL = "https://www.gasmoeller.de";
 const DEFAULT_IMAGE = `${SITE_URL}/logos/Icon-01.webp`;
 const seoData = {
   "start": {
-    title: "gasmöller - Ihr Partner für Flüssiggas im Norden",
-    description: "Unabhängig. Fair. Norddeutsch. Flüssiggastanks kaufen statt mieten. Ihr Experte seit 2000. Jetzt Angebot anfordern!",
+    title: "Flüssiggastank kaufen & Geld sparen | gasmöller - Ihr Experte im Norden",
+    description: "Unabhängig & Fair. Gastanks (1,2t - 2,9t) zum Kauf statt Miete. Eigener Fuhrpark, Express-Lieferung. Seit 2000 in Schleswig-Holstein & Hamburg.",
     image: `${SITE_URL}/images/gas-order-hero.webp`
-    // Hero image
   },
   "tanks": {
-    title: "Flüssiggastank kaufen | Oberirdisch & Unterirdisch | gasmöller",
-    description: "Kaufen Sie Ihren Flüssiggastank statt zu mieten. 1,2t, 2,1t und 2,9t Tanks verfügbar. Unabhängigkeit von großen Versorgern.",
+    title: "Flüssiggastank kaufen statt mieten | Alle Größen (1,2t - 2,9t) | gasmöller",
+    description: "Sparen Sie Mietkosten! Neue & geprüfte Tanks zum fairen Preis. Oberirdisch & unterirdisch. Jetzt Angebot für Ihren Gastank anfordern.",
     image: DEFAULT_IMAGE
   },
   "gas": {
-    title: "Flüssiggas bestellen | Aktuelle Preise & Lieferung | gasmöller",
-    description: "Flüssiggas günstig bestellen. Lieferung in Schleswig-Holstein, Hamburg & Niedersachsen. Fairer Preis, schnelle Lieferung.",
+    title: "Flüssiggas bestellen | Aktueller Tagespreis & Express-Lieferung | gasmöller",
+    description: "Günstiges Flüssiggas für den Norden. Zuverlässige Lieferung mit eigener Flotte. Keine versteckten Kosten. Hier aktuellen Gaspreis anfragen!",
     image: `${SITE_URL}/images/gas-order-hero.webp`
   },
   "wissen": {
-    title: "Wissen & Ratgeber | Alles über Flüssiggas | gasmöller",
-    description: "Ratgeber zu Flüssiggas, Tanksicherheit, Prüfintervalle und Energiespartipps. Informieren Sie sich hier.",
+    title: "Wissen & Ratgeber | Alles über Flüssiggas & Tanks | gasmöller",
+    description: "Expertenwissen: Wie sicher sind Gastanks? Wie oft prüfen? Tipps zum Energiesparen & Umrüsten von Öl auf Gas. Hier informieren.",
     image: DEFAULT_IMAGE
   },
   "gewerbe": {
-    title: "Gewerbegas & Prozesswärme | gasmöller",
-    description: "Individuelle Flüssiggas-Lösungen für Gewerbe, Landwirtschaft und Industrie. Prozesswärme, Hallenheizung und mehr.",
+    title: "Gewerbegas & Prozesswärme | Individuelle Lösungen | gasmöller",
+    description: "Effizientes Flüssiggas für Landwirtschaft, Industrie & Gewerbe. Prozesswärme, Hallenheizung & Staplergas. Jetzt Gewerbe-Angebot sichern.",
     image: DEFAULT_IMAGE
   },
   "ueber-uns": {
-    title: "Über gasmöller | Ihr unabhängiger Energieversorger",
-    description: "Lernen Sie gasmöller kennen. Seit 2000 Ihr zuverlässiger Partner für Flüssiggas im Norden. Unser Team und unsere Werte.",
+    title: "Über gasmöller | Ihr unabhängiger Familienbetrieb im Norden",
+    description: "Persönlich & Nah. Seit 2000 versorgen wir Schleswig-Holstein & Hamburg mit Flüssiggas. Lernen Sie unser Team und unsere Werte kennen.",
     image: DEFAULT_IMAGE
   },
   "kontakt": {
-    title: "Kontakt | gasmöller Kundenservice",
-    description: "Kontaktieren Sie uns. Telefonisch unter 04551 89 70 89 oder per E-Mail. Wir beraten Sie gerne kostenlos.",
+    title: "Kontakt & Service | Wir sind für Sie da | gasmöller",
+    description: "Fragen zu Tank oder Gas? Rufen Sie uns an: 04551 89 70 89. Kompetente Beratung, schneller Service. Schreiben Sie uns!",
     image: DEFAULT_IMAGE
   },
   "rechner": {
-    title: "Spar-Rechner | Flüssiggas Kostenvergleich | gasmöller",
-    description: "Vergleichen Sie Ihre aktuellen Flüssiggaskosten. Sehen Sie, wie viel Sie mit einem eigenen Tank sparen können.",
+    title: "Heizkosten-Rechner | Flüssiggas-Vergleich & Ersparnis | gasmöller",
+    description: "Vergleichen Sie jetzt: So viel sparen Sie mit einem eigenen Tank gegenüber Vertragsbindung. Kostenloser Rechner für Öl, Gas, Pellets & Holz.",
     image: DEFAULT_IMAGE
   },
   "pruefungen": {
-    title: "Tankprüfungen & Service | Äußere & Innere Prüfung | gasmöller",
-    description: "Gesetzliche Tankprüfungen (2 & 10 Jahre) für Flüssiggastanks. Zuverlässiger Service, faire Preise. Jetzt Termin vereinbaren.",
+    title: "Tankprüfung fällig? | Innere & Äußere Prüfung | gasmöller",
+    description: "Zugelassener Fachbetrieb für 2- und 10-jährige Tankprüfungen. Schnell, unkompliziert & preiswert. Jetzt Prüftermin vereinbaren.",
     image: DEFAULT_IMAGE
   },
   "barrierefreiheit": {
     title: "Erklärung zur Barrierefreiheit | gasmöller",
-    description: "Erklärung zur Barrierefreiheit der Website gasmoeller.de gemäß BITV 2.0 und WCAG 2.1.",
+    description: "Wir setzen uns für eine zugängliche Website ein. Erklärung gemäß BITV 2.0 und WCAG 2.1 Standards.",
     image: DEFAULT_IMAGE
   },
   "404": {
-    title: "404 - Seite nicht gefunden | gasmöller",
-    description: "Die gesuchte Seite existiert leider nicht.",
+    title: "Seite nicht gefunden (404) | gasmöller",
+    description: "Die gewünschte Seite ist leider nicht verfügbar. Bitte nutzen Sie das Menü oder kehren Sie zur Startseite zurück.",
     image: DEFAULT_IMAGE
   }
 };
@@ -2965,7 +2964,8 @@ const Footer = ({ setActiveSection, openLegal }) => {
         /* @__PURE__ */ jsxs("ul", { className: "space-y-2", children: [
           /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => openLegal("imprint"), className: "hover:text-white transition-colors text-left", children: "Impressum" }) }),
           /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => openLegal("privacy"), className: "hover:text-white transition-colors text-left", children: "Datenschutz" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => openLegal("terms"), className: "hover:text-white transition-colors text-left", children: "AGB" }) })
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { onClick: () => openLegal("terms"), className: "hover:text-white transition-colors text-left", children: "AGB" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "/sitemap.xml", className: "hover:text-white transition-colors text-left", target: "_blank", children: "Sitemap" }) })
         ] })
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [

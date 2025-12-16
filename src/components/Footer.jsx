@@ -68,6 +68,7 @@ const Footer = ({ setActiveSection, openLegal }) => {
                         <li><button onClick={() => openLegal('imprint')} className="hover:text-white transition-colors text-left">Impressum</button></li>
                         <li><button onClick={() => openLegal('privacy')} className="hover:text-white transition-colors text-left">Datenschutz</button></li>
                         <li><button onClick={() => openLegal('terms')} className="hover:text-white transition-colors text-left">AGB</button></li>
+                        <li><a href="/sitemap.xml" className="hover:text-white transition-colors text-left" target="_blank">Sitemap</a></li>
                     </ul>
                 </div>
                 <div>
