@@ -1,17 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MapPin, CheckCircle, MousePointer2 } from 'lucide-react';
 import Skeleton from './ui/Skeleton';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const DeliveryMap = () => {
     const [loading, setLoading] = useState(true);
     const [hoveredRegion, setHoveredRegion] = useState(null);
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const mapRef = useRef(null);
 
     useEffect(() => {
         // Simulate loading time (or wait for image load if using images)
         const timer = setTimeout(() => setLoading(false), 500);
         return () => clearTimeout(timer);
     }, []);
+
+    const handleMouseMove = (e) => {
+        if (!mapRef.current) return;
+        const rect = mapRef.current.getBoundingClientRect();
+        setMousePosition({
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top
+        });
+    };
 
     const cities = [
         { name: 'Hamburg', x: 345, y: 235, align: 'start' },
@@ -22,8 +33,6 @@ const DeliveryMap = () => {
     ];
 
     // PATH 1: Schleswig-Holstein (SH)
-    // Includes North Frisia (with Sylt), Angeln, Ostholstein.
-    // South border: Elbe (North bank).
     const pathSH = `
         M 260 170
         L 270 175 L 290 180 L 310 190 L 330 200
@@ -53,7 +62,6 @@ const DeliveryMap = () => {
     `;
 
     // PATH 2: Hamburg (HH)
-    // Small area between SH and NI.
     const pathHH = `
         M 335 215
         L 345 212 L 355 210
@@ -86,7 +94,6 @@ const DeliveryMap = () => {
     `;
 
     // PATH 4: Niedersachsen-Nord (NI)
-    // Cuxhaven -> Elbe -> MV Border -> Wolfsburg -> Celle -> Bremen -> Cuxhaven
     const pathNI = `
         M 260 170
         L 270 175 L 290 180 L 310 190 L 330 200
@@ -147,65 +154,96 @@ const DeliveryMap = () => {
                             <Skeleton className="w-full h-full rounded-2xl bg-gray-800" />
                         </div>
                     ) : (
-                        <svg viewBox="0 0 800 500" className="w-full h-auto max-w-md lg:max-w-full drop-shadow-2xl">
-                            <defs>
-                                <filter id="glow">
-                                    <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
-                                    <feMerge>
-                                        <feMergeNode in="coloredBlur"/>
-                                        <feMergeNode in="SourceGraphic"/>
-                                    </feMerge>
-                                </filter>
-                            </defs>
-                            <g stroke="white" strokeWidth="1" strokeLinejoin="round">
-                                {regions.map((region) => (
-                                    <motion.path
-                                        key={region.id}
-                                        d={region.path}
-                                        fill={region.color}
-                                        initial={{ fill: region.color }}
-                                        whileHover={{ fill: region.hoverColor, scale: 1.01, zIndex: 10 }}
-                                        transition={{ duration: 0.2 }}
-                                        onHoverStart={() => setHoveredRegion(region.name)}
-                                        onHoverEnd={() => setHoveredRegion(null)}
-                                        className="cursor-pointer"
-                                        style={{ originX: 0.5, originY: 0.5 }}
-                                    />
-                                ))}
-                            </g>
-
-                            {/* Tooltip-like label on hover */}
-                             <motion.g
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: hoveredRegion ? 1 : 0 }}
-                                className="pointer-events-none"
-                            >
+                        <div
+                            className="relative w-full h-auto"
+                            onMouseMove={handleMouseMove}
+                            ref={mapRef}
+                        >
+                             {/* Floating Tooltip */}
+                             <AnimatePresence>
                                 {hoveredRegion && (
-                                     <text x="400" y="480" textAnchor="middle" fill="white" fontSize="16" fontWeight="bold" className="uppercase tracking-widest drop-shadow-md">
-                                        Wir liefern nach {hoveredRegion}
-                                     </text>
-                                )}
-                            </motion.g>
-
-                            {/* Cities */}
-                            {cities.map((city, index) => (
-                                <g key={index} transform={`translate(${city.x}, ${city.y})`} className="pointer-events-none">
-                                    <circle cx="0" cy="0" r="4" fill="white" className="drop-shadow-lg" />
-                                    <text
-                                        x={city.align === 'start' ? 10 : city.align === 'end' ? -10 : 0}
-                                        y={5}
-                                        fontFamily="sans-serif"
-                                        fontSize="14"
-                                        fill="white"
-                                        fontWeight="bold"
-                                        textAnchor={city.align}
-                                        style={{ textShadow: '0px 2px 4px rgba(0,0,0,0.5)' }}
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                                        exit={{ opacity: 0, scale: 0.8 }}
+                                        style={{
+                                            position: 'absolute',
+                                            left: mousePosition.x + 20, // Offset to not cover cursor
+                                            top: mousePosition.y - 40,
+                                            pointerEvents: 'none',
+                                            zIndex: 50
+                                        }}
+                                        className="bg-white text-gray-900 px-4 py-2 rounded-lg shadow-xl border border-gray-200 whitespace-nowrap hidden md:block"
                                     >
-                                        {city.name}
-                                    </text>
+                                        <div className="font-bold text-sm">Wir liefern nach {hoveredRegion}!</div>
+                                        <div className="text-xs text-green-600 font-semibold flex items-center gap-1">
+                                            <CheckCircle size={10} /> Express verfügbar
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+
+                            <svg viewBox="0 0 800 500" className="w-full h-auto max-w-md lg:max-w-full drop-shadow-2xl">
+                                <defs>
+                                    <filter id="glow">
+                                        <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+                                        <feMerge>
+                                            <feMergeNode in="coloredBlur"/>
+                                            <feMergeNode in="SourceGraphic"/>
+                                        </feMerge>
+                                    </filter>
+                                </defs>
+                                <g stroke="white" strokeWidth="1" strokeLinejoin="round">
+                                    {regions.map((region) => (
+                                        <motion.path
+                                            key={region.id}
+                                            d={region.path}
+                                            fill={region.color}
+                                            initial={{ fill: region.color }}
+                                            whileHover={{ fill: region.hoverColor, scale: 1.01, zIndex: 10 }}
+                                            transition={{ duration: 0.2 }}
+                                            onHoverStart={() => setHoveredRegion(region.name)}
+                                            onHoverEnd={() => setHoveredRegion(null)}
+                                            className="cursor-pointer"
+                                            style={{ originX: 0.5, originY: 0.5 }}
+                                        />
+                                    ))}
                                 </g>
-                            ))}
-                        </svg>
+
+                                {/* Fallback Label on Hover (if needed, or purely visual) - Keeping it as a background element or removing if tooltip is enough.
+                                    Let's keep the big text at bottom as well for Mobile/Tablet users who touch. */}
+                                 <motion.g
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: hoveredRegion ? 1 : 0 }}
+                                    className="pointer-events-none md:hidden"
+                                >
+                                    {hoveredRegion && (
+                                         <text x="400" y="480" textAnchor="middle" fill="white" fontSize="16" fontWeight="bold" className="uppercase tracking-widest drop-shadow-md">
+                                            Wir liefern nach {hoveredRegion}
+                                         </text>
+                                    )}
+                                </motion.g>
+
+                                {/* Cities */}
+                                {cities.map((city, index) => (
+                                    <g key={index} transform={`translate(${city.x}, ${city.y})`} className="pointer-events-none">
+                                        <circle cx="0" cy="0" r="4" fill="white" className="drop-shadow-lg" />
+                                        <text
+                                            x={city.align === 'start' ? 10 : city.align === 'end' ? -10 : 0}
+                                            y={5}
+                                            fontFamily="sans-serif"
+                                            fontSize="14"
+                                            fill="white"
+                                            fontWeight="bold"
+                                            textAnchor={city.align}
+                                            style={{ textShadow: '0px 2px 4px rgba(0,0,0,0.5)' }}
+                                        >
+                                            {city.name}
+                                        </text>
+                                    </g>
+                                ))}
+                            </svg>
+                        </div>
                     )}
                 </div>
             </div>

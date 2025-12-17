@@ -1,126 +1,97 @@
 import React, { useState, useEffect } from 'react';
-import { Accessibility, X, Sun, Type, Zap, Link as LinkIcon, Eye } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Accessibility, X, Sun, Type, Zap, Link as LinkIcon } from 'lucide-react';
 
 const AccessibilityWidget = () => {
+    // ... code ...
     const [isOpen, setIsOpen] = useState(false);
     const [settings, setSettings] = useState({
         highContrast: false,
         largeText: false,
-        reduceMotion: false,
-        highlightLinks: false,
+        stopAnimations: false,
+        highlightLinks: false
     });
 
-    // Load settings from localStorage
-    useEffect(() => {
-        const stored = localStorage.getItem('a11y-settings');
-        if (stored) {
-            setSettings(JSON.parse(stored));
-        }
-    }, []);
-
-    // Apply settings
-    useEffect(() => {
-        const body = document.body;
-        if (settings.highContrast) body.classList.add('a11y-high-contrast');
-        else body.classList.remove('a11y-high-contrast');
-
-        if (settings.largeText) document.documentElement.classList.add('a11y-large-text');
-        else document.documentElement.classList.remove('a11y-large-text');
-
-        if (settings.reduceMotion) body.classList.add('a11y-reduce-motion');
-        else body.classList.remove('a11y-reduce-motion');
-
-        if (settings.highlightLinks) body.classList.add('a11y-highlight-links');
-        else body.classList.remove('a11y-highlight-links');
-
-        localStorage.setItem('a11y-settings', JSON.stringify(settings));
-    }, [settings]);
+    const toggleOpen = () => setIsOpen(!isOpen);
 
     const toggleSetting = (key) => {
-        setSettings(prev => ({ ...prev, [key]: !prev[key] }));
+        setSettings(prev => {
+            const newSettings = { ...prev, [key]: !prev[key] };
+            applySettings(newSettings);
+            return newSettings;
+        });
     };
 
+    const applySettings = (newSettings) => {
+        const root = document.documentElement;
+
+        if (newSettings.highContrast) root.classList.add('a11y-high-contrast');
+        else root.classList.remove('a11y-high-contrast');
+
+        if (newSettings.largeText) root.classList.add('a11y-large-text');
+        else root.classList.remove('a11y-large-text');
+
+        if (newSettings.stopAnimations) root.classList.add('a11y-stop-animations');
+        else root.classList.remove('a11y-stop-animations');
+
+        if (newSettings.highlightLinks) root.classList.add('a11y-highlight-links');
+        else root.classList.remove('a11y-highlight-links');
+    };
+
+    // ... rendering ...
     return (
-        <div className="fixed bottom-4 left-4 z-[9999] font-sans">
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 20, scale: 0.9 }}
-                        className="mb-4 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden w-72"
-                        role="dialog"
-                        aria-label="Barrierefreiheit Einstellungen"
-                    >
-                        <div className="bg-gray-50 p-4 border-b border-gray-100 flex justify-between items-center">
-                            <h3 className="font-bold text-gray-900 flex items-center gap-2">
-                                <Accessibility size={20} className="text-gas"/> Barrierefreiheit
-                            </h3>
-                            <button onClick={() => setIsOpen(false)} aria-label="Schließen" className="text-gray-400 hover:text-gray-600">
-                                <X size={20} />
-                            </button>
-                        </div>
-                        <div className="p-2">
-                            <OptionButton
-                                label="Hoher Kontrast"
-                                active={settings.highContrast}
-                                onClick={() => toggleSetting('highContrast')}
-                                icon={Sun}
-                            />
-                            <OptionButton
-                                label="Größere Schrift"
-                                active={settings.largeText}
-                                onClick={() => toggleSetting('largeText')}
-                                icon={Type}
-                            />
-                            <OptionButton
-                                label="Animationen stopppen"
-                                active={settings.reduceMotion}
-                                onClick={() => toggleSetting('reduceMotion')}
-                                icon={Zap}
-                            />
-                            <OptionButton
-                                label="Links hervorheben"
-                                active={settings.highlightLinks}
-                                onClick={() => toggleSetting('highlightLinks')}
-                                icon={LinkIcon}
-                            />
-                        </div>
-                        <div className="bg-gray-50 p-3 text-center border-t border-gray-100">
-                             <a href="/barrierefreiheit" className="text-xs font-bold text-gas hover:underline">Barrierefreiheitserklärung</a>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-            <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setIsOpen(!isOpen)}
-                className="bg-gas text-white p-3 rounded-full shadow-xl hover:bg-gas-dark transition-colors flex items-center justify-center border-2 border-white"
-                aria-label="Barrierefreiheit Optionen öffnen"
-                title="Barrierefreiheit"
+        <div className="fixed bottom-4 left-4 z-[90] print:hidden">
+            {/* Toggle Button */}
+            <button
+                onClick={toggleOpen}
+                className="bg-gas hover:bg-gas-dark text-white p-3 rounded-full shadow-lg transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gas"
+                aria-label="Barrierefreiheit Menü öffnen"
+                aria-expanded={isOpen}
             >
-                <Accessibility size={28} />
-            </motion.button>
+                <Accessibility size={24} />
+            </button>
+
+            {/* Menu */}
+            {isOpen && (
+                <div className="absolute bottom-14 left-0 w-72 bg-white rounded-lg shadow-2xl border border-gray-200 overflow-hidden animate-fade-in-up">
+                    <div className="p-4 bg-gas text-white flex justify-between items-center">
+                        <h3 className="font-bold">Barrierefreiheit</h3>
+                        <button onClick={toggleOpen} className="hover:text-gray-200">
+                            <X size={20} />
+                        </button>
+                    </div>
+                    <div className="p-2 space-y-1">
+                        <button
+                            onClick={() => toggleSetting('highContrast')}
+                            className={`w-full flex items-center p-3 rounded-md transition-colors ${settings.highContrast ? 'bg-gas/10 text-gas font-bold' : 'hover:bg-gray-100 text-gray-700'}`}
+                        >
+                            <Sun size={20} className="mr-3" /> Hoher Kontrast
+                        </button>
+                        <button
+                            onClick={() => toggleSetting('largeText')}
+                            className={`w-full flex items-center p-3 rounded-md transition-colors ${settings.largeText ? 'bg-gas/10 text-gas font-bold' : 'hover:bg-gray-100 text-gray-700'}`}
+                        >
+                            <Type size={20} className="mr-3" /> Größere Schrift
+                        </button>
+                        <button
+                            onClick={() => toggleSetting('stopAnimations')}
+                            className={`w-full flex items-center p-3 rounded-md transition-colors ${settings.stopAnimations ? 'bg-gas/10 text-gas font-bold' : 'hover:bg-gray-100 text-gray-700'}`}
+                        >
+                            <Zap size={20} className="mr-3" /> Animationen stoppen
+                        </button>
+                         <button
+                            onClick={() => toggleSetting('highlightLinks')}
+                            className={`w-full flex items-center p-3 rounded-md transition-colors ${settings.highlightLinks ? 'bg-gas/10 text-gas font-bold' : 'hover:bg-gray-100 text-gray-700'}`}
+                        >
+                            <LinkIcon size={20} className="mr-3" /> Links hervorheben
+                        </button>
+                    </div>
+                    <div className="p-3 bg-gray-50 text-xs text-center text-gray-500 border-t">
+                        <a href="/barrierefreiheit" className="underline hover:text-gas">Erklärung zur Barrierefreiheit</a>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
-
-const OptionButton = ({ label, active, onClick, icon: Icon }) => (
-    <button
-        onClick={onClick}
-        className={`w-full flex items-center justify-between p-3 rounded-xl transition-all mb-1 ${active ? 'bg-gas text-white font-bold' : 'hover:bg-gray-50 text-gray-600'}`}
-        aria-pressed={active}
-    >
-        <div className="flex items-center gap-3">
-            <Icon size={18} />
-            <span>{label}</span>
-        </div>
-        <div className={`w-10 h-6 rounded-full p-1 transition-colors ${active ? 'bg-white/20' : 'bg-gray-200'}`}>
-            <div className={`w-4 h-4 bg-white rounded-full shadow-sm transition-transform ${active ? 'translate-x-4' : 'translate-x-0'}`} />
-        </div>
-    </button>
-);
 
 export default AccessibilityWidget;
