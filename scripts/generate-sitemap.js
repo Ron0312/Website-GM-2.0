@@ -6,7 +6,7 @@ import { tankDetails } from '../src/data/tanks.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PUBLIC_PATH = path.resolve(__dirname, '../public');
 const ROOT_PATH = path.resolve(__dirname, '../');
-const SITE_URL = 'https://www.gasmoeller.de';
+const SITE_URL = 'https://gasmoeller.de';
 
 const staticRoutes = [
   '',

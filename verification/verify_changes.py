@@ -1,76 +1,91 @@
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, expect
+import time
 
-def verify_frontend():
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
+def verify_changes(page):
+    page.goto("http://localhost:5173")
 
-        # 1. Delivery Map Tooltip
-        print("Navigating to home...")
-        page.goto("http://localhost:5173")
+    # 1. Verify Sticky CTA scroll behavior (mobile view)
+    page.set_viewport_size({"width": 375, "height": 667})
 
-        print("Waiting for Delivery Map...")
-        # Scroll to map
-        map_section = page.locator("text=Zu Hause im Norden")
-        map_section.scroll_into_view_if_needed()
-        page.wait_for_timeout(1000) # Wait for animation/load
+    # Initially hidden
+    sticky_cta = page.locator("text=Angebot anfordern").last
+    expect(sticky_cta).not_to_be_visible()
 
-        print("Hovering over Schleswig-Holstein...")
-        # Try to find the path for SH. Since paths don't have good selectors, we might need to rely on the container or coordinates.
-        # But we added regions with IDs in the code logic, but rendered as paths.
-        # The region paths have `key={region.id}` but that's React key, not DOM attribute.
-        # However, we can try to hover over the map area.
+    # Scroll down
+    page.mouse.wheel(0, 500)
+    page.wait_for_timeout(1000) # Wait for scroll event and animation
 
-        # Let's target the svg
-        svg = page.locator("svg").nth(0) # There might be other svgs, map is usually large
+    # Visible after scroll
+    expect(sticky_cta).to_be_visible()
 
-        # Approximate coordinates for SH (top left-ish of the viewBox 800x500)
-        # We need to map viewBox to actual pixels.
-        # Let's just hover over the center of the svg first to see if anything pops up.
-        box = svg.bounding_box()
-        if box:
-            # SH is roughly top-center.
-            page.mouse.move(box["x"] + box["width"] * 0.4, box["y"] + box["height"] * 0.3)
-            page.wait_for_timeout(500)
-            page.screenshot(path="verification/delivery_map_hover.png")
-            print("Screenshot delivery_map_hover.png taken")
+    # Take screenshot of CTA
+    page.screenshot(path="verification/sticky_cta_visible.png")
 
+    # 2. Verify Form Enter Key validation (Desktop)
+    page.set_viewport_size({"width": 1280, "height": 800})
+    page.reload()
 
-        # 2. ModernInput Micro-interaction
-        print("Navigating to Contact...")
-        page.goto("http://localhost:5173/kontakt")
+    # Locate GasOrderSection PLZ input
+    # It's in the hero section.
+    # We need to find the specific input. The label is "Postleitzahl"
+    plz_input = page.get_by_label("Postleitzahl").first
 
-        # Type into email field to trigger valid state
-        print("Typing email...")
-        email_input = page.get_by_label("Ihre E-Mail Adresse") # Or placeholder
-        if not email_input.is_visible():
-             email_input = page.get_by_placeholder("Ihre E-Mail Adresse")
+    # Clear and press Enter (should not submit/show loader)
+    plz_input.fill("")
+    plz_input.press("Enter")
 
-        email_input.fill("test@example.com")
-        email_input.blur() # Trigger validation
-        page.wait_for_timeout(500) # Wait for animation
+    # Check for error message
+    error_msg = page.locator("text=Bitte geben Sie eine gültige 5-stellige PLZ ein.")
+    expect(error_msg).to_be_visible()
 
-        page.screenshot(path="verification/input_valid.png")
-        print("Screenshot input_valid.png taken")
+    # Take screenshot of validation error
+    page.screenshot(path="verification/form_validation_hero.png")
 
-        # Trigger invalid
-        email_input.fill("invalid-email")
-        email_input.blur()
-        page.wait_for_timeout(500)
+    # 3. Verify WizardModal Enter Key validation
+    # Open Wizard
+    page.reload()
+    # Click on a CTA to open wizard.
+    # There is a "Liefergebiet prüfen" card, but wizard is triggered by "Anfrage-Assistenten" or similar?
+    # Or StickyCTA (but that's mobile).
+    # Let's find a button that opens wizard. "Angebot anfordern" in StickyCTA calls openWizard('tank').
+    # But on desktop StickyCTA is hidden.
+    # Let's use the main navigation "Flüssiggas bestellen" -> scroll to #gas.
+    # Actually, let's just use the StickyCTA by resizing to mobile again, or finding another button.
+    # The WizardModal is usually opened via buttons.
+    # Let's try to find a button with "Angebot anfordern" that opens the wizard?
+    # Actually GasOrderSection opens the wizard on success.
+    # We want to test the WizardModal itself.
+    # "Startseite" -> "Tanks & Kauf" -> click on a tank card?
+    # Let's emulate mobile again to open StickyCTA to open wizard.
+    page.set_viewport_size({"width": 375, "height": 667})
+    page.mouse.wheel(0, 500)
+    page.wait_for_timeout(500)
+    page.locator("text=Angebot anfordern").last.click()
 
-        page.screenshot(path="verification/input_invalid.png")
-        print("Screenshot input_invalid.png taken")
+    # Wizard should be open.
+    expect(page.locator("text=Anfrage stellen")).to_be_visible()
 
-        # 3. Sticky CTA (Mobile)
-        print("Checking Sticky CTA on mobile...")
-        context_mobile = browser.new_context(viewport={"width": 375, "height": 667})
-        page_mobile = context_mobile.new_page()
-        page_mobile.goto("http://localhost:5173")
-        page_mobile.wait_for_timeout(1000)
-        page_mobile.screenshot(path="verification/sticky_cta_mobile.png")
-        print("Screenshot sticky_cta_mobile.png taken")
+    # Step 1: PLZ
+    wizard_plz = page.locator("input[placeholder='PLZ']").last # Wizard input
+    wizard_plz.fill("")
+    wizard_plz.press("Enter")
 
-        browser.close()
+    # Expect error
+    wizard_error = page.locator("#plz-error")
+    expect(wizard_error).to_be_visible()
+    expect(wizard_error).to_contain_text("Bitte geben Sie eine gültige 5-stellige PLZ ein.")
+
+    page.screenshot(path="verification/wizard_validation.png")
 
 if __name__ == "__main__":
-    verify_frontend()
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        page = browser.new_page()
+        try:
+            verify_changes(page)
+            print("Verification successful!")
+        except Exception as e:
+            print(f"Verification failed: {e}")
+            page.screenshot(path="verification/failure.png")
+        finally:
+            browser.close()
