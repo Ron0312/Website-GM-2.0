@@ -111,7 +111,12 @@ async function createServer() {
         ? "'self' https://api.web3forms.com"
         : "'self' 'unsafe-inline' 'unsafe-eval' https://api.web3forms.com";
 
-    res.setHeader("Content-Security-Policy", `default-src 'self'; script-src ${scriptSrc}; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https://api.web3forms.com; connect-src 'self' https://api.web3forms.com; frame-src 'self' https://www.google.com https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com; upgrade-insecure-requests;`);
+    const connectSrc = isProd
+        ? "'self' https://api.web3forms.com"
+        : "'self' https://api.web3forms.com ws: wss:";
+
+    const upgradeInsecure = isProd ? "upgrade-insecure-requests;" : "";
+    res.setHeader("Content-Security-Policy", `default-src 'self'; script-src ${scriptSrc}; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https://api.web3forms.com; connect-src ${connectSrc}; frame-src 'self' https://www.google.com https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com; ${upgradeInsecure}`);
 
     // Remove X-Powered-By
     res.removeHeader('X-Powered-By');
@@ -383,6 +388,7 @@ ${routes.map(route => `  <url>
     try {
         const { createServer: createViteServer } = await import('vite')
         vite = await createViteServer({
+          root: process.cwd(),
           server: { middlewareMode: true },
           appType: 'custom'
         })

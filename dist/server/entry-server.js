@@ -3430,7 +3430,7 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
                   /* @__PURE__ */ jsx("h3", { className: "text-3xl font-bold mb-3 text-gray-900", children: "Wo wird geliefert?" }),
                   /* @__PURE__ */ jsx("p", { className: "text-gray-500", children: "Geben Sie Ihre Postleitzahl ein, um die Verfügbarkeit zu prüfen." })
                 ] }),
-                /* @__PURE__ */ jsxs("form", { onSubmit: handleNext, className: "max-w-xs mx-auto w-full", children: [
+                /* @__PURE__ */ jsxs("div", { className: "max-w-xs mx-auto w-full", children: [
                   /* @__PURE__ */ jsx(
                     ModernInput,
                     {
@@ -3445,6 +3445,12 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
                           setPlz(e.target.value);
                         }
                       },
+                      onKeyDown: (e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          if (plz.length >= 5) handleNext();
+                        }
+                      },
                       className: "text-center text-3xl font-bold tracking-[0.5em] !rounded-2xl",
                       placeholder: "PLZ",
                       maxLength: 5,
@@ -3457,7 +3463,8 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
                   /* @__PURE__ */ jsx(
                     "button",
                     {
-                      type: "submit",
+                      type: "button",
+                      onClick: handleNext,
                       disabled: plz.length < 5,
                       className: "w-full mt-6 bg-gas text-white py-4 rounded-xl font-bold hover:bg-gas-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-xl shadow-gas/20",
                       children: "Weiter"
