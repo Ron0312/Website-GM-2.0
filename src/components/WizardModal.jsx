@@ -82,6 +82,11 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
         // Prevent default if called from form submit
         if (e && e.preventDefault) e.preventDefault();
 
+        // Haptic feedback for mobile
+        if (typeof navigator !== 'undefined' && navigator.vibrate) {
+            navigator.vibrate(50);
+        }
+
         if (step === 1) {
             const error = getPlzError(plz);
             if (error) {
