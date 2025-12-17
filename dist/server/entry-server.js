@@ -1,7 +1,7 @@
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
-import React, { useState, useEffect, useMemo, useId, Component } from "react";
+import React, { useState, useEffect, useMemo, useRef, useId, Component } from "react";
 import ReactDOMServer from "react-dom/server";
-import { TrendingUp, Clock, Phone, ArrowUpFromLine, ArrowDownToLine, ShieldCheck, BookOpen, ChevronDown, ArrowRight, X, Menu, BadgeCheck, Star, Calculator, Zap, Info, Flame, Droplets, Leaf, Trees, Check, ArrowLeft, Ruler, Weight, Download, Tractor, Factory, Truck, MapPin, CheckCircle, AlertCircle, Copy, User, Loader2, Coins, Heart, AlertTriangle, Settings, Home, Wrench, Lock, Unlock, ChevronRight, Send, Sparkles, RefreshCw, Building2, ChevronUp, Accessibility, Sun, Type, Link, RefreshCcw } from "lucide-react";
+import { TrendingUp, Clock, Phone, ArrowUpFromLine, ArrowDownToLine, ShieldCheck, BookOpen, ChevronDown, ArrowRight, X, Menu, BadgeCheck, Star, Calculator, Zap, Info, Flame, Droplets, Leaf, Trees, Check, ArrowLeft, Ruler, Weight, Download, Tractor, Factory, Truck, MapPin, CheckCircle, MousePointer2, AlertCircle, Copy, User, Loader2, Coins, Heart, AlertTriangle, Settings, Home, Wrench, Lock, Unlock, ChevronRight, Send, Sparkles, RefreshCw, Building2, ChevronUp, Accessibility, Sun, Type, Link, RefreshCcw } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 const tankDetails = [
   {
@@ -1322,10 +1322,21 @@ const Skeleton = ({ className = "", ...props }) => {
 };
 const DeliveryMap = () => {
   const [loading, setLoading] = useState(true);
+  const [hoveredRegion, setHoveredRegion] = useState(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const mapRef = useRef(null);
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 500);
     return () => clearTimeout(timer);
   }, []);
+  const handleMouseMove = (e) => {
+    if (!mapRef.current) return;
+    const rect = mapRef.current.getBoundingClientRect();
+    setMousePosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    });
+  };
   const cities = [
     { name: "Hamburg", x: 345, y: 235, align: "start" },
     { name: "Kiel", x: 360, y: 125, align: "start" },
@@ -1405,6 +1416,12 @@ const DeliveryMap = () => {
         L 240 240 L 250 220 L 255 200 L 260 170
         Z
     `;
+  const regions = [
+    { id: "SH", name: "Schleswig-Holstein", path: pathSH, color: "#8ecae6", hoverColor: "#b9e6ff" },
+    { id: "HH", name: "Hamburg", path: pathHH, color: "#003366", hoverColor: "#004a8f" },
+    { id: "MV", name: "Mecklenburg-Vorpommern", path: pathMV, color: "#4da6ff", hoverColor: "#80c2ff" },
+    { id: "NI", name: "Niedersachsen (Nord)", path: pathNI, color: "#005b9f", hoverColor: "#2b8ad6" }
+  ];
   return /* @__PURE__ */ jsxs("div", { className: "py-20 bg-gray-900 text-white overflow-hidden relative", children: [
     /* @__PURE__ */ jsx("div", { className: "absolute inset-0 opacity-10 bg-gray-800" }),
     /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 lg:flex items-center relative z-10", children: [
@@ -1415,35 +1432,113 @@ const DeliveryMap = () => {
         ] }),
         /* @__PURE__ */ jsx("h2", { className: "text-4xl font-extrabold mb-6", children: "Zu Hause im Norden." }),
         /* @__PURE__ */ jsx("p", { className: "text-xl text-gray-400 mb-8 leading-relaxed", children: "Von der Nordsee bis zur Ostsee, von Hamburg bis zur dänischen Grenze. Wir liefern Energie dorthin, wo Sie sie brauchen." }),
-        /* @__PURE__ */ jsx("div", { className: "grid grid-cols-2 gap-4", children: ["Schleswig-Holstein", "Hamburg", "Niedersachsen (auf Anfrage)", "Mecklenburg"].map((region, i) => /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-3 p-3 rounded bg-white/5 border border-white/10", children: [
-          /* @__PURE__ */ jsx(CheckCircle, { size: 18, className: "text-gas-light" }),
-          /* @__PURE__ */ jsx("span", { className: "font-medium text-sm", children: region })
-        ] }, i)) })
+        /* @__PURE__ */ jsx("div", { className: "grid grid-cols-2 gap-4", children: ["Schleswig-Holstein", "Hamburg", "Niedersachsen (auf Anfrage)", "Mecklenburg"].map((region, i) => /* @__PURE__ */ jsxs(
+          motion.div,
+          {
+            className: `flex items-center space-x-3 p-3 rounded border transition-colors ${hoveredRegion && region.startsWith(hoveredRegion.split(" ")[0]) ? "bg-white/20 border-white/40" : "bg-white/5 border-white/10"}`,
+            children: [
+              /* @__PURE__ */ jsx(CheckCircle, { size: 18, className: "text-gas-light" }),
+              /* @__PURE__ */ jsx("span", { className: "font-medium text-sm", children: region })
+            ]
+          },
+          i
+        )) }),
+        /* @__PURE__ */ jsxs("div", { className: "mt-6 flex items-center text-xs text-gray-500 gap-2", children: [
+          /* @__PURE__ */ jsx(MousePointer2, { size: 12, className: "animate-bounce" }),
+          /* @__PURE__ */ jsx("span", { children: "Fahren Sie über die Karte für Details" })
+        ] })
       ] }),
-      /* @__PURE__ */ jsx("div", { className: "lg:w-1/2 mt-12 lg:mt-0 relative flex items-center justify-center p-4 lg:p-0", children: loading ? /* @__PURE__ */ jsx("div", { className: "w-full max-w-md lg:max-w-full aspect-[8/5]", children: /* @__PURE__ */ jsx(Skeleton, { className: "w-full h-full rounded-2xl bg-gray-800" }) }) : /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 800 500", className: "w-full h-auto max-w-md lg:max-w-full", children: [
-        /* @__PURE__ */ jsxs("g", { stroke: "white", strokeWidth: "0.5", strokeLinejoin: "round", children: [
-          /* @__PURE__ */ jsx("path", { d: pathNI, fill: "#005b9f" }),
-          /* @__PURE__ */ jsx("path", { d: pathMV, fill: "#4da6ff" }),
-          /* @__PURE__ */ jsx("path", { d: pathSH, fill: "#8ecae6" }),
-          /* @__PURE__ */ jsx("path", { d: pathHH, fill: "#003366" })
-        ] }),
-        cities.map((city, index) => /* @__PURE__ */ jsxs("g", { transform: `translate(${city.x}, ${city.y})`, children: [
-          /* @__PURE__ */ jsx("circle", { cx: "0", cy: "0", r: "3", fill: "white" }),
-          /* @__PURE__ */ jsx(
-            "text",
-            {
-              x: city.align === "start" ? 8 : city.align === "end" ? -8 : 0,
-              y: 4,
-              fontFamily: "Arial",
-              fontSize: "12",
-              fill: "white",
-              fontWeight: "bold",
-              textAnchor: city.align,
-              children: city.name
-            }
-          )
-        ] }, index))
-      ] }) })
+      /* @__PURE__ */ jsx("div", { className: "lg:w-1/2 mt-12 lg:mt-0 relative flex items-center justify-center p-4 lg:p-0", children: loading ? /* @__PURE__ */ jsx("div", { className: "w-full max-w-md lg:max-w-full aspect-[8/5]", children: /* @__PURE__ */ jsx(Skeleton, { className: "w-full h-full rounded-2xl bg-gray-800" }) }) : /* @__PURE__ */ jsxs(
+        "div",
+        {
+          className: "relative w-full h-auto",
+          onMouseMove: handleMouseMove,
+          ref: mapRef,
+          children: [
+            /* @__PURE__ */ jsx(AnimatePresence, { children: hoveredRegion && /* @__PURE__ */ jsxs(
+              motion.div,
+              {
+                initial: { opacity: 0, scale: 0.8, y: 10 },
+                animate: { opacity: 1, scale: 1, y: 0 },
+                exit: { opacity: 0, scale: 0.8 },
+                style: {
+                  position: "absolute",
+                  left: mousePosition.x + 20,
+                  // Offset to not cover cursor
+                  top: mousePosition.y - 40,
+                  pointerEvents: "none",
+                  zIndex: 50
+                },
+                className: "bg-white text-gray-900 px-4 py-2 rounded-lg shadow-xl border border-gray-200 whitespace-nowrap hidden md:block",
+                children: [
+                  /* @__PURE__ */ jsxs("div", { className: "font-bold text-sm", children: [
+                    "Wir liefern nach ",
+                    hoveredRegion,
+                    "!"
+                  ] }),
+                  /* @__PURE__ */ jsxs("div", { className: "text-xs text-green-600 font-semibold flex items-center gap-1", children: [
+                    /* @__PURE__ */ jsx(CheckCircle, { size: 10 }),
+                    " Express verfügbar"
+                  ] })
+                ]
+              }
+            ) }),
+            /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 800 500", className: "w-full h-auto max-w-md lg:max-w-full drop-shadow-2xl", children: [
+              /* @__PURE__ */ jsx("defs", { children: /* @__PURE__ */ jsxs("filter", { id: "glow", children: [
+                /* @__PURE__ */ jsx("feGaussianBlur", { stdDeviation: "2.5", result: "coloredBlur" }),
+                /* @__PURE__ */ jsxs("feMerge", { children: [
+                  /* @__PURE__ */ jsx("feMergeNode", { in: "coloredBlur" }),
+                  /* @__PURE__ */ jsx("feMergeNode", { in: "SourceGraphic" })
+                ] })
+              ] }) }),
+              /* @__PURE__ */ jsx("g", { stroke: "white", strokeWidth: "1", strokeLinejoin: "round", children: regions.map((region) => /* @__PURE__ */ jsx(
+                motion.path,
+                {
+                  d: region.path,
+                  fill: region.color,
+                  initial: { fill: region.color },
+                  whileHover: { fill: region.hoverColor, scale: 1.01, zIndex: 10 },
+                  transition: { duration: 0.2 },
+                  onHoverStart: () => setHoveredRegion(region.name),
+                  onHoverEnd: () => setHoveredRegion(null),
+                  className: "cursor-pointer",
+                  style: { originX: 0.5, originY: 0.5 }
+                },
+                region.id
+              )) }),
+              /* @__PURE__ */ jsx(
+                motion.g,
+                {
+                  initial: { opacity: 0 },
+                  animate: { opacity: hoveredRegion ? 1 : 0 },
+                  className: "pointer-events-none md:hidden",
+                  children: hoveredRegion && /* @__PURE__ */ jsxs("text", { x: "400", y: "480", textAnchor: "middle", fill: "white", fontSize: "16", fontWeight: "bold", className: "uppercase tracking-widest drop-shadow-md", children: [
+                    "Wir liefern nach ",
+                    hoveredRegion
+                  ] })
+                }
+              ),
+              cities.map((city, index) => /* @__PURE__ */ jsxs("g", { transform: `translate(${city.x}, ${city.y})`, className: "pointer-events-none", children: [
+                /* @__PURE__ */ jsx("circle", { cx: "0", cy: "0", r: "4", fill: "white", className: "drop-shadow-lg" }),
+                /* @__PURE__ */ jsx(
+                  "text",
+                  {
+                    x: city.align === "start" ? 10 : city.align === "end" ? -10 : 0,
+                    y: 5,
+                    fontFamily: "sans-serif",
+                    fontSize: "14",
+                    fill: "white",
+                    fontWeight: "bold",
+                    textAnchor: city.align,
+                    style: { textShadow: "0px 2px 4px rgba(0,0,0,0.5)" },
+                    children: city.name
+                  }
+                )
+              ] }, index))
+            ] })
+          ]
+        }
+      ) })
     ] })
   ] });
 };
@@ -1535,21 +1630,65 @@ const ModernInput = ({ label, error, className = "", multiline = false, id: prov
             }
           ),
           label && /* @__PURE__ */ jsx("label", { htmlFor: inputId, className: "absolute -top-2.5 left-4 bg-white px-2 text-xs font-bold text-gray-500 uppercase tracking-wider pointer-events-none", children: label }),
-          !multiline && /* @__PURE__ */ jsxs("div", { className: "pr-4 py-4 flex items-center pointer-events-none h-full absolute right-0 top-0", children: [
-            hasError && /* @__PURE__ */ jsx(X, { size: 20, className: "text-red-500" }),
-            isValid && !focused && /* @__PURE__ */ jsx(Check, { size: 20, className: "text-green-500" })
-          ] }),
-          multiline && /* @__PURE__ */ jsxs("div", { className: "absolute right-4 top-4 pointer-events-none", children: [
-            hasError && /* @__PURE__ */ jsx(X, { size: 20, className: "text-red-500" }),
-            isValid && !focused && /* @__PURE__ */ jsx(Check, { size: 20, className: "text-green-500" })
-          ] })
+          !multiline && /* @__PURE__ */ jsx("div", { className: "pr-4 py-4 flex items-center pointer-events-none h-full absolute right-0 top-0", children: /* @__PURE__ */ jsxs(AnimatePresence, { children: [
+            hasError && /* @__PURE__ */ jsx(
+              motion.div,
+              {
+                initial: { scale: 0, rotate: -45, opacity: 0 },
+                animate: { scale: 1, rotate: 0, opacity: 1 },
+                exit: { scale: 0, opacity: 0 },
+                transition: { type: "spring", stiffness: 500, damping: 30 },
+                children: /* @__PURE__ */ jsx(X, { size: 20, className: "text-red-500" })
+              }
+            ),
+            isValid && !focused && /* @__PURE__ */ jsx(
+              motion.div,
+              {
+                initial: { scale: 0, rotate: 45, opacity: 0 },
+                animate: { scale: 1.2, rotate: 0, opacity: 1 },
+                whileHover: { scale: 1.3 },
+                exit: { scale: 0, opacity: 0 },
+                transition: { type: "spring", stiffness: 500, damping: 30 },
+                children: /* @__PURE__ */ jsx(Check, { size: 20, className: "text-green-500" })
+              }
+            )
+          ] }) }),
+          multiline && /* @__PURE__ */ jsx("div", { className: "absolute right-4 top-4 pointer-events-none", children: /* @__PURE__ */ jsxs(AnimatePresence, { children: [
+            hasError && /* @__PURE__ */ jsx(
+              motion.div,
+              {
+                initial: { scale: 0 },
+                animate: { scale: 1 },
+                exit: { scale: 0 },
+                children: /* @__PURE__ */ jsx(X, { size: 20, className: "text-red-500" })
+              }
+            ),
+            isValid && !focused && /* @__PURE__ */ jsx(
+              motion.div,
+              {
+                initial: { scale: 0 },
+                animate: { scale: 1.2 },
+                exit: { scale: 0 },
+                children: /* @__PURE__ */ jsx(Check, { size: 20, className: "text-green-500" })
+              }
+            )
+          ] }) })
         ]
       }
     ),
-    typeof error === "string" && error.length > 0 && /* @__PURE__ */ jsxs("div", { id: errorId, className: "flex items-center text-red-500 text-xs mt-1 ml-1 font-bold animate-pulse", children: [
-      /* @__PURE__ */ jsx(AlertCircle, { size: 12, className: "mr-1" }),
-      error
-    ] })
+    typeof error === "string" && error.length > 0 && /* @__PURE__ */ jsxs(
+      motion.div,
+      {
+        initial: { opacity: 0, y: -5 },
+        animate: { opacity: 1, y: 0 },
+        id: errorId,
+        className: "flex items-center text-red-500 text-xs mt-1 ml-1 font-bold",
+        children: [
+          /* @__PURE__ */ jsx(AlertCircle, { size: 12, className: "mr-1" }),
+          error
+        ]
+      }
+    )
   ] });
 };
 const ContactSection = () => {
@@ -2927,6 +3066,27 @@ const Footer = ({ setActiveSection, openLegal }) => {
   const [email, setEmail] = useState("");
   const [honeypot, setHoneypot] = useState("");
   const [status, setStatus] = useState("idle");
+  const [isOpenStatus, setIsOpenStatus] = useState(false);
+  useEffect(() => {
+    const checkTime = () => {
+      const now = /* @__PURE__ */ new Date();
+      const formatter = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Europe/Berlin",
+        weekday: "short",
+        hour: "numeric",
+        hour12: false
+      });
+      const parts = formatter.formatToParts(now);
+      const weekday = parts.find((p) => p.type === "weekday").value;
+      const hour = parseInt(parts.find((p) => p.type === "hour").value, 10);
+      const isWeekday = ["Mon", "Tue", "Wed", "Thu", "Fri"].includes(weekday);
+      const isWorkingHours = hour >= 8 && hour < 17;
+      setIsOpenStatus(isWeekday && isWorkingHours);
+    };
+    checkTime();
+    const interval = setInterval(checkTime, 6e4);
+    return () => clearInterval(interval);
+  }, []);
   const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
     if (honeypot) return;
@@ -2958,6 +3118,10 @@ const Footer = ({ setActiveSection, openLegal }) => {
       /* @__PURE__ */ jsxs("div", { className: "col-span-1", children: [
         /* @__PURE__ */ jsx("img", { src: "/logos/Icon-01.webp", alt: "gasmöller", width: "2222", height: "747", loading: "lazy", className: "h-10 w-auto filter brightness-0 invert opacity-80 mb-6" }),
         /* @__PURE__ */ jsx("p", { className: "leading-relaxed mb-4", children: "Ihr unabhängiger Partner für Energie im Norden. Seit 2000." }),
+        /* @__PURE__ */ jsxs("div", { className: "inline-flex items-center gap-2 bg-gray-800 px-3 py-1.5 rounded-full text-xs font-semibold mb-6", children: [
+          /* @__PURE__ */ jsx("div", { className: `w-2 h-2 rounded-full ${isOpenStatus ? "bg-green-500 animate-pulse" : "bg-red-500"}` }),
+          /* @__PURE__ */ jsx("span", { className: isOpenStatus ? "text-green-400" : "text-gray-400", children: isOpenStatus ? "Jetzt geöffnet" : "Geschlossen" })
+        ] }),
         /* @__PURE__ */ jsxs("div", { className: "flex space-x-4", children: [
           /* @__PURE__ */ jsx("a", { href: "https://facebook.com/gasmoeller", target: "_blank", rel: "noopener noreferrer", className: "w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer", "aria-label": "Facebook", children: "f" }),
           /* @__PURE__ */ jsx("a", { href: "https://linkedin.com/company/gasmoeller", target: "_blank", rel: "noopener noreferrer", className: "w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer", "aria-label": "LinkedIn", children: "in" })
@@ -3765,37 +3929,122 @@ const ScrollToTop = () => {
   return /* @__PURE__ */ jsx("button", { onClick: scrollToTop, className: `scroll-to-top ${visible ? "visible" : ""}`, "aria-label": "Nach oben", children: /* @__PURE__ */ jsx(ChevronUp, { size: 24 }) });
 };
 const NotFound = ({ onGoHome }) => {
-  return /* @__PURE__ */ jsxs("div", { className: "min-h-[70vh] flex flex-col items-center justify-center p-4 text-center bg-gray-50", children: [
-    /* @__PURE__ */ jsx("h1", { className: "text-9xl font-extrabold text-gray-200 mb-4", children: "404" }),
-    /* @__PURE__ */ jsx("h2", { className: "text-3xl font-bold text-gray-900 mb-4", children: "Upps! Seite nicht gefunden." }),
-    /* @__PURE__ */ jsx("p", { className: "text-gray-600 mb-8 max-w-md text-lg", children: "Es scheint, als hätten Sie sich verlaufen. Die gesuchte Seite ist leider nicht verfügbar." }),
-    /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap justify-center gap-3 mb-8", children: [
-      /* @__PURE__ */ jsx("button", { onClick: () => onGoHome("start"), className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors", children: "Startseite" }),
-      /* @__PURE__ */ jsx("button", { onClick: () => onGoHome("tanks"), className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors", children: "Tanks kaufen" }),
-      /* @__PURE__ */ jsx("button", { onClick: () => onGoHome("gas"), className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors", children: "Gas bestellen" }),
-      /* @__PURE__ */ jsx("button", { onClick: () => onGoHome("kontakt"), className: "px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 font-medium hover:border-gas hover:text-gas transition-colors", children: "Kontakt" })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row gap-4", children: [
-      /* @__PURE__ */ jsxs(
-        "button",
-        {
-          onClick: () => onGoHome("start"),
-          className: "bg-gas text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:bg-gas-dark transition-all flex items-center justify-center gap-2",
-          children: [
-            /* @__PURE__ */ jsx(Home, { size: 20 }),
-            "Zurück zur Startseite"
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsx(
-        "a",
-        {
-          href: "mailto:kontakt@gasmoeller.de?subject=Fehler%20auf%20der%20Website",
-          className: "bg-white text-gray-700 border border-gray-200 px-8 py-3 rounded-xl font-bold hover:bg-gray-100 transition-all flex items-center justify-center gap-2",
-          children: "Problem melden"
-        }
-      )
+  return /* @__PURE__ */ jsxs("div", { className: "min-h-[70vh] flex flex-col items-center justify-center p-4 text-center bg-gray-50 overflow-hidden relative", children: [
+    /* @__PURE__ */ jsx("div", { className: "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gas/5 rounded-full blur-3xl -z-10" }),
+    /* @__PURE__ */ jsx(
+      motion.div,
+      {
+        initial: { opacity: 0, x: -100 },
+        animate: { opacity: 1, x: 0 },
+        transition: { duration: 0.8, type: "spring" },
+        className: "mb-8 text-gray-300",
+        children: /* @__PURE__ */ jsxs("div", { className: "relative", children: [
+          /* @__PURE__ */ jsx(Truck, { size: 120, strokeWidth: 1 }),
+          /* @__PURE__ */ jsx(
+            motion.div,
+            {
+              initial: { opacity: 0, scale: 0 },
+              animate: { opacity: 1, scale: 1 },
+              transition: { delay: 0.5 },
+              className: "absolute -top-2 -right-2 text-red-400",
+              children: /* @__PURE__ */ jsx(AlertTriangle, { size: 40, fill: "currentColor", className: "text-white" })
+            }
+          )
+        ] })
+      }
+    ),
+    /* @__PURE__ */ jsx(
+      motion.h1,
+      {
+        initial: { opacity: 0, y: 20 },
+        animate: { opacity: 1, y: 0 },
+        className: "text-6xl md:text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gas-dark to-gas mb-4",
+        children: "404"
+      }
+    ),
+    /* @__PURE__ */ jsx(
+      motion.h2,
+      {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        transition: { delay: 0.2 },
+        className: "text-2xl md:text-3xl font-bold text-gray-900 mb-4",
+        children: "Upps! Hier ist der Tank leer."
+      }
+    ),
+    /* @__PURE__ */ jsx(
+      motion.p,
+      {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        transition: { delay: 0.3 },
+        className: "text-gray-600 mb-10 max-w-md text-lg leading-relaxed",
+        children: "Diese Seite scheint es nicht zu geben. Vielleicht wurde sie verschoben oder Sie haben sich vertippt. Keine Sorge, wir bringen Sie zurück auf die Straße."
+      }
+    ),
+    /* @__PURE__ */ jsxs(
+      motion.div,
+      {
+        initial: { opacity: 0, y: 20 },
+        animate: { opacity: 1, y: 0 },
+        transition: { delay: 0.4 },
+        className: "flex flex-col sm:flex-row gap-4 w-full max-w-md",
+        children: [
+          /* @__PURE__ */ jsxs(
+            "button",
+            {
+              onClick: () => onGoHome("start"),
+              className: "flex-1 bg-gas text-white px-6 py-4 rounded-xl font-bold shadow-lg hover:bg-gas-dark hover:shadow-xl transition-all flex items-center justify-center gap-2 group",
+              children: [
+                /* @__PURE__ */ jsx(Home, { size: 20 }),
+                "Zur Startseite",
+                /* @__PURE__ */ jsx(ArrowRight, { size: 18, className: "opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all" })
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsx(
+            "a",
+            {
+              href: "mailto:kontakt@gasmoeller.de?subject=Fehler%20404",
+              className: "flex-1 bg-white text-gray-700 border-2 border-gray-100 px-6 py-4 rounded-xl font-bold hover:border-gray-300 hover:bg-gray-50 transition-all flex items-center justify-center gap-2",
+              children: "Fehler melden"
+            }
+          )
+        ]
+      }
+    ),
+    /* @__PURE__ */ jsxs("div", { className: "mt-12 flex flex-wrap justify-center gap-3 text-sm text-gray-500", children: [
+      /* @__PURE__ */ jsx("span", { children: "Beliebte Ziele:" }),
+      /* @__PURE__ */ jsx("button", { onClick: () => onGoHome("tanks"), className: "text-gas font-semibold hover:underline", children: "Tanks kaufen" }),
+      /* @__PURE__ */ jsx("span", { children: "•" }),
+      /* @__PURE__ */ jsx("button", { onClick: () => onGoHome("gas"), className: "text-gas font-semibold hover:underline", children: "Gas bestellen" }),
+      /* @__PURE__ */ jsx("span", { children: "•" }),
+      /* @__PURE__ */ jsx("button", { onClick: () => onGoHome("kontakt"), className: "text-gas font-semibold hover:underline", children: "Kontakt" })
     ] })
+  ] });
+};
+const StickyCTA = ({ openWizard }) => {
+  return /* @__PURE__ */ jsxs("div", { className: "fixed bottom-0 left-0 right-0 z-[50] p-4 bg-white/90 backdrop-blur-lg border-t border-gray-200 md:hidden shadow-[0_-5px_15px_rgba(0,0,0,0.1)] flex gap-3 safe-area-pb", children: [
+    /* @__PURE__ */ jsx(
+      "a",
+      {
+        href: "tel:04551897089",
+        className: "flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl text-gray-700 active:scale-95 transition-transform",
+        "aria-label": "Anrufen",
+        children: /* @__PURE__ */ jsx(Phone, { size: 20 })
+      }
+    ),
+    /* @__PURE__ */ jsxs(
+      "button",
+      {
+        onClick: () => openWizard("tank"),
+        className: "flex-1 bg-gas text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-gas/20 active:scale-95 transition-transform",
+        children: [
+          "Angebot anfordern",
+          /* @__PURE__ */ jsx(ArrowRight, { size: 16 })
+        ]
+      }
+    )
   ] });
 };
 const AccessibilityWidget = () => {
@@ -3803,119 +4052,94 @@ const AccessibilityWidget = () => {
   const [settings, setSettings] = useState({
     highContrast: false,
     largeText: false,
-    reduceMotion: false,
+    stopAnimations: false,
     highlightLinks: false
   });
-  useEffect(() => {
-    const stored = localStorage.getItem("a11y-settings");
-    if (stored) {
-      setSettings(JSON.parse(stored));
-    }
-  }, []);
-  useEffect(() => {
-    const body = document.body;
-    if (settings.highContrast) body.classList.add("a11y-high-contrast");
-    else body.classList.remove("a11y-high-contrast");
-    if (settings.largeText) document.documentElement.classList.add("a11y-large-text");
-    else document.documentElement.classList.remove("a11y-large-text");
-    if (settings.reduceMotion) body.classList.add("a11y-reduce-motion");
-    else body.classList.remove("a11y-reduce-motion");
-    if (settings.highlightLinks) body.classList.add("a11y-highlight-links");
-    else body.classList.remove("a11y-highlight-links");
-    localStorage.setItem("a11y-settings", JSON.stringify(settings));
-  }, [settings]);
+  const toggleOpen = () => setIsOpen(!isOpen);
   const toggleSetting = (key) => {
-    setSettings((prev) => ({ ...prev, [key]: !prev[key] }));
+    setSettings((prev) => {
+      const newSettings = { ...prev, [key]: !prev[key] };
+      applySettings(newSettings);
+      return newSettings;
+    });
   };
-  return /* @__PURE__ */ jsxs("div", { className: "fixed bottom-4 left-4 z-[9999] font-sans", children: [
-    /* @__PURE__ */ jsx(AnimatePresence, { children: isOpen && /* @__PURE__ */ jsxs(
-      motion.div,
-      {
-        initial: { opacity: 0, y: 20, scale: 0.9 },
-        animate: { opacity: 1, y: 0, scale: 1 },
-        exit: { opacity: 0, y: 20, scale: 0.9 },
-        className: "mb-4 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden w-72",
-        role: "dialog",
-        "aria-label": "Barrierefreiheit Einstellungen",
-        children: [
-          /* @__PURE__ */ jsxs("div", { className: "bg-gray-50 p-4 border-b border-gray-100 flex justify-between items-center", children: [
-            /* @__PURE__ */ jsxs("h3", { className: "font-bold text-gray-900 flex items-center gap-2", children: [
-              /* @__PURE__ */ jsx(Accessibility, { size: 20, className: "text-gas" }),
-              " Barrierefreiheit"
-            ] }),
-            /* @__PURE__ */ jsx("button", { onClick: () => setIsOpen(false), "aria-label": "Schließen", className: "text-gray-400 hover:text-gray-600", children: /* @__PURE__ */ jsx(X, { size: 20 }) })
-          ] }),
-          /* @__PURE__ */ jsxs("div", { className: "p-2", children: [
-            /* @__PURE__ */ jsx(
-              OptionButton,
-              {
-                label: "Hoher Kontrast",
-                active: settings.highContrast,
-                onClick: () => toggleSetting("highContrast"),
-                icon: Sun
-              }
-            ),
-            /* @__PURE__ */ jsx(
-              OptionButton,
-              {
-                label: "Größere Schrift",
-                active: settings.largeText,
-                onClick: () => toggleSetting("largeText"),
-                icon: Type
-              }
-            ),
-            /* @__PURE__ */ jsx(
-              OptionButton,
-              {
-                label: "Animationen stopppen",
-                active: settings.reduceMotion,
-                onClick: () => toggleSetting("reduceMotion"),
-                icon: Zap
-              }
-            ),
-            /* @__PURE__ */ jsx(
-              OptionButton,
-              {
-                label: "Links hervorheben",
-                active: settings.highlightLinks,
-                onClick: () => toggleSetting("highlightLinks"),
-                icon: Link
-              }
-            )
-          ] }),
-          /* @__PURE__ */ jsx("div", { className: "bg-gray-50 p-3 text-center border-t border-gray-100", children: /* @__PURE__ */ jsx("a", { href: "/barrierefreiheit", className: "text-xs font-bold text-gas hover:underline", children: "Barrierefreiheitserklärung" }) })
-        ]
-      }
-    ) }),
+  const applySettings = (newSettings) => {
+    const root = document.documentElement;
+    if (newSettings.highContrast) root.classList.add("a11y-high-contrast");
+    else root.classList.remove("a11y-high-contrast");
+    if (newSettings.largeText) root.classList.add("a11y-large-text");
+    else root.classList.remove("a11y-large-text");
+    if (newSettings.stopAnimations) root.classList.add("a11y-stop-animations");
+    else root.classList.remove("a11y-stop-animations");
+    if (newSettings.highlightLinks) root.classList.add("a11y-highlight-links");
+    else root.classList.remove("a11y-highlight-links");
+  };
+  return /* @__PURE__ */ jsxs("div", { className: "fixed bottom-4 left-4 z-[90] print:hidden", children: [
     /* @__PURE__ */ jsx(
-      motion.button,
+      "button",
       {
-        whileHover: { scale: 1.1 },
-        whileTap: { scale: 0.9 },
-        onClick: () => setIsOpen(!isOpen),
-        className: "bg-gas text-white p-3 rounded-full shadow-xl hover:bg-gas-dark transition-colors flex items-center justify-center border-2 border-white",
-        "aria-label": "Barrierefreiheit Optionen öffnen",
-        title: "Barrierefreiheit",
-        children: /* @__PURE__ */ jsx(Accessibility, { size: 28 })
+        onClick: toggleOpen,
+        className: "bg-gas hover:bg-gas-dark text-white p-3 rounded-full shadow-lg transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gas",
+        "aria-label": "Barrierefreiheit Menü öffnen",
+        "aria-expanded": isOpen,
+        children: /* @__PURE__ */ jsx(Accessibility, { size: 24 })
       }
-    )
+    ),
+    isOpen && /* @__PURE__ */ jsxs("div", { className: "absolute bottom-14 left-0 w-72 bg-white rounded-lg shadow-2xl border border-gray-200 overflow-hidden animate-fade-in-up", children: [
+      /* @__PURE__ */ jsxs("div", { className: "p-4 bg-gas text-white flex justify-between items-center", children: [
+        /* @__PURE__ */ jsx("h3", { className: "font-bold", children: "Barrierefreiheit" }),
+        /* @__PURE__ */ jsx("button", { onClick: toggleOpen, className: "hover:text-gray-200", children: /* @__PURE__ */ jsx(X, { size: 20 }) })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "p-2 space-y-1", children: [
+        /* @__PURE__ */ jsxs(
+          "button",
+          {
+            onClick: () => toggleSetting("highContrast"),
+            className: `w-full flex items-center p-3 rounded-md transition-colors ${settings.highContrast ? "bg-gas/10 text-gas font-bold" : "hover:bg-gray-100 text-gray-700"}`,
+            children: [
+              /* @__PURE__ */ jsx(Sun, { size: 20, className: "mr-3" }),
+              " Hoher Kontrast"
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxs(
+          "button",
+          {
+            onClick: () => toggleSetting("largeText"),
+            className: `w-full flex items-center p-3 rounded-md transition-colors ${settings.largeText ? "bg-gas/10 text-gas font-bold" : "hover:bg-gray-100 text-gray-700"}`,
+            children: [
+              /* @__PURE__ */ jsx(Type, { size: 20, className: "mr-3" }),
+              " Größere Schrift"
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxs(
+          "button",
+          {
+            onClick: () => toggleSetting("stopAnimations"),
+            className: `w-full flex items-center p-3 rounded-md transition-colors ${settings.stopAnimations ? "bg-gas/10 text-gas font-bold" : "hover:bg-gray-100 text-gray-700"}`,
+            children: [
+              /* @__PURE__ */ jsx(Zap, { size: 20, className: "mr-3" }),
+              " Animationen stoppen"
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxs(
+          "button",
+          {
+            onClick: () => toggleSetting("highlightLinks"),
+            className: `w-full flex items-center p-3 rounded-md transition-colors ${settings.highlightLinks ? "bg-gas/10 text-gas font-bold" : "hover:bg-gray-100 text-gray-700"}`,
+            children: [
+              /* @__PURE__ */ jsx(Link, { size: 20, className: "mr-3" }),
+              " Links hervorheben"
+            ]
+          }
+        )
+      ] }),
+      /* @__PURE__ */ jsx("div", { className: "p-3 bg-gray-50 text-xs text-center text-gray-500 border-t", children: /* @__PURE__ */ jsx("a", { href: "/barrierefreiheit", className: "underline hover:text-gas", children: "Erklärung zur Barrierefreiheit" }) })
+    ] })
   ] });
 };
-const OptionButton = ({ label, active, onClick, icon: Icon }) => /* @__PURE__ */ jsxs(
-  "button",
-  {
-    onClick,
-    className: `w-full flex items-center justify-between p-3 rounded-xl transition-all mb-1 ${active ? "bg-gas text-white font-bold" : "hover:bg-gray-50 text-gray-600"}`,
-    "aria-pressed": active,
-    children: [
-      /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
-        /* @__PURE__ */ jsx(Icon, { size: 18 }),
-        /* @__PURE__ */ jsx("span", { children: label })
-      ] }),
-      /* @__PURE__ */ jsx("div", { className: `w-10 h-6 rounded-full p-1 transition-colors ${active ? "bg-white/20" : "bg-gray-200"}`, children: /* @__PURE__ */ jsx("div", { className: `w-4 h-4 bg-white rounded-full shadow-sm transition-transform ${active ? "translate-x-4" : "translate-x-0"}` }) })
-    ]
-  }
-);
 const ImprintContent = () => /* @__PURE__ */ jsxs("div", { className: "space-y-4 text-sm text-gray-700", children: [
   /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900", children: "Angaben gemäß § 5 TMG" }),
   /* @__PURE__ */ jsxs("p", { children: [
@@ -4344,6 +4568,7 @@ const App = ({ path, context }) => {
     /* @__PURE__ */ jsx(WizardModal, { isOpen: wizardOpen, onClose: () => setWizardOpen(false), initialType: wizardType, initialData: wizardData }),
     /* @__PURE__ */ jsx(CookieBanner, {}),
     /* @__PURE__ */ jsx(SimpleModal, { isOpen: legalModal.open, onClose: () => setLegalModal({ ...legalModal, open: false }), title: legalModal.title, content: legalModal.content }),
+    /* @__PURE__ */ jsx(StickyCTA, { openWizard }),
     /* @__PURE__ */ jsx(AccessibilityWidget, {}),
     /* @__PURE__ */ jsx(ScrollToTop, {})
   ] });

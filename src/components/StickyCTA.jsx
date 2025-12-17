@@ -3,7 +3,7 @@ import { Phone, ArrowRight } from 'lucide-react';
 
 const StickyCTA = ({ openWizard }) => {
     return (
-        <div className="fixed bottom-0 left-0 right-0 z-[100] p-4 bg-white/90 backdrop-blur-lg border-t border-gray-200 md:hidden shadow-[0_-5px_15px_rgba(0,0,0,0.1)] flex gap-3">
+        <div className="fixed bottom-0 left-0 right-0 z-[50] p-4 bg-white/90 backdrop-blur-lg border-t border-gray-200 md:hidden shadow-[0_-5px_15px_rgba(0,0,0,0.1)] flex gap-3 safe-area-pb">
             <a
                 href="tel:04551897089"
                 className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl text-gray-700 active:scale-95 transition-transform"

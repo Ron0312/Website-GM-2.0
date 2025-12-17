@@ -62,18 +62,21 @@ const ModernInput = ({ label, error, className = '', multiline = false, id: prov
                 <AnimatePresence>
                     {hasError && (
                         <motion.div
-                            initial={{ scale: 0, rotate: -45 }}
-                            animate={{ scale: 1, rotate: 0 }}
-                            exit={{ scale: 0 }}
+                            initial={{ scale: 0, rotate: -45, opacity: 0 }}
+                            animate={{ scale: 1, rotate: 0, opacity: 1 }}
+                            exit={{ scale: 0, opacity: 0 }}
+                            transition={{ type: "spring", stiffness: 500, damping: 30 }}
                         >
                             <X size={20} className="text-red-500" />
                         </motion.div>
                     )}
                     {isValid && !focused && (
                         <motion.div
-                             initial={{ scale: 0, rotate: 45 }}
-                             animate={{ scale: 1, rotate: 0 }}
-                             exit={{ scale: 0 }}
+                             initial={{ scale: 0, rotate: 45, opacity: 0 }}
+                             animate={{ scale: 1.2, rotate: 0, opacity: 1 }}
+                             whileHover={{ scale: 1.3 }}
+                             exit={{ scale: 0, opacity: 0 }}
+                             transition={{ type: "spring", stiffness: 500, damping: 30 }}
                         >
                             <Check size={20} className="text-green-500" />
                         </motion.div>
@@ -96,7 +99,7 @@ const ModernInput = ({ label, error, className = '', multiline = false, id: prov
                     {isValid && !focused && (
                         <motion.div
                              initial={{ scale: 0 }}
-                             animate={{ scale: 1 }}
+                             animate={{ scale: 1.2 }}
                              exit={{ scale: 0 }}
                         >
                             <Check size={20} className="text-green-500" />
