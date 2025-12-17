@@ -1961,7 +1961,8 @@ const GasOrderSection = ({ onCheckAvailability }) => {
   selectedTank.volume * 0.85;
   selectedTank.volume * (fillLevel / 100);
   const calculatedLiters = Math.max(0, Math.round(selectedTank.volume * ((85 - fillLevel) / 100)));
-  const handleCheck = async () => {
+  const handleCheck = async (e) => {
+    if (e && e.preventDefault) e.preventDefault();
     const error = getPlzError(plz);
     if (error) {
       setPlzError(error);
@@ -2064,7 +2065,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                     ] })
                   ] })
                 ] }),
-                /* @__PURE__ */ jsxs("div", { className: "relative", children: [
+                /* @__PURE__ */ jsxs("form", { onSubmit: handleCheck, className: "relative", children: [
                   /* @__PURE__ */ jsx("label", { className: "block text-white font-medium mb-2", children: "Postleitzahl" }),
                   /* @__PURE__ */ jsxs("div", { className: "relative", children: [
                     /* @__PURE__ */ jsx(
@@ -3285,7 +3286,8 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
       }
     }
   }, [isOpen, initialType, initialData]);
-  const handleNext = () => {
+  const handleNext = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
     if (step === 1) {
       const error = getPlzError(plz);
       if (error) {
@@ -3428,7 +3430,7 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
                   /* @__PURE__ */ jsx("h3", { className: "text-3xl font-bold mb-3 text-gray-900", children: "Wo wird geliefert?" }),
                   /* @__PURE__ */ jsx("p", { className: "text-gray-500", children: "Geben Sie Ihre Postleitzahl ein, um die Verfügbarkeit zu prüfen." })
                 ] }),
-                /* @__PURE__ */ jsxs("div", { className: "max-w-xs mx-auto w-full", children: [
+                /* @__PURE__ */ jsxs("form", { onSubmit: handleNext, className: "max-w-xs mx-auto w-full", children: [
                   /* @__PURE__ */ jsx(
                     ModernInput,
                     {
@@ -3455,8 +3457,7 @@ const WizardModal = ({ isOpen, onClose, initialType = "tank", initialData = null
                   /* @__PURE__ */ jsx(
                     "button",
                     {
-                      type: "button",
-                      onClick: handleNext,
+                      type: "submit",
                       disabled: plz.length < 5,
                       className: "w-full mt-6 bg-gas text-white py-4 rounded-xl font-bold hover:bg-gas-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-xl shadow-gas/20",
                       children: "Weiter"
@@ -4024,28 +4025,50 @@ const NotFound = ({ onGoHome }) => {
   ] });
 };
 const StickyCTA = ({ openWizard }) => {
-  return /* @__PURE__ */ jsxs("div", { className: "fixed bottom-0 left-0 right-0 z-[50] p-4 bg-white/90 backdrop-blur-lg border-t border-gray-200 md:hidden shadow-[0_-5px_15px_rgba(0,0,0,0.1)] flex gap-3 safe-area-pb", children: [
-    /* @__PURE__ */ jsx(
-      "a",
-      {
-        href: "tel:04551897089",
-        className: "flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl text-gray-700 active:scale-95 transition-transform",
-        "aria-label": "Anrufen",
-        children: /* @__PURE__ */ jsx(Phone, { size: 20 })
+  const [isVisible, setIsVisible] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
       }
-    ),
-    /* @__PURE__ */ jsxs(
-      "button",
-      {
-        onClick: () => openWizard("tank"),
-        className: "flex-1 bg-gas text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-gas/20 active:scale-95 transition-transform",
-        children: [
-          "Angebot anfordern",
-          /* @__PURE__ */ jsx(ArrowRight, { size: 16 })
-        ]
-      }
-    )
-  ] });
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  return /* @__PURE__ */ jsx(AnimatePresence, { children: isVisible && /* @__PURE__ */ jsxs(
+    motion.div,
+    {
+      initial: { y: 100, opacity: 0 },
+      animate: { y: 0, opacity: 1 },
+      exit: { y: 100, opacity: 0 },
+      transition: { duration: 0.3 },
+      className: "fixed bottom-0 left-0 right-0 z-[50] p-4 bg-white/90 backdrop-blur-lg border-t border-gray-200 md:hidden shadow-[0_-5px_15px_rgba(0,0,0,0.1)] flex gap-3 safe-area-pb",
+      children: [
+        /* @__PURE__ */ jsx(
+          "a",
+          {
+            href: "tel:04551897089",
+            className: "flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl text-gray-700 active:scale-95 transition-transform",
+            "aria-label": "Anrufen",
+            children: /* @__PURE__ */ jsx(Phone, { size: 20 })
+          }
+        ),
+        /* @__PURE__ */ jsxs(
+          "button",
+          {
+            onClick: () => openWizard("tank"),
+            className: "flex-1 bg-gas text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-gas/20 active:scale-95 transition-transform",
+            children: [
+              "Angebot anfordern",
+              /* @__PURE__ */ jsx(ArrowRight, { size: 16 })
+            ]
+          }
+        )
+      ]
+    }
+  ) });
 };
 const AccessibilityWidget = () => {
   const [isOpen, setIsOpen] = useState(false);

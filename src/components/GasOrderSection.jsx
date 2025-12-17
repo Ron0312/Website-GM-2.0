@@ -29,7 +29,10 @@ const GasOrderSection = ({ onCheckAvailability }) => {
     // If fillLevel > 85, required is 0 (or error). But let's assume valid range.
     const calculatedLiters = Math.max(0, Math.round(selectedTank.volume * ((85 - fillLevel) / 100)));
 
-    const handleCheck = async () => {
+    const handleCheck = async (e) => {
+        // Prevent default form submission if triggered by form
+        if (e && e.preventDefault) e.preventDefault();
+
         const error = getPlzError(plz);
         if (error) {
             setPlzError(error);
@@ -152,7 +155,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                                 </div>
 
                                 {/* PLZ Input */}
-                                <div className="relative">
+                                <form onSubmit={handleCheck} className="relative">
                                     <label className="block text-white font-medium mb-2">Postleitzahl</label>
                                     <div className="relative">
                                         <input
@@ -182,7 +185,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                                             {plzError}
                                         </motion.div>
                                     )}
-                                </div>
+                                </form>
 
                                 {/* CTA Button */}
                                 <button

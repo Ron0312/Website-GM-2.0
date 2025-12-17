@@ -78,7 +78,10 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
         }
     }, [isOpen, initialType, initialData]);
 
-    const handleNext = () => {
+    const handleNext = (e) => {
+        // Prevent default if called from form submit
+        if (e && e.preventDefault) e.preventDefault();
+
         if (step === 1) {
             const error = getPlzError(plz);
             if (error) {
@@ -238,7 +241,8 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                             <h3 className="text-3xl font-bold mb-3 text-gray-900">Wo wird geliefert?</h3>
                                             <p className="text-gray-500">Geben Sie Ihre Postleitzahl ein, um die Verfügbarkeit zu prüfen.</p>
                                         </div>
-                                        <div className="max-w-xs mx-auto w-full">
+                                        {/* Use a nested form for Step 1 so Enter triggers handleNext */}
+                                        <form onSubmit={handleNext} className="max-w-xs mx-auto w-full">
                                             <ModernInput
                                                 type="text"
                                                 name="plz"
@@ -260,14 +264,13 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                             />
                                             {plzError && <p id="plz-error" className="text-red-500 text-sm mt-2 tracking-tight text-center font-medium">{plzError}</p>}
                                             <button
-                                                type="button"
-                                                onClick={handleNext}
+                                                type="submit"
                                                 disabled={plz.length < 5}
                                                 className="w-full mt-6 bg-gas text-white py-4 rounded-xl font-bold hover:bg-gas-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-xl shadow-gas/20"
                                             >
                                                 Weiter
                                             </button>
-                                        </div>
+                                        </form>
                                     </motion.div>
                                 )}
 
