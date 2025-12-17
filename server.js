@@ -3,6 +3,8 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import express from 'express'
 import compression from 'compression'
+import helmet from 'helmet'
+import rateLimit from 'express-rate-limit'
 
 // Prevent crash on unhandled exceptions
 process.on('uncaughtException', (err) => {
@@ -15,51 +17,17 @@ process.on('unhandledRejection', (reason, promise) => {
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-// Simple In-Memory Rate Limiter
-const rateLimitMap = new Map();
-const RATE_LIMIT_WINDOW = 15 * 60 * 1000; // 15 minutes
-const MAX_REQUESTS = 2000; // Increased for Vite dev mode (many requests)
-
-// Clean up old rate limit entries every hour to prevent memory leaks
-setInterval(() => {
-    const now = Date.now();
-    for (const [ip, data] of rateLimitMap.entries()) {
-        if (now - data.startTime > RATE_LIMIT_WINDOW) {
-            rateLimitMap.delete(ip);
-        }
+// Standard Express Rate Limiter
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 2000, // Limit each IP to 2000 requests per windowMs (Vite dev needs high limits)
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+    skip: (req) => {
+        // Skip static assets from rate limiting
+        return !!req.url.match(/\.(js|css|png|jpg|jpeg|webp|gif|svg|ico|woff|woff2)$/);
     }
-}, 60 * 60 * 1000);
-
-function rateLimiter(req, res, next) {
-    // Skip static assets from rate limiting
-    if (req.url.match(/\.(js|css|png|jpg|jpeg|webp|gif|svg|ico|woff|woff2)$/)) {
-        return next();
-    }
-
-    const ip = req.ip || req.connection.remoteAddress;
-    const now = Date.now();
-
-    if (!rateLimitMap.has(ip)) {
-        rateLimitMap.set(ip, { count: 1, startTime: now });
-        return next();
-    }
-
-    const data = rateLimitMap.get(ip);
-
-    if (now - data.startTime > RATE_LIMIT_WINDOW) {
-        // Reset window
-        data.count = 1;
-        data.startTime = now;
-        return next();
-    }
-
-    if (data.count >= MAX_REQUESTS) {
-        return res.status(429).send('Too Many Requests');
-    }
-
-    data.count++;
-    next();
-}
+});
 
 // Custom Logger Middleware
 function requestLogger(req, res, next) {
@@ -90,42 +58,35 @@ async function createServer() {
 
   // Apply Rate Limiter and Logger
   app.use(requestLogger);
-  // Only rate limit SSR/dynamic requests, not static assets ideally, but simpler to apply globally for now
-  // and maybe exclude static extension in the limiter logic if needed.
-  // For now, applying to all to protect the server process.
-  app.use(rateLimiter);
+  app.use(limiter);
 
-  // Security Headers (Enhanced)
+  // Helmet Security Headers
+  app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: isProd
+                ? ["'self'", "https://api.web3forms.com"]
+                : ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://api.web3forms.com"],
+            styleSrc: ["'self'", "'unsafe-inline'"],
+            fontSrc: ["'self'", "data:"],
+            imgSrc: ["'self'", "data:", "https://api.web3forms.com"],
+            connectSrc: isProd
+                ? ["'self'", "https://api.web3forms.com"]
+                : ["'self'", "https://api.web3forms.com", "ws:", "wss:"],
+            frameSrc: ["'self'", "https://www.google.com", "https://www.youtube.com"],
+            objectSrc: ["'none'"],
+            baseUri: ["'self'"],
+            formAction: ["'self'", "https://api.web3forms.com"],
+            upgradeInsecureRequests: isProd ? [] : null // Only upgrade in Prod
+        },
+    },
+    crossOriginEmbedderPolicy: false, // Often causes issues with images/scripts if not configured perfectly
+  }));
+
+  // Extra headers not fully covered by default Helmet or custom preferences
   app.use((req, res, next) => {
-    res.setHeader('X-Content-Type-Options', 'nosniff');
-    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
-    res.setHeader('X-XSS-Protection', '1; mode=block');
-    // Permissions Policy
     res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=()');
-    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-
-    // Content Security Policy
-    // Production: stricter (no unsafe-eval)
-    // Development: looser (unsafe-eval required for Vite)
-    const scriptSrc = isProd
-        ? "'self' https://api.web3forms.com"
-        : "'self' 'unsafe-inline' 'unsafe-eval' https://api.web3forms.com";
-
-    const connectSrc = isProd
-        ? "'self' https://api.web3forms.com"
-        : "'self' https://api.web3forms.com ws: wss:";
-
-    const upgradeInsecure = isProd ? "upgrade-insecure-requests;" : "";
-    res.setHeader("Content-Security-Policy", `default-src 'self'; script-src ${scriptSrc}; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https://api.web3forms.com; connect-src ${connectSrc}; frame-src 'self' https://www.google.com https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com; ${upgradeInsecure}`);
-
-    // Remove X-Powered-By
-    res.removeHeader('X-Powered-By');
-
-    // Strict Transport Security (HSTS) - 1 year
-    if (isProd) {
-        res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
-    }
-
     next();
   });
 

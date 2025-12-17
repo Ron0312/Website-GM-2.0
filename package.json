@@ -16,17 +16,23 @@
   "dependencies": {
     "@fontsource/inter": "^5.2.8",
     "@fontsource/plus-jakarta-sans": "^5.0.0",
+    "@hookform/resolvers": "^5.2.2",
     "clsx": "^2.1.0",
     "compression": "^1.8.1",
     "ejs": "^3.1.10",
     "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
     "framer-motion": "^10.16.4",
+    "helmet": "^8.1.0",
     "lucide-react": "^0.292.0",
     "react": "^18.2.0",
     "react-countup": "^6.5.0",
     "react-dom": "^18.2.0",
+    "react-helmet-async": "^2.0.5",
+    "react-hook-form": "^7.68.0",
     "serialize-javascript": "^7.0.1",
-    "tailwind-merge": "^2.2.0"
+    "tailwind-merge": "^2.2.0",
+    "zod": "^4.2.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0",
