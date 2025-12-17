@@ -2,7 +2,7 @@ import React, { useState, useId } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, X, AlertCircle } from 'lucide-react';
 
-const ModernInput = ({ label, error, className = '', multiline = false, id: providedId, ...props }) => {
+const ModernInput = ({ label, error, className = '', multiline = false, id: providedId, autoComplete, name, ...props }) => {
   const [focused, setFocused] = useState(false);
   const [touched, setTouched] = useState(false);
 
@@ -34,9 +34,10 @@ const ModernInput = ({ label, error, className = '', multiline = false, id: prov
         <InputComponent
           {...props}
           id={inputId}
+          name={name}
           inputMode={props.inputMode}
           pattern={props.pattern}
-          autoComplete={props.autoComplete}
+          autoComplete={autoComplete || (name === 'b_field' ? 'off' : 'on')}
           aria-invalid={hasError}
           aria-errormessage={hasError ? errorId : undefined}
           onFocus={(e) => {
@@ -51,7 +52,7 @@ const ModernInput = ({ label, error, className = '', multiline = false, id: prov
           className={`w-full p-4 bg-transparent outline-none text-gray-800 font-medium placeholder-gray-400 rounded-xl font-sans ${multiline ? 'resize-none h-32' : ''}`}
         />
         {label && (
-             <label htmlFor={inputId} className="absolute -top-2.5 left-4 bg-white px-2 text-xs font-bold text-gray-500 uppercase tracking-wider pointer-events-none">
+             <label htmlFor={inputId} className="absolute -top-2.5 left-4 bg-white px-2 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-text">
                  {label}
              </label>
         )}

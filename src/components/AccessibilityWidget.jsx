@@ -39,7 +39,7 @@ const AccessibilityWidget = () => {
 
     // ... rendering ...
     return (
-        <div className="fixed bottom-4 left-4 z-[90] print:hidden">
+        <div className="fixed bottom-24 md:bottom-4 left-4 z-[90] print:hidden">
             {/* Toggle Button */}
             <button
                 onClick={toggleOpen}
