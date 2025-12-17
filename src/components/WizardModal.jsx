@@ -241,8 +241,8 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                             <h3 className="text-3xl font-bold mb-3 text-gray-900">Wo wird geliefert?</h3>
                                             <p className="text-gray-500">Geben Sie Ihre Postleitzahl ein, um die Verfügbarkeit zu prüfen.</p>
                                         </div>
-                                        {/* Use a nested form for Step 1 so Enter triggers handleNext */}
-                                        <form onSubmit={handleNext} className="max-w-xs mx-auto w-full">
+                                        {/* Removed nested form to prevent issues with form submission and DOM updates */}
+                                        <div className="max-w-xs mx-auto w-full">
                                             <ModernInput
                                                 type="text"
                                                 name="plz"
@@ -255,6 +255,12 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                         setPlz(e.target.value);
                                                     }
                                                 }}
+                                                onKeyDown={(e) => {
+                                                    if (e.key === 'Enter') {
+                                                        e.preventDefault();
+                                                        if (plz.length >= 5) handleNext();
+                                                    }
+                                                }}
                                                 className="text-center text-3xl font-bold tracking-[0.5em] !rounded-2xl"
                                                 placeholder="PLZ"
                                                 maxLength={5}
@@ -264,13 +270,14 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                             />
                                             {plzError && <p id="plz-error" className="text-red-500 text-sm mt-2 tracking-tight text-center font-medium">{plzError}</p>}
                                             <button
-                                                type="submit"
+                                                type="button"
+                                                onClick={handleNext}
                                                 disabled={plz.length < 5}
                                                 className="w-full mt-6 bg-gas text-white py-4 rounded-xl font-bold hover:bg-gas-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-xl shadow-gas/20"
                                             >
                                                 Weiter
                                             </button>
-                                        </form>
+                                        </div>
                                     </motion.div>
                                 )}
 
