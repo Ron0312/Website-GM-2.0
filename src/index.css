@@ -14,6 +14,12 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(0,0,0,0.05); }
 .content-enter { animation: fadeInUp 0.6s ease-out forwards; }
 
+/* Selection Color */
+::selection {
+    background-color: #e6f0fa; /* gas-light */
+    color: #005b9f; /* gas */
+}
+
 /* Modern Scrollbar */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: #f1f1f1; }

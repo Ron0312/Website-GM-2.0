@@ -170,6 +170,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                     ))}
                 </div>
 
+                {/* Technical Overview Table */}
                 {showTechnicalOverview && (
                     <div className="mt-20">
                         <div className="max-w-4xl mx-auto bg-gray-50 rounded-2xl p-8 border border-gray-100">

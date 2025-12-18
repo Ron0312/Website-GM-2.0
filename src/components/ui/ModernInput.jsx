@@ -1,8 +1,8 @@
-import React, { useState, useId } from 'react';
+import React, { useState, useId, forwardRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, X, AlertCircle } from 'lucide-react';
 
-const ModernInput = ({ label, error, className = '', multiline = false, id: providedId, autoComplete, name, ...props }) => {
+const ModernInput = forwardRef(({ label, error, className = '', multiline = false, id: providedId, autoComplete, name, ...props }, ref) => {
   const [focused, setFocused] = useState(false);
   const [touched, setTouched] = useState(false);
 
@@ -33,6 +33,7 @@ const ModernInput = ({ label, error, className = '', multiline = false, id: prov
       >
         <InputComponent
           {...props}
+          ref={ref}
           id={inputId}
           name={name}
           inputMode={props.inputMode}
@@ -104,6 +105,8 @@ const ModernInput = ({ label, error, className = '', multiline = false, id: prov
       </AnimatePresence>
     </div>
   );
-};
+});
+
+ModernInput.displayName = 'ModernInput';
 
 export default ModernInput;

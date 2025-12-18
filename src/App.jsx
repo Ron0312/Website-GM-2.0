@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { Settings, ArrowRight } from 'lucide-react';
 import { getSeoForPath } from './data/seoData';
 import Navigation from './components/Navigation';
@@ -8,7 +8,6 @@ import TankSection from './components/TankSection';
 import TankDetail from './components/TankDetail';
 import CommercialSection from './components/CommercialSection';
 import InspectionSection from './components/InspectionSection';
-import DeliveryMap from './components/DeliveryMap';
 import FAQ from './components/FAQ';
 import ContactSection from './components/ContactSection';
 import GasOrderSection from './components/GasOrderSection';
@@ -16,7 +15,6 @@ import EnergyCalculator from './components/EnergyCalculator';
 import KnowledgeCenter from './components/KnowledgeCenter';
 import AboutPage from './components/AboutPage';
 import Footer from './components/Footer';
-import WizardModal from './components/WizardModal';
 import CookieBanner from './components/CookieBanner';
 import SimpleModal from './components/SimpleModal';
 import ScrollToTop from './components/ScrollToTop';
@@ -26,6 +24,10 @@ import AccessibilityWidget from './components/AccessibilityWidget';
 import AccessibilityPage from './components/AccessibilityPage';
 import { ImprintContent, PrivacyContent, TermsContent, AccessibilityStatementContent } from './components/Legal';
 import { findClientRedirect } from './utils/clientRedirect';
+
+// Lazy Load heavy components
+const WizardModal = React.lazy(() => import('./components/WizardModal'));
+const DeliveryMap = React.lazy(() => import('./components/DeliveryMap'));
 
 const App = ({ path, context }) => {
     // Initial state based on path if provided (SSR), otherwise default to window location (CSR)
@@ -188,7 +190,7 @@ const App = ({ path, context }) => {
             case '404':
                 if (context) context.status = 404;
                 return <><div className="pt-20"></div><NotFound onGoHome={changeSection} /><ContactSection /></>;
-            case 'start': return <><Hero openWizard={openWizard} setActiveSection={changeSection} /><TrustBar /><div className="my-16 text-center"><div className="inline-block p-2 rounded-2xl bg-gradient-to-r from-gas-light to-white border border-gas/10 shadow-2xl animate-pulse hover:animate-none transition-all"><button onClick={() => openWizard('tank')} className="bg-gas text-white px-10 py-5 rounded-xl font-extrabold text-2xl shadow-lg hover:bg-gas-dark transition-all flex items-center gap-3"><Settings size={28}/> Zum Anfrage-Assistenten <ArrowRight size={28}/></button></div><p className="mt-4 text-gray-400 text-sm font-medium">Kostenlos & Unverbindlich</p></div><TankSection openWizard={openWizard} setActiveSection={changeSection} showTechnicalOverview={false} /><CommercialSection setActiveSection={changeSection} /><div className="max-w-7xl mx-auto px-4"><EnergyCalculator /></div><DeliveryMap /><FAQ /><ContactSection /></>;
+            case 'start': return <><Hero openWizard={openWizard} setActiveSection={changeSection} /><TrustBar /><div className="my-16 text-center"><div className="inline-block p-2 rounded-2xl bg-gradient-to-r from-gas-light to-white border border-gas/10 shadow-2xl animate-pulse hover:animate-none transition-all"><button onClick={() => openWizard('tank')} className="bg-gas text-white px-10 py-5 rounded-xl font-extrabold text-2xl shadow-lg hover:bg-gas-dark transition-all flex items-center gap-3"><Settings size={28}/> Zum Anfrage-Assistenten <ArrowRight size={28}/></button></div><p className="mt-4 text-gray-400 text-sm font-medium">Kostenlos & Unverbindlich</p></div><TankSection openWizard={openWizard} setActiveSection={changeSection} showTechnicalOverview={false} /><CommercialSection setActiveSection={changeSection} /><div className="max-w-7xl mx-auto px-4"><EnergyCalculator /></div><Suspense fallback={<div className="h-96 w-full bg-gray-100 animate-pulse rounded-xl" />}><DeliveryMap /></Suspense><FAQ /><ContactSection /></>;
             case 'tanks': return <><div className="pt-20"></div><TankSection openWizard={openWizard} setActiveSection={changeSection} isPageTitle={true} /><ContactSection /></>;
             case 'gas': return <><div className="pt-20"></div><GasOrderSection onCheckAvailability={handleGasCheckAvailability} /><FAQ /><ContactSection /></>;
             case 'pruefungen': return <><div className="pt-20"></div><InspectionSection openWizard={openWizard} /><ContactSection /></>;
@@ -210,7 +212,9 @@ const App = ({ path, context }) => {
             <Navigation activeSection={activeSection} setActiveSection={changeSection} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} openWizard={openWizard} />
             <main id="main-content" className="flex-grow focus:outline-none" tabIndex="-1">{renderSection()}</main>
             <Footer setActiveSection={changeSection} openLegal={openLegal} />
-            <WizardModal isOpen={wizardOpen} onClose={() => setWizardOpen(false)} initialType={wizardType} initialData={wizardData} />
+            <Suspense fallback={null}>
+                <WizardModal isOpen={wizardOpen} onClose={() => setWizardOpen(false)} initialType={wizardType} initialData={wizardData} />
+            </Suspense>
             <CookieBanner />
             <SimpleModal isOpen={legalModal.open} onClose={() => setLegalModal({ ...legalModal, open: false })} title={legalModal.title} content={legalModal.content} />
             <StickyCTA openWizard={openWizard} />

@@ -5,14 +5,15 @@ import express from 'express'
 import compression from 'compression'
 import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
+import { Logger } from './src/utils/logger.js'
 
 // Prevent crash on unhandled exceptions
 process.on('uncaughtException', (err) => {
-  console.error('UNCAUGHT EXCEPTION:', err);
+  Logger.error('UNCAUGHT EXCEPTION', err);
 });
 
 process.on('unhandledRejection', (reason, promise) => {
-  console.error('UNHANDLED REJECTION:', reason);
+  Logger.error('UNHANDLED REJECTION', reason);
 });
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -26,6 +27,10 @@ const limiter = rateLimit({
     skip: (req) => {
         // Skip static assets from rate limiting
         return !!req.url.match(/\.(js|css|png|jpg|jpeg|webp|gif|svg|ico|woff|woff2)$/);
+    },
+    handler: (req, res, next, options) => {
+        Logger.warn('Rate limit exceeded', { ip: req.ip });
+        res.status(options.statusCode).send(options.message);
     }
 });
 
@@ -39,11 +44,16 @@ function requestLogger(req, res, next) {
             url: req.url,
             status: res.statusCode,
             duration: `${duration}ms`,
-            timestamp: new Date().toISOString(),
             ip: req.ip || req.connection.remoteAddress
         };
-        // Use JSON format for production-grade logging
-        console.log(JSON.stringify(logEntry));
+        // Log all requests as info
+        // Filter out frequent health checks or static assets if needed to reduce noise
+        if (res.statusCode >= 400) {
+             Logger.warn(`Request Error ${res.statusCode}`, logEntry);
+        } else {
+             // Optional: Uncomment for full request logging
+             // Logger.info('Request', logEntry);
+        }
     });
     next();
 }
@@ -54,7 +64,16 @@ async function createServer() {
 
   let isProd = process.env.NODE_ENV === 'production'
 
-  console.log(`Starting server. Initial mode: ${isProd ? 'PRODUCTION' : 'DEVELOPMENT'}`);
+  Logger.info(`Starting server. Initial mode: ${isProd ? 'PRODUCTION' : 'DEVELOPMENT'}`);
+
+  // Canonical Redirect (www -> non-www, http -> https is handled by HSTS)
+  app.use((req, res, next) => {
+      if (req.headers.host && req.headers.host.startsWith('www.')) {
+          const newHost = req.headers.host.slice(4);
+          return res.redirect(301, `${req.protocol}://${newHost}${req.originalUrl}`);
+      }
+      next();
+  });
 
   // Apply Rate Limiter and Logger
   app.use(requestLogger);
@@ -82,6 +101,11 @@ async function createServer() {
         },
     },
     crossOriginEmbedderPolicy: false, // Often causes issues with images/scripts if not configured perfectly
+    strictTransportSecurity: {
+        maxAge: 31536000,
+        includeSubDomains: true,
+        preload: true
+    }
   }));
 
   // Extra headers not fully covered by default Helmet or custom preferences
@@ -108,7 +132,7 @@ async function createServer() {
 
   // Dynamic Sitemap Generation (Fail-safe)
   const generateSitemapXml = () => {
-      const SITE_URL = 'https://www.gasmoeller.de';
+      const SITE_URL = 'https://gasmoeller.de'; // Enforce non-www
       const routes = [...staticRoutes.filter(r => r !== '404' && r !== 'sitemap.xml' && r !== 'robots.txt')]; // Exclude technical routes from sitemap
       tankSlugs.forEach(slug => routes.push(`tanks/${slug}`));
 
@@ -141,7 +165,7 @@ ${routes.map(route => `  <url>
           res.send(content)
           return true
         } catch (e) {
-          console.error(`Error serving ${filename} from ${filePath}:`, e)
+          Logger.error(`Error serving ${filename} from ${filePath}:`, e)
         }
       }
     }
@@ -152,10 +176,10 @@ ${routes.map(route => `  <url>
             res.setHeader('Content-Type', contentType);
             res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
             res.send(content);
-            console.log(`Generated ${filename} dynamically.`);
+            Logger.info(`Generated ${filename} dynamically.`);
             return true;
         } catch (e) {
-            console.error(`Error generating ${filename}:`, e);
+            Logger.error(`Error generating ${filename}:`, e);
         }
     }
     return false
@@ -228,7 +252,7 @@ ${routes.map(route => `  <url>
         }
     } catch (e) {
         // Fallback to original path if decode fails
-        console.warn('Failed to decode path:', pathStr);
+        Logger.warn('Failed to decode path:', { pathStr });
     }
 
     if (p.length > 1 && p.endsWith('/')) {
@@ -333,13 +357,13 @@ ${routes.map(route => `  <url>
         const cleanTarget = target ? target.replace(/^\//, '') : '';
 
         if (target && cleanTarget !== cleanPath && target !== req.originalUrl) {
-             console.log(`Redirecting: ${req.url} -> ${target}`);
+             Logger.info(`Redirecting: ${req.url} -> ${target}`);
              return res.redirect(301, target);
         }
         next();
     } catch (err) {
         // Log the error but do NOT crash. Pass to next middleware (likely 404/SSR)
-        console.error('Redirect Middleware Error:', err);
+        Logger.error('Redirect Middleware Error:', err);
         next();
     }
   });
@@ -355,8 +379,8 @@ ${routes.map(route => `  <url>
         })
         app.use(vite.middlewares)
     } catch (e) {
-        console.error('Failed to load Vite in development mode:', e);
-        console.warn('Switching to PRODUCTION mode due to missing Vite.');
+        Logger.error('Failed to load Vite in development mode:', e);
+        Logger.warn('Switching to PRODUCTION mode due to missing Vite.');
         // If we can't load vite (e.g. in production environment), switch to prod mode
         isProd = true;
     }
@@ -383,7 +407,7 @@ ${routes.map(route => `  <url>
      getSeoForPath = seoModule.getSeoForPath;
      getSchemaForPath = seoModule.getSchemaForPath;
   } catch (err) {
-      console.error('Failed to load SEO Data:', err);
+      Logger.error('Failed to load SEO Data:', err);
       // Fallback mocks
       getSeoForPath = () => ({ title: 'gasmöller', description: '', image: '', url: '' });
       getSchemaForPath = () => ({});
@@ -425,7 +449,7 @@ ${routes.map(route => `  <url>
             seoInfo = getSeoForPath(url);
             schemaJson = JSON.stringify(getSchemaForPath(url));
         } catch (err) {
-            console.error('SEO Data Error:', err);
+            Logger.error('SEO Data Error:', err);
             seoInfo = {
                 title: 'gasmöller',
                 description: '',
@@ -522,7 +546,7 @@ ${routes.map(route => `  <url>
       res.status(context.status || 200).set({ 'Content-Type': 'text/html' }).end(htmlResponse)
     } catch (e) {
       // Emergency Error Handling: Redirect to Home or serve a safe error message
-      console.error('CRITICAL SSR ERROR:', e);
+      Logger.error('CRITICAL SSR ERROR:', e);
       if (process.env.NODE_ENV === 'production' || isProd) {
          // Avoid infinite redirect loops
          if (url === '/' || url.includes('error=server_error')) {
@@ -542,7 +566,7 @@ ${routes.map(route => `  <url>
          try {
              return res.redirect(302, '/?error=server_error');
          } catch (redirErr) {
-             console.error('Failed to redirect after error:', redirErr);
+             Logger.error('Failed to redirect after error:', redirErr);
          }
       }
 
@@ -554,7 +578,7 @@ ${routes.map(route => `  <url>
 
   // Global Error Handler (Last resort for sync errors)
   app.use((err, req, res, next) => {
-    console.error('Unhandled Global Error:', err);
+    Logger.error('Unhandled Global Error:', err);
     if (!res.headersSent) {
          if (process.env.NODE_ENV === 'production' || isProd) {
             if (req.url.includes('error=')) {
@@ -569,20 +593,20 @@ ${routes.map(route => `  <url>
   });
 
   const server = app.listen(port, () => {
-    console.log(`Server started at http://localhost:${port}`)
+    Logger.info(`Server started at http://localhost:${port}`)
   })
 
   // Graceful Shutdown
   const shutdown = () => {
-      console.log('Received kill signal, shutting down gracefully');
+      Logger.info('Received kill signal, shutting down gracefully');
       server.close(() => {
-          console.log('Closed out remaining connections');
+          Logger.info('Closed out remaining connections');
           process.exit(0);
       });
 
       // Force close after 10s
       setTimeout(() => {
-          console.error('Could not close connections in time, forcefully shutting down');
+          Logger.error('Could not close connections in time, forcefully shutting down');
           process.exit(1);
       }, 10000);
   };

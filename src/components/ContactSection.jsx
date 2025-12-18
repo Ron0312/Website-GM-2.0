@@ -1,40 +1,40 @@
 import React, { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 import { CheckCircle, Loader2, Phone, User, Copy, Check } from 'lucide-react';
 import { getPlzError } from '../utils/validation';
 import ModernInput from './ui/ModernInput';
 
+const contactSchema = z.object({
+    name: z.string().min(2, "Name ist erforderlich"),
+    phone: z.string().optional(),
+    email: z.string().email("Ungültige E-Mail-Adresse"),
+    plz: z.string().length(5, "5 Ziffern").regex(/^\d+$/, "Nur Ziffern").refine((val) => !getPlzError(val), { message: "Nicht im Liefergebiet" }),
+    subject: z.string().optional(),
+    message: z.string().optional(),
+    honeypot: z.string().max(0).optional(),
+    consent: z.literal(true, { errorMap: () => ({ message: "Zustimmung erforderlich" }) })
+});
+
 const ContactSection = () => {
-    const [plz, setPlz] = useState('');
-    const [plzError, setPlzError] = useState('');
-    const [honeypot, setHoneypot] = useState('');
     const [status, setStatus] = useState('idle'); // idle, loading, success, error
-    const [consent, setConsent] = useState(false);
     const [copiedPhone, setCopiedPhone] = useState(false);
     const [copiedMobile, setCopiedMobile] = useState(false);
 
-    // Form State for ModernInput
-    const [formData, setFormData] = useState({
-        name: '',
-        phone: '',
-        email: '',
-        subject: '',
-        message: ''
-    });
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
-    };
-
-    const handlePlzChange = (e) => {
-        const val = e.target.value;
-        setPlz(val);
-        if (val.length === 5) {
-            setPlzError(getPlzError(val));
-        } else {
-            setPlzError('');
+    const { control, handleSubmit, formState: { errors }, reset } = useForm({
+        resolver: zodResolver(contactSchema),
+        defaultValues: {
+            name: '',
+            phone: '',
+            email: '',
+            plz: '',
+            subject: '',
+            message: '',
+            honeypot: '',
+            consent: false
         }
-    };
+    });
 
     const copyToClipboard = (text, type) => {
         navigator.clipboard.writeText(text);
@@ -47,23 +47,22 @@ const ContactSection = () => {
         }
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (honeypot) return;
-        if (!consent) return;
+    const onSubmit = async (data) => {
+        if (data.honeypot) return;
 
         setStatus('loading');
 
-        const form = e.target;
         const submitData = new FormData();
-
         submitData.append("access_key", "f22052ed-455f-4e4d-9f5a-94a6e340426f");
         submitData.append("subject", "Neue Kontaktanfrage (Website)");
         submitData.append("from_name", "gasmöller Kontaktformular");
 
-        // Add form fields
-        Object.keys(formData).forEach(key => submitData.append(key, formData[key]));
-        submitData.append("plz", plz);
+        submitData.append("Name", data.name);
+        submitData.append("Email", data.email);
+        submitData.append("Phone", data.phone);
+        submitData.append("PLZ", data.plz);
+        submitData.append("Subject", data.subject);
+        submitData.append("Message", data.message);
 
         try {
             const response = await fetch("https://api.web3forms.com/submit", {
@@ -73,10 +72,7 @@ const ContactSection = () => {
             const result = await response.json();
             if (result.success) {
                 setStatus('success');
-                // Reset form
-                setFormData({ name: '', phone: '', email: '', subject: '', message: '' });
-                setPlz('');
-                setConsent(false);
+                reset();
             } else {
                 setStatus('error');
             }
@@ -99,7 +95,7 @@ const ContactSection = () => {
                             <Phone className="text-gas-light" />
                             <div className="text-left">
                                 <div className="text-xs text-gray-400 uppercase font-bold tracking-wider">Zentrale</div>
-                                <div className="font-bold text-lg">04551 89 70 89</div>
+                                <div className="font-bold text-lg tabular-nums">04551 89 70 89</div>
                             </div>
                         </a>
                         <button
@@ -116,7 +112,7 @@ const ContactSection = () => {
                             <User className="text-gas-light" />
                             <div className="text-left">
                                 <div className="text-xs text-gray-400 uppercase font-bold tracking-wider">Thomas Möller / Notfall</div>
-                                <div className="font-bold text-lg">+49 176 416 84 326</div>
+                                <div className="font-bold text-lg tabular-nums">+49 176 416 84 326</div>
                             </div>
                         </a>
                         <button
@@ -139,108 +135,143 @@ const ContactSection = () => {
                             <p className="text-gray-600 mb-6">Ihre Nachricht wurde erfolgreich versendet. Wir melden uns in Kürze bei Ihnen.</p>
                              <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 text-sm text-blue-900 mb-8">
                                 <strong>Dringend?</strong><br/>
-                                Rufen Sie uns direkt an unter <a href="tel:04551897089" className="underline font-bold">04551 89 70 89</a>.
+                                Rufen Sie uns direkt an unter <a href="tel:04551897089" className="underline font-bold tabular-nums">04551 89 70 89</a>.
                             </div>
                             <button onClick={() => setStatus('idle')} className="text-gas font-bold hover:underline">Neue Nachricht schreiben</button>
                         </div>
                     ) : (
-                        <form className="space-y-2" onSubmit={handleSubmit}>
+                        <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
                             {/* Honeypot field */}
-                            <input
-                                type="text"
-                                name="b_field"
-                                style={{ display: 'none' }}
-                                tabIndex="-1"
-                                autoComplete="off"
-                                value={honeypot}
-                                onChange={(e) => setHoneypot(e.target.value)}
-                                aria-hidden="true"
+                            <Controller
+                                name="honeypot"
+                                control={control}
+                                render={({ field }) => (
+                                    <input
+                                        {...field}
+                                        type="text"
+                                        style={{ display: 'none' }}
+                                        tabIndex="-1"
+                                        autoComplete="off"
+                                        aria-hidden="true"
+                                    />
+                                )}
                             />
+
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <ModernInput
-                                        label="Name"
-                                        type="text"
+                                    <Controller
                                         name="name"
-                                        autoComplete="name"
-                                        required
-                                        aria-required="true"
-                                        value={formData.name}
-                                        onChange={handleInputChange}
+                                        control={control}
+                                        render={({ field }) => (
+                                            <ModernInput
+                                                {...field}
+                                                label="Name"
+                                                type="text"
+                                                autoComplete="name"
+                                                error={errors.name?.message}
+                                            />
+                                        )}
                                     />
                                 </div>
                                 <div>
-                                    <ModernInput
-                                        label="Telefon"
-                                        type="tel"
+                                    <Controller
                                         name="phone"
-                                        autoComplete="tel"
-                                        inputMode="tel"
-                                        value={formData.phone}
-                                        onChange={handleInputChange}
+                                        control={control}
+                                        render={({ field }) => (
+                                            <ModernInput
+                                                {...field}
+                                                label="Telefon"
+                                                type="tel"
+                                                autoComplete="tel"
+                                                inputMode="tel"
+                                                error={errors.phone?.message}
+                                            />
+                                        )}
                                     />
                                 </div>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <ModernInput
-                                        label="Postleitzahl"
-                                        type="text"
+                                    <Controller
                                         name="plz"
-                                        autoComplete="postal-code"
-                                        inputMode="numeric"
-                                        pattern="[0-9]*"
-                                        value={plz}
-                                        onChange={handlePlzChange}
-                                        maxLength={5}
-                                        error={plzError}
+                                        control={control}
+                                        render={({ field }) => (
+                                            <ModernInput
+                                                {...field}
+                                                label="Postleitzahl"
+                                                type="text"
+                                                autoComplete="postal-code"
+                                                inputMode="numeric"
+                                                pattern="[0-9]*"
+                                                maxLength={5}
+                                                error={errors.plz?.message}
+                                            />
+                                        )}
                                     />
                                 </div>
                                 <div>
-                                    <ModernInput
-                                        label="E-Mail"
-                                        type="email"
+                                    <Controller
                                         name="email"
-                                        autoComplete="email"
-                                        inputMode="email"
-                                        required
-                                        aria-required="true"
-                                        value={formData.email}
-                                        onChange={handleInputChange}
+                                        control={control}
+                                        render={({ field }) => (
+                                            <ModernInput
+                                                {...field}
+                                                label="E-Mail"
+                                                type="email"
+                                                autoComplete="email"
+                                                inputMode="email"
+                                                error={errors.email?.message}
+                                            />
+                                        )}
                                     />
                                 </div>
                             </div>
                             <div>
-                                <ModernInput
-                                    label="Betreff"
-                                    type="text"
+                                <Controller
                                     name="subject"
-                                    value={formData.subject}
-                                    onChange={handleInputChange}
+                                    control={control}
+                                    render={({ field }) => (
+                                        <ModernInput
+                                            {...field}
+                                            label="Betreff"
+                                            type="text"
+                                        />
+                                    )}
                                 />
                             </div>
                             <div>
-                                <ModernInput
-                                    label="Nachricht"
-                                    multiline={true}
+                                <Controller
                                     name="message"
-                                    value={formData.message}
-                                    onChange={handleInputChange}
+                                    control={control}
+                                    render={({ field }) => (
+                                        <ModernInput
+                                            {...field}
+                                            label="Nachricht"
+                                            multiline={true}
+                                        />
+                                    )}
                                 />
                             </div>
 
                             <div className="flex items-start gap-3 mt-4 mb-6">
-                                <input
-                                    type="checkbox"
-                                    id="contact-consent"
-                                    checked={consent}
-                                    onChange={(e) => setConsent(e.target.checked)}
-                                    className="mt-1 w-5 h-5 text-gas border-gray-300 rounded focus:ring-gas flex-shrink-0"
-                                    required
+                                <Controller
+                                    name="consent"
+                                    control={control}
+                                    render={({ field: { value, onChange } }) => (
+                                        <>
+                                            <input
+                                                type="checkbox"
+                                                id="contact-consent"
+                                                checked={value}
+                                                onChange={onChange}
+                                                className="mt-1 w-5 h-5 text-gas border-gray-300 rounded focus:ring-gas flex-shrink-0 accent-gas"
+                                            />
+                                            <label htmlFor="contact-consent" className={`text-sm ${errors.consent ? 'text-red-500' : 'text-gray-600'}`}>
+                                                Ich stimme zu, dass meine Angaben zur Kontaktaufnahme und Zuordnung für eventuelle Rückfragen dauerhaft gespeichert werden. Sie können diese Einwilligung jederzeit widerrufen. Weitere Informationen finden Sie in der <button type="button" onClick={() => window.openPrivacy?.()} className="text-gas hover:underline">Datenschutzerklärung</button>.
+                                            </label>
+                                        </>
+                                    )}
                                 />
-                                <label htmlFor="contact-consent" className="text-sm text-gray-600">
-                                    Ich stimme zu, dass meine Angaben zur Kontaktaufnahme und Zuordnung für eventuelle Rückfragen dauerhaft gespeichert werden. Sie können diese Einwilligung jederzeit widerrufen. Weitere Informationen finden Sie in der <button type="button" onClick={() => window.openPrivacy?.()} className="text-gas hover:underline">Datenschutzerklärung</button>.
-                                </label>
                             </div>
 
                             {status === 'error' && (
@@ -251,7 +282,7 @@ const ContactSection = () => {
 
                             <button
                                 type="submit"
-                                disabled={status === 'loading' || !consent}
+                                disabled={status === 'loading'}
                                 className="w-full bg-gas hover:bg-gas-dark text-white font-bold py-4 rounded-lg transition-all uppercase tracking-wide shadow-lg hover:shadow-xl transform active:scale-95 flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed"
                             >
                                 {status === 'loading' ? <Loader2 size={24} className="animate-spin" /> : 'Anfrage absenden'}
