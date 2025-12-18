@@ -1,0 +1,11 @@
+
+> gasmoeller-vite@0.0.0 dev
+> node server.js
+
+{"level":"INFO","timestamp":"2025-12-18T11:45:08.474Z","message":"Starting server. Initial mode: DEVELOPMENT"}
+{"level":"ERROR","timestamp":"2025-12-18T11:45:09.030Z","message":"Failed to load SEO Data:","error":"Cannot find module '/app/src/data/tanks' imported from /app/src/data/seoData.js","stack":"Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/app/src/data/tanks' imported from /app/src/data/seoData.js\n    at finalizeResolution (node:internal/modules/esm/resolve:274:11)\n    at moduleResolve (node:internal/modules/esm/resolve:859:10)\n    at defaultResolve (node:internal/modules/esm/resolve:983:11)\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:731:20)\n    at ModuleLoader.resolve (node:internal/modules/esm/loader:708:38)\n    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:310:38)\n    at ModuleJob._link (node:internal/modules/esm/module_job:182:49)"}
+{"level":"INFO","timestamp":"2025-12-18T11:45:09.031Z","message":"Server started at http://localhost:5173"}
+{"level":"WARN","timestamp":"2025-12-18T11:46:01.622Z","message":"Request Error 404","method":"GET","url":"/liefergebiet/invalid-city","status":404,"duration":"12ms","ip":"::1"}
+11:47:34 AM [vite] hmr update /src/App.jsx, /src/index.css
+{"level":"WARN","timestamp":"2025-12-18T11:48:10.373Z","message":"Request Error 404","method":"GET","url":"/liefergebiet/invalid-city","status":404,"duration":"11ms","ip":"::1"}
+{"level":"WARN","timestamp":"2025-12-18T11:48:46.327Z","message":"Request Error 404","method":"GET","url":"/liefergebiet/invalid-city","status":404,"duration":"16ms","ip":"::1"}

@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { tankDetails } from '../src/data/tanks.js';
+import { cityData } from '../src/data/cityData.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PUBLIC_PATH = path.resolve(__dirname, '../public');
@@ -30,6 +31,11 @@ function generateSitemap() {
     routes.push(`tanks/${tank.slug}`);
   });
 
+  // Add dynamic city routes
+  cityData.forEach(city => {
+    routes.push(`liefergebiet/${city.slug}`);
+  });
+
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   ${routes.map(route => {
@@ -38,7 +44,7 @@ function generateSitemap() {
     <loc>${SITE_URL}/${route}</loc>
     <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
     <changefreq>${route === '' ? 'daily' : 'weekly'}</changefreq>
-    <priority>${route === '' ? '1.0' : '0.8'}</priority>
+    <priority>${route === '' ? '1.0' : (route.startsWith('liefergebiet/') ? '0.7' : '0.8')}</priority>
   </url>`;
   }).join('')}
 </urlset>`;
