@@ -30,6 +30,7 @@ import { cityData } from './data/cityData';
 // Lazy Load heavy components
 const WizardModal = React.lazy(() => import('./components/WizardModal'));
 const DeliveryMap = React.lazy(() => import('./components/DeliveryMap'));
+const DeliveryAreaOverview = React.lazy(() => import('./components/DeliveryAreaOverview'));
 
 const App = ({ path, context }) => {
     // Initial state based on path if provided (SSR), otherwise default to window location (CSR)
@@ -101,7 +102,7 @@ const App = ({ path, context }) => {
 
     useEffect(() => {
         // Check for client-side legacy redirect if on 404/invalid section
-        const validSections = ['start', 'tanks', 'gas', 'rechner', 'gewerbe', 'wissen', 'ueber-uns', 'kontakt', 'pruefungen', 'barrierefreiheit', '404'];
+        const validSections = ['start', 'tanks', 'gas', 'rechner', 'gewerbe', 'wissen', 'ueber-uns', 'kontakt', 'pruefungen', 'barrierefreiheit', 'liefergebiet', '404'];
 
         // Dynamic routes helper
         const isTankRoute = activeSection.startsWith('tanks/');
@@ -152,8 +153,18 @@ const App = ({ path, context }) => {
             return <TankDetail slug={slug} onBack={() => changeSection('tanks')} openWizard={openWizard} />;
         }
 
+        if (activeSection === 'liefergebiet') {
+             return <Suspense fallback={<div className="h-screen flex items-center justify-center">Laden...</div>}><DeliveryAreaOverview setActiveSection={changeSection} /></Suspense>;
+        }
+
         if (activeSection.startsWith('liefergebiet/')) {
             const slug = activeSection.split('/')[1];
+
+            // Handle trailing slash or empty slug
+            if (!slug) {
+                return <Suspense fallback={<div className="h-screen flex items-center justify-center">Laden...</div>}><DeliveryAreaOverview setActiveSection={changeSection} /></Suspense>;
+            }
+
             // Check if valid city
             const cityExists = cityData.find(c => c.slug === slug);
             if (cityExists) {
@@ -165,7 +176,7 @@ const App = ({ path, context }) => {
         }
 
         // Sections
-        const validSections = ['start', 'tanks', 'gas', 'rechner', 'gewerbe', 'wissen', 'ueber-uns', 'kontakt', 'pruefungen', 'barrierefreiheit', '404'];
+        const validSections = ['start', 'tanks', 'gas', 'rechner', 'gewerbe', 'wissen', 'ueber-uns', 'kontakt', 'pruefungen', 'barrierefreiheit', 'liefergebiet', '404'];
 
         // Return 404 if not a valid section
         if (!validSections.includes(activeSection)) {

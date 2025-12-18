@@ -19,7 +19,28 @@ export const cityData = [
     { name: 'Plön', slug: 'ploen', zip: '24306', state: 'Schleswig-Holstein' },
     { name: 'Oldenburg in Holstein', slug: 'oldenburg-holstein', zip: '23758', state: 'Schleswig-Holstein' },
     { name: 'Neustadt in Holstein', slug: 'neustadt-holstein', zip: '23730', state: 'Schleswig-Holstein' },
-    { name: 'Ahrensburg', slug: 'ahrensburg', zip: '22926', state: 'Schleswig-Holstein' }
+    { name: 'Ahrensburg', slug: 'ahrensburg', zip: '22926', state: 'Schleswig-Holstein' },
+    // 20 Additional Cities
+    { name: 'Flensburg', slug: 'flensburg', zip: '24937', state: 'Schleswig-Holstein' },
+    { name: 'Itzehoe', slug: 'itzehoe', zip: '25524', state: 'Schleswig-Holstein' },
+    { name: 'Pinneberg', slug: 'pinneberg', zip: '25421', state: 'Schleswig-Holstein' },
+    { name: 'Winsen (Luhe)', slug: 'winsen-luhe', zip: '21423', state: 'Niedersachsen' },
+    { name: 'Buxtehude', slug: 'buxtehude', zip: '21614', state: 'Niedersachsen' },
+    { name: 'Buchholz in der Nordheide', slug: 'buchholz', zip: '21244', state: 'Niedersachsen' },
+    { name: 'Seevetal', slug: 'seevetal', zip: '21218', state: 'Niedersachsen' },
+    { name: 'Geesthacht', slug: 'geesthacht', zip: '21502', state: 'Schleswig-Holstein' },
+    { name: 'Reinbek', slug: 'reinbek', zip: '21465', state: 'Schleswig-Holstein' },
+    { name: 'Wedel', slug: 'wedel', zip: '22880', state: 'Schleswig-Holstein' },
+    { name: 'Husum', slug: 'husum', zip: '25813', state: 'Schleswig-Holstein' },
+    { name: 'Heide', slug: 'heide', zip: '25746', state: 'Schleswig-Holstein' },
+    { name: 'Schleswig', slug: 'schleswig', zip: '24837', state: 'Schleswig-Holstein' },
+    { name: 'Bad Oldesloe', slug: 'bad-oldesloe', zip: '23843', state: 'Schleswig-Holstein' },
+    { name: 'Bad Schwartau', slug: 'bad-schwartau', zip: '23611', state: 'Schleswig-Holstein' },
+    { name: 'Mölln', slug: 'moelln', zip: '23879', state: 'Schleswig-Holstein' },
+    { name: 'Kaltenkirchen', slug: 'kaltenkirchen', zip: '24568', state: 'Schleswig-Holstein' },
+    { name: 'Quickborn', slug: 'quickborn', zip: '25451', state: 'Schleswig-Holstein' },
+    { name: 'Bargteheide', slug: 'bargteheide', zip: '22941', state: 'Schleswig-Holstein' },
+    { name: 'Glinde', slug: 'glinde', zip: '21509', state: 'Schleswig-Holstein' }
 ];
 
 export const getCityBySlug = (slug) => cityData.find(city => city.slug === slug);
