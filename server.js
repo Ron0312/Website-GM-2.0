@@ -346,6 +346,18 @@ ${routes.map(route => `  <url>
             }
         }
 
+        // Exclude resource paths from redirect logic to prevent false positives (e.g. FAQ.jsx -> /wissen)
+        if (
+            normalizedPath.startsWith('/src/') ||
+            normalizedPath.startsWith('/node_modules/') ||
+            normalizedPath.startsWith('/@') ||
+            normalizedPath.startsWith('/logos/') ||
+            normalizedPath.startsWith('/images/') ||
+            normalizedPath.startsWith('/assets/')
+        ) {
+            return next();
+        }
+
         // Not a valid known route, try to redirect
         // We pass the RAW req.path to findRedirect to let it handle decoding logic
         // explicitly, but we also pass normalizedPath if needed.

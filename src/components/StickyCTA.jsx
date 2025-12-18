@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, ArrowRight } from 'lucide-react';
+import { Phone, ArrowRight, Accessibility } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const StickyCTA = ({ openWizard }) => {
     const [isVisible, setIsVisible] = useState(false);
+
+    const openAccessibility = () => {
+        window.dispatchEvent(new CustomEvent('openAccessibilityMenu'));
+    };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -42,6 +46,13 @@ const StickyCTA = ({ openWizard }) => {
                     >
                         Angebot anfordern
                         <ArrowRight size={16} />
+                    </button>
+                    <button
+                        onClick={openAccessibility}
+                        className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl text-gray-700 active:scale-95 transition-transform"
+                        aria-label="Barrierefreiheit"
+                    >
+                        <Accessibility size={20} />
                     </button>
                 </motion.div>
             )}

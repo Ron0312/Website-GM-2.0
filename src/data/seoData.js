@@ -5,48 +5,48 @@ const DEFAULT_IMAGE = `${SITE_URL}/logos/Icon-01.webp`; // High contrast icon fo
 
 export const seoData = {
     'start': {
-        title: 'Flüssiggastank kaufen & Geld sparen | gasmöller - Ihr Experte im Norden',
-        description: 'Unabhängig & Fair. Flüssiggastanks (1,2t - 2,9t) zum Kauf statt Miete. Eigener Fuhrpark, Express-Lieferung. Seit 2000 in Schleswig-Holstein & Hamburg.',
+        title: 'Flüssiggastank kaufen & sofort sparen (Nr. 1 im Norden) | gasmöller',
+        description: 'Nie wieder Miete zahlen! Werden Sie unabhängig mit einem eigenen Flüssiggastank (1,2t - 2,9t). Fair, transparent & regional. Jetzt Angebot sichern!',
         image: `${SITE_URL}/images/gas-order-hero.webp`
     },
     'tanks': {
-        title: 'Flüssiggastank kaufen statt mieten | Alle Größen (1,2t - 2,9t) | gasmöller',
-        description: 'Sparen Sie Mietkosten! Neue & geprüfte Flüssiggastanks zum fairen Preis. Oberirdisch & unterirdisch. Jetzt Angebot für Ihren Flüssiggastank anfordern.',
+        title: 'Flüssiggastank kaufen [Preis-Check] | Bis 50% sparen | gasmöller',
+        description: 'Schluss mit teuren Mietverträgen! Neue & geprüfte Tanks zum Bestpreis kaufen. Oberirdisch & unterirdisch. Starten Sie jetzt in Ihre Unabhängigkeit.',
         image: DEFAULT_IMAGE
     },
     'gas': {
-        title: 'Flüssiggas bestellen | Aktueller Tagespreis & Express-Lieferung | gasmöller',
-        description: 'Günstiges Flüssiggas für den Norden. Zuverlässige Lieferung mit eigener Flotte. Keine versteckten Kosten. Hier aktuellen Flüssiggaspreis anfragen!',
+        title: 'Flüssiggas bestellen | Tiefpreis-Garantie & Express | gasmöller',
+        description: 'Ihr Gas ist leer? Wir liefern sofort! Aktueller Tagespreis ohne versteckte Kosten. Regionaler Service für den Norden. Jetzt Preis anfragen & sparen.',
         image: `${SITE_URL}/images/gas-order-hero.webp`
     },
     'wissen': {
-        title: 'Wissen & Ratgeber | Alles über Flüssiggas & Flüssiggastanks | gasmöller',
-        description: 'Expertenwissen: Wie sicher sind Flüssiggastanks? Wie oft prüfen? Tipps zum Energiesparen & Umrüsten von Öl auf Flüssiggas. Hier informieren.',
+        title: 'Experten-Wissen: So sparen Sie bei Flüssiggas | Ratgeber | gasmöller',
+        description: 'Geheimtipps vom Profi: Wie Sie Heizkosten senken & sicher heizen. Alles zu Prüfung, Wartung & Umrüstung. Machen Sie sich schlau!',
         image: DEFAULT_IMAGE
     },
     'gewerbe': {
-        title: 'Gewerbegas & Prozesswärme | Individuelle Lösungen | gasmöller',
-        description: 'Effizientes Flüssiggas für Landwirtschaft, Industrie & Gewerbe. Prozesswärme, Hallenheizung & Staplergas (Flüssiggas). Jetzt Gewerbe-Angebot sichern.',
+        title: 'Gewerbegas & Prozesswärme | Effizienz für Ihr Business | gasmöller',
+        description: 'Maximale Power für Ihren Betrieb. Zuverlässiges Flüssiggas für Landwirtschaft & Industrie. Individuelle Konditionen anfragen.',
         image: DEFAULT_IMAGE
     },
     'ueber-uns': {
-        title: 'Über gasmöller | Ihr unabhängiger Familienbetrieb im Norden',
-        description: 'Persönlich & Nah. Seit 2000 versorgen wir Schleswig-Holstein & Hamburg mit Flüssiggas. Lernen Sie unser Team und unsere Werte kennen.',
+        title: 'Wir sind gasmöller | Ehrlich. Norddeutsch. Unabhängig.',
+        description: 'Kein Konzern, sondern Familie. Seit 2000 Ihr verlässlicher Partner für Energie im Norden. Lernen Sie die Gesichter hinter dem Service kennen.',
         image: DEFAULT_IMAGE
     },
     'kontakt': {
-        title: 'Kontakt & Service | Wir sind für Sie da | gasmöller',
-        description: 'Fragen zu Flüssiggastank oder Flüssiggas? Rufen Sie uns an: 04551 89 70 89. Kompetente Beratung, schneller Service. Schreiben Sie uns!',
+        title: 'Kontakt & Hilfe | Wir lösen Ihr Problem | gasmöller',
+        description: 'Persönliche Beratung statt Warteschleife. Rufen Sie uns direkt an: 04551 89 70 89. Wir kümmern uns um Ihr Anliegen – schnell & kompetent.',
         image: DEFAULT_IMAGE
     },
     'rechner': {
-        title: 'Heizkosten-Rechner | Flüssiggas-Vergleich & Ersparnis | gasmöller',
-        description: 'Vergleichen Sie jetzt: So viel sparen Sie mit einem eigenen Tank gegenüber Vertragsbindung. Kostenloser Rechner für Öl, Gas, Pellets & Holz.',
+        title: 'Heizkosten-Rechner [2024] | Was kostet Heizen wirklich? | gasmöller',
+        description: 'Der große Vergleich: Flüssiggas vs. Öl, Pellets & Wärmepumpe. Sehen Sie schwarz auf weiß, wie viel Geld Sie mit einem eigenen Tank sparen können.',
         image: DEFAULT_IMAGE
     },
     'pruefungen': {
-        title: 'Tankprüfung fällig? | Innere & Äußere Prüfung | gasmöller',
-        description: 'Zugelassener Fachbetrieb für 2- und 10-jährige Tankprüfungen. Schnell, unkompliziert & preiswert. Jetzt Prüftermin vereinbaren.',
+        title: 'Tankprüfung fällig? | TÜV-Service ohne Stress | gasmöller',
+        description: 'Innere & Äußere Prüfung (2 & 10 Jahre) fällig? Wir erledigen das für Sie. Schnell, sicher & zugelassen. Jetzt Termin buchen & entspannen.',
         image: DEFAULT_IMAGE
     },
     'barrierefreiheit': {

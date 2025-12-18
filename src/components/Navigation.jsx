@@ -50,7 +50,6 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                 }
             ]
         },
-        { id: 'gas', label: 'Gas bestellen' },
         {
             id: 'service',
             label: 'Service',

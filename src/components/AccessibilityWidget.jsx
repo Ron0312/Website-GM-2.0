@@ -11,6 +11,12 @@ const AccessibilityWidget = () => {
         highlightLinks: false
     });
 
+    useEffect(() => {
+        const handleOpenEvent = () => setIsOpen(true);
+        window.addEventListener('openAccessibilityMenu', handleOpenEvent);
+        return () => window.removeEventListener('openAccessibilityMenu', handleOpenEvent);
+    }, []);
+
     const toggleOpen = () => setIsOpen(!isOpen);
 
     const toggleSetting = (key) => {
