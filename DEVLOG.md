@@ -1,49 +1,69 @@
 # Development Log
 
-## [Current Date] - Enhancements & Refinements
+## [Current Date] - Status & Analysis
 
-### Added
-- **PWA Offline Support**: Enhanced `vite.config.js` to cache critical assets (fonts, images) and exclude sitemap/robots from navigation fallback.
-- **Enhanced Delivery Map**: Added a floating tooltip to `DeliveryMap.jsx` that follows the mouse cursor, showing the region name and "Express verfügbar".
-- **Micro-Interactions**: Improved `ModernInput.jsx` with spring animations for validation icons (check/cross).
+### ✅ Aktuell umgesetzte SEO-Maßnahmen
+Eine Analyse der Codebasis (`seoData.js`, `server.js`, Komponenten) zeigt folgende implementierte Standards:
 
-### Changed
-- **Sticky CTA**: Adjusted `StickyCTA.jsx` z-index to `z-[50]` to avoid overlapping with higher-priority modals (like Cookie Banner which is usually higher, or modals). Added `safe-area-pb` class placeholder for future iOS safe area handling.
-- **SSR Error Boundary**: Confirmed `server.js` has robust error handling.
-- **Product Schema**: Confirmed `seoData.js` has detailed Product Schema.
+**1. Technische SEO (Technical SEO)**
+*   **Server-Side Rendering (SSR):** Die Anwendung nutzt SSR via `server.js`, wodurch Suchmaschinen vollständigen HTML-Code erhalten, statt leerer JavaScript-Container.
+*   **Sitemap & Robots.txt:** Automatische Generierung (`scripts/generate-sitemap.js`) bei jedem Build. Beinhaltet statische Seiten und dynamische Tank-Detailseiten (`/tanks/:slug`).
+*   **Performance (Core Web Vitals):**
+    *   `LCP` Optimierung: Hero-Images nutzen `loading="eager"` und `fetchpriority="high"`.
+    *   Bildformate: Konsequente Nutzung von Next-Gen Formaten (`.webp`).
+    *   Caching: `vite-plugin-pwa` Caching-Strategien für Assets und Fonts.
+*   **Canonical & Redirects:**
+    *   Serverseitige Normalisierung von URLs (Entfernung von Trailing Slashes).
+    *   Mapping alter URLs (Legacy Redirects) zur Erhaltung des Linkjuice.
 
-### 10 Further Improvement Tips (Updated)
-1.  **[DONE] SSR Error Boundary**: Implement a robust error boundary in `server.js`.
-2.  **[DONE] Sitemap Automation**: Automate `sitemap.xml` generation.
-3.  **Image Optimization Pipeline**: Add a build step (e.g., `vite-plugin-imagemin`).
-4.  **Content Security Policy (CSP) Refinement**: Tighten the CSP in `server.js`.
-5.  **[DONE] Offline Support (PWA)**: Enhance the Service Worker.
-6.  **Interactive Tank Configurator**: Upgrade the `WizardModal` into a full-page, interactive 3D configurator.
-7.  **Dynamic Pricing API**: Integrate a backend endpoint for daily gas prices.
-8.  **Customer Portal**: Create a login area.
-9.  **Blog/News Integration**: Build a simple Markdown-based blog system.
-10. **AB Testing Framework**: Implement a lightweight A/B testing mechanism.
+**2. Strukturiere Daten (Schema.org)**
+*   **LocalBusiness Schema:** Umfassende Daten inkl. Geo-Koordinaten, Öffnungszeiten, Telefon und `AggregateRating` (5.0 Sterne) in `seoData.js`.
+*   **Product Schema:** Detailseiten (`/tanks/1-2-t-oberirdisch`) liefern detaillierte Produkt-Daten (SKU, Brand, Description, Offer).
+*   **OfferCatalog:** Die Übersichtseite (`/tanks`) ist als Katalog ausgezeichnet.
+*   **BreadcrumbList:** Dynamische Generierung der Pfadstruktur für Rich Snippets.
+*   **WebSite:** Definition der Sitelinks Search Box.
 
-### Vorschläge für mehr Professionalität
-1.  **Rate Limiting & Spam-Schutz**: Implementieren Sie serverseitiges Rate Limiting. (Basic implementation exists in server.js)
-2.  **DSGVO Audit-Trail**: Protokollieren Sie bei Zustimmung zur Datenverarbeitung.
-3.  **Strict Content Security Policy (CSP)**: Härten Sie die CSP. (Partially done in server.js)
-4.  **Automatisierter Link-Check**: CI/CD-Schritt für Dead Links.
-5.  **[DONE] Erweitertes Product Schema (SEO)**: Ergänzen Sie `seoData.js`.
-6.  **Automatisierte Barrierefreiheits-Tests**: Integrieren Sie Tools wie `pa11y`.
-7.  **Professionelles Logging**: Ersetzen Sie `console.log`. (Basic JSON logger added in server.js)
-8.  **Graceful Shutdown**: Implementieren Sie `process.on('SIGTERM')`. (Added in server.js)
-9.  **Canonical & HTTPS Enforcing**: Stellen Sie sicher, dass der Server strikt umleitet. (HSTS added in server.js)
-10. **Sentry / Fehler-Monitoring**: Integrieren Sie einen Dienst wie Sentry.
+**3. On-Page Optimierung**
+*   **Metadaten:** Individuelle `Title` und `Description` Tags für jede Route, optimiert auf CTR (z.B. "Nr. 1 im Norden", "Tiefpreis-Garantie").
+*   **Semantisches HTML:** Nutzung von `<header>`, `<main>`, `<section>`, `<article>` zur Strukturierung.
+*   **Social Sharing:** Open Graph Tags (`og:image`, `og:title`) mit Fallback-Logik.
 
-### Vorschläge zur optischen Aufwertung und UX/UI-Verbesserung
-1.  **[DONE] Micro-Interactions in Formularen**: Fügen Sie in `ModernInput.jsx` subtile Animationen hinzu.
-2.  **[DONE] Sticky Mobile CTA**: Fixieren Sie auf mobilen Geräten den Button.
-3.  **Progressive Image Loading (Blur-Up)**: Implementieren Sie einen "Blur-Up" Effekt.
-4.  **[DONE] Interaktive Lieferkarte**: Machen Sie die `DeliveryMap.jsx` lebendiger.
-5.  **Scroll-Driven Animations**: Nutzen Sie `framer-motion` (z.B. `useScroll`).
-6.  **Haptisches Feedback (Mobile)**: Lösen Sie bei erfolgreichen Aktionen im `WizardModal` Vibration aus.
-7.  **[DONE] Live-Status "Geöffnet/Geschlossen"**: Zeigen Sie im Footer an.
-8.  **[DONE] Custom 404 Experience**: Gestalten Sie die 404-Seite kreativer.
-9.  **Skeleton Loading im Rechner**: Zeigen Sie "Skeleton UI".
-10. **Glassmorphism Hover-Effekte**: Verleihen Sie Karten einen modernen Effekt.
+---
+
+### 🚀 10 Potenzielle SEO-Verbesserungen
+Basierend auf der Analyse könnten folgende Punkte das Ranking weiter verbessern:
+
+1.  **H1-Optimierung:** Der aktuelle `<h1>` im Hero ist "Gas-Service Möller" (Brand). Besser wäre ein Keyword-Fokus, z.B. *"Flüssiggastank kaufen & Service im Norden"*, während der Brand-Name als Subline fungiert.
+2.  **FAQ Schema:** Implementierung von `FAQPage` Schema auf der "Wissen" oder Startseite, um direkt in den Google-Suchergebnissen Fragen zu beantworten.
+3.  **Content-Hub Stärkung:** Die Sektion "Wissen" stärker intern verlinken (z.B. von Produktseiten zu Ratgebern: "Welche Tankgröße passt zu mir?").
+4.  **Bilder-SEO:** `alt`-Attribute sind teilweise generisch (z.B. "Landschaft Norddeutschland"). Diese sollten spezifischer sein: *"Oberirdischer Flüssiggastank 1,2t im Garten in Hamburg"*.
+5.  **Lokale Landingpages:** Erstellung statischer Seiten für Haupt-Liefergebiete (z.B. `/gas-hamburg`, `/gas-luebeck`) mit spezifischem Local-SEO-Content.
+6.  **Video Schema:** Falls Videos (z.B. Erklärvideos) eingebunden werden, `VideoObject` Schema nutzen.
+7.  **Autor-Boxen:** Für E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) Autorenprofile unter Ratgeber-Artikel setzen (z.B. "Thomas Müller, Sachkundiger für Flüssiggasanlagen").
+8.  **Strukturierte Daten für Events:** Falls Messen oder Infotage stattfinden -> `Event` Schema.
+9.  **Erweiterte Meta-Descriptions:** Prüfen, ob für alle Produkte USPs (Häkchen-Symbole ✓) in der Description genutzt werden, um im Snippet aufzufallen.
+10. **HTML-Lang Attribut:** Sicherstellen, dass `<html lang="de">` serverseitig korrekt gesetzt ist (oft Standard, aber wichtig zu prüfen).
+
+---
+
+### 🛠️ 10 Allgemeine Verbesserungsideen (Code & UX)
+Analyse der Codebasis und Usability:
+
+1.  **Visuelle Breadcrumbs:** Obwohl Schema.org vorhanden ist, fehlen dem Nutzer visuelle "Brotkrümel" zur Navigation auf der Website (z.B. Start > Tanks > 1,2t Oberirdisch).
+2.  **Unit-Tests für Rechner:** Der `EnergyCalculator` enthält komplexe Logik. Hier fehlen Unit-Tests (z.B. mit Vitest), um Rechenfehler bei Updates auszuschließen.
+3.  **Formular-Validierung UX:** Bei Fehlern im `WizardModal` könnte der Fokus automatisch zum ersten fehlerhaften Feld springen (Focus Management).
+4.  **Security Headers (CSP):** Die Content Security Policy in `server.js` könnte noch strikter gefasst werden (Verzicht auf `unsafe-inline` wo möglich).
+5.  **A11y (Barrierefreiheit):** Prüfen, ob alle Icons (z.B. von `lucide-react`) `aria-hidden="true"` haben oder Labels besitzen, wenn sie interaktiv sind.
+6.  **Code-Splitting:** Die `tanks.js` Daten werden oft importiert. Bei sehr vielen Tanks könnte dies in einen asynchronen API-Call oder JSON-Fetch ausgelagert werden, um das Bundle klein zu halten.
+7.  **Fehler-Monitoring:** Integration von Sentry oder LogRocket, um Client-Side Errors in Produktion zu tracken (da SSR-Logs nur Server-Fehler zeigen).
+8.  **Druck-Styles:** CSS `@media print` optimieren, damit Kunden Angebote oder Rechner-Ergebnisse sauber ausdrucken können (Ausblenden von Navi/Footer/Hero).
+9.  **404-Suchfunktion:** Auf der 404-Seite eine Suchleiste oder die beliebtesten Links anbieten, statt nur "Zurück zur Startseite".
+10. **Bild-Optimierung Pipeline:** Integration von `vite-plugin-imagemin` im Build-Prozess, um Bilder automatisch zu komprimieren, statt sich auf manuelle Vorarbeit zu verlassen.
+
+---
+
+### Archive: Recent Changes
+*   **PWA Offline Support**: Enhanced caching strategies.
+*   **Enhanced Delivery Map**: Floating tooltips added.
+*   **Micro-Interactions**: Form validations animated.
+*   **Sticky CTA**: Z-Index fixes for mobile.
