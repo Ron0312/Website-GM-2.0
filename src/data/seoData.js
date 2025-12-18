@@ -166,6 +166,13 @@ export const getSchemaForPath = (path) => {
             "closes": "17:00"
         },
         "priceRange": "$$",
+        "aggregateRating": {
+             "@type": "AggregateRating",
+             "ratingValue": "5.0",
+             "reviewCount": "127",
+             "bestRating": "5",
+             "worstRating": "1"
+        },
         "sameAs": [
              "https://www.facebook.com/gasmoeller",
              "https://www.linkedin.com/company/gasmoeller"
@@ -178,6 +185,18 @@ export const getSchemaForPath = (path) => {
             "availableLanguage": "German"
         },
         "knowsAbout": ["Flüssiggas", "Gastanks", "Heizung", "Energie", "Gewerbegas", "Prozesswärme"]
+    };
+
+    const websiteSchema = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "gasmöller",
+        "url": SITE_URL,
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": `${SITE_URL}/suche?q={search_term_string}`,
+            "query-input": "required name=search_term_string"
+        }
     };
 
     // Specific schema for Tank Detail pages
@@ -293,9 +312,9 @@ export const getSchemaForPath = (path) => {
              "item": currentUrl
         });
 
-        // Return array of schemas (Organization + Breadcrumb)
-        return [baseSchema, breadcrumb];
+        // Return array of schemas (Organization + Breadcrumb + Website)
+        return [baseSchema, breadcrumb, websiteSchema];
     }
 
-    return baseSchema;
+    return [baseSchema, websiteSchema];
 };

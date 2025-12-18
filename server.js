@@ -105,7 +105,12 @@ async function createServer() {
         maxAge: 31536000,
         includeSubDomains: true,
         preload: true
-    }
+    },
+    referrerPolicy: {
+        policy: 'strict-origin-when-cross-origin'
+    },
+    xContentTypeOptions: true,
+    xDnsPrefetchControl: { allow: true }
   }));
 
   // Extra headers not fully covered by default Helmet or custom preferences

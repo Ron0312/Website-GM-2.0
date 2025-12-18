@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Accessibility, X, Sun, Type, Zap, Link as LinkIcon } from 'lucide-react';
 
 const AccessibilityWidget = () => {
-    // ... code ...
     const [isOpen, setIsOpen] = useState(false);
     const [settings, setSettings] = useState({
         highContrast: false,
@@ -43,13 +42,12 @@ const AccessibilityWidget = () => {
         else root.classList.remove('a11y-highlight-links');
     };
 
-    // ... rendering ...
     return (
         <div className="fixed bottom-24 md:bottom-4 left-4 z-[90] print:hidden">
-            {/* Toggle Button */}
+            {/* Toggle Button - Hidden on mobile because StickyCTA provides access */}
             <button
                 onClick={toggleOpen}
-                className="bg-gas hover:bg-gas-dark text-white p-3 rounded-full shadow-lg transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gas"
+                className="hidden md:flex bg-gas hover:bg-gas-dark text-white p-3 rounded-full shadow-lg transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gas"
                 aria-label="Barrierefreiheit Menü öffnen"
                 aria-expanded={isOpen}
             >
