@@ -209,6 +209,10 @@ const getCitySchema = (city) => ({
     "name": `Flüssiggas & Tanks in ${city.name}`
 });
 
+export const getSchemaForPath = (path) => {
+   const seo = getSeoForPath(path);
+   return seo.schema;
+};
 
 export const getSeoForPath = (path) => {
   const defaultSeo = {

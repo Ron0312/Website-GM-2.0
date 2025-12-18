@@ -6,6 +6,7 @@ import compression from 'compression'
 import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
 import { Logger } from './src/utils/logger.js'
+import { cityData } from './src/data/cityData.js'
 
 // Prevent crash on unhandled exceptions
 process.on('uncaughtException', (err) => {
@@ -140,6 +141,7 @@ async function createServer() {
       const SITE_URL = 'https://gasmoeller.de'; // Enforce non-www
       const routes = [...staticRoutes.filter(r => r !== '404' && r !== 'sitemap.xml' && r !== 'robots.txt')]; // Exclude technical routes from sitemap
       tankSlugs.forEach(slug => routes.push(`tanks/${slug}`));
+      cityData.forEach(city => routes.push(`liefergebiet/${city.slug}`));
 
       return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -147,7 +149,7 @@ ${routes.map(route => `  <url>
     <loc>${SITE_URL}/${route}</loc>
     <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
     <changefreq>${route === '' ? 'daily' : 'weekly'}</changefreq>
-    <priority>${route === '' ? '1.0' : '0.8'}</priority>
+    <priority>${route === '' ? '1.0' : (route.startsWith('liefergebiet/') ? '0.7' : '0.8')}</priority>
   </url>`).join('\n')}
 </urlset>`;
   };
@@ -347,6 +349,14 @@ ${routes.map(route => `  <url>
         if (cleanPath.startsWith('tanks/')) {
             const slug = cleanPath.split('/')[1];
             if (tankSlugs.includes(slug)) {
+                return next();
+            }
+        }
+
+        // Check if the path is a valid city route
+        if (cleanPath.startsWith('liefergebiet/')) {
+            const slug = cleanPath.split('/')[1];
+            if (cityData.some(c => c.slug === slug)) {
                 return next();
             }
         }

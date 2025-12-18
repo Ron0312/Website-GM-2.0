@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { tankDetails } from './src/data/tanks.js';
+import { cityData } from './src/data/cityData.js';
 import { getSeoForPath, getSchemaForPath } from './src/data/seoData.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -31,7 +32,8 @@ const routesToPrerender = [
     '/pruefungen',
     '/barrierefreiheit',
     // Dynamic routes
-    ...tankDetails.map(t => `/tanks/${t.slug}`)
+    ...tankDetails.map(t => `/tanks/${t.slug}`),
+    ...cityData.map(c => `/liefergebiet/${c.slug}`)
 ];
 
 // Add 404 route specifically
