@@ -1,7 +1,7 @@
 import React, { Suspense, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, CheckCircle2 } from 'lucide-react';
-import { getCityBySlug } from '../data/cityData';
+import { getCityBySlug, cityData } from '../data/cityData';
 import Hero from './Hero';
 import TankSection from './TankSection';
 import ContactSection from './ContactSection';
@@ -86,6 +86,17 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
     );
 
     const heroSubtitle = `Ihr unabhängiger Anbieter für Flüssiggas in ${city.name} (${city.zip}). Kaufen Sie Ihren Gastank direkt, sparen Sie Miete und genießen Sie freie Händlerwahl.`;
+
+    // Find nearby cities (same state) - Deterministic shuffle to prevent hydration mismatch
+    const seed = slug.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const nearbyCities = cityData
+        .filter(c => c.state === city.state && c.slug !== city.slug)
+        .sort((a, b) => {
+            const valA = a.slug.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+            const valB = b.slug.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+            return (valA + seed) % 100 - (valB + seed) % 100;
+        })
+        .slice(0, 6);
 
     return (
         <div className="min-h-screen bg-white">
@@ -174,6 +185,33 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
             <InspectionSection openWizard={openWizard} />
 
             <LocalFAQ city={city} />
+
+            {/* Nearby Cities Section */}
+            {nearbyCities.length > 0 && (
+                <div className="bg-gray-50 py-16 border-t border-gray-100">
+                    <div className="max-w-7xl mx-auto px-4 text-center">
+                        <h3 className="text-2xl font-bold text-gray-800 mb-8">Wir sind auch in Ihrer Nähe</h3>
+                        <div className="flex flex-wrap justify-center gap-4">
+                            {nearbyCities.map(neighbor => (
+                                <button
+                                    key={neighbor.slug}
+                                    onClick={() => setActiveSection(`liefergebiet/${neighbor.slug}`)}
+                                    className="px-6 py-3 bg-white border border-gray-200 rounded-full text-gray-600 hover:border-gas hover:text-gas hover:shadow-sm transition-all font-medium"
+                                >
+                                    {neighbor.name}
+                                </button>
+                            ))}
+                            <button
+                                onClick={() => setActiveSection('liefergebiet')}
+                                className="px-6 py-3 bg-gas-light/20 border border-transparent rounded-full text-gas font-bold hover:bg-gas-light/40 transition-all"
+                            >
+                                Alle Städte anzeigen
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <ContactSection />
         </div>
     );

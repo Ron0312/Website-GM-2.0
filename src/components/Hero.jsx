@@ -11,7 +11,8 @@ const Hero = ({ setActiveSection, openWizard, title, subtitle, showBadges = true
         if (title) return title;
         return (
             <>
-                Flüssiggas, Tanks <br/>
+                Flüssiggas, <br className="hidden xs:block" />
+                Flüssiggastanks <br/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">& Service.</span>
             </>
         );
