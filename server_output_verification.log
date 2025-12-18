@@ -1,64 +1,9 @@
 
 > gasmoeller-vite@0.0.0 dev
-> node server.js --port 5174
+> node server.js
 
-Starting server. Initial mode: DEVELOPMENT
-Server started at http://localhost:5173
-{"method":"GET","url":"/","status":200,"duration":"3289ms","timestamp":"2025-12-17T11:58:37.135Z","ip":"::1"}
-{"method":"GET","url":"/src/main.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.233Z","ip":"::1"}
-{"method":"GET","url":"/@vite/client","status":200,"duration":"77ms","timestamp":"2025-12-17T11:58:37.282Z","ip":"::1"}
-{"method":"GET","url":"/@react-refresh","status":200,"duration":"4ms","timestamp":"2025-12-17T11:58:37.288Z","ip":"::1"}
-{"method":"GET","url":"/logos/Icon-01.webp","status":200,"duration":"27ms","timestamp":"2025-12-17T11:58:37.300Z","ip":"::1"}
-{"method":"GET","url":"/images/gas-order-hero.webp","status":200,"duration":"77ms","timestamp":"2025-12-17T11:58:37.303Z","ip":"::1"}
-{"method":"GET","url":"/images/tank-section-hero.webp","status":200,"duration":"18ms","timestamp":"2025-12-17T11:58:37.381Z","ip":"::1"}
-{"method":"GET","url":"/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=534555dd","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.391Z","ip":"::1"}
-{"method":"GET","url":"/node_modules/.vite/deps/react.js?v=534555dd","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.393Z","ip":"::1"}
-{"method":"GET","url":"/node_modules/.vite/deps/react-dom_client.js?v=ef0613db","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.395Z","ip":"::1"}
-{"method":"GET","url":"/src/App.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.397Z","ip":"::1"}
-{"method":"GET","url":"/src/index.css","status":200,"duration":"2ms","timestamp":"2025-12-17T11:58:37.399Z","ip":"::1"}
-{"method":"GET","url":"/node_modules/@fontsource/inter/400.css","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.419Z","ip":"::1"}
-{"method":"GET","url":"/node_modules/@fontsource/inter/700.css","status":200,"duration":"0ms","timestamp":"2025-12-17T11:58:37.420Z","ip":"::1"}
-{"method":"GET","url":"/src/components/ErrorBoundary.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.421Z","ip":"::1"}
-{"method":"GET","url":"/node_modules/vite/dist/client/env.mjs","status":200,"duration":"2ms","timestamp":"2025-12-17T11:58:37.423Z","ip":"::1"}
-{"method":"GET","url":"/node_modules/.vite/deps/chunk-SB5BK2J2.js?v=ee1f56b7","status":200,"duration":"16ms","timestamp":"2025-12-17T11:58:37.442Z","ip":"::1"}
-{"method":"GET","url":"/node_modules/.vite/deps/chunk-N6MYFXC3.js?v=ee1f56b7","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.445Z","ip":"::1"}
-{"method":"GET","url":"/node_modules/.vite/deps/lucide-react.js?v=ddbc966f","status":200,"duration":"10ms","timestamp":"2025-12-17T11:58:37.455Z","ip":"::1"}
-{"method":"GET","url":"/src/data/seoData.js","status":200,"duration":"3ms","timestamp":"2025-12-17T11:58:37.458Z","ip":"::1"}
-{"method":"GET","url":"/src/components/Navigation.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.460Z","ip":"::1"}
-{"method":"GET","url":"/src/components/Hero.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.461Z","ip":"::1"}
-{"method":"GET","url":"/src/components/TrustBar.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.490Z","ip":"::1"}
-{"method":"GET","url":"/src/components/TankSection.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.494Z","ip":"::1"}
-{"method":"GET","url":"/src/components/TankDetail.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.495Z","ip":"::1"}
-{"method":"GET","url":"/src/components/CommercialSection.jsx","status":200,"duration":"0ms","timestamp":"2025-12-17T11:58:37.505Z","ip":"::1"}
-{"method":"GET","url":"/src/components/InspectionSection.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.517Z","ip":"::1"}
-{"method":"GET","url":"/src/components/DeliveryMap.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.528Z","ip":"::1"}
-Redirecting: /src/components/FAQ.jsx -> /wissen
-{"method":"GET","url":"/src/components/FAQ.jsx","status":301,"duration":"3ms","timestamp":"2025-12-17T11:58:37.539Z","ip":"::1"}
-{"method":"GET","url":"/src/components/ContactSection.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.540Z","ip":"::1"}
-{"method":"GET","url":"/src/components/GasOrderSection.jsx","status":200,"duration":"4ms","timestamp":"2025-12-17T11:58:37.547Z","ip":"::1"}
-{"method":"GET","url":"/src/components/EnergyCalculator.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.548Z","ip":"::1"}
-{"method":"GET","url":"/src/components/KnowledgeCenter.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.549Z","ip":"::1"}
-{"method":"GET","url":"/src/components/AboutPage.jsx","status":200,"duration":"0ms","timestamp":"2025-12-17T11:58:37.551Z","ip":"::1"}
-{"method":"GET","url":"/src/components/Footer.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.552Z","ip":"::1"}
-{"method":"GET","url":"/src/components/WizardModal.jsx","status":200,"duration":"4ms","timestamp":"2025-12-17T11:58:37.556Z","ip":"::1"}
-{"method":"GET","url":"/src/components/CookieBanner.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.571Z","ip":"::1"}
-{"method":"GET","url":"/src/components/SimpleModal.jsx","status":200,"duration":"0ms","timestamp":"2025-12-17T11:58:37.571Z","ip":"::1"}
-{"method":"GET","url":"/src/components/ScrollToTop.jsx","status":200,"duration":"0ms","timestamp":"2025-12-17T11:58:37.572Z","ip":"::1"}
-{"method":"GET","url":"/src/components/NotFound.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.573Z","ip":"::1"}
-{"method":"GET","url":"/src/components/StickyCTA.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.574Z","ip":"::1"}
-{"method":"GET","url":"/src/components/AccessibilityWidget.jsx","status":200,"duration":"6ms","timestamp":"2025-12-17T11:58:37.580Z","ip":"::1"}
-{"method":"GET","url":"/src/components/AccessibilityPage.jsx","status":200,"duration":"0ms","timestamp":"2025-12-17T11:58:37.587Z","ip":"::1"}
-{"method":"GET","url":"/src/components/Legal.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.588Z","ip":"::1"}
-{"method":"GET","url":"/src/utils/clientRedirect.js","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.589Z","ip":"::1"}
-{"method":"GET","url":"/src/data/tanks.js","status":200,"duration":"3ms","timestamp":"2025-12-17T11:58:37.632Z","ip":"::1"}
-{"method":"GET","url":"/node_modules/.vite/deps/framer-motion.js?v=216b7388","status":200,"duration":"5ms","timestamp":"2025-12-17T11:58:37.637Z","ip":"::1"}
-{"method":"GET","url":"/src/components/TopBar.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.638Z","ip":"::1"}
-{"method":"GET","url":"/src/components/TankCard.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.668Z","ip":"::1"}
-{"method":"GET","url":"/src/utils/validation.js","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.669Z","ip":"::1"}
-{"method":"GET","url":"/src/components/ui/ModernInput.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.670Z","ip":"::1"}
-{"method":"GET","url":"/src/components/ui/Skeleton.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.671Z","ip":"::1"}
-{"method":"GET","url":"/src/components/TeamSection.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.694Z","ip":"::1"}
-{"method":"GET","url":"/src/components/AboutTimeline.jsx","status":200,"duration":"1ms","timestamp":"2025-12-17T11:58:37.695Z","ip":"::1"}
-{"method":"GET","url":"/src/data/content.jsx","status":200,"duration":"5ms","timestamp":"2025-12-17T11:58:37.700Z","ip":"::1"}
-{"method":"GET","url":"/src/components/RentVsBuyGraphic.jsx","status":200,"duration":"0ms","timestamp":"2025-12-17T11:58:37.703Z","ip":"::1"}
-{"method":"GET","url":"/src/components/ui/SelectionCard.jsx","status":200,"duration":"0ms","timestamp":"2025-12-17T11:58:37.704Z","ip":"::1"}
+{"level":"INFO","timestamp":"2025-12-18T08:10:00.520Z","message":"Starting server. Initial mode: DEVELOPMENT"}
+{"level":"INFO","timestamp":"2025-12-18T08:10:00.807Z","message":"Server started at http://localhost:5173"}
+{"level":"INFO","timestamp":"2025-12-18T08:10:58.606Z","message":"Redirecting: /src/components/FAQ.jsx -> /wissen"}
+{"level":"INFO","timestamp":"2025-12-18T08:13:11.253Z","message":"Redirecting: /src/components/FAQ.jsx -> /wissen"}
+{"level":"INFO","timestamp":"2025-12-18T08:13:16.238Z","message":"Redirecting: /src/components/FAQ.jsx -> /wissen"}

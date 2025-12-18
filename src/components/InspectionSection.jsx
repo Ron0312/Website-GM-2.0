@@ -29,7 +29,12 @@ const InspectionSection = ({ openWizard }) => {
             {/* Content Section */}
             <div className="max-w-7xl mx-auto px-4 py-24">
                 <div className="grid md:grid-cols-2 gap-16 items-center mb-20">
-                    <div>
+                    <motion.div
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                    >
                         <h2 className="text-3xl font-bold text-gray-900 mb-6">Warum sind Prüfungen notwendig?</h2>
                         <p className="text-gray-600 mb-6 leading-relaxed">
                             Flüssiggastanks unterliegen strengen Sicherheitsvorschriften. Um die Sicherheit für Mensch und Umwelt zu gewährleisten, schreibt der Gesetzgeber regelmäßige Prüfungen vor.
@@ -49,8 +54,14 @@ const InspectionSection = ({ openWizard }) => {
                                 <span className="text-gray-700 font-medium">Rohrleitungsprüfung (alle 10 Jahre)</span>
                             </li>
                         </ul>
-                    </div>
-                    <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100">
+                    </motion.div>
+                    <motion.div
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="bg-gray-50 rounded-2xl p-8 border border-gray-100"
+                    >
                         <h3 className="text-xl font-bold mb-4">Unser Service-Angebot</h3>
                         <p className="text-gray-600 mb-6 text-sm">
                             gasmöller organisiert und führt die Prüfungen in Zusammenarbeit mit zugelassenen Überwachungsstellen (ZÜS) durch. Sie müssen sich um nichts kümmern.
@@ -68,10 +79,16 @@ const InspectionSection = ({ openWizard }) => {
                         <button onClick={() => openWizard('service')} className="w-full mt-8 bg-white border-2 border-gas text-gas font-bold py-3 rounded-xl hover:bg-gas hover:text-white transition-colors">
                             Jetzt Termin vereinbaren
                         </button>
-                    </div>
+                    </motion.div>
                 </div>
 
-                <div className="bg-blue-50 rounded-3xl p-8 md:p-12 text-center">
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="bg-blue-50 rounded-3xl p-8 md:p-12 text-center"
+                >
                     <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Sicherheit hat Vorfahrt</h2>
                     <p className="text-gray-600 max-w-2xl mx-auto mb-8">
                         Verlassen Sie sich auf unsere Expertise. Wir prüfen Ihre Anlage gewissenhaft und dokumentieren alles ordnungsgemäß für Ihre Unterlagen.
@@ -79,7 +96,7 @@ const InspectionSection = ({ openWizard }) => {
                     <button onClick={() => openWizard('service')} className="bg-gas text-white px-8 py-3 rounded-lg font-bold shadow-lg hover:shadow-xl transition-all">
                         Kontakt aufnehmen
                     </button>
-                </div>
+                </motion.div>
             </div>
         </section>
     );

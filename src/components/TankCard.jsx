@@ -10,11 +10,14 @@ const TankCard = ({ tank, type, onContact }) => {
     const isUnderground = type === 'unterirdisch';
 
     return (
-        <motion.div whileHover={{ y: -8 }} className={`bg-white rounded-2xl overflow-hidden transition-all duration-300 flex flex-col ${tank.highlight ? 'border-2 border-gas ring-4 ring-gas/10 shadow-2xl relative z-10' : 'border border-gray-100 shadow-lg hover:shadow-xl'}`}>
+        <motion.div
+            whileHover={{ y: -8, scale: 1.02 }}
+            className={`bg-white rounded-2xl overflow-hidden transition-all duration-300 flex flex-col group ${tank.highlight ? 'border-2 border-gas ring-4 ring-gas/10 shadow-2xl relative z-10' : 'border border-gray-100 shadow-lg hover:shadow-2xl'}`}
+        >
             {tank.highlight && <div className="bg-gas text-white text-[10px] font-bold uppercase text-center py-1.5 tracking-widest">Empfehlung</div>}
             <div className={`h-48 flex items-center justify-center p-6 relative ${isUnderground ? 'bg-green-50/50' : 'bg-gray-50'}`}>
                 <div className="absolute top-4 right-4 bg-white/80 backdrop-blur px-2 py-1 rounded text-[10px] font-bold text-gray-500 border border-gray-100">{tank.capacity}</div>
-                <svg viewBox="0 0 100 60" className={`${scaleClass} h-auto text-gray-300 fill-current drop-shadow-lg transition-all duration-300`} role="img" aria-label={`Illustration von ${tank.name}`}>
+                <svg viewBox="0 0 100 60" className={`${scaleClass} h-auto text-gray-300 fill-current drop-shadow-lg transition-all duration-300 group-hover:scale-105`} role="img" aria-label={`Illustration von ${tank.name}`}>
                     {isUnderground ? (
                         <>
                             {/* Underground Tank Presentation */}

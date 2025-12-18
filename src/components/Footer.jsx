@@ -66,6 +66,8 @@ const Footer = ({ setActiveSection, openLegal }) => {
         }
     };
 
+    const linkClass = "hover:text-white transition-colors py-3 md:py-1 block md:inline-block w-full text-left";
+
     return (
         <footer className="bg-gray-900 text-gray-400 py-20 border-t border-gray-800 text-sm">
             <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
@@ -82,19 +84,19 @@ const Footer = ({ setActiveSection, openLegal }) => {
                     </div>
 
                     <div className="flex space-x-4">
-                        <a href="https://facebook.com/gasmoeller" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer" aria-label="Facebook">f</a>
-                        <a href="https://linkedin.com/company/gasmoeller" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer" aria-label="LinkedIn">in</a>
+                        <a href="https://facebook.com/gasmoeller" target="_blank" rel="noopener noreferrer" className="w-12 h-12 md:w-8 md:h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer" aria-label="Facebook">f</a>
+                        <a href="https://linkedin.com/company/gasmoeller" target="_blank" rel="noopener noreferrer" className="w-12 h-12 md:w-8 md:h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer" aria-label="LinkedIn">in</a>
                     </div>
                 </div>
                 <div>
                     <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-wider">Schnellzugriff</h4>
                     <ul className="space-y-2">
-                        <li><button onClick={() => setActiveSection('gas')} className="hover:text-white transition-colors">Flüssiggas bestellen</button></li>
-                        <li><button onClick={() => setActiveSection('tanks')} className="hover:text-white transition-colors">Flüssiggastank kaufen</button></li>
-                        <li><button onClick={() => setActiveSection('rechner')} className="hover:text-white transition-colors">Spar-Rechner</button></li>
-                        <li><button onClick={() => setActiveSection('kontakt')} className="hover:text-white transition-colors">Kontakt</button></li>
+                        <li><button onClick={() => setActiveSection('gas')} className={linkClass}>Flüssiggas bestellen</button></li>
+                        <li><button onClick={() => setActiveSection('tanks')} className={linkClass}>Flüssiggastank kaufen</button></li>
+                        <li><button onClick={() => setActiveSection('rechner')} className={linkClass}>Spar-Rechner</button></li>
+                        <li><button onClick={() => setActiveSection('kontakt')} className={linkClass}>Kontakt</button></li>
                         <li className="pt-2 border-t border-gray-800 mt-2">
-                            <a href="tel:04551897089" className="hover:text-white transition-colors flex items-center gap-2 font-semibold">
+                            <a href="tel:04551897089" className={`${linkClass} flex items-center gap-2 font-semibold`}>
                                 <Phone size={14} /> 04551 89 70 89
                             </a>
                         </li>
@@ -103,10 +105,11 @@ const Footer = ({ setActiveSection, openLegal }) => {
                 <div>
                     <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-wider">Rechtliches</h4>
                     <ul className="space-y-2">
-                        <li><button onClick={() => openLegal('imprint')} className="hover:text-white transition-colors text-left">Impressum</button></li>
-                        <li><button onClick={() => openLegal('privacy')} className="hover:text-white transition-colors text-left">Datenschutz</button></li>
-                        <li><button onClick={() => openLegal('terms')} className="hover:text-white transition-colors text-left">AGB</button></li>
-                        <li><a href="/sitemap.xml" className="hover:text-white transition-colors text-left" target="_blank">Sitemap</a></li>
+                        <li><button onClick={() => openLegal('imprint')} className={linkClass}>Impressum</button></li>
+                        <li><button onClick={() => openLegal('privacy')} className={linkClass}>Datenschutz</button></li>
+                        <li><button onClick={() => openLegal('terms')} className={linkClass}>AGB</button></li>
+                        <li><button onClick={() => openLegal('accessibility')} className={linkClass}>Barrierefreiheit</button></li>
+                        <li><a href="/sitemap.xml" className={linkClass} target="_blank">Sitemap</a></li>
                     </ul>
                 </div>
                 <div>
@@ -138,12 +141,12 @@ const Footer = ({ setActiveSection, openLegal }) => {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 disabled={status === 'loading'}
-                                className="bg-gray-800 border border-gray-700 rounded-l px-3 py-2 w-full text-white focus:ring-1 focus:ring-gas focus:border-gas outline-none transition-all placeholder-gray-500 disabled:opacity-50"
+                                className="bg-gray-800 border border-gray-700 rounded-l px-3 py-3 md:py-2 w-full text-white focus:ring-1 focus:ring-gas focus:border-gas outline-none transition-all placeholder-gray-500 disabled:opacity-50"
                             />
                             <button
                                 type="submit"
                                 disabled={status === 'loading'}
-                                className="bg-gas text-white px-3 py-2 rounded-r hover:bg-gas-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                className="bg-gas text-white px-4 md:px-3 py-3 md:py-2 rounded-r hover:bg-gas-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                             >
                                 {status === 'loading' ? <Loader2 size={16} className="animate-spin"/> : <Send size={16}/>}
                             </button>
