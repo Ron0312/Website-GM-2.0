@@ -22,8 +22,10 @@ import NotFound from './components/NotFound';
 import StickyCTA from './components/StickyCTA';
 import AccessibilityWidget from './components/AccessibilityWidget';
 import AccessibilityPage from './components/AccessibilityPage';
+import LocalLandingPage from './components/LocalLandingPage';
 import { ImprintContent, PrivacyContent, TermsContent, AccessibilityStatementContent } from './components/Legal';
 import { findClientRedirect } from './utils/clientRedirect';
+import { cityData } from './data/cityData';
 
 // Lazy Load heavy components
 const WizardModal = React.lazy(() => import('./components/WizardModal'));
@@ -101,8 +103,12 @@ const App = ({ path, context }) => {
         // Check for client-side legacy redirect if on 404/invalid section
         const validSections = ['start', 'tanks', 'gas', 'rechner', 'gewerbe', 'wissen', 'ueber-uns', 'kontakt', 'pruefungen', 'barrierefreiheit', '404'];
 
+        // Dynamic routes helper
+        const isTankRoute = activeSection.startsWith('tanks/');
+        const isCityRoute = activeSection.startsWith('liefergebiet/');
+
         // Only run this check if we are truly in an invalid state.
-        if (!activeSection.startsWith('tanks/') && !validSections.includes(activeSection)) {
+        if (!isTankRoute && !isCityRoute && !validSections.includes(activeSection)) {
              const legacyTarget = findClientRedirect(activeSection);
              if (legacyTarget) {
                  const cleanTarget = legacyTarget.replace(/^\//, '');
@@ -146,6 +152,18 @@ const App = ({ path, context }) => {
             return <TankDetail slug={slug} onBack={() => changeSection('tanks')} openWizard={openWizard} />;
         }
 
+        if (activeSection.startsWith('liefergebiet/')) {
+            const slug = activeSection.split('/')[1];
+            // Check if valid city
+            const cityExists = cityData.find(c => c.slug === slug);
+            if (cityExists) {
+                return <LocalLandingPage slug={slug} setActiveSection={changeSection} openWizard={openWizard} />;
+            } else {
+                 if (context) context.status = 404;
+                 return <><div className="pt-20"></div><NotFound onGoHome={changeSection} /><ContactSection /></>;
+            }
+        }
+
         // Sections
         const validSections = ['start', 'tanks', 'gas', 'rechner', 'gewerbe', 'wissen', 'ueber-uns', 'kontakt', 'pruefungen', 'barrierefreiheit', '404'];
 
@@ -157,8 +175,8 @@ const App = ({ path, context }) => {
                  // Clean up leading slash for client routing
                  const cleanTarget = legacyTarget.replace(/^\//, '');
 
-                 // If valid section or tank route
-                 if (validSections.includes(cleanTarget) || cleanTarget.startsWith('tanks/')) {
+                 // If valid section or tank/city route
+                 if (validSections.includes(cleanTarget) || cleanTarget.startsWith('tanks/') || cleanTarget.startsWith('liefergebiet/')) {
                      if (context) {
                          // SSR Redirect
                          context.url = legacyTarget;
