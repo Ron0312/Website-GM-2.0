@@ -7,7 +7,7 @@ Eine Analyse der Codebasis (`seoData.js`, `server.js`, Komponenten) zeigt folgen
 
 **1. Technische SEO (Technical SEO)**
 *   **Server-Side Rendering (SSR):** Die Anwendung nutzt SSR via `server.js`, wodurch Suchmaschinen vollständigen HTML-Code erhalten, statt leerer JavaScript-Container.
-*   **Sitemap & Robots.txt:** Automatische Generierung (`scripts/generate-sitemap.js`) bei jedem Build. Beinhaltet statische Seiten und dynamische Tank-Detailseiten (`/tanks/:slug`).
+*   **Sitemap & Robots.txt:** Automatische Generierung (`scripts/generate-sitemap.js`) bei jedem Build. Beinhaltet statische Seiten und dynamische Tank-Detailseiten (`/tanks/:slug`) sowie **Local Landingpages** (`/liefergebiet/:city`).
 *   **Performance (Core Web Vitals):**
     *   `LCP` Optimierung: Hero-Images nutzen `loading="eager"` und `fetchpriority="high"`.
     *   Bildformate: Konsequente Nutzung von Next-Gen Formaten (`.webp`).
@@ -30,35 +30,30 @@ Eine Analyse der Codebasis (`seoData.js`, `server.js`, Komponenten) zeigt folgen
 
 ---
 
-### 🚀 10 Potenzielle SEO-Verbesserungen
-Basierend auf der Analyse könnten folgende Punkte das Ranking weiter verbessern:
+### 🚀 Priorisierte Roadmap (Top 10)
+Dies sind die 10 wichtigsten nächsten Schritte zur Verbesserung von UX, Technik und SEO:
 
-1.  **H1-Optimierung:** Der aktuelle `<h1>` im Hero ist "Gas-Service Möller" (Brand). Besser wäre ein Keyword-Fokus, z.B. *"Flüssiggastank kaufen & Service im Norden"*, während der Brand-Name als Subline fungiert.
-2.  **FAQ Schema:** Implementierung von `FAQPage` Schema auf der "Wissen" oder Startseite, um direkt in den Google-Suchergebnissen Fragen zu beantworten.
-3.  **Content-Hub Stärkung:** Die Sektion "Wissen" stärker intern verlinken (z.B. von Produktseiten zu Ratgebern: "Welche Tankgröße passt zu mir?").
-4.  **Bilder-SEO:** `alt`-Attribute sind teilweise generisch (z.B. "Landschaft Norddeutschland"). Diese sollten spezifischer sein: *"Oberirdischer Flüssiggastank 1,2t im Garten in Hamburg"*.
-5.  **Lokale Landingpages:** Erstellung statischer Seiten für Haupt-Liefergebiete (z.B. `/gas-hamburg`, `/gas-luebeck`) mit spezifischem Local-SEO-Content.
-6.  **Video Schema:** Falls Videos (z.B. Erklärvideos) eingebunden werden, `VideoObject` Schema nutzen.
-7.  **Autor-Boxen:** Für E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) Autorenprofile unter Ratgeber-Artikel setzen (z.B. "Thomas Müller, Sachkundiger für Flüssiggasanlagen").
-8.  **Strukturierte Daten für Events:** Falls Messen oder Infotage stattfinden -> `Event` Schema.
-9.  **Erweiterte Meta-Descriptions:** Prüfen, ob für alle Produkte USPs (Häkchen-Symbole ✓) in der Description genutzt werden, um im Snippet aufzufallen.
-10. **HTML-Lang Attribut:** Sicherstellen, dass `<html lang="de">` serverseitig korrekt gesetzt ist (oft Standard, aber wichtig zu prüfen).
-
----
-
-### 🛠️ 10 Allgemeine Verbesserungsideen (Code & UX)
-Analyse der Codebasis und Usability:
-
-1.  **Visuelle Breadcrumbs:** Obwohl Schema.org vorhanden ist, fehlen dem Nutzer visuelle "Brotkrümel" zur Navigation auf der Website (z.B. Start > Tanks > 1,2t Oberirdisch).
-2.  **Unit-Tests für Rechner:** Der `EnergyCalculator` enthält komplexe Logik. Hier fehlen Unit-Tests (z.B. mit Vitest), um Rechenfehler bei Updates auszuschließen.
-3.  **Formular-Validierung UX:** Bei Fehlern im `WizardModal` könnte der Fokus automatisch zum ersten fehlerhaften Feld springen (Focus Management).
-4.  **Security Headers (CSP):** Die Content Security Policy in `server.js` könnte noch strikter gefasst werden (Verzicht auf `unsafe-inline` wo möglich).
-5.  **A11y (Barrierefreiheit):** Prüfen, ob alle Icons (z.B. von `lucide-react`) `aria-hidden="true"` haben oder Labels besitzen, wenn sie interaktiv sind.
-6.  **Code-Splitting:** Die `tanks.js` Daten werden oft importiert. Bei sehr vielen Tanks könnte dies in einen asynchronen API-Call oder JSON-Fetch ausgelagert werden, um das Bundle klein zu halten.
-7.  **Fehler-Monitoring:** Integration von Sentry oder LogRocket, um Client-Side Errors in Produktion zu tracken (da SSR-Logs nur Server-Fehler zeigen).
-8.  **Druck-Styles:** CSS `@media print` optimieren, damit Kunden Angebote oder Rechner-Ergebnisse sauber ausdrucken können (Ausblenden von Navi/Footer/Hero).
-9.  **404-Suchfunktion:** Auf der 404-Seite eine Suchleiste oder die beliebtesten Links anbieten, statt nur "Zurück zur Startseite".
-10. **Bild-Optimierung Pipeline:** Integration von `vite-plugin-imagemin` im Build-Prozess, um Bilder automatisch zu komprimieren, statt sich auf manuelle Vorarbeit zu verlassen.
+1.  **Skeleton Loading (UX):**
+    *   Implementierung von Lade-Platzhaltern (Skeletons) für `EnergyCalculator`, `DeliveryMap` und das `WizardModal`, um "Layout Shifts" beim Laden zu vermeiden und die gefühlte Performance zu steigern.
+2.  **Erweiterte Formular-Validierung (Tech/UX):**
+    *   Refactoring des `WizardModal` auf `react-hook-form` + `zod`.
+    *   Integration von "Shake"-Animationen bei Fehlern und visuelles Scrollen zum ersten fehlerhaften Feld (Focus Management).
+3.  **Automatisierte E2E-Tests (Quality):**
+    *   Integration der Playwright-Skripte in eine CI/CD-Pipeline (Github Actions), um bei jedem Push kritische Pfade (Checkout, Rechner) automatisch zu prüfen.
+4.  **Unit-Tests für Logik (Quality):**
+    *   Einführung von Vitest für rechenintensive Komponenten wie `EnergyCalculator` und Validierungs-Funktionen (`utils/validation.js`), um Rechenfehler auszuschließen.
+5.  **Micro-Interactions (UX):**
+    *   Hinzufügen von subtilen Animationen (z.B. Ripple-Effekte auf Buttons, leichte Skalierung auf Cards) für ein wertigeres "Look & Feel".
+6.  **Image CLS Optimierung (SEO):**
+    *   Strikte Durchsetzung von `width` und `height` Attributen auf allen `<img>` Tags sowie Nutzung von `<picture>` Elementen für Art-Direction, um Cumulative Layout Shift (CLS) vollständig zu eliminieren.
+7.  **Accessibility (A11y) Audit:**
+    *   Automatisierter Check (z.B. via `axe-core`) auf Kontrastverhältnisse, fehlende Labels bei Icon-Buttons und korrekte ARIA-Attribute in Modals.
+8.  **Mobile Touch Targets (Mobile UX):**
+    *   Vergrößerung der Klickflächen auf mind. 44x44px für alle interaktiven Elemente (besonders Footer-Links und Radio-Buttons im Assistenten).
+9.  **Druck-Styles (CSS):**
+    *   Optimierung der `@media print` Styles, damit Angebote und Rechner-Ergebnisse sauber ohne Header/Footer gedruckt werden können.
+10. **Internationale Vorbereitung (i18n):**
+    *   Auch wenn aktuell nur DE relevant ist: Vorbereitung der Codebasis auf i18n-Bibliotheken, um Texte nicht hardcoded in Komponenten zu haben (Wartbarkeit).
 
 ---
 
