@@ -143,14 +143,15 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                                         step="1"
                                         value={fillLevel}
                                         onChange={(e) => setFillLevel(parseInt(e.target.value))}
-                                        className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer accent-gas-light hover:accent-white transition-all"
+                                        className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer accent-gas-light hover:accent-white transition-all [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-gas-light"
                                     />
                                     <div className="flex justify-between text-xs text-gray-400 mt-2 font-medium">
                                         <span>0%</span>
                                         <span>85%</span>
                                     </div>
-                                    <div className="mt-3 text-right text-sm text-gray-300">
-                                        Voraussichtliche Liefermenge: <strong className="text-white">{calculatedLiters.toLocaleString()} Liter</strong>
+                                    <div className="mt-4 p-3 rounded-lg bg-white/5 border border-white/10 text-right text-sm text-gray-300 flex justify-between items-center">
+                                        <span>Liefermenge ca.:</span>
+                                        <strong className="text-white text-lg">{calculatedLiters.toLocaleString()} Liter</strong>
                                     </div>
                                 </div>
 
@@ -170,7 +171,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                                                 setPlz(e.target.value.replace(/[^0-9]/g, ''));
                                                 if (plzError) setPlzError('');
                                             }}
-                                            className={`w-full bg-white/5 border border-white/10 text-white text-xl font-bold p-4 pl-12 rounded-xl outline-none focus:bg-white/10 focus:border-gas-light transition-all placeholder:text-gray-300 ${plzError ? 'border-red-400 focus:border-red-400' : ''}`}
+                                            className={`w-full bg-white/5 border border-white/10 text-white text-xl font-bold p-4 pl-12 rounded-xl outline-none focus:bg-white/10 focus:border-gas-light transition-all placeholder:text-gray-400/80 [&:-webkit-autofill]:transition-all [&:-webkit-autofill]:duration-[5000s] [&:-webkit-autofill]:[-webkit-text-fill-color:white] ${plzError ? 'border-red-400 focus:border-red-400' : ''}`}
                                             placeholder="PLZ eingeben"
                                         />
                                         <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />

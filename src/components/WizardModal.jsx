@@ -241,7 +241,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                 </div>
 
                 {/* Content */}
-                <div className="p-8 md:p-10 overflow-y-auto custom-scrollbar flex-1 relative">
+                <div className="p-6 md:p-10 overflow-y-auto custom-scrollbar flex-1 relative">
                     {success ? (
                         <div className="text-center py-12 flex flex-col items-center justify-center">
                             <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="w-24 h-24 bg-green-100 text-green-500 rounded-full flex items-center justify-center mb-6"><Check size={48} /></motion.div>
@@ -249,7 +249,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                             <button onClick={onClose} className="bg-gas text-white px-10 py-4 rounded-xl font-bold mt-4">Schließen</button>
                         </div>
                     ) : (
-                        <form onSubmit={(e) => { e.preventDefault(); /* handled by buttons */ }} className="h-full">
+                        <form onSubmit={(e) => { e.preventDefault(); /* handled by buttons */ }} className="h-full pb-6">
                             <AnimatePresence mode="wait">
                                 {/* STEP 1: PLZ */}
                                 {step === 1 && (
@@ -270,7 +270,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                     <ModernInput
                                                         {...field}
                                                         error={errors.plz?.message}
-                                                        className="text-center text-3xl font-bold tracking-[0.5em] !rounded-2xl"
+                                                        inputClassName="text-center text-3xl font-bold tracking-[0.5em] !rounded-2xl h-20"
                                                         placeholder="PLZ"
                                                         maxLength={5}
                                                         autoFocus
