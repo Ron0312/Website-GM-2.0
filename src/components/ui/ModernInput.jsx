@@ -96,7 +96,7 @@ const ModernInput = forwardRef(({ label, error, className = '', multiline = fals
                 animate={{ opacity: 1, height: 'auto', y: 0 }}
                 exit={{ opacity: 0, height: 0 }}
                 id={errorId}
-                className="flex items-center text-red-500 text-xs mt-1 ml-1 font-bold"
+                className="flex items-center text-red-500 text-xs mt-1 ml-1 font-bold tracking-normal leading-normal text-left"
             >
                 <AlertCircle size={12} className="mr-1 flex-shrink-0" />
                 <span>{error}</span>
