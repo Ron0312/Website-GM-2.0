@@ -165,12 +165,7 @@ const App = ({ path, context }) => {
                          context.status = 301;
                      } else if (typeof window !== 'undefined') {
                          // Client Redirect
-                         console.log(`Client Redirect: ${activeSection} -> ${cleanTarget}`);
-                         // We use setTimeout to break the render cycle or useEffect,
-                         // but here we are in render. We must NOT update state in render.
-                         // But we can return a component that redirects on mount.
-                         // Or better: handle this in useEffect or derived state.
-                         // However, for immediate response, let's assume we render nothing and redirect.
+                         // No console log
                      }
                  }
             }
