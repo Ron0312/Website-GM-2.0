@@ -3,28 +3,12 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Check, Settings, Flame, Wrench, AlertTriangle, ArrowUpFromLine, ArrowDownToLine, Home, Building2, Factory, Sparkles, RefreshCw, Info, Phone } from 'lucide-react';
+import { X, Check, Settings, Flame, Wrench, AlertTriangle, ArrowUpFromLine, ArrowDownToLine, Home, Building2, Factory, Sparkles, RefreshCw, Info, Phone, ThumbsUp, AlertCircle } from 'lucide-react';
 import { getPlzError } from '../utils/validation';
 import ModernInput from './ui/ModernInput';
 import SelectionCard from './ui/SelectionCard';
 
 const WEB3FORMS_ACCESS_KEY = "f22052ed-455f-4e4d-9f5a-94a6e340426f";
-
-// Zod Schemas
-const step1Schema = z.object({
-  plz: z.string().length(5, "PLZ muss 5 Ziffern haben").regex(/^\d+$/, "Nur Ziffern erlaubt").refine((val) => !getPlzError(val), { message: "Leider nicht in unserem Liefergebiet." })
-});
-
-const contactSchema = z.object({
-  name: z.string().min(2, "Name ist erforderlich"),
-  street: z.string().min(2, "Straße ist erforderlich"),
-  number: z.string().min(1, "Hausnummer ist erforderlich"),
-  city: z.string().min(2, "Ort ist erforderlich"),
-  email: z.string().email("Ungültige E-Mail-Adresse"),
-  phone: z.string().optional(),
-  honeypot: z.string().max(0).optional(),
-  consent: z.literal(true, { errorMap: () => ({ message: "Zustimmung erforderlich" }) })
-});
 
 const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null }) => {
     const [step, setStep] = useState(1);
@@ -32,7 +16,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
 
     // Form Hook
     const { control, register, handleSubmit, watch, setValue, formState: { errors }, reset, trigger } = useForm({
-        resolver: undefined, // Dynamic resolver? Or just manual validation per step
+        resolver: undefined,
         mode: "onBlur",
         defaultValues: {
             plz: '',
@@ -64,7 +48,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
 
     const formValues = watch();
 
-    // Calculator State (Separate from form for UI logic, but syncs to form)
+    // Calculator State
     const tankSizes = [
         { id: '1.2t', label: '1,2 t', volume: 2700 },
         { id: '2.1t', label: '2,1 t', volume: 4850 },
@@ -88,7 +72,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                 plz: initialData?.plz || '',
                 installationType: '',
                 details: {
-                    ownership: 'Ja, Eigentum',
+                    ownership: 'Ja, Eigentum', // Default to ownership
                     tankSizeGas: '',
                     amount: '',
                     fillUp: false,
@@ -124,48 +108,53 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                 }
 
                 if (initialData.plz && initialType === 'gas') {
-                    setStep(3);
+                    setStep(3); // Jump to calculator for gas if data present
                 }
             }
         }
     }, [isOpen, initialType, initialData, reset, setValue]);
 
+    // Step Logic
+    // Tank: 1(PLZ) -> 2(Type) -> 3(Install) -> 4(Condition) -> 5(Details) -> 6(Contact)
+    // Gas: 1(PLZ) -> 2(Type) -> 3(Ownership) -> 4(Calculator) -> 5(Contact)
+    // Service: 1(PLZ) -> 2(Type) -> 3(Details) -> 4(Contact)
+
     const handleNext = async (e) => {
         if (e && e.preventDefault) e.preventDefault();
-
         if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(50);
 
         if (step === 1) {
             const plzValid = await trigger('plz');
             const plzVal = formValues.plz;
-            // Manual check for region validity if Zod passes syntax
             const regionError = getPlzError(plzVal);
-            if (regionError || !plzValid) {
-                if(regionError) {
-                    // Force set error manually if trigger doesn't catch logic (though refine in schema should)
-                    // But we used undefined resolver above, so we need to check manually or use strict schema
-                }
-                // Let's rely on manual check for PLZ logic to be safe or create a step-specific validation
-                const simpleCheck = plzVal.length === 5 && /^\d+$/.test(plzVal);
-                if(!simpleCheck) { return; }
-                if(regionError) { return; } // Error handled by UI/Validation fn
-            }
+            if (regionError || !plzValid || !/^\d{5}$/.test(plzVal)) return;
             setStep(2);
         } else if (step === 2) {
-             if (type === 'tank') setStep(3);
-             else setStep(3);
+             setStep(3);
         } else if (step === 3) {
             if (type === 'tank') {
                 if (!formValues.installationType) return;
                 setStep(4);
+            } else if (type === 'gas') {
+                // Check ownership selection
+                if (!formValues.details.ownership) return;
+                setStep(4);
             } else {
+                // Service
                 setStep(4);
             }
         } else if (step === 4) {
-             if (type === 'tank') setStep(5);
-             else submitForm();
+             if (type === 'tank') {
+                if (!formValues.details.condition) return;
+                setStep(5);
+             } else if (type === 'gas') {
+                setStep(5);
+             } else {
+                submitForm();
+             }
         } else if (step === 5) {
              if (type === 'tank') setStep(6);
+             else submitForm();
         }
     };
 
@@ -184,11 +173,21 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
 
         formData.append("Type", type);
         formData.append("PLZ", data.plz);
-        if (type === 'tank') formData.append("Installation", data.installationType);
 
-        Object.keys(data.details).forEach(key => {
-            if(data.details[key]) formData.append(key, data.details[key]);
-        });
+        if (type === 'tank') {
+            formData.append("Installation", data.installationType);
+            formData.append("Zustand", data.details.condition);
+            formData.append("Gebäude", data.details.building);
+            formData.append("Tankgröße", data.details.tankSize);
+        } else if (type === 'gas') {
+            formData.append("Eigentum", data.details.ownership);
+            formData.append("Tankgröße", data.details.tankSizeGas);
+            formData.append("Menge (Liter)", data.details.amount);
+            formData.append("Füllstand (%)", calcFillLevel);
+        } else {
+            formData.append("Service Typ", data.details.serviceType);
+            formData.append("Nachricht", data.details.message);
+        }
 
         formData.append("Name", data.contact.name);
         formData.append("Address", `${data.contact.street} ${data.contact.number}, ${data.plz} ${data.contact.city}`);
@@ -207,7 +206,12 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
         }
     });
 
-    const totalSteps = type === 'tank' ? 6 : 4;
+    const getTotalSteps = () => {
+        if (type === 'tank') return 6;
+        if (type === 'gas') return 5;
+        return 4;
+    };
+    const totalSteps = getTotalSteps();
     const progress = (step / totalSteps) * 100;
 
     if (!isOpen) return null;
@@ -293,11 +297,12 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                     </motion.div>
                                 )}
 
-                                {/* STEP 3: SUB-CATEGORY */}
+                                {/* STEP 3 */}
                                 {step === 3 && (
                                     <motion.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                                         {type === 'tank' ? (
                                             <>
+                                                {/* TANK STEP 3: Installation */}
                                                 <h3 className="text-2xl font-bold text-center mb-8">Installation?</h3>
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                                                     <Controller name="installationType" control={control} render={({ field }) => (
@@ -311,6 +316,75 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                             </>
                                         ) : type === 'gas' ? (
                                             <>
+                                                {/* GAS STEP 3: Ownership */}
+                                                <h3 className="text-2xl font-bold text-center mb-6">Wem gehört der Tank?</h3>
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                                    <Controller name="details.ownership" control={control} render={({ field }) => (
+                                                        <>
+                                                            <SelectionCard title="Eigentum" description="Mein Tank" icon={ThumbsUp} selected={field.value === 'Ja, Eigentum'} onClick={() => field.onChange('Ja, Eigentum')} />
+                                                            <SelectionCard title="Mietvertrag" description="Fremdanbieter" icon={Info} selected={field.value === 'Nein, Mietvertrag'} onClick={() => field.onChange('Nein, Mietvertrag')} />
+                                                        </>
+                                                    )} />
+                                                </div>
+
+                                                {formValues.details.ownership === 'Nein, Mietvertrag' && (
+                                                    <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mb-6 bg-yellow-50 border border-yellow-200 p-4 rounded-xl flex items-start gap-3">
+                                                        <AlertTriangle className="text-yellow-600 flex-shrink-0" size={24} />
+                                                        <div>
+                                                            <h4 className="font-bold text-yellow-800 text-sm">Wichtiger Hinweis</h4>
+                                                            <p className="text-sm text-yellow-700 mt-1 leading-relaxed">
+                                                                Bei Miettanks dürfen wir oft aus rechtlichen Gründen nicht befüllen. Bitte prüfen Sie Ihren Vertrag auf Fremdbefüllungsrechte.
+                                                            </p>
+                                                        </div>
+                                                    </motion.div>
+                                                )}
+
+                                                <button type="button" onClick={handleNext} disabled={!formValues.details.ownership} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50">Weiter</button>
+                                            </>
+                                        ) : (
+                                            <>
+                                                {/* SERVICE STEP 3: Details */}
+                                                <h3 className="text-2xl font-bold text-center mb-6">Service Anfrage</h3>
+                                                <Controller name="details.serviceType" control={control} render={({ field }) => (
+                                                    <select {...field} className="w-full p-4 border-2 rounded-xl mb-4 bg-white"><option value="">Bitte wählen...</option><option>Innere Prüfung</option><option>Äußere Prüfung</option><option>Wartung</option></select>
+                                                )} />
+                                                <Controller name="details.message" control={control} render={({ field }) => (
+                                                    <textarea {...field} className="w-full p-4 border-2 rounded-xl h-32 resize-none" placeholder="Nachricht..." />
+                                                )} />
+                                                <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg mt-4">Weiter zu Kontakt</button>
+                                            </>
+                                        )}
+                                        <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4">Zurück</button>
+                                    </motion.div>
+                                )}
+
+                                {/* STEP 4 */}
+                                {step === 4 && (
+                                    <motion.div key="step4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+                                        {type === 'tank' ? (
+                                            <>
+                                                {/* TANK STEP 4: Condition */}
+                                                <h3 className="text-2xl font-bold text-center mb-4">Zustand</h3>
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                                    <Controller name="details.condition" control={control} render={({ field }) => (
+                                                        <>
+                                                            <SelectionCard title="Neu" description="Fabrikneu" icon={Sparkles} selected={field.value === 'Neu'} onClick={() => field.onChange('Neu')} />
+                                                            <div className="relative">
+                                                                <SelectionCard title="Gebraucht" description="Aufbereitet" icon={RefreshCw} selected={field.value === 'Gebraucht / Aufbereitet'} onClick={() => field.onChange('Gebraucht / Aufbereitet')} />
+                                                                {/* Badge for Refurbished */}
+                                                                <div className="absolute -top-3 -right-2 bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-md uppercase tracking-wide">
+                                                                    Günstiger
+                                                                </div>
+                                                            </div>
+                                                        </>
+                                                    )} />
+                                                </div>
+                                                <button type="button" onClick={handleNext} disabled={!formValues.details.condition} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50">Weiter</button>
+                                                <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4">Zurück</button>
+                                            </>
+                                        ) : type === 'gas' ? (
+                                            <>
+                                                {/* GAS STEP 4: Calculator */}
                                                 <h3 className="text-2xl font-bold text-center mb-6">Bestelldetails</h3>
                                                 <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100 mb-6">
                                                     <div className="flex justify-between items-end mb-2">
@@ -329,69 +403,72 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                     </div>
                                                 </div>
                                                 <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg">Weiter zu Kontakt</button>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <h3 className="text-2xl font-bold text-center mb-6">Service Anfrage</h3>
-                                                <Controller name="details.serviceType" control={control} render={({ field }) => (
-                                                    <select {...field} className="w-full p-4 border-2 rounded-xl mb-4 bg-white"><option value="">Bitte wählen...</option><option>Innere Prüfung</option><option>Äußere Prüfung</option><option>Wartung</option></select>
-                                                )} />
-                                                <Controller name="details.message" control={control} render={({ field }) => (
-                                                    <textarea {...field} className="w-full p-4 border-2 rounded-xl h-32 resize-none" placeholder="Nachricht..." />
-                                                )} />
-                                                <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg mt-4">Weiter zu Kontakt</button>
-                                            </>
-                                        )}
-                                        {type !== 'tank' && <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4">Zurück</button>}
-                                        {type === 'tank' && <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4">Zurück</button>}
-                                    </motion.div>
-                                )}
-
-                                {/* STEP 4 */}
-                                {step === 4 && (
-                                    <motion.div key="step4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                                        {type === 'tank' ? (
-                                            <>
-                                                <h3 className="text-2xl font-bold text-center mb-4">Zustand</h3>
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                                                    <Controller name="details.condition" control={control} render={({ field }) => (
-                                                        <>
-                                                            <SelectionCard title="Neu" description="Fabrikneu" icon={Sparkles} selected={field.value === 'Neu'} onClick={() => field.onChange('Neu')} />
-                                                            <SelectionCard title="Gebraucht" description="Aufbereitet" icon={RefreshCw} selected={field.value === 'Gebraucht / Aufbereitet'} onClick={() => field.onChange('Gebraucht / Aufbereitet')} />
-                                                        </>
-                                                    )} />
-                                                </div>
-                                                <button type="button" onClick={handleNext} disabled={!formValues.details.condition} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50">Weiter</button>
                                                 <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4">Zurück</button>
                                             </>
                                         ) : (
+                                            /* SERVICE STEP 4: Contact */
                                             <ContactFormFields control={control} errors={errors} submitting={submitting} submitForm={submitForm} handleBack={handleBack} />
                                         )}
                                     </motion.div>
                                 )}
 
                                 {/* STEP 5 */}
-                                {step === 5 && type === 'tank' && (
+                                {step === 5 && (
                                     <motion.div key="step5" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                                        <h3 className="text-2xl font-bold text-center mb-6">Details</h3>
-                                        <div className="space-y-6">
-                                            <Controller name="details.building" control={control} render={({ field }) => (
-                                                <div className="grid grid-cols-3 gap-3">
-                                                    {['Haus (Bestand)', 'Neubau', 'Gewerbe'].map(opt => (
-                                                        <button key={opt} type="button" onClick={() => field.onChange(opt)} className={`p-3 rounded-xl border-2 text-xs font-bold ${field.value === opt ? 'border-gas bg-gas/10 text-gas' : 'border-gray-100'}`}>{opt}</button>
-                                                    ))}
+                                        {type === 'tank' ? (
+                                            <>
+                                                 {/* TANK STEP 5: Details */}
+                                                <h3 className="text-2xl font-bold text-center mb-6">Details</h3>
+                                                <div className="space-y-6">
+                                                    <Controller name="details.building" control={control} render={({ field }) => (
+                                                        <div className="grid grid-cols-1 gap-3">
+                                                            <label className="text-sm font-bold text-gray-500 ml-1">Gebäudeart</label>
+                                                            <div className="grid grid-cols-3 gap-3">
+                                                                <SelectionCard
+                                                                    title="Bestand"
+                                                                    description=""
+                                                                    icon={Home}
+                                                                    selected={field.value === 'Haus (Bestand)'}
+                                                                    onClick={() => field.onChange('Haus (Bestand)')}
+                                                                    className="!p-3 !text-sm flex-col items-center text-center justify-center"
+                                                                />
+                                                                 <SelectionCard
+                                                                    title="Neubau"
+                                                                    description=""
+                                                                    icon={Building2}
+                                                                    selected={field.value === 'Neubau'}
+                                                                    onClick={() => field.onChange('Neubau')}
+                                                                    className="!p-3 !text-sm flex-col items-center text-center justify-center"
+                                                                />
+                                                                <SelectionCard
+                                                                    title="Gewerbe"
+                                                                    description=""
+                                                                    icon={Factory}
+                                                                    selected={field.value === 'Gewerbe'}
+                                                                    onClick={() => field.onChange('Gewerbe')}
+                                                                    className="!p-3 !text-sm flex-col items-center text-center justify-center"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    )} />
+                                                    <Controller name="details.tankSize" control={control} render={({ field }) => (
+                                                        <div className="grid grid-cols-1 gap-3">
+                                                            <label className="text-sm font-bold text-gray-500 ml-1">Tankgröße</label>
+                                                            <div className="grid grid-cols-3 gap-3">
+                                                                {['1.2t', '2.1t', '2.9t'].map(opt => (
+                                                                    <button key={opt} type="button" onClick={() => field.onChange(opt)} className={`p-4 rounded-xl border-2 font-bold transition-all ${field.value === opt ? 'border-gas bg-gas text-white shadow-lg' : 'border-gray-100 hover:border-gas/30'}`}>{opt}</button>
+                                                                ))}
+                                                            </div>
+                                                        </div>
+                                                    )} />
+                                                    <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg mt-4">Weiter</button>
+                                                    <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4">Zurück</button>
                                                 </div>
-                                            )} />
-                                            <Controller name="details.tankSize" control={control} render={({ field }) => (
-                                                <div className="grid grid-cols-3 gap-3">
-                                                    {['1.2t', '2.1t', '2.9t'].map(opt => (
-                                                        <button key={opt} type="button" onClick={() => field.onChange(opt)} className={`p-3 rounded-xl border-2 font-bold ${field.value === opt ? 'border-gas bg-gas text-white' : 'border-gray-100'}`}>{opt}</button>
-                                                    ))}
-                                                </div>
-                                            )} />
-                                            <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg">Weiter</button>
-                                            <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4">Zurück</button>
-                                        </div>
+                                            </>
+                                        ) : (
+                                            /* GAS STEP 5: Contact */
+                                            <ContactFormFields control={control} errors={errors} submitting={submitting} submitForm={submitForm} handleBack={handleBack} />
+                                        )}
                                     </motion.div>
                                 )}
 
@@ -445,9 +522,11 @@ const ContactFormFields = ({ control, errors, submitting, submitForm, handleBack
 
             <div className="flex items-start text-xs text-gray-500 mt-2 mb-6 p-4 bg-gray-50 rounded-xl border border-gray-100">
                 <Controller name="contact.consent" control={control} rules={{ required: true }} render={({ field: { onChange, value } }) => (
-                    <input type="checkbox" checked={value} onChange={onChange} className="mt-1 mr-3 w-4 h-4 accent-gas" />
+                    <input type="checkbox" checked={value} onChange={onChange} className="mt-1 mr-3 w-4 h-4 accent-gas flex-shrink-0" />
                 )} />
-                <span className="leading-relaxed">Ich stimme zu, dass meine Angaben dauerhaft gespeichert werden.</span>
+                <span className="leading-relaxed">
+                    Ich stimme zu, dass meine Angaben dauerhaft gespeichert werden. Mehr Infos in der <a href="/datenschutz" target="_blank" rel="noopener noreferrer" className="text-gas font-bold underline">Datenschutzerklärung</a>.
+                </span>
             </div>
 
             <button type="button" onClick={submitForm} disabled={submitting} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg hover:bg-gas-dark transition-all">
