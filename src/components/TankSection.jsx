@@ -19,6 +19,16 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
             textColor: "text-gray-300",
             benefitClass: "bg-white/10 backdrop-blur text-white border-white/20"
         },
+        halboberirdisch: {
+            title: "Die goldene Mitte",
+            description: "Halboberirdische Tanks werden zur Hälfte im Erdreich versenkt. Sie sind weniger sichtbar als oberirdische Tanks und erfordern weniger Erdarbeiten als komplett unterirdische Tanks.",
+            benefits: ["Weniger sichtbar", "Kompromisslösung", "Gute Zugänglichkeit"],
+            color: "bg-blue-50 border-blue-100",
+            iconColor: "text-blue-500",
+            titleColor: "text-gray-900",
+            textColor: "text-gray-600",
+            benefitClass: "bg-white text-gray-700 border-gray-100"
+        },
         unterirdisch: {
             title: "Die unsichtbare Lösung",
             description: "Unterirdische Flüssiggastanks verschwinden komplett unter der Erde. Nur der Domschachtdeckel bleibt sichtbar – ideal für gepflegte Gärten und maximale Raumnutzung.",
@@ -92,24 +102,32 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                                 className="absolute top-1.5 bottom-1.5 bg-white rounded-xl shadow-sm z-0"
                                 initial={false}
                                 animate={{
-                                    x: filter === 'oberirdisch' ? 0 : '100%',
-                                    width: '50%'
+                                    x: filter === 'oberirdisch' ? 0 : filter === 'halboberirdisch' ? '100%' : '200%',
+                                    width: '33.333%'
                                 }}
                                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                                style={{ left: 6, right: '50%' }}
+                                style={{ left: 6, width: 'calc(33.333% - 4px)' }}
                             />
 
                             <button
                                 onClick={() => setFilter('oberirdisch')}
-                                className={`relative z-10 px-8 py-3 rounded-xl text-sm font-bold transition-colors w-40 ${
+                                className={`relative z-10 px-4 md:px-8 py-3 rounded-xl text-xs md:text-sm font-bold transition-colors w-32 md:w-40 ${
                                     filter === 'oberirdisch' ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'
                                 }`}
                             >
                                 Oberirdisch
                             </button>
                             <button
+                                onClick={() => setFilter('halboberirdisch')}
+                                className={`relative z-10 px-4 md:px-8 py-3 rounded-xl text-xs md:text-sm font-bold transition-colors w-32 md:w-40 ${
+                                    filter === 'halboberirdisch' ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'
+                                }`}
+                            >
+                                Halboberirdisch
+                            </button>
+                            <button
                                 onClick={() => setFilter('unterirdisch')}
-                                className={`relative z-10 px-8 py-3 rounded-xl text-sm font-bold transition-colors w-40 ${
+                                className={`relative z-10 px-4 md:px-8 py-3 rounded-xl text-xs md:text-sm font-bold transition-colors w-32 md:w-40 ${
                                     filter === 'unterirdisch' ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'
                                 }`}
                             >

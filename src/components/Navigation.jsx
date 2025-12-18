@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Menu, X, ChevronDown, ChevronRight, ArrowUpFromLine, ArrowDownToLine, ShieldCheck, BookOpen, Phone } from 'lucide-react';
+import { ArrowRight, Menu, X, ChevronDown, ChevronRight, ArrowUpFromLine, ArrowDownToLine, Layers, ShieldCheck, BookOpen, Phone } from 'lucide-react';
 import TopBar from './TopBar';
 
 const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobileMenuOpen, openWizard }) => {
@@ -36,6 +36,16 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                         { id: 'tanks/1-2t-oberirdisch', label: '1,2 t Tank (2700 L)' },
                         { id: 'tanks/2-1t-oberirdisch', label: '2,1 t Tank (4850 L)' },
                         { id: 'tanks/2-9t-oberirdisch', label: '2,9 t Tank (6400 L)' }
+                    ]
+                },
+                {
+                    label: 'Halboberirdisch',
+                    id: 'halboberirdisch',
+                    icon: Layers,
+                    items: [
+                        { id: 'tanks/1-2t-halboberirdisch', label: '1,2 t Tank (2700 L)' },
+                        { id: 'tanks/2-1t-halboberirdisch', label: '2,1 t Tank (4850 L)' },
+                        { id: 'tanks/2-9t-halboberirdisch', label: '2,9 t Tank (6400 L)' }
                     ]
                 },
                 {
@@ -115,9 +125,9 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                             >
                                                 {/* MEGA MENU (Tanks) */}
                                                 {link.dropdownType === 'mega' ? (
-                                                    <div className="bg-white rounded-2xl shadow-xl shadow-gas/5 border border-gray-100 overflow-hidden flex w-[600px] p-2">
+                                                    <div className="bg-white rounded-2xl shadow-xl shadow-gas/5 border border-gray-100 overflow-hidden flex w-[800px] p-2">
                                                         {link.subLinks.map((group, idx) => (
-                                                            <div key={idx} className="w-1/2 p-2">
+                                                            <div key={idx} className="w-1/3 p-2">
                                                                 <div className="bg-gray-50 rounded-xl p-4 h-full border border-gray-100/50 hover:border-gas-light/50 transition-colors">
                                                                     <div className="flex items-center space-x-3 mb-4 text-gas">
                                                                         {group.icon && <group.icon size={24} />}

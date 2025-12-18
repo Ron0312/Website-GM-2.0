@@ -20,7 +20,6 @@ export const cityData = [
     { name: 'Oldenburg in Holstein', slug: 'oldenburg-holstein', zip: '23758', state: 'Schleswig-Holstein' },
     { name: 'Neustadt in Holstein', slug: 'neustadt-holstein', zip: '23730', state: 'Schleswig-Holstein' },
     { name: 'Ahrensburg', slug: 'ahrensburg', zip: '22926', state: 'Schleswig-Holstein' },
-    // 20 Additional Cities
     { name: 'Flensburg', slug: 'flensburg', zip: '24937', state: 'Schleswig-Holstein' },
     { name: 'Itzehoe', slug: 'itzehoe', zip: '25524', state: 'Schleswig-Holstein' },
     { name: 'Pinneberg', slug: 'pinneberg', zip: '25421', state: 'Schleswig-Holstein' },
@@ -40,7 +39,31 @@ export const cityData = [
     { name: 'Kaltenkirchen', slug: 'kaltenkirchen', zip: '24568', state: 'Schleswig-Holstein' },
     { name: 'Quickborn', slug: 'quickborn', zip: '25451', state: 'Schleswig-Holstein' },
     { name: 'Bargteheide', slug: 'bargteheide', zip: '22941', state: 'Schleswig-Holstein' },
-    { name: 'Glinde', slug: 'glinde', zip: '21509', state: 'Schleswig-Holstein' }
+    { name: 'Glinde', slug: 'glinde', zip: '21509', state: 'Schleswig-Holstein' },
+    // Additional Cities SH
+    { name: 'Insel Fehmarn', slug: 'fehmarn', zip: '23769', state: 'Schleswig-Holstein' },
+    { name: 'Sylt', slug: 'sylt', zip: '25980', state: 'Schleswig-Holstein' },
+    // Mecklenburg-Vorpommern Expansion (20 Cities)
+    { name: 'Stralsund', slug: 'stralsund', zip: '18439', state: 'Mecklenburg-Vorpommern' },
+    { name: 'Greifswald', slug: 'greifswald', zip: '17489', state: 'Mecklenburg-Vorpommern' },
+    { name: 'Neubrandenburg', slug: 'neubrandenburg', zip: '17033', state: 'Mecklenburg-Vorpommern' },
+    { name: 'Waren (Müritz)', slug: 'waren-mueritz', zip: '17192', state: 'Mecklenburg-Vorpommern' },
+    { name: 'Neustrelitz', slug: 'neustrelitz', zip: '17235', state: 'Mecklenburg-Vorpommern' },
+    { name: 'Parchim', slug: 'parchim', zip: '19370', state: 'Mecklenburg-Vorpommern' },
+    { name: 'Bergen auf Rügen', slug: 'bergen-ruegen', zip: '18528', state: 'Mecklenburg-Vorpommern' },
+    { name: 'Ribnitz-Damgarten', slug: 'ribnitz-damgarten', zip: '18311', state: 'Mecklenburg-Vorpommern' },
+    { name: 'Bad Doberan', slug: 'bad-doberan', zip: '18209', state: 'Mecklenburg-Vorpommern' },
+    { name: 'Hagenow', slug: 'hagenow', zip: '19230', state: 'Mecklenburg-Vorpommern' },
+    { name: 'Ludwigslust', slug: 'ludwigslust', zip: '19288', state: 'Mecklenburg-Vorpommern' },
+    { name: 'Demmin', slug: 'demmin', zip: '17109', state: 'Mecklenburg-Vorpommern' },
+    { name: 'Wolgast', slug: 'wolgast', zip: '17438', state: 'Mecklenburg-Vorpommern' },
+    { name: 'Pasewalk', slug: 'pasewalk', zip: '17309', state: 'Mecklenburg-Vorpommern' },
+    { name: 'Anklam', slug: 'anklam', zip: '17389', state: 'Mecklenburg-Vorpommern' },
+    { name: 'Boizenburg/Elbe', slug: 'boizenburg', zip: '19258', state: 'Mecklenburg-Vorpommern' },
+    { name: 'Teterow', slug: 'teterow', zip: '17166', state: 'Mecklenburg-Vorpommern' },
+    { name: 'Grimmen', slug: 'grimmen', zip: '18507', state: 'Mecklenburg-Vorpommern' },
+    { name: 'Sassnitz', slug: 'sassnitz', zip: '18546', state: 'Mecklenburg-Vorpommern' },
+    { name: 'Ueckermünde', slug: 'ueckermuende', zip: '17373', state: 'Mecklenburg-Vorpommern' }
 ];
 
 export const getCityBySlug = (slug) => cityData.find(city => city.slug === slug);
