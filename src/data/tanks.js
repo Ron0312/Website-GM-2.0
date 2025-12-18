@@ -90,6 +90,96 @@ export const tankDetails = [
         seoDesc: '2,9t (6400l) Flüssiggastank oberirdisch. Für MFH & Gewerbe. Maximale Kapazität. Alle technischen Daten hier.'
     },
     {
+        slug: '1-2t-halboberirdisch',
+        name: '1,2 t Flüssiggastank (halboberirdisch)',
+        type: 'halboberirdisch',
+        capacity: '1,2 t',
+        volume: '2.700 Liter',
+        dimensions: '2,50 x 1,25 m',
+        weight: '575 kg',
+        power: '35 kW',
+        image: null,
+        description: 'Der Kompromiss aus Sichtschutz und einfacher Installation. Der 1,2 t Tank wird zur Hälfte im Erdreich versenkt, wodurch er deutlich weniger auffällt als ein oberirdischer Tank.',
+        features: [
+            'Weniger sichtbar als oberirdisch',
+            'Geringere Erdarbeiten als unterirdisch',
+            'Platzsparend',
+            'Gute Zugänglichkeit'
+        ],
+        technicalData: {
+            'Durchmesser': '1.250 mm',
+            'Länge': '2.500 mm',
+            'Gewicht': 'ca. 575 kg',
+            'Volumen': '2.700 Liter',
+            'Füllmenge': 'ca. 2.160 Liter (bei 85%)',
+            'Material': 'Feinkornbaustahl',
+            'Beschichtung': 'Epoxidharz-Beschichtung (hellgrün) / Bitumen'
+        },
+        installation: 'Erfordert eine halbhohe Grube. Der untere Teil des Tanks wird im Erdreich eingebettet. Einfacherer Zugang zu Armaturen als bei Vollerddeckung. Ideal bei hohem Grundwasserstand, wo Vollerddeckung schwierig ist.',
+        seoTitle: '1,2 t Flüssiggastank halboberirdisch | Der clevere Kompromiss',
+        seoDesc: 'Halboberirdischer 1,2t Flüssiggastank (2700l). Weniger sichtbar, einfachere Installation. Ideal bei schwierigen Bodenverhältnissen.'
+    },
+    {
+        slug: '2-1t-halboberirdisch',
+        name: '2,1 t Flüssiggastank (halboberirdisch)',
+        type: 'halboberirdisch',
+        capacity: '2,1 t',
+        volume: '4.850 Liter',
+        dimensions: '4,30 x 1,25 m',
+        weight: '1.050 kg',
+        power: '60 kW',
+        image: null,
+        description: 'Unser Standardtank in der halboberirdischen Ausführung. Perfekt für Bauherren, die die Optik im Garten schonen wollen, aber den Aufwand einer vollständigen Erdtank-Installation scheuen.',
+        features: [
+            'Standardgröße für EFH',
+            'Dezent im Gartenbild',
+            'Einfache Befüllung',
+            'Ideal bei hohem Grundwasser'
+        ],
+        technicalData: {
+            'Durchmesser': '1.250 mm',
+            'Länge': '4.300 mm',
+            'Gewicht': 'ca. 1.050 kg',
+            'Volumen': '4.850 Liter',
+            'Füllmenge': 'ca. 4.100 Liter (bei 85%)',
+            'Material': 'Feinkornbaustahl',
+            'Beschichtung': 'Epoxidharz-Beschichtung (hellgrün) / Bitumen'
+        },
+        installation: 'Einbau in eine halbhohe Baugrube. Kombination aus Standfestigkeit und optischer Unauffälligkeit. Wir beraten Sie gern zu den spezifischen Anforderungen Ihres Grundstücks.',
+        seoTitle: '2,1 t Flüssiggastank halboberirdisch | Dezent & Praktisch',
+        seoDesc: '2,1t (4850l) Tank halberdgedeckt. Die goldene Mitte für Ihr Einfamilienhaus. Alle Infos zu Maßen und Einbau.'
+    },
+    {
+        slug: '2-9t-halboberirdisch',
+        name: '2,9 t Flüssiggastank (halboberirdisch)',
+        type: 'halboberirdisch',
+        capacity: '2,9 t',
+        volume: '6.400 Liter',
+        dimensions: '5,50 x 1,25 m',
+        weight: '1.400 kg',
+        power: '90 kW',
+        image: null,
+        description: 'Viel Volumen, weniger sichtbar. Der 2,9 t Tank halboberirdisch ist die Lösung für Gewerbe und Großverbraucher, die technische Notwendigkeit mit optischen Ansprüchen verbinden müssen.',
+        features: [
+            'Großes Volumen',
+            'Reduzierte Sichtbarkeit',
+            'Wirtschaftliche Installation',
+            'Für Gewerbe & MFH'
+        ],
+        technicalData: {
+            'Durchmesser': '1.250 mm',
+            'Länge': '5.500 mm',
+            'Gewicht': 'ca. 1.400 kg',
+            'Volumen': '6.400 Liter',
+            'Füllmenge': 'ca. 5.400 Liter (bei 85%)',
+            'Material': 'Feinkornbaustahl',
+            'Beschichtung': 'Epoxidharz-Beschichtung (hellgrün) / Bitumen'
+        },
+        installation: 'Halbhohe Grube notwendig. Kranstellung erforderlich. Oft die bevorzugte Wahl in Wasserschutzgebieten oder bei schwierigen Bodenklassen.',
+        seoTitle: '2,9 t Flüssiggastank halboberirdisch | Großtank dezent platziert',
+        seoDesc: '2,9t (6400l) halboberirdisch. Maximale Versorgungssicherheit bei reduzierter Sichtbarkeit. Datenblatt & Angebot.'
+    },
+    {
         slug: '1-2t-unterirdisch',
         name: '1,2 t Flüssiggastank (unterirdisch)',
         type: 'unterirdisch',

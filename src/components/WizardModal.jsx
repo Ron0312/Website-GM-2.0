@@ -3,7 +3,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Check, Settings, Flame, Wrench, AlertTriangle, ArrowUpFromLine, ArrowDownToLine, Home, Building2, Factory, Sparkles, RefreshCw, Info, Phone, ThumbsUp, AlertCircle } from 'lucide-react';
+import { X, Check, Settings, Flame, Wrench, AlertTriangle, ArrowUpFromLine, ArrowDownToLine, Layers, Home, Building2, Factory, Sparkles, RefreshCw, Info, Phone, ThumbsUp, AlertCircle } from 'lucide-react';
 import { getPlzError } from '../utils/validation';
 import ModernInput from './ui/ModernInput';
 import SelectionCard from './ui/SelectionCard';
@@ -304,11 +304,12 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                             <>
                                                 {/* TANK STEP 3: Installation */}
                                                 <h3 className="text-2xl font-bold text-center mb-8">Installation?</h3>
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                                                     <Controller name="installationType" control={control} render={({ field }) => (
                                                         <>
-                                                            <SelectionCard title="Oberirdisch" description="Im Garten" icon={ArrowUpFromLine} selected={field.value === 'oberirdisch'} onClick={() => field.onChange('oberirdisch')} />
-                                                            <SelectionCard title="Unterirdisch" description="Im Boden" icon={ArrowDownToLine} selected={field.value === 'unterirdisch'} onClick={() => field.onChange('unterirdisch')} />
+                                                            <SelectionCard title="Oberirdisch" description="Im Garten" icon={ArrowUpFromLine} selected={field.value === 'oberirdisch'} onClick={() => field.onChange('oberirdisch')} className="!p-3 !text-sm flex-col items-center text-center justify-center" />
+                                                            <SelectionCard title="Halboberirdisch" description="Teils versenkt" icon={Layers} selected={field.value === 'halboberirdisch'} onClick={() => field.onChange('halboberirdisch')} className="!p-3 !text-sm flex-col items-center text-center justify-center" />
+                                                            <SelectionCard title="Unterirdisch" description="Im Boden" icon={ArrowDownToLine} selected={field.value === 'unterirdisch'} onClick={() => field.onChange('unterirdisch')} className="!p-3 !text-sm flex-col items-center text-center justify-center" />
                                                         </>
                                                     )} />
                                                 </div>
