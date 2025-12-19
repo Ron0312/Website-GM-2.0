@@ -8,7 +8,7 @@ const InspectionSection = ({ openWizard }) => {
             {/* Hero Section */}
             <div className="relative bg-gray-900 py-32 lg:py-48 overflow-hidden">
                 <div className="absolute inset-0 z-0">
-                    <img src="/images/inspection-background.jpg" alt="Technische Prüfung Flüssiggastank" className="w-full h-full object-cover opacity-30 mix-blend-overlay" />
+                    <img src="/images/inspection-background.jpg" alt="Technische Prüfung Flüssiggastank" width="1920" height="1080" className="w-full h-full object-cover opacity-30 mix-blend-overlay" />
                     <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent"></div>
                 </div>
                 <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">

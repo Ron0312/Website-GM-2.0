@@ -186,7 +186,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                         </div>
 
                         <div className="xl:hidden flex items-center">
-                            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label={mobileMenuOpen ? "Menü schließen" : "Menü öffnen"} aria-expanded={mobileMenuOpen} className="text-gray-800 hover:text-gas p-2">{mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}</button>
+                            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label={mobileMenuOpen ? "Menü schließen" : "Menü öffnen"} aria-expanded={mobileMenuOpen} className="text-gray-800 hover:text-gas p-2 min-h-[44px] min-w-[44px] flex items-center justify-center">{mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}</button>
                         </div>
                     </div>
                 </div>

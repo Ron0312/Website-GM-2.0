@@ -1,6 +1,6 @@
 import React, { Suspense, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, CheckCircle2 } from 'lucide-react';
+import { ChevronDown, Check } from 'lucide-react';
 import { getCityBySlug, cityData } from '../data/cityData';
 import Hero from './Hero';
 import TankSection from './TankSection';
@@ -14,22 +14,23 @@ const DeliveryMap = React.lazy(() => import('./DeliveryMap'));
 
 const LocalFAQ = ({ city }) => {
     const [open, setOpen] = useState(0);
+    const preposition = city.preposition || 'in';
     const faqs = [
         {
             q: `Liefern Sie Flüssiggas auch nach ${city.name}?`,
-            a: `Ja, ${city.name} (PLZ ${city.zip}) gehört zu unserem Kernliefergebiet in ${city.state}. Wir beliefern Sie zuverlässig mit unseren eigenen Tankwagen.`
+            a: `Ja, ${city.name} (PLZ ${city.zip}) gehört zu unserem Kernliefergebiet ${preposition} ${city.state}. Wir beliefern Sie zuverlässig mit unseren eigenen Tankwagen.`
         },
         {
-            q: `Kann ich in ${city.name} einen Gastank kaufen?`,
-            a: `Absolut. Wir bieten Ihnen in ${city.name} und Umgebung neue und regenerierte Flüssiggastanks zum Kauf an (1,2t bis 2,9t). Damit machen Sie sich unabhängig von teuren Mietverträgen.`
+            q: `Kann ich ${preposition} ${city.name} einen Gastank kaufen?`,
+            a: `Absolut. Wir bieten Ihnen ${preposition} ${city.name} und Umgebung neue und regenerierte Flüssiggastanks zum Kauf an (1,2t bis 2,9t). Damit machen Sie sich unabhängig von teuren Mietverträgen.`
         },
         {
-            q: `Wie schnell ist der Notdienst in ${city.name}?`,
+            q: `Wie schnell ist der Notdienst ${preposition} ${city.name}?`,
             a: `In dringenden Fällen (z.B. Heizungsausfall) sind wir schnell vor Ort. Unser Standort ermöglicht kurze Anfahrtswege nach ${city.name}. Rufen Sie im Notfall direkt an.`
         },
         {
             q: "Bieten Sie auch Tankprüfungen an?",
-            a: `Ja, wir organisieren für Ihre Anlage in ${city.name} sowohl die 2-jährige äußere Prüfung als auch die 10-jährige innere Prüfung. Alles aus einer Hand.`
+            a: `Ja, wir organisieren für Ihre Anlage ${preposition} ${city.name} sowohl die 2-jährige äußere Prüfung als auch die 10-jährige innere Prüfung. Alles aus einer Hand.`
         }
     ];
 
@@ -49,7 +50,7 @@ const LocalFAQ = ({ city }) => {
     return (
         <div className="max-w-3xl mx-auto px-4 py-24">
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-            <h3 className="text-3xl font-bold text-center mb-12">Häufige Fragen zu Flüssiggas in {city.name}</h3>
+            <h3 className="text-3xl font-bold text-center mb-12">Häufige Fragen zu Flüssiggas {preposition} {city.name}</h3>
             <div className="space-y-4">
                 {faqs.map((faq, i) => (
                     <div key={i} className="border border-gray-200 rounded-xl overflow-hidden">
@@ -78,14 +79,16 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
         return <NotFound onGoHome={() => setActiveSection('start')} />;
     }
 
+    const preposition = city.preposition || 'in';
+
     const heroTitle = (
         <>
             Flüssiggas & Tanks <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">in {city.name}.</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">{preposition} {city.name}.</span>
         </>
     );
 
-    const heroSubtitle = `Ihr unabhängiger Anbieter für Flüssiggas in ${city.name} (${city.zip}). Kaufen Sie Ihren Gastank direkt, sparen Sie Miete und genießen Sie freie Händlerwahl.`;
+    const heroSubtitle = `Ihr unabhängiger Anbieter für Flüssiggas ${preposition} ${city.name} (${city.zip}). Kaufen Sie Ihren Gastank direkt, sparen Sie Miete und genießen Sie freie Händlerwahl.`;
 
     // Find nearby cities (same state) - Deterministic shuffle to prevent hydration mismatch
     const seed = slug.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
@@ -114,39 +117,47 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
                             Günstiges Flüssiggas für {city.name}
                         </h2>
                         <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                            Als inhabergeführtes Familienunternehmen versorgt <strong>Gas-Service Möller</strong> Privat- und Gewerbekunden in <strong>{city.name}</strong> und der Region {city.state} zuverlässig mit Energie.
+                            Als inhabergeführtes Familienunternehmen versorgt <strong>Gas-Service Möller</strong> Privat- und Gewerbekunden {preposition} <strong>{city.name}</strong> und der Region {city.state} zuverlässig mit Energie.
                             Verabschieden Sie sich von Knebelverträgen und überteuerten Mietmodellen.
                         </p>
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-12 items-center mt-12">
                          <div className="bg-gray-50 p-8 rounded-2xl border border-gray-100">
-                            <h3 className="text-2xl font-bold mb-6 text-gas-dark">Warum Kunden in {city.name} kaufen statt mieten:</h3>
+                            <h3 className="text-2xl font-bold mb-6 text-gas-dark">Warum Kunden {preposition} {city.name} kaufen statt mieten:</h3>
                             <ul className="space-y-4">
                                 <li className="flex items-start gap-3">
-                                    <CheckCircle2 className="text-green-500 flex-shrink-0 mt-1" />
+                                    <div className="flex-shrink-0 mt-1 w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
+                                        <Check className="w-4 h-4 text-green-600" />
+                                    </div>
                                     <span><strong>Keine monatliche Miete:</strong> Der Tank gehört Ihnen. Die Ersparnis über 20 Jahre liegt oft bei mehreren Tausend Euro.</span>
                                 </li>
                                 <li className="flex items-start gap-3">
-                                    <CheckCircle2 className="text-green-500 flex-shrink-0 mt-1" />
-                                    <span><strong>Freie Händlerwahl:</strong> Bestellen Sie Flüssiggas dort, wo es am günstigsten ist – auch bei uns in {city.name}.</span>
+                                    <div className="flex-shrink-0 mt-1 w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
+                                        <Check className="w-4 h-4 text-green-600" />
+                                    </div>
+                                    <span><strong>Freie Händlerwahl:</strong> Bestellen Sie Flüssiggas dort, wo es am günstigsten ist – auch bei uns {preposition} {city.name}.</span>
                                 </li>
                                 <li className="flex items-start gap-3">
-                                    <CheckCircle2 className="text-green-500 flex-shrink-0 mt-1" />
-                                    <span><strong>Wertsteigerung:</strong> Ein eigener, moderner Gastank steigert den Wert Ihrer Immobilie in {city.zip} {city.name}.</span>
+                                    <div className="flex-shrink-0 mt-1 w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
+                                        <Check className="w-4 h-4 text-green-600" />
+                                    </div>
+                                    <span><strong>Wertsteigerung:</strong> Ein eigener, moderner Gastank steigert den Wert Ihrer Immobilie {preposition} {city.zip} {city.name}.</span>
                                 </li>
                                 <li className="flex items-start gap-3">
-                                    <CheckCircle2 className="text-green-500 flex-shrink-0 mt-1" />
+                                    <div className="flex-shrink-0 mt-1 w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
+                                        <Check className="w-4 h-4 text-green-600" />
+                                    </div>
                                     <span><strong>Regionale Nähe:</strong> Unser Lager ist nah an {city.name}, was schnelle Lieferzeiten garantiert.</span>
                                 </li>
                             </ul>
                         </div>
                         <div>
                             <p className="text-gray-600 mb-6 leading-relaxed">
-                                Viele Haushalte in <strong>{city.name}</strong> nutzen noch Mietverträge großer Konzerne. Dabei zahlen sie oft jahrelang drauf – durch Miete, Wartungspauschalen und gebundene Gaspreise.
+                                Viele Haushalte {preposition} <strong>{city.name}</strong> nutzen noch Mietverträge großer Konzerne. Dabei zahlen sie oft jahrelang drauf – durch Miete, Wartungspauschalen und gebundene Gaspreise.
                             </p>
                             <p className="text-gray-600 mb-8 leading-relaxed">
-                                Wir bieten Ihnen eine faire Alternative: <strong>Kaufen Sie Ihren Tank.</strong> Wir kümmern uns um die Aufstellung in {city.name}, den Anschluss und die regelmäßige Belieferung zu aktuellen Tagespreisen.
+                                Wir bieten Ihnen eine faire Alternative: <strong>Kaufen Sie Ihren Tank.</strong> Wir kümmern uns um die Aufstellung {preposition} {city.name}, den Anschluss und die regelmäßige Belieferung zu aktuellen Tagespreisen.
                             </p>
                             <button
                                 onClick={() => openWizard('tank')}
@@ -168,7 +179,7 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
                  <div className="bg-gradient-to-br from-gas-light to-white rounded-3xl p-8 md:p-12 text-center shadow-sm border border-gas/10">
                      <h2 className="text-3xl font-bold mb-4 text-gas-dark">Ihr Liefergebiet: {city.name} & Umgebung</h2>
                      <p className="text-lg text-gray-700 max-w-2xl mx-auto mb-8">
-                         Wir sind in ganz {city.state} für Sie unterwegs. Prüfen Sie jetzt direkt, wann wir das nächste Mal bei Ihnen in {city.zip} {city.name} sind.
+                         Wir sind in ganz {city.state} für Sie unterwegs. Prüfen Sie jetzt direkt, wann wir das nächste Mal bei Ihnen {preposition} {city.zip} {city.name} sind.
                      </p>
                      <div className="h-96 w-full rounded-xl overflow-hidden bg-white shadow-inner border border-gray-100 relative">
                         <Suspense fallback={<div className="absolute inset-0 bg-gray-100 animate-pulse flex items-center justify-center text-gray-400">Karte wird geladen...</div>}>

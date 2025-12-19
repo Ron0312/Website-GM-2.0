@@ -1,2 +1,9 @@
-{"level":"INFO","timestamp":"2025-12-18T16:50:28.891Z","message":"Starting server. Initial mode: DEVELOPMENT"}
-{"level":"INFO","timestamp":"2025-12-18T16:50:29.221Z","message":"Server started at http://localhost:5173"}
+
+> gasmoeller-vite@0.0.0 dev
+> node server.js
+
+{"level":"INFO","timestamp":"2025-12-19T13:21:52.102Z","message":"Starting server. Initial mode: DEVELOPMENT"}
+Re-optimizing dependencies because lockfile has changed
+{"level":"INFO","timestamp":"2025-12-19T13:21:52.520Z","message":"Server started at http://localhost:5173"}
+{"level":"INFO","timestamp":"2025-12-19T13:22:53.814Z","message":"Received kill signal, shutting down gracefully"}
+{"level":"INFO","timestamp":"2025-12-19T13:22:53.815Z","message":"Closed out remaining connections"}

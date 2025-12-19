@@ -66,7 +66,8 @@ const Footer = ({ setActiveSection, openLegal }) => {
         }
     };
 
-    const linkClass = "hover:text-white transition-colors py-3 md:py-1 block md:inline-block w-full text-left";
+    // A11y & UX: Larger touch targets on mobile (min 44px)
+    const linkClass = "hover:text-white transition-colors py-3 md:py-1 block md:inline-block w-full text-left min-h-[44px] md:min-h-0 flex items-center md:block";
 
     return (
         <footer className="bg-gray-900 text-gray-400 py-20 border-t border-gray-800 text-sm">
@@ -84,8 +85,8 @@ const Footer = ({ setActiveSection, openLegal }) => {
                     </div>
 
                     <div className="flex space-x-4">
-                        <a href="https://facebook.com/gasmoeller" target="_blank" rel="noopener noreferrer" className="w-12 h-12 md:w-8 md:h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer" aria-label="Facebook">f</a>
-                        <a href="https://linkedin.com/company/gasmoeller" target="_blank" rel="noopener noreferrer" className="w-12 h-12 md:w-8 md:h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer" aria-label="LinkedIn">in</a>
+                        <a href="https://facebook.com/gasmoeller" target="_blank" rel="noopener noreferrer" className="w-11 h-11 md:w-8 md:h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer text-xl font-bold" aria-label="Facebook">f</a>
+                        <a href="https://linkedin.com/company/gasmoeller" target="_blank" rel="noopener noreferrer" className="w-11 h-11 md:w-8 md:h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer text-xl font-bold" aria-label="LinkedIn">in</a>
                     </div>
                 </div>
                 <div>

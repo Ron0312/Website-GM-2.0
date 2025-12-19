@@ -119,18 +119,68 @@ html.a11y-large-text {
 
 /* Print Styles */
 @media print {
-    header, footer, .no-print {
+    /* Hide navigational and interactive elements */
+    header, footer, nav, .cookie-banner, .sticky-cta, .no-print, .scroll-to-top, [aria-modal="true"] {
         display: none !important;
     }
+
+    /* Ensure content visibility */
     body {
         background: white !important;
         color: black !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
+
     #main-content {
         padding-top: 0 !important;
+        margin-top: 0 !important;
+        width: 100% !important;
     }
+
+    /* Improve Calculator Layout for Print */
+    #calculator, .calculator-result {
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
+        margin-top: 20px !important;
+        page-break-inside: avoid;
+    }
+
+    /* Show inputs as text */
+    input[type="text"], input[type="number"], select {
+        border: none !important;
+        background: transparent !important;
+        padding: 0 !important;
+        font-weight: bold;
+    }
+
+    /* Force background printing for essential elements if possible,
+       though browsers often block this. */
+    .print-bg {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
     .print-break {
         page-break-before: always;
+    }
+
+    a[href]::after {
+        content: none !important;
+    }
+
+    h1, h2, h3 {
+        page-break-after: avoid;
+        color: black !important;
+    }
+
+    p, li {
+        color: black !important;
+    }
+
+    img {
+        max-width: 100% !important;
+        page-break-inside: avoid;
     }
 }
 

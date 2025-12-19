@@ -64,8 +64,22 @@ const Hero = ({ setActiveSection, openWizard, title, subtitle, showBadges = true
                             </p>
 
                             <div className="flex flex-col sm:flex-row gap-4">
-                                <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => openWizard ? openWizard('tank') : setActiveSection('tanks')} className="px-8 py-4 bg-gas hover:bg-gas-dark text-white text-base font-bold rounded-full shadow-xl shadow-gas/30 transition-all uppercase tracking-wide border-2 border-transparent">Tank kaufen</motion.button>
-                                <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => openWizard ? openWizard('gas') : setActiveSection('gas')} className="px-8 py-4 bg-transparent border-2 border-white text-white hover:bg-white hover:text-gas text-base font-bold rounded-full shadow-lg transition-all uppercase tracking-wide flex items-center justify-center backdrop-blur-sm">Flüssiggas bestellen</motion.button>
+                                <motion.button
+                                    whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
+                                    whileTap={{ scale: 0.95 }}
+                                    onClick={() => openWizard ? openWizard('tank') : setActiveSection('tanks')}
+                                    className="px-8 py-4 bg-gas hover:bg-gas-dark text-white text-base font-bold rounded-full shadow-xl shadow-gas/30 transition-all uppercase tracking-wide border-2 border-transparent"
+                                >
+                                    Tank kaufen
+                                </motion.button>
+                                <motion.button
+                                    whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
+                                    whileTap={{ scale: 0.95 }}
+                                    onClick={() => openWizard ? openWizard('gas') : setActiveSection('gas')}
+                                    className="px-8 py-4 bg-transparent border-2 border-white text-white hover:bg-white hover:text-gas text-base font-bold rounded-full shadow-lg transition-all uppercase tracking-wide flex items-center justify-center backdrop-blur-sm"
+                                >
+                                    Flüssiggas bestellen
+                                </motion.button>
                             </div>
                         </motion.div>
                     </div>
