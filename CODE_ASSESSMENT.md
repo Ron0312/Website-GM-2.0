@@ -1,6 +1,6 @@
 # Code Assessment & Optimierungsvorschläge
 
-Hier ist eine Analyse der Website `gasmöller.de` mit 10 konkreten Punkten zur Verbesserung der optischen Qualität (UX/UI) und der technischen Basis.
+Hier ist eine Analyse der Website `Flüssiggas on Net.de` mit 10 konkreten Punkten zur Verbesserung der optischen Qualität (UX/UI) und der technischen Basis.
 
 ## 🎨 Optische Verbesserungen (UX/UI)
 

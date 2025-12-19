@@ -47,7 +47,7 @@ const Footer = ({ setActiveSection, openLegal }) => {
             formData.append("access_key", "f22052ed-455f-4e4d-9f5a-94a6e340426f");
             formData.append("subject", "Neue Newsletter Anmeldung");
             formData.append("email", email);
-            formData.append("from_name", "gasmöller Website Footer");
+            formData.append("from_name", "Flüssiggas on Net Website Footer");
 
             const response = await fetch("https://api.web3forms.com/submit", {
                 method: "POST",
@@ -72,7 +72,7 @@ const Footer = ({ setActiveSection, openLegal }) => {
         <footer className="bg-gray-900 text-gray-400 py-20 border-t border-gray-800 text-sm">
             <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
                 <div className="col-span-1">
-                    <img src="/logos/Icon-01.webp" alt="gasmöller" width="2222" height="747" loading="lazy" className="h-10 w-auto filter brightness-0 invert opacity-80 mb-6" />
+                    <img src="/logos/Icon-01.webp" alt="Flüssiggas on Net" width="2222" height="747" loading="lazy" className="h-10 w-auto filter brightness-0 invert opacity-80 mb-6" />
                     <p className="leading-relaxed mb-4">Ihr unabhängiger Partner für Energie im Norden. Seit 2000.</p>
 
                     {/* Live Status Indicator */}
@@ -97,7 +97,7 @@ const Footer = ({ setActiveSection, openLegal }) => {
                         <li><button onClick={() => setActiveSection('kontakt')} className={linkClass}>Kontakt</button></li>
                         <li className="pt-2 border-t border-gray-800 mt-2">
                             <a href="tel:04551897089" className={`${linkClass} flex items-center gap-2 font-semibold`}>
-                                <Phone size={14} /> 04551 89 70 89
+                                <Phone size={14} /> 0381 36779809
                             </a>
                         </li>
                     </ul>
@@ -156,7 +156,7 @@ const Footer = ({ setActiveSection, openLegal }) => {
                 </div>
             </div>
             <div className="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-gray-800 text-center text-xs text-gray-600">
-                &copy; {new Date().getFullYear()} Gas-Service Möller e.K. Alle Rechte vorbehalten.
+                &copy; {new Date().getFullYear()} Christherm Alle Rechte vorbehalten.
             </div>
         </footer>
     );

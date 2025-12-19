@@ -81,7 +81,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-white">Fair & Zuverlässig.</span>
                                 </h1>
                                 <p className="text-lg lg:text-xl text-gray-300 mb-8 leading-relaxed max-w-lg">
-                                    Wir beliefern Privathaushalte und Gewerbe in Schleswig-Holstein, Hamburg, Niedersachsen und Mecklenburg-Vorpommern. Beste Preise, ohne Vertragsbindung.
+                                    Wir beliefern Privathaushalte und Gewerbe in Mecklenburg-Vorpommern, Hamburg, Niedersachsen und Mecklenburg-Vorpommern. Beste Preise, ohne Vertragsbindung.
                                 </p>
 
                                 <div className="flex flex-col sm:flex-row gap-6 text-sm font-bold text-gray-300">
@@ -292,7 +292,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                     <div className="text-center max-w-3xl mx-auto mb-16">
                         <h2 className="text-3xl lg:text-4xl font-extrabold text-gray-900 mb-6">Warum wir anders sind</h2>
                         <p className="text-lg text-gray-600 leading-relaxed">
-                            Bei gasmöller gibt es keine Hotlines mit Warteschleifen und keine versteckten Gebühren.
+                            Bei Flüssiggas on Net gibt es keine Hotlines mit Warteschleifen und keine versteckten Gebühren.
                             Wir sind Ihr direkter Draht zu günstiger Energie im Norden.
                         </p>
                     </div>
@@ -322,7 +322,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                             </div>
                             <h3 className="text-xl font-bold text-gray-900 mb-4">Persönlicher Service</h3>
                             <p className="text-gray-600 leading-relaxed">
-                                Bei uns sprechen Sie mit Menschen, nicht mit Robotern. Unser Team in Schleswig-Holstein kümmert sich persönlich um Ihr Anliegen.
+                                Bei uns sprechen Sie mit Menschen, nicht mit Robotern. Unser Team in Mecklenburg-Vorpommern kümmert sich persönlich um Ihr Anliegen.
                             </p>
                         </div>
                     </div>
@@ -340,7 +340,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                             </div>
                              <div className="flex items-center gap-3">
                                 <MapPin size={32} className="text-gray-400" />
-                                <span className="font-bold text-gray-500 text-lg">Standort Schleswig-Holstein</span>
+                                <span className="font-bold text-gray-500 text-lg">Standort Mecklenburg-Vorpommern</span>
                             </div>
                         </div>
                     </div>

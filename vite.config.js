@@ -11,8 +11,8 @@ export default defineConfig({
       injectRegister: 'script-defer',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'logos/*.webp', 'images/*.webp'],
       manifest: {
-        name: 'gasmöller',
-        short_name: 'gasmöller',
+        name: 'Flüssiggas on Net',
+        short_name: 'Flüssiggas on Net',
         description: 'Ihr Partner für Flüssiggas im Norden',
         theme_color: '#005b9f',
         background_color: '#ffffff',

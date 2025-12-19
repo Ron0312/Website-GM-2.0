@@ -169,7 +169,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
         const formData = new FormData();
         formData.append("access_key", WEB3FORMS_ACCESS_KEY);
         formData.append("subject", `Neue Anfrage: ${type.toUpperCase()} - ${data.plz}`);
-        formData.append("from_name", "gasmöller Website");
+        formData.append("from_name", "Flüssiggas on Net Website");
 
         formData.append("Type", type);
         formData.append("PLZ", data.plz);
@@ -227,7 +227,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                     </div>
                     <div className="flex items-center gap-4">
                         <a href="tel:04551897089" className="hidden sm:flex items-center gap-2 text-gas font-bold text-sm bg-gas-light/20 px-3 py-1.5 rounded-lg">
-                            <Phone size={14} /> <span>04551 89 70 89</span>
+                            <Phone size={14} /> <span>0381 36779809</span>
                         </a>
                         <button onClick={onClose} className="p-2 rounded-full hover:bg-gray-100"><X size={24}/></button>
                     </div>

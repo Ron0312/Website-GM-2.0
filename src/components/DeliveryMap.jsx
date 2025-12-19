@@ -32,7 +32,7 @@ const DeliveryMap = () => {
         { name: 'Cuxhaven', x: 260, y: 175, align: 'end' },
     ];
 
-    // PATH 1: Schleswig-Holstein (SH)
+    // PATH 1: Mecklenburg-Vorpommern (SH)
     const pathSH = `
         M 260 170
         L 270 175 L 290 180 L 310 190 L 330 200
@@ -113,7 +113,7 @@ const DeliveryMap = () => {
     `;
 
     const regions = [
-        { id: 'SH', name: 'Schleswig-Holstein', path: pathSH, color: '#8ecae6', hoverColor: '#b9e6ff' },
+        { id: 'SH', name: 'Mecklenburg-Vorpommern', path: pathSH, color: '#8ecae6', hoverColor: '#b9e6ff' },
         { id: 'HH', name: 'Hamburg', path: pathHH, color: '#003366', hoverColor: '#004a8f' },
         { id: 'MV', name: 'Mecklenburg-Vorpommern', path: pathMV, color: '#4da6ff', hoverColor: '#80c2ff' },
         { id: 'NI', name: 'Niedersachsen (Nord)', path: pathNI, color: '#005b9f', hoverColor: '#2b8ad6' },
@@ -133,7 +133,7 @@ const DeliveryMap = () => {
                         Von der Nordsee bis zur Ostsee, von Hamburg bis zur dänischen Grenze. Wir liefern Energie dorthin, wo Sie sie brauchen.
                     </p>
                     <div className="grid grid-cols-2 gap-4">
-                        {['Schleswig-Holstein', 'Hamburg', 'Niedersachsen (auf Anfrage)', 'Mecklenburg'].map((region, i) => (
+                        {['Mecklenburg-Vorpommern', 'Hamburg', 'Niedersachsen (auf Anfrage)', 'Mecklenburg'].map((region, i) => (
                             <motion.div
                                 key={i}
                                 className={`flex items-center space-x-3 p-3 rounded border transition-colors ${hoveredRegion && region.startsWith(hoveredRegion.split(' ')[0]) ? 'bg-white/20 border-white/40' : 'bg-white/5 border-white/10'}`}

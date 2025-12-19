@@ -8,7 +8,7 @@ const TopBar = () => (
                 <span className="flex items-center text-white/80"><TrendingUp size={12} className="mr-1.5 text-green-400"/> Preistendenz: <strong className="text-white ml-1">Stabil / Sinkend</strong></span>
                 <span className="flex items-center text-white/80"><Clock size={12} className="mr-1.5"/> Mo-Fr 8:00 - 17:00</span>
                 <a href="tel:04551897089" className="flex items-center text-white/80 hover:text-white transition-colors font-semibold">
-                    <Phone size={12} className="mr-1.5"/> 04551 89 70 89
+                    <Phone size={12} className="mr-1.5"/> 0381 36779809
                 </a>
             </div>
             <div className="flex space-x-6">

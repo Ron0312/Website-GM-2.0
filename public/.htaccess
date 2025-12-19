@@ -1,104 +1,45 @@
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteBase /
-
-  # Explicitly allow access
-  Require all granted
-
-  # ----------------------------------------------------------------------
-  # Vital Files Protection (Sitemap & Robots)
-  # ----------------------------------------------------------------------
-  # Explicitly exclude sitemap.xml and robots.txt from ANY rewrites to prevent 404s
-  # This ensures Apache tries to serve them physically first.
-  # We use REQUEST_URI to be absolutely sure we catch the path
-  RewriteCond %{REQUEST_URI} ^/sitemap\.xml$ [OR]
-  RewriteCond %{REQUEST_URI} ^/robots\.txt$
-  RewriteRule ^ - [L]
 
   # Security Headers
   <IfModule mod_headers.c>
     Header set X-Content-Type-Options "nosniff"
     Header set X-Frame-Options "SAMEORIGIN"
     Header set X-XSS-Protection "1; mode=block"
+    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
   </IfModule>
 
-  # ----------------------------------------------------------------------
-  # Legacy Redirects (301 Permanent)
-  # ----------------------------------------------------------------------
+  # Force HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-  # Impressum / Legal
-  RewriteRule ^impressum-2/?$ / [R=301,L]
-  RewriteRule ^impressum/?$ / [R=301,L]
-  RewriteRule ^datenschutzerklaerung-eu/?$ / [R=301,L]
-  RewriteRule ^allgemeine-geschaeftsbediungungen/?$ / [R=301,L]
-  RewriteRule ^haftungsausschluss/?$ / [R=301,L]
-  RewriteRule ^cookie-richtlinie-eu/?$ / [R=301,L]
+  # Remove www
+  RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+  RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 
-  # Tanks - General
-  # Explicitly redirect old specific buying pages to /tanks
-  RewriteRule ^fluessiggastank-kaufen/?$ /tanks [R=301,L]
-  RewriteRule ^fluessiggastank-kaufen-2/?$ /tanks [R=301,L]
-  RewriteRule ^flussiggastank-mieten-oder-kaufen/?$ /tanks [R=301,L]
-  RewriteRule ^sonderpreise-und-entsorgung/?$ /tanks [R=301,L]
+  # Legacy Redirects (from Kay Uwe)
+  RewriteRule ^fluessiggas/?$ /gas [R=301,L]
+  RewriteRule ^fluessiggastank/?$ /tanks [R=301,L]
+  RewriteRule ^ueber-uns/?$ /ueber-uns [R=301,L]
+  RewriteRule ^kontakt/?$ /kontakt [R=301,L]
+  RewriteRule ^impressum/?$ /impressum [R=301,L]
+  RewriteRule ^datenschutz/?$ /datenschutz [R=301,L]
+  RewriteRule ^agb/?$ /agb [R=301,L]
 
-  # Tanks - Specific Models
-  # 2.1t / 4850L
-  RewriteRule ^flussiggastank-oberirdisch-4850l-21t-fassungsvermogen/?$ /tanks/2-1t-oberirdisch [R=301,L]
-  RewriteRule ^fluessiggastank-oberirdisch-4850l-21t-fassungsvermoegen/?$ /tanks/2-1t-oberirdisch [R=301,L]
-  RewriteRule ^fluessiggastank-unterirdisch-4850l-21t-fassungsvermoegen/?$ /tanks/2-1t-unterirdisch [R=301,L]
+  # Dynamic Sitemap & Robots (handled by build script or SSR if not present)
+  # But here we assume SSG built files exist
+  RewriteRule ^sitemap\.xml$ sitemap.xml [L]
+  RewriteRule ^robots\.txt$ robots.txt [L]
 
-  # 1.2t / 2700L
-  RewriteRule ^fluessiggastank-unterirdisch-2700l-12t-fassungsvermoegen/?$ /tanks/1-2t-unterirdisch [R=301,L]
-  RewriteRule ^flussiggastank-oberirdisch-2700l/?$ /tanks/1-2t-oberirdisch [R=301,L]
-  RewriteRule ^fluessiggastank-oberirdisch-2700l/?$ /tanks/1-2t-oberirdisch [R=301,L]
+  # Clean URLs (HTML extension removal)
+  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}.html -f
+  RewriteRule ^(.*)$ $1.html [L]
 
-  # 2.9t / 6400L
-  RewriteRule ^flussiggastank-oberirdisch-6400l/?$ /tanks/2-9t-oberirdisch [R=301,L]
-  RewriteRule ^fluessiggastank-oberirdisch-6400l/?$ /tanks/2-9t-oberirdisch [R=301,L]
-  RewriteRule ^fluessiggastank-unterirdisch-6400l-29t-fassungsvermoegen/?$ /tanks/2-9t-unterirdisch [R=301,L]
-
-  # Gas
-  RewriteRule ^fluessiggas-bestellen/?$ /gas [R=301,L]
-
-  # Knowledge / Content
-  RewriteRule ^was-ist-ein-fluessiggastank/?$ /wissen [R=301,L]
-  RewriteRule ^was-ist-fluessiggas/?$ /wissen [R=301,L]
-  RewriteRule ^fluessiggas-eine-vielfaeltige-energiequelle/?$ /wissen [R=301,L]
-  RewriteRule ^von-oel-auf-gas-umruesten/?$ /wissen [R=301,L]
-
-  # Service / Exams
-  RewriteRule ^flussiggasbehalter-vorschriften-und-prufungen/?$ /pruefungen [R=301,L]
-  RewriteRule ^aeussere-pruefung/?$ /pruefungen [R=301,L]
-
-  # Note: URLs like /kontakt/ are handled by the static file mapping below
-  # which treats /kontakt/ as needing /kontakt.html
-
-  # ----------------------------------------------------------------------
-  # Static File Handling
-  # ----------------------------------------------------------------------
-
-  # If the request matches a file or directory, serve it directly
-  RewriteCond %{REQUEST_FILENAME} -f [OR]
-  RewriteCond %{REQUEST_FILENAME} -d
-  RewriteRule ^ - [L]
-
-  # Handle .html extension hiding (e.g. /gas -> /gas.html)
-  # Check if .html file exists for the requested path (removing trailing slash for check)
-  # We use a trick: match the request filename against the document root + request + .html
-  # But REQUEST_FILENAME is absolute path usually.
-
-  # Simple case: Root level pages
-  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
-  RewriteRule ^([^/]+)/?$ $1.html [L]
-
-  # Nested pages (e.g. /tanks/slug)
-  RewriteCond %{DOCUMENT_ROOT}/$1/$2.html -f
-  RewriteRule ^([^/]+)/([^/]+)/?$ $1/$2.html [L]
-
-  # Fallback for 404
-  # If no file found and no html mapping, serve 404.html if it exists
-  # IMPORTANT: Do not rewrite sitemap.xml to 404 even if check fails,
-  # although the top rule should have prevented this.
+  # SPA Fallback (if using Client Side Routing for some parts)
+  # For SSG, we mostly rely on generated HTML files.
+  # If a file doesn't exist, we can fallback to 404.html
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^ 404.html [L]

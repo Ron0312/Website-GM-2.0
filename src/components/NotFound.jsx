@@ -69,7 +69,7 @@ const NotFound = ({ onGoHome }) => {
                     <ArrowRight size={18} className="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all" />
                 </button>
                 <a
-                    href="mailto:kontakt@gasmoeller.de?subject=Fehler%20404"
+                    href="mailto:kontakt@fluessiggas-onnet.de?subject=Fehler%20404"
                     className="flex-1 bg-white text-gray-700 border-2 border-gray-100 px-6 py-4 rounded-xl font-bold hover:border-gray-300 hover:bg-gray-50 transition-all flex items-center justify-center gap-2"
                 >
                     Fehler melden

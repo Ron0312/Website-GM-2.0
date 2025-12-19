@@ -52,7 +52,7 @@ const Hero = ({ setActiveSection, openWizard, title, subtitle, showBadges = true
                             )}
 
                             {/* Brand Name - Visually demoted but present */}
-                            <p className="text-blue-100 font-bold tracking-[0.2em] uppercase text-sm mb-2 drop-shadow-md">Gas-Service Möller</p>
+                            <p className="text-blue-100 font-bold tracking-[0.2em] uppercase text-sm mb-2 drop-shadow-md">Flüssiggas on Net</p>
 
                             {/* Main H1 */}
                             <h1 className="text-5xl tracking-tight font-extrabold sm:text-6xl lg:text-7xl mb-8 leading-tight drop-shadow-lg">

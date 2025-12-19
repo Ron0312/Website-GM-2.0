@@ -4,25 +4,25 @@ export const ImprintContent = () => (
     <div className="space-y-4 text-sm text-gray-700">
         <h3 className="text-lg font-bold text-gray-900">Angaben gemäß § 5 TMG</h3>
         <p>
-            <strong>Gas-Service Möller e.K.</strong><br />
-            Neuenteichweg 7a<br />
-            23795 Schieren
+            <strong>Christherm</strong><br />
+            Am Markt 9<br />
+            18119 Rostock
         </p>
 
         <h3 className="text-lg font-bold text-gray-900 mt-4">Vertreten durch</h3>
-        <p>Anja Möller</p>
+        <p>Kai-Uwe Christen</p>
 
         <h3 className="text-lg font-bold text-gray-900 mt-4">Kontakt</h3>
         <p>
-            Telefon: 04551 89 70 89<br />
-            E-Mail: <a href="mailto:kontakt@gasmoeller.de" className="text-gas hover:underline">kontakt@gasmoeller.de</a>
+            Telefon: 0381 36779809<br />
+            E-Mail: <a href="mailto:support@fluessiggas-onnet.de" className="text-gas hover:underline">support@fluessiggas-onnet.de</a>
         </p>
 
         <h3 className="text-lg font-bold text-gray-900 mt-4">Registereintrag</h3>
         <p>
             Eintragung im Handelsregister.<br />
-            Registergericht: Amtsgericht Kiel<br />
-            Registernummer: HRA 11334 KI
+            Registergericht: Gewerbeamt Hansestadt Rostock<br />
+            Registernummer: USt-IdNr. DE220160403
         </p>
 
         <h3 className="text-lg font-bold text-gray-900 mt-4">Umsatzsteuer-ID</h3>
@@ -63,11 +63,11 @@ export const PrivacyContent = () => (
         <p><strong>Hinweis zur verantwortlichen Stelle</strong></p>
         <p>
             Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:<br />
-            Gas-Service Möller e.K.<br />
-            Neuenteichweg 7a<br />
-            23795 Schieren<br />
-            Telefon: 04551 89 70 89<br />
-            E-Mail: kontakt@gasmoeller.de
+            Christherm<br />
+            Am Markt 9<br />
+            18119 Rostock<br />
+            Telefon: 0381 36779809<br />
+            E-Mail: support@fluessiggas-onnet.de
         </p>
 
         <h3 className="text-lg font-bold text-gray-900 mt-4">3. Datenerfassung auf dieser Website</h3>
@@ -89,7 +89,7 @@ export const TermsContent = () => (
     <div className="space-y-4 text-sm text-gray-700">
         <h3 className="text-lg font-bold text-gray-900">1. Geltungsbereich</h3>
         <p>
-            Für alle Geschäftsbeziehungen zwischen der Gas-Service Möller e.K. (nachfolgend "Anbieter") und dem Kunden gelten ausschließlich diese Allgemeinen Geschäftsbedingungen in ihrer zum Zeitpunkt der Bestellung gültigen Fassung.
+            Für alle Geschäftsbeziehungen zwischen der Christherm (nachfolgend "Anbieter") und dem Kunden gelten ausschließlich diese Allgemeinen Geschäftsbedingungen in ihrer zum Zeitpunkt der Bestellung gültigen Fassung.
         </p>
 
         <h3 className="text-lg font-bold text-gray-900 mt-4">2. Vertragsgegenstand</h3>
@@ -134,8 +134,8 @@ export const AccessibilityStatementContent = () => (
     <div className="space-y-4 text-sm text-gray-700">
         <h3 className="text-lg font-bold text-gray-900">Erklärung zur Barrierefreiheit</h3>
         <p>
-            Die <strong>Gas-Service Möller e.K.</strong> ist bemüht, ihre Website im Einklang mit den nationalen Rechtsvorschriften zur Umsetzung der Richtlinie (EU) 2016/2102 des Europäischen Parlaments und des Rates barrierefrei zugänglich zu machen.
-            Diese Erklärung zur Barrierefreiheit gilt für die Website <strong>www.gasmoeller.de</strong>.
+            Die <strong>Christherm</strong> ist bemüht, ihre Website im Einklang mit den nationalen Rechtsvorschriften zur Umsetzung der Richtlinie (EU) 2016/2102 des Europäischen Parlaments und des Rates barrierefrei zugänglich zu machen.
+            Diese Erklärung zur Barrierefreiheit gilt für die Website <strong>www.fluessiggas-onnet.de</strong>.
         </p>
 
         <h4 className="font-bold text-md text-gray-900 mt-6">Stand der Vereinbarkeit mit den Anforderungen</h4>
@@ -171,11 +171,11 @@ export const AccessibilityStatementContent = () => (
             Dann können Sie sich gerne bei uns melden:
         </p>
         <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-2">
-            <strong>Gas-Service Möller e.K.</strong><br/>
-            Neuenteichweg 7a<br/>
-            23795 Schieren<br/>
-            Telefon: <a href="tel:+494551897089" className="text-gas hover:underline">04551 89 70 89</a><br/>
-            E-Mail: <a href="mailto:kontakt@gasmoeller.de" className="text-gas hover:underline">kontakt@gasmoeller.de</a>
+            <strong>Christherm</strong><br/>
+            Am Markt 9<br/>
+            18119 Rostock<br/>
+            Telefon: <a href="tel:038136779809" className="text-gas hover:underline">0381 36779809</a><br/>
+            E-Mail: <a href="mailto:support@fluessiggas-onnet.de" className="text-gas hover:underline">support@fluessiggas-onnet.de</a>
         </div>
 
         <h4 className="font-bold text-md text-gray-900 mt-6">Schlichtungsverfahren</h4>
@@ -184,7 +184,7 @@ export const AccessibilityStatementContent = () => (
             Sollten Sie der Ansicht sein, dass Sie durch eine nicht ausreichende barrierefreie Gestaltung unserer Website benachteiligt sind, können Sie sich an die Schlichtungsstelle wenden:
         </p>
         <p className="mt-2">
-            <strong>Schlichtungsstelle des Landes Schleswig-Holstein</strong><br/>
+            <strong>Schlichtungsstelle des Landes Mecklenburg-Vorpommern</strong><br/>
             Karolinenweg 1<br/>
             24105 Kiel<br/>
             E-Mail: <a href="mailto:buit@landtag.ltsh.de" className="text-gas hover:underline">buit@landtag.ltsh.de</a>

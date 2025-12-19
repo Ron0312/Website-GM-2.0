@@ -87,7 +87,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center">
                         <div className="flex-shrink-0 flex items-center cursor-pointer" onClick={() => setActiveSection('start')}>
-                            <img src="/logos/Icon-01.webp" alt="gasmöller" width="2222" height="747" className={`transition-all duration-300 w-auto ${isScrolled ? 'h-10' : 'h-12'}`} />
+                            <img src="/logos/Icon-01.webp" alt="Flüssiggas on Net" width="2222" height="747" className={`transition-all duration-300 w-auto ${isScrolled ? 'h-10' : 'h-12'}`} />
                         </div>
 
                         <div className="hidden xl:flex space-x-1 bg-gray-50/50 p-1 rounded-full border border-gray-100">
@@ -176,9 +176,9 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                         </div>
 
                         <div className="hidden lg:flex items-center space-x-4">
-                            <a href="tel:04551897089" aria-label="Kostenlose Beratung unter 04551 89 70 89 anrufen" title="Rufen Sie uns an: 04551 89 70 89" className="flex flex-col items-end text-right mr-2 group">
+                            <a href="tel:04551897089" aria-label="Kostenlose Beratung unter 0381 36779809 anrufen" title="Rufen Sie uns an: 0381 36779809" className="flex flex-col items-end text-right mr-2 group">
                                 <span className="text-[10px] uppercase font-bold text-gray-400 tracking-wider group-hover:text-gas transition-colors">Kostenlose Beratung</span>
-                                <span className="text-lg font-bold text-gas leading-none">04551 89 70 89</span>
+                                <span className="text-lg font-bold text-gas leading-none">0381 36779809</span>
                             </a>
                             <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => openWizard ? openWizard('tank') : setActiveSection('kontakt')} aria-label="Angebot anfordern" className="bg-gas hover:bg-gas-dark text-white px-6 py-3 rounded-full shadow-lg shadow-gas/20 font-bold text-sm uppercase tracking-wider transition-all flex items-center">
                                 Angebot <ArrowRight size={16} className="ml-2"/>

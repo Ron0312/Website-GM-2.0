@@ -55,7 +55,7 @@ const ContactSection = () => {
         const submitData = new FormData();
         submitData.append("access_key", "f22052ed-455f-4e4d-9f5a-94a6e340426f");
         submitData.append("subject", "Neue Kontaktanfrage (Website)");
-        submitData.append("from_name", "gasmöller Kontaktformular");
+        submitData.append("from_name", "Flüssiggas on Net Kontaktformular");
 
         submitData.append("Name", data.name);
         submitData.append("Email", data.email);
@@ -95,7 +95,7 @@ const ContactSection = () => {
                             <Phone className="text-gas-light" />
                             <div className="text-left">
                                 <div className="text-xs text-gray-400 uppercase font-bold tracking-wider">Zentrale</div>
-                                <div className="font-bold text-lg tabular-nums">04551 89 70 89</div>
+                                <div className="font-bold text-lg tabular-nums">0381 36779809</div>
                             </div>
                         </a>
                         <button
@@ -112,7 +112,7 @@ const ContactSection = () => {
                             <User className="text-gas-light" />
                             <div className="text-left">
                                 <div className="text-xs text-gray-400 uppercase font-bold tracking-wider">Thomas Möller / Notfall</div>
-                                <div className="font-bold text-lg tabular-nums">+49 176 416 84 326</div>
+                                <div className="font-bold text-lg tabular-nums">+49 381 36779809</div>
                             </div>
                         </a>
                         <button
@@ -135,7 +135,7 @@ const ContactSection = () => {
                             <p className="text-gray-600 mb-6">Ihre Nachricht wurde erfolgreich versendet. Wir melden uns in Kürze bei Ihnen.</p>
                              <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 text-sm text-blue-900 mb-8">
                                 <strong>Dringend?</strong><br/>
-                                Rufen Sie uns direkt an unter <a href="tel:04551897089" className="underline font-bold tabular-nums">04551 89 70 89</a>.
+                                Rufen Sie uns direkt an unter <a href="tel:04551897089" className="underline font-bold tabular-nums">0381 36779809</a>.
                             </div>
                             <button onClick={() => setStatus('idle')} className="text-gas font-bold hover:underline">Neue Nachricht schreiben</button>
                         </div>

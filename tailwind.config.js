@@ -11,11 +11,11 @@ export default {
       },
       colors: {
         gas: {
-          DEFAULT: '#005b9f',
-          dark: '#004a82',
-          light: '#e6f0fa',
-          accent: '#003d6b',
-          vibrant: '#0077cc'
+          DEFAULT: '#0284c7',
+          dark: '#0369a1',
+          light: '#e0f2fe',
+          accent: '#0c4a6e',
+          vibrant: '#0ea5e9'
         },
         text: {
           DEFAULT: '#1e293b',

@@ -114,7 +114,7 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
                             Günstiges Flüssiggas für {city.name}
                         </h2>
                         <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                            Als inhabergeführtes Familienunternehmen versorgt <strong>Gas-Service Möller</strong> Privat- und Gewerbekunden in <strong>{city.name}</strong> und der Region {city.state} zuverlässig mit Energie.
+                            Als inhabergeführtes Familienunternehmen versorgt <strong>Flüssiggas on Net</strong> Privat- und Gewerbekunden in <strong>{city.name}</strong> und der Region {city.state} zuverlässig mit Energie.
                             Verabschieden Sie sich von Knebelverträgen und überteuerten Mietmodellen.
                         </p>
                     </div>

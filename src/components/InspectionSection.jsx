@@ -64,7 +64,7 @@ const InspectionSection = ({ openWizard }) => {
                     >
                         <h3 className="text-xl font-bold mb-4">Unser Service-Angebot</h3>
                         <p className="text-gray-600 mb-6 text-sm">
-                            gasmöller organisiert und führt die Prüfungen in Zusammenarbeit mit zugelassenen Überwachungsstellen (ZÜS) durch. Sie müssen sich um nichts kümmern.
+                            Flüssiggas on Net organisiert und führt die Prüfungen in Zusammenarbeit mit zugelassenen Überwachungsstellen (ZÜS) durch. Sie müssen sich um nichts kümmern.
                         </p>
                         <div className="space-y-3">
                             <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100 flex justify-between items-center">

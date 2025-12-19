@@ -138,7 +138,7 @@ async function createServer() {
 
   // Dynamic Sitemap Generation (Fail-safe)
   const generateSitemapXml = () => {
-      const SITE_URL = 'https://gasmoeller.de'; // Enforce non-www
+      const SITE_URL = 'https://fluessiggas-onnet.de'; // Enforce non-www
       const routes = [...staticRoutes.filter(r => r !== '404' && r !== 'sitemap.xml' && r !== 'robots.txt')]; // Exclude technical routes from sitemap
       tankSlugs.forEach(slug => routes.push(`tanks/${slug}`));
       cityData.forEach(city => routes.push(`liefergebiet/${city.slug}`));
@@ -209,40 +209,8 @@ ${routes.map(route => `  <url>
 
   // Legacy Redirects Map (Specific overrides)
   const legacyRedirects = {
-    '/impressum-2': '/',
-    '/impressum': '/',
-    '/datenschutzerklaerung-eu': '/',
-    '/allgemeine-geschaeftsbediungungen': '/',
-    '/haftungsausschluss': '/',
-    '/cookie-richtlinie-eu': '/',
-    '/sonderpreise-und-entsorgung': '/tanks',
-
-    // Explicit Tank redirects from user list
-    '/flussiggastank-oberirdisch-4850l-21t-fassungsvermogen': '/tanks/2-1t-oberirdisch',
-    '/fluessiggastank-oberirdisch-4850l-21t-fassungsvermoegen': '/tanks/2-1t-oberirdisch',
-    '/fluessiggastank-unterirdisch-4850l-21t-fassungsvermoegen': '/tanks/2-1t-unterirdisch',
-    '/fluessiggastank-unterirdisch-2700l-12t-fassungsvermoegen': '/tanks/1-2t-unterirdisch',
-    '/flussiggastank-oberirdisch-6400l': '/tanks/2-9t-oberirdisch',
-    '/fluessiggastank-oberirdisch-6400l': '/tanks/2-9t-oberirdisch',
-    '/fluessiggastank-unterirdisch-6400l-29t-fassungsvermoegen': '/tanks/2-9t-unterirdisch',
-    '/flussiggastank-oberirdisch-2700l': '/tanks/1-2t-oberirdisch',
-    '/fluessiggastank-oberirdisch-2700l': '/tanks/1-2t-oberirdisch',
-    '/fluessiggastank-kaufen': '/tanks',
-    '/fluessiggastank-kaufen-2': '/tanks',
-    '/flussiggastank-mieten-oder-kaufen': '/tanks', // Intent: buy/rent -> tanks
-
-    // Gas
-    '/fluessiggas-bestellen': '/gas',
-
-    // Content / Knowledge
-    '/was-ist-ein-fluessiggastank': '/wissen',
-    '/was-ist-fluessiggas': '/wissen',
-    '/fluessiggas-eine-vielfaeltige-energiequelle': '/wissen',
-    '/von-oel-auf-gas-umruesten': '/wissen',
-
-    // Service
-    '/flussiggasbehalter-vorschriften-und-prufungen': '/pruefungen',
-    '/aeussere-pruefung': '/pruefungen'
+    '/fluessiggastank': '/tanks',
+    '/fluessiggas': '/gas',
   };
 
   // Smart Redirect Logic
@@ -436,7 +404,7 @@ ${routes.map(route => `  <url>
   } catch (err) {
       Logger.error('Failed to load SEO Data:', err);
       // Fallback mocks
-      getSeoForPath = () => ({ title: 'gasmöller', description: '', image: '', url: '' });
+      getSeoForPath = () => ({ title: 'Flüssiggas on Net', description: '', image: '', url: '' });
       getSchemaForPath = () => ({});
   }
 
@@ -478,7 +446,7 @@ ${routes.map(route => `  <url>
         } catch (err) {
             Logger.error('SEO Data Error:', err);
             seoInfo = {
-                title: 'gasmöller',
+                title: 'Flüssiggas on Net',
                 description: '',
                 image: '',
                 url: '',

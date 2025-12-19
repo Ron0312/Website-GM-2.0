@@ -41,7 +41,7 @@ export const CONTENT = {
                     content: (
                         <div>
                             <SourceBadge text="Fachbetriebspflicht" />
-                            <p>Denn der Flüssiggastank wird nicht gereinigt und auch nicht zersägt, aber natürlich vorher geleert. gasmöller nimmt den Flüssiggastank aber gerne mit.</p>
+                            <p>Denn der Flüssiggastank wird nicht gereinigt und auch nicht zersägt, aber natürlich vorher geleert. Flüssiggas on Net nimmt den Flüssiggastank aber gerne mit.</p>
                         </div>
                     )
                 },
@@ -395,7 +395,7 @@ export const CONTENT = {
                             <SafetyChecklist />
                             <div className="bg-gas-light p-4 rounded-lg text-center">
                                 <p className="font-bold text-gas mb-2">24h Notdienst für Kunden:</p>
-                                <a href="tel:04551897089" className="text-2xl font-extrabold text-gas-dark block">04551 89 70 89</a>
+                                <a href="tel:04551897089" className="text-2xl font-extrabold text-gas-dark block">0381 36779809</a>
                             </div>
                         </div>
                     )

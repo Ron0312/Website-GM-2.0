@@ -1,24 +1,24 @@
 import { tankDetails } from './tanks.js';
 import { cityData } from './cityData.js';
 
-const BASE_URL = 'https://gasmoeller.de';
+const BASE_URL = 'https://fluessiggas-onnet.de';
 const DEFAULT_IMAGE = `${BASE_URL}/images/gas-order-hero.webp`;
 
 // Structured Data Helpers
 const getOrganizationSchema = () => ({
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "Gas-Service Möller",
+  "name": "Flüssiggas on Net",
   "image": [
-    "https://gasmoeller.de/logos/logo-gasmoeller.png",
-    "https://gasmoeller.de/images/gas-order-hero.webp"
+    "https://fluessiggas-onnet.de/logos/logo.png",
+    "https://fluessiggas-onnet.de/images/gas-order-hero.webp"
   ],
-  "url": "https://gasmoeller.de",
-  "telephone": "+49 176 416 84 326",
-  "email": "kontakt@gasmoeller.de",
+  "url": "https://fluessiggas-onnet.de",
+  "telephone": "+49 381 36779809",
+  "email": "support@fluessiggas-onnet.de",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "Neuenteichweg 7a",
+    "streetAddress": "Am Markt 9",
     "addressLocality": "Schieren",
     "postalCode": "23795",
     "addressCountry": "DE"
@@ -47,8 +47,8 @@ const getOrganizationSchema = () => ({
     "reviewCount": "124"
   },
   "sameAs": [
-    "https://www.facebook.com/people/Gas-Service-Möller/100083286084666/",
-    "https://www.linkedin.com/company/gas-service-möller"
+    "https://www.facebook.com/people/Flüssiggas-on-Net/100083286084666/",
+    "https://www.linkedin.com/company/Flüssiggas-on-Net"
   ],
   "areaServed": {
     "@type": "GeoCircle",
@@ -59,10 +59,10 @@ const getOrganizationSchema = () => ({
     },
     "geoRadius": "150000"
   },
-  "logo": "https://gasmoeller.de/logos/logo-gasmoeller.png",
+  "logo": "https://fluessiggas-onnet.de/logos/logo.png",
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+49 176 416 84 326",
+    "telephone": "+49 381 36779809",
     "contactType": "customer service",
     "areaServed": "DE",
     "availableLanguage": "German"
@@ -82,13 +82,13 @@ const getOrganizationSchema = () => ({
 const getWebSiteSchema = () => ({
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Gas-Service Möller",
+    "name": "Flüssiggas on Net",
     "url": BASE_URL,
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://gasmoeller.de/suche?q={search_term_string}"
+        "urlTemplate": "https://fluessiggas-onnet.de/suche?q={search_term_string}"
       },
       "query-input": "required name=search_term_string"
     }
@@ -113,7 +113,7 @@ const getTankProductSchema = (tank) => ({
   "image": tank.image || `${BASE_URL}/images/tanks/tank-placeholder.webp`, // Fallback image
   "brand": {
     "@type": "Brand",
-    "name": "Gas-Service Möller"
+    "name": "Flüssiggas on Net"
   },
   "sku": `TANK-${tank.slug.toUpperCase()}`,
   "mpn": `GSM-${tank.slug.toUpperCase()}`,
@@ -183,12 +183,12 @@ const getCitySchema = (city) => ({
     "serviceType": "Flüssiggaslieferung und Tankverkauf",
     "provider": {
         "@type": "LocalBusiness",
-        "name": "Gas-Service Möller",
-        "image": `${BASE_URL}/logos/logo-gasmoeller.png`,
-        "telephone": "+49 176 416 84 326",
+        "name": "Flüssiggas on Net",
+        "image": `${BASE_URL}/logos/logo.png`,
+        "telephone": "+49 381 36779809",
         "address": {
             "@type": "PostalAddress",
-            "streetAddress": "Neuenteichweg 7a",
+            "streetAddress": "Am Markt 9",
             "addressLocality": "Schieren",
             "postalCode": "23795",
             "addressCountry": "DE"
@@ -216,7 +216,7 @@ export const getSchemaForPath = (path) => {
 
 export const getSeoForPath = (path) => {
   const defaultSeo = {
-    title: 'Gas-Service Möller | Ihr Partner für Flüssiggas & Tanks im Norden',
+    title: 'Flüssiggas on Net | Ihr Partner für Flüssiggas & Tanks im Norden',
     description: 'Flüssiggas kaufen, Gastanks mietfrei erwerben & erstklassiger Service. Wir beliefern Norddeutschland zuverlässig & günstig. Jetzt Angebot anfordern!',
     image: DEFAULT_IMAGE,
     type: 'website',
@@ -230,28 +230,28 @@ export const getSeoForPath = (path) => {
     case '/':
       return {
         ...defaultSeo,
-        title: 'Flüssiggas kaufen, Tanks & Service im Norden | Gas-Service Möller',
+        title: 'Flüssiggas kaufen, Tanks & Service im Norden | Flüssiggas on Net',
         description: 'Ihr unabhängiger Experte für Flüssiggas und Gastanks in Norddeutschland. Kaufen statt mieten: Sparen Sie bis zu 50% der Energiekosten. Jetzt anfragen!',
         schema: [getOrganizationSchema(), getWebSiteSchema()]
       };
     case 'tanks':
       return {
         ...defaultSeo,
-        title: 'Flüssiggastank kaufen | Alle Größen (1.2t - 2.9t) | Gas-Service Möller',
+        title: 'Flüssiggastank kaufen | Alle Größen (1.2t - 2.9t) | Flüssiggas on Net',
         description: 'Flüssiggastanks kaufen statt mieten. Oberirdisch & unterirdisch. 1,2t, 2,1t, 2,9t. Inklusive Aufstellung & Prüfung. Jetzt Preisliste anfordern!',
         schema: [getOrganizationSchema(), getTankCatalogSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Tanks', url: '/tanks' }])]
       };
     case 'gas':
       return {
         ...defaultSeo,
-        title: 'Flüssiggas Preise aktuell | Günstig bestellen | Gas-Service Möller',
+        title: 'Flüssiggas Preise aktuell | Günstig bestellen | Flüssiggas on Net',
         description: 'Aktuelle Flüssiggas-Preise für Norddeutschland. Bestellen Sie Ihr Gas flexibel & günstig beim freien Händler. 24h Express-Lieferung möglich.',
         schema: [getOrganizationSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggas', url: '/gas' }])]
       };
     case 'rechner':
         return {
             ...defaultSeo,
-            title: 'Flüssiggas Rechner | Verbrauch & Kosten vergleichen | Gas-Service Möller',
+            title: 'Flüssiggas Rechner | Verbrauch & Kosten vergleichen | Flüssiggas on Net',
             description: 'Berechnen Sie Ihre Ersparnis! Vergleichsrechner: Flüssiggas vs. Öl, Holz, Pellets & Erdgas. Jetzt Umstieg prüfen und Kosten senken.',
             schema: [getOrganizationSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Rechner', url: '/rechner' }]), {
                  "@context": "https://schema.org",
@@ -268,49 +268,49 @@ export const getSeoForPath = (path) => {
     case 'gewerbe':
       return {
         ...defaultSeo,
-        title: 'Flüssiggas für Gewerbe & Industrie | Großkunden | Gas-Service Möller',
+        title: 'Flüssiggas für Gewerbe & Industrie | Großkunden | Flüssiggas on Net',
         description: 'Maßgeschneiderte Energielösungen für Landwirtschaft, Industrie & Gewerbe. Prozesswärme, Hallenheizung & Staplergas. Zuverlässig & wirtschaftlich.',
         schema: [getOrganizationSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Gewerbe', url: '/gewerbe' }])]
       };
      case 'wissen':
       return {
         ...defaultSeo,
-        title: 'Wissen & Ratgeber Flüssiggas | Tipps & Infos | Gas-Service Möller',
+        title: 'Wissen & Ratgeber Flüssiggas | Tipps & Infos | Flüssiggas on Net',
         description: 'Alles was Sie über Flüssiggas wissen müssen. Ratgeber zu Tankgrößen, Prüfpflichten, Sicherheit & Installation. Expertentipps vom Fachmann.',
         schema: [getOrganizationSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Wissen', url: '/wissen' }])]
       };
     case 'ueber-uns':
       return {
         ...defaultSeo,
-        title: 'Über Uns | Gas-Service Möller | Ihr Team im Norden',
-        description: 'Lernen Sie uns kennen: Das Team von Gas-Service Möller. Seit 2000 Ihr verlässlicher Partner in Schleswig-Holstein, Hamburg & MV.',
+        title: 'Über Uns | Flüssiggas on Net | Ihr Team im Norden',
+        description: 'Lernen Sie uns kennen: Das Team von Flüssiggas on Net. Seit 2000 Ihr verlässlicher Partner in Mecklenburg-Vorpommern, Hamburg & MV.',
         schema: [getOrganizationSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Über Uns', url: '/ueber-uns' }])]
       };
     case 'kontakt':
       return {
         ...defaultSeo,
-        title: 'Kontakt | Angebot anfordern | Gas-Service Möller',
+        title: 'Kontakt | Angebot anfordern | Flüssiggas on Net',
         description: 'Nehmen Sie Kontakt auf! Telefonisch, per E-Mail oder über unser Formular. Wir beraten Sie gerne zu Flüssiggas & Tanks. Kostenlos & unverbindlich.',
         schema: [getOrganizationSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Kontakt', url: '/kontakt' }])]
       };
     case 'pruefungen':
       return {
           ...defaultSeo,
-          title: 'Tankprüfung & Wartung | TÜV & Sachkundigenprüfung | Gas-Service Möller',
+          title: 'Tankprüfung & Wartung | TÜV & Sachkundigenprüfung | Flüssiggas on Net',
           description: 'Innere & Äußere Prüfung für Ihren Flüssiggastank (2 & 10 Jahre). Rohrleitungsprüfung. Wir kümmern uns um alle gesetzlichen Wartungsintervalle.',
           schema: [getOrganizationSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Service', url: '/pruefungen' }])]
       };
     case 'barrierefreiheit':
         return {
             ...defaultSeo,
-            title: 'Barrierefreiheitserklärung | Gas-Service Möller',
+            title: 'Barrierefreiheitserklärung | Flüssiggas on Net',
             description: 'Erklärung zur Barrierefreiheit gemäß BITV 2.0. Wir bemühen uns um eine zugängliche Webseite für alle Nutzer.',
             schema: [getOrganizationSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Barrierefreiheit', url: '/barrierefreiheit' }])]
         };
      case '404':
         return {
             ...defaultSeo,
-            title: 'Seite nicht gefunden (404) | Gas-Service Möller',
+            title: 'Seite nicht gefunden (404) | Flüssiggas on Net',
             description: 'Die angeforderte Seite existiert leider nicht. Nutzen Sie unser Menü oder kontaktieren Sie uns direkt.',
             schema: [getOrganizationSchema()]
         };
@@ -328,7 +328,7 @@ export const getSeoForPath = (path) => {
 
       return {
         ...defaultSeo,
-        title: `${tank.name} kaufen | ${tank.capacityL}L Flüssiggastank | Gas-Service Möller`,
+        title: `${tank.name} kaufen | ${tank.capacityL}L Flüssiggastank | Flüssiggas on Net`,
         description: `Kaufen Sie den ${tank.name} (${tank.capacityL} Liter). ${tank.installation === 'oberirdisch' ? 'Oberirdische' : 'Unterirdische'} Installation. Ideal für Einfamilienhäuser. Jetzt Angebot sichern!`,
         image: tankImage,
         schema: [
@@ -351,7 +351,7 @@ export const getSeoForPath = (path) => {
       if (city) {
           return {
               ...defaultSeo,
-              title: `Flüssiggas & Tanks in ${city.name} kaufen | Gas-Service Möller`,
+              title: `Flüssiggas & Tanks in ${city.name} kaufen | Flüssiggas on Net`,
               description: `Ihr regionaler Partner für Flüssiggas in ${city.name} (${city.zip}). Gastank kaufen statt mieten. Günstige Preise, schnelle Lieferung & Service vor Ort.`,
               schema: [
                   getOrganizationSchema(),

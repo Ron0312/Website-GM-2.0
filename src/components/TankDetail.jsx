@@ -21,11 +21,11 @@ const TankDetail = ({ slug, onBack, openWizard }) => {
         "name": tank.name,
         "description": tank.description,
         "image": tank.type === 'oberirdisch'
-            ? "https://www.gasmoeller.de/images/tanks/oberirdisch.webp"
-            : "https://www.gasmoeller.de/images/tanks/unterirdisch.webp", // Fallback logic mimicking SEO data
+            ? "https://www.fluessiggas-onnet.de/images/tanks/oberirdisch.webp"
+            : "https://www.fluessiggas-onnet.de/images/tanks/unterirdisch.webp", // Fallback logic mimicking SEO data
         "brand": {
             "@type": "Brand",
-            "name": "gasmöller"
+            "name": "Flüssiggas on Net"
         },
         "offers": {
             "@type": "Offer",

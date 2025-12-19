@@ -15,8 +15,8 @@ const TeamSection = () => (
         </motion.div>
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center">
             {[
-                { name: "Anja Möller", role: "Gründerin & Inhaberin", img: "/images/team/anja.jpg" },
-                { name: "Thomas Möller", role: "Geschäftsführung & Sachkundiger", img: "/images/team/thomas-moeller-lkw.webp", phone: "+49 176 416 84 326" },
+                { name: "Kai-Uwe Christen", role: "Gründerin & Inhaberin", img: "/images/team/anja.jpg" },
+                { name: "Thomas Möller", role: "Geschäftsführung & Sachkundiger", img: "/images/team/thomas-moeller-lkw.webp", phone: "+49 381 36779809" },
                 { name: "Hans Christian Möller", role: "Logistik & Büro", img: "/images/team/hans.jpg", phone: "+49 1525 1771994" }
             ].map((member, i) => (
                 <motion.div

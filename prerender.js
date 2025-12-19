@@ -135,7 +135,7 @@ ${sitemapUrls.map(u => `  <url>
     <loc>${u}</loc>
     <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>${u === 'https://www.gasmoeller.de' ? '1.0' : '0.8'}</priority>
+    <priority>${u === 'https://www.fluessiggas-onnet.de' ? '1.0' : '0.8'}</priority>
   </url>`).join('\n')}
 </urlset>`;
 

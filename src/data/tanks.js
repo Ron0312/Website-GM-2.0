@@ -25,8 +25,8 @@ export const tankDetails = [
             'Material': 'Feinkornbaustahl',
             'Beschichtung': 'Epoxidharz-Beschichtung (hellgrün)'
         },
-        installation: 'Aufgrund des Gewichts ist ein solides Fundament zwingend erforderlich. Kranwagen für Aufstellung notwendig. gasmöller liefert bei Bedarf eine Fundamentplatte mit (gegen Aufpreis). Außerdem unterstützen wir Sie durch unsere Partner beim Anschluss der Heizung oder bei Erdarbeiten.',
-        seoTitle: '1,2 t Flüssiggastank oberirdisch kaufen | Maße & Preis | gasmöller',
+        installation: 'Aufgrund des Gewichts ist ein solides Fundament zwingend erforderlich. Kranwagen für Aufstellung notwendig. Flüssiggas on Net liefert bei Bedarf eine Fundamentplatte mit (gegen Aufpreis). Außerdem unterstützen wir Sie durch unsere Partner beim Anschluss der Heizung oder bei Erdarbeiten.',
+        seoTitle: '1,2 t Flüssiggastank oberirdisch kaufen | Maße & Preis | Flüssiggas on Net',
         seoDesc: 'Kleiner 1,2t Flüssiggastank (2700l) oberirdisch. Ideal für Ferienhäuser. Alle Maße, Daten & Preise. Jetzt Angebot anfordern!'
     },
     {
@@ -55,8 +55,8 @@ export const tankDetails = [
             'Material': 'Feinkornbaustahl',
             'Beschichtung': 'Epoxidharz-Beschichtung (hellgrün)'
         },
-        installation: 'Aufgrund des Gewichts ist ein solides Fundament zwingend erforderlich. Kranwagen für Aufstellung notwendig. gasmöller liefert bei Bedarf eine Fundamentplatte mit (gegen Aufpreis). Außerdem unterstützen wir Sie durch unsere Partner beim Anschluss der Heizung oder bei Erdarbeiten.',
-        seoTitle: '2,1 t Flüssiggastank oberirdisch | Standardgröße für EFH | gasmöller',
+        installation: 'Aufgrund des Gewichts ist ein solides Fundament zwingend erforderlich. Kranwagen für Aufstellung notwendig. Flüssiggas on Net liefert bei Bedarf eine Fundamentplatte mit (gegen Aufpreis). Außerdem unterstützen wir Sie durch unsere Partner beim Anschluss der Heizung oder bei Erdarbeiten.',
+        seoTitle: '2,1 t Flüssiggastank oberirdisch | Standardgröße für EFH | Flüssiggas on Net',
         seoDesc: '2,1t (4850l) Flüssiggastank oberirdisch kaufen. Der Standard für Einfamilienhäuser. Maße, Technische Daten & Installation.'
     },
     {
@@ -85,8 +85,8 @@ export const tankDetails = [
             'Material': 'Feinkornbaustahl',
             'Beschichtung': 'Epoxidharz-Beschichtung (hellgrün)'
         },
-        installation: 'Aufgrund des Gewichts ist ein solides Fundament zwingend erforderlich. Kranwagen für Aufstellung notwendig. gasmöller liefert bei Bedarf eine Fundamentplatte mit (gegen Aufpreis). Außerdem unterstützen wir Sie durch unsere Partner beim Anschluss der Heizung oder bei Erdarbeiten.',
-        seoTitle: '2,9 t Flüssiggastank oberirdisch | Großtank für Gewerbe | gasmöller',
+        installation: 'Aufgrund des Gewichts ist ein solides Fundament zwingend erforderlich. Kranwagen für Aufstellung notwendig. Flüssiggas on Net liefert bei Bedarf eine Fundamentplatte mit (gegen Aufpreis). Außerdem unterstützen wir Sie durch unsere Partner beim Anschluss der Heizung oder bei Erdarbeiten.',
+        seoTitle: '2,9 t Flüssiggastank oberirdisch | Großtank für Gewerbe | Flüssiggas on Net',
         seoDesc: '2,9t (6400l) Flüssiggastank oberirdisch. Für MFH & Gewerbe. Maximale Kapazität. Alle technischen Daten hier.'
     },
     {
