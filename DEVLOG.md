@@ -57,6 +57,16 @@ Dies sind die 10 wichtigsten nächsten Schritte zur Verbesserung von UX, Technik
 
 ---
 
+### ❓ Browser Caching & Updates
+**Frage:** Wie lange bleibt die Website im Browser gespeichert, bis Aktualisierungen sichtbar sind?
+
+**Antwort:**
+1.  **PWA (Service Worker):** Die Seite nutzt `vite-plugin-pwa` im `autoUpdate`-Modus. Beim Besuch prüft der Browser im Hintergrund auf neue Versionen. Sobald diese geladen sind, wird die Seite beim nächsten Klick oder Reload aktualisiert.
+2.  **Assets (JS/CSS):** Durch "Cache Busting" (Dateinamen enthalten Hash-Werte wie `index-a1b2.js`) laden Browser bei jedem neuen Deployment sofort den neuen Code.
+3.  **HTML:** Ohne PWA hängt es vom Header ab (oft Session-basiert). Mit PWA wird das HTML im Cache vorgehalten, aber durch den Update-Check (siehe 1) zeitnah erneuert.
+
+**Fazit:** Änderungen sind für Nutzer in der Regel **sofort nach dem Neuladen** oder beim zweiten Seitenaufruf sichtbar.
+
 ### Archive: Recent Changes
 *   **PWA Offline Support**: Enhanced caching strategies.
 *   **Enhanced Delivery Map**: Floating tooltips added.
