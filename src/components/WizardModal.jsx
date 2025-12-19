@@ -1,21 +1,43 @@
 import { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Check, Settings, Flame, Wrench, AlertTriangle, ArrowUpFromLine, ArrowDownToLine, Layers, Home, Building2, Factory, Sparkles, RefreshCw, Info, Phone, ThumbsUp, AlertCircle } from 'lucide-react';
+import { X, Check, Settings, Flame, Wrench, AlertTriangle, ArrowUpFromLine, ArrowDownToLine, Layers, Home, Building2, Factory, Sparkles, RefreshCw, Info, Phone, ThumbsUp } from 'lucide-react';
 import { getPlzError } from '../utils/validation';
 import ModernInput from './ui/ModernInput';
 import SelectionCard from './ui/SelectionCard';
+import Skeleton from './ui/Skeleton';
 
 const WEB3FORMS_ACCESS_KEY = "f22052ed-455f-4e4d-9f5a-94a6e340426f";
+
+// --- Validation Schemas ---
+
+const plzSchema = z.object({
+    plz: z.string().regex(/^\d{5}$/, "Bitte geben Sie eine gültige 5-stellige PLZ ein.")
+        .refine((val) => !getPlzError(val), { message: "Leider liefern wir noch nicht in dieses Gebiet." })
+});
+
+const contactSchema = z.object({
+    contact: z.object({
+        name: z.string().min(2, "Name ist erforderlich"),
+        street: z.string().min(2, "Straße ist erforderlich"),
+        number: z.string().min(1, "Hausnummer ist erforderlich"),
+        city: z.string().min(2, "Ort ist erforderlich"),
+        email: z.string().email("Gültige E-Mail erforderlich"),
+        phone: z.string().optional(),
+        honeypot: z.string().max(0).optional(), // Honeypot must be empty
+        consent: z.literal(true, { errorMap: () => ({ message: "Zustimmung erforderlich" }) })
+    })
+});
+
+// WizardModal Component
 
 const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null }) => {
     const [step, setStep] = useState(1);
     const [type, setType] = useState(initialType);
+    const [loading, setLoading] = useState(true);
 
-    // Form Hook
-    const { control, register, handleSubmit, watch, setValue, formState: { errors }, reset, trigger } = useForm({
+    const { control, handleSubmit, watch, setValue, getValues, formState: { errors }, reset, trigger, setFocus } = useForm({
         resolver: undefined,
         mode: "onBlur",
         defaultValues: {
@@ -59,6 +81,16 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
 
     const [submitting, setSubmitting] = useState(false);
     const [success, setSuccess] = useState(false);
+    const [shake, setShake] = useState(false);
+
+    // Simulate Loading for Skeleton Demo
+    useEffect(() => {
+        if (isOpen) {
+            setLoading(true);
+            const timer = setTimeout(() => setLoading(false), 500);
+            return () => clearTimeout(timer);
+        }
+    }, [isOpen]);
 
     // Initialization
     useEffect(() => {
@@ -72,7 +104,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                 plz: initialData?.plz || '',
                 installationType: '',
                 details: {
-                    ownership: 'Ja, Eigentum', // Default to ownership
+                    ownership: 'Ja, Eigentum',
                     tankSizeGas: '',
                     amount: '',
                     fillUp: false,
@@ -96,7 +128,6 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
             });
 
             if (initialData) {
-                // Initialize calculator
                 if (initialData.selectedTank && initialData.fillLevel !== undefined) {
                     setCalcTank(initialData.selectedTank);
                     setCalcFillLevel(initialData.fillLevel);
@@ -108,53 +139,102 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                 }
 
                 if (initialData.plz && initialType === 'gas') {
-                    setStep(3); // Jump to calculator for gas if data present
+                     setStep(3);
                 }
             }
-        }
-    }, [isOpen, initialType, initialData, reset, setValue]);
 
-    // Step Logic
-    // Tank: 1(PLZ) -> 2(Type) -> 3(Install) -> 4(Condition) -> 5(Details) -> 6(Contact)
-    // Gas: 1(PLZ) -> 2(Type) -> 3(Ownership) -> 4(Calculator) -> 5(Contact)
-    // Service: 1(PLZ) -> 2(Type) -> 3(Details) -> 4(Contact)
+            // Focus PLZ on open
+            setTimeout(() => setFocus('plz'), 100);
+        }
+    }, [isOpen, initialType, initialData, reset, setValue, setFocus]);
+
+
+    // Focus Management on Error
+    useEffect(() => {
+         const firstError = Object.keys(errors).reduce((field, key) => {
+             return field || (errors[key] ? key : null);
+         }, null);
+         if (firstError) {
+             // Basic focus logic could be enhanced here
+         }
+    }, [errors]);
+
+    const triggerShake = () => {
+        setShake(true);
+        setTimeout(() => setShake(false), 500);
+    };
 
     const handleNext = async (e) => {
         if (e && e.preventDefault) e.preventDefault();
         if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(50);
 
+        let valid = false;
+
         if (step === 1) {
-            const plzValid = await trigger('plz');
-            const plzVal = formValues.plz;
-            const regionError = getPlzError(plzVal);
-            if (regionError || !plzValid || !/^\d{5}$/.test(plzVal)) return;
-            setStep(2);
+            // Safe Zod Check on current values
+            const currentPlz = getValues('plz');
+            const result = plzSchema.safeParse({ plz: currentPlz });
+
+            if (!result.success) {
+                // If Zod fails, trigger RHF to show error in UI
+                await trigger('plz');
+            } else {
+                valid = true;
+            }
         } else if (step === 2) {
-             setStep(3);
+             valid = true;
         } else if (step === 3) {
             if (type === 'tank') {
-                if (!formValues.installationType) return;
-                setStep(4);
+                if (formValues.installationType) valid = true;
             } else if (type === 'gas') {
-                // Check ownership selection
-                if (!formValues.details.ownership) return;
-                setStep(4);
+                if (formValues.details.ownership) valid = true;
             } else {
-                // Service
-                setStep(4);
+                valid = true;
             }
         } else if (step === 4) {
              if (type === 'tank') {
-                if (!formValues.details.condition) return;
-                setStep(5);
+                if (formValues.details.condition) valid = true;
              } else if (type === 'gas') {
-                setStep(5);
+                valid = true;
              } else {
-                submitForm();
+                // Service Contact Form
+                const result = contactSchema.safeParse({ contact: formValues.contact });
+                if (result.success) valid = true;
+                else await trigger('contact');
              }
         } else if (step === 5) {
-             if (type === 'tank') setStep(6);
-             else submitForm();
+             if (type === 'tank') {
+                 valid = true; // Details are optional or defaults
+             } else {
+                 // Gas Contact Form
+                const result = contactSchema.safeParse({ contact: formValues.contact });
+                if (result.success) valid = true;
+                else await trigger('contact');
+             }
+        } else if (step === 6) {
+             // Tank Contact Form
+            const result = contactSchema.safeParse({ contact: formValues.contact });
+            if (result.success) valid = true;
+            else await trigger('contact');
+        }
+
+        if (!valid) {
+            triggerShake();
+            return;
+        }
+
+        // Logic to move next
+        if (step === 1) setStep(2);
+        else if (step === 2) setStep(3);
+        else if (step === 3) setStep(4);
+        else if (step === 4) {
+            if (type === 'service') submitForm();
+            else setStep(5);
+        } else if (step === 5) {
+            if (type === 'tank') setStep(6);
+            else submitForm();
+        } else if (step === 6) {
+            submitForm();
         }
     };
 
@@ -218,12 +298,17 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
 
     return (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md" role="dialog" aria-modal="true">
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[90vh]">
+            <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1, x: shake ? [0, -10, 10, -10, 10, 0] : 0 }}
+                transition={{ duration: 0.3 }} // Shake duration
+                className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[90vh]"
+            >
                 {/* Header */}
                 <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-white z-20">
                     <div>
                         <h2 id="wizard-title" className="text-xl font-bold text-gray-900">Anfrage stellen</h2>
-                        <p className="text-sm text-gray-400">Schritt {step} von {totalSteps}</p>
+                        {loading ? <Skeleton className="w-20 h-4 mt-1"/> : <p className="text-sm text-gray-400">Schritt {step} von {totalSteps}</p>}
                     </div>
                     <div className="flex items-center gap-4">
                         <a href="tel:04551897089" className="hidden sm:flex items-center gap-2 text-gas font-bold text-sm bg-gas-light/20 px-3 py-1.5 rounded-lg">
@@ -242,7 +327,14 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
 
                 {/* Content */}
                 <div className="p-6 md:p-10 overflow-y-auto custom-scrollbar flex-1 relative">
-                    {success ? (
+                    {loading ? (
+                         // Skeleton UI for Wizard
+                         <div className="space-y-8 animate-pulse">
+                             <div className="h-8 bg-gray-200 rounded w-2/3 mx-auto"></div>
+                             <div className="h-20 bg-gray-200 rounded-xl w-full"></div>
+                             <div className="h-12 bg-gray-200 rounded-xl w-full mt-8"></div>
+                         </div>
+                    ) : success ? (
                         <div className="text-center py-12 flex flex-col items-center justify-center">
                             <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="w-24 h-24 bg-green-100 text-green-500 rounded-full flex items-center justify-center mb-6"><Check size={48} /></motion.div>
                             <h3 className="text-3xl font-bold mb-4 text-gray-900">Vielen Dank!</h3>
@@ -273,7 +365,8 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                         inputClassName="text-center text-3xl font-bold tracking-[0.5em] !rounded-2xl h-20"
                                                         placeholder="PLZ"
                                                         maxLength={5}
-                                                        autoFocus
+                                                        inputMode="numeric"
+                                                        // AutoFocus handled in useEffect
                                                         onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleNext(); } }}
                                                     />
                                                 )}
@@ -528,6 +621,7 @@ const ContactFormFields = ({ control, errors, submitting, submitForm, handleBack
                 <span className="leading-relaxed">
                     Ich stimme zu, dass meine Angaben dauerhaft gespeichert werden. Mehr Infos in der <a href="/datenschutz" target="_blank" rel="noopener noreferrer" className="text-gas font-bold underline">Datenschutzerklärung</a>.
                 </span>
+                {errors.contact?.consent && <span className="text-red-500 font-bold ml-2">!</span>}
             </div>
 
             <button type="button" onClick={submitForm} disabled={submitting} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg hover:bg-gas-dark transition-all">

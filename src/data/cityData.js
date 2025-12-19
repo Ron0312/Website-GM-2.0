@@ -41,8 +41,8 @@ export const cityData = [
     { name: 'Bargteheide', slug: 'bargteheide', zip: '22941', state: 'Schleswig-Holstein' },
     { name: 'Glinde', slug: 'glinde', zip: '21509', state: 'Schleswig-Holstein' },
     // Additional Cities SH
-    { name: 'Insel Fehmarn', slug: 'fehmarn', zip: '23769', state: 'Schleswig-Holstein' },
-    { name: 'Sylt', slug: 'sylt', zip: '25980', state: 'Schleswig-Holstein' },
+    { name: 'Insel Fehmarn', slug: 'fehmarn', zip: '23769', state: 'Schleswig-Holstein', preposition: 'auf' },
+    { name: 'Sylt', slug: 'sylt', zip: '25980', state: 'Schleswig-Holstein', preposition: 'auf' },
     // Mecklenburg-Vorpommern Expansion (20 Cities)
     { name: 'Stralsund', slug: 'stralsund', zip: '18439', state: 'Mecklenburg-Vorpommern' },
     { name: 'Greifswald', slug: 'greifswald', zip: '17489', state: 'Mecklenburg-Vorpommern' },
@@ -50,7 +50,7 @@ export const cityData = [
     { name: 'Waren (Müritz)', slug: 'waren-mueritz', zip: '17192', state: 'Mecklenburg-Vorpommern' },
     { name: 'Neustrelitz', slug: 'neustrelitz', zip: '17235', state: 'Mecklenburg-Vorpommern' },
     { name: 'Parchim', slug: 'parchim', zip: '19370', state: 'Mecklenburg-Vorpommern' },
-    { name: 'Bergen auf Rügen', slug: 'bergen-ruegen', zip: '18528', state: 'Mecklenburg-Vorpommern' },
+    { name: 'Bergen auf Rügen', slug: 'bergen-ruegen', zip: '18528', state: 'Mecklenburg-Vorpommern', preposition: 'auf' },
     { name: 'Ribnitz-Damgarten', slug: 'ribnitz-damgarten', zip: '18311', state: 'Mecklenburg-Vorpommern' },
     { name: 'Bad Doberan', slug: 'bad-doberan', zip: '18209', state: 'Mecklenburg-Vorpommern' },
     { name: 'Hagenow', slug: 'hagenow', zip: '19230', state: 'Mecklenburg-Vorpommern' },

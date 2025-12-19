@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calculator, Flame, Droplets, Zap, Leaf, Trees, ChevronDown, ChevronUp, Info } from 'lucide-react';
+import Skeleton from './ui/Skeleton';
 
 const FACTORS = {
     kwh: 1,
@@ -47,10 +48,17 @@ const CalculatorInput = ({ label, value, unit, onChange, icon: Icon, active, onF
 };
 
 const EnergyCalculator = ({ defaultExpanded = false }) => {
+    const [loading, setLoading] = useState(true);
     const [energyKwh, setEnergyKwh] = useState(9600);
     const [activeField, setActiveField] = useState(null);
     const [inputValue, setInputValue] = useState('');
     const [isExpanded, setIsExpanded] = useState(defaultExpanded);
+
+    useEffect(() => {
+        // Simulate initialization for skeleton demonstration
+        const timer = setTimeout(() => setLoading(false), 600);
+        return () => clearTimeout(timer);
+    }, []);
 
     // Format number to German locale
     const formatNumber = (num) => {
@@ -86,6 +94,30 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
         const val = energyKwh / FACTORS[field];
         return formatNumber(val);
     };
+
+    if (loading) {
+         return (
+             <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden my-8 md:my-12">
+                 <div className="p-6 md:p-8 bg-gradient-to-r from-gray-50 to-white">
+                      <div className="flex items-center gap-4 mb-4">
+                          <Skeleton className="w-16 h-16 rounded-full" />
+                          <div className="space-y-2">
+                               <Skeleton className="w-48 h-8" />
+                               <Skeleton className="w-64 h-4" />
+                          </div>
+                      </div>
+                      <div className="mt-8 space-y-4">
+                           <Skeleton className="w-full h-32 rounded-2xl" />
+                           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <Skeleton className="w-full h-64 rounded-2xl" />
+                                <Skeleton className="w-full h-64 rounded-2xl" />
+                                <Skeleton className="w-full h-64 rounded-2xl" />
+                           </div>
+                      </div>
+                 </div>
+             </div>
+         );
+    }
 
     return (
         <section

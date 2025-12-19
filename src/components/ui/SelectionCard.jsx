@@ -7,8 +7,8 @@ const SelectionCard = ({ selected, onClick, title, description, icon: Icon, clas
         <motion.button
             type="button"
             onClick={onClick}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={{ scale: 1.03, boxShadow: "0 10px 30px -10px rgba(0,0,0,0.1)" }}
+            whileTap={{ scale: 0.97 }}
             className={`relative w-full p-6 text-left rounded-2xl border-2 transition-all duration-300 overflow-hidden group ${className} ${
                 selected
                 ? 'border-gas bg-gas text-white shadow-xl shadow-gas/20'

@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, ArrowRight } from 'lucide-react';
 import { cityData } from '../data/cityData';
 import ContactSection from './ContactSection';
 
 const DeliveryAreaOverview = ({ setActiveSection }) => {
+    // Scroll to top on mount
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     // Sort cities alphabetically
     const sortedCities = [...cityData].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -43,8 +48,9 @@ const DeliveryAreaOverview = ({ setActiveSection }) => {
                             </h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                                 {citiesByState[state].map((city) => (
-                                    <button
+                                    <motion.button
                                         key={city.slug}
+                                        whileHover={{ scale: 1.02 }}
                                         onClick={() => setActiveSection(`liefergebiet/${city.slug}`)}
                                         className="group bg-white p-4 rounded-xl border border-gray-200 hover:border-gas hover:shadow-md transition-all text-left flex items-center justify-between"
                                     >
@@ -55,7 +61,7 @@ const DeliveryAreaOverview = ({ setActiveSection }) => {
                                             <span className="text-sm text-gray-400">{city.zip}</span>
                                         </div>
                                         <ArrowRight size={16} className="text-gray-300 group-hover:text-gas transform group-hover:translate-x-1 transition-all" />
-                                    </button>
+                                    </motion.button>
                                 ))}
                             </div>
                         </div>
