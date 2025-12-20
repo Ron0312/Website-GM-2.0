@@ -1,12 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { BookOpen, ChevronRight } from 'lucide-react';
 import { CONTENT } from '../data/content';
 import RentVsBuyGraphic from './RentVsBuyGraphic';
 
-const KnowledgeCenter = ({ setActiveSection }) => {
-    const [activeCategory, setActiveCategory] = useState(CONTENT.knowledge[0].id);
-    const [activeArticle, setActiveArticle] = useState(CONTENT.knowledge[0].articles[0].id);
+const slugify = (text) => {
+    return text.toString().toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^\w\-]+/g, '')
+        .replace(/\-\-+/g, '-')
+        .replace(/^-+/, '')
+        .replace(/-+$/, '');
+};
+
+const KnowledgeCenter = ({ setActiveSection, slug }) => {
+    // Find initial state based on slug if provided
+    const findArticleBySlug = (slug) => {
+        if (!slug) return null;
+        for (const cat of CONTENT.knowledge) {
+            for (const art of cat.articles) {
+                // Assuming Article ID is the slug, or we map it.
+                // In the current data content, ID is like 'miete-kauf', which is slug-friendly.
+                if (art.id === slug) return { cat, art };
+            }
+        }
+        return null;
+    };
+
+    const initialData = slug ? findArticleBySlug(slug) : null;
+    const [activeCategory, setActiveCategory] = useState(initialData ? initialData.cat.id : CONTENT.knowledge[0].id);
+    const [activeArticle, setActiveArticle] = useState(initialData ? initialData.art.id : CONTENT.knowledge[0].articles[0].id);
+
+    // Sync state if slug prop changes externally (e.g. browser back button)
+    useEffect(() => {
+        if (slug) {
+            const data = findArticleBySlug(slug);
+            if (data) {
+                setActiveCategory(data.cat.id);
+                setActiveArticle(data.art.id);
+            }
+        }
+    }, [slug]);
 
     const currentCategory = CONTENT.knowledge.find(c => c.id === activeCategory);
     // Safety check: ensure activeArticle belongs to currentCategory, else default to first
@@ -17,7 +51,14 @@ const KnowledgeCenter = ({ setActiveSection }) => {
         const newCat = CONTENT.knowledge.find(c => c.id === catId);
         setActiveCategory(catId);
         if (newCat && newCat.articles.length > 0) {
-            setActiveArticle(newCat.articles[0].id);
+            handleArticleChange(newCat.articles[0].id);
+        }
+    };
+
+    const handleArticleChange = (articleId) => {
+        setActiveArticle(articleId);
+        if (setActiveSection) {
+            setActiveSection(`wissen/${articleId}`);
         }
     };
 
@@ -54,7 +95,7 @@ const KnowledgeCenter = ({ setActiveSection }) => {
                                 {currentCategory.articles.map((article) => (
                                     <button
                                         key={article.id}
-                                        onClick={() => setActiveArticle(article.id)}
+                                        onClick={() => handleArticleChange(article.id)}
                                         className={`sidebar-link w-full text-left p-4 hover:bg-gray-50 transition-colors flex justify-between items-center group ${currentArticle.id === article.id ? 'active' : 'text-gray-600'}`}
                                     >
                                         <div>

@@ -107,9 +107,10 @@ const App = ({ path, context }) => {
         // Dynamic routes helper
         const isTankRoute = activeSection.startsWith('tanks/');
         const isCityRoute = activeSection.startsWith('liefergebiet/');
+        const isKnowledgeRoute = activeSection.startsWith('wissen/');
 
         // Only run this check if we are truly in an invalid state.
-        if (!isTankRoute && !isCityRoute && !validSections.includes(activeSection)) {
+        if (!isTankRoute && !isCityRoute && !isKnowledgeRoute && !validSections.includes(activeSection)) {
              const legacyTarget = findClientRedirect(activeSection);
              if (legacyTarget) {
                  const cleanTarget = legacyTarget.replace(/^\//, '');
@@ -153,6 +154,11 @@ const App = ({ path, context }) => {
             return <TankDetail slug={slug} onBack={() => changeSection('tanks')} openWizard={openWizard} />;
         }
 
+        if (activeSection.startsWith('wissen/')) {
+            const slug = activeSection.split('/')[1];
+            return <><div className="pt-20"></div><KnowledgeCenter slug={slug} setActiveSection={changeSection} /><ContactSection /></>;
+        }
+
         if (activeSection === 'liefergebiet') {
              return <Suspense fallback={<div className="h-screen flex items-center justify-center">Laden...</div>}><DeliveryAreaOverview setActiveSection={changeSection} /></Suspense>;
         }
@@ -187,7 +193,7 @@ const App = ({ path, context }) => {
                  const cleanTarget = legacyTarget.replace(/^\//, '');
 
                  // If valid section or tank/city route
-                 if (validSections.includes(cleanTarget) || cleanTarget.startsWith('tanks/') || cleanTarget.startsWith('liefergebiet/')) {
+                 if (validSections.includes(cleanTarget) || cleanTarget.startsWith('tanks/') || cleanTarget.startsWith('liefergebiet/') || cleanTarget.startsWith('wissen/')) {
                      if (context) {
                          // SSR Redirect
                          context.url = legacyTarget;

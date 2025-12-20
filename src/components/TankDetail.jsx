@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Check, Download, ShieldCheck, Ruler, Weight } from 'lucide-react';
+import { ArrowLeft, Check, Download, ShieldCheck, Ruler, Weight, User, Wrench, Info } from 'lucide-react';
 import { tankDetails } from '../data/tanks';
 
 const TankDetail = ({ slug, onBack, openWizard }) => {
@@ -95,8 +95,20 @@ const TankDetail = ({ slug, onBack, openWizard }) => {
                             </div>
                         </div>
 
-                        <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                            {tank.description}
+                        {/* Ideal For Tags - NEW */}
+                        {tank.idealFor && (
+                            <div className="mb-6">
+                                <p className="text-xs text-gray-400 font-bold uppercase tracking-wider mb-2">Empfohlen für:</p>
+                                <div className="flex flex-wrap gap-2">
+                                    {tank.idealFor.map((tag, i) => (
+                                        <span key={i} className="bg-green-50 text-green-700 px-2 py-1 rounded text-sm font-medium border border-green-100">{tag}</span>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                            {tank.longDescription || tank.description}
                         </p>
 
                         <div className="space-y-4 mb-10">
@@ -123,28 +135,56 @@ const TankDetail = ({ slug, onBack, openWizard }) => {
 
                 {/* Technical Details Table */}
                 <div className="grid lg:grid-cols-3 gap-12">
-                    <div className="lg:col-span-2">
-                        <h3 className="text-2xl font-bold mb-6">Technische Daten</h3>
-                        <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
-                            <table className="w-full text-left border-collapse">
-                                <tbody className="divide-y divide-gray-100">
-                                    {Object.entries(tank.technicalData).map(([key, value], i) => (
-                                        <tr key={key} className={i % 2 === 0 ? 'bg-gray-50/50' : 'bg-white'}>
-                                            <td className="p-4 font-bold text-gray-500 capitalize w-1/3">{key.replace(/([A-Z])/g, ' $1').trim()}</td>
-                                            <td className="p-4 font-medium text-gray-900">{value}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div className="mt-12">
-                            <h3 className="text-2xl font-bold mb-4">Installation & Hinweise</h3>
-                            <div className="bg-blue-50 border-l-4 border-gas p-6 rounded-r-xl text-gray-700 leading-relaxed">
-                                {tank.installation}
-                                <p className="mt-4 text-sm font-bold text-gas-dark">Wir unterstützen Sie gerne bei der Planung und vermitteln qualifizierte Partner anstehende Erd- und Anschlussarbeiten.</p>
+                    <div className="lg:col-span-2 space-y-12">
+                        {/* Technical Data */}
+                        <div>
+                            <h3 className="text-2xl font-bold mb-6 flex items-center"><Info size={24} className="mr-2 text-gas"/> Technische Daten</h3>
+                            <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+                                <table className="w-full text-left border-collapse">
+                                    <tbody className="divide-y divide-gray-100">
+                                        {Object.entries(tank.technicalData).map(([key, value], i) => (
+                                            <tr key={key} className={i % 2 === 0 ? 'bg-gray-50/50' : 'bg-white'}>
+                                                <td className="p-4 font-bold text-gray-500 capitalize w-1/3">{key.replace(/([A-Z])/g, ' $1').trim()}</td>
+                                                <td className="p-4 font-medium text-gray-900">{value}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
+
+                        {/* Installation Steps - NEW */}
+                        {tank.installationSteps && (
+                            <div>
+                                <h3 className="text-2xl font-bold mb-6 flex items-center"><Wrench size={24} className="mr-2 text-gas"/> Ablauf der Installation</h3>
+                                <div className="grid md:grid-cols-2 gap-4">
+                                    {tank.installationSteps.map((step, i) => (
+                                        <div key={i} className="bg-gray-50 p-6 rounded-xl border border-gray-100 relative">
+                                            <div className="absolute top-4 right-4 text-4xl font-black text-gray-100 select-none">{i+1}</div>
+                                            <h4 className="font-bold text-lg text-gray-900 mb-2 relative z-10">{step.title}</h4>
+                                            <p className="text-gray-600 relative z-10">{step.desc}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Maintenance Info - NEW */}
+                        {tank.maintenanceInfo && (
+                            <div className="bg-blue-50 border border-blue-100 rounded-xl p-6">
+                                <h3 className="text-xl font-bold text-blue-900 mb-3 flex items-center"><ShieldCheck size={20} className="mr-2"/> Wartung & Sicherheit</h3>
+                                <p className="text-blue-800 leading-relaxed">
+                                    {tank.maintenanceInfo}
+                                </p>
+                            </div>
+                        )}
+
+                        {/* Original Installation Text Backup */}
+                         <div className="mt-8">
+                             <p className="text-sm text-gray-500">
+                                 <strong>Allgemeiner Hinweis zur Aufstellung:</strong> {tank.installation}
+                             </p>
+                         </div>
                     </div>
 
                     {/* Sidebar / CTA */}

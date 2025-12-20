@@ -1,8 +1,14 @@
 import { tankDetails } from './tanks.js';
 import { cityData } from './cityData.js';
+// Removed dangerous import { CONTENT } from './content.js' to prevent JSX crash in Node server.
 
 const BASE_URL = 'https://gasmoeller.de';
 const DEFAULT_IMAGE = `${BASE_URL}/images/gas-order-hero.webp`;
+
+// Simple slug to title formatter as fallback
+const formatTitleFromSlug = (slug) => {
+    return slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+};
 
 // Structured Data Helpers
 const getOrganizationSchema = () => ({
@@ -321,11 +327,7 @@ export const getSeoForPath = (path) => {
     const slug = path.split('/')[1];
     const tank = tankDetails.find(t => t.slug === slug);
     if (tank) {
-      // Find specific tank image if available in tank data, else fallback
-       // Note: In a real scenario, tank object should have an 'image' property.
-       // Assuming tank.image is the path e.g. /images/tanks/1-2t.webp
       const tankImage = tank.image || DEFAULT_IMAGE;
-
       return {
         ...defaultSeo,
         title: `${tank.name} kaufen | ${tank.capacityL}L Flüssiggastank | Gas-Service Möller`,
@@ -344,7 +346,62 @@ export const getSeoForPath = (path) => {
     }
   }
 
-  // 3. Dynamic City Routes
+  // 3. Dynamic Knowledge Routes
+  if (path.startsWith('wissen/')) {
+      const slug = path.split('/')[1];
+      // Try to find title in CONTENT if possible, or fallback to formatter
+      // Ideally we would import CONTENT but we want to avoid server crash if it has JSX.
+      // We'll use a specific lookup or just format the slug for now to be safe and fast.
+      // If we had a plain JSON for articles, we could import it.
+
+      let articleTitle = formatTitleFromSlug(slug);
+      let articleDesc = 'Detaillierter Ratgeber-Artikel von Gas-Service Möller.';
+
+      // Specific overrides for known major articles if we want perfect titles without importing CONTENT
+      if (slug === 'miete-kauf') {
+          articleTitle = 'Gastank mieten oder kaufen? Der große Vergleich';
+          articleDesc = 'Miete vs. Kauf: Was lohnt sich wirklich? Wir rechnen nach. Vor- und Nachteile, versteckte Kosten und Expertentipps für Ihre Entscheidung.';
+      } else if (slug === 'sicherheit') {
+          articleTitle = 'Sicherheit bei Flüssiggastanks';
+          articleDesc = 'Wie sicher ist Flüssiggas? Alles zu Sicherheitsabständen, Schutzzonen und gesetzlichen Vorschriften für Ihren Gastank.';
+      }
+
+      return {
+          ...defaultSeo,
+          title: `${articleTitle} | Wissen & Ratgeber | Gas-Service Möller`,
+          description: articleDesc,
+          schema: [
+              getOrganizationSchema(),
+              getBreadcrumbSchema([
+                  { name: 'Start', url: '/' },
+                  { name: 'Wissen', url: '/wissen' },
+                  { name: articleTitle, url: `/wissen/${slug}` }
+              ]),
+              {
+                  "@context": "https://schema.org",
+                  "@type": "Article",
+                  "headline": articleTitle,
+                  "image": DEFAULT_IMAGE,
+                  "author": {
+                      "@type": "Organization",
+                      "name": "Gas-Service Möller"
+                  },
+                  "publisher": {
+                      "@type": "Organization",
+                      "name": "Gas-Service Möller",
+                      "logo": {
+                          "@type": "ImageObject",
+                          "url": "https://gasmoeller.de/logos/logo-gasmoeller.png"
+                      }
+                  },
+                  "datePublished": "2023-01-01", // Placeholder, ideally dynamic
+                  "description": articleDesc
+              }
+          ]
+      };
+  }
+
+  // 4. Dynamic City Routes
   if (path.startsWith('liefergebiet/')) {
       const slug = path.split('/')[1];
       const city = cityData.find(c => c.slug === slug);
@@ -358,7 +415,7 @@ export const getSeoForPath = (path) => {
                   getCitySchema(city),
                   getBreadcrumbSchema([
                       { name: 'Start', url: '/' },
-                      { name: 'Liefergebiet', url: '/liefergebiet/hamburg' }, // Just a placeholder parent or maybe distinct page? Keeping it simple.
+                      { name: 'Liefergebiet', url: '/liefergebiet/hamburg' },
                       { name: city.name, url: `/liefergebiet/${city.slug}` }
                   ])
               ]
