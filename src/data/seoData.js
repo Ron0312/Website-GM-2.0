@@ -1,14 +1,6 @@
 import { tankDetails } from './tanks.js';
 import { cityData } from './cityData.js';
-import { CONTENT } from './content.js'; // Ensure content.js is importable here. If it uses JSX, we might have issues if node environment.
-// Note: CONTENT uses lucide-react icons which might be an issue in plain Node.js if not transpiled.
-// However, seoData.js is used by server.js which runs in Node.
-// To satisfy the 'wissen' dynamic routes without breaking the server with JSX imports,
-// we will assume a simple slug mapping or try to import it safely.
-// Since CONTENT exports React components in 'content' field, we should be careful.
-// Ideally, we replicate the list of articles here or refactor content.js to separate data from view.
-// For now, I will use a helper function to create titles from slugs as a robust fallback
-// if CONTENT cannot be imported easily in server context, OR try to filter it.
+// Removed dangerous import { CONTENT } from './content.js' to prevent JSX crash in Node server.
 
 const BASE_URL = 'https://gasmoeller.de';
 const DEFAULT_IMAGE = `${BASE_URL}/images/gas-order-hero.webp`;

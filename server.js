@@ -19,6 +19,27 @@ process.on('unhandledRejection', (reason, promise) => {
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
+// Helper to extract knowledge IDs from JSX content
+// We read this once at startup to avoid FS I/O on every request
+let knowledgeSlugs = [];
+try {
+    const contentPath = path.resolve(__dirname, 'src/data/content.jsx');
+    if (fs.existsSync(contentPath)) {
+        const content = fs.readFileSync(contentPath, 'utf-8');
+        const idRegex = /id:\s*['"]([^'"]+)['"]/g;
+        let match;
+        const ids = [];
+        while ((match = idRegex.exec(content)) !== null) {
+            ids.push(match[1]);
+        }
+        const categoryIds = ['tank-technik', 'heizung', 'gewerbe', 'service', 'basis'];
+        knowledgeSlugs = ids.filter(id => !categoryIds.includes(id));
+        Logger.info(`Loaded ${knowledgeSlugs.length} knowledge articles.`);
+    }
+} catch (e) {
+    Logger.warn('Failed to load knowledge slugs:', e.message);
+}
+
 // Standard Express Rate Limiter
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -142,6 +163,8 @@ async function createServer() {
       const routes = [...staticRoutes.filter(r => r !== '404' && r !== 'sitemap.xml' && r !== 'robots.txt')]; // Exclude technical routes from sitemap
       tankSlugs.forEach(slug => routes.push(`tanks/${slug}`));
       cityData.forEach(city => routes.push(`liefergebiet/${city.slug}`));
+      // Add knowledge routes
+      knowledgeSlugs.forEach(slug => routes.push(`wissen/${slug}`));
 
       return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -149,7 +172,7 @@ ${routes.map(route => `  <url>
     <loc>${SITE_URL}/${route}</loc>
     <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
     <changefreq>${route === '' ? 'daily' : 'weekly'}</changefreq>
-    <priority>${route === '' ? '1.0' : (route.startsWith('liefergebiet/') ? '0.7' : '0.8')}</priority>
+    <priority>${route === '' ? '1.0' : (route.startsWith('liefergebiet/') ? '0.7' : (route.startsWith('wissen/') ? '0.8' : '0.9'))}</priority>
   </url>`).join('\n')}
 </urlset>`;
   };
@@ -357,6 +380,15 @@ ${routes.map(route => `  <url>
         if (cleanPath.startsWith('liefergebiet/')) {
             const slug = cleanPath.split('/')[1];
             if (cityData.some(c => c.slug === slug)) {
+                return next();
+            }
+        }
+
+        // Check if the path is a valid knowledge route (NEW)
+        if (cleanPath.startsWith('wissen/')) {
+            const slug = cleanPath.split('/')[1];
+            // Allow all matching knowledge slugs OR if knowledgeSlugs is empty (fallback) allow all to pass to React 404 handler
+            if (knowledgeSlugs.length === 0 || knowledgeSlugs.includes(slug)) {
                 return next();
             }
         }
