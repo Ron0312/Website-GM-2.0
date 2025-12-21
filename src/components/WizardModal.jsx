@@ -141,6 +141,14 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                 if (initialData.plz && initialType === 'gas') {
                      setStep(3);
                 }
+            } else {
+                // Default for Gas if no initial data
+                if (initialType === 'gas') {
+                    // Sync default calcTank to form
+                    setValue('details.tankSizeGas', tankSizes[0].label);
+                    const calculated = Math.max(0, Math.round(tankSizes[0].volume * ((85 - 30) / 100)));
+                    setValue('details.amount', calculated.toString());
+                }
             }
 
             // Focus PLZ on open
@@ -248,10 +256,16 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
 
         const formData = new FormData();
         formData.append("access_key", WEB3FORMS_ACCESS_KEY);
-        formData.append("subject", `Neue Anfrage: ${type.toUpperCase()} - ${data.plz}`);
+
+        const typeMap = {
+            'tank': 'Tank Kauf/Miete',
+            'gas': 'Flüssiggas Bestellung',
+            'service': 'Service Anfrage'
+        };
+        formData.append("subject", `Neue Anfrage: ${typeMap[type] || type.toUpperCase()} - ${data.plz}`);
         formData.append("from_name", "gasmöller Website");
 
-        formData.append("Type", type);
+        formData.append("Anfrage-Typ", typeMap[type] || type);
         formData.append("PLZ", data.plz);
 
         if (type === 'tank') {
@@ -263,16 +277,16 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
             formData.append("Eigentum", data.details.ownership);
             formData.append("Tankgröße", data.details.tankSizeGas);
             formData.append("Menge (Liter)", data.details.amount);
-            formData.append("Füllstand (%)", calcFillLevel);
+            formData.append("Füllstand (%)", calcFillLevel + '%');
         } else {
             formData.append("Service Typ", data.details.serviceType);
             formData.append("Nachricht", data.details.message);
         }
 
         formData.append("Name", data.contact.name);
-        formData.append("Address", `${data.contact.street} ${data.contact.number}, ${data.plz} ${data.contact.city}`);
-        formData.append("Email", data.contact.email);
-        formData.append("Phone", data.contact.phone);
+        formData.append("Adresse", `${data.contact.street} ${data.contact.number}, ${data.plz} ${data.contact.city}`);
+        formData.append("E-Mail", data.contact.email);
+        formData.append("Telefon", data.contact.phone);
 
         try {
             const response = await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
@@ -481,6 +495,29 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                 {/* GAS STEP 4: Calculator */}
                                                 <h3 className="text-2xl font-bold text-center mb-6">Bestelldetails</h3>
                                                 <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100 mb-6">
+                                                    <label className="block text-sm font-bold text-gray-700 mb-3">Tankgröße</label>
+                                                    <div className="grid grid-cols-3 gap-3 mb-6">
+                                                        {tankSizes.map((tank) => (
+                                                            <button
+                                                                key={tank.id}
+                                                                type="button"
+                                                                onClick={() => {
+                                                                    setCalcTank(tank);
+                                                                    const newAmount = Math.max(0, Math.round(tank.volume * ((85 - calcFillLevel) / 100)));
+                                                                    setValue('details.tankSizeGas', tank.label);
+                                                                    setValue('details.amount', newAmount.toString());
+                                                                }}
+                                                                className={`py-3 px-2 rounded-xl text-sm font-bold transition-all ${
+                                                                    calcTank.id === tank.id
+                                                                        ? 'bg-gas text-white shadow-lg ring-2 ring-gas-light'
+                                                                        : 'bg-white text-gray-600 border border-gray-200 hover:border-gas/50'
+                                                                }`}
+                                                            >
+                                                                {tank.label}
+                                                            </button>
+                                                        ))}
+                                                    </div>
+
                                                     <div className="flex justify-between items-end mb-2">
                                                         <label className="text-sm font-bold text-gray-700">Füllstand</label>
                                                         <span className="text-xl font-bold text-gas">{calcFillLevel}%</span>
