@@ -32,7 +32,7 @@ const contactSchema = z.object({
 
 // WizardModal Component
 
-const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null }) => {
+const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null, openLegal }) => {
     const [step, setStep] = useState(1);
     const [type, setType] = useState(initialType);
     const [loading, setLoading] = useState(true);
@@ -538,7 +538,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                             </>
                                         ) : (
                                             /* SERVICE STEP 4: Contact */
-                                            <ContactFormFields control={control} errors={errors} submitting={submitting} submitForm={submitForm} handleBack={handleBack} />
+                                            <ContactFormFields control={control} errors={errors} submitting={submitting} submitForm={submitForm} handleBack={handleBack} openLegal={openLegal} />
                                         )}
                                     </motion.div>
                                 )}
@@ -598,7 +598,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                             </>
                                         ) : (
                                             /* GAS STEP 5: Contact */
-                                            <ContactFormFields control={control} errors={errors} submitting={submitting} submitForm={submitForm} handleBack={handleBack} />
+                                            <ContactFormFields control={control} errors={errors} submitting={submitting} submitForm={submitForm} handleBack={handleBack} openLegal={openLegal} />
                                         )}
                                     </motion.div>
                                 )}
@@ -606,7 +606,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                 {/* STEP 6 */}
                                 {step === 6 && type === 'tank' && (
                                     <motion.div key="step6" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                                        <ContactFormFields control={control} errors={errors} submitting={submitting} submitForm={submitForm} handleBack={handleBack} />
+                                        <ContactFormFields control={control} errors={errors} submitting={submitting} submitForm={submitForm} handleBack={handleBack} openLegal={openLegal} />
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -618,7 +618,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
     );
 };
 
-const ContactFormFields = ({ control, errors, submitting, submitForm, handleBack }) => (
+const ContactFormFields = ({ control, errors, submitting, submitForm, handleBack, openLegal }) => (
     <>
         <h3 className="text-2xl font-bold text-center mb-6 text-gray-900">Kontakt</h3>
         <div className="space-y-2 max-w-md mx-auto">
@@ -656,7 +656,7 @@ const ContactFormFields = ({ control, errors, submitting, submitForm, handleBack
                     <input type="checkbox" checked={value} onChange={onChange} className="mt-1 mr-3 w-4 h-4 accent-gas flex-shrink-0" />
                 )} />
                 <span className="leading-relaxed">
-                    Ich stimme zu, dass meine Angaben dauerhaft gespeichert werden. Mehr Infos in der <a href="/datenschutz" target="_blank" rel="noopener noreferrer" className="text-gas font-bold underline">Datenschutzerklärung</a>.
+                    Ich stimme zu, dass meine Angaben dauerhaft gespeichert werden. Mehr Infos in der <button type="button" onClick={() => openLegal ? openLegal('privacy') : window.openPrivacy?.()} className="text-gas font-bold underline hover:text-gas-dark">Datenschutzerklärung</button>.
                 </span>
                 {errors.contact?.consent && <span className="text-red-500 font-bold ml-2">!</span>}
             </div>

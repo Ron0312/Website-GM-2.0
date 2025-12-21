@@ -1,0 +1,7 @@
+
+> gasmoeller-vite@0.0.0 dev
+> node server.js
+
+{"level":"INFO","timestamp":"2025-12-21T10:05:43.495Z","message":"Loaded 30 knowledge articles."}
+{"level":"INFO","timestamp":"2025-12-21T10:05:43.500Z","message":"Starting server. Initial mode: DEVELOPMENT"}
+{"level":"INFO","timestamp":"2025-12-21T10:05:43.856Z","message":"Server started at http://localhost:5173"}

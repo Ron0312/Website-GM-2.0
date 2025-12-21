@@ -80,6 +80,13 @@ const App = ({ path, context }) => {
         setLegalModal({ open: true, title, content });
     };
 
+    // Expose openPrivacy to window for ContactSection
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            window.openPrivacy = () => openLegal('privacy');
+        }
+    }, []);
+
     // Handle Browser Back/Forward
     useEffect(() => {
         const handlePopState = () => {
@@ -243,7 +250,7 @@ const App = ({ path, context }) => {
             <main id="main-content" className="flex-grow focus:outline-none" tabIndex="-1">{renderSection()}</main>
             <Footer setActiveSection={changeSection} openLegal={openLegal} />
             <Suspense fallback={null}>
-                <WizardModal isOpen={wizardOpen} onClose={() => setWizardOpen(false)} initialType={wizardType} initialData={wizardData} />
+                <WizardModal isOpen={wizardOpen} onClose={() => setWizardOpen(false)} initialType={wizardType} initialData={wizardData} openLegal={openLegal} />
             </Suspense>
             <CookieBanner />
             <SimpleModal isOpen={legalModal.open} onClose={() => setLegalModal({ ...legalModal, open: false })} title={legalModal.title} content={legalModal.content} />
