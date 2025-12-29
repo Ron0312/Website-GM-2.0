@@ -7,10 +7,8 @@ import { getPlzError } from '../utils/validation';
 import ModernInput from './ui/ModernInput';
 import SelectionCard from './ui/SelectionCard';
 import Skeleton from './ui/Skeleton';
-
-const WEB3FORMS_ACCESS_KEY = "f22052ed-455f-4e4d-9f5a-94a6e340426f";
-
-// --- Validation Schemas ---
+import Toast from './ui/Toast';
+import { TANK_SIZES, WEB3FORMS_ACCESS_KEY, PHONE_NUMBER_DISPLAY, PHONE_NUMBER } from '../constants';
 
 const plzSchema = z.object({
     plz: z.string().regex(/^\d{5}$/, "Bitte geben Sie eine gültige 5-stellige PLZ ein.")
@@ -25,17 +23,16 @@ const contactSchema = z.object({
         city: z.string().min(2, "Ort ist erforderlich"),
         email: z.string().email("Gültige E-Mail erforderlich"),
         phone: z.string().optional(),
-        honeypot: z.string().max(0).optional(), // Honeypot must be empty
+        honeypot: z.string().max(0).optional(),
         consent: z.literal(true, { errorMap: () => ({ message: "Zustimmung erforderlich" }) })
     })
 });
-
-// WizardModal Component
 
 const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null, openLegal }) => {
     const [step, setStep] = useState(1);
     const [type, setType] = useState(initialType);
     const [loading, setLoading] = useState(true);
+    const [toast, setToast] = useState(null); // { message, type }
 
     const { control, handleSubmit, watch, setValue, getValues, formState: { errors }, reset, trigger, setFocus } = useForm({
         resolver: undefined,
@@ -70,64 +67,53 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
 
     const formValues = watch();
 
-    // Calculator State
-    const tankSizes = [
-        { id: '1.2t', label: '1,2 t', volume: 2700 },
-        { id: '2.1t', label: '2,1 t', volume: 4850 },
-        { id: '2.9t', label: '2,9 t', volume: 6400 },
-    ];
-    const [calcTank, setCalcTank] = useState(tankSizes[0]);
+    const [calcTank, setCalcTank] = useState(TANK_SIZES[0]);
     const [calcFillLevel, setCalcFillLevel] = useState(30);
 
     const [submitting, setSubmitting] = useState(false);
     const [success, setSuccess] = useState(false);
     const [shake, setShake] = useState(false);
 
-    // Simulate Loading for Skeleton Demo
     useEffect(() => {
         if (isOpen) {
             setLoading(true);
             const timer = setTimeout(() => setLoading(false), 500);
+
+            // Load from LocalStorage if available (Form Fallback)
+            const savedData = localStorage.getItem('wizard_backup');
+            if (savedData && !initialData) {
+                try {
+                    const parsed = JSON.parse(savedData);
+                    // Only restore contact details to avoid confusion
+                    if (parsed.contact) {
+                        setValue('contact.name', parsed.contact.name);
+                        setValue('contact.email', parsed.contact.email);
+                        setValue('contact.phone', parsed.contact.phone);
+                        // Don't restore sensitive or specific fields
+                    }
+                } catch (e) { /* ignore */ }
+            }
+
             return () => clearTimeout(timer);
         }
     }, [isOpen]);
 
-    // Initialization
+    // Save to LocalStorage on change
+    useEffect(() => {
+        if (isOpen && formValues.contact.email) {
+            const dataToSave = { contact: { name: formValues.contact.name, email: formValues.contact.email, phone: formValues.contact.phone } };
+            localStorage.setItem('wizard_backup', JSON.stringify(dataToSave));
+        }
+    }, [formValues.contact, isOpen]);
+
     useEffect(() => {
         if (isOpen) {
             setStep(1);
             setSuccess(false);
             if (initialType) setType(initialType);
 
-            // Reset Form
-            reset({
-                plz: initialData?.plz || '',
-                installationType: '',
-                details: {
-                    ownership: 'Ja, Eigentum',
-                    tankSizeGas: '',
-                    amount: '',
-                    fillUp: false,
-                    serviceType: '',
-                    message: '',
-                    condition: '',
-                    building: '',
-                    tankSize: '',
-                    interest: ''
-                },
-                contact: {
-                    name: '',
-                    street: '',
-                    number: '',
-                    city: '',
-                    email: '',
-                    phone: '',
-                    honeypot: '',
-                    consent: false
-                }
-            });
-
             if (initialData) {
+                setValue('plz', initialData.plz || '');
                 if (initialData.selectedTank && initialData.fillLevel !== undefined) {
                     setCalcTank(initialData.selectedTank);
                     setCalcFillLevel(initialData.fillLevel);
@@ -142,30 +128,15 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                      setStep(3);
                 }
             } else {
-                // Default for Gas if no initial data
                 if (initialType === 'gas') {
-                    // Sync default calcTank to form
-                    setValue('details.tankSizeGas', tankSizes[0].label);
-                    const calculated = Math.max(0, Math.round(tankSizes[0].volume * ((85 - 30) / 100)));
+                    setValue('details.tankSizeGas', TANK_SIZES[0].label);
+                    const calculated = Math.max(0, Math.round(TANK_SIZES[0].volume * ((85 - 30) / 100)));
                     setValue('details.amount', calculated.toString());
                 }
             }
-
-            // Focus PLZ on open
             setTimeout(() => setFocus('plz'), 100);
         }
     }, [isOpen, initialType, initialData, reset, setValue, setFocus]);
-
-
-    // Focus Management on Error
-    useEffect(() => {
-         const firstError = Object.keys(errors).reduce((field, key) => {
-             return field || (errors[key] ? key : null);
-         }, null);
-         if (firstError) {
-             // Basic focus logic could be enhanced here
-         }
-    }, [errors]);
 
     const triggerShake = () => {
         setShake(true);
@@ -179,12 +150,10 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
         let valid = false;
 
         if (step === 1) {
-            // Safe Zod Check on current values
             const currentPlz = getValues('plz');
             const result = plzSchema.safeParse({ plz: currentPlz });
 
             if (!result.success) {
-                // If Zod fails, trigger RHF to show error in UI
                 await trigger('plz');
             } else {
                 valid = true;
@@ -205,22 +174,19 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
              } else if (type === 'gas') {
                 valid = true;
              } else {
-                // Service Contact Form
                 const result = contactSchema.safeParse({ contact: formValues.contact });
                 if (result.success) valid = true;
                 else await trigger('contact');
              }
         } else if (step === 5) {
              if (type === 'tank') {
-                 valid = true; // Details are optional or defaults
+                 valid = true;
              } else {
-                 // Gas Contact Form
                 const result = contactSchema.safeParse({ contact: formValues.contact });
                 if (result.success) valid = true;
                 else await trigger('contact');
              }
         } else if (step === 6) {
-             // Tank Contact Form
             const result = contactSchema.safeParse({ contact: formValues.contact });
             if (result.success) valid = true;
             else await trigger('contact');
@@ -231,7 +197,6 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
             return;
         }
 
-        // Logic to move next
         if (step === 1) setStep(2);
         else if (step === 2) setStep(3);
         else if (step === 3) setStep(4);
@@ -291,10 +256,15 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
         try {
             const response = await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
             const result = await response.json();
-            if (result.success) setSuccess(true);
-            else alert("Es gab einen Fehler. Bitte versuchen Sie es später.");
+            if (result.success) {
+                setSuccess(true);
+                // Clear backup on success
+                localStorage.removeItem('wizard_backup');
+            } else {
+                setToast({ message: "Es gab einen Fehler. Bitte versuchen Sie es später.", type: "error" });
+            }
         } catch (error) {
-            alert("Netzwerkfehler.");
+            setToast({ message: "Netzwerkfehler. Bitte prüfen Sie Ihre Verbindung.", type: "error" });
         } finally {
             setSubmitting(false);
         }
@@ -312,37 +282,37 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
 
     return (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md" role="dialog" aria-modal="true">
+            <AnimatePresence>
+                {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
+            </AnimatePresence>
+
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1, x: shake ? [0, -10, 10, -10, 10, 0] : 0 }}
-                transition={{ duration: 0.3 }} // Shake duration
+                transition={{ duration: 0.3 }}
                 className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[90vh]"
             >
-                {/* Header */}
                 <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-white z-20">
                     <div>
                         <h2 id="wizard-title" className="text-xl font-bold text-gray-900">Anfrage stellen</h2>
-                        {loading ? <Skeleton className="w-20 h-4 mt-1"/> : <p className="text-sm text-gray-400">Schritt {step} von {totalSteps}</p>}
+                        {loading ? <Skeleton className="w-20 h-4 mt-1"/> : <p className="text-sm text-gray-400 font-medium">Schritt {step} von {totalSteps}</p>}
                     </div>
                     <div className="flex items-center gap-4">
-                        <a href="tel:04551897089" className="hidden sm:flex items-center gap-2 text-gas font-bold text-sm bg-gas-light/20 px-3 py-1.5 rounded-lg">
-                            <Phone size={14} /> <span>04551 89 70 89</span>
+                        <a href={`tel:${PHONE_NUMBER}`} className="hidden sm:flex items-center gap-2 text-gas font-bold text-sm bg-gas-light/20 px-3 py-1.5 rounded-lg">
+                            <Phone size={14} /> <span>{PHONE_NUMBER_DISPLAY}</span>
                         </a>
                         <button onClick={onClose} className="p-2 rounded-full hover:bg-gray-100"><X size={24}/></button>
                     </div>
                 </div>
 
-                {/* Progress */}
                 <div className="relative pt-6 pb-2 px-6">
                     <div className="h-1 bg-gray-100 w-full rounded-full overflow-hidden">
                         <motion.div className="h-full bg-gas" initial={{ width: 0 }} animate={{ width: `${progress}%` }} />
                     </div>
                 </div>
 
-                {/* Content */}
                 <div className="p-6 md:p-10 overflow-y-auto custom-scrollbar flex-1 relative">
                     {loading ? (
-                         // Skeleton UI for Wizard
                          <div className="space-y-8 animate-pulse">
                              <div className="h-8 bg-gray-200 rounded w-2/3 mx-auto"></div>
                              <div className="h-20 bg-gray-200 rounded-xl w-full"></div>
@@ -352,12 +322,12 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                         <div className="text-center py-12 flex flex-col items-center justify-center">
                             <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="w-24 h-24 bg-green-100 text-green-500 rounded-full flex items-center justify-center mb-6"><Check size={48} /></motion.div>
                             <h3 className="text-3xl font-bold mb-4 text-gray-900">Vielen Dank!</h3>
-                            <button onClick={onClose} className="bg-gas text-white px-10 py-4 rounded-xl font-bold mt-4">Schließen</button>
+                            <p className="text-gray-500 mb-8 max-w-md mx-auto">Wir haben Ihre Anfrage erhalten und melden uns in Kürze bei Ihnen.</p>
+                            <button onClick={onClose} className="bg-gas text-white px-10 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all hover:bg-gas-dark">Schließen</button>
                         </div>
                     ) : (
-                        <form onSubmit={(e) => { e.preventDefault(); /* handled by buttons */ }} className="h-full pb-6">
+                        <form onSubmit={(e) => { e.preventDefault(); }} className="h-full pb-6">
                             <AnimatePresence mode="wait">
-                                {/* STEP 1: PLZ */}
                                 {step === 1 && (
                                     <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                                         <div className="text-center mb-10">
@@ -380,17 +350,21 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                         placeholder="PLZ"
                                                         maxLength={5}
                                                         inputMode="numeric"
-                                                        // AutoFocus handled in useEffect
                                                         onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleNext(); } }}
                                                     />
                                                 )}
                                             />
+                                            {/* Empty State Fallback Logic handled visually by Refine Error Message "Leider liefern wir..." */}
+                                            {errors.plz?.message === "Leider liefern wir noch nicht in dieses Gebiet." && (
+                                                <div className="mt-4 p-4 bg-gray-50 rounded-xl text-center">
+                                                    <p className="text-sm text-gray-500">Wir liefern aktuell in PLZ-Gebiete 17-19, 20-25 und 27.</p>
+                                                </div>
+                                            )}
                                             <button type="button" onClick={handleNext} className="w-full mt-6 bg-gas text-white py-4 rounded-xl font-bold hover:bg-gas-dark transition-all shadow-xl shadow-gas/20">Weiter</button>
                                         </div>
                                     </motion.div>
                                 )}
 
-                                {/* STEP 2: CATEGORY */}
                                 {step === 2 && (
                                     <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                                         <h3 className="text-2xl font-bold text-center mb-8">Wie können wir helfen?</h3>
@@ -399,17 +373,15 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                             <SelectionCard title="Flüssiggas" description="Befüllung" icon={Flame} selected={type === 'gas'} onClick={() => setType('gas')} />
                                             <SelectionCard title="Service" description="Wartung" icon={Wrench} selected={type === 'service'} onClick={() => setType('service')} />
                                         </div>
-                                        <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg mb-4">Weiter</button>
-                                        <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold">Zurück</button>
+                                        <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg mb-4 hover:bg-gas-dark transition-all">Weiter</button>
+                                        <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold hover:text-gray-600 transition-colors">Zurück</button>
                                     </motion.div>
                                 )}
 
-                                {/* STEP 3 */}
                                 {step === 3 && (
                                     <motion.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                                         {type === 'tank' ? (
                                             <>
-                                                {/* TANK STEP 3: Installation */}
                                                 <h3 className="text-2xl font-bold text-center mb-8">Installation?</h3>
                                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                                                     <Controller name="installationType" control={control} render={({ field }) => (
@@ -420,11 +392,10 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                         </>
                                                     )} />
                                                 </div>
-                                                <button type="button" onClick={handleNext} disabled={!formValues.installationType} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50">Weiter</button>
+                                                <button type="button" onClick={handleNext} disabled={!formValues.installationType} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 hover:bg-gas-dark transition-all">Weiter</button>
                                             </>
                                         ) : type === 'gas' ? (
                                             <>
-                                                {/* GAS STEP 3: Ownership */}
                                                 <h3 className="text-2xl font-bold text-center mb-6">Wem gehört der Tank?</h3>
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                                                     <Controller name="details.ownership" control={control} render={({ field }) => (
@@ -434,7 +405,6 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                         </>
                                                     )} />
                                                 </div>
-
                                                 {formValues.details.ownership === 'Nein, Mietvertrag' && (
                                                     <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mb-6 bg-yellow-50 border border-yellow-200 p-4 rounded-xl flex items-start gap-3">
                                                         <AlertTriangle className="text-yellow-600 flex-shrink-0" size={24} />
@@ -446,12 +416,10 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                         </div>
                                                     </motion.div>
                                                 )}
-
-                                                <button type="button" onClick={handleNext} disabled={!formValues.details.ownership} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50">Weiter</button>
+                                                <button type="button" onClick={handleNext} disabled={!formValues.details.ownership} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 hover:bg-gas-dark transition-all">Weiter</button>
                                             </>
                                         ) : (
                                             <>
-                                                {/* SERVICE STEP 3: Details */}
                                                 <h3 className="text-2xl font-bold text-center mb-6">Service Anfrage</h3>
                                                 <Controller name="details.serviceType" control={control} render={({ field }) => (
                                                     <select {...field} className="w-full p-4 border-2 rounded-xl mb-4 bg-white"><option value="">Bitte wählen...</option><option>Innere Prüfung</option><option>Äußere Prüfung</option><option>Wartung</option></select>
@@ -459,19 +427,17 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                 <Controller name="details.message" control={control} render={({ field }) => (
                                                     <textarea {...field} className="w-full p-4 border-2 rounded-xl h-32 resize-none" placeholder="Nachricht..." />
                                                 )} />
-                                                <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg mt-4">Weiter zu Kontakt</button>
+                                                <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg mt-4 hover:bg-gas-dark transition-all">Weiter zu Kontakt</button>
                                             </>
                                         )}
-                                        <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4">Zurück</button>
+                                        <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
                                     </motion.div>
                                 )}
 
-                                {/* STEP 4 */}
                                 {step === 4 && (
                                     <motion.div key="step4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                                         {type === 'tank' ? (
                                             <>
-                                                {/* TANK STEP 4: Condition */}
                                                 <h3 className="text-2xl font-bold text-center mb-4">Zustand</h3>
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                                                     <Controller name="details.condition" control={control} render={({ field }) => (
@@ -479,7 +445,6 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                             <SelectionCard title="Neu" description="Fabrikneu" icon={Sparkles} selected={field.value === 'Neu'} onClick={() => field.onChange('Neu')} />
                                                             <div className="relative">
                                                                 <SelectionCard title="Gebraucht" description="Aufbereitet" icon={RefreshCw} selected={field.value === 'Gebraucht / Aufbereitet'} onClick={() => field.onChange('Gebraucht / Aufbereitet')} />
-                                                                {/* Badge for Refurbished */}
                                                                 <div className="absolute -top-3 -right-2 bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-md uppercase tracking-wide">
                                                                     Günstiger
                                                                 </div>
@@ -487,17 +452,16 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                         </>
                                                     )} />
                                                 </div>
-                                                <button type="button" onClick={handleNext} disabled={!formValues.details.condition} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50">Weiter</button>
-                                                <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4">Zurück</button>
+                                                <button type="button" onClick={handleNext} disabled={!formValues.details.condition} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 hover:bg-gas-dark transition-all">Weiter</button>
+                                                <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
                                             </>
                                         ) : type === 'gas' ? (
                                             <>
-                                                {/* GAS STEP 4: Calculator */}
                                                 <h3 className="text-2xl font-bold text-center mb-6">Bestelldetails</h3>
                                                 <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100 mb-6">
                                                     <label className="block text-sm font-bold text-gray-700 mb-3">Tankgröße</label>
                                                     <div className="grid grid-cols-3 gap-3 mb-6">
-                                                        {tankSizes.map((tank) => (
+                                                        {TANK_SIZES.map((tank) => (
                                                             <button
                                                                 key={tank.id}
                                                                 type="button"
@@ -517,7 +481,6 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                             </button>
                                                         ))}
                                                     </div>
-
                                                     <div className="flex justify-between items-end mb-2">
                                                         <label className="text-sm font-bold text-gray-700">Füllstand</label>
                                                         <span className="text-xl font-bold text-gas">{calcFillLevel}%</span>
@@ -533,52 +496,28 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                          <span className="font-extrabold text-gas text-xl">{Math.max(0, Math.round(calcTank.volume * ((85 - calcFillLevel) / 100)))} Liter</span>
                                                     </div>
                                                 </div>
-                                                <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg">Weiter zu Kontakt</button>
-                                                <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4">Zurück</button>
+                                                <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg hover:bg-gas-dark transition-all">Weiter zu Kontakt</button>
+                                                <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
                                             </>
                                         ) : (
-                                            /* SERVICE STEP 4: Contact */
                                             <ContactFormFields control={control} errors={errors} submitting={submitting} submitForm={submitForm} handleBack={handleBack} openLegal={openLegal} />
                                         )}
                                     </motion.div>
                                 )}
 
-                                {/* STEP 5 */}
                                 {step === 5 && (
                                     <motion.div key="step5" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                                         {type === 'tank' ? (
                                             <>
-                                                 {/* TANK STEP 5: Details */}
                                                 <h3 className="text-2xl font-bold text-center mb-6">Details</h3>
                                                 <div className="space-y-6">
                                                     <Controller name="details.building" control={control} render={({ field }) => (
                                                         <div className="grid grid-cols-1 gap-3">
                                                             <label className="text-sm font-bold text-gray-500 ml-1">Gebäudeart</label>
                                                             <div className="grid grid-cols-3 gap-3">
-                                                                <SelectionCard
-                                                                    title="Bestand"
-                                                                    description=""
-                                                                    icon={Home}
-                                                                    selected={field.value === 'Haus (Bestand)'}
-                                                                    onClick={() => field.onChange('Haus (Bestand)')}
-                                                                    className="!p-3 !text-sm flex-col items-center text-center justify-center"
-                                                                />
-                                                                 <SelectionCard
-                                                                    title="Neubau"
-                                                                    description=""
-                                                                    icon={Building2}
-                                                                    selected={field.value === 'Neubau'}
-                                                                    onClick={() => field.onChange('Neubau')}
-                                                                    className="!p-3 !text-sm flex-col items-center text-center justify-center"
-                                                                />
-                                                                <SelectionCard
-                                                                    title="Gewerbe"
-                                                                    description=""
-                                                                    icon={Factory}
-                                                                    selected={field.value === 'Gewerbe'}
-                                                                    onClick={() => field.onChange('Gewerbe')}
-                                                                    className="!p-3 !text-sm flex-col items-center text-center justify-center"
-                                                                />
+                                                                <SelectionCard title="Bestand" description="" icon={Home} selected={field.value === 'Haus (Bestand)'} onClick={() => field.onChange('Haus (Bestand)')} className="!p-3 !text-sm flex-col items-center text-center justify-center" />
+                                                                 <SelectionCard title="Neubau" description="" icon={Building2} selected={field.value === 'Neubau'} onClick={() => field.onChange('Neubau')} className="!p-3 !text-sm flex-col items-center text-center justify-center" />
+                                                                <SelectionCard title="Gewerbe" description="" icon={Factory} selected={field.value === 'Gewerbe'} onClick={() => field.onChange('Gewerbe')} className="!p-3 !text-sm flex-col items-center text-center justify-center" />
                                                             </div>
                                                         </div>
                                                     )} />
@@ -592,18 +531,16 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                             </div>
                                                         </div>
                                                     )} />
-                                                    <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg mt-4">Weiter</button>
-                                                    <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4">Zurück</button>
+                                                    <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg mt-4 hover:bg-gas-dark transition-all">Weiter</button>
+                                                    <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
                                                 </div>
                                             </>
                                         ) : (
-                                            /* GAS STEP 5: Contact */
                                             <ContactFormFields control={control} errors={errors} submitting={submitting} submitForm={submitForm} handleBack={handleBack} openLegal={openLegal} />
                                         )}
                                     </motion.div>
                                 )}
 
-                                {/* STEP 6 */}
                                 {step === 6 && type === 'tank' && (
                                     <motion.div key="step6" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                                         <ContactFormFields control={control} errors={errors} submitting={submitting} submitForm={submitForm} handleBack={handleBack} openLegal={openLegal} />
@@ -661,10 +598,10 @@ const ContactFormFields = ({ control, errors, submitting, submitForm, handleBack
                 {errors.contact?.consent && <span className="text-red-500 font-bold ml-2">!</span>}
             </div>
 
-            <button type="button" onClick={submitForm} disabled={submitting} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg hover:bg-gas-dark transition-all">
+            <button type="button" onClick={submitForm} disabled={submitting} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg hover:bg-gas-dark transition-all hover:scale-[1.02] active:scale-[0.98]">
                 {submitting ? 'Wird gesendet...' : 'Kostenlos anfragen'}
             </button>
-            <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4">Zurück</button>
+            <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
         </div>
     </>
 );

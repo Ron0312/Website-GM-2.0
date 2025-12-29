@@ -26,6 +26,10 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
+/* Zebra Striping for Tables */
+.zebra-table tr:nth-child(even) { background-color: #f9fafb; }
+.zebra-table th { background-color: #f3f4f6; color: #1f2937; font-weight: 700; }
+
 /* Article Content Styles (Extracted from style tag) */
 .article-content h3 { font-size: 1.75rem; font-weight: 800; color: #1f2937; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
 .article-content h4 { font-size: 1.35rem; font-weight: 700; color: #005b9f; margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 2px solid #e6f0fa; padding-bottom: 0.5rem; }
@@ -60,11 +64,11 @@ input[type=range]::-webkit-slider-runnable-track {
     border-radius: 2px;
 }
 
-/* Scroll to Top Button */
+/* Scroll to Top Button - Adjusted Position */
 .scroll-to-top {
     position: fixed;
-    bottom: 100px;
-    right: 30px;
+    bottom: 110px; /* Increased to avoid sticky CTA on mobile */
+    right: 20px;
     z-index: 999;
     background: #ffffff;
     color: #005b9f;
@@ -77,6 +81,12 @@ input[type=range]::-webkit-slider-runnable-track {
     opacity: 0;
     transform: translateY(20px);
     pointer-events: none;
+}
+@media (min-width: 768px) {
+    .scroll-to-top {
+        bottom: 40px;
+        right: 40px;
+    }
 }
 .scroll-to-top.visible {
     opacity: 1;
@@ -117,10 +127,10 @@ html.a11y-large-text {
     text-decoration-thickness: 2px !important;
 }
 
-/* Print Styles */
+/* Print Styles - Optimized */
 @media print {
     /* Hide navigational and interactive elements */
-    header, footer, nav, .cookie-banner, .sticky-cta, .no-print, .scroll-to-top, [aria-modal="true"] {
+    header, footer, nav, .cookie-banner, .sticky-cta, .no-print, .scroll-to-top, [aria-modal="true"], button {
         display: none !important;
     }
 
@@ -154,8 +164,7 @@ html.a11y-large-text {
         font-weight: bold;
     }
 
-    /* Force background printing for essential elements if possible,
-       though browsers often block this. */
+    /* Force background printing for essential elements if possible */
     .print-bg {
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
@@ -182,11 +191,16 @@ html.a11y-large-text {
         max-width: 100% !important;
         page-break-inside: avoid;
     }
+
+    /* Ensure tank detail svg is visible */
+    svg {
+        break-inside: avoid;
+    }
 }
 
-/* Accessibility: Focus Visible */
+/* Accessibility: Focus Visible - Brand Color */
 :focus-visible {
-    outline: 3px solid #005b9f;
+    outline: 3px solid #005b9f; /* gas */
     outline-offset: 2px;
 }
 

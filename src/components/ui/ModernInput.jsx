@@ -25,8 +25,6 @@ const ModernInput = forwardRef(({
 
     const InputComponent = multiline ? 'textarea' : 'input';
 
-    // If label is present, we use a space as placeholder to enable the CSS-only floating label logic (peer-shown).
-    // If no label, we use the provided placeholder.
     const effectivePlaceholder = label ? ' ' : placeholder;
     const isFloating = !!label;
 
@@ -54,7 +52,8 @@ const ModernInput = forwardRef(({
                     className={`
                         peer w-full rounded-xl border-2 outline-none transition-all font-medium
                         disabled:opacity-50 disabled:cursor-not-allowed
-                        placeholder:text-gray-400
+                        /* Improved Placeholder Contrast */
+                        placeholder:text-gray-500
                         ${multiline ? 'h-32 resize-none py-6 px-4' : 'h-14 px-4'}
                         ${isFloating && !multiline ? 'pt-6 pb-2' : ''}
                         ${!isFloating && !multiline ? 'py-3' : ''}
@@ -85,7 +84,7 @@ const ModernInput = forwardRef(({
                     </label>
                 )}
 
-                {/* Validation Icons */}
+                {/* Validation Icons with POP Animation */}
                 {!multiline && (
                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none flex items-center">
                         <AnimatePresence mode="popLayout">
@@ -93,7 +92,7 @@ const ModernInput = forwardRef(({
                                 <motion.div
                                     key="error"
                                     initial={{ scale: 0, opacity: 0 }}
-                                    animate={{ scale: 1, opacity: 1 }}
+                                    animate={{ scale: 1, opacity: 1, type: 'spring', stiffness: 500, damping: 20 }}
                                     exit={{ scale: 0, opacity: 0 }}
                                 >
                                     <X size={20} className="text-red-500" />
@@ -103,7 +102,8 @@ const ModernInput = forwardRef(({
                                 <motion.div
                                      key="success"
                                      initial={{ scale: 0, opacity: 0 }}
-                                     animate={{ scale: 1, opacity: 1 }}
+                                     animate={{ scale: 1.2, opacity: 1, type: 'spring', stiffness: 500, damping: 15 }}
+                                     whileTap={{ scale: 0.9 }}
                                      exit={{ scale: 0, opacity: 0 }}
                                 >
                                     <Check size={20} className="text-green-500" />

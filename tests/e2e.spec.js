@@ -15,18 +15,26 @@ test('calculator interaction', async ({ page }) => {
   await page.goto('/rechner');
 
   // Wait for calculator to load (skeleton gone)
-  await page.waitForSelector('text=Basis-Energiebedarf');
+  // New Calculator (EnergyCalculator.jsx) uses "Aktueller Energieträger" label
+  await page.waitForSelector('text=Aktueller Energieträger');
 
-  // Input value - note the double "in kWh" due to label + unit concatenation in aria-label
-  const input = page.locator('input[aria-label="Energiegehalt in kWh in kWh"]');
-  await input.fill('10000');
+  // Find Input - Updated EnergyCalculator uses a numeric input for annual consumption
+  // The label is "Jahresverbrauch (Liter)" initially for Oil
+  // Note: ModernInput might not set aria-label identical to label text if label is floating
+  // We can target by type="number" inside the calculator container
+  const input = page.locator('#calculator input[type="number"]');
 
-  // Check if LPG kg updates (approx 10000 / 13.98 = 715)
-  // We need to trigger change/blur
-  await input.blur();
+  await input.fill('3000');
 
-  const lpgInput = page.locator('input[aria-label="Gewicht in kg"]');
-  // It might be formatted German style
-  // We just check it is not 0
-  await expect(lpgInput).not.toHaveValue('0');
+  // Trigger calculation (useEffect depends on input)
+  // Just wait a bit for React to update state
+  await page.waitForTimeout(500);
+
+  // Check for result
+  // The result is in a div with "Mögliche Ersparnis pro Jahr"
+  const savingsText = page.locator('.calculator-result');
+  await expect(savingsText).toContainText('€');
+
+  // Verify it changed from 0 or empty state
+  await expect(savingsText).not.toContainText('Checken Sie Ihr Angebot');
 });

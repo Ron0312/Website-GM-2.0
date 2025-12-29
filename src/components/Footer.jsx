@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Send, CheckCircle, Loader2, Phone, Clock } from 'lucide-react';
+import { COMPANY_NAME, PHONE_NUMBER, PHONE_NUMBER_DISPLAY, EMAIL_ADDRESS, WEB3FORMS_ACCESS_KEY, SOCIAL_LINKS, OPENING_HOURS } from '../constants';
 
 const Footer = ({ setActiveSection, openLegal }) => {
     const [email, setEmail] = useState('');
@@ -10,7 +11,6 @@ const Footer = ({ setActiveSection, openLegal }) => {
     // Calculate Open Status (Mo-Fr 8:00 - 17:00)
     useEffect(() => {
         const checkTime = () => {
-            // Use German time for business logic regardless of user location
             const now = new Date();
             const formatter = new Intl.DateTimeFormat('en-US', {
                 timeZone: 'Europe/Berlin',
@@ -23,7 +23,6 @@ const Footer = ({ setActiveSection, openLegal }) => {
             const weekday = parts.find(p => p.type === 'weekday').value;
             const hour = parseInt(parts.find(p => p.type === 'hour').value, 10);
 
-            // Mo-Fr (Mon, Tue, Wed, Thu, Fri)
             const isWeekday = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].includes(weekday);
             const isWorkingHours = hour >= 8 && hour < 17;
 
@@ -44,7 +43,7 @@ const Footer = ({ setActiveSection, openLegal }) => {
 
         try {
             const formData = new FormData();
-            formData.append("access_key", "f22052ed-455f-4e4d-9f5a-94a6e340426f");
+            formData.append("access_key", WEB3FORMS_ACCESS_KEY);
             formData.append("subject", "Neue Newsletter Anmeldung");
             formData.append("email", email);
             formData.append("from_name", "gasmöller Website Footer");
@@ -76,17 +75,21 @@ const Footer = ({ setActiveSection, openLegal }) => {
                     <img src="/logos/Icon-01.webp" alt="gasmöller" width="2222" height="747" loading="lazy" className="h-10 w-auto filter brightness-0 invert opacity-80 mb-6" />
                     <p className="leading-relaxed mb-4">Ihr unabhängiger Partner für Energie im Norden. Seit 2000.</p>
 
-                    {/* Live Status Indicator */}
-                    <div className="inline-flex items-center gap-2 bg-gray-800 px-3 py-1.5 rounded-full text-xs font-semibold mb-6">
+                    {/* Live Status Indicator - Clickable on mobile */}
+                    <a
+                        href={isOpenStatus ? `tel:${PHONE_NUMBER}` : undefined}
+                        className={`inline-flex items-center gap-2 bg-gray-800 px-3 py-1.5 rounded-full text-xs font-semibold mb-6 ${isOpenStatus ? 'cursor-pointer hover:bg-gray-700' : 'cursor-default'}`}
+                        aria-label={isOpenStatus ? "Jetzt geöffnet - Anrufen" : "Derzeit geschlossen"}
+                    >
                         <div className={`w-2 h-2 rounded-full ${isOpenStatus ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`} />
                         <span className={isOpenStatus ? 'text-green-400' : 'text-gray-400'}>
                             {isOpenStatus ? 'Jetzt geöffnet' : 'Geschlossen'}
                         </span>
-                    </div>
+                    </a>
 
                     <div className="flex space-x-4">
-                        <a href="https://facebook.com/gasmoeller" target="_blank" rel="noopener noreferrer" className="w-11 h-11 md:w-8 md:h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer text-xl font-bold" aria-label="Facebook">f</a>
-                        <a href="https://linkedin.com/company/gasmoeller" target="_blank" rel="noopener noreferrer" className="w-11 h-11 md:w-8 md:h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer text-xl font-bold" aria-label="LinkedIn">in</a>
+                        <a href={SOCIAL_LINKS.facebook} target="_blank" rel="noopener noreferrer" className="w-11 h-11 md:w-8 md:h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer text-xl font-bold" aria-label="Facebook">f</a>
+                        <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer" className="w-11 h-11 md:w-8 md:h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer text-xl font-bold" aria-label="LinkedIn">in</a>
                     </div>
                 </div>
                 <div>
@@ -97,8 +100,8 @@ const Footer = ({ setActiveSection, openLegal }) => {
                         <li><button onClick={() => setActiveSection('rechner')} className={linkClass}>Spar-Rechner</button></li>
                         <li><button onClick={() => setActiveSection('kontakt')} className={linkClass}>Kontakt</button></li>
                         <li className="pt-2 border-t border-gray-800 mt-2">
-                            <a href="tel:04551897089" className={`${linkClass} flex items-center gap-2 font-semibold`}>
-                                <Phone size={14} /> 04551 89 70 89
+                            <a href={`tel:${PHONE_NUMBER}`} className={`${linkClass} flex items-center gap-2 font-semibold`}>
+                                <Phone size={14} /> {PHONE_NUMBER_DISPLAY}
                             </a>
                         </li>
                     </ul>
@@ -157,7 +160,7 @@ const Footer = ({ setActiveSection, openLegal }) => {
                 </div>
             </div>
             <div className="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-gray-800 text-center text-xs text-gray-600">
-                &copy; {new Date().getFullYear()} Gas-Service Möller e.K. Alle Rechte vorbehalten.
+                &copy; {new Date().getFullYear()} {COMPANY_NAME} Alle Rechte vorbehalten.
             </div>
         </footer>
     );

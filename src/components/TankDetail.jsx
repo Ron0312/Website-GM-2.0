@@ -15,6 +15,8 @@ const TankDetail = ({ slug, onBack, openWizard }) => {
         );
     }
 
+    const tankAltText = `Flüssiggastank ${tank.volume} Liter ${tank.installation} kaufen - ${tank.name}`;
+
     const productSchema = {
         "@context": "https://schema.org",
         "@type": "Product",
@@ -22,7 +24,7 @@ const TankDetail = ({ slug, onBack, openWizard }) => {
         "description": tank.description,
         "image": tank.type === 'oberirdisch'
             ? "https://www.gasmoeller.de/images/tanks/oberirdisch.webp"
-            : "https://www.gasmoeller.de/images/tanks/unterirdisch.webp", // Fallback logic mimicking SEO data
+            : "https://www.gasmoeller.de/images/tanks/unterirdisch.webp",
         "brand": {
             "@type": "Brand",
             "name": "gasmöller"
@@ -31,7 +33,7 @@ const TankDetail = ({ slug, onBack, openWizard }) => {
             "@type": "Offer",
             "priceCurrency": "EUR",
             "availability": "https://schema.org/InStock",
-            "price": "0.00" // Price is hidden/request only
+            "price": "0.00"
         },
         "additionalProperty": Object.entries(tank.technicalData).map(([key, value]) => ({
             "@type": "PropertyValue",
@@ -53,12 +55,13 @@ const TankDetail = ({ slug, onBack, openWizard }) => {
             <div className="max-w-7xl mx-auto px-4">
                 <div className="grid lg:grid-cols-2 gap-12 mb-16">
                     {/* Image Area */}
-                    <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="bg-gray-50 rounded-3xl p-8 flex items-center justify-center border border-gray-100 relative overflow-hidden">
-                        <div className="absolute top-4 left-4 bg-white/80 backdrop-blur px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-gray-500 border border-gray-200">
+                    <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="bg-gray-50 rounded-3xl p-8 flex items-center justify-center border border-gray-100 relative overflow-hidden group">
+                        <div className="absolute top-4 left-4 bg-white/80 backdrop-blur px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-gray-500 border border-gray-200 z-10">
                             {tank.type === 'oberirdisch' ? 'Oberirdisch' : 'Unterirdisch'}
                         </div>
-                        {/* Placeholder SVG based on type */}
-                        <div className="w-full max-w-md">
+
+                        {/* Improved Accessibility for SVG */}
+                        <div className="w-full max-w-md transition-transform duration-300 group-hover:scale-105" role="img" aria-label={tankAltText}>
                             {tank.type === 'oberirdisch' ? (
                                 <svg viewBox="0 0 400 200" className="w-full drop-shadow-xl text-gas">
                                     <rect x="50" y="60" width="300" height="80" rx="40" fill="currentColor" opacity="0.1" />
@@ -95,7 +98,7 @@ const TankDetail = ({ slug, onBack, openWizard }) => {
                             </div>
                         </div>
 
-                        {/* Ideal For Tags - NEW */}
+                        {/* Ideal For Tags */}
                         {tank.idealFor && (
                             <div className="mb-6">
                                 <p className="text-xs text-gray-400 font-bold uppercase tracking-wider mb-2">Empfohlen für:</p>
@@ -153,7 +156,7 @@ const TankDetail = ({ slug, onBack, openWizard }) => {
                             </div>
                         </div>
 
-                        {/* Installation Steps - NEW */}
+                        {/* Installation Steps */}
                         {tank.installationSteps && (
                             <div>
                                 <h3 className="text-2xl font-bold mb-6 flex items-center"><Wrench size={24} className="mr-2 text-gas"/> Ablauf der Installation</h3>
@@ -169,7 +172,7 @@ const TankDetail = ({ slug, onBack, openWizard }) => {
                             </div>
                         )}
 
-                        {/* Maintenance Info - NEW */}
+                        {/* Maintenance Info */}
                         {tank.maintenanceInfo && (
                             <div className="bg-blue-50 border border-blue-100 rounded-xl p-6">
                                 <h3 className="text-xl font-bold text-blue-900 mb-3 flex items-center"><ShieldCheck size={20} className="mr-2"/> Wartung & Sicherheit</h3>
@@ -179,8 +182,13 @@ const TankDetail = ({ slug, onBack, openWizard }) => {
                             </div>
                         )}
 
-                        {/* Original Installation Text Backup */}
-                         <div className="mt-8">
+                        {/* Tooltip Example for Technical Terms (as requested in "Optik") */}
+                        <div className="mt-8 p-4 bg-gray-50 rounded-xl text-xs text-gray-500">
+                           <Info size={14} className="inline mr-1 mb-0.5"/>
+                           <span className="font-bold">Hinweis:</span> Die genannten Maße sind Circa-Angaben und können je nach Hersteller leicht variieren.
+                        </div>
+
+                         <div className="mt-4">
                              <p className="text-sm text-gray-500">
                                  <strong>Allgemeiner Hinweis zur Aufstellung:</strong> {tank.installation}
                              </p>

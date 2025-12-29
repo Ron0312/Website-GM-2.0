@@ -1,22 +1,48 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/manifest.json">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#005b9f" />
-    <title>gasmöller - Ihr Partner für Flüssiggas im Norden</title>
-    <meta name="description" content="Unabhängig. Fair. Norddeutsch. Flüssiggastanks kaufen statt mieten. Ihr Experte seit 2000. Rufen Sie uns an: 04551 89 70 89">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Font Preloading -->
+    <link rel="preload" href="/fonts/plus-jakarta-sans-v8-latin-800.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/plus-jakarta-sans-v8-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/plus-jakarta-sans-v8-latin-600.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/plus-jakarta-sans-v8-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+    <title>Gas-Service Möller</title>
+
+    <!-- Critical CSS for Font Loading -->
+    <style>
+      @font-face {
+        font-family: 'Plus Jakarta Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url('/fonts/plus-jakarta-sans-v8-latin-regular.woff2') format('woff2');
+      }
+      body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+      }
+    </style>
 
     <link rel="preconnect" href="https://api.web3forms.com">
     <link rel="dns-prefetch" href="https://api.web3forms.com">
-
-    <!-- Local Fonts via @fontsource/inter managed in src/main.jsx -->
   </head>
-  <body class="bg-white text-text font-sans selection:bg-gas selection:text-white">
-    <div id="root"><!--app-html--></div>
+  <body>
+    <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+
+    <!-- NoScript Fallback -->
+    <noscript>
+      <div style="padding: 20px; text-align: center;">
+        <h1>JavaScript erforderlich</h1>
+        <p>Bitte aktivieren Sie JavaScript, um diese Webseite nutzen zu können.</p>
+      </div>
+    </noscript>
   </body>
 </html>
