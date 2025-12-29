@@ -86,7 +86,7 @@ const ModernInput = forwardRef(({
 
                 {/* Validation Icons with POP Animation */}
                 {!multiline && (
-                     <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none flex items-center">
+                     <div className={`absolute right-4 top-1/2 -translate-y-1/2 flex items-center ${hasError ? 'pointer-events-auto cursor-pointer' : 'pointer-events-none'}`}>
                         <AnimatePresence mode="popLayout">
                             {hasError && (
                                 <motion.div
@@ -94,8 +94,15 @@ const ModernInput = forwardRef(({
                                     initial={{ scale: 0, opacity: 0 }}
                                     animate={{ scale: 1, opacity: 1, type: 'spring', stiffness: 500, damping: 20 }}
                                     exit={{ scale: 0, opacity: 0 }}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        if (props.onChange) {
+                                            props.onChange({ target: { name, value: '' } });
+                                        }
+                                    }}
                                 >
-                                    <X size={20} className="text-red-500" />
+                                    <X size={20} className="text-red-500 hover:text-red-700 transition-colors" />
                                 </motion.div>
                             )}
                             {isValid && !focused && (
