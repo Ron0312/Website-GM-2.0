@@ -49,6 +49,7 @@ const App = ({ path, context }) => {
 
     const [activeSection, setActiveSection] = useState(getInitialSection());
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [tankFilter, setTankFilter] = useState('oberirdisch');
     const [wizardOpen, setWizardOpen] = useState(false);
     const [wizardType, setWizardType] = useState('tank');
     const [wizardData, setWizardData] = useState(null);
@@ -217,8 +218,8 @@ const App = ({ path, context }) => {
             case '404':
                 if (context) context.status = 404;
                 return <><div className="pt-20"></div><NotFound onGoHome={changeSection} /><ContactSection /></>;
-            case 'start': return <><Hero openWizard={openWizard} setActiveSection={changeSection} /><TrustBar /><div className="my-16 text-center"><div className="inline-block p-2 rounded-2xl bg-gradient-to-r from-gas-light to-white border border-gas/10 shadow-2xl animate-pulse hover:animate-none transition-all"><button onClick={() => openWizard('tank')} className="bg-gas text-white px-10 py-5 rounded-xl font-extrabold text-2xl shadow-lg hover:bg-gas-dark transition-all flex items-center gap-3"><Settings size={28}/> Zum Anfrage-Assistenten <ArrowRight size={28}/></button></div><p className="mt-4 text-gray-400 text-sm font-medium">Kostenlos & Unverbindlich</p></div><TankSection openWizard={openWizard} setActiveSection={changeSection} showTechnicalOverview={false} /><CommercialSection setActiveSection={changeSection} /><div className="max-w-7xl mx-auto px-4"><EnergyCalculator /></div><Suspense fallback={<div className="h-96 w-full bg-gray-100 animate-pulse rounded-xl" />}><DeliveryMap /></Suspense><FAQ /><ContactSection /></>;
-            case 'tanks': return <><div className="pt-20"></div><TankSection openWizard={openWizard} setActiveSection={changeSection} isPageTitle={true} /><ContactSection /></>;
+            case 'start': return <><Hero openWizard={openWizard} setActiveSection={changeSection} /><TrustBar /><div className="my-16 text-center"><div className="inline-block p-2 rounded-2xl bg-gradient-to-r from-gas-light to-white border border-gas/10 shadow-2xl animate-pulse hover:animate-none transition-all"><button onClick={() => openWizard('tank')} className="bg-gas text-white px-10 py-5 rounded-xl font-extrabold text-2xl shadow-lg hover:bg-gas-dark transition-all flex items-center gap-3"><Settings size={28}/> Zum Anfrage-Assistenten <ArrowRight size={28}/></button></div><p className="mt-4 text-gray-400 text-sm font-medium">Kostenlos & Unverbindlich</p></div><TankSection openWizard={openWizard} setActiveSection={changeSection} showTechnicalOverview={false} tankFilter={tankFilter} onFilterChange={setTankFilter} /><CommercialSection setActiveSection={changeSection} /><div className="max-w-7xl mx-auto px-4"><EnergyCalculator /></div><Suspense fallback={<div className="h-96 w-full bg-gray-100 animate-pulse rounded-xl" />}><DeliveryMap /></Suspense><FAQ /><ContactSection /></>;
+            case 'tanks': return <><TankSection openWizard={openWizard} setActiveSection={changeSection} isPageTitle={true} tankFilter={tankFilter} onFilterChange={setTankFilter} /><ContactSection /></>;
             case 'gas': return <><div className="pt-20"></div><GasOrderSection onCheckAvailability={handleGasCheckAvailability} /><FAQ /><ContactSection /></>;
             case 'pruefungen': return <><div className="pt-20"></div><InspectionSection openWizard={openWizard} /><ContactSection /></>;
             case 'rechner': return <><div className="pt-32 max-w-4xl mx-auto px-4"><EnergyCalculator defaultExpanded={true} /></div><ContactSection /></>;
@@ -237,7 +238,7 @@ const App = ({ path, context }) => {
                 <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-gas focus:text-white focus:rounded-md focus:shadow-lg">
                     Zum Hauptinhalt springen
                 </a>
-                <Navigation activeSection={activeSection} setActiveSection={changeSection} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} openWizard={openWizard} />
+                <Navigation activeSection={activeSection} setActiveSection={changeSection} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} openWizard={openWizard} setTankFilter={setTankFilter} />
                 <main id="main-content" className="flex-grow focus:outline-none" tabIndex="-1">{renderSection()}</main>
                 <Footer setActiveSection={changeSection} openLegal={openLegal} />
                 <Suspense fallback={null}>
