@@ -29,6 +29,21 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
     const isTransparentPage = activeSection === 'start' || activeSection === 'tanks' || activeSection === 'gewerbe';
     const effectiveScrolled = scrolled || !isTransparentPage;
 
+    // Helper to handle Tank Category clicks (also resets scroll if already on page)
+    const handleTankClick = (filter) => {
+        if (setTankFilter) setTankFilter(filter);
+        setActiveSection('tanks');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setMobileMenuOpen(false); // Close mobile menu if open
+    };
+
+    const handleMainTankClick = () => {
+         setActiveSection('tanks');
+         window.scrollTo({ top: 0, behavior: 'smooth' });
+         setMobileMenuOpen(false);
+    };
+
+
     const navItems = [
         { id: 'start', label: 'Startseite' },
         {
@@ -122,15 +137,15 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                         {item.id === 'tanks' ? (
                                             /* Mega Menu Style for Tanks */
                                             <div className="grid grid-cols-1 gap-1">
-                                                 <button onClick={() => setActiveSection('tanks')} className="w-full text-left px-4 py-3 rounded-lg hover:bg-gas-light/30 text-sm font-bold text-gray-800 flex items-center justify-between group/link">
+                                                 <button onClick={handleMainTankClick} className="w-full text-left px-4 py-3 rounded-lg hover:bg-gas-light/30 text-sm font-bold text-gray-800 flex items-center justify-between group/link">
                                                     <span>Alle Tanks ansehen</span>
                                                     <ChevronRight size={16} className="text-gray-400 group-hover/link:text-gas" />
                                                 </button>
                                                 <div className="h-px bg-gray-100 my-1"></div>
                                                 <div className="px-4 py-1 text-xs font-bold text-gray-400 uppercase tracking-wider">Kategorien</div>
-                                                <button onClick={() => { setTankFilter && setTankFilter('oberirdisch'); setActiveSection('tanks'); }} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Oberirdische Tanks</button>
-                                                <button onClick={() => { setTankFilter && setTankFilter('unterirdisch'); setActiveSection('tanks'); }} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Unterirdische Tanks</button>
-                                                <button onClick={() => { setTankFilter && setTankFilter('halboberirdisch'); setActiveSection('tanks'); }} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Halboberirdische Tanks</button>
+                                                <button onClick={() => handleTankClick('oberirdisch')} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Oberirdische Tanks</button>
+                                                <button onClick={() => handleTankClick('unterirdisch')} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Unterirdische Tanks</button>
+                                                <button onClick={() => handleTankClick('halboberirdisch')} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Halboberirdische Tanks</button>
                                             </div>
                                         ) : (
                                             /* Standard Dropdown */

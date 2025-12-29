@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import TankCard from './TankCard';
 import EnergyCalculator from './EnergyCalculator';
+import Hero from './Hero';
 import { tankDetails } from '../data/tanks';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check } from 'lucide-react';
@@ -76,32 +77,16 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
 
     return (
         <section className="bg-white" id="tanks">
-             {/* New Hero Section for Tanks & Kauf */}
-             <div className="relative bg-gray-900 pt-48 pb-24 lg:pt-64 lg:pb-48 overflow-hidden">
-                <div className="absolute inset-0 z-0">
-                    <img
-                        src="/images/tank-section-hero.webp"
-                        alt="Flüssiggastank im Garten"
-                        width="1531"
-                        height="991"
-                        loading="lazy"
-                        className="w-full h-full object-cover opacity-40 mix-blend-overlay"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent"></div>
-                </div>
-                <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
-                    <div className="inline-flex items-center bg-white/10 backdrop-blur rounded-full px-6 py-2 border border-white/20 mb-8">
-                         <span className="w-3 h-3 bg-green-400 rounded-full mr-3 animate-pulse"></span>
-                         <span className="text-white font-bold text-sm">Sofort verfügbar & Installation durch Fachpartner</span>
-                    </div>
-                    {isPageTitle ? (
-                         <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">Ihr neuer Flüssiggastank</h1>
-                    ) : (
-                         <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-6">Ihr neuer Flüssiggastank</h2>
-                    )}
-                    <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8">Kaufen oder Mieten – Sie haben die Wahl. Wir bieten Ihnen Flüssiggastanks in allen gängigen Größen, oberirdisch und unterirdisch.</p>
-                </div>
-            </div>
+            {/* Standardized Hero Section */}
+            <Hero
+                setActiveSection={setActiveSection}
+                openWizard={openWizard}
+                title={isPageTitle ? "Ihr neuer Flüssiggastank" : "Ihr neuer Flüssiggastank"}
+                subtitle="Kaufen oder Mieten – Sie haben die Wahl. Wir bieten Ihnen Flüssiggastanks in allen gängigen Größen, oberirdisch und unterirdisch."
+                backgroundImage="/images/tank-section-hero.webp"
+                badgeText="Sofort verfügbar & Installation durch Fachpartner"
+                // No custom buttons => uses default Tank Kaufen / Flüssiggas bestellen
+            />
 
             <div className="py-24 max-w-7xl mx-auto px-4">
                 <div className="text-center mb-8">

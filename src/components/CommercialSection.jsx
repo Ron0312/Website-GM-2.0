@@ -1,46 +1,34 @@
 import React from 'react';
 import { Tractor, Factory, Truck, ArrowRight } from 'lucide-react';
+import Hero from './Hero';
 
 const CommercialSection = ({ setActiveSection, isPage = false }) => (
     <section className={`bg-gray-50 ${isPage ? '' : 'py-24'}`} id="gewerbe">
         {isPage && (
-            <div className="relative pt-48 pb-24 lg:pt-64 lg:pb-48 flex items-center justify-center overflow-hidden mb-24">
-                {/* Background Image via CDN */}
-                <div className="absolute inset-0 z-0">
-                    <img
-                        src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80"
-                        alt="Industrieanlage"
-                        className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-gas-dark/90 to-gas/70"></div>
-                </div>
-
-                {/* Content */}
-                <div className="relative z-10 max-w-7xl mx-auto px-4 w-full text-white">
-                    <div className="max-w-3xl">
-                        <div className="inline-block px-4 py-1 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-sm font-bold mb-6">
-                            B2B Industrielösungen
-                        </div>
-                        <h1 className="text-5xl md:text-7xl font-extrabold mb-8 leading-tight">
-                            Energie für <br/>
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300">Macher</span>
-                        </h1>
-                        <p className="text-xl md:text-2xl text-gray-200 mb-10 max-w-2xl font-light">
-                            Maßgeschneiderte Flüssiggas-Konzepte für Industrie, Landwirtschaft und Logistik. Effizient, sicher und zuverlässig.
-                        </p>
-                        <button
-                            onClick={() => setActiveSection('kontakt')}
-                            className="bg-white text-gas px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all shadow-lg flex items-center gap-2 group"
-                        >
-                            Angebot anfordern
-                            <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <Hero
+                setActiveSection={setActiveSection}
+                title={
+                    <>
+                        Energie für <br/>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300">Macher</span>
+                    </>
+                }
+                subtitle="Maßgeschneiderte Flüssiggas-Konzepte für Industrie, Landwirtschaft und Logistik. Effizient, sicher und zuverlässig."
+                badgeText="B2B Industrielösungen"
+                backgroundImage="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80"
+                customButtons={
+                     <button
+                        onClick={() => setActiveSection('kontakt')}
+                        className="bg-white text-gas px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all shadow-lg flex items-center gap-2 group"
+                    >
+                        Angebot anfordern
+                        <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                    </button>
+                }
+            />
         )}
 
-        <div className="max-w-7xl mx-auto px-4">
+        <div className={`max-w-7xl mx-auto px-4 ${isPage ? 'mt-24' : ''}`}>
             {!isPage && (
                 <div className="text-center mb-16">
                     <div className="text-gas font-bold tracking-widest uppercase text-sm mb-2">B2B Lösungen</div>

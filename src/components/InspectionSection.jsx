@@ -2,29 +2,36 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ShieldCheck, Check } from 'lucide-react';
 
+import Hero from './Hero';
+
 const InspectionSection = ({ openWizard }) => {
+    const heroTitle = "Flüssiggastank-Prüfungen & Service";
+    const heroSubtitle = "Wir kümmern uns um die gesetzlich vorgeschriebenen Prüfungen (Innere & Äußere) für Ihren Flüssiggastank. Zuverlässig und zertifiziert.";
+
+    // Custom Badge
+    const badge = (
+        <>
+            <ShieldCheck className="text-green-400" size={16} />
+            <span>Sicherheit zuerst</span>
+        </>
+    );
+
+    // Custom Buttons
+    const buttons = (
+         <button onClick={() => openWizard('service')} className="bg-gas hover:bg-gas-dark text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl shadow-gas/20 transition-all transform hover:scale-105">
+            Prüfung anfragen
+        </button>
+    );
+
     return (
         <section id="pruefungen" className="bg-white">
-            {/* Hero Section */}
-            <div className="relative bg-gray-900 py-32 lg:py-48 overflow-hidden">
-                <div className="absolute inset-0 z-0">
-                    <img src="/images/inspection-background.jpg" alt="Technische Prüfung Flüssiggastank" width="1920" height="1080" className="w-full h-full object-cover opacity-30 mix-blend-overlay" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent"></div>
-                </div>
-                <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-                        <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full mb-6">
-                            <ShieldCheck className="text-green-400" size={16} />
-                            <span className="text-white text-xs font-bold uppercase tracking-widest">Sicherheit zuerst</span>
-                        </div>
-                        <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">Flüssiggastank-Prüfungen & Service</h1>
-                        <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8">Wir kümmern uns um die gesetzlich vorgeschriebenen Prüfungen (Innere & Äußere) für Ihren Flüssiggastank. Zuverlässig und zertifiziert.</p>
-                        <button onClick={() => openWizard('service')} className="bg-gas hover:bg-gas-dark text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl shadow-gas/20 transition-all transform hover:scale-105">
-                            Prüfung anfragen
-                        </button>
-                    </motion.div>
-                </div>
-            </div>
+            <Hero
+                title={heroTitle}
+                subtitle={heroSubtitle}
+                backgroundImage="/images/inspection-background.jpg"
+                badgeText={badge}
+                customButtons={buttons}
+            />
 
             {/* Content Section */}
             <div className="max-w-7xl mx-auto px-4 py-24">
