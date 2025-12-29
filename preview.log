@@ -1,0 +1,9 @@
+
+> gasmoeller-vite@0.0.0 preview
+> cross-env NODE_ENV=production node server.js
+
+{"level":"INFO","timestamp":"2025-12-29T17:54:50.043Z","message":"Loaded 30 knowledge articles."}
+{"level":"INFO","timestamp":"2025-12-29T17:54:50.048Z","message":"Starting server. Initial mode: PRODUCTION"}
+{"level":"INFO","timestamp":"2025-12-29T17:54:50.057Z","message":"Server started at http://localhost:5173"}
+{"level":"INFO","timestamp":"2025-12-29T17:56:12.768Z","message":"Received kill signal, shutting down gracefully"}
+{"level":"INFO","timestamp":"2025-12-29T17:56:12.770Z","message":"Closed out remaining connections"}

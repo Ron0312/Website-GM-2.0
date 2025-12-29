@@ -23,6 +23,10 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
         return () => window.removeEventListener('scroll', handleScroll);
     }, [scrolled]);
 
+    // Force "scrolled" style on non-start pages to ensure visibility
+    const isTransparentPage = activeSection === 'start';
+    const effectiveScrolled = scrolled || !isTransparentPage;
+
     const navItems = [
         { id: 'start', label: 'Startseite' },
         {
@@ -35,7 +39,10 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                 { id: 'tanks/2-9t-oberirdisch', label: '2,9 t Oberirdisch' },
                 { id: 'tanks/1-2t-unterirdisch', label: '1,2 t Unterirdisch' },
                 { id: 'tanks/2-1t-unterirdisch', label: '2,1 t Unterirdisch' },
-                { id: 'tanks/2-9t-unterirdisch', label: '2,9 t Unterirdisch' }
+                { id: 'tanks/2-9t-unterirdisch', label: '2,9 t Unterirdisch' },
+                { id: 'tanks/1-2t-halboberirdisch', label: '1,2 t Halboberirdisch' },
+                { id: 'tanks/2-1t-halboberirdisch', label: '2,1 t Halboberirdisch' },
+                { id: 'tanks/2-9t-halboberirdisch', label: '2,9 t Halboberirdisch' }
             ]
         },
         { id: 'gas', label: 'Flüssiggas bestellen' },
@@ -61,7 +68,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
 
     return (
         <header
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass-nav shadow-sm py-3' : 'bg-transparent py-5'}`}
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${effectiveScrolled ? 'glass-nav shadow-sm py-3' : 'bg-transparent py-5'}`}
         >
             <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
                 {/* Logo */}
@@ -74,7 +81,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                         alt="Gas-Service Möller Logo"
                         width="2222"
                         height="747"
-                        className={`h-10 w-auto transition-transform duration-300 group-hover:scale-105 ${scrolled ? '' : 'brightness-0 invert'}`}
+                        className={`h-10 w-auto transition-transform duration-300 group-hover:scale-105 ${effectiveScrolled ? '' : 'brightness-0 invert'}`}
                     />
                 </div>
 
@@ -86,8 +93,8 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                 onClick={() => !item.hasChildren && setActiveSection(item.id)}
                                 className={`
                                     px-4 py-2 rounded-lg text-sm font-bold transition-all flex items-center gap-1 relative
-                                    ${scrolled ? 'text-gray-700 hover:text-gas hover:bg-gas-light/30' : 'text-white/90 hover:text-white hover:bg-white/10'}
-                                    ${isActive(item.id) ? (scrolled ? 'text-gas bg-gas-light/50' : 'text-white bg-white/20') : ''}
+                                    ${effectiveScrolled ? 'text-gray-700 hover:text-gas hover:bg-gas-light/30' : 'text-white/90 hover:text-white hover:bg-white/10'}
+                                    ${isActive(item.id) ? (effectiveScrolled ? 'text-gas bg-gas-light/50' : 'text-white bg-white/20') : ''}
                                 `}
                                 aria-current={isActive(item.id) ? 'page' : undefined}
                                 aria-expanded={item.hasChildren ? "false" : undefined}
@@ -100,7 +107,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                 {isActive(item.id) && (
                                     <motion.div
                                         layoutId="activeNav"
-                                        className={`absolute bottom-0 left-2 right-2 h-0.5 rounded-full ${scrolled ? 'bg-gas' : 'bg-white'}`}
+                                        className={`absolute bottom-0 left-2 right-2 h-0.5 rounded-full ${effectiveScrolled ? 'bg-gas' : 'bg-white'}`}
                                         initial={false}
                                     />
                                 )}
@@ -121,6 +128,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                                 <div className="px-4 py-1 text-xs font-bold text-gray-400 uppercase tracking-wider">Kategorien</div>
                                                 <button onClick={() => setActiveSection('tanks')} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Oberirdische Tanks</button>
                                                 <button onClick={() => setActiveSection('tanks')} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Unterirdische Tanks</button>
+                                                <button onClick={() => setActiveSection('tanks')} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Halboberirdische Tanks</button>
                                             </div>
                                         ) : (
                                             /* Standard Dropdown */
@@ -148,14 +156,14 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                 <div className="flex items-center gap-3">
                     <a
                         href="tel:04551897089"
-                        className={`hidden xl:flex items-center gap-2 font-bold px-4 py-2 rounded-lg transition-all ${scrolled ? 'text-gray-700 hover:bg-gray-100' : 'text-white hover:bg-white/10'}`}
+                        className={`hidden xl:flex items-center gap-2 font-bold px-4 py-2 rounded-lg transition-all ${effectiveScrolled ? 'text-gray-700 hover:bg-gray-100' : 'text-white hover:bg-white/10'}`}
                     >
                         <Phone size={18} />
                         <span>04551 89 70 89</span>
                     </a>
                     <button
                         onClick={() => openWizard('tank')}
-                        className={`hidden md:flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold shadow-lg transition-all transform hover:scale-105 active:scale-95 ${scrolled ? 'bg-gas text-white hover:bg-gas-dark' : 'bg-white text-gas hover:bg-gray-50'}`}
+                        className={`hidden md:flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold shadow-lg transition-all transform hover:scale-105 active:scale-95 ${effectiveScrolled ? 'bg-gas text-white hover:bg-gas-dark' : 'bg-white text-gas hover:bg-gray-50'}`}
                     >
                         <Settings size={18} />
                         <span>Anfrage</span>
@@ -164,7 +172,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                     {/* Mobile Menu Button */}
                     <button
                         onClick={() => setMobileMenuOpen(true)}
-                        className={`lg:hidden p-2 rounded-lg transition-colors ${scrolled ? 'text-gray-800 hover:bg-gray-100' : 'text-white hover:bg-white/10'}`}
+                        className={`lg:hidden p-2 rounded-lg transition-colors ${effectiveScrolled ? 'text-gray-800 hover:bg-gray-100' : 'text-white hover:bg-white/10'}`}
                         aria-label="Menü öffnen"
                     >
                         <Menu size={28} />

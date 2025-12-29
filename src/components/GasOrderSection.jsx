@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Check, ShieldCheck, MapPin, ArrowRight, Truck, Heart, Coins, Loader2 } from 'lucide-react';
+import { Check, ShieldCheck, MapPin, ArrowRight, Truck, Heart, Coins, Loader2, X } from 'lucide-react';
 import DeliveryMap from './DeliveryMap';
 import { getPlzError } from '../utils/validation';
 
@@ -173,10 +173,27 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                                                 setPlz(e.target.value.replace(/[^0-9]/g, ''));
                                                 if (plzError) setPlzError('');
                                             }}
-                                            className={`w-full bg-white/5 border border-white/10 text-white text-xl font-bold p-4 pl-12 rounded-xl outline-none focus:bg-white/10 focus:border-gas-light transition-all placeholder:text-gray-400/80 [&:-webkit-autofill]:transition-all [&:-webkit-autofill]:duration-[5000s] [&:-webkit-autofill]:[-webkit-text-fill-color:white] ${plzError ? 'border-red-400 focus:border-red-400' : ''}`}
+                                            className={`w-full bg-white/5 border border-white/10 text-white text-xl font-bold p-4 pl-12 rounded-xl outline-none focus:bg-white/10 focus:border-gas-light transition-all placeholder:text-gray-400/80 [&:-webkit-autofill]:transition-all [&:-webkit-autofill]:duration-[5000s] [&:-webkit-autofill]:[-webkit-text-fill-color:white] ${plzError ? 'border-red-400 focus:border-red-400 pr-12' : ''}`}
                                             placeholder="PLZ eingeben"
                                         />
                                         <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                                        {plzError && (
+                                            <motion.button
+                                                initial={{ opacity: 0, scale: 0.8 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                type="button"
+                                                onClick={() => {
+                                                    setPlz('');
+                                                    setPlzError('');
+                                                }}
+                                                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-red-400 hover:text-red-300 transition-colors z-10 p-1"
+                                                aria-label="Eingabe löschen"
+                                            >
+                                                <div className="bg-red-500/20 rounded-full p-0.5">
+                                                    <X size={18} strokeWidth={2.5} />
+                                                </div>
+                                            </motion.button>
+                                        )}
                                     </div>
                                     {plzError && (
                                         <motion.div
