@@ -55,47 +55,41 @@ const GasOrderSection = ({ onCheckAvailability }) => {
 
     return (
         <div id="gas" className="bg-white">
-            {/* 1. Hero Layout */}
-            <header className="relative bg-gas-dark pt-32 pb-24 lg:pt-48 lg:pb-32 overflow-hidden">
+            {/* 1. Hero Layout - Custom Implementation matching Hero.jsx typography */}
+            <header className="relative bg-white pt-48 pb-24 lg:pt-64 lg:pb-48 overflow-hidden">
                 {/* Background Image with Overlay */}
                 <div className="absolute inset-0 z-0">
-                    <div className="absolute inset-0 bg-gradient-to-r from-gray-900/60 to-gray-900/30 z-10"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-gray-900/40 to-gray-900/10 z-10"></div>
                      <img
                         src="/images/gas-order-background.jpg"
                         alt="Hintergrund Gas Lieferung Norddeutschland"
                         width="1920"
                         height="1080"
-                        className="w-full h-full object-cover absolute inset-0"
+                        className="w-full h-full object-cover absolute inset-0 object-[35%_center] md:object-[75%_center] lg:object-center"
+                        loading="eager"
+                        fetchpriority="high"
                     />
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
-                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                    <div className="lg:grid lg:grid-cols-2 lg:gap-20 items-center">
 
                         {/* Left Column: Content */}
-                        <div className="text-white">
-                            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-                                <div className="inline-block px-4 py-1.5 rounded-full bg-gas-light/20 border border-gas-light/30 text-gas-light font-bold text-sm mb-6">
-                                    Der regionale Versorger
+                        <div className="text-white text-left">
+                            <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+                                <div className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md border border-white/30 px-4 py-1.5 rounded-full mb-6 shadow-sm">
+                                    <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                                    <span className="text-white text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                                        <ShieldCheck size={14} className="text-white" /> Der regionale Versorger
+                                    </span>
                                 </div>
-                                <h1 className="text-4xl lg:text-6xl font-extrabold mb-6 leading-tight">
+                                <h1 className="text-5xl tracking-tight font-extrabold sm:text-6xl lg:text-7xl mb-8 leading-tight drop-shadow-lg">
                                     Flüssiggas im Norden. <br/>
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-white">Fair & Zuverlässig.</span>
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Fair & Zuverlässig.</span>
                                 </h1>
-                                <p className="text-lg lg:text-xl text-gray-300 mb-8 leading-relaxed max-w-lg">
+                                <p className="mt-4 text-xl text-gray-100 leading-relaxed mb-10 max-w-lg font-medium drop-shadow-md">
                                     Wir beliefern Privathaushalte und Gewerbe in Schleswig-Holstein, Hamburg, Niedersachsen und Mecklenburg-Vorpommern. Beste Preise, ohne Vertragsbindung.
                                 </p>
-
-                                <div className="flex flex-col sm:flex-row gap-6 text-sm font-bold text-gray-300">
-                                    <div className="flex items-center gap-3">
-                                        <div className="p-2 bg-white/10 rounded-full text-gas-light"><ShieldCheck size={20}/></div>
-                                        <span>TÜV geprüfte Qualität</span>
-                                    </div>
-                                    <div className="flex items-center gap-3">
-                                        <div className="p-2 bg-white/10 rounded-full text-gas-light"><MapPin size={20}/></div>
-                                        <span>Aus der Region</span>
-                                    </div>
-                                </div>
                             </motion.div>
                         </div>
 
@@ -104,7 +98,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.6, delay: 0.2 }}
-                            className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl relative overflow-hidden"
+                            className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl relative overflow-hidden mt-8 lg:mt-0"
                         >
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gas-light to-blue-500"></div>
 
