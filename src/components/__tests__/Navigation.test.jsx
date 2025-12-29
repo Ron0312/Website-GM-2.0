@@ -84,7 +84,7 @@ describe('Navigation', () => {
 
         rerender(
             <Navigation
-                activeSection="tanks"
+                activeSection="kontakt"
                 setActiveSection={() => {}}
                 mobileMenuOpen={false}
                 setMobileMenuOpen={() => {}}

@@ -4,7 +4,7 @@ import { Tractor, Factory, Truck, ArrowRight } from 'lucide-react';
 const CommercialSection = ({ setActiveSection, isPage = false }) => (
     <section className={`bg-gray-50 ${isPage ? '' : 'py-24'}`} id="gewerbe">
         {isPage && (
-            <div className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden mb-24">
+            <div className="relative pt-48 pb-24 lg:pt-64 lg:pb-48 flex items-center justify-center overflow-hidden mb-24">
                 {/* Background Image via CDN */}
                 <div className="absolute inset-0 z-0">
                     <img

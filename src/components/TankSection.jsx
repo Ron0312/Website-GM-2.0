@@ -1,12 +1,26 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import TankCard from './TankCard';
 import EnergyCalculator from './EnergyCalculator';
 import { tankDetails } from '../data/tanks';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check } from 'lucide-react';
 
-const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = true, isPageTitle = false }) => {
+const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = true, isPageTitle = false, tankFilter, onFilterChange }) => {
     const [filter, setFilter] = useState('oberirdisch');
+
+    // Update filter when tankFilter prop changes (from navigation)
+    useEffect(() => {
+        if (tankFilter) {
+            setFilter(tankFilter);
+        }
+    }, [tankFilter]);
+
+    const handleFilterChange = (newFilter) => {
+        setFilter(newFilter);
+        if (onFilterChange) {
+            onFilterChange(newFilter);
+        }
+    };
 
     const tankInfo = {
         oberirdisch: {
@@ -63,7 +77,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
     return (
         <section className="bg-white" id="tanks">
              {/* New Hero Section for Tanks & Kauf */}
-             <div className="relative bg-gray-900 py-32 lg:py-48 overflow-hidden">
+             <div className="relative bg-gray-900 pt-48 pb-24 lg:pt-64 lg:pb-48 overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <img
                         src="/images/tank-section-hero.webp"
@@ -110,7 +124,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                             />
 
                             <button
-                                onClick={() => setFilter('oberirdisch')}
+                                onClick={() => handleFilterChange('oberirdisch')}
                                 className={`relative z-10 px-4 md:px-8 py-3 rounded-xl text-xs md:text-sm font-bold transition-colors w-32 md:w-40 ${
                                     filter === 'oberirdisch' ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'
                                 }`}
@@ -118,7 +132,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                                 Oberirdisch
                             </button>
                             <button
-                                onClick={() => setFilter('halboberirdisch')}
+                                onClick={() => handleFilterChange('halboberirdisch')}
                                 className={`relative z-10 px-4 md:px-8 py-3 rounded-xl text-xs md:text-sm font-bold transition-colors w-32 md:w-40 ${
                                     filter === 'halboberirdisch' ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'
                                 }`}
@@ -126,7 +140,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                                 Halboberirdisch
                             </button>
                             <button
-                                onClick={() => setFilter('unterirdisch')}
+                                onClick={() => handleFilterChange('unterirdisch')}
                                 className={`relative z-10 px-4 md:px-8 py-3 rounded-xl text-xs md:text-sm font-bold transition-colors w-32 md:w-40 ${
                                     filter === 'unterirdisch' ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'
                                 }`}

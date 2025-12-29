@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Menu, X, Phone, User, Wrench, FileText, ChevronDown, ChevronRight, Settings } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobileMenuOpen, openWizard }) => {
+const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobileMenuOpen, openWizard, setTankFilter }) => {
     const [scrolled, setScrolled] = useState(false);
     const [serviceOpen, setServiceOpen] = useState(false);
+    const [tanksOpen, setTanksOpen] = useState(false);
 
     // Close mobile menu when section changes
     useEffect(() => {
@@ -24,7 +26,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
     }, [scrolled]);
 
     // Force "scrolled" style on non-start pages to ensure visibility
-    const isTransparentPage = activeSection === 'start';
+    const isTransparentPage = activeSection === 'start' || activeSection === 'tanks' || activeSection === 'gewerbe';
     const effectiveScrolled = scrolled || !isTransparentPage;
 
     const navItems = [
@@ -126,9 +128,9 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                                 </button>
                                                 <div className="h-px bg-gray-100 my-1"></div>
                                                 <div className="px-4 py-1 text-xs font-bold text-gray-400 uppercase tracking-wider">Kategorien</div>
-                                                <button onClick={() => setActiveSection('tanks')} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Oberirdische Tanks</button>
-                                                <button onClick={() => setActiveSection('tanks')} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Unterirdische Tanks</button>
-                                                <button onClick={() => setActiveSection('tanks')} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Halboberirdische Tanks</button>
+                                                <button onClick={() => { setTankFilter && setTankFilter('oberirdisch'); setActiveSection('tanks'); }} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Oberirdische Tanks</button>
+                                                <button onClick={() => { setTankFilter && setTankFilter('unterirdisch'); setActiveSection('tanks'); }} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Unterirdische Tanks</button>
+                                                <button onClick={() => { setTankFilter && setTankFilter('halboberirdisch'); setActiveSection('tanks'); }} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Halboberirdische Tanks</button>
                                             </div>
                                         ) : (
                                             /* Standard Dropdown */
@@ -180,101 +182,108 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                 </div>
             </div>
 
-            {/* Mobile Menu Overlay with Backdrop Animation */}
-            <AnimatePresence>
-                {mobileMenuOpen && (
-                    <>
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60]"
-                            onClick={() => setMobileMenuOpen(false)}
-                        />
-                        <motion.div
-                            initial={{ x: '100%' }}
-                            animate={{ x: 0 }}
-                            exit={{ x: '100%' }}
-                            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                            className="fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-white z-[70] shadow-2xl overflow-y-auto"
-                        >
-                            <div className="p-6">
-                                <div className="flex justify-between items-center mb-8">
-                                    <span className="text-xl font-extrabold text-gray-900">Menü</span>
-                                    <button
-                                        onClick={() => setMobileMenuOpen(false)}
-                                        className="p-2 rounded-full hover:bg-gray-100 text-gray-500"
-                                    >
-                                        <X size={24} />
-                                    </button>
-                                </div>
+            {/* Mobile Menu Overlay with Backdrop Animation - Portaled to body to avoid clipping */}
+            {typeof document !== 'undefined' && createPortal(
+                <AnimatePresence>
+                    {mobileMenuOpen && (
+                        <>
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60]"
+                                onClick={() => setMobileMenuOpen(false)}
+                            />
+                            <motion.div
+                                initial={{ x: '100%' }}
+                                animate={{ x: 0 }}
+                                exit={{ x: '100%' }}
+                                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                                className="fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-white z-[70] shadow-2xl overflow-y-auto"
+                            >
+                                <div className="p-6">
+                                    <div className="flex justify-between items-center mb-8">
+                                        <span className="text-xl font-extrabold text-gray-900">Menü</span>
+                                        <button
+                                            onClick={() => setMobileMenuOpen(false)}
+                                            className="p-2 rounded-full hover:bg-gray-100 text-gray-500"
+                                        >
+                                            <X size={24} />
+                                        </button>
+                                    </div>
 
-                                <div className="flex flex-col gap-2">
-                                    {navItems.map((item) => (
-                                        <div key={item.id} className="border-b border-gray-100 last:border-0">
-                                            {item.hasChildren ? (
-                                                <div>
+                                    <div className="flex flex-col gap-2">
+                                        {navItems.map((item) => (
+                                            <div key={item.id} className="border-b border-gray-100 last:border-0">
+                                                {item.hasChildren ? (
+                                                    <div>
+                                                        <button
+                                                            onClick={() => {
+                                                                if (item.id === 'service') setServiceOpen(!serviceOpen);
+                                                                else if (item.id === 'tanks') setTanksOpen(!tanksOpen);
+                                                                else setActiveSection(item.id);
+                                                            }}
+                                                            className="w-full flex justify-between items-center py-4 text-left font-bold text-gray-800"
+                                                        >
+                                                            {item.label}
+                                                            <ChevronDown size={16} className={`text-gray-400 transition-transform ${((item.id === 'service' && serviceOpen) || (item.id === 'tanks' && tanksOpen)) ? 'rotate-180' : ''}`} />
+                                                        </button>
+
+                                                        {/* Mobile Submenu */}
+                                                        <AnimatePresence>
+                                                            {((item.id === 'service' && serviceOpen) || (item.id === 'tanks' && tanksOpen)) && (
+                                                                <motion.div
+                                                                    initial={{ height: 0, opacity: 0 }}
+                                                                    animate={{ height: 'auto', opacity: 1 }}
+                                                                    exit={{ height: 0, opacity: 0 }}
+                                                                    className="overflow-hidden bg-gray-50 rounded-lg mb-2"
+                                                                >
+                                                                    {item.children.map(child => (
+                                                                        <button
+                                                                            key={child.id}
+                                                                            onClick={() => setActiveSection(child.id)}
+                                                                            className="block w-full text-left px-4 py-3 text-sm font-medium text-gray-600 border-b border-gray-100 last:border-0 hover:text-gas"
+                                                                        >
+                                                                            {child.label}
+                                                                        </button>
+                                                                    ))}
+                                                                </motion.div>
+                                                            )}
+                                                        </AnimatePresence>
+                                                    </div>
+                                                ) : (
                                                     <button
-                                                        onClick={() => item.id === 'service' ? setServiceOpen(!serviceOpen) : setActiveSection(item.id)}
-                                                        className="w-full flex justify-between items-center py-4 text-left font-bold text-gray-800"
+                                                        onClick={() => setActiveSection(item.id)}
+                                                        className={`w-full text-left py-4 font-bold ${isActive(item.id) ? 'text-gas' : 'text-gray-800'}`}
                                                     >
                                                         {item.label}
-                                                        <ChevronDown size={16} className={`text-gray-400 transition-transform ${item.id === 'service' && serviceOpen ? 'rotate-180' : ''}`} />
                                                     </button>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
 
-                                                    {/* Mobile Submenu */}
-                                                    <AnimatePresence>
-                                                        {((item.id === 'service' && serviceOpen) || (item.id === 'tanks')) && (
-                                                            <motion.div
-                                                                initial={{ height: 0, opacity: 0 }}
-                                                                animate={{ height: 'auto', opacity: 1 }}
-                                                                exit={{ height: 0, opacity: 0 }}
-                                                                className="overflow-hidden bg-gray-50 rounded-lg mb-2"
-                                                            >
-                                                                {item.children.map(child => (
-                                                                    <button
-                                                                        key={child.id}
-                                                                        onClick={() => setActiveSection(child.id)}
-                                                                        className="block w-full text-left px-4 py-3 text-sm font-medium text-gray-600 border-b border-gray-100 last:border-0 hover:text-gas"
-                                                                    >
-                                                                        {child.label}
-                                                                    </button>
-                                                                ))}
-                                                            </motion.div>
-                                                        )}
-                                                    </AnimatePresence>
-                                                </div>
-                                            ) : (
-                                                <button
-                                                    onClick={() => setActiveSection(item.id)}
-                                                    className={`w-full text-left py-4 font-bold ${isActive(item.id) ? 'text-gas' : 'text-gray-800'}`}
-                                                >
-                                                    {item.label}
-                                                </button>
-                                            )}
-                                        </div>
-                                    ))}
+                                    <div className="mt-8 space-y-4">
+                                        <button
+                                            onClick={() => { openWizard('tank'); setMobileMenuOpen(false); }}
+                                            className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg flex items-center justify-center gap-2"
+                                        >
+                                            <Settings size={20} /> Anfrage-Assistent
+                                        </button>
+                                        <a
+                                            href="tel:04551897089"
+                                            className="w-full bg-gray-100 text-gray-800 py-4 rounded-xl font-bold flex items-center justify-center gap-2"
+                                        >
+                                            <Phone size={20} /> 04551 89 70 89
+                                        </a>
+                                    </div>
                                 </div>
-
-                                <div className="mt-8 space-y-4">
-                                    <button
-                                        onClick={() => { openWizard('tank'); setMobileMenuOpen(false); }}
-                                        className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg flex items-center justify-center gap-2"
-                                    >
-                                        <Settings size={20} /> Anfrage-Assistent
-                                    </button>
-                                    <a
-                                        href="tel:04551897089"
-                                        className="w-full bg-gray-100 text-gray-800 py-4 rounded-xl font-bold flex items-center justify-center gap-2"
-                                    >
-                                        <Phone size={20} /> 04551 89 70 89
-                                    </a>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </>
-                )}
-            </AnimatePresence>
+                            </motion.div>
+                        </>
+                    )}
+                </AnimatePresence>,
+                document.body
+            )}
         </header>
     );
 };
