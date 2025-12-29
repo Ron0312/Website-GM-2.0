@@ -8,6 +8,7 @@ import { getSeoForPath, getSchemaForPath } from './src/data/seoData.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const toAbsolute = (p) => path.resolve(__dirname, p);
+const CONTENT_PATH = toAbsolute('src/data/content.jsx');
 
 // Ensure dist/client exists
 if (!fs.existsSync(toAbsolute('dist/client'))) {
@@ -17,6 +18,26 @@ if (!fs.existsSync(toAbsolute('dist/client'))) {
 
 const template = fs.readFileSync(toAbsolute('dist/client/index.html'), 'utf-8');
 const { render } = await import('./dist/server/entry-server.js');
+
+// Helper to extract knowledge IDs from JSX content (mirrors generate-sitemap.js)
+function getKnowledgeRoutes() {
+  try {
+    const content = fs.readFileSync(CONTENT_PATH, 'utf-8');
+    const idRegex = /id:\s*['"]([^'"]+)['"]/g;
+    let match;
+    const ids = [];
+    while ((match = idRegex.exec(content)) !== null) {
+      ids.push(match[1]);
+    }
+
+    // Exclude category IDs
+    const categoryIds = ['tank-technik', 'heizung', 'gewerbe', 'service', 'basis'];
+    return ids.filter(id => !categoryIds.includes(id)).map(id => `/wissen/${id}`);
+  } catch (e) {
+    console.warn('⚠️ Could not parse content.jsx for prerendering:', e.message);
+    return [];
+  }
+}
 
 // Define routes to pre-render
 const routesToPrerender = [
@@ -33,7 +54,8 @@ const routesToPrerender = [
     '/barrierefreiheit',
     // Dynamic routes
     ...tankDetails.map(t => `/tanks/${t.slug}`),
-    ...cityData.map(c => `/liefergebiet/${c.slug}`)
+    ...cityData.map(c => `/liefergebiet/${c.slug}`),
+    ...getKnowledgeRoutes()
 ];
 
 // Add 404 route specifically

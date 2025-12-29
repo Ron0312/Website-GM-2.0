@@ -230,28 +230,31 @@ export const getSeoForPath = (path) => {
     schema: [getOrganizationSchema(), getWebSiteSchema()]
   };
 
+  // Normalize path: remove leading slash if present, unless it is just "/"
+  const cleanPath = path && path.startsWith('/') && path.length > 1 ? path.substring(1) : path || 'start';
+
   // 1. Static Routes
-  switch (path) {
+  switch (cleanPath) {
     case 'start':
     case '/':
       return {
         ...defaultSeo,
-        title: 'Flüssiggas kaufen, Tanks & Service im Norden | Gas-Service Möller',
+        title: 'Flüssiggas & Gastanks kaufen | Anbieter & Preise Norddeutschland',
         description: 'Ihr unabhängiger Experte für Flüssiggas und Gastanks in Norddeutschland. Kaufen statt mieten: Sparen Sie bis zu 50% der Energiekosten. Jetzt anfragen!',
         schema: [getOrganizationSchema(), getWebSiteSchema()]
       };
     case 'tanks':
       return {
         ...defaultSeo,
-        title: 'Flüssiggastank kaufen | Alle Größen (1.2t - 2.9t) | Gas-Service Möller',
-        description: 'Flüssiggastanks kaufen statt mieten. Oberirdisch & unterirdisch. 1,2t, 2,1t, 2,9t. Inklusive Aufstellung & Prüfung. Jetzt Preisliste anfordern!',
+        title: 'Flüssiggastank kaufen | Oberirdisch & Unterirdisch | Preise & Größen',
+        description: 'Flüssiggastanks kaufen (Neu & Gebraucht/Aufbereitet). Alle Größen (1,2t - 2,9t). Oberirdisch & unterirdisch. Inklusive Aufstellung. Jetzt Preisliste!',
         schema: [getOrganizationSchema(), getTankCatalogSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Tanks', url: '/tanks' }])]
       };
     case 'gas':
       return {
         ...defaultSeo,
-        title: 'Flüssiggas Preise aktuell | Günstig bestellen | Gas-Service Möller',
-        description: 'Aktuelle Flüssiggas-Preise für Norddeutschland. Bestellen Sie Ihr Gas flexibel & günstig beim freien Händler. 24h Express-Lieferung möglich.',
+        title: 'Flüssiggas Preise aktuell & Entwicklung | Günstig kaufen',
+        description: 'Aktuelle Flüssiggas-Preise & Entwicklung 2025. Preisvergleich für 1000 Liter. Bestellen Sie Ihr Gas flexibel beim freien Händler. 24h Express.',
         schema: [getOrganizationSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggas', url: '/gas' }])]
       };
     case 'rechner':
@@ -274,8 +277,8 @@ export const getSeoForPath = (path) => {
     case 'gewerbe':
       return {
         ...defaultSeo,
-        title: 'Flüssiggas für Gewerbe & Industrie | Großkunden | Gas-Service Möller',
-        description: 'Maßgeschneiderte Energielösungen für Landwirtschaft, Industrie & Gewerbe. Prozesswärme, Hallenheizung & Staplergas. Zuverlässig & wirtschaftlich.',
+        title: 'Flüssiggas für Gewerbe: Hallenheizung & Staplergas | Gas-Service Möller',
+        description: 'Maßgeschneiderte Energielösungen für Landwirtschaft & Industrie. Hallenheizung, Prozesswärme & Staplergas. Zuverlässige Versorgung & faire Preise.',
         schema: [getOrganizationSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Gewerbe', url: '/gewerbe' }])]
       };
      case 'wissen':
@@ -302,8 +305,8 @@ export const getSeoForPath = (path) => {
     case 'pruefungen':
       return {
           ...defaultSeo,
-          title: 'Tankprüfung & Wartung | TÜV & Sachkundigenprüfung | Gas-Service Möller',
-          description: 'Innere & Äußere Prüfung für Ihren Flüssiggastank (2 & 10 Jahre). Rohrleitungsprüfung. Wir kümmern uns um alle gesetzlichen Wartungsintervalle.',
+          title: 'Tankprüfung & Rohrleitungsprüfung (2 & 10 Jahre) | Kosten',
+          description: 'Innere Prüfung (10 Jahre) & Äußere Prüfung (2 Jahre) für Flüssiggastanks. Rohrleitungsprüfung & TÜV-Abnahme. Jetzt Termin vereinbaren!',
           schema: [getOrganizationSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Service', url: '/pruefungen' }])]
       };
     case 'barrierefreiheit':
@@ -323,15 +326,19 @@ export const getSeoForPath = (path) => {
   }
 
   // 2. Dynamic Tank Routes
-  if (path.startsWith('tanks/')) {
-    const slug = path.split('/')[1];
+  if (cleanPath.startsWith('tanks/')) {
+    const slug = cleanPath.split('/')[1];
     const tank = tankDetails.find(t => t.slug === slug);
     if (tank) {
       const tankImage = tank.image || DEFAULT_IMAGE;
+      // Prefer manually curated SEO title from data file, fallback to generated
+      const seoTitle = tank.seoTitle || `${tank.name} kaufen | ${tank.volume} Flüssiggastank | Gas-Service Möller`;
+      const seoDesc = tank.seoDesc || `Kaufen Sie den ${tank.name} (${tank.volume}). ${tank.installation === 'oberirdisch' ? 'Oberirdische' : 'Unterirdische'} Installation. Ideal für Einfamilienhäuser. Jetzt Angebot sichern!`;
+
       return {
         ...defaultSeo,
-        title: `${tank.name} kaufen | ${tank.capacityL}L Flüssiggastank | Gas-Service Möller`,
-        description: `Kaufen Sie den ${tank.name} (${tank.capacityL} Liter). ${tank.installation === 'oberirdisch' ? 'Oberirdische' : 'Unterirdische'} Installation. Ideal für Einfamilienhäuser. Jetzt Angebot sichern!`,
+        title: seoTitle,
+        description: seoDesc,
         image: tankImage,
         schema: [
             getOrganizationSchema(),
@@ -347,8 +354,8 @@ export const getSeoForPath = (path) => {
   }
 
   // 3. Dynamic Knowledge Routes
-  if (path.startsWith('wissen/')) {
-      const slug = path.split('/')[1];
+  if (cleanPath.startsWith('wissen/')) {
+      const slug = cleanPath.split('/')[1];
       // Try to find title in CONTENT if possible, or fallback to formatter
       // Ideally we would import CONTENT but we want to avoid server crash if it has JSX.
       // We'll use a specific lookup or just format the slug for now to be safe and fast.
@@ -358,29 +365,65 @@ export const getSeoForPath = (path) => {
       let articleDesc = 'Detaillierter Ratgeber-Artikel von Gas-Service Möller.';
 
       // Specific overrides for known major articles if we want perfect titles without importing CONTENT
-      if (slug === 'miete-kauf') {
-          articleTitle = 'Gastank mieten oder kaufen? Der große Vergleich';
-          articleDesc = 'Miete vs. Kauf: Was lohnt sich wirklich? Wir rechnen nach. Vor- und Nachteile, versteckte Kosten und Expertentipps für Ihre Entscheidung.';
-      } else if (slug === 'sicherheit') {
-          articleTitle = 'Sicherheit bei Flüssiggastanks';
-          articleDesc = 'Wie sicher ist Flüssiggas? Alles zu Sicherheitsabständen, Schutzzonen und gesetzlichen Vorschriften für Ihren Gastank.';
+      const knowledgeOverrides = {
+          'miete-kauf': {
+              title: 'Gastank mieten oder kaufen? Rechner & Kosten-Vergleich',
+              desc: 'Miete vs. Kauf: Was lohnt sich wirklich? Wir rechnen nach. Vor- und Nachteile, Amortisation und Expertentipps für Ihre Entscheidung.'
+          },
+          'sicherheit': {
+              title: 'Sicherheit bei Flüssiggastanks | Prüfungen & Vorschriften',
+              desc: 'Wie sicher ist Flüssiggas? Alles zu Sicherheitsabständen, Schutzzonen und gesetzlichen Vorschriften für Ihren Gastank.'
+          },
+          'tank-entsorgen': {
+              title: 'Flüssiggastank entsorgen & stilllegen | Kosten & Ablauf',
+              desc: 'Fachgerechte Entsorgung und Stilllegung von Flüssiggastanks. Wir holen Ihren alten Tank ab (Fachfirma). Jetzt informieren!'
+          },
+          'aufstellung': {
+              title: 'Gastank Vorschriften: Grenzabstand & Aufstellort (TRF 2021)',
+              desc: 'Alles zu Grenzabständen, Brandlasten, Zaun und Vorschriften bei der Aufstellung von Flüssiggastanks (Oberirdisch & Unterirdisch).'
+          },
+          'waermebedarf': {
+              title: 'Flüssiggas Verbrauch Einfamilienhaus | Tabelle & Rechner',
+              desc: 'Wie viel Flüssiggas braucht ein Einfamilienhaus? Tabelle nach Baujahr & Wohnfläche. Jetzt Wärmebedarf ermitteln.'
+          },
+          'oel-wechsel': {
+              title: 'Ölheizung auf Flüssiggas umrüsten | Kosten & Förderung',
+              desc: 'Wechsel von Öl auf Gas: Kosten, Förderung und Vorteile. Platz gewinnen & CO2 sparen. Jetzt Umstieg planen.'
+          },
+          'camping': {
+              title: 'Gasflaschen tauschen & füllen (5kg, 11kg, 33kg) | In der Nähe',
+              desc: 'Propangasflaschen (Grau) tauschen oder füllen lassen. 5kg, 11kg, 33kg. Campinggas für Grill & Heizung. Standorte in Ihrer Nähe.'
+          },
+          'notfall': {
+              title: 'Gastank leer? Notdienst & Füllstand prüfen | Hilfe',
+              desc: 'Heizung ausgefallen? Gastank leer? Unser Notdienst hilft. Prüfen Sie den Füllstand und rufen Sie uns an. 24h Express.'
+          },
+          'preise': {
+              title: 'Flüssiggaspreise aktuell & Prognose 2025 | Trend',
+              desc: 'Aktuelle Entwicklung der Flüssiggaspreise. Wann ist der beste Kaufzeitpunkt? Infos zu CO2-Steuer und Markttrends.'
+          }
+      };
+
+      if (knowledgeOverrides[slug]) {
+          articleTitle = knowledgeOverrides[slug].title;
+          articleDesc = knowledgeOverrides[slug].desc;
       }
 
       return {
           ...defaultSeo,
-          title: `${articleTitle} | Wissen & Ratgeber | Gas-Service Möller`,
+          title: articleTitle.includes('|') ? articleTitle : `${articleTitle} | Wissen & Ratgeber | Gas-Service Möller`,
           description: articleDesc,
           schema: [
               getOrganizationSchema(),
               getBreadcrumbSchema([
                   { name: 'Start', url: '/' },
                   { name: 'Wissen', url: '/wissen' },
-                  { name: articleTitle, url: `/wissen/${slug}` }
+                  { name: articleTitle.split('|')[0].trim(), url: `/wissen/${slug}` }
               ]),
               {
                   "@context": "https://schema.org",
                   "@type": "Article",
-                  "headline": articleTitle,
+                  "headline": articleTitle.split('|')[0].trim(),
                   "image": DEFAULT_IMAGE,
                   "author": {
                       "@type": "Organization",
@@ -402,14 +445,14 @@ export const getSeoForPath = (path) => {
   }
 
   // 4. Dynamic City Routes
-  if (path.startsWith('liefergebiet/')) {
-      const slug = path.split('/')[1];
+  if (cleanPath.startsWith('liefergebiet/')) {
+      const slug = cleanPath.split('/')[1];
       const city = cityData.find(c => c.slug === slug);
       if (city) {
           return {
               ...defaultSeo,
-              title: `Flüssiggas & Tanks in ${city.name} kaufen | Gas-Service Möller`,
-              description: `Ihr regionaler Partner für Flüssiggas in ${city.name} (${city.zip}). Gastank kaufen statt mieten. Günstige Preise, schnelle Lieferung & Service vor Ort.`,
+              title: `Flüssiggas Lieferant ${city.name} | Tank kaufen & Service`,
+              description: `Ihr regionaler Flüssiggas-Lieferant für ${city.name} (${city.zip}). Gastank kaufen statt mieten. Günstige Preise, schnelle Lieferung & Service vor Ort.`,
               schema: [
                   getOrganizationSchema(),
                   getCitySchema(city),
