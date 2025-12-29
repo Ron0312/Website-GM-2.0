@@ -1,11 +1,10 @@
 import React, { useState, useEffect, Suspense } from 'react';
-import { Settings, ArrowRight } from 'lucide-react';
+import { Settings, ArrowRight, RotateCcw } from 'lucide-react';
 import { getSeoForPath } from './data/seoData';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import TrustBar from './components/TrustBar';
 import TankSection from './components/TankSection';
-import TankDetail from './components/TankDetail';
 import CommercialSection from './components/CommercialSection';
 import InspectionSection from './components/InspectionSection';
 import FAQ from './components/FAQ';
@@ -26,11 +25,13 @@ import LocalLandingPage from './components/LocalLandingPage';
 import { ImprintContent, PrivacyContent, TermsContent, AccessibilityStatementContent } from './components/Legal';
 import { findClientRedirect } from './utils/clientRedirect';
 import { cityData } from './data/cityData';
+import ErrorBoundary from './components/ErrorBoundary';
 
 // Lazy Load heavy components
 const WizardModal = React.lazy(() => import('./components/WizardModal'));
 const DeliveryMap = React.lazy(() => import('./components/DeliveryMap'));
 const DeliveryAreaOverview = React.lazy(() => import('./components/DeliveryAreaOverview'));
+const TankDetail = React.lazy(() => import('./components/TankDetail'));
 
 const App = ({ path, context }) => {
     // Initial state based on path if provided (SSR), otherwise default to window location (CSR)
@@ -158,7 +159,7 @@ const App = ({ path, context }) => {
         // Check for dynamic routes
         if (activeSection.startsWith('tanks/')) {
             const slug = activeSection.split('/')[1];
-            return <TankDetail slug={slug} onBack={() => changeSection('tanks')} openWizard={openWizard} />;
+            return <Suspense fallback={<div className="h-screen flex items-center justify-center">Laden...</div>}><TankDetail slug={slug} onBack={() => changeSection('tanks')} openWizard={openWizard} /></Suspense>;
         }
 
         if (activeSection.startsWith('wissen/')) {
@@ -193,32 +194,21 @@ const App = ({ path, context }) => {
 
         // Return 404 if not a valid section
         if (!validSections.includes(activeSection)) {
-            // Check for legacy redirects (Client Side Fallback)
             const legacyTarget = findClientRedirect(activeSection);
             if (legacyTarget) {
-                 // Clean up leading slash for client routing
                  const cleanTarget = legacyTarget.replace(/^\//, '');
-
-                 // If valid section or tank/city route
                  if (validSections.includes(cleanTarget) || cleanTarget.startsWith('tanks/') || cleanTarget.startsWith('liefergebiet/') || cleanTarget.startsWith('wissen/')) {
                      if (context) {
-                         // SSR Redirect
                          context.url = legacyTarget;
                          context.status = 301;
-                     } else if (typeof window !== 'undefined') {
-                         // Client Redirect
-                         // No console log
                      }
                  }
             }
 
-            // Signal Redirect to Server (if no legacy match found or processed)
             if (context && !context.url) {
                 context.url = '/404';
                 context.status = 302;
             }
-
-            // Client side redirect behavior is handled in useEffect below now
 
             return <><div className="pt-20"></div><NotFound onGoHome={changeSection} /><ContactSection /></>;
         }
@@ -242,22 +232,24 @@ const App = ({ path, context }) => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col bg-white">
-            <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-gas focus:text-white focus:rounded-md focus:shadow-lg">
-                Zum Hauptinhalt springen
-            </a>
-            <Navigation activeSection={activeSection} setActiveSection={changeSection} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} openWizard={openWizard} />
-            <main id="main-content" className="flex-grow focus:outline-none" tabIndex="-1">{renderSection()}</main>
-            <Footer setActiveSection={changeSection} openLegal={openLegal} />
-            <Suspense fallback={null}>
-                <WizardModal isOpen={wizardOpen} onClose={() => setWizardOpen(false)} initialType={wizardType} initialData={wizardData} openLegal={openLegal} />
-            </Suspense>
-            <CookieBanner />
-            <SimpleModal isOpen={legalModal.open} onClose={() => setLegalModal({ ...legalModal, open: false })} title={legalModal.title} content={legalModal.content} />
-            <StickyCTA openWizard={openWizard} />
-            <AccessibilityWidget />
-            <ScrollToTop />
-        </div>
+        <ErrorBoundary>
+            <div className="min-h-screen flex flex-col bg-white">
+                <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-gas focus:text-white focus:rounded-md focus:shadow-lg">
+                    Zum Hauptinhalt springen
+                </a>
+                <Navigation activeSection={activeSection} setActiveSection={changeSection} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} openWizard={openWizard} />
+                <main id="main-content" className="flex-grow focus:outline-none" tabIndex="-1">{renderSection()}</main>
+                <Footer setActiveSection={changeSection} openLegal={openLegal} />
+                <Suspense fallback={null}>
+                    <WizardModal isOpen={wizardOpen} onClose={() => setWizardOpen(false)} initialType={wizardType} initialData={wizardData} openLegal={openLegal} />
+                </Suspense>
+                <CookieBanner />
+                <SimpleModal isOpen={legalModal.open} onClose={() => setLegalModal({ ...legalModal, open: false })} title={legalModal.title} content={legalModal.content} />
+                <StickyCTA openWizard={openWizard} />
+                <AccessibilityWidget />
+                <ScrollToTop />
+            </div>
+        </ErrorBoundary>
     );
 };
 

@@ -40,19 +40,45 @@ try {
     Logger.warn('Failed to load knowledge slugs:', e.message);
 }
 
-// Standard Express Rate Limiter
-const limiter = rateLimit({
+/**
+ * Validates Environment Variables at Startup
+ */
+function validateEnv() {
+    // Only check crucial keys if in production or strict mode
+    // if (process.env.NODE_ENV === 'production') { ... }
+    // Currently no critical secrets are passed via ENV for this demo,
+    // but this function is a placeholder for the requested improvement.
+    // Example: if (!process.env.WEB3FORMS_ACCESS_KEY) Logger.warn("Missing WEB3FORMS_ACCESS_KEY");
+}
+validateEnv();
+
+// --- Rate Limiters ---
+
+// Global Limiter (GET requests, static assets, etc.)
+const globalLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 2000, // Limit each IP to 2000 requests per windowMs (Vite dev needs high limits)
-    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+    max: 2000, // Generous limit for normal navigation
+    standardHeaders: true,
+    legacyHeaders: false,
     skip: (req) => {
         // Skip static assets from rate limiting
         return !!req.url.match(/\.(js|css|png|jpg|jpeg|webp|gif|svg|ico|woff|woff2)$/);
     },
     handler: (req, res, next, options) => {
-        Logger.warn('Rate limit exceeded', { ip: req.ip });
+        Logger.warn('Global rate limit exceeded', { ip: req.ip });
         res.status(options.statusCode).send(options.message);
+    }
+});
+
+// Stricter Limiter for POST requests (Forms)
+const postLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 50, // Limit form submissions per IP
+    standardHeaders: true,
+    legacyHeaders: false,
+    handler: (req, res, next, options) => {
+        Logger.warn('POST rate limit exceeded', { ip: req.ip });
+        res.status(options.statusCode).send("Zu viele Anfragen. Bitte versuchen Sie es später erneut.");
     }
 });
 
@@ -69,12 +95,8 @@ function requestLogger(req, res, next) {
             ip: req.ip || req.connection.remoteAddress
         };
         // Log all requests as info
-        // Filter out frequent health checks or static assets if needed to reduce noise
         if (res.statusCode >= 400) {
              Logger.warn(`Request Error ${res.statusCode}`, logEntry);
-        } else {
-             // Optional: Uncomment for full request logging
-             // Logger.info('Request', logEntry);
         }
     });
     next();
@@ -97,9 +119,24 @@ async function createServer() {
       next();
   });
 
-  // Apply Rate Limiter and Logger
+  // Hreflang Header
+  app.use((req, res, next) => {
+      // Basic Hreflang header for DE
+      res.setHeader('Link', `<https://gasmoeller.de${req.path}>; rel="alternate"; hreflang="de-DE"`);
+      next();
+  });
+
+  // Apply Global Limiter and Logger
   app.use(requestLogger);
-  app.use(limiter);
+  app.use(globalLimiter);
+
+  // Apply Stricter Limit for POST
+  app.use((req, res, next) => {
+      if (req.method === 'POST') {
+          return postLimiter(req, res, next);
+      }
+      next();
+  });
 
   // Helmet Security Headers
   app.use(helmet({
@@ -119,10 +156,10 @@ async function createServer() {
             objectSrc: ["'none'"],
             baseUri: ["'self'"],
             formAction: ["'self'", "https://api.web3forms.com"],
-            upgradeInsecureRequests: isProd ? [] : null // Only upgrade in Prod
+            upgradeInsecureRequests: isProd ? [] : null
         },
     },
-    crossOriginEmbedderPolicy: false, // Often causes issues with images/scripts if not configured perfectly
+    crossOriginEmbedderPolicy: false,
     strictTransportSecurity: {
         maxAge: 31536000,
         includeSubDomains: true,
@@ -135,7 +172,7 @@ async function createServer() {
     xDnsPrefetchControl: { allow: true }
   }));
 
-  // Extra headers not fully covered by default Helmet or custom preferences
+  // Extra headers
   app.use((req, res, next) => {
     res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=()');
     next();
@@ -157,13 +194,15 @@ async function createServer() {
     '2-9t-unterirdisch'
   ];
 
-  // Dynamic Sitemap Generation (Fail-safe)
+  /**
+   * Generates sitemap.xml dynamically
+   * @returns {string} XML Content
+   */
   const generateSitemapXml = () => {
-      const SITE_URL = 'https://gasmoeller.de'; // Enforce non-www
-      const routes = [...staticRoutes.filter(r => r !== '404' && r !== 'sitemap.xml' && r !== 'robots.txt')]; // Exclude technical routes from sitemap
+      const SITE_URL = 'https://gasmoeller.de';
+      const routes = [...staticRoutes.filter(r => r !== '404' && r !== 'sitemap.xml' && r !== 'robots.txt')];
       tankSlugs.forEach(slug => routes.push(`tanks/${slug}`));
       cityData.forEach(city => routes.push(`liefergebiet/${city.slug}`));
-      // Add knowledge routes
       knowledgeSlugs.forEach(slug => routes.push(`wissen/${slug}`));
 
       return `<?xml version="1.0" encoding="UTF-8"?>
@@ -177,7 +216,14 @@ ${routes.map(route => `  <url>
 </urlset>`;
   };
 
-  // Helper to serve file or fallback to generator
+  /**
+   * Helper to serve file or fallback to generator
+   * @param {Response} res Express response object
+   * @param {string} filename Filename to serve
+   * @param {string} contentType Content type header
+   * @param {Function} generator Generator function if file missing
+   * @returns {boolean} True if handled
+   */
   const serveOrGenerate = (res, filename, contentType, generator) => {
     const pathsToCheck = [
       path.resolve(process.cwd(), filename),
@@ -191,6 +237,7 @@ ${routes.map(route => `  <url>
         try {
           const content = fs.readFileSync(filePath)
           res.setHeader('Content-Type', contentType)
+          // Cache Control for static files served this way
           res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate')
           res.send(content)
           return true
@@ -215,14 +262,14 @@ ${routes.map(route => `  <url>
     return false
   }
 
-  // Explicitly serve sitemap.xml - MOVED TO TOP to prevent Redirect/SSR interference
+  // Explicitly serve sitemap.xml
   app.get('/sitemap.xml', (req, res) => {
     if (!serveOrGenerate(res, 'sitemap.xml', 'application/xml', generateSitemapXml)) {
         res.status(404).send('Sitemap not found')
     }
   })
 
-  // Explicitly serve robots.txt - MOVED TO TOP
+  // Explicitly serve robots.txt
   app.get('/robots.txt', (req, res) => {
     if (!serveOrGenerate(res, 'robots.txt', 'text/plain', null)) {
         res.status(404).send('Robots.txt not found')
@@ -239,8 +286,6 @@ ${routes.map(route => `  <url>
     '/haftungsausschluss': '/',
     '/cookie-richtlinie-eu': '/',
     '/sonderpreise-und-entsorgung': '/tanks',
-
-    // Explicit Tank redirects from user list
     '/flussiggastank-oberirdisch-4850l-21t-fassungsvermogen': '/tanks/2-1t-oberirdisch',
     '/fluessiggastank-oberirdisch-4850l-21t-fassungsvermoegen': '/tanks/2-1t-oberirdisch',
     '/fluessiggastank-unterirdisch-4850l-21t-fassungsvermoegen': '/tanks/2-1t-unterirdisch',
@@ -252,64 +297,38 @@ ${routes.map(route => `  <url>
     '/fluessiggastank-oberirdisch-2700l': '/tanks/1-2t-oberirdisch',
     '/fluessiggastank-kaufen': '/tanks',
     '/fluessiggastank-kaufen-2': '/tanks',
-    '/flussiggastank-mieten-oder-kaufen': '/tanks', // Intent: buy/rent -> tanks
-
-    // Gas
+    '/flussiggastank-mieten-oder-kaufen': '/tanks',
     '/fluessiggas-bestellen': '/gas',
-
-    // Content / Knowledge
     '/was-ist-ein-fluessiggastank': '/wissen',
     '/was-ist-fluessiggas': '/wissen',
     '/fluessiggas-eine-vielfaeltige-energiequelle': '/wissen',
     '/von-oel-auf-gas-umruesten': '/wissen',
-
-    // Service
     '/flussiggasbehalter-vorschriften-und-prufungen': '/pruefungen',
     '/aeussere-pruefung': '/pruefungen'
   };
 
-  // Smart Redirect Logic
   const findRedirect = (pathStr) => {
-    // Robustness: Handle non-string inputs
     if (!pathStr || typeof pathStr !== 'string') return null;
-
     let p = pathStr;
-
-    // Attempt to decode URI if it looks encoded, but safely
     try {
         if (p.includes('%')) {
             p = decodeURIComponent(p);
         }
     } catch (e) {
-        // Fallback to original path if decode fails
         Logger.warn('Failed to decode path:', { pathStr });
     }
-
     if (p.length > 1 && p.endsWith('/')) {
       p = p.slice(0, -1);
     }
-
-    // Normalize to lowercase
     p = p.toLowerCase();
-
-    // Strip common legacy extensions (.php, .html, .htm)
     p = p.replace(/\.(php|html|htm)$/, '');
 
-    // 1. Check Legacy Map
-    // Check exact match after stripping extension
     if (legacyRedirects[p]) return legacyRedirects[p];
-    // Check with slash if missing (legacy map has keys with leading slash)
     if (!p.startsWith('/') && legacyRedirects['/' + p]) return legacyRedirects['/' + p];
-
-    // Check normalized version (replacing umlauts with ae, oe, ue, ss)
-    // This helps if the map uses 'ue' but the URL uses 'ü'
     const pNorm = p.replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss');
     if (legacyRedirects[pNorm]) return legacyRedirects[pNorm];
     if (!pNorm.startsWith('/') && legacyRedirects['/' + pNorm]) return legacyRedirects['/' + pNorm];
 
-
-    // 2. Tank Logic
-    // Check both raw and normalized for keywords
     const isTank = p.includes('tank') || p.includes('behaelter') || p.includes('behälter') || pNorm.includes('tank');
     const isOberirdisch = p.includes('oberirdisch') || pNorm.includes('oberirdisch');
     const isUnterirdisch = p.includes('unterirdisch') || pNorm.includes('unterirdisch');
@@ -323,20 +342,10 @@ ${routes.map(route => `  <url>
         if (isOberirdisch) return `/tanks/${size}-oberirdisch`;
         if (isUnterirdisch) return `/tanks/${size}-unterirdisch`;
     }
-
-    // Fallback for general Tank intents
     if (isTank && (p.includes('kaufen') || p.includes('mieten') || p.includes('preis') || p.includes('angebot'))) return '/tanks';
-
-    // 3. Gas Logic
     if (p.includes('gas') && (p.includes('bestellen') || p.includes('liefern') || p.includes('preis'))) return '/gas';
-
-    // 4. Knowledge / Content
     if (p.includes('wissen') || p.includes('ratgeber') || p.includes('faq') || p.includes('frage') || p.includes('was-ist') || p.includes('umruesten') || p.includes('umrüsten') || pNorm.includes('umruesten')) return '/wissen';
-
-    // 5. Service / Inspections
     if (p.includes('pruefung') || p.includes('prüfung') || p.includes('vorschriften') || pNorm.includes('pruefung')) return '/pruefungen';
-
-    // 6. Legal / Home
     if (p.includes('impressum') || p.includes('datenschutz') || p.includes('agb')) return '/';
 
     return null;
@@ -345,55 +354,29 @@ ${routes.map(route => `  <url>
   app.use((req, res, next) => {
     try {
         let normalizedPath = req.path;
-
-        // Safety check for malformed requests where path might be undefined/null
         if (!normalizedPath) return next();
-
-        // Use try-catch for decodeURIComponent just in case Express didn't catch a really bad one
         try {
             if (normalizedPath.includes('%')) {
                 normalizedPath = decodeURIComponent(normalizedPath);
             }
-        } catch (e) {
-            // ignore
-        }
-
+        } catch (e) { /* ignore */ }
         if (normalizedPath.length > 1 && normalizedPath.endsWith('/')) {
           normalizedPath = normalizedPath.slice(0, -1);
         }
-
-        // Check if the path is a valid static route
         const cleanPath = normalizedPath.replace(/^\//, '');
-        if (staticRoutes.includes(cleanPath)) {
-            return next();
-        }
-
-        // Check if the path is a valid tank route
+        if (staticRoutes.includes(cleanPath)) return next();
         if (cleanPath.startsWith('tanks/')) {
             const slug = cleanPath.split('/')[1];
-            if (tankSlugs.includes(slug)) {
-                return next();
-            }
+            if (tankSlugs.includes(slug)) return next();
         }
-
-        // Check if the path is a valid city route
         if (cleanPath.startsWith('liefergebiet/')) {
             const slug = cleanPath.split('/')[1];
-            if (cityData.some(c => c.slug === slug)) {
-                return next();
-            }
+            if (cityData.some(c => c.slug === slug)) return next();
         }
-
-        // Check if the path is a valid knowledge route (NEW)
         if (cleanPath.startsWith('wissen/')) {
             const slug = cleanPath.split('/')[1];
-            // Allow all matching knowledge slugs OR if knowledgeSlugs is empty (fallback) allow all to pass to React 404 handler
-            if (knowledgeSlugs.length === 0 || knowledgeSlugs.includes(slug)) {
-                return next();
-            }
+            if (knowledgeSlugs.length === 0 || knowledgeSlugs.includes(slug)) return next();
         }
-
-        // Exclude resource paths from redirect logic to prevent false positives (e.g. FAQ.jsx -> /wissen)
         if (
             normalizedPath.startsWith('/src/') ||
             normalizedPath.startsWith('/node_modules/') ||
@@ -404,24 +387,14 @@ ${routes.map(route => `  <url>
         ) {
             return next();
         }
-
-        // Not a valid known route, try to redirect
-        // We pass the RAW req.path to findRedirect to let it handle decoding logic
-        // explicitly, but we also pass normalizedPath if needed.
-        // Actually, findRedirect logic is robust enough now.
         const target = findRedirect(req.path);
-
-        // Prevent redirect loops
-        // Check if target matches the current clean path
         const cleanTarget = target ? target.replace(/^\//, '') : '';
-
         if (target && cleanTarget !== cleanPath && target !== req.originalUrl) {
              Logger.info(`Redirecting: ${req.url} -> ${target}`);
              return res.redirect(301, target);
         }
         next();
     } catch (err) {
-        // Log the error but do NOT crash. Pass to next middleware (likely 404/SSR)
         Logger.error('Redirect Middleware Error:', err);
         next();
     }
@@ -440,26 +413,26 @@ ${routes.map(route => `  <url>
     } catch (e) {
         Logger.error('Failed to load Vite in development mode:', e);
         Logger.warn('Switching to PRODUCTION mode due to missing Vite.');
-        // If we can't load vite (e.g. in production environment), switch to prod mode
         isProd = true;
     }
   }
 
-  // Note: We don't use 'else' here because isProd might have changed in the catch block above
   if (isProd) {
     app.use(compression())
-
-    // Static assets
     app.use(
       '/',
       express.static(path.resolve(__dirname, 'dist/client'), {
         index: false,
+        // Cache hashed assets aggressively
+        setHeaders: (res, path) => {
+            if (path.match(/\.[0-9a-f]{8}\./)) {
+                res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+            }
+        }
       })
     )
   }
 
-  // Import SEO Data
-  // Wrapped in try-catch to prevent startup crash if file missing
   let getSeoForPath, getSchemaForPath;
   try {
      const seoModule = await import('./src/data/seoData.js');
@@ -467,15 +440,12 @@ ${routes.map(route => `  <url>
      getSchemaForPath = seoModule.getSchemaForPath;
   } catch (err) {
       Logger.error('Failed to load SEO Data:', err);
-      // Fallback mocks
       getSeoForPath = () => ({ title: 'gasmöller', description: '', image: '', url: '' });
       getSchemaForPath = () => ({});
   }
 
   app.use(async (req, res) => {
     const url = req.originalUrl
-
-    // Fail-safe fallback in case app.get missed it (unlikely with strict routing)
     if (url === '/sitemap.xml') {
          if (serveOrGenerate(res, 'sitemap.xml', 'application/xml', generateSitemapXml)) return;
     }
@@ -487,10 +457,8 @@ ${routes.map(route => `  <url>
         } else if (url.endsWith('/')) {
             tryFile = url + 'index.html';
         } else if (path.extname(url)) {
-            // It has an extension (e.g. sitemap.xml, robots.txt), keep it
             tryFile = url;
         } else {
-            // It's a route (e.g. /gas), append .html
             tryFile = url + '.html';
         }
 
@@ -501,7 +469,6 @@ ${routes.map(route => `  <url>
             }
         }
 
-        // Determine SEO Data based on URL
         let seoInfo;
         let schemaJson;
         try {
@@ -567,16 +534,11 @@ ${routes.map(route => `  <url>
         render = (await vite.ssrLoadModule('/src/entry-server.jsx')).render
       } else {
         templatePath = path.resolve(__dirname, 'dist/client/index.html')
-        // In production, index.html might not be used directly if we serve pre-rendered files,
-        // but for dynamic routes (or if pre-rendering is missed) we use it as template.
         if (fs.existsSync(templatePath)) {
              template = fs.readFileSync(templatePath, 'utf-8')
         } else {
-             // Fallback if dist/client/index.html is missing (rare in prod)
              throw new Error('Production index.html not found');
         }
-
-        // Load SSR entry
         render = (await import('./dist/server/entry-server.js')).render
 
         template = template.replace(/<title>.*?<\/title>/, `<title>${siteData.title}</title>`);
@@ -589,53 +551,33 @@ ${routes.map(route => `  <url>
         template = template.replace('</head>', `<script type="application/ld+json">${siteData.schema}</script></head>`);
       }
 
-      // Context object for SSR to communicate status/redirects
       const context = {};
       const { html } = render(url, context);
 
       if (context.url) {
         return res.redirect(context.status || 302, context.url);
       }
-
       if (context.status === 404) {
           res.status(404);
       }
-
       const htmlResponse = template.replace('<!--app-html-->', html)
       res.status(context.status || 200).set({ 'Content-Type': 'text/html' }).end(htmlResponse)
     } catch (e) {
-      // Emergency Error Handling: Redirect to Home or serve a safe error message
       Logger.error('CRITICAL SSR ERROR:', e);
       if (process.env.NODE_ENV === 'production' || isProd) {
-         // Avoid infinite redirect loops
          if (url === '/' || url.includes('error=server_error')) {
-             return res.status(500).send(`
-                <!DOCTYPE html>
-                <html>
-                <head><title>Server Error</title></head>
-                <body style="font-family: sans-serif; text-align: center; padding: 50px;">
-                    <h1>Wartungsarbeiten</h1>
-                    <p>Die Anwendung ist momentan nicht erreichbar. Bitte versuchen Sie es später erneut.</p>
-                </body>
-                </html>
-             `);
+             return res.status(500).send('<h1>Wartungsarbeiten</h1><p>Bitte versuchen Sie es später erneut.</p>');
          }
-
-         // In production, try to redirect to Home with error flag
          try {
              return res.redirect(302, '/?error=server_error');
-         } catch (redirErr) {
-             Logger.error('Failed to redirect after error:', redirErr);
-         }
+         } catch (redirErr) { /* ignore */ }
       }
-
       if (!isProd && vite) vite.ssrFixStacktrace(e)
       console.log(e.stack)
       res.status(500).end(e.stack)
     }
   })
 
-  // Global Error Handler (Last resort for sync errors)
   app.use((err, req, res, next) => {
     Logger.error('Unhandled Global Error:', err);
     if (!res.headersSent) {
@@ -655,21 +597,17 @@ ${routes.map(route => `  <url>
     Logger.info(`Server started at http://localhost:${port}`)
   })
 
-  // Graceful Shutdown
   const shutdown = () => {
       Logger.info('Received kill signal, shutting down gracefully');
       server.close(() => {
           Logger.info('Closed out remaining connections');
           process.exit(0);
       });
-
-      // Force close after 10s
       setTimeout(() => {
           Logger.error('Could not close connections in time, forcefully shutting down');
           process.exit(1);
       }, 10000);
   };
-
   process.on('SIGTERM', shutdown);
   process.on('SIGINT', shutdown);
 }
