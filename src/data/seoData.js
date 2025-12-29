@@ -230,20 +230,28 @@ export const getSeoForPath = (path) => {
     schema: [getOrganizationSchema(), getWebSiteSchema()]
   };
 
+  // Normalize path: remove leading slash if present, unless it is just "/"
+  const cleanPath = path && path.startsWith('/') && path.length > 1 ? path.substring(1) : path || 'start';
+
+  // Handle root "/" which becomes "/" after normalization if we don't handle it
+  // Actually, if path is "/", cleanPath remains "/" because of path.length > 1 check.
+  // If path is "/start", cleanPath is "start".
+  // If path is "start", cleanPath is "start".
+
   // 1. Static Routes
-  switch (path) {
+  switch (cleanPath) {
     case 'start':
     case '/':
       return {
         ...defaultSeo,
-        title: 'Flüssiggas kaufen, Tanks & Service im Norden | Gas-Service Möller',
+        title: 'Flüssiggas & Gastanks kaufen | Anbieter & Preise Norddeutschland',
         description: 'Ihr unabhängiger Experte für Flüssiggas und Gastanks in Norddeutschland. Kaufen statt mieten: Sparen Sie bis zu 50% der Energiekosten. Jetzt anfragen!',
         schema: [getOrganizationSchema(), getWebSiteSchema()]
       };
     case 'tanks':
       return {
         ...defaultSeo,
-        title: 'Flüssiggastank kaufen | Alle Größen (1.2t - 2.9t) | Gas-Service Möller',
+        title: 'Flüssiggastank kaufen | Oberirdisch & Unterirdisch | Preise & Größen',
         description: 'Flüssiggastanks kaufen statt mieten. Oberirdisch & unterirdisch. 1,2t, 2,1t, 2,9t. Inklusive Aufstellung & Prüfung. Jetzt Preisliste anfordern!',
         schema: [getOrganizationSchema(), getTankCatalogSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Tanks', url: '/tanks' }])]
       };
@@ -323,15 +331,19 @@ export const getSeoForPath = (path) => {
   }
 
   // 2. Dynamic Tank Routes
-  if (path.startsWith('tanks/')) {
-    const slug = path.split('/')[1];
+  if (cleanPath.startsWith('tanks/')) {
+    const slug = cleanPath.split('/')[1];
     const tank = tankDetails.find(t => t.slug === slug);
     if (tank) {
       const tankImage = tank.image || DEFAULT_IMAGE;
+      // Prefer manually curated SEO title from data file, fallback to generated
+      const seoTitle = tank.seoTitle || `${tank.name} kaufen | ${tank.volume} Flüssiggastank | Gas-Service Möller`;
+      const seoDesc = tank.seoDesc || `Kaufen Sie den ${tank.name} (${tank.volume}). ${tank.installation === 'oberirdisch' ? 'Oberirdische' : 'Unterirdische'} Installation. Ideal für Einfamilienhäuser. Jetzt Angebot sichern!`;
+
       return {
         ...defaultSeo,
-        title: `${tank.name} kaufen | ${tank.capacityL}L Flüssiggastank | Gas-Service Möller`,
-        description: `Kaufen Sie den ${tank.name} (${tank.capacityL} Liter). ${tank.installation === 'oberirdisch' ? 'Oberirdische' : 'Unterirdische'} Installation. Ideal für Einfamilienhäuser. Jetzt Angebot sichern!`,
+        title: seoTitle,
+        description: seoDesc,
         image: tankImage,
         schema: [
             getOrganizationSchema(),
@@ -347,8 +359,8 @@ export const getSeoForPath = (path) => {
   }
 
   // 3. Dynamic Knowledge Routes
-  if (path.startsWith('wissen/')) {
-      const slug = path.split('/')[1];
+  if (cleanPath.startsWith('wissen/')) {
+      const slug = cleanPath.split('/')[1];
       // Try to find title in CONTENT if possible, or fallback to formatter
       // Ideally we would import CONTENT but we want to avoid server crash if it has JSX.
       // We'll use a specific lookup or just format the slug for now to be safe and fast.
@@ -359,28 +371,34 @@ export const getSeoForPath = (path) => {
 
       // Specific overrides for known major articles if we want perfect titles without importing CONTENT
       if (slug === 'miete-kauf') {
-          articleTitle = 'Gastank mieten oder kaufen? Der große Vergleich';
+          articleTitle = 'Flüssiggastank mieten oder kaufen? | Vergleich & Kosten';
           articleDesc = 'Miete vs. Kauf: Was lohnt sich wirklich? Wir rechnen nach. Vor- und Nachteile, versteckte Kosten und Expertentipps für Ihre Entscheidung.';
       } else if (slug === 'sicherheit') {
           articleTitle = 'Sicherheit bei Flüssiggastanks';
           articleDesc = 'Wie sicher ist Flüssiggas? Alles zu Sicherheitsabständen, Schutzzonen und gesetzlichen Vorschriften für Ihren Gastank.';
+      } else if (slug === 'tank-entsorgen') {
+          articleTitle = 'Flüssiggastank entsorgen | Kosten & Ablauf | Fachfirma';
+          articleDesc = 'Fachgerechte Entsorgung von Flüssiggastanks. Wir holen Ihren alten Tank ab. Jetzt informieren!';
+      } else if (slug === 'aufstellung') {
+          articleTitle = 'Flüssiggastank Vorschriften & Abstände | Aufstellung';
+          articleDesc = 'Alles zu Grenzabständen, Brandlasten und Vorschriften bei der Aufstellung von Flüssiggastanks (TRF 2021).';
       }
 
       return {
           ...defaultSeo,
-          title: `${articleTitle} | Wissen & Ratgeber | Gas-Service Möller`,
+          title: articleTitle.includes('|') ? articleTitle : `${articleTitle} | Wissen & Ratgeber | Gas-Service Möller`,
           description: articleDesc,
           schema: [
               getOrganizationSchema(),
               getBreadcrumbSchema([
                   { name: 'Start', url: '/' },
                   { name: 'Wissen', url: '/wissen' },
-                  { name: articleTitle, url: `/wissen/${slug}` }
+                  { name: articleTitle.split('|')[0].trim(), url: `/wissen/${slug}` }
               ]),
               {
                   "@context": "https://schema.org",
                   "@type": "Article",
-                  "headline": articleTitle,
+                  "headline": articleTitle.split('|')[0].trim(),
                   "image": DEFAULT_IMAGE,
                   "author": {
                       "@type": "Organization",
@@ -402,8 +420,8 @@ export const getSeoForPath = (path) => {
   }
 
   // 4. Dynamic City Routes
-  if (path.startsWith('liefergebiet/')) {
-      const slug = path.split('/')[1];
+  if (cleanPath.startsWith('liefergebiet/')) {
+      const slug = cleanPath.split('/')[1];
       const city = cityData.find(c => c.slug === slug);
       if (city) {
           return {

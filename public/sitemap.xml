@@ -3,487 +3,667 @@
 
   <url>
     <loc>https://gasmoeller.de/</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/tanks</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/gas</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/rechner</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/gewerbe</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/wissen</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/ueber-uns</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/kontakt</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/pruefungen</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/barrierefreiheit</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/tanks/1-2t-oberirdisch</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/tanks/2-1t-oberirdisch</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/tanks/2-9t-oberirdisch</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/tanks/1-2t-halboberirdisch</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/tanks/2-1t-halboberirdisch</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/tanks/2-9t-halboberirdisch</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/tanks/1-2t-unterirdisch</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/tanks/2-1t-unterirdisch</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/tanks/2-9t-unterirdisch</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/miete-kauf</loc>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://gasmoeller.de/tanks/2-9t-unterirdisch</loc>
-    <lastmod>2025-12-18</lastmod>
+    <loc>https://gasmoeller.de/wissen/tank-entsorgen</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/aufstellung</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/groessen</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/sicherheit</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/anlage</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/hybrid</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/mfh</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/geg</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/waermepumpe</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/oel-wechsel</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/pellet-vergleich</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/gaswaermepumpe</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/energiesparen</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/bhkw</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/lng-lpg</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/hallenheizung</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/prozess</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/landwirtschaft</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/treibgas</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/camping</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/notfall</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/nahwaerme</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/was-ist</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/biolpg</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/preise</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/gaspreisbremse</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/umrechnung</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/waermebedarf</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gasmoeller.de/wissen/autarkie</loc>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/hamburg</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/luebeck</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/kiel</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/rostock</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/schwerin</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/neumuenster</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/norderstedt</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/elmshorn</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/stade</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/lueneburg</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/wismar</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/guestrow</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/bad-segeberg</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/eutin</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/rendsburg</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/eckernfoerde</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/ploen</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/oldenburg-holstein</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/neustadt-holstein</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/ahrensburg</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/flensburg</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/itzehoe</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/pinneberg</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/winsen-luhe</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/buxtehude</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/buchholz</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/seevetal</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/geesthacht</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/reinbek</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/wedel</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/husum</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/heide</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/schleswig</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/bad-oldesloe</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/bad-schwartau</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/moelln</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/kaltenkirchen</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/quickborn</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/bargteheide</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/glinde</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/fehmarn</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/sylt</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/stralsund</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/greifswald</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/neubrandenburg</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/waren-mueritz</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/neustrelitz</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/parchim</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/bergen-ruegen</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/ribnitz-damgarten</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/bad-doberan</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/hagenow</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/ludwigslust</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/demmin</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/wolgast</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/pasewalk</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/anklam</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/boizenburg</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/teterow</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/grimmen</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/sassnitz</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gasmoeller.de/liefergebiet/ueckermuende</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2025-12-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
