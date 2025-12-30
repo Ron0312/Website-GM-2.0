@@ -19,7 +19,7 @@ const CommercialSection = ({ setActiveSection, isPage = false }) => (
                 customButtons={
                      <button
                         onClick={() => setActiveSection('kontakt')}
-                        className="bg-white text-gas px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all shadow-lg flex items-center gap-2 group"
+                        className="px-8 py-4 bg-gas hover:bg-gas-dark text-white text-base font-bold rounded-full shadow-xl shadow-gas/30 transition-all uppercase tracking-wide border-2 border-transparent flex items-center gap-2 group"
                     >
                         Angebot anfordern
                         <ArrowRight className="group-hover:translate-x-1 transition-transform" />

@@ -34,6 +34,7 @@
     "react-helmet-async": "^2.0.5",
     "react-hook-form": "^7.68.0",
     "serialize-javascript": "^7.0.1",
+    "serve-static": "^2.2.1",
     "sirv": "^3.0.2",
     "tailwind-merge": "^2.6.0",
     "zod": "^4.2.1"
