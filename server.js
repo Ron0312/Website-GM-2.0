@@ -21,7 +21,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // Helper to extract knowledge IDs from JSX content
 // We read this once at startup to avoid FS I/O on every request
-let knowledgeSlugs = [];
+let knowledgeSlugs = new Set();
 try {
     const contentPath = path.resolve(__dirname, 'src/data/content.jsx');
     if (fs.existsSync(contentPath)) {
@@ -33,8 +33,8 @@ try {
             ids.push(match[1]);
         }
         const categoryIds = ['tank-technik', 'heizung', 'gewerbe', 'service', 'basis'];
-        knowledgeSlugs = ids.filter(id => !categoryIds.includes(id));
-        Logger.info(`Loaded ${knowledgeSlugs.length} knowledge articles.`);
+        knowledgeSlugs = new Set(ids.filter(id => !categoryIds.includes(id)));
+        Logger.info(`Loaded ${knowledgeSlugs.size} knowledge articles.`);
     }
 } catch (e) {
     Logger.warn('Failed to load knowledge slugs:', e.message);
@@ -44,11 +44,7 @@ try {
  * Validates Environment Variables at Startup
  */
 function validateEnv() {
-    // Only check crucial keys if in production or strict mode
-    // if (process.env.NODE_ENV === 'production') { ... }
-    // Currently no critical secrets are passed via ENV for this demo,
-    // but this function is a placeholder for the requested improvement.
-    // Example: if (!process.env.WEB3FORMS_ACCESS_KEY) Logger.warn("Missing WEB3FORMS_ACCESS_KEY");
+    // Placeholder
 }
 validateEnv();
 
@@ -62,7 +58,7 @@ const globalLimiter = rateLimit({
     legacyHeaders: false,
     skip: (req) => {
         // Skip static assets from rate limiting
-        return !!req.url.match(/\.(js|css|png|jpg|jpeg|webp|gif|svg|ico|woff|woff2)$/);
+        return !!req.url.match(/\.(js|css|png|jpg|jpeg|webp|gif|svg|ico|woff|woff2|avif|ttf|eot)$/);
     },
     handler: (req, res, next, options) => {
         Logger.warn('Global rate limit exceeded', { ip: req.ip });
@@ -179,20 +175,22 @@ async function createServer() {
   });
 
   // Valid Routes Configuration
-  const staticRoutes = [
+  const staticRoutes = new Set([
       '', 'tanks', 'gas', 'rechner', 'gewerbe',
       'wissen', 'ueber-uns', 'kontakt', 'pruefungen', 'barrierefreiheit', '404',
       'sitemap.xml', 'robots.txt'
-  ];
+  ]);
 
-  const tankSlugs = [
+  const tankSlugs = new Set([
     '1-2t-oberirdisch',
     '2-1t-oberirdisch',
     '2-9t-oberirdisch',
     '1-2t-unterirdisch',
     '2-1t-unterirdisch',
     '2-9t-unterirdisch'
-  ];
+  ]);
+
+  const citySlugs = new Set(cityData.map(c => c.slug));
 
   /**
    * Generates sitemap.xml dynamically
@@ -200,9 +198,9 @@ async function createServer() {
    */
   const generateSitemapXml = () => {
       const SITE_URL = 'https://gasmoeller.de';
-      const routes = [...staticRoutes.filter(r => r !== '404' && r !== 'sitemap.xml' && r !== 'robots.txt')];
+      const routes = [...Array.from(staticRoutes).filter(r => r !== '404' && r !== 'sitemap.xml' && r !== 'robots.txt')];
       tankSlugs.forEach(slug => routes.push(`tanks/${slug}`));
-      cityData.forEach(city => routes.push(`liefergebiet/${city.slug}`));
+      citySlugs.forEach(slug => routes.push(`liefergebiet/${slug}`));
       knowledgeSlugs.forEach(slug => routes.push(`wissen/${slug}`));
 
       return `<?xml version="1.0" encoding="UTF-8"?>
@@ -222,9 +220,8 @@ ${routes.map(route => `  <url>
    * @param {string} filename Filename to serve
    * @param {string} contentType Content type header
    * @param {Function} generator Generator function if file missing
-   * @returns {boolean} True if handled
    */
-  const serveOrGenerate = (res, filename, contentType, generator) => {
+  const serveOrGenerate = async (res, filename, contentType, generator) => {
     const pathsToCheck = [
       path.resolve(process.cwd(), filename),
       path.resolve(__dirname, filename),
@@ -233,18 +230,17 @@ ${routes.map(route => `  <url>
     ]
 
     for (const filePath of pathsToCheck) {
-      if (fs.existsSync(filePath)) {
         try {
-          const content = fs.readFileSync(filePath)
-          res.setHeader('Content-Type', contentType)
-          // Cache Control for static files served this way
-          res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate')
-          res.send(content)
-          return true
+            await fs.promises.access(filePath, fs.constants.F_OK);
+            // File exists
+            res.setHeader('Content-Type', contentType);
+            // Cache Control for static files served this way
+            res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+            res.sendFile(filePath);
+            return true;
         } catch (e) {
-          Logger.error(`Error serving ${filename} from ${filePath}:`, e)
+            // File not found, continue
         }
-      }
     }
 
     if (generator) {
@@ -263,49 +259,60 @@ ${routes.map(route => `  <url>
   }
 
   // Explicitly serve sitemap.xml
-  app.get('/sitemap.xml', (req, res) => {
-    if (!serveOrGenerate(res, 'sitemap.xml', 'application/xml', generateSitemapXml)) {
-        res.status(404).send('Sitemap not found')
+  app.get('/sitemap.xml', async (req, res) => {
+    try {
+        const handled = await serveOrGenerate(res, 'sitemap.xml', 'application/xml', generateSitemapXml);
+        if (!handled && !res.headersSent) {
+            res.status(404).send('Sitemap not found');
+        }
+    } catch (e) {
+        res.status(500).end();
     }
   })
 
   // Explicitly serve robots.txt
-  app.get('/robots.txt', (req, res) => {
-    if (!serveOrGenerate(res, 'robots.txt', 'text/plain', null)) {
-        res.status(404).send('Robots.txt not found')
+  app.get('/robots.txt', async (req, res) => {
+    try {
+        const handled = await serveOrGenerate(res, 'robots.txt', 'text/plain', null);
+        if (!handled && !res.headersSent) {
+            res.status(404).send('Robots.txt not found');
+        }
+    } catch (e) {
+         res.status(500).end();
     }
   })
 
 
   // Legacy Redirects Map (Specific overrides)
-  const legacyRedirects = {
-    '/impressum-2': '/',
-    '/impressum': '/',
-    '/datenschutzerklaerung-eu': '/',
-    '/allgemeine-geschaeftsbediungungen': '/',
-    '/haftungsausschluss': '/',
-    '/cookie-richtlinie-eu': '/',
-    '/sonderpreise-und-entsorgung': '/tanks',
-    '/flussiggastank-oberirdisch-4850l-21t-fassungsvermogen': '/tanks/2-1t-oberirdisch',
-    '/fluessiggastank-oberirdisch-4850l-21t-fassungsvermoegen': '/tanks/2-1t-oberirdisch',
-    '/fluessiggastank-unterirdisch-4850l-21t-fassungsvermoegen': '/tanks/2-1t-unterirdisch',
-    '/fluessiggastank-unterirdisch-2700l-12t-fassungsvermoegen': '/tanks/1-2t-unterirdisch',
-    '/flussiggastank-oberirdisch-6400l': '/tanks/2-9t-oberirdisch',
-    '/fluessiggastank-oberirdisch-6400l': '/tanks/2-9t-oberirdisch',
-    '/fluessiggastank-unterirdisch-6400l-29t-fassungsvermoegen': '/tanks/2-9t-unterirdisch',
-    '/flussiggastank-oberirdisch-2700l': '/tanks/1-2t-oberirdisch',
-    '/fluessiggastank-oberirdisch-2700l': '/tanks/1-2t-oberirdisch',
-    '/fluessiggastank-kaufen': '/tanks',
-    '/fluessiggastank-kaufen-2': '/tanks',
-    '/flussiggastank-mieten-oder-kaufen': '/tanks',
-    '/fluessiggas-bestellen': '/gas',
-    '/was-ist-ein-fluessiggastank': '/wissen',
-    '/was-ist-fluessiggas': '/wissen',
-    '/fluessiggas-eine-vielfaeltige-energiequelle': '/wissen',
-    '/von-oel-auf-gas-umruesten': '/wissen',
-    '/flussiggasbehalter-vorschriften-und-prufungen': '/pruefungen',
-    '/aeussere-pruefung': '/pruefungen'
-  };
+  // Converted to Map for O(1) lookup
+  const legacyRedirects = new Map([
+    ['/impressum-2', '/'],
+    ['/impressum', '/'],
+    ['/datenschutzerklaerung-eu', '/'],
+    ['/allgemeine-geschaeftsbediungungen', '/'],
+    ['/haftungsausschluss', '/'],
+    ['/cookie-richtlinie-eu', '/'],
+    ['/sonderpreise-und-entsorgung', '/tanks'],
+    ['/flussiggastank-oberirdisch-4850l-21t-fassungsvermogen', '/tanks/2-1t-oberirdisch'],
+    ['/fluessiggastank-oberirdisch-4850l-21t-fassungsvermoegen', '/tanks/2-1t-oberirdisch'],
+    ['/fluessiggastank-unterirdisch-4850l-21t-fassungsvermoegen', '/tanks/2-1t-unterirdisch'],
+    ['/fluessiggastank-unterirdisch-2700l-12t-fassungsvermoegen', '/tanks/1-2t-unterirdisch'],
+    ['/flussiggastank-oberirdisch-6400l', '/tanks/2-9t-oberirdisch'],
+    ['/fluessiggastank-oberirdisch-6400l', '/tanks/2-9t-oberirdisch'],
+    ['/fluessiggastank-unterirdisch-6400l-29t-fassungsvermoegen', '/tanks/2-9t-unterirdisch'],
+    ['/flussiggastank-oberirdisch-2700l', '/tanks/1-2t-oberirdisch'],
+    ['/fluessiggastank-oberirdisch-2700l', '/tanks/1-2t-oberirdisch'],
+    ['/fluessiggastank-kaufen', '/tanks'],
+    ['/fluessiggastank-kaufen-2', '/tanks'],
+    ['/flussiggastank-mieten-oder-kaufen', '/tanks'],
+    ['/fluessiggas-bestellen', '/gas'],
+    ['/was-ist-ein-fluessiggastank', '/wissen'],
+    ['/was-ist-fluessiggas', '/wissen'],
+    ['/fluessiggas-eine-vielfaeltige-energiequelle', '/wissen'],
+    ['/von-oel-auf-gas-umruesten', '/wissen'],
+    ['/flussiggasbehalter-vorschriften-und-prufungen', '/pruefungen'],
+    ['/aeussere-pruefung', '/pruefungen']
+  ]);
 
   const findRedirect = (pathStr) => {
     if (!pathStr || typeof pathStr !== 'string') return null;
@@ -323,11 +330,12 @@ ${routes.map(route => `  <url>
     p = p.toLowerCase();
     p = p.replace(/\.(php|html|htm)$/, '');
 
-    if (legacyRedirects[p]) return legacyRedirects[p];
-    if (!p.startsWith('/') && legacyRedirects['/' + p]) return legacyRedirects['/' + p];
+    if (legacyRedirects.has(p)) return legacyRedirects.get(p);
+    if (!p.startsWith('/') && legacyRedirects.has('/' + p)) return legacyRedirects.get('/' + p);
+
     const pNorm = p.replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss');
-    if (legacyRedirects[pNorm]) return legacyRedirects[pNorm];
-    if (!pNorm.startsWith('/') && legacyRedirects['/' + pNorm]) return legacyRedirects['/' + pNorm];
+    if (legacyRedirects.has(pNorm)) return legacyRedirects.get(pNorm);
+    if (!pNorm.startsWith('/') && legacyRedirects.has('/' + pNorm)) return legacyRedirects.get('/' + pNorm);
 
     const isTank = p.includes('tank') || p.includes('behaelter') || p.includes('behälter') || pNorm.includes('tank');
     const isOberirdisch = p.includes('oberirdisch') || pNorm.includes('oberirdisch');
@@ -364,18 +372,18 @@ ${routes.map(route => `  <url>
           normalizedPath = normalizedPath.slice(0, -1);
         }
         const cleanPath = normalizedPath.replace(/^\//, '');
-        if (staticRoutes.includes(cleanPath)) return next();
+        if (staticRoutes.has(cleanPath)) return next();
         if (cleanPath.startsWith('tanks/')) {
             const slug = cleanPath.split('/')[1];
-            if (tankSlugs.includes(slug)) return next();
+            if (tankSlugs.has(slug)) return next();
         }
         if (cleanPath.startsWith('liefergebiet/')) {
             const slug = cleanPath.split('/')[1];
-            if (cityData.some(c => c.slug === slug)) return next();
+            if (citySlugs.has(slug)) return next();
         }
         if (cleanPath.startsWith('wissen/')) {
             const slug = cleanPath.split('/')[1];
-            if (knowledgeSlugs.length === 0 || knowledgeSlugs.includes(slug)) return next();
+            if (knowledgeSlugs.size === 0 || knowledgeSlugs.has(slug)) return next();
         }
         if (
             normalizedPath.startsWith('/src/') ||
@@ -447,7 +455,8 @@ ${routes.map(route => `  <url>
   app.use(async (req, res) => {
     const url = req.originalUrl
     if (url === '/sitemap.xml') {
-         if (serveOrGenerate(res, 'sitemap.xml', 'application/xml', generateSitemapXml)) return;
+        const handled = await serveOrGenerate(res, 'sitemap.xml', 'application/xml', generateSitemapXml);
+        if (handled) return;
     }
 
     try {
@@ -464,8 +473,12 @@ ${routes.map(route => `  <url>
 
         if (isProd) {
             const possibleStaticPath = path.join(__dirname, 'dist/client', tryFile.replace(/^\//, ''));
-            if (fs.existsSync(possibleStaticPath)) {
+            // Use async check
+            try {
+                await fs.promises.access(possibleStaticPath, fs.constants.F_OK);
                 return res.sendFile(possibleStaticPath);
+            } catch (e) {
+                // Not found
             }
         }
 
@@ -515,10 +528,10 @@ ${routes.map(route => `  <url>
 
       if (!isProd) {
         templatePath = path.resolve(__dirname, 'views/index.ejs')
-        if (fs.existsSync(templatePath)) {
-             template = fs.readFileSync(templatePath, 'utf-8')
-        } else {
-            template = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf-8')
+        try {
+             template = await fs.promises.readFile(templatePath, 'utf-8')
+        } catch(e) {
+            template = await fs.promises.readFile(path.resolve(__dirname, 'index.html'), 'utf-8')
         }
 
         template = template.replace(/<title>.*?<\/title>/, `<title>${siteData.title}</title>`);
@@ -534,9 +547,9 @@ ${routes.map(route => `  <url>
         render = (await vite.ssrLoadModule('/src/entry-server.jsx')).render
       } else {
         templatePath = path.resolve(__dirname, 'dist/client/index.html')
-        if (fs.existsSync(templatePath)) {
-             template = fs.readFileSync(templatePath, 'utf-8')
-        } else {
+        try {
+             template = await fs.promises.readFile(templatePath, 'utf-8')
+        } catch(e) {
              throw new Error('Production index.html not found');
         }
         render = (await import('./dist/server/entry-server.js')).render

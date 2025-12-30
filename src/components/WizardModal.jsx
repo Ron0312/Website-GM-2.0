@@ -89,14 +89,42 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                         setValue('contact.name', parsed.contact.name);
                         setValue('contact.email', parsed.contact.email);
                         setValue('contact.phone', parsed.contact.phone);
-                        // Don't restore sensitive or specific fields
                     }
                 } catch (e) { /* ignore */ }
             }
 
-            return () => clearTimeout(timer);
+            // Push state for back button handling
+            window.history.pushState({ modalOpen: true }, '');
+
+            return () => {
+                clearTimeout(timer);
+                // Clean up history state if closed programmatically
+                if (window.history.state && window.history.state.modalOpen) {
+                    // We don't force back here to avoid messing up navigation flow if user navigated elsewhere
+                }
+            };
         }
     }, [isOpen]);
+
+    // Handle Browser Back Button to close modal or go back step
+    useEffect(() => {
+        const handlePopState = (event) => {
+            if (isOpen) {
+                // If we are deep in steps, go back one step
+                if (step > 1) {
+                    // Prevent default back behavior (leaving page) by pushing state again
+                    window.history.pushState({ modalOpen: true }, '');
+                    setStep(s => s - 1);
+                } else {
+                    // Close modal
+                    onClose();
+                }
+            }
+        };
+
+        window.addEventListener('popstate', handlePopState);
+        return () => window.removeEventListener('popstate', handlePopState);
+    }, [isOpen, step, onClose]);
 
     // Save to LocalStorage on change
     useEffect(() => {
@@ -111,6 +139,10 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
             setStep(1);
             setSuccess(false);
             if (initialType) setType(initialType);
+
+            // Try to auto-fill PLZ from Home Page input if stored in Session/Local Storage or passed via props
+            // Assuming App might pass it if available, or we check a global store.
+            // For now, relies on initialData passed from App.jsx
 
             if (initialData) {
                 setValue('plz', initialData.plz || '');
@@ -582,10 +614,10 @@ const ContactFormFields = ({ control, errors, submitting, submitForm, handleBack
                 </div>
             </div>
             <Controller name="contact.email" control={control} rules={{ required: "E-Mail erforderlich", pattern: { value: /^\S+@\S+$/i, message: "Ungültig" } }} render={({ field }) => (
-                <ModernInput {...field} label="E-Mail" type="email" error={errors.contact?.email?.message} autoComplete="email" />
+                <ModernInput {...field} label="E-Mail" type="email" inputMode="email" error={errors.contact?.email?.message} autoComplete="email" />
             )} />
             <Controller name="contact.phone" control={control} render={({ field }) => (
-                <ModernInput {...field} label="Telefon" type="tel" autoComplete="tel" />
+                <ModernInput {...field} label="Telefon" type="tel" inputMode="tel" autoComplete="tel" />
             )} />
 
             <div className="flex items-start text-xs text-gray-500 mt-2 mb-6 p-4 bg-gray-50 rounded-xl border border-gray-100">

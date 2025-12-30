@@ -20,17 +20,17 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
     color: #005b9f; /* gas */
 }
 
-/* Modern Scrollbar */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: #f1f1f1; }
-::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+/* Modern Scrollbar - Customized to Brand */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #f8fafc; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 5px; border: 2px solid #f8fafc; }
+::-webkit-scrollbar-thumb:hover { background: #005b9f; }
 
 /* Zebra Striping for Tables */
 .zebra-table tr:nth-child(even) { background-color: #f9fafb; }
 .zebra-table th { background-color: #f3f4f6; color: #1f2937; font-weight: 700; }
 
-/* Article Content Styles (Extracted from style tag) */
+/* Article Content Styles */
 .article-content h3 { font-size: 1.75rem; font-weight: 800; color: #1f2937; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
 .article-content h4 { font-size: 1.35rem; font-weight: 700; color: #005b9f; margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 2px solid #e6f0fa; padding-bottom: 0.5rem; }
 .article-content h4:first-of-type { margin-top: 1rem; }
@@ -67,7 +67,7 @@ input[type=range]::-webkit-slider-runnable-track {
 /* Scroll to Top Button - Adjusted Position */
 .scroll-to-top {
     position: fixed;
-    bottom: 110px; /* Increased to avoid sticky CTA on mobile */
+    bottom: 110px;
     right: 20px;
     z-index: 999;
     background: #ffffff;
@@ -104,7 +104,7 @@ input[type=range]::-webkit-slider-runnable-track {
     filter: contrast(1.3) saturate(0.8);
 }
 .a11y-high-contrast img {
-    filter: contrast(0.8) saturate(1.2); /* Revert image contrast partially */
+    filter: contrast(0.8) saturate(1.2);
 }
 
 html.a11y-large-text {
@@ -129,79 +129,62 @@ html.a11y-large-text {
 
 /* Print Styles - Optimized */
 @media print {
-    /* Hide navigational and interactive elements */
     header, footer, nav, .cookie-banner, .sticky-cta, .no-print, .scroll-to-top, [aria-modal="true"], button {
         display: none !important;
     }
-
-    /* Ensure content visibility */
     body {
         background: white !important;
         color: black !important;
         padding: 0 !important;
         margin: 0 !important;
     }
-
     #main-content {
         padding-top: 0 !important;
         margin-top: 0 !important;
         width: 100% !important;
     }
-
-    /* Improve Calculator Layout for Print */
     #calculator, .calculator-result {
         border: 1px solid #ccc !important;
         box-shadow: none !important;
         margin-top: 20px !important;
         page-break-inside: avoid;
     }
-
-    /* Show inputs as text */
     input[type="text"], input[type="number"], select {
         border: none !important;
         background: transparent !important;
         padding: 0 !important;
         font-weight: bold;
     }
-
-    /* Force background printing for essential elements if possible */
     .print-bg {
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
     }
-
     .print-break {
         page-break-before: always;
     }
-
     a[href]::after {
         content: none !important;
     }
-
     h1, h2, h3 {
         page-break-after: avoid;
         color: black !important;
     }
-
     p, li {
         color: black !important;
     }
-
     img {
         max-width: 100% !important;
         page-break-inside: avoid;
     }
-
-    /* Ensure tank detail svg is visible */
     svg {
         break-inside: avoid;
     }
 }
 
-/* Accessibility: Focus Visible - Brand Color */
+/* Accessibility: Focus Visible - Brand Color with Ring */
 :focus-visible {
-    outline: 3px solid #005b9f; /* gas */
-    outline-offset: 2px;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 91, 159, 0.4);
 }
 
 /* Global Autofill Fix for Dark Themes */
@@ -220,4 +203,13 @@ select:-webkit-autofill:focus {
 
 ::placeholder {
     opacity: 1;
+}
+
+/* Custom Skeleton Pulse Animation */
+@keyframes pulse-custom {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .5; }
+}
+.skeleton-pulse {
+  animation: pulse-custom 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
