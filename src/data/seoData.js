@@ -215,6 +215,34 @@ const getCitySchema = (city) => ({
     "name": `Flüssiggas & Tanks in ${city.name}`
 });
 
+// Helper for FAQ Schema
+const getFAQSchema = (questions) => ({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": questions.map(q => ({
+        "@type": "Question",
+        "name": q.question,
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": q.answer
+        }
+    }))
+});
+
+// Helper for HowTo Schema
+const getHowToSchema = (title, steps) => ({
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": title,
+    "step": steps.map((step, index) => ({
+        "@type": "HowToStep",
+        "name": step.title,
+        "text": step.text,
+        "url": step.url ? `${BASE_URL}${step.url}` : undefined,
+        "position": index + 1
+    }))
+});
+
 export const getSchemaForPath = (path) => {
    const seo = getSeoForPath(path);
    return seo.schema;
@@ -248,7 +276,15 @@ export const getSeoForPath = (path) => {
         ...defaultSeo,
         title: 'Flüssiggastank kaufen | Oberirdisch & Unterirdisch | Preise & Größen',
         description: 'Flüssiggastanks kaufen (Neu & Gebraucht/Aufbereitet). Alle Größen (1,2t - 2,9t). Oberirdisch & unterirdisch. Inklusive Aufstellung. Jetzt Preisliste!',
-        schema: [getOrganizationSchema(), getTankCatalogSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Tanks', url: '/tanks' }])]
+        schema: [
+            getOrganizationSchema(),
+            getTankCatalogSchema(),
+            getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Tanks', url: '/tanks' }]),
+            getFAQSchema([
+                { question: "Was kostet ein Flüssiggastank?", answer: "Die Kosten hängen von der Größe (1,2t bis 2,9t) und der Installation (oberirdisch/unterirdisch) ab. Kauftanks amortisieren sich oft nach 3-5 Jahren im Vergleich zur Miete." },
+                { question: "Muss ich den Tank kaufen?", answer: "Nein, aber wir empfehlen es. Mit einem Kauftank sind Sie unabhängig und können das Gas auf dem freien Markt oft 20-30% günstiger einkaufen." }
+            ])
+        ]
       };
     case 'gas':
       return {
@@ -307,7 +343,16 @@ export const getSeoForPath = (path) => {
           ...defaultSeo,
           title: 'Tankprüfung & Rohrleitungsprüfung (2 & 10 Jahre) | Kosten',
           description: 'Innere Prüfung (10 Jahre) & Äußere Prüfung (2 Jahre) für Flüssiggastanks. Rohrleitungsprüfung & TÜV-Abnahme. Jetzt Termin vereinbaren!',
-          schema: [getOrganizationSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Service', url: '/pruefungen' }])]
+          schema: [
+              getOrganizationSchema(),
+              getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Service', url: '/pruefungen' }]),
+              getHowToSchema('Flüssiggastank Prüfung beauftragen', [
+                  { title: 'Prüffrist prüfen', text: 'Schauen Sie auf das Typschild Ihres Tanks oder in das Prüfbuch.' },
+                  { title: 'Kontakt aufnehmen', text: 'Rufen Sie uns an oder nutzen Sie das Kontaktformular.' },
+                  { title: 'Termin vereinbaren', text: 'Wir koordinieren den Termin mit der ZÜS (TÜV) und unserem Techniker.' },
+                  { title: 'Prüfung durchführen', text: 'Unser Team bereitet den Tank vor, der TÜV prüft, wir verschließen alles wieder.' }
+              ])
+          ]
       };
     case 'barrierefreiheit':
         return {
@@ -347,6 +392,10 @@ export const getSeoForPath = (path) => {
                 { name: 'Start', url: '/' },
                 { name: 'Tanks', url: '/tanks' },
                 { name: tank.name, url: `/tanks/${tank.slug}` }
+            ]),
+            getFAQSchema([
+                { question: `Ist der ${tank.name} für mein Haus geeignet?`, answer: `Der ${tank.name} mit ${tank.volume} Volumen eignet sich typischerweise für ${tank.idealFor}.` },
+                { question: "Wie groß muss die Bodenplatte sein?", answer: "Wir stellen Ihnen einen genauen Fundamentplan zur Verfügung. Die Maße hängen vom gewählten Modell ab." }
             ])
         ]
       };
@@ -363,12 +412,14 @@ export const getSeoForPath = (path) => {
 
       let articleTitle = formatTitleFromSlug(slug);
       let articleDesc = 'Detaillierter Ratgeber-Artikel von Gas-Service Möller.';
+      let dateModified = "2024-01-01"; // Default date
 
       // Specific overrides for known major articles if we want perfect titles without importing CONTENT
       const knowledgeOverrides = {
           'miete-kauf': {
               title: 'Gastank mieten oder kaufen? Rechner & Kosten-Vergleich',
-              desc: 'Miete vs. Kauf: Was lohnt sich wirklich? Wir rechnen nach. Vor- und Nachteile, Amortisation und Expertentipps für Ihre Entscheidung.'
+              desc: 'Miete vs. Kauf: Was lohnt sich wirklich? Wir rechnen nach. Vor- und Nachteile, Amortisation und Expertentipps für Ihre Entscheidung.',
+              date: '2025-01-10'
           },
           'sicherheit': {
               title: 'Sicherheit bei Flüssiggastanks | Prüfungen & Vorschriften',
@@ -376,7 +427,16 @@ export const getSeoForPath = (path) => {
           },
           'tank-entsorgen': {
               title: 'Flüssiggastank entsorgen & stilllegen | Kosten & Ablauf',
-              desc: 'Fachgerechte Entsorgung und Stilllegung von Flüssiggastanks. Wir holen Ihren alten Tank ab (Fachfirma). Jetzt informieren!'
+              desc: 'Fachgerechte Entsorgung und Stilllegung von Flüssiggastanks. Wir holen Ihren alten Tank ab (Fachfirma). Jetzt informieren!',
+              howTo: {
+                  title: 'Alten Gastank entsorgen lassen',
+                  steps: [
+                      { title: 'Tankdaten übermitteln', text: 'Senden Sie uns ein Foto vom Typschild und Standort.' },
+                      { title: 'Angebot erhalten', text: 'Wir erstellen ein Festpreisangebot für die Abholung.' },
+                      { title: 'Restgas absaugen', text: 'Unser Tankwagen saugt verbleibendes Gas ab und vergütet es ggf.' },
+                      { title: 'Abtransport', text: 'Der Kran-LKW hebt den Tank auf die Ladefläche.' }
+                  ]
+              }
           },
           'aufstellung': {
               title: 'Gastank Vorschriften: Grenzabstand & Aufstellort (TRF 2021)',
@@ -400,47 +460,63 @@ export const getSeoForPath = (path) => {
           },
           'preise': {
               title: 'Flüssiggaspreise aktuell & Prognose 2025 | Trend',
-              desc: 'Aktuelle Entwicklung der Flüssiggaspreise. Wann ist der beste Kaufzeitpunkt? Infos zu CO2-Steuer und Markttrends.'
+              desc: 'Aktuelle Entwicklung der Flüssiggaspreise. Wann ist der beste Kaufzeitpunkt? Infos zu CO2-Steuer und Markttrends.',
+              date: '2025-02-01'
+          },
+          'heizung': {
+               title: 'Heizungsgesetz (GEG) 2024 | Flüssiggas erlaubt?',
+               desc: 'Was bedeutet das GEG 2024 für Flüssiggasheizungen? Bestandsschutz, 65%-Regel und Hybrid-Lösungen erklärt.',
+               date: '2025-01-15'
           }
       };
 
       if (knowledgeOverrides[slug]) {
-          articleTitle = knowledgeOverrides[slug].title;
-          articleDesc = knowledgeOverrides[slug].desc;
+          const override = knowledgeOverrides[slug];
+          articleTitle = override.title;
+          articleDesc = override.desc;
+          if (override.date) dateModified = override.date;
+      }
+
+      const schemas = [
+          getOrganizationSchema(),
+          getBreadcrumbSchema([
+              { name: 'Start', url: '/' },
+              { name: 'Wissen', url: '/wissen' },
+              { name: articleTitle.split('|')[0].trim(), url: `/wissen/${slug}` }
+          ]),
+          {
+              "@context": "https://schema.org",
+              "@type": "Article",
+              "headline": articleTitle.split('|')[0].trim(),
+              "image": DEFAULT_IMAGE,
+              "author": {
+                  "@type": "Organization",
+                  "name": "Gas-Service Möller"
+              },
+              "publisher": {
+                  "@type": "Organization",
+                  "name": "Gas-Service Möller",
+                  "logo": {
+                      "@type": "ImageObject",
+                      "url": "https://gasmoeller.de/logos/logo-gasmoeller.png"
+                  }
+              },
+              "datePublished": "2023-01-01",
+              "dateModified": dateModified,
+              "description": articleDesc
+          }
+      ];
+
+      // Add HowTo schema if defined in override
+      if (knowledgeOverrides[slug] && knowledgeOverrides[slug].howTo) {
+          schemas.push(getHowToSchema(knowledgeOverrides[slug].howTo.title, knowledgeOverrides[slug].howTo.steps));
       }
 
       return {
           ...defaultSeo,
           title: articleTitle.includes('|') ? articleTitle : `${articleTitle} | Wissen & Ratgeber | Gas-Service Möller`,
           description: articleDesc,
-          schema: [
-              getOrganizationSchema(),
-              getBreadcrumbSchema([
-                  { name: 'Start', url: '/' },
-                  { name: 'Wissen', url: '/wissen' },
-                  { name: articleTitle.split('|')[0].trim(), url: `/wissen/${slug}` }
-              ]),
-              {
-                  "@context": "https://schema.org",
-                  "@type": "Article",
-                  "headline": articleTitle.split('|')[0].trim(),
-                  "image": DEFAULT_IMAGE,
-                  "author": {
-                      "@type": "Organization",
-                      "name": "Gas-Service Möller"
-                  },
-                  "publisher": {
-                      "@type": "Organization",
-                      "name": "Gas-Service Möller",
-                      "logo": {
-                          "@type": "ImageObject",
-                          "url": "https://gasmoeller.de/logos/logo-gasmoeller.png"
-                      }
-                  },
-                  "datePublished": "2023-01-01", // Placeholder, ideally dynamic
-                  "description": articleDesc
-              }
-          ]
+          schema: schemas
       };
   }
 
