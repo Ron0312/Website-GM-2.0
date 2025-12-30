@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Check, ShieldCheck, MapPin, ArrowRight, Truck, Heart, Coins, Loader2, X } from 'lucide-react';
 import DeliveryMap from './DeliveryMap';
 import { getPlzError } from '../utils/validation';
+import Hero from './Hero';
 
 const GasOrderSection = ({ onCheckAvailability }) => {
     // Tank sizes: 1.2t = ~2700L, 2.1t = ~4850L, 2.9t = ~6400L
@@ -55,170 +56,142 @@ const GasOrderSection = ({ onCheckAvailability }) => {
 
     return (
         <div id="gas" className="bg-white">
-            {/* 1. Hero Layout - Custom Implementation matching Hero.jsx typography */}
-            <header className="relative bg-white pt-48 pb-24 lg:pt-64 lg:pb-48 overflow-hidden">
-                {/* Background Image with Overlay */}
-                <div className="absolute inset-0 z-0">
-                    <div className="absolute inset-0 bg-gradient-to-r from-gray-900/40 to-gray-900/10 z-10"></div>
-                     <img
-                        src="/images/gas-order-background.jpg"
-                        alt="Hintergrund Gas Lieferung Norddeutschland"
-                        width="1920"
-                        height="1080"
-                        className="w-full h-full object-cover absolute inset-0 object-[35%_center] md:object-[75%_center] lg:object-center"
-                        loading="eager"
-                        fetchpriority="high"
-                    />
-                </div>
+            <Hero
+                title={
+                    <>
+                        Flüssiggas im Norden. <br/>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Fair & Zuverlässig.</span>
+                    </>
+                }
+                subtitle="Wir beliefern Privathaushalte und Gewerbe in Schleswig-Holstein, Hamburg, Niedersachsen und Mecklenburg-Vorpommern. Beste Preise, ohne Vertragsbindung."
+                backgroundImage="/images/gas-order-background.jpg"
+                badgeText="Der regionale Versorger"
+                customButtons={null}
+            >
+                {/* Right Column: The Glassmorphism Card */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl relative overflow-hidden"
+                >
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gas-light to-blue-500"></div>
 
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
-                    <div className="lg:grid lg:grid-cols-2 lg:gap-20 items-center">
+                    <h2 className="text-2xl font-bold text-white mb-2">Liefergebiet prüfen</h2>
+                    <p className="text-gray-300 text-sm mb-8">Erhalten Sie jetzt Ihr unverbindliches Angebot.</p>
 
-                        {/* Left Column: Content */}
-                        <div className="text-white text-left">
-                            <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-                                <div className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md border border-white/30 px-4 py-1.5 rounded-full mb-6 shadow-sm">
-                                    <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                                    <span className="text-white text-xs font-bold uppercase tracking-widest flex items-center gap-2">
-                                        <ShieldCheck size={14} className="text-white" /> Der regionale Versorger
-                                    </span>
-                                </div>
-                                <h1 className="text-5xl tracking-tight font-extrabold sm:text-6xl lg:text-7xl mb-8 leading-tight drop-shadow-lg">
-                                    Flüssiggas im Norden. <br/>
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Fair & Zuverlässig.</span>
-                                </h1>
-                                <p className="mt-4 text-xl text-gray-100 leading-relaxed mb-10 max-w-lg font-medium drop-shadow-md">
-                                    Wir beliefern Privathaushalte und Gewerbe in Schleswig-Holstein, Hamburg, Niedersachsen und Mecklenburg-Vorpommern. Beste Preise, ohne Vertragsbindung.
-                                </p>
-                            </motion.div>
+                    <div className="space-y-6">
+                        {/* Tank Size Selection */}
+                        <div>
+                            <label className="block text-white font-medium mb-3">Tankgröße</label>
+                            <div className="grid grid-cols-3 gap-3">
+                                {tankSizes.map((tank) => (
+                                    <button
+                                        key={tank.id}
+                                        onClick={() => setSelectedTank(tank)}
+                                        className={`py-2 px-3 rounded-lg text-sm font-bold transition-all ${
+                                            selectedTank.id === tank.id
+                                                ? 'bg-gas-light text-gas-dark shadow-lg ring-2 ring-white/20'
+                                                : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                                        }`}
+                                    >
+                                        {tank.label}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
 
-                        {/* Right Column: The Glassmorphism Card */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
-                            className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl relative overflow-hidden mt-8 lg:mt-0"
-                        >
-                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gas-light to-blue-500"></div>
-
-                            <h2 className="text-2xl font-bold text-white mb-2">Liefergebiet prüfen</h2>
-                            <p className="text-gray-300 text-sm mb-8">Erhalten Sie jetzt Ihr unverbindliches Angebot.</p>
-
-                            <div className="space-y-6">
-                                {/* Tank Size Selection */}
-                                <div>
-                                    <label className="block text-white font-medium mb-3">Tankgröße</label>
-                                    <div className="grid grid-cols-3 gap-3">
-                                        {tankSizes.map((tank) => (
-                                            <button
-                                                key={tank.id}
-                                                onClick={() => setSelectedTank(tank)}
-                                                className={`py-2 px-3 rounded-lg text-sm font-bold transition-all ${
-                                                    selectedTank.id === tank.id
-                                                        ? 'bg-gas-light text-gas-dark shadow-lg ring-2 ring-white/20'
-                                                        : 'bg-white/10 text-gray-300 hover:bg-white/20'
-                                                }`}
-                                            >
-                                                {tank.label}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Fill Level Input */}
-                                <div>
-                                    <div className="flex justify-between text-white font-medium mb-4">
-                                        <label>Aktueller Füllstand</label>
-                                        <span className="text-2xl font-bold text-gas-light">{fillLevel}%</span>
-                                    </div>
-                                    <input
-                                        type="range"
-                                        min="0"
-                                        max="85"
-                                        step="1"
-                                        value={fillLevel}
-                                        onChange={(e) => setFillLevel(parseInt(e.target.value))}
-                                        className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer accent-gas-light hover:accent-white transition-all [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-gas-light"
-                                    />
-                                    <div className="flex justify-between text-xs text-gray-400 mt-2 font-medium">
-                                        <span>0%</span>
-                                        <span>85%</span>
-                                    </div>
-                                    <div className="mt-4 p-3 rounded-lg bg-white/5 border border-white/10 text-right text-sm text-gray-300 flex justify-between items-center">
-                                        <span>Liefermenge ca.:</span>
-                                        <strong className="text-white text-lg">{calculatedLiters.toLocaleString()} Liter</strong>
-                                    </div>
-                                </div>
-
-                                {/* PLZ Input */}
-                                <form onSubmit={handleCheck} className="relative">
-                                    <label className="block text-white font-medium mb-2">Postleitzahl</label>
-                                    <div className="relative">
-                                        <input
-                                            type="text"
-                                            name="plz"
-                                            autoComplete="postal-code"
-                                            inputMode="numeric"
-                                            pattern="[0-9]*"
-                                            maxLength="5"
-                                            value={plz}
-                                            onChange={(e) => {
-                                                setPlz(e.target.value.replace(/[^0-9]/g, ''));
-                                                if (plzError) setPlzError('');
-                                            }}
-                                            className={`w-full bg-white/5 border border-white/10 text-white text-xl font-bold p-4 pl-12 rounded-xl outline-none focus:bg-white/10 focus:border-gas-light transition-all placeholder:text-gray-400/80 [&:-webkit-autofill]:transition-all [&:-webkit-autofill]:duration-[5000s] [&:-webkit-autofill]:[-webkit-text-fill-color:white] ${plzError ? 'border-red-400 focus:border-red-400 pr-12' : ''}`}
-                                            placeholder="PLZ eingeben"
-                                        />
-                                        <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-                                        {plzError && (
-                                            <motion.button
-                                                initial={{ opacity: 0, scale: 0.8 }}
-                                                animate={{ opacity: 1, scale: 1 }}
-                                                type="button"
-                                                onClick={() => {
-                                                    setPlz('');
-                                                    setPlzError('');
-                                                }}
-                                                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-red-400 hover:text-red-300 transition-colors z-10 p-1"
-                                                aria-label="Eingabe löschen"
-                                            >
-                                                <div className="bg-red-500/20 rounded-full p-0.5">
-                                                    <X size={18} strokeWidth={2.5} />
-                                                </div>
-                                            </motion.button>
-                                        )}
-                                    </div>
-                                    {plzError && (
-                                        <motion.div
-                                            initial={{ opacity: 0, y: -10 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            className="text-red-300 text-sm mt-3 font-medium flex items-center gap-2 bg-red-500/10 p-2 rounded-lg border border-red-500/20 tracking-tight"
-                                        >
-                                            <div className="w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center text-xs font-bold">!</div>
-                                            {plzError}
-                                        </motion.div>
-                                    )}
-                                </form>
-
-                                {/* CTA Button */}
-                                <button
-                                    onClick={handleCheck}
-                                    disabled={isChecking}
-                                    className="w-full bg-gas hover:bg-white hover:text-gas text-white font-bold text-lg py-5 rounded-xl shadow-lg shadow-gas/20 transform transition-all active:scale-[0.98] flex items-center justify-center gap-3 group disabled:opacity-80 disabled:cursor-wait"
-                                >
-                                    {isChecking ? <Loader2 size={24} className="animate-spin" /> : (
-                                        <>
-                                            Angebot anfordern
-                                            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                                        </>
-                                    )}
-                                </button>
+                        {/* Fill Level Input */}
+                        <div>
+                            <div className="flex justify-between text-white font-medium mb-4">
+                                <label>Aktueller Füllstand</label>
+                                <span className="text-2xl font-bold text-gas-light">{fillLevel}%</span>
                             </div>
-                        </motion.div>
+                            <input
+                                type="range"
+                                min="0"
+                                max="85"
+                                step="1"
+                                value={fillLevel}
+                                onChange={(e) => setFillLevel(parseInt(e.target.value))}
+                                className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer accent-gas-light hover:accent-white transition-all [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-gas-light"
+                            />
+                            <div className="flex justify-between text-xs text-gray-400 mt-2 font-medium">
+                                <span>0%</span>
+                                <span>85%</span>
+                            </div>
+                            <div className="mt-4 p-3 rounded-lg bg-white/5 border border-white/10 text-right text-sm text-gray-300 flex justify-between items-center">
+                                <span>Liefermenge ca.:</span>
+                                <strong className="text-white text-lg">{calculatedLiters.toLocaleString()} Liter</strong>
+                            </div>
+                        </div>
+
+                        {/* PLZ Input */}
+                        <form onSubmit={handleCheck} className="relative">
+                            <label className="block text-white font-medium mb-2">Postleitzahl</label>
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    name="plz"
+                                    autoComplete="postal-code"
+                                    inputMode="numeric"
+                                    pattern="[0-9]*"
+                                    maxLength="5"
+                                    value={plz}
+                                    onChange={(e) => {
+                                        setPlz(e.target.value.replace(/[^0-9]/g, ''));
+                                        if (plzError) setPlzError('');
+                                    }}
+                                    className={`w-full bg-white/5 border border-white/10 text-white text-xl font-bold p-4 pl-12 rounded-xl outline-none focus:bg-white/10 focus:border-gas-light transition-all placeholder:text-gray-400/80 [&:-webkit-autofill]:transition-all [&:-webkit-autofill]:duration-[5000s] [&:-webkit-autofill]:[-webkit-text-fill-color:white] ${plzError ? 'border-red-400 focus:border-red-400 pr-12' : ''}`}
+                                    placeholder="PLZ eingeben"
+                                />
+                                <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                                {plzError && (
+                                    <motion.button
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        type="button"
+                                        onClick={() => {
+                                            setPlz('');
+                                            setPlzError('');
+                                        }}
+                                        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-red-400 hover:text-red-300 transition-colors z-10 p-1"
+                                        aria-label="Eingabe löschen"
+                                    >
+                                        <div className="bg-red-500/20 rounded-full p-0.5">
+                                            <X size={18} strokeWidth={2.5} />
+                                        </div>
+                                    </motion.button>
+                                )}
+                            </div>
+                            {plzError && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="text-red-300 text-sm mt-3 font-medium flex items-center gap-2 bg-red-500/10 p-2 rounded-lg border border-red-500/20 tracking-tight"
+                                >
+                                    <div className="w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center text-xs font-bold">!</div>
+                                    {plzError}
+                                </motion.div>
+                            )}
+                        </form>
+
+                        {/* CTA Button */}
+                        <button
+                            onClick={handleCheck}
+                            disabled={isChecking}
+                            className="w-full bg-gas hover:bg-white hover:text-gas text-white font-bold text-lg py-5 rounded-xl shadow-lg shadow-gas/20 transform transition-all active:scale-[0.98] flex items-center justify-center gap-3 group disabled:opacity-80 disabled:cursor-wait"
+                        >
+                            {isChecking ? <Loader2 size={24} className="animate-spin" /> : (
+                                <>
+                                    Angebot anfordern
+                                    <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                                </>
+                            )}
+                        </button>
                     </div>
-                </div>
-            </header>
+                </motion.div>
+            </Hero>
 
              {/* SEO Content: Process */}
             <section className="py-24 bg-gray-50">
