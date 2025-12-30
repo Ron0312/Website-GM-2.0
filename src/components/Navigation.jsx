@@ -26,7 +26,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
     }, [scrolled]);
 
     // Force "scrolled" style on non-start pages to ensure visibility
-    const isTransparentPage = activeSection === 'start' || activeSection === 'tanks' || activeSection === 'gewerbe';
+    const isTransparentPage = activeSection === 'start' || activeSection === 'tanks' || activeSection === 'gewerbe' || activeSection === 'gas';
     const effectiveScrolled = scrolled || !isTransparentPage;
 
     // Helper to handle Tank Category clicks (also resets scroll if already on page)

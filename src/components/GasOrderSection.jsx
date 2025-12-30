@@ -73,23 +73,23 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl relative overflow-hidden"
+                    className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-5 md:p-8 shadow-2xl relative overflow-hidden"
                 >
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gas-light to-blue-500"></div>
 
-                    <h2 className="text-2xl font-bold text-white mb-2">Liefergebiet prüfen</h2>
-                    <p className="text-gray-300 text-sm mb-8">Erhalten Sie jetzt Ihr unverbindliches Angebot.</p>
+                    <h2 className="text-xl md:text-2xl font-bold text-white mb-2">Liefergebiet prüfen</h2>
+                    <p className="text-gray-300 text-sm mb-6 md:mb-8">Erhalten Sie jetzt Ihr unverbindliches Angebot.</p>
 
-                    <div className="space-y-6">
+                    <div className="space-y-4 md:space-y-6">
                         {/* Tank Size Selection */}
                         <div>
-                            <label className="block text-white font-medium mb-3">Tankgröße</label>
-                            <div className="grid grid-cols-3 gap-3">
+                            <label className="block text-white font-medium mb-2 md:mb-3 text-sm md:text-base">Tankgröße</label>
+                            <div className="grid grid-cols-3 gap-2 md:gap-3">
                                 {tankSizes.map((tank) => (
                                     <button
                                         key={tank.id}
                                         onClick={() => setSelectedTank(tank)}
-                                        className={`py-2 px-3 rounded-lg text-sm font-bold transition-all ${
+                                        className={`py-2 px-2 md:px-3 rounded-lg text-xs md:text-sm font-bold transition-all ${
                                             selectedTank.id === tank.id
                                                 ? 'bg-gas-light text-gas-dark shadow-lg ring-2 ring-white/20'
                                                 : 'bg-white/10 text-gray-300 hover:bg-white/20'
@@ -103,9 +103,9 @@ const GasOrderSection = ({ onCheckAvailability }) => {
 
                         {/* Fill Level Input */}
                         <div>
-                            <div className="flex justify-between text-white font-medium mb-4">
+                            <div className="flex justify-between text-white font-medium mb-3 md:mb-4 text-sm md:text-base">
                                 <label>Aktueller Füllstand</label>
-                                <span className="text-2xl font-bold text-gas-light">{fillLevel}%</span>
+                                <span className="text-xl md:text-2xl font-bold text-gas-light">{fillLevel}%</span>
                             </div>
                             <input
                                 type="range"
@@ -120,15 +120,15 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                                 <span>0%</span>
                                 <span>85%</span>
                             </div>
-                            <div className="mt-4 p-3 rounded-lg bg-white/5 border border-white/10 text-right text-sm text-gray-300 flex justify-between items-center">
+                            <div className="mt-3 md:mt-4 p-3 rounded-lg bg-white/5 border border-white/10 text-right text-sm text-gray-300 flex justify-between items-center">
                                 <span>Liefermenge ca.:</span>
-                                <strong className="text-white text-lg">{calculatedLiters.toLocaleString()} Liter</strong>
+                                <strong className="text-white text-base md:text-lg">{calculatedLiters.toLocaleString()} Liter</strong>
                             </div>
                         </div>
 
                         {/* PLZ Input */}
                         <form onSubmit={handleCheck} className="relative">
-                            <label className="block text-white font-medium mb-2">Postleitzahl</label>
+                            <label className="block text-white font-medium mb-2 text-sm md:text-base">Postleitzahl</label>
                             <div className="relative">
                                 <input
                                     type="text"
@@ -142,7 +142,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                                         setPlz(e.target.value.replace(/[^0-9]/g, ''));
                                         if (plzError) setPlzError('');
                                     }}
-                                    className={`w-full bg-white/5 border border-white/10 text-white text-xl font-bold p-4 pl-12 rounded-xl outline-none focus:bg-white/10 focus:border-gas-light transition-all placeholder:text-gray-400/80 [&:-webkit-autofill]:transition-all [&:-webkit-autofill]:duration-[5000s] [&:-webkit-autofill]:[-webkit-text-fill-color:white] ${plzError ? 'border-red-400 focus:border-red-400 pr-12' : ''}`}
+                                    className={`w-full bg-white/5 border border-white/10 text-white text-lg md:text-xl font-bold p-3 md:p-4 pl-10 md:pl-12 rounded-xl outline-none focus:bg-white/10 focus:border-gas-light transition-all placeholder:text-gray-400/80 [&:-webkit-autofill]:transition-all [&:-webkit-autofill]:duration-[5000s] [&:-webkit-autofill]:[-webkit-text-fill-color:white] ${plzError ? 'border-red-400 focus:border-red-400 pr-12' : ''}`}
                                     placeholder="PLZ eingeben"
                                 />
                                 <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
