@@ -11,7 +11,8 @@ const Hero = ({
     backgroundImage = "/images/gas-order-hero.webp",
     badgeText,
     customButtons,
-    fullHeight = false
+    fullHeight = false,
+    children
 }) => {
 
     // Main Title logic
@@ -60,7 +61,7 @@ const Hero = ({
     return (
         <header className={`relative bg-white pt-48 pb-24 lg:pt-64 lg:pb-48 overflow-hidden ${fullHeight ? 'min-h-screen flex items-center' : ''}`}>
             <div className="absolute inset-0 z-0">
-                <div className="absolute inset-0 bg-gradient-to-r from-gray-900/40 to-gray-900/10 z-10"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 to-gray-900/40 z-10"></div>
                 <img
                     src={backgroundImage}
                     alt="Hero Background"
@@ -113,6 +114,11 @@ const Hero = ({
                             </div>
                         </motion.div>
                     </div>
+                    {children && (
+                         <div className="mt-8 lg:mt-0">
+                            {children}
+                        </div>
+                    )}
                 </div>
             </div>
         </header>
