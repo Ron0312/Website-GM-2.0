@@ -66,7 +66,7 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                 subtitle="Wir beliefern Privathaushalte und Gewerbe in Schleswig-Holstein, Hamburg, Niedersachsen und Mecklenburg-Vorpommern. Beste Preise, ohne Vertragsbindung."
                 backgroundImage="/images/gas-order-background.jpg"
                 badgeText="Der regionale Versorger"
-                customButtons={<React.Fragment />}
+                customButtons={null}
             >
                 {/* Right Column: The Glassmorphism Card */}
                 <motion.div

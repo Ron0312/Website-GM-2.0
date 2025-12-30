@@ -59,9 +59,9 @@ const Hero = ({
     };
 
     return (
-        <header className={`relative bg-white pt-48 pb-24 lg:pt-64 lg:pb-48 overflow-hidden ${fullHeight ? 'min-h-screen flex items-center' : ''}`}>
+        <header className={`relative bg-white pt-32 pb-20 lg:pt-64 lg:pb-48 overflow-hidden ${fullHeight ? 'min-h-screen flex items-center' : ''}`}>
             <div className="absolute inset-0 z-0">
-                <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 to-gray-900/40 z-10"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-900/50 z-10"></div>
                 <img
                     src={backgroundImage}
                     alt="Hero Background"
