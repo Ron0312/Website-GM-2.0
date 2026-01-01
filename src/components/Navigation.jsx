@@ -270,8 +270,10 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                                 ) : (
                                                     <button
                                                         onClick={() => setActiveSection(item.id)}
-                                                        className={`w-full text-left py-4 font-bold ${isActive(item.id) ? 'text-gas' : 'text-gray-800'}`}
+                                                        className={`w-full text-left py-4 font-bold flex items-center gap-2 ${isActive(item.id) ? 'text-gas' : 'text-gray-800'} ${item.highlight ? 'text-orange-500' : ''}`}
                                                     >
+                                                        {item.icon && <item.icon size={20} className={item.highlight ? 'text-orange-500' : 'text-gas'} />}
+                                                        {item.highlight && <Flame size={20} className="text-orange-500" />}
                                                         {item.label}
                                                     </button>
                                                 )}

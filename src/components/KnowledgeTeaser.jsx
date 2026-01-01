@@ -37,7 +37,7 @@ const KnowledgeTeaser = ({ setActiveSection }) => {
     };
 
     return (
-        <section className="py-24 bg-white">
+        <section className="py-24 bg-gray-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center max-w-3xl mx-auto mb-16">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gas-light/30 text-gas font-bold text-sm mb-4">

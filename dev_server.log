@@ -1,8 +1,0 @@
-
-> gasmoeller-vite@0.0.0 dev
-> node server.js
-
-{"level":"INFO","timestamp":"2026-01-01T14:26:12.418Z","message":"Loaded 25 knowledge articles."}
-{"level":"INFO","timestamp":"2026-01-01T14:26:12.429Z","message":"Starting server. Initial mode: DEVELOPMENT"}
-WebSocket server error: Port is already in use
-{"level":"INFO","timestamp":"2026-01-01T14:26:13.047Z","message":"Server started at http://localhost:5173"}
