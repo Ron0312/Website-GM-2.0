@@ -291,7 +291,16 @@ export const getSeoForPath = (path) => {
         ...defaultSeo,
         title: 'Flüssiggas Preise aktuell & Entwicklung | Günstig kaufen',
         description: 'Aktuelle Flüssiggas-Preise & Entwicklung 2025. Preisvergleich für 1000 Liter. Bestellen Sie Ihr Gas flexibel beim freien Händler. 24h Express.',
-        schema: [getOrganizationSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggas', url: '/gas' }])]
+        schema: [
+            getOrganizationSchema(),
+            getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggas', url: '/gas' }]),
+            getFAQSchema([
+                { question: "Wie lange dauert die Lieferung?", answer: "In der Regel liefern wir innerhalb von 5-10 Werktagen nach Bestellung. In dringenden Fällen bieten wir auch einen Express-Service an." },
+                { question: "Muss ich bei der Lieferung anwesend sein?", answer: "Ja, idealerweise sind Sie vor Ort, um den Lieferschein zu unterschreiben und den Füllstand gemeinsam zu prüfen. Nach Absprache ist auch eine kontaktlose Lieferung möglich." },
+                { question: "Gibt es versteckte Kosten?", answer: "Nein. Wir nennen Ihnen einen festen Literpreis. Es fallen keine zusätzlichen Gebühren für Miete, Zähler oder ähnliches an (außer evtl. TÜV-Gebühren bei Prüfungen)." },
+                { question: "Welche Qualität hat das Gas?", answer: "Wir liefern ausschließlich reines Propan nach DIN 51622 (mind. 95% Propan). Dies garantiert eine saubere Verbrennung und Frostsicherheit auch im tiefsten Winter." }
+            ])
+        ]
       };
     case 'rechner':
         return {
@@ -457,6 +466,31 @@ export const getSeoForPath = (path) => {
           'notfall': {
               title: 'Gastank leer? Notdienst & Füllstand prüfen | Hilfe',
               desc: 'Heizung ausgefallen? Gastank leer? Unser Notdienst hilft. Prüfen Sie den Füllstand und rufen Sie uns an. 24h Express.'
+          },
+          'preis-guide': {
+              title: 'Flüssiggas Preis-Guide: Wann kaufen? | Gasmöller',
+              desc: 'Der große Preis-Guide: Wann ist Flüssiggas am günstigsten? Saisonale Trends, Einflussfaktoren & Spartipps vom Experten.',
+              date: '2025-02-15'
+          },
+          'qualitaets-check': {
+              title: 'Flüssiggas Qualität: Propan DIN 51622 vs. Gemisch',
+              desc: 'Warum reines Propan (DIN 51622) besser ist als Butan-Gemische. Heizwert, Wintertauglichkeit und Qualitätsunterschiede erklärt.',
+              date: '2024-01-20'
+          },
+          'liefer-ablauf': {
+              title: 'Ablauf der Flüssiggas-Lieferung | Schritt für Schritt',
+              desc: 'Wie läuft die Gaslieferung ab? Terminierung, Anfahrt und Betankung. Alles was Sie wissen müssen, damit der Tankwagen kommt.',
+              date: '2024-03-10'
+          },
+          'tank-leer': {
+              title: 'Hilfe, Gastank leer! Was tun? | Notdienst & Tipps',
+              desc: 'Heizung kalt? Wenn der Flüssiggastank leer ist: Notdienst rufen, Anlage entlüften und wie Sie Leerstände in Zukunft vermeiden.',
+              date: '2024-11-05'
+          },
+          'sammelbestellung': {
+              title: 'Flüssiggas Sammelbestellung | Nachbarn & Kosten sparen',
+              desc: 'Gemeinsam tanken und sparen! Vorteile von Sammelbestellungen für Nachbarschaften. Günstigerer Literpreis & geteilte Anfahrt.',
+              date: '2024-09-15'
           },
           'preise': {
               title: 'Flüssiggaspreise aktuell & Prognose 2025 | Trend',

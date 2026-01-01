@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Check, ShieldCheck, MapPin, ArrowRight, Truck, Heart, Coins, Loader2, X } from 'lucide-react';
 import DeliveryMap from './DeliveryMap';
+import FAQItem from './FAQItem';
 import { getPlzError } from '../utils/validation';
 import Hero from './Hero';
 

@@ -87,7 +87,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
         <header
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${effectiveScrolled ? 'glass-nav shadow-sm py-3' : 'bg-transparent py-5'}`}
         >
-            <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <div className="max-w-screen-2xl mx-auto px-4 md:px-8 flex justify-between items-center">
                 {/* Logo */}
                 <div
                     className="flex items-center gap-2 cursor-pointer group"
@@ -109,7 +109,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                             <button
                                 onClick={() => !item.hasChildren && setActiveSection(item.id)}
                                 className={`
-                                    px-4 py-2 rounded-lg text-sm font-bold transition-all flex items-center gap-1 relative
+                                    px-4 py-2 rounded-lg text-sm font-bold transition-all flex items-center gap-1 relative whitespace-nowrap
                                     ${effectiveScrolled ? 'text-gray-700 hover:text-gas hover:bg-gas-light/30' : 'text-white/90 hover:text-white hover:bg-white/10'}
                                     ${isActive(item.id) ? (effectiveScrolled ? 'text-gas bg-gas-light/50' : 'text-white bg-white/20') : ''}
                                 `}
@@ -174,14 +174,14 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                 <div className="flex items-center gap-3">
                     <a
                         href="tel:04551897089"
-                        className={`hidden xl:flex items-center gap-2 font-bold px-4 py-2 rounded-lg transition-all ${effectiveScrolled ? 'text-gray-700 hover:bg-gray-100' : 'text-white hover:bg-white/10'}`}
+                        className={`hidden xl:flex items-center gap-2 font-bold px-4 py-2 rounded-lg transition-all whitespace-nowrap ${effectiveScrolled ? 'text-gray-700 hover:bg-gray-100' : 'text-white hover:bg-white/10'}`}
                     >
                         <Phone size={18} />
                         <span>04551 89 70 89</span>
                     </a>
                     <button
                         onClick={() => openWizard('tank')}
-                        className={`hidden md:flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold shadow-lg transition-all transform hover:scale-105 active:scale-95 ${effectiveScrolled ? 'bg-gas text-white hover:bg-gas-dark' : 'bg-white text-gas hover:bg-gray-50'}`}
+                        className={`hidden md:flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold shadow-lg transition-all transform hover:scale-105 active:scale-95 whitespace-nowrap ${effectiveScrolled ? 'bg-gas text-white hover:bg-gas-dark' : 'bg-white text-gas hover:bg-gray-50'}`}
                     >
                         <Settings size={18} />
                         <span>Anfrage</span>
