@@ -32,6 +32,7 @@ const WizardModal = React.lazy(() => import('./components/WizardModal'));
 const DeliveryMap = React.lazy(() => import('./components/DeliveryMap'));
 const DeliveryAreaOverview = React.lazy(() => import('./components/DeliveryAreaOverview'));
 const TankDetail = React.lazy(() => import('./components/TankDetail'));
+const KnowledgeTeaser = React.lazy(() => import('./components/KnowledgeTeaser'));
 
 const App = ({ path, context }) => {
     // Initial state based on path if provided (SSR), otherwise default to window location (CSR)
@@ -218,9 +219,37 @@ const App = ({ path, context }) => {
             case '404':
                 if (context) context.status = 404;
                 return <><div className="pt-20"></div><NotFound onGoHome={changeSection} /><ContactSection /></>;
-            case 'start': return <><Hero openWizard={openWizard} setActiveSection={changeSection} /><TrustBar /><div className="my-16 text-center"><div className="inline-block p-2 rounded-2xl bg-gradient-to-r from-gas-light to-white border border-gas/10 shadow-2xl animate-pulse hover:animate-none transition-all"><button onClick={() => openWizard('tank')} className="bg-gas text-white px-10 py-5 rounded-xl font-extrabold text-2xl shadow-lg hover:bg-gas-dark transition-all flex items-center gap-3"><Settings size={28}/> Zum Anfrage-Assistenten <ArrowRight size={28}/></button></div><p className="mt-4 text-gray-400 text-sm font-medium">Kostenlos & Unverbindlich</p></div><TankSection openWizard={openWizard} setActiveSection={changeSection} showTechnicalOverview={false} tankFilter={tankFilter} onFilterChange={setTankFilter} /><CommercialSection setActiveSection={changeSection} /><div className="max-w-7xl mx-auto px-4"><EnergyCalculator /></div><Suspense fallback={<div className="h-96 w-full bg-gray-100 animate-pulse rounded-xl" />}><DeliveryMap /></Suspense><FAQ /><ContactSection /></>;
+            case 'start': return <><Hero openWizard={openWizard} setActiveSection={changeSection} /><TrustBar />
+                <div className="my-16 max-w-4xl mx-auto px-4">
+                    <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-8">
+                         <div className="text-center mb-8">
+                             <h2 className="text-2xl font-bold text-gray-900 mb-2">Wie können wir helfen?</h2>
+                             <p className="text-gray-500">Wählen Sie Ihr Anliegen für den passenden Service.</p>
+                         </div>
+                         <div className="grid md:grid-cols-2 gap-6">
+                             <div className="group relative overflow-hidden rounded-2xl bg-gas-light/20 hover:bg-gas-light/40 transition-all border border-gas/10 hover:border-gas/30 cursor-pointer p-6 flex flex-col items-center text-center" onClick={() => openWizard('tank')}>
+                                 <div className="bg-white p-4 rounded-full shadow-md mb-4 group-hover:scale-110 transition-transform">
+                                     <Settings size={32} className="text-gas" />
+                                 </div>
+                                 <h3 className="text-xl font-bold text-gray-900 mb-2">Tank-Anfrage</h3>
+                                 <p className="text-sm text-gray-600 mb-4">Beratung & Angebot für neue Tanks oder Wechsel</p>
+                                 <span className="text-gas font-bold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">Starten <ArrowRight size={16}/></span>
+                             </div>
+
+                             <div className="group relative overflow-hidden rounded-2xl bg-orange-50 hover:bg-orange-100 transition-all border border-orange-100 hover:border-orange-200 cursor-pointer p-6 flex flex-col items-center text-center" onClick={() => openWizard('gas')}>
+                                 <div className="bg-white p-4 rounded-full shadow-md mb-4 group-hover:scale-110 transition-transform">
+                                     <span className="text-3xl">🔥</span>
+                                 </div>
+                                 <h3 className="text-xl font-bold text-gray-900 mb-2">Gas bestellen</h3>
+                                 <p className="text-sm text-gray-600 mb-4">Tagesaktuelle Preise & Liefertermin anfragen</p>
+                                 <span className="text-orange-600 font-bold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">Bestellen <ArrowRight size={16}/></span>
+                             </div>
+                         </div>
+                    </div>
+                </div>
+                <TankSection openWizard={openWizard} setActiveSection={changeSection} showTechnicalOverview={false} tankFilter={tankFilter} onFilterChange={setTankFilter} /><CommercialSection setActiveSection={changeSection} /><div className="max-w-7xl mx-auto px-4"><EnergyCalculator /></div><Suspense fallback={null}><KnowledgeTeaser setActiveSection={changeSection} /></Suspense><Suspense fallback={<div className="h-96 w-full bg-gray-100 animate-pulse rounded-xl" />}><DeliveryMap /></Suspense><FAQ /><ContactSection /></>;
             case 'tanks': return <><TankSection openWizard={openWizard} setActiveSection={changeSection} isPageTitle={true} tankFilter={tankFilter} onFilterChange={setTankFilter} /><ContactSection /></>;
-            case 'gas': return <><GasOrderSection onCheckAvailability={handleGasCheckAvailability} /><FAQ /><ContactSection /></>;
+            case 'gas': return <><GasOrderSection onCheckAvailability={handleGasCheckAvailability} setActiveSection={changeSection} /><FAQ /><ContactSection /></>;
             case 'pruefungen': return <><div className="pt-20"></div><InspectionSection openWizard={openWizard} /><ContactSection /></>;
             case 'rechner': return <><div className="pt-32 max-w-4xl mx-auto px-4"><EnergyCalculator defaultExpanded={true} /></div><ContactSection /></>;
             case 'gewerbe': return <><CommercialSection setActiveSection={changeSection} isPage={true} /><ContactSection /></>;

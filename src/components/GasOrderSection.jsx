@@ -5,7 +5,7 @@ import DeliveryMap from './DeliveryMap';
 import { getPlzError } from '../utils/validation';
 import Hero from './Hero';
 
-const GasOrderSection = ({ onCheckAvailability }) => {
+const GasOrderSection = ({ onCheckAvailability, setActiveSection }) => {
     // Tank sizes: 1.2t = ~2700L, 2.1t = ~4850L, 2.9t = ~6400L
     const tankSizes = [
         { id: '1.2t', label: '1,2 t', volume: 2700 },
@@ -123,6 +123,15 @@ const GasOrderSection = ({ onCheckAvailability }) => {
                             <div className="mt-3 md:mt-4 p-3 rounded-lg bg-white/5 border border-white/10 text-right text-sm text-gray-300 flex justify-between items-center">
                                 <span>Liefermenge ca.:</span>
                                 <strong className="text-white text-base md:text-lg">{calculatedLiters.toLocaleString()} Liter</strong>
+                            </div>
+
+                            <div className="mt-2 text-right">
+                                <button
+                                    onClick={() => setActiveSection && setActiveSection('wissen/preis-guide')}
+                                    className="text-xs text-blue-200 hover:text-white underline decoration-blue-200/50 hover:decoration-white transition-all text-left"
+                                >
+                                    Wann ist der beste Kaufzeitpunkt?
+                                </button>
                             </div>
                         </div>
 

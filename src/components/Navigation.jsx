@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Menu, X, Phone, User, Wrench, FileText, ChevronDown, ChevronRight, Settings } from 'lucide-react';
+import { Menu, X, Phone, User, Wrench, FileText, ChevronDown, ChevronRight, Settings, Flame, BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobileMenuOpen, openWizard, setTankFilter }) => {
@@ -62,7 +62,8 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                 { id: 'tanks/2-9t-halboberirdisch', label: '2,9 t Halboberirdisch' }
             ]
         },
-        { id: 'gas', label: 'Flüssiggas bestellen' },
+        { id: 'gas', label: 'Flüssiggas bestellen', highlight: true },
+        { id: 'wissen', label: 'Ratgeber', icon: BookOpen },
         { id: 'gewerbe', label: 'Gewerbe' },
         {
             id: 'service',
@@ -70,7 +71,6 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
             hasChildren: true,
             children: [
                 { id: 'pruefungen', label: 'Prüfungen & Wartung', icon: Wrench },
-                { id: 'wissen', label: 'Wissen & Ratgeber', icon: FileText }
             ]
         },
         { id: 'ueber-uns', label: 'Über Uns' },
@@ -117,6 +117,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                 aria-expanded={item.hasChildren ? "false" : undefined}
                                 aria-haspopup={item.hasChildren ? "true" : undefined}
                             >
+                                {item.highlight && <Flame size={16} className={`mr-1 ${effectiveScrolled ? 'text-orange-500' : 'text-orange-400'}`} />}
                                 {item.label}
                                 {item.hasChildren && <ChevronDown size={14} className="mt-0.5 opacity-70 group-hover:rotate-180 transition-transform" />}
 
@@ -269,8 +270,10 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                                 ) : (
                                                     <button
                                                         onClick={() => setActiveSection(item.id)}
-                                                        className={`w-full text-left py-4 font-bold ${isActive(item.id) ? 'text-gas' : 'text-gray-800'}`}
+                                                        className={`w-full text-left py-4 font-bold flex items-center gap-2 ${isActive(item.id) ? 'text-gas' : 'text-gray-800'} ${item.highlight ? 'text-orange-500' : ''}`}
                                                     >
+                                                        {item.icon && <item.icon size={20} className={item.highlight ? 'text-orange-500' : 'text-gas'} />}
+                                                        {item.highlight && <Flame size={20} className="text-orange-500" />}
                                                         {item.label}
                                                     </button>
                                                 )}

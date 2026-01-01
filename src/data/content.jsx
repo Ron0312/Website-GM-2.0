@@ -1,7 +1,8 @@
 import React from 'react';
 import {
     Settings, CheckCircle, Factory, Home, Wrench, BookOpen,
-    Flame, AlertTriangle, XCircle, FileText, Download, ThermometerSun, Snowflake
+    Flame, AlertTriangle, XCircle, FileText, Download, ThermometerSun, Snowflake,
+    TrendingUp, Truck, Users, AlertCircle, ShieldCheck
 } from 'lucide-react';
 import SourceBadge from '../components/SourceBadge';
 import SafetyChecklist from '../components/SafetyChecklist';
@@ -30,6 +31,149 @@ const ComparisonTable = ({ headers, rows }) => (
 
 export const CONTENT = {
     knowledge: [
+        {
+            id: 'gas-bestellung',
+            title: 'Gasbestellung & Preise',
+            icon: TrendingUp,
+            articles: [
+                {
+                    id: 'preis-guide',
+                    title: 'Der große Preis-Guide',
+                    description: 'Wann ist Flüssiggas am günstigsten? Ein Insider-Bericht.',
+                    content: (
+                        <div>
+                            <p className="lead text-lg text-gray-700 mb-6">Jeder Hausbesitzer fragt sich: Soll ich jetzt tanken oder warten? Wir erklären die Mechanismen des Flüssiggasmarktes.</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Saisonale Schwankungen</h4>
+                            <p className="mb-4">Traditionell sinkt die Nachfrage nach Heizenergie im Sommer. In der Vergangenheit war dies oft der günstigste Kaufzeitpunkt. Doch globale Märkte sind komplexer geworden.</p>
+
+                            <div className="bg-blue-50 border-l-4 border-gas p-4 my-6">
+                                <p className="font-bold text-gas-dark">Unser Tipp:</p>
+                                <p>Antizyklisch handeln! Wer seinen Tank im Frühsommer (Mai/Juni) füllt, umgeht oft die Preisspitzen im Herbst.</p>
+                            </div>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Einflussfaktoren</h4>
+                            <ul className="space-y-3 mb-6">
+                                <li className="flex items-start"><TrendingUp size={18} className="text-gray-400 mr-2 mt-1"/> <strong>Rohölpreis:</strong> Flüssiggas ist ein Raffinerieprodukt. Steigt Öl, steigt meist auch Gas.</li>
+                                <li className="flex items-start"><TrendingUp size={18} className="text-gray-400 mr-2 mt-1"/> <strong>Dollar-Kurs:</strong> Energie wird weltweit in Dollar gehandelt. Ein schwacher Euro macht Gas teurer.</li>
+                            </ul>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Warum Tagespreise?</h4>
+                            <p>Wir arbeiten mit Tagespreisen, um Preissenkungen sofort an Sie weiterzugeben. Statt starrer Listenpreise erhalten Sie bei uns immer das aktuelle Marktangebot.</p>
+                        </div>
+                    )
+                },
+                {
+                    id: 'qualitaets-check',
+                    title: 'Qualitäts-Check',
+                    description: 'Gibt es Unterschiede beim Flüssiggas? Propan vs. Gemisch.',
+                    content: (
+                        <div>
+                            <p>Nicht jedes Gas ist gleich. Für Heizungsanlagen in Deutschland ist die Qualität entscheidend für Langlebigkeit und Effizienz.</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Die Norm: DIN 51622</h4>
+                            <p className="mb-4">In Deutschland darf zu Heizzwecken nur Flüssiggas nach <strong>DIN 51622</strong> verwendet werden. Diese Norm schreibt vor, dass es sich um mindestens 95% reines Propan handeln muss.</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Warum kein Butan?</h4>
+                            <ComparisonTable
+                                headers={['Eigenschaft', 'Propan', 'Butan']}
+                                rows={[
+                                    ['Siedepunkt (Verdampfung)', '-42 °C', '-0,5 °C'],
+                                    ['Nutzung im Winter', 'Problemlos (Außentank)', 'Unmöglich (bleibt flüssig)'],
+                                    ['Heizwert', '12,87 kWh/kg', '12,69 kWh/kg']
+                                ]}
+                            />
+
+                            <div className="bg-green-50 p-4 rounded-xl border border-green-100 flex items-start gap-3 mt-6">
+                                <ShieldCheck className="text-green-600 flex-shrink-0" size={24} />
+                                <div>
+                                    <span className="font-bold text-green-800 block">Gasmöller Qualitäts-Versprechen</span>
+                                    <span className="text-green-700 text-sm">Wir liefern ausschließlich reines Propan nach DIN 51622. Keine Import-Gemische, keine Kompromisse. Das schont Ihren Brenner und sichert die Wärme auch bei -20 Grad.</span>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                },
+                {
+                    id: 'liefer-ablauf',
+                    title: 'Ablauf der Lieferung',
+                    description: 'Wie der Tankwagen zu Ihnen kommt und worauf Sie achten müssen.',
+                    content: (
+                        <div>
+                            <p>Die Gaslieferung ist unkompliziert. Unsere Fahrer sind Profis und kennen die örtlichen Gegebenheiten.</p>
+
+                            <div className="space-y-6 my-8">
+                                <div className="flex gap-4">
+                                    <div className="flex-shrink-0 w-10 h-10 bg-gas text-white font-bold rounded-full flex items-center justify-center">1</div>
+                                    <div>
+                                        <h5 className="font-bold text-lg mb-1">Terminierung</h5>
+                                        <p className="text-gray-600">Nach Ihrer Bestellung melden wir uns telefonisch oder per Mail mit einem Liefertermin. Meist innerhalb von 5-10 Werktagen.</p>
+                                    </div>
+                                </div>
+                                <div className="flex gap-4">
+                                    <div className="flex-shrink-0 w-10 h-10 bg-gas text-white font-bold rounded-full flex items-center justify-center">2</div>
+                                    <div>
+                                        <h5 className="font-bold text-lg mb-1">Die Ankunft</h5>
+                                        <p className="text-gray-600">Der Tankwagen parkt an der Straße oder in der Einfahrt. Unsere Schläuche sind ca. 40-50 Meter lang. Bitte halten Sie den Zugang zum Tank frei.</p>
+                                    </div>
+                                </div>
+                                <div className="flex gap-4">
+                                    <div className="flex-shrink-0 w-10 h-10 bg-gas text-white font-bold rounded-full flex items-center justify-center">3</div>
+                                    <div>
+                                        <h5 className="font-bold text-lg mb-1">Betankung & Sicherheit</h5>
+                                        <p className="text-gray-600">Der Fahrer schließt den Füllschlauch und die Gaspendelleitung an. Der Vorgang dauert ca. 20-30 Minuten. Währenddessen prüft er den Tank auf offensichtliche Mängel (Sichtprüfung).</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h4 className="text-xl font-bold text-gas mb-2">Muss ich zu Hause sein?</h4>
+                            <p>Idealerweise ja, um den Füllstandsanzeiger gemeinsam zu prüfen und den Lieferschein zu unterschreiben. Wenn der Tank frei zugänglich ist, können wir nach Absprache auch in Ihrer Abwesenheit liefern.</p>
+                        </div>
+                    )
+                },
+                {
+                    id: 'tank-leer',
+                    title: 'Hilfe, Tank leer!',
+                    description: 'Was tun, wenn die Heizung kalt bleibt?',
+                    content: (
+                        <div>
+                            <div className="bg-red-50 border border-red-200 rounded-xl p-6 text-center mb-8">
+                                <AlertCircle size={48} className="text-red-500 mx-auto mb-4" />
+                                <h3 className="text-2xl font-bold text-red-700 mb-2">Notdienst nötig?</h3>
+                                <p className="text-red-600 mb-4">Wenn der Tank komplett leer ist, muss die Anlage ggf. entlüftet werden.</p>
+                                <a href="tel:04551897089" className="inline-block bg-red-600 text-white font-bold py-3 px-8 rounded-full hover:bg-red-700 transition-colors">
+                                    Jetzt 24h-Express anrufen
+                                </a>
+                            </div>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Wie verhindere ich das?</h4>
+                            <p className="mb-4">Ein leerer Tank ist ärgerlich und teurer (Notdienst-Zuschlag). Prüfen Sie regelmäßig den Füllstandsanzeiger am Tank (Prozent-Anzeige unter der Klappe).</p>
+                            <p><strong>Faustregel:</strong> Bestellen Sie spätestens bei <strong>20-25% Restinhalt</strong>. So haben Sie genug Puffer für ca. 3-4 Wochen Lieferzeit im tiefsten Winter.</p>
+                        </div>
+                    )
+                },
+                {
+                    id: 'sammelbestellung',
+                    title: 'Sammelbestellungen',
+                    description: 'Gemeinsam bestellen und Geld sparen.',
+                    content: (
+                        <div>
+                            <p>Sie haben Nachbarn, die ebenfalls mit Flüssiggas heizen? Perfekt! Eine Sammelbestellung lohnt sich für alle.</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Ihre Vorteile</h4>
+                            <ul className="space-y-3 mb-6">
+                                <li className="flex items-center gap-2 bg-green-50 p-3 rounded-lg"><CheckCircle className="text-green-600"/> <strong>Günstigerer Literpreis:</strong> Durch die höhere Gesamtabnahmemenge sinkt der Preis pro Liter.</li>
+                                <li className="flex items-center gap-2 bg-green-50 p-3 rounded-lg"><CheckCircle className="text-green-600"/> <strong>Geteilte Anfahrt:</strong> Wir sparen Wegstrecke, Sie sparen Kosten.</li>
+                                <li className="flex items-center gap-2 bg-green-50 p-3 rounded-lg"><CheckCircle className="text-green-600"/> <strong>Umweltfreundlich:</strong> Weniger LKW-Kilometer bedeuten weniger CO2.</li>
+                            </ul>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">So funktioniert's</h4>
+                            <p>Sprechen Sie Ihre Nachbarn an. Einer übernimmt die Koordination und ruft uns an. Wir erstellen ein Angebot für die Gesamtmenge, aber <strong>jeder erhält seine eigene Rechnung</strong>. Sie müssen also kein Geld von den Nachbarn einsammeln!</p>
+                        </div>
+                    )
+                }
+            ]
+        },
         {
             id: 'tank-technik',
             title: 'Flüssiggastank & Technik',
