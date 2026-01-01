@@ -1,63 +1,112 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
+    ViteImageOptimizer({
+      test: /\.(jpe?g|png|tiff|webp|svg|avif)$/i,
+      includePublic: true,
+      logStats: true,
+      ansiColors: true,
+      svg: {
+        multipass: true,
+        plugins: [
+          {
+            name: 'preset-default',
+            params: {
+              overrides: {
+                cleanupNumericValues: false,
+                removeViewBox: false,
+              },
+            },
+          },
+          'sortAttrs',
+          {
+            name: 'addAttributesToSVGElement',
+            params: {
+              attributes: [{ xmlns: 'http://www.w3.org/2000/svg' }],
+            },
+          },
+        ],
+      },
+      png: {
+        quality: 80,
+      },
+      jpeg: {
+        quality: 75,
+      },
+      jpg: {
+        quality: 75,
+      },
+      tiff: {
+        quality: 80,
+      },
+      webp: {
+        lossless: true,
+      },
+      avif: {
+        quality: 70, // Use lossy compression for AVIF to ensure smaller file sizes
+        chromaSubsampling: '4:2:0' // Standard for web images
+      },
+      cache: false,
+    }),
     VitePWA({
       registerType: 'autoUpdate',
-      injectRegister: 'script-defer',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'logos/*.webp', 'images/*.webp'],
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       manifest: {
-        name: 'gasmöller',
-        short_name: 'gasmöller',
-        description: 'Ihr Partner für Flüssiggas im Norden',
-        theme_color: '#005b9f',
-        background_color: '#ffffff',
-        display: 'standalone',
-        orientation: 'portrait',
+        name: 'Gasmöller',
+        short_name: 'Gasmöller',
+        description: 'Ihr zuverlässiger Partner für Flüssiggas und Tanks.',
+        theme_color: '#ffffff',
         icons: [
           {
-            src: 'logos/Icon-01.webp',
+            src: 'pwa-192x192.png',
             sizes: '192x192',
-            type: 'image/webp',
-            purpose: 'any maskable'
+            type: 'image/png'
           },
           {
-            src: 'logos/Icon-01.webp',
+            src: 'pwa-512x512.png',
             sizes: '512x512',
-            type: 'image/webp',
-            purpose: 'any maskable'
+            type: 'image/png'
           }
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff,woff2}'],
-        // Explicitly exclude sitemap.xml and robots.txt from navigation fallback
-        // This ensures the SW does not serve index.html for these static files
-        navigateFallbackDenylist: [/^\/sitemap\.xml$/, /^\/robots\.txt$/],
+        navigateFallback: null,
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,avif}'],
         runtimeCaching: [
-          {
-            urlPattern: /^https:\/\/api\.web3forms\.com\/.*/i,
-            handler: 'NetworkOnly'
-          },
-          {
-            // Cache Google Fonts if any (though we use local fonts mostly)
-            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-            handler: 'StaleWhileRevalidate',
-            options: {
-              cacheName: 'google-fonts-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // <== 365 days
-              },
-              cacheableResponse: {
-                statuses: [0, 200]
-              }
+            {
+                urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+                handler: 'CacheFirst',
+                options: {
+                  cacheName: 'google-fonts-cache',
+                  expiration: {
+                    maxEntries: 10,
+                    maxAgeSeconds: 60 * 60 * 24 * 365
+                  },
+                  cacheableResponse: {
+                    statuses: [0, 200]
+                  }
+                }
+            },
+            {
+                urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+                handler: 'CacheFirst',
+                options: {
+                  cacheName: 'gstatic-fonts-cache',
+                  expiration: {
+                    maxEntries: 10,
+                    maxAgeSeconds: 60 * 60 * 24 * 365
+                  },
+                  cacheableResponse: {
+                    statuses: [0, 200]
+                  }
+                }
             }
-          }
         ]
       }
     })

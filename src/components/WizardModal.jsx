@@ -337,7 +337,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                     </div>
                 </div>
 
-                <div className="relative pt-6 pb-2 px-6">
+                <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm pt-6 pb-2 px-6 border-b border-transparent md:static md:bg-transparent md:border-none">
                     <div className="h-1 bg-gray-100 w-full rounded-full overflow-hidden">
                         <motion.div className="h-full bg-gas" initial={{ width: 0 }} animate={{ width: `${progress}%` }} />
                     </div>

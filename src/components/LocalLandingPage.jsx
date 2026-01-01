@@ -101,6 +101,12 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
         })
         .slice(0, 6);
 
+    // Dynamic Content Generation based on City
+    const managers = ['Thomas Müller', 'Hans Christian Müller', 'Anja Müller'];
+    const regionalManager = managers[seed % managers.length];
+    const distanceKm = Math.floor((seed % 60) + 15); // Deterministic distance between 15 and 75 km
+    const deliveryDays = ['Montag & Donnerstag', 'Dienstag & Freitag', 'Mittwoch & Freitag'][seed % 3];
+
     return (
         <div className="min-h-screen bg-white">
             <Hero
@@ -167,6 +173,26 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
                             </button>
                         </div>
                     </div>
+
+                    {/* Regional Info Block */}
+                    <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm text-center">
+                            <div className="text-gray-400 text-sm font-bold uppercase tracking-wider mb-2">Entfernung zum Lager</div>
+                            <div className="text-3xl font-extrabold text-gas-dark mb-1">ca. {distanceKm} km</div>
+                            <p className="text-sm text-gray-500">Schnelle Lieferung nach {city.name}</p>
+                        </div>
+                        <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm text-center">
+                            <div className="text-gray-400 text-sm font-bold uppercase tracking-wider mb-2">Liefertage</div>
+                            <div className="text-3xl font-extrabold text-gas-dark mb-1">{deliveryDays}</div>
+                            <p className="text-sm text-gray-500">Hauptrouten in {city.state}</p>
+                        </div>
+                         <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm text-center">
+                            <div className="text-gray-400 text-sm font-bold uppercase tracking-wider mb-2">Ihr Ansprechpartner</div>
+                            <div className="text-3xl font-extrabold text-gas-dark mb-1">{regionalManager}</div>
+                            <p className="text-sm text-gray-500">Experte für die Region {city.zip}</p>
+                        </div>
+                    </div>
+
                 </div>
             </section>
 
