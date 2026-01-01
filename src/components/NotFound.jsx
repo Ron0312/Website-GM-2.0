@@ -1,8 +1,19 @@
-import React from 'react';
-import { Home, ArrowRight, Truck, AlertTriangle } from 'lucide-react';
+import React, { useState } from 'react';
+import { Home, ArrowRight, Truck, AlertTriangle, Search, BookOpen } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const NotFound = ({ onGoHome }) => {
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if (searchQuery.trim()) {
+            // Redirect to knowledge base with search query (if supported) or just open knowledge base
+            // Since we don't have a real search page yet, we send them to /wissen
+            window.location.href = `/wissen?q=${encodeURIComponent(searchQuery)}`;
+        }
+    };
+
     return (
         <div className="min-h-[70vh] flex flex-col items-center justify-center p-4 text-center bg-gray-50 overflow-hidden relative">
 
@@ -49,10 +60,34 @@ const NotFound = ({ onGoHome }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3 }}
-                className="text-gray-600 mb-10 max-w-md text-lg leading-relaxed"
+                className="text-gray-600 mb-8 max-w-md text-lg leading-relaxed"
             >
-                Diese Seite scheint es nicht zu geben. Vielleicht wurde sie verschoben oder Sie haben sich vertippt. Keine Sorge, wir bringen Sie zurück auf die Straße.
+                Diese Seite scheint es nicht zu geben. Suchen Sie nach etwas Bestimmtem?
             </motion.p>
+
+            {/* Search Bar */}
+            <motion.form
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35 }}
+                onSubmit={handleSearch}
+                className="w-full max-w-md mb-8 relative"
+            >
+                <input
+                    type="text"
+                    placeholder="Suchbegriff eingeben..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full px-6 py-4 rounded-xl border-2 border-gray-200 focus:border-gas focus:ring-2 focus:ring-gas/20 outline-none transition-all pr-12 text-gray-700 font-medium"
+                />
+                <button
+                    type="submit"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-gas text-white rounded-lg hover:bg-gas-dark transition-colors"
+                    aria-label="Suchen"
+                >
+                    <Search size={20} />
+                </button>
+            </motion.form>
 
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -65,24 +100,25 @@ const NotFound = ({ onGoHome }) => {
                     className="flex-1 bg-gas text-white px-6 py-4 rounded-xl font-bold shadow-lg hover:bg-gas-dark hover:shadow-xl transition-all flex items-center justify-center gap-2 group"
                 >
                     <Home size={20} />
-                    Zur Startseite
-                    <ArrowRight size={18} className="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all" />
+                    Startseite
                 </button>
                 <a
-                    href="mailto:kontakt@gasmoeller.de?subject=Fehler%20404"
-                    className="flex-1 bg-white text-gray-700 border-2 border-gray-100 px-6 py-4 rounded-xl font-bold hover:border-gray-300 hover:bg-gray-50 transition-all flex items-center justify-center gap-2"
+                    href="/wissen"
+                    className="flex-1 bg-white text-gray-700 border-2 border-gray-100 px-6 py-4 rounded-xl font-bold hover:border-gas/20 hover:bg-gas-light/10 transition-all flex items-center justify-center gap-2"
                 >
-                    Fehler melden
+                    <BookOpen size={20} className="text-gas"/>
+                    Ratgeber
                 </a>
             </motion.div>
 
-            <div className="mt-12 flex flex-wrap justify-center gap-3 text-sm text-gray-500">
-                <span>Beliebte Ziele:</span>
-                <button onClick={() => onGoHome('tanks')} className="text-gas font-semibold hover:underline">Tanks kaufen</button>
-                <span>•</span>
-                <button onClick={() => onGoHome('gas')} className="text-gas font-semibold hover:underline">Gas bestellen</button>
-                <span>•</span>
-                <button onClick={() => onGoHome('kontakt')} className="text-gas font-semibold hover:underline">Kontakt</button>
+            <div className="mt-12">
+                <p className="text-sm text-gray-500 mb-3 font-medium">Oder direkt zu:</p>
+                <div className="flex flex-wrap justify-center gap-3 text-sm text-gray-600">
+                    <button onClick={() => onGoHome('tanks')} className="bg-white border border-gray-200 px-3 py-1.5 rounded-lg hover:border-gas hover:text-gas transition-all">Tanks kaufen</button>
+                    <button onClick={() => onGoHome('gas')} className="bg-white border border-gray-200 px-3 py-1.5 rounded-lg hover:border-gas hover:text-gas transition-all">Gas bestellen</button>
+                    <button onClick={() => onGoHome('kontakt')} className="bg-white border border-gray-200 px-3 py-1.5 rounded-lg hover:border-gas hover:text-gas transition-all">Kontakt</button>
+                    <a href="/tanks/1-2t-oberirdisch" className="bg-white border border-gray-200 px-3 py-1.5 rounded-lg hover:border-gas hover:text-gas transition-all">1.2t Tank</a>
+                </div>
             </div>
         </div>
     );

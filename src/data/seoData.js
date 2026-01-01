@@ -249,17 +249,23 @@ export const getSchemaForPath = (path) => {
 };
 
 export const getSeoForPath = (path) => {
+  // Strip query parameters for canonical URL and matching
+  let cleanPathUrl = path;
+  if (cleanPathUrl && cleanPathUrl.includes('?')) {
+      cleanPathUrl = cleanPathUrl.split('?')[0];
+  }
+
   const defaultSeo = {
     title: 'Gas-Service Möller | Ihr Partner für Flüssiggas & Tanks im Norden',
     description: 'Flüssiggas kaufen, Gastanks mietfrei erwerben & erstklassiger Service. Wir beliefern Norddeutschland zuverlässig & günstig. Jetzt Angebot anfordern!',
     image: DEFAULT_IMAGE,
     type: 'website',
-    url: `${BASE_URL}${path.startsWith('/') ? path : '/' + path}`,
+    url: `${BASE_URL}${cleanPathUrl && cleanPathUrl.startsWith('/') ? cleanPathUrl : '/' + (cleanPathUrl || '')}`,
     schema: [getOrganizationSchema(), getWebSiteSchema()]
   };
 
   // Normalize path: remove leading slash if present, unless it is just "/"
-  const cleanPath = path && path.startsWith('/') && path.length > 1 ? path.substring(1) : path || 'start';
+  const cleanPath = cleanPathUrl && cleanPathUrl.startsWith('/') && cleanPathUrl.length > 1 ? cleanPathUrl.substring(1) : cleanPathUrl || 'start';
 
   // 1. Static Routes
   switch (cleanPath) {
@@ -479,7 +485,7 @@ export const getSeoForPath = (path) => {
           },
           'liefer-ablauf': {
               title: 'Ablauf der Flüssiggas-Lieferung | Schritt für Schritt',
-              desc: 'Wie läuft die Gaslieferung ab? Terminierung, Anfahrt und Betankung. Alles was Sie wissen müssen, damit der Tankwagen kommt.',
+              desc: 'Wie läuft die Gaslieferung ab? Terminierung, Anfahrt und Betankung. Alles aus einer Hand.',
               date: '2024-03-10'
           },
           'tank-leer': {

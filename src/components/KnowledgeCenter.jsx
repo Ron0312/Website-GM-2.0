@@ -13,6 +13,85 @@ const slugify = (text) => {
         .replace(/-+$/, '');
 };
 
+// Component to automate internal linking in text
+const LinkInjector = ({ children, setActiveSection }) => {
+    const handleLinkClick = (path, e) => {
+        e.preventDefault();
+        if (setActiveSection) {
+            setActiveSection(path);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
+
+    const processNode = (node) => {
+        if (typeof node === 'string') {
+            // Regex for keywords - defined here for simplicity, could be moved to config
+            // We use simple replacements for common terms
+            // Note: This is a basic implementation. Complex HTML/React tree traversal is tricky.
+            // We only replace exact matches or simple variations.
+
+            const keywords = [
+                { pattern: /1,2\s*t(?:onnen)?\s*(?:Tank)?/gi, text: '1,2 t Tank', link: 'tanks/1-2t-oberirdisch' },
+                { pattern: /2,1\s*t(?:onnen)?\s*(?:Tank)?/gi, text: '2,1 t Tank', link: 'tanks/2-1t-oberirdisch' },
+                { pattern: /2,9\s*t(?:onnen)?\s*(?:Tank)?/gi, text: '2,9 t Tank', link: 'tanks/2-9t-oberirdisch' },
+                { pattern: /Flüssiggas bestellen/gi, text: 'Flüssiggas bestellen', link: 'gas' },
+                { pattern: /Gas bestellen/gi, text: 'Gas bestellen', link: 'gas' },
+                { pattern: /Gastank kaufen/gi, text: 'Gastank kaufen', link: 'tanks' },
+                { pattern: /Kontakt aufnehmen/gi, text: 'Kontakt aufnehmen', link: 'kontakt' },
+                { pattern: /Äußere Prüfung/g, text: 'Äußere Prüfung', link: 'pruefungen' },
+                { pattern: /Innere Prüfung/g, text: 'Innere Prüfung', link: 'pruefungen' }
+            ];
+
+            // Use split/map to replace
+            let parts = [node];
+
+            keywords.forEach(({ pattern, text, link }) => {
+                const newParts = [];
+                parts.forEach(part => {
+                    if (typeof part !== 'string') {
+                        newParts.push(part);
+                        return;
+                    }
+                    const split = part.split(pattern);
+                    if (split.length > 1) {
+                         split.forEach((s, i) => {
+                             newParts.push(s);
+                             if (i < split.length - 1) {
+                                 newParts.push(
+                                     <a key={`${link}-${i}`} href={`/${link}`} onClick={(e) => handleLinkClick(link, e)} className="text-gas font-bold underline hover:text-gas-dark decoration-gas/30 hover:decoration-gas">
+                                         {text}
+                                     </a>
+                                 );
+                             }
+                         });
+                    } else {
+                        newParts.push(part);
+                    }
+                });
+                parts = newParts;
+            });
+
+            return parts;
+        }
+
+        if (React.isValidElement(node)) {
+            // Prevent nested anchors: if the current node is an anchor, do not process its children for links
+            if (node.type === 'a') {
+                return node;
+            }
+            // Recursively process children
+            return React.cloneElement(node, {
+                ...node.props,
+                children: React.Children.map(node.props.children, child => processNode(child))
+            });
+        }
+
+        return node;
+    };
+
+    return <>{React.Children.map(children, child => processNode(child))}</>;
+};
+
 const KnowledgeCenter = ({ setActiveSection, slug }) => {
     // Find initial state based on slug if provided
     const findArticleBySlug = (slug) => {
@@ -126,9 +205,9 @@ const KnowledgeCenter = ({ setActiveSection, slug }) => {
                             <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">{currentArticle.title}</h2>
                             <p className="text-xl text-gray-500 mb-8 pb-8 border-b border-gray-100">{currentArticle.description}</p>
 
-                            <div>
+                            <LinkInjector setActiveSection={setActiveSection}>
                                 {currentArticle.content}
-                            </div>
+                            </LinkInjector>
 
                             {currentArticle.id === 'miete-kauf' && <div className="mt-12"><RentVsBuyGraphic /></div>}
                         </motion.div>
