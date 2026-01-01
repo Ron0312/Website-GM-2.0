@@ -32,6 +32,7 @@ const WizardModal = React.lazy(() => import('./components/WizardModal'));
 const DeliveryMap = React.lazy(() => import('./components/DeliveryMap'));
 const DeliveryAreaOverview = React.lazy(() => import('./components/DeliveryAreaOverview'));
 const TankDetail = React.lazy(() => import('./components/TankDetail'));
+const KnowledgeTeaser = React.lazy(() => import('./components/KnowledgeTeaser'));
 
 const App = ({ path, context }) => {
     // Initial state based on path if provided (SSR), otherwise default to window location (CSR)
@@ -246,9 +247,9 @@ const App = ({ path, context }) => {
                          </div>
                     </div>
                 </div>
-                <TankSection openWizard={openWizard} setActiveSection={changeSection} showTechnicalOverview={false} tankFilter={tankFilter} onFilterChange={setTankFilter} /><CommercialSection setActiveSection={changeSection} /><div className="max-w-7xl mx-auto px-4"><EnergyCalculator /></div><Suspense fallback={<div className="h-96 w-full bg-gray-100 animate-pulse rounded-xl" />}><DeliveryMap /></Suspense><FAQ /><ContactSection /></>;
+                <TankSection openWizard={openWizard} setActiveSection={changeSection} showTechnicalOverview={false} tankFilter={tankFilter} onFilterChange={setTankFilter} /><CommercialSection setActiveSection={changeSection} /><div className="max-w-7xl mx-auto px-4"><EnergyCalculator /></div><Suspense fallback={null}><KnowledgeTeaser setActiveSection={changeSection} /></Suspense><Suspense fallback={<div className="h-96 w-full bg-gray-100 animate-pulse rounded-xl" />}><DeliveryMap /></Suspense><FAQ /><ContactSection /></>;
             case 'tanks': return <><TankSection openWizard={openWizard} setActiveSection={changeSection} isPageTitle={true} tankFilter={tankFilter} onFilterChange={setTankFilter} /><ContactSection /></>;
-            case 'gas': return <><GasOrderSection onCheckAvailability={handleGasCheckAvailability} /><FAQ /><ContactSection /></>;
+            case 'gas': return <><GasOrderSection onCheckAvailability={handleGasCheckAvailability} setActiveSection={changeSection} /><FAQ /><ContactSection /></>;
             case 'pruefungen': return <><div className="pt-20"></div><InspectionSection openWizard={openWizard} /><ContactSection /></>;
             case 'rechner': return <><div className="pt-32 max-w-4xl mx-auto px-4"><EnergyCalculator defaultExpanded={true} /></div><ContactSection /></>;
             case 'gewerbe': return <><CommercialSection setActiveSection={changeSection} isPage={true} /><ContactSection /></>;

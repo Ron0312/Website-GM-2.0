@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Menu, X, Phone, User, Wrench, FileText, ChevronDown, ChevronRight, Settings, Flame } from 'lucide-react';
+import { Menu, X, Phone, User, Wrench, FileText, ChevronDown, ChevronRight, Settings, Flame, BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobileMenuOpen, openWizard, setTankFilter }) => {
@@ -63,6 +63,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
             ]
         },
         { id: 'gas', label: 'Flüssiggas bestellen', highlight: true },
+        { id: 'wissen', label: 'Ratgeber', icon: BookOpen },
         { id: 'gewerbe', label: 'Gewerbe' },
         {
             id: 'service',
@@ -70,7 +71,6 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
             hasChildren: true,
             children: [
                 { id: 'pruefungen', label: 'Prüfungen & Wartung', icon: Wrench },
-                { id: 'wissen', label: 'Wissen & Ratgeber', icon: FileText }
             ]
         },
         { id: 'ueber-uns', label: 'Über Uns' },
