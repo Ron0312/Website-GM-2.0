@@ -102,10 +102,10 @@ const Hero = ({
                                             Tank kaufen
                                         </motion.button>
                                         <motion.button
-                                            whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
+                                            whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
                                             onClick={() => openWizard ? openWizard('gas') : setActiveSection('gas')}
-                                            className="px-8 py-4 bg-transparent border-2 border-white text-white hover:bg-white hover:text-gas text-base font-bold rounded-full shadow-lg transition-all uppercase tracking-wide flex items-center justify-center backdrop-blur-sm"
+                                            className="px-8 py-4 bg-white text-gas hover:bg-blue-50 text-base font-bold rounded-full shadow-xl shadow-white/10 transition-all uppercase tracking-wide flex items-center justify-center border-2 border-white"
                                         >
                                             Flüssiggas bestellen
                                         </motion.button>

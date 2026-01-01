@@ -13,6 +13,7 @@ vi.mock('lucide-react', () => ({
     ChevronDown: () => <div data-testid="chevron-down-icon" />,
     ChevronRight: () => <div data-testid="chevron-right-icon" />,
     Settings: () => <div data-testid="settings-icon" />,
+    Flame: () => <div data-testid="flame-icon" />,
 }));
 
 vi.mock('framer-motion', () => ({

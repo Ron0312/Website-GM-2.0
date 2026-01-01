@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Menu, X, Phone, User, Wrench, FileText, ChevronDown, ChevronRight, Settings } from 'lucide-react';
+import { Menu, X, Phone, User, Wrench, FileText, ChevronDown, ChevronRight, Settings, Flame } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobileMenuOpen, openWizard, setTankFilter }) => {
@@ -62,7 +62,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                 { id: 'tanks/2-9t-halboberirdisch', label: '2,9 t Halboberirdisch' }
             ]
         },
-        { id: 'gas', label: 'Flüssiggas bestellen' },
+        { id: 'gas', label: 'Flüssiggas bestellen', highlight: true },
         { id: 'gewerbe', label: 'Gewerbe' },
         {
             id: 'service',
@@ -117,6 +117,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                 aria-expanded={item.hasChildren ? "false" : undefined}
                                 aria-haspopup={item.hasChildren ? "true" : undefined}
                             >
+                                {item.highlight && <Flame size={16} className={`mr-1 ${effectiveScrolled ? 'text-orange-500' : 'text-orange-400'}`} />}
                                 {item.label}
                                 {item.hasChildren && <ChevronDown size={14} className="mt-0.5 opacity-70 group-hover:rotate-180 transition-transform" />}
 
