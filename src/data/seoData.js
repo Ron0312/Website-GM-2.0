@@ -273,15 +273,15 @@ export const getSeoForPath = (path) => {
     case '/':
       return {
         ...defaultSeo,
-        title: 'Flüssiggas & Gastanks kaufen | Anbieter & Preise Norddeutschland',
-        description: 'Ihr unabhängiger Experte für Flüssiggas und Gastanks in Norddeutschland. Kaufen statt mieten: Sparen Sie bis zu 50% der Energiekosten. Jetzt anfragen!',
+        title: 'Flüssiggasanbieter Norddeutschland | Flüssiggas & Tanks kaufen',
+        description: 'Ihr unabhängiger Flüssiggasanbieter. Flüssiggas günstig kaufen & Gastanks vertragsfrei erwerben. Kaufen statt mieten: Sparen Sie bis zu 50%.',
         schema: [getOrganizationSchema(), getWebSiteSchema()]
       };
     case 'tanks':
       return {
         ...defaultSeo,
-        title: 'Flüssiggastank kaufen | Oberirdisch & Unterirdisch | Preise & Größen',
-        description: 'Flüssiggastanks kaufen (Neu & Gebraucht/Aufbereitet). Alle Größen (1,2t - 2,9t). Oberirdisch & unterirdisch. Inklusive Aufstellung. Jetzt Preisliste!',
+        title: 'Flüssiggastank kaufen (vertragsfrei) | Anbieter & Preise | Alle Größen',
+        description: 'Flüssiggastank vertragsfrei kaufen (Neu & Gebraucht). Kein Mietvertrag. Alle Größen (1,2t - 2,9t). Ihr Flüssiggasanbieter für Aufstellung & Service.',
         schema: [
             getOrganizationSchema(),
             getTankCatalogSchema(),
@@ -295,8 +295,8 @@ export const getSeoForPath = (path) => {
     case 'gas':
       return {
         ...defaultSeo,
-        title: 'Flüssiggas Preise aktuell & Entwicklung | Günstig kaufen',
-        description: 'Aktuelle Flüssiggas-Preise & Entwicklung 2025. Preisvergleich für 1000 Liter. Bestellen Sie Ihr Gas flexibel beim freien Händler. 24h Express.',
+        title: 'Flüssiggas günstig kaufen | Aktuelle Preise & vertragsfrei bestellen',
+        description: 'Flüssiggas vertragsfrei & günstig kaufen. Aktuelle Preise 2025 für 1000 Liter. Bestellen Sie flexibel beim freien Flüssiggasanbieter. 24h Express.',
         schema: [
             getOrganizationSchema(),
             getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggas', url: '/gas' }]),
