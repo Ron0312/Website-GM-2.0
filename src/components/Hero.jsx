@@ -52,7 +52,7 @@ const Hero = ({
             <div className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md border border-white/30 px-4 py-1.5 rounded-full mb-6 shadow-sm">
                 <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
                 <span className="text-white text-xs font-bold uppercase tracking-widest flex items-center gap-2">
-                    <ShieldCheck size={14} className="text-white" /> Seit 2000 · Norddeutsch · Ehrlich
+                    <ShieldCheck size={14} className="text-white" /> Seit 2000 · Norddeutsch · Vertragsfrei
                 </span>
             </div>
         );

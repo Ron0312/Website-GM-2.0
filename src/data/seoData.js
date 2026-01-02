@@ -273,15 +273,15 @@ export const getSeoForPath = (path) => {
     case '/':
       return {
         ...defaultSeo,
-        title: 'Flüssiggasanbieter Norddeutschland | Flüssiggas & Tanks kaufen',
-        description: 'Ihr unabhängiger Flüssiggasanbieter. Flüssiggas günstig kaufen & Gastanks vertragsfrei erwerben. Kaufen statt mieten: Sparen Sie bis zu 50%.',
+        title: 'Flüssiggasanbieter Norddeutschland | Flüssiggas & Tanks vertragsfrei',
+        description: 'Ihr unabhängiger Flüssiggasanbieter. Flüssiggas günstig kaufen & Gastanks vertragsfrei erwerben. Preise vergleichen & sparen. Kaufen statt mieten.',
         schema: [getOrganizationSchema(), getWebSiteSchema()]
       };
     case 'tanks':
       return {
         ...defaultSeo,
-        title: 'Flüssiggastank kaufen (vertragsfrei) | Anbieter & Preise | Alle Größen',
-        description: 'Flüssiggastank vertragsfrei kaufen (Neu & Gebraucht). Kein Mietvertrag. Alle Größen (1,2t - 2,9t). Ihr Flüssiggasanbieter für Aufstellung & Service.',
+        title: 'Flüssiggastank kaufen (vertragsfrei) | Gastank 1,2t - 2,9t | Preise',
+        description: 'Flüssiggastank günstig kaufen (Neu & Gebraucht). Preise für 1,2t, 2,1t & 2,9t (2700 Liter). Keine Miete, kein Vertrag. Jetzt Angebot anfordern!',
         schema: [
             getOrganizationSchema(),
             getTankCatalogSchema(),
@@ -295,8 +295,8 @@ export const getSeoForPath = (path) => {
     case 'gas':
       return {
         ...defaultSeo,
-        title: 'Flüssiggas günstig kaufen | Aktuelle Preise & vertragsfrei bestellen',
-        description: 'Flüssiggas vertragsfrei & günstig kaufen. Aktuelle Preise 2025 für 1000 Liter. Bestellen Sie flexibel beim freien Flüssiggasanbieter. 24h Express.',
+        title: 'Flüssiggas Preise aktuell | Günstig kaufen & bestellen (vertragsfrei)',
+        description: 'Aktuelle Flüssiggaspreise 2025. Günstig bestellen beim freien Anbieter. Preisvergleich lohnt sich! Express-Lieferung möglich.',
         schema: [
             getOrganizationSchema(),
             getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggas', url: '/gas' }]),
@@ -431,6 +431,10 @@ export const getSeoForPath = (path) => {
 
       // Specific overrides for known major articles if we want perfect titles without importing CONTENT
       const knowledgeOverrides = {
+          'was-ist': {
+              title: 'Was ist Flüssiggas? | Eigenschaften, Verwendung & Unterschied zu Erdgas',
+              desc: 'Alles über Flüssiggas (LPG): Unterschied zu Erdgas, Heizwert, Herstellung und Verwendung. Warum Propan (DIN 51622) ideal zum Heizen ist.'
+          },
           'miete-kauf': {
               title: 'Gastank mieten oder kaufen? Rechner & Kosten-Vergleich',
               desc: 'Miete vs. Kauf: Was lohnt sich wirklich? Wir rechnen nach. Vor- und Nachteile, Amortisation und Expertentipps für Ihre Entscheidung.',
@@ -465,10 +469,6 @@ export const getSeoForPath = (path) => {
               title: 'Ölheizung auf Flüssiggas umrüsten | Kosten & Förderung',
               desc: 'Wechsel von Öl auf Gas: Kosten, Förderung und Vorteile. Platz gewinnen & CO2 sparen. Jetzt Umstieg planen.'
           },
-          'camping': {
-              title: 'Gasflaschen tauschen & füllen (5kg, 11kg, 33kg) | In der Nähe',
-              desc: 'Propangasflaschen (Grau) tauschen oder füllen lassen. 5kg, 11kg, 33kg. Campinggas für Grill & Heizung. Standorte in Ihrer Nähe.'
-          },
           'notfall': {
               title: 'Gastank leer? Notdienst & Füllstand prüfen | Hilfe',
               desc: 'Heizung ausgefallen? Gastank leer? Unser Notdienst hilft. Prüfen Sie den Füllstand und rufen Sie uns an. 24h Express.'
@@ -499,8 +499,8 @@ export const getSeoForPath = (path) => {
               date: '2024-09-15'
           },
           'preise': {
-              title: 'Flüssiggaspreise aktuell & Prognose 2025 | Trend',
-              desc: 'Aktuelle Entwicklung der Flüssiggaspreise. Wann ist der beste Kaufzeitpunkt? Infos zu CO2-Steuer und Markttrends.',
+              title: 'Flüssiggaspreise aktuell & Entwicklung 2025 | Prognose',
+              desc: 'Wie entwickeln sich die Flüssiggaspreise? Aktuelle Charts, Prognosen & Kaufempfehlung für 2025. Wann ist der beste Zeitpunkt zum Tanken?',
               date: '2025-02-01'
           },
           'heizung': {
