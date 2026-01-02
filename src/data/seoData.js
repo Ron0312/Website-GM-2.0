@@ -280,8 +280,8 @@ export const getSeoForPath = (path) => {
     case 'tanks':
       return {
         ...defaultSeo,
-        title: 'Flüssiggastank kaufen (vertragsfrei) | Gastank 1,2t - 2,9t | Preise',
-        description: 'Flüssiggastank günstig kaufen (Neu & Gebraucht). Preise für 1,2t, 2,1t & 2,9t (2700 Liter). Keine Miete, kein Vertrag. Jetzt Angebot anfordern!',
+        title: 'Flüssiggastank kaufen (vertragsfrei) | 2700 Liter, 4850 Liter, 6400 Liter',
+        description: 'Flüssiggastank günstig kaufen (Neu & Gebraucht). 1,2t (2700 Liter), 2,1t (4850 Liter) & 2,9t (6400 Liter). Keine Miete, kein Vertrag. Jetzt Angebot anfordern!',
         schema: [
             getOrganizationSchema(),
             getTankCatalogSchema(),
@@ -357,7 +357,7 @@ export const getSeoForPath = (path) => {
       return {
           ...defaultSeo,
           title: 'Tankprüfung & Rohrleitungsprüfung (2 & 10 Jahre) | Kosten',
-          description: 'Innere Prüfung (10 Jahre) & Äußere Prüfung (2 Jahre) für Flüssiggastanks. Rohrleitungsprüfung & TÜV-Abnahme. Jetzt Termin vereinbaren!',
+          description: 'Innere Prüfung (10 Jahre), Äußere Prüfung (2 Jahre) & Rohrleitungsprüfung für Flüssiggastanks. TÜV-Abnahme organisieren lassen.',
           schema: [
               getOrganizationSchema(),
               getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Service', url: '/pruefungen' }]),
@@ -445,8 +445,8 @@ export const getSeoForPath = (path) => {
               desc: 'Wie sicher ist Flüssiggas? Alles zu Sicherheitsabständen, Schutzzonen und gesetzlichen Vorschriften für Ihren Gastank.'
           },
           'tank-entsorgen': {
-              title: 'Flüssiggastank entsorgen & stilllegen | Kosten & Ablauf',
-              desc: 'Fachgerechte Entsorgung und Stilllegung von Flüssiggastanks. Wir holen Ihren alten Tank ab (Fachfirma). Jetzt informieren!',
+              title: 'Flüssiggastank entsorgen & stilllegen | Kosten & Fachfirma',
+              desc: 'Fachgerechte Entsorgung und Stilllegung von Flüssiggastanks. Wir holen Ihren alten Tank ab (Fachfirma). Jetzt Kosten & Ablauf prüfen!',
               howTo: {
                   title: 'Alten Gastank entsorgen lassen',
                   steps: [
@@ -509,6 +509,8 @@ export const getSeoForPath = (path) => {
                date: '2025-01-15'
           }
       };
+
+      // REMOVED 'camping' override because content is missing in src/data/content.jsx and scope excludes gas bottles.
 
       if (knowledgeOverrides[slug]) {
           const override = knowledgeOverrides[slug];
