@@ -569,8 +569,8 @@ export const getSeoForPath = (path) => {
       if (city) {
           return {
               ...defaultSeo,
-              title: `Flüssiggas Lieferant ${city.name} | Tank kaufen & Service`,
-              description: `Ihr regionaler Flüssiggas-Lieferant für ${city.name} (${city.zip}). Gastank kaufen statt mieten. Günstige Preise, schnelle Lieferung & Service vor Ort.`,
+              title: `Flüssiggas ${city.name} | Günstig kaufen (vertragsfrei) & Anbieter`,
+              description: `Ihr unabhängiger Flüssiggasanbieter für ${city.name} (${city.zip}). Flüssiggas günstig kaufen & Gastanks vertragsfrei erwerben. Preise vergleichen & sparen.`,
               schema: [
                   getOrganizationSchema(),
                   getCitySchema(city),
