@@ -26,19 +26,19 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
     }, [scrolled]);
 
     // Force "scrolled" style on non-start pages to ensure visibility
-    const isTransparentPage = activeSection === 'start' || activeSection === 'tanks' || activeSection === 'gewerbe' || activeSection === 'gas';
+    const isTransparentPage = activeSection === 'start' || activeSection === 'fluessiggastank-kaufen' || activeSection === 'gewerbe' || activeSection === 'fluessiggas-bestellen';
     const effectiveScrolled = scrolled || !isTransparentPage;
 
     // Helper to handle Tank Category clicks (also resets scroll if already on page)
     const handleTankClick = (filter) => {
         if (setTankFilter) setTankFilter(filter);
-        setActiveSection('tanks');
+        setActiveSection('fluessiggastank-kaufen');
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setMobileMenuOpen(false); // Close mobile menu if open
     };
 
     const handleMainTankClick = () => {
-         setActiveSection('tanks');
+         setActiveSection('fluessiggastank-kaufen');
          window.scrollTo({ top: 0, behavior: 'smooth' });
          setMobileMenuOpen(false);
     };
@@ -47,22 +47,22 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
     const navItems = [
         { id: 'start', label: 'Startseite' },
         {
-            id: 'tanks',
+            id: 'fluessiggastank-kaufen',
             label: 'Tanks & Kauf',
             hasChildren: true,
             children: [
-                { id: 'tanks/1-2t-oberirdisch', label: '1,2 t Oberirdisch' },
-                { id: 'tanks/2-1t-oberirdisch', label: '2,1 t Oberirdisch' },
-                { id: 'tanks/2-9t-oberirdisch', label: '2,9 t Oberirdisch' },
-                { id: 'tanks/1-2t-unterirdisch', label: '1,2 t Unterirdisch' },
-                { id: 'tanks/2-1t-unterirdisch', label: '2,1 t Unterirdisch' },
-                { id: 'tanks/2-9t-unterirdisch', label: '2,9 t Unterirdisch' },
-                { id: 'tanks/1-2t-halboberirdisch', label: '1,2 t Halboberirdisch' },
-                { id: 'tanks/2-1t-halboberirdisch', label: '2,1 t Halboberirdisch' },
-                { id: 'tanks/2-9t-halboberirdisch', label: '2,9 t Halboberirdisch' }
+                { id: 'fluessiggastank-kaufen/1-2t-oberirdisch', label: '1,2 t Oberirdisch' },
+                { id: 'fluessiggastank-kaufen/2-1t-oberirdisch', label: '2,1 t Oberirdisch' },
+                { id: 'fluessiggastank-kaufen/2-9t-oberirdisch', label: '2,9 t Oberirdisch' },
+                { id: 'fluessiggastank-kaufen/1-2t-unterirdisch', label: '1,2 t Unterirdisch' },
+                { id: 'fluessiggastank-kaufen/2-1t-unterirdisch', label: '2,1 t Unterirdisch' },
+                { id: 'fluessiggastank-kaufen/2-9t-unterirdisch', label: '2,9 t Unterirdisch' },
+                { id: 'fluessiggastank-kaufen/1-2t-halboberirdisch', label: '1,2 t Halboberirdisch' },
+                { id: 'fluessiggastank-kaufen/2-1t-halboberirdisch', label: '2,1 t Halboberirdisch' },
+                { id: 'fluessiggastank-kaufen/2-9t-halboberirdisch', label: '2,9 t Halboberirdisch' }
             ]
         },
-        { id: 'gas', label: 'Flüssiggas bestellen', highlight: true },
+        { id: 'fluessiggas-bestellen', label: 'Flüssiggas bestellen', highlight: true },
         { id: 'wissen', label: 'Ratgeber', icon: BookOpen },
         { id: 'gewerbe', label: 'Gewerbe' },
         {
@@ -78,7 +78,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
 
     const isActive = (id) => {
         if (activeSection === id) return true;
-        if (id === 'tanks' && activeSection.startsWith('tanks')) return true;
+        if (id === 'fluessiggastank-kaufen' && activeSection.startsWith('fluessiggastank-kaufen')) return true;
         if (id === 'service' && (activeSection === 'pruefungen' || activeSection.startsWith('wissen'))) return true;
         return false;
     };
@@ -135,7 +135,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                             {item.hasChildren && (
                                 <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 translate-y-2 w-64 z-50">
                                     <div className="bg-white rounded-xl shadow-xl border border-gray-100 p-2 overflow-hidden">
-                                        {item.id === 'tanks' ? (
+                                        {item.id === 'fluessiggastank-kaufen' ? (
                                             /* Mega Menu Style for Tanks */
                                             <div className="grid grid-cols-1 gap-1">
                                                  <button onClick={handleMainTankClick} className="w-full text-left px-4 py-3 rounded-lg hover:bg-gas-light/30 text-sm font-bold text-gray-800 flex items-center justify-between group/link">
@@ -236,18 +236,18 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                                         <button
                                                             onClick={() => {
                                                                 if (item.id === 'service') setServiceOpen(!serviceOpen);
-                                                                else if (item.id === 'tanks') setTanksOpen(!tanksOpen);
+                                                                else if (item.id === 'fluessiggastank-kaufen') setTanksOpen(!tanksOpen);
                                                                 else setActiveSection(item.id);
                                                             }}
                                                             className="w-full flex justify-between items-center py-4 text-left font-bold text-gray-800"
                                                         >
                                                             {item.label}
-                                                            <ChevronDown size={16} className={`text-gray-400 transition-transform ${((item.id === 'service' && serviceOpen) || (item.id === 'tanks' && tanksOpen)) ? 'rotate-180' : ''}`} />
+                                                            <ChevronDown size={16} className={`text-gray-400 transition-transform ${((item.id === 'service' && serviceOpen) || (item.id === 'fluessiggastank-kaufen' && tanksOpen)) ? 'rotate-180' : ''}`} />
                                                         </button>
 
                                                         {/* Mobile Submenu */}
                                                         <AnimatePresence>
-                                                            {((item.id === 'service' && serviceOpen) || (item.id === 'tanks' && tanksOpen)) && (
+                                                            {((item.id === 'service' && serviceOpen) || (item.id === 'fluessiggastank-kaufen' && tanksOpen)) && (
                                                                 <motion.div
                                                                     initial={{ height: 0, opacity: 0 }}
                                                                     animate={{ height: 'auto', opacity: 1 }}

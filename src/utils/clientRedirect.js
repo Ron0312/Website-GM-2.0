@@ -6,26 +6,30 @@ const legacyRedirects = {
     '/allgemeine-geschaeftsbediungungen': '/',
     '/haftungsausschluss': '/',
     '/cookie-richtlinie-eu': '/',
-    '/sonderpreise-und-entsorgung': '/tanks',
+    '/sonderpreise-und-entsorgung': '/fluessiggastank-kaufen',
 
-    // Explicit Tank redirects
-    '/flussiggastank-oberirdisch-4850l-21t-fassungsvermogen': '/tanks/2-1t-oberirdisch',
-    '/fluessiggastank-unterirdisch-4850l-21t-fassungsvermoegen': '/tanks/2-1t-unterirdisch',
-    '/fluessiggastank-unterirdisch-2700l-12t-fassungsvermoegen': '/tanks/1-2t-unterirdisch',
-    '/flussiggastank-oberirdisch-6400l': '/tanks/2-9t-oberirdisch',
-    '/fluessiggastank-unterirdisch-6400l-29t-fassungsvermoegen': '/tanks/2-9t-unterirdisch',
-    '/flussiggastank-oberirdisch-2700l': '/tanks/1-2t-oberirdisch',
-    '/fluessiggastank-kaufen': '/tanks',
-    '/fluessiggastank-kaufen-2': '/tanks',
-    '/flussiggastank-mieten-oder-kaufen': '/tanks',
+    // Explicit Tank redirects (Legacy)
+    '/flussiggastank-oberirdisch-4850l-21t-fassungsvermogen': '/fluessiggastank-kaufen/2-1t-oberirdisch',
+    '/fluessiggastank-unterirdisch-4850l-21t-fassungsvermoegen': '/fluessiggastank-kaufen/2-1t-unterirdisch',
+    '/fluessiggastank-unterirdisch-2700l-12t-fassungsvermoegen': '/fluessiggastank-kaufen/1-2t-unterirdisch',
+    '/flussiggastank-oberirdisch-6400l': '/fluessiggastank-kaufen/2-9t-oberirdisch',
+    '/fluessiggastank-unterirdisch-6400l-29t-fassungsvermoegen': '/fluessiggastank-kaufen/2-9t-unterirdisch',
+    '/flussiggastank-oberirdisch-2700l': '/fluessiggastank-kaufen/1-2t-oberirdisch',
+    '/fluessiggastank-kaufen': '/fluessiggastank-kaufen', // Self-ref safety
+    '/fluessiggastank-kaufen-2': '/fluessiggastank-kaufen',
+    '/flussiggastank-mieten-oder-kaufen': '/fluessiggastank-kaufen',
 
     // Normalized variants
-    '/fluessiggastank-oberirdisch-4850l-21t-fassungsvermoegen': '/tanks/2-1t-oberirdisch',
-    '/fluessiggastank-oberirdisch-6400l': '/tanks/2-9t-oberirdisch',
-    '/fluessiggastank-oberirdisch-2700l': '/tanks/1-2t-oberirdisch',
+    '/fluessiggastank-oberirdisch-4850l-21t-fassungsvermoegen': '/fluessiggastank-kaufen/2-1t-oberirdisch',
+    '/fluessiggastank-oberirdisch-6400l': '/fluessiggastank-kaufen/2-9t-oberirdisch',
+    '/fluessiggastank-oberirdisch-2700l': '/fluessiggastank-kaufen/1-2t-oberirdisch',
+
+    // Old main routes -> New Descriptive Routes
+    '/tanks': '/fluessiggastank-kaufen',
+    '/gas': '/fluessiggas-bestellen',
 
     // Gas
-    '/fluessiggas-bestellen': '/gas',
+    '/fluessiggas-bestellen': '/fluessiggas-bestellen',
 
     // Content / Knowledge
     '/was-ist-ein-fluessiggastank': '/wissen',
@@ -76,15 +80,15 @@ export const findClientRedirect = (pathStr) => {
     if (p.match(/(2\.9|2,9|29)t/) || p.includes('6400')) size = '2-9t';
 
     if (size) {
-        if (isOberirdisch) return `/tanks/${size}-oberirdisch`;
-        if (isUnterirdisch) return `/tanks/${size}-unterirdisch`;
+        if (isOberirdisch) return `/fluessiggastank-kaufen/${size}-oberirdisch`; // Updated
+        if (isUnterirdisch) return `/fluessiggastank-kaufen/${size}-unterirdisch`; // Updated
     }
 
     // Fallback for general Tank intents
-    if (isTank && (p.includes('kaufen') || p.includes('mieten') || p.includes('preis') || p.includes('angebot'))) return 'tanks';
+    if (isTank && (p.includes('kaufen') || p.includes('mieten') || p.includes('preis') || p.includes('angebot'))) return 'fluessiggastank-kaufen'; // Updated
 
     // 3. Gas Logic
-    if (p.includes('gas') && (p.includes('bestellen') || p.includes('liefern') || p.includes('preis'))) return 'gas';
+    if (p.includes('gas') && (p.includes('bestellen') || p.includes('liefern') || p.includes('preis'))) return 'fluessiggas-bestellen'; // Updated
 
     // 4. Knowledge / Content
     if (p.includes('wissen') || p.includes('ratgeber') || p.includes('faq') || p.includes('frage') || p.includes('was-ist') || p.includes('umruesten') || p.includes('umrüsten') || pNorm.includes('umruesten')) return 'wissen';

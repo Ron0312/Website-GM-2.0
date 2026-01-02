@@ -125,7 +125,7 @@ const getTankProductSchema = (tank) => ({
   "mpn": `GSM-${tank.slug.toUpperCase()}`,
   "offers": {
     "@type": "Offer",
-    "url": `${BASE_URL}/tanks/${tank.slug}`,
+    "url": `${BASE_URL}/fluessiggastank-kaufen/${tank.slug}`, // Updated URL
     "priceCurrency": "EUR",
     "availability": "https://schema.org/InStock",
     "itemCondition": "https://schema.org/NewCondition",
@@ -168,7 +168,7 @@ const getTankCatalogSchema = () => ({
   "@context": "https://schema.org",
   "@type": "OfferCatalog",
   "name": "Flüssiggastanks",
-  "url": `${BASE_URL}/tanks`,
+  "url": `${BASE_URL}/fluessiggastank-kaufen`, // Updated URL
   "numberOfItems": tankDetails.length,
   "itemListElement": tankDetails.map((tank, index) => ({
     "@type": "Offer",
@@ -176,7 +176,7 @@ const getTankCatalogSchema = () => ({
       "@type": "Product",
       "name": tank.name,
       "description": tank.description,
-       "url": `${BASE_URL}/tanks/${tank.slug}`
+       "url": `${BASE_URL}/fluessiggastank-kaufen/${tank.slug}` // Updated URL
     },
     "position": index + 1
   }))
@@ -277,7 +277,8 @@ export const getSeoForPath = (path) => {
         description: 'Ihr unabhängiger Flüssiggasanbieter. Flüssiggas günstig kaufen & Gastanks vertragsfrei erwerben. Preise vergleichen & sparen. Kaufen statt mieten.',
         schema: [getOrganizationSchema(), getWebSiteSchema()]
       };
-    case 'tanks':
+    case 'fluessiggastank-kaufen': // Updated slug
+    case 'tanks': // Fallback for safety/verification
       return {
         ...defaultSeo,
         title: 'Flüssiggastank kaufen (vertragsfrei) | 2700 Liter, 4850 Liter, 6400 Liter',
@@ -285,7 +286,7 @@ export const getSeoForPath = (path) => {
         schema: [
             getOrganizationSchema(),
             getTankCatalogSchema(),
-            getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Tanks', url: '/tanks' }]),
+            getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Tanks', url: '/fluessiggastank-kaufen' }]), // Updated
             getFAQSchema([
                 { question: "Was kostet ein Flüssiggastank?", answer: "Die Kosten hängen von der Größe (1,2t bis 2,9t) und der Installation (oberirdisch/unterirdisch) ab. Kauftanks amortisieren sich oft nach 3-5 Jahren im Vergleich zur Miete." },
                 { question: "Muss ich den Tank kaufen?", answer: "Nein, aber wir empfehlen es. Mit einem Kauftank sind Sie unabhängig und können das Gas auf dem freien Markt oft 20-30% günstiger einkaufen." },
@@ -293,14 +294,15 @@ export const getSeoForPath = (path) => {
             ])
         ]
       };
-    case 'gas':
+    case 'fluessiggas-bestellen': // Updated slug
+    case 'gas': // Fallback
       return {
         ...defaultSeo,
         title: 'Flüssiggas Preise aktuell | Günstig kaufen & bestellen (vertragsfrei)',
         description: 'Aktuelle Flüssiggaspreise 2025. Günstig bestellen beim freien Anbieter. Preisvergleich lohnt sich! Express-Lieferung möglich.',
         schema: [
             getOrganizationSchema(),
-            getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggas', url: '/gas' }]),
+            getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggas', url: '/fluessiggas-bestellen' }]), // Updated
             getFAQSchema([
                 { question: "Wie lange dauert die Lieferung?", answer: "In der Regel liefern wir innerhalb von 5-10 Werktagen nach Bestellung. In dringenden Fällen bieten wir auch einen Express-Service an." },
                 { question: "Muss ich bei der Lieferung anwesend sein?", answer: "Ja, idealerweise sind Sie vor Ort, um den Lieferschein zu unterschreiben und den Füllstand gemeinsam zu prüfen. Nach Absprache ist auch eine kontaktlose Lieferung möglich." },
@@ -387,7 +389,7 @@ export const getSeoForPath = (path) => {
   }
 
   // 2. Dynamic Tank Routes
-  if (cleanPath.startsWith('tanks/')) {
+  if (cleanPath.startsWith('fluessiggastank-kaufen/')) { // Updated prefix
     const slug = cleanPath.split('/')[1];
     const tank = tankDetails.find(t => t.slug === slug);
     if (tank) {
@@ -406,8 +408,8 @@ export const getSeoForPath = (path) => {
             getTankProductSchema(tank),
             getBreadcrumbSchema([
                 { name: 'Start', url: '/' },
-                { name: 'Tanks', url: '/tanks' },
-                { name: tank.name, url: `/tanks/${tank.slug}` }
+                { name: 'Tanks', url: '/fluessiggastank-kaufen' }, // Updated URL
+                { name: tank.name, url: `/fluessiggastank-kaufen/${tank.slug}` } // Updated URL
             ]),
             getFAQSchema([
                 { question: `Ist der ${tank.name} für mein Haus geeignet?`, answer: `Der ${tank.name} mit ${tank.volume} Volumen eignet sich typischerweise für ${tank.idealFor}.` },
