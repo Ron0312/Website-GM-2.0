@@ -281,14 +281,15 @@ export const getSeoForPath = (path) => {
       return {
         ...defaultSeo,
         title: 'Flüssiggastank kaufen (vertragsfrei) | 2700 Liter, 4850 Liter, 6400 Liter',
-        description: 'Flüssiggastank günstig kaufen (Neu & Gebraucht). 1,2t (2700 Liter), 2,1t (4850 Liter) & 2,9t (6400 Liter). Keine Miete, kein Vertrag. Jetzt Angebot anfordern!',
+        description: 'Flüssiggastank günstig kaufen (Neu & Gebraucht). 1,2t (2700 Liter), 2,1t (4850 Liter) & 2,9t (6400 Liter). Oberirdisch & Unterirdisch. Keine Miete.',
         schema: [
             getOrganizationSchema(),
             getTankCatalogSchema(),
             getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Tanks', url: '/tanks' }]),
             getFAQSchema([
                 { question: "Was kostet ein Flüssiggastank?", answer: "Die Kosten hängen von der Größe (1,2t bis 2,9t) und der Installation (oberirdisch/unterirdisch) ab. Kauftanks amortisieren sich oft nach 3-5 Jahren im Vergleich zur Miete." },
-                { question: "Muss ich den Tank kaufen?", answer: "Nein, aber wir empfehlen es. Mit einem Kauftank sind Sie unabhängig und können das Gas auf dem freien Markt oft 20-30% günstiger einkaufen." }
+                { question: "Muss ich den Tank kaufen?", answer: "Nein, aber wir empfehlen es. Mit einem Kauftank sind Sie unabhängig und können das Gas auf dem freien Markt oft 20-30% günstiger einkaufen." },
+                { question: "Gibt es auch gebrauchte Tanks?", answer: "Ja, wir bieten auch geprüfte, gebrauchte Flüssiggastanks (regeneriert) an. Diese sind deutlich günstiger als Neubehälter und technisch einwandfrei." }
             ])
         ]
       };
