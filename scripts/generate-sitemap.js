@@ -13,8 +13,8 @@ const LOG_PREFIX = '[SitemapGenerator]';
 
 const staticRoutes = [
   '',
-  'tanks',
-  'gas',
+  'fluessiggastank-kaufen',
+  'fluessiggas-bestellen',
   'rechner',
   'gewerbe',
   'wissen',
@@ -59,7 +59,7 @@ function generateSitemap() {
 
   // Add dynamic tank routes
   tankDetails.forEach(tank => {
-    routes.push(`tanks/${tank.slug}`);
+    routes.push(`fluessiggastank-kaufen/${tank.slug}`);
   });
 
   // Add dynamic knowledge routes
@@ -78,7 +78,7 @@ function generateSitemap() {
   ${routes.map(route => {
     const isWissen = route.startsWith('wissen/');
     const isLiefergebiet = route.startsWith('liefergebiet/');
-    const isTank = route.startsWith('tanks/');
+    const isTank = route.startsWith('fluessiggastank-kaufen/');
 
     let priority = '0.8';
     let imageInfo = '';

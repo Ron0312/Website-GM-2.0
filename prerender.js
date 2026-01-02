@@ -43,8 +43,8 @@ function getKnowledgeRoutes() {
 const routesToPrerender = [
     '/',
     '/start',
-    '/gas',
-    '/tanks',
+    '/fluessiggas-bestellen',
+    '/fluessiggastank-kaufen',
     '/wissen',
     '/gewerbe',
     '/ueber-uns',
@@ -53,7 +53,7 @@ const routesToPrerender = [
     '/pruefungen',
     '/barrierefreiheit',
     // Dynamic routes
-    ...tankDetails.map(t => `/tanks/${t.slug}`),
+    ...tankDetails.map(t => `/fluessiggastank-kaufen/${t.slug}`),
     ...cityData.map(c => `/liefergebiet/${c.slug}`),
     ...getKnowledgeRoutes()
 ];
