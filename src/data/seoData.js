@@ -273,30 +273,31 @@ export const getSeoForPath = (path) => {
     case '/':
       return {
         ...defaultSeo,
-        title: 'Flüssiggas & Gastanks kaufen | Anbieter & Preise Norddeutschland',
-        description: 'Ihr unabhängiger Experte für Flüssiggas und Gastanks in Norddeutschland. Kaufen statt mieten: Sparen Sie bis zu 50% der Energiekosten. Jetzt anfragen!',
+        title: 'Flüssiggasanbieter Norddeutschland | Flüssiggas & Tanks vertragsfrei',
+        description: 'Ihr unabhängiger Flüssiggasanbieter. Flüssiggas günstig kaufen & Gastanks vertragsfrei erwerben. Preise vergleichen & sparen. Kaufen statt mieten.',
         schema: [getOrganizationSchema(), getWebSiteSchema()]
       };
     case 'tanks':
       return {
         ...defaultSeo,
-        title: 'Flüssiggastank kaufen | Oberirdisch & Unterirdisch | Preise & Größen',
-        description: 'Flüssiggastanks kaufen (Neu & Gebraucht/Aufbereitet). Alle Größen (1,2t - 2,9t). Oberirdisch & unterirdisch. Inklusive Aufstellung. Jetzt Preisliste!',
+        title: 'Flüssiggastank kaufen (vertragsfrei) | 2700 Liter, 4850 Liter, 6400 Liter',
+        description: 'Flüssiggastank günstig kaufen (Neu & Gebraucht). 1,2t (2700 Liter), 2,1t (4850 Liter) & 2,9t (6400 Liter). Oberirdisch & Unterirdisch. Keine Miete.',
         schema: [
             getOrganizationSchema(),
             getTankCatalogSchema(),
             getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Tanks', url: '/tanks' }]),
             getFAQSchema([
                 { question: "Was kostet ein Flüssiggastank?", answer: "Die Kosten hängen von der Größe (1,2t bis 2,9t) und der Installation (oberirdisch/unterirdisch) ab. Kauftanks amortisieren sich oft nach 3-5 Jahren im Vergleich zur Miete." },
-                { question: "Muss ich den Tank kaufen?", answer: "Nein, aber wir empfehlen es. Mit einem Kauftank sind Sie unabhängig und können das Gas auf dem freien Markt oft 20-30% günstiger einkaufen." }
+                { question: "Muss ich den Tank kaufen?", answer: "Nein, aber wir empfehlen es. Mit einem Kauftank sind Sie unabhängig und können das Gas auf dem freien Markt oft 20-30% günstiger einkaufen." },
+                { question: "Gibt es auch gebrauchte Tanks?", answer: "Ja, wir bieten auch geprüfte, gebrauchte Flüssiggastanks (regeneriert) an. Diese sind deutlich günstiger als Neubehälter und technisch einwandfrei." }
             ])
         ]
       };
     case 'gas':
       return {
         ...defaultSeo,
-        title: 'Flüssiggas Preise aktuell & Entwicklung | Günstig kaufen',
-        description: 'Aktuelle Flüssiggas-Preise & Entwicklung 2025. Preisvergleich für 1000 Liter. Bestellen Sie Ihr Gas flexibel beim freien Händler. 24h Express.',
+        title: 'Flüssiggas Preise aktuell | Günstig kaufen & bestellen (vertragsfrei)',
+        description: 'Aktuelle Flüssiggaspreise 2025. Günstig bestellen beim freien Anbieter. Preisvergleich lohnt sich! Express-Lieferung möglich.',
         schema: [
             getOrganizationSchema(),
             getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggas', url: '/gas' }]),
@@ -357,7 +358,7 @@ export const getSeoForPath = (path) => {
       return {
           ...defaultSeo,
           title: 'Tankprüfung & Rohrleitungsprüfung (2 & 10 Jahre) | Kosten',
-          description: 'Innere Prüfung (10 Jahre) & Äußere Prüfung (2 Jahre) für Flüssiggastanks. Rohrleitungsprüfung & TÜV-Abnahme. Jetzt Termin vereinbaren!',
+          description: 'Innere Prüfung (10 Jahre), Äußere Prüfung (2 Jahre) & Rohrleitungsprüfung für Flüssiggastanks. TÜV-Abnahme organisieren lassen.',
           schema: [
               getOrganizationSchema(),
               getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Service', url: '/pruefungen' }]),
@@ -431,6 +432,10 @@ export const getSeoForPath = (path) => {
 
       // Specific overrides for known major articles if we want perfect titles without importing CONTENT
       const knowledgeOverrides = {
+          'was-ist': {
+              title: 'Was ist Flüssiggas? | Eigenschaften, Verwendung & Unterschied zu Erdgas',
+              desc: 'Alles über Flüssiggas (LPG): Unterschied zu Erdgas, Heizwert, Herstellung und Verwendung. Warum Propan (DIN 51622) ideal zum Heizen ist.'
+          },
           'miete-kauf': {
               title: 'Gastank mieten oder kaufen? Rechner & Kosten-Vergleich',
               desc: 'Miete vs. Kauf: Was lohnt sich wirklich? Wir rechnen nach. Vor- und Nachteile, Amortisation und Expertentipps für Ihre Entscheidung.',
@@ -441,8 +446,8 @@ export const getSeoForPath = (path) => {
               desc: 'Wie sicher ist Flüssiggas? Alles zu Sicherheitsabständen, Schutzzonen und gesetzlichen Vorschriften für Ihren Gastank.'
           },
           'tank-entsorgen': {
-              title: 'Flüssiggastank entsorgen & stilllegen | Kosten & Ablauf',
-              desc: 'Fachgerechte Entsorgung und Stilllegung von Flüssiggastanks. Wir holen Ihren alten Tank ab (Fachfirma). Jetzt informieren!',
+              title: 'Flüssiggastank entsorgen & stilllegen | Kosten & Fachfirma',
+              desc: 'Fachgerechte Entsorgung und Stilllegung von Flüssiggastanks. Wir holen Ihren alten Tank ab (Fachfirma). Jetzt Kosten & Ablauf prüfen!',
               howTo: {
                   title: 'Alten Gastank entsorgen lassen',
                   steps: [
@@ -464,10 +469,6 @@ export const getSeoForPath = (path) => {
           'oel-wechsel': {
               title: 'Ölheizung auf Flüssiggas umrüsten | Kosten & Förderung',
               desc: 'Wechsel von Öl auf Gas: Kosten, Förderung und Vorteile. Platz gewinnen & CO2 sparen. Jetzt Umstieg planen.'
-          },
-          'camping': {
-              title: 'Gasflaschen tauschen & füllen (5kg, 11kg, 33kg) | In der Nähe',
-              desc: 'Propangasflaschen (Grau) tauschen oder füllen lassen. 5kg, 11kg, 33kg. Campinggas für Grill & Heizung. Standorte in Ihrer Nähe.'
           },
           'notfall': {
               title: 'Gastank leer? Notdienst & Füllstand prüfen | Hilfe',
@@ -499,8 +500,8 @@ export const getSeoForPath = (path) => {
               date: '2024-09-15'
           },
           'preise': {
-              title: 'Flüssiggaspreise aktuell & Prognose 2025 | Trend',
-              desc: 'Aktuelle Entwicklung der Flüssiggaspreise. Wann ist der beste Kaufzeitpunkt? Infos zu CO2-Steuer und Markttrends.',
+              title: 'Flüssiggaspreise aktuell & Entwicklung 2025 | Prognose',
+              desc: 'Wie entwickeln sich die Flüssiggaspreise? Aktuelle Charts, Prognosen & Kaufempfehlung für 2025. Wann ist der beste Zeitpunkt zum Tanken?',
               date: '2025-02-01'
           },
           'heizung': {
@@ -509,6 +510,8 @@ export const getSeoForPath = (path) => {
                date: '2025-01-15'
           }
       };
+
+      // REMOVED 'camping' override because content is missing in src/data/content.jsx and scope excludes gas bottles.
 
       if (knowledgeOverrides[slug]) {
           const override = knowledgeOverrides[slug];
@@ -567,8 +570,8 @@ export const getSeoForPath = (path) => {
       if (city) {
           return {
               ...defaultSeo,
-              title: `Flüssiggas Lieferant ${city.name} | Tank kaufen & Service`,
-              description: `Ihr regionaler Flüssiggas-Lieferant für ${city.name} (${city.zip}). Gastank kaufen statt mieten. Günstige Preise, schnelle Lieferung & Service vor Ort.`,
+              title: `Flüssiggas ${city.name} | Günstig kaufen (vertragsfrei) & Anbieter`,
+              description: `Ihr unabhängiger Flüssiggasanbieter für ${city.name} (${city.zip}). Flüssiggas günstig kaufen & Gastanks vertragsfrei erwerben. Preise vergleichen & sparen.`,
               schema: [
                   getOrganizationSchema(),
                   getCitySchema(city),

@@ -1,6 +1,6 @@
 import React, { Suspense, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Check } from 'lucide-react';
+import { ChevronDown, Check, ArrowRight } from 'lucide-react';
 import { getCityBySlug, cityData } from '../data/cityData';
 import Hero from './Hero';
 import TankSection from './TankSection';
@@ -165,12 +165,20 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
                             <p className="text-gray-600 mb-8 leading-relaxed">
                                 Wir bieten Ihnen eine faire Alternative: <strong>Kaufen Sie Ihren Tank.</strong> Wir kümmern uns um die Aufstellung {preposition} {city.name}, den Anschluss und die regelmäßige Belieferung zu aktuellen Tagespreisen.
                             </p>
-                            <button
-                                onClick={() => openWizard('tank')}
-                                className="bg-gas text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:bg-gas-dark transition-all w-full md:w-auto"
-                            >
-                                Jetzt Angebot für {city.name} anfordern
-                            </button>
+                            <div className="space-y-4">
+                                <button
+                                    onClick={() => openWizard('tank')}
+                                    className="bg-gas text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:bg-gas-dark transition-all w-full md:w-auto"
+                                >
+                                    Jetzt Angebot für {city.name} anfordern
+                                </button>
+                                <button
+                                    onClick={() => setActiveSection('wissen/preis-guide')}
+                                    className="flex items-center justify-center gap-2 text-gas font-bold hover:text-gas-dark transition-colors w-full md:w-auto px-8 py-2"
+                                >
+                                    Nicht sicher? Lesen Sie unseren Preis-Guide <ArrowRight size={16} />
+                                </button>
+                            </div>
                         </div>
                     </div>
 
