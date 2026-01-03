@@ -25,6 +25,7 @@ import LocalLandingPage from './components/LocalLandingPage';
 import { ImprintContent, PrivacyContent, TermsContent, AccessibilityStatementContent } from './components/Legal';
 import { findClientRedirect } from './utils/clientRedirect';
 import { cityData } from './data/cityData';
+import { tankDetails } from './data/tanks';
 import ErrorBoundary from './components/ErrorBoundary';
 import DualCTA from './components/DualCTA';
 
@@ -135,8 +136,19 @@ const App = ({ path, context }) => {
         const isCityRoute = activeSection.startsWith('liefergebiet/');
         const isKnowledgeRoute = activeSection.startsWith('wissen/');
 
+        // Check if tank route has valid slug
+        let isInvalidTankRoute = false;
+        if (isTankRoute) {
+             const slug = activeSection.split('/').pop();
+             const isValidSlug = tankDetails.some(t => t.slug === slug);
+             if (!isValidSlug && slug !== 'tanks' && slug !== 'fluessiggastank-kaufen') {
+                 isInvalidTankRoute = true;
+             }
+        }
+
         // Only run this check if we are truly in an invalid state.
-        if (!isTankRoute && !isCityRoute && !isKnowledgeRoute && !validSections.includes(activeSection)) {
+        // We include isInvalidTankRoute here to force redirect check even if it "looks" like a tank route
+        if ((!isTankRoute || isInvalidTankRoute) && !isCityRoute && !isKnowledgeRoute && !validSections.includes(activeSection)) {
              const legacyTarget = findClientRedirect(activeSection);
              if (legacyTarget) {
                  const cleanTarget = legacyTarget.replace(/^\//, '');
