@@ -40,7 +40,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
         { id: 'start', label: 'Startseite' },
         {
             id: 'fluessiggastank-kaufen',
-            label: 'Flüssiggastanks & Kauf',
+            label: 'Flüssiggastanks',
             hasChildren: true,
             children: [
                 { id: 'fluessiggastank-kaufen/fluessiggastank-2700l-oberirdisch-1-2t', label: '1,2 t Oberirdisch' },
@@ -100,7 +100,14 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                     {navItems.map((item) => (
                         <div key={item.id} className="relative group">
                             <button
-                                onClick={() => !item.hasChildren && setActiveSection(item.id)}
+                                onClick={() => {
+                                    // For tanks, allow clicking parent to navigate
+                                    if (item.id === 'fluessiggastank-kaufen') {
+                                        setActiveSection(item.id);
+                                    } else if (!item.hasChildren) {
+                                        setActiveSection(item.id);
+                                    }
+                                }}
                                 className={`
                                     px-4 py-2 rounded-lg text-sm font-bold transition-all flex items-center gap-1 relative whitespace-nowrap
                                     ${effectiveScrolled ? 'text-gray-700 hover:text-gas hover:bg-gas-light/30' : 'text-white/90 hover:text-white hover:bg-white/10'}

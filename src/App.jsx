@@ -237,6 +237,7 @@ const App = ({ path, context }) => {
             'ueber-uns',
             'kontakt',
             'pruefungen',
+            'tank-entsorgen',
             'barrierefreiheit',
             'liefergebiet',
             '404'
