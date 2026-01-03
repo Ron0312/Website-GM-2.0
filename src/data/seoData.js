@@ -500,9 +500,14 @@ export const getSeoForPath = (path) => {
               date: '2024-09-15'
           },
           'preise': {
-              title: 'Flüssiggaspreise aktuell & Entwicklung 2025 | Prognose',
+              title: 'Flüssiggas Preis aktuell & Entwicklung 2025 | Prognose',
               desc: 'Wie entwickeln sich die Flüssiggaspreise? Aktuelle Charts, Prognosen & Kaufempfehlung für 2025. Wann ist der beste Zeitpunkt zum Tanken?',
               date: '2025-02-01'
+          },
+          'was-kostet-tank': {
+              title: 'Was kostet ein Flüssiggastank? (Oberirdisch & Unterirdisch)',
+              desc: 'Kostenübersicht 2025: Was kostet ein Flüssiggastank (1,2t - 2,9t)? Preisliste für Kauf, Installation, Fundament & Kran. Jetzt vergleichen!',
+              date: '2025-03-01'
           },
           'heizung': {
                title: 'Heizungsgesetz (GEG) 2024 | Flüssiggas erlaubt?',

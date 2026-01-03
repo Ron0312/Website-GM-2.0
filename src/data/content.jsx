@@ -321,14 +321,17 @@ export const CONTENT = {
                                 <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
                                     <div className="font-bold text-gas text-lg mb-1">Alle 2 Jahre</div>
                                     <div className="font-bold text-gray-800">Äußere Prüfung</div>
-                                    <p className="text-sm text-gray-500 mt-2">Sichtprüfung auf Korrosion, Zugänglichkeit und Beschilderung. Schnell erledigt.</p>
+                                    <p className="text-sm text-gray-500 mt-2">Pflicht für jeden Betreiber. Sichtprüfung der Anlage, Dichtheitskontrolle der Armaturen und Prüfung des Rohrleitungsverlaufs. Wird oft von einer "befähigten Person" (z.B. Tankwagenfahrer oder Heizungsbauer) durchgeführt.</p>
                                 </div>
                                 <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
                                     <div className="font-bold text-gas text-lg mb-1">Alle 10 Jahre</div>
-                                    <div className="font-bold text-gray-800">Innere Prüfung</div>
-                                    <p className="text-sm text-gray-500 mt-2">Umfassende Prüfung durch ZÜS (TÜV). Austausch Sicherheitsventil. Wir koordinieren das.</p>
+                                    <div className="font-bold text-gray-800">Innere Prüfung & Festigkeit</div>
+                                    <p className="text-sm text-gray-500 mt-2">Große Prüfung durch eine zugelassene Überwachungsstelle (ZÜS/TÜV). Sicherheitsventil wird getauscht. Bei unterirdischen Tanks oft per Schallemission (ohne Ausgraben).</p>
                                 </div>
                             </div>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Rohrleitungsprüfung</h4>
+                            <p>Alle 10 Jahre müssen auch die erdverlegten Rohrleitungen vom Tank ins Haus geprüft werden. Dies geschieht meist zeitgleich mit der Inneren Prüfung.</p>
                         </div>
                     )
                 },
@@ -518,19 +521,59 @@ export const CONTENT = {
                 },
                 {
                     id: 'preise',
-                    title: 'Preisentwicklung',
-                    description: 'Wann ist der beste Zeitpunkt?',
+                    title: 'Flüssiggas Preise aktuell & Entwicklung',
+                    description: 'Wie viel kostet Flüssiggas aktuell? Charts & Prognosen.',
                     content: (
                         <div>
                             <SourceBadge text="Stand: 2025" />
-                            <p>Flüssiggaspreise schwanken saisonal. Im Sommer ist es oft günstiger.</p>
+                            <p className="lead text-lg text-gray-700 mb-6">Der Flüssiggaspreis ändert sich täglich. Hier erfahren Sie alles über die aktuelle Entwicklung und wie sich der Preis zusammensetzt.</p>
 
-                            <div className="my-6 p-4 bg-blue-50 rounded-lg flex gap-4 items-center">
-                                <Snowflake className="text-blue-400" />
+                            <h4 className="text-xl font-bold text-gas mb-4">Aktuelle Marktlage</h4>
+                            <p className="mb-4">Flüssiggas (LPG) wird an internationalen Börsen in Dollar gehandelt. Der Preis hängt stark vom Rohölpreis und dem Euro-Dollar-Kurs ab. Aktuell sehen wir eine Stabilisierung auf dem Markt, wobei saisonale Effekte (Heizsaison) den Preis im Winter traditionell leicht ansteigen lassen.</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Wie setzt sich der Preis zusammen?</h4>
+                            <ul className="space-y-3 mb-6">
+                                <li className="flex items-start"><TrendingUp size={18} className="text-gas mr-2 mt-1"/> <strong>Produktpreis:</strong> Der Einkaufspreis an der Raffinerie oder am Import-Terminal.</li>
+                                <li className="flex items-start"><TrendingUp size={18} className="text-gas mr-2 mt-1"/> <strong>Energie-Steuer:</strong> Staatliche Abgaben auf Flüssiggas.</li>
+                                <li className="flex items-start"><TrendingUp size={18} className="text-gas mr-2 mt-1"/> <strong>CO2-Abgabe:</strong> Seit 2021 ein fester Bestandteil, der jährlich steigt.</li>
+                                <li className="flex items-start"><TrendingUp size={18} className="text-gas mr-2 mt-1"/> <strong>Logistik & Service:</strong> Transport, Lagerung und Vertriebskosten.</li>
+                            </ul>
+
+                            <div className="my-6 p-4 bg-blue-50 rounded-lg flex gap-4 items-center border border-blue-100">
+                                <Snowflake className="text-blue-400 flex-shrink-0" />
                                 <div>
-                                    <span className="font-bold block text-gray-700">Winter-Tipp:</span>
-                                    <span className="text-sm">Bestellen Sie rechtzeitig vor dem Frost, um Lieferengpässe zu vermeiden.</span>
+                                    <span className="font-bold block text-gray-700">Spartipp:</span>
+                                    <span className="text-sm">Nutzen Sie unseren Preis-Rechner, um ein individuelles Angebot zu erhalten. Kaufen Sie im Sommer, wenn die Nachfrage geringer ist.</span>
                                 </div>
+                            </div>
+                        </div>
+                    )
+                },
+                {
+                    id: 'was-kostet-tank',
+                    title: 'Was kostet ein Flüssiggastank?',
+                    description: 'Kostenübersicht für Kauf & Installation (Oberirdisch vs. Unterirdisch).',
+                    content: (
+                        <div>
+                            <p className="lead text-lg text-gray-700 mb-6">Die Kosten für einen eigenen Flüssiggastank setzen sich aus dem Kaufpreis des Behälters und den Installationskosten zusammen.</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Richtwerte für Neubehälter (Kauf)</h4>
+                            <ComparisonTable
+                                headers={['Größe', 'Oberirdisch (ca.)', 'Unterirdisch (ca.)']}
+                                rows={[
+                                    ['1,2 t (2700 Liter)', '1.800€ - 2.200€', '2.200€ - 2.800€'],
+                                    ['2,1 t (4850 Liter)', '2.200€ - 2.600€', '2.600€ - 3.200€'],
+                                    ['2,9 t (6400 Liter)', '2.800€ - 3.500€', '3.500€ - 4.200€']
+                                ]}
+                            />
+                            <p className="text-sm text-gray-500 mb-6">*Preise sind grobe Markt-Richtwerte zzgl. MwSt. und können je nach Stahlpreis schwanken. Zubehör (Regler, Platte) kommt oft dazu.</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Installationskosten</h4>
+                            <p className="mb-4">Neben dem Tank selbst müssen Sie mit Kosten für das Fundament (ca. 300-500€), den Kran (ca. 150-300€) und den Anschluss der Rohrleitung (nach Aufwand) rechnen. Bei unterirdischen Tanks kommen Erdarbeiten hinzu.</p>
+
+                            <div className="bg-green-50 p-4 rounded-xl border border-green-100 mt-6">
+                                <p className="font-bold text-green-800 mb-1">Gebrauchte Tanks:</p>
+                                <p className="text-green-700 text-sm">Eine günstige Alternative sind regenerierte (gebrauchte) Tanks. Diese sind technisch neuwertig (neu geprüft, neu lackiert), kosten aber oft 20-30% weniger als Fabrikneue.</p>
                             </div>
                         </div>
                     )
