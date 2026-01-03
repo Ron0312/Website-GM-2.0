@@ -112,10 +112,25 @@ const App = ({ path, context }) => {
 
     useEffect(() => {
         // Check for client-side legacy redirect if on 404/invalid section
-        const validSections = ['start', 'tanks', 'gas', 'rechner', 'gewerbe', 'wissen', 'ueber-uns', 'kontakt', 'pruefungen', 'barrierefreiheit', 'liefergebiet', '404'];
+        const validSections = [
+            'start',
+            'tanks',
+            'gas',
+            'fluessiggastank-kaufen',
+            'fluessiggas-bestellen',
+            'rechner',
+            'gewerbe',
+            'wissen',
+            'ueber-uns',
+            'kontakt',
+            'pruefungen',
+            'barrierefreiheit',
+            'liefergebiet',
+            '404'
+        ];
 
         // Dynamic routes helper
-        const isTankRoute = activeSection.startsWith('tanks/');
+        const isTankRoute = activeSection.startsWith('tanks/') || activeSection.startsWith('fluessiggastank-kaufen/');
         const isCityRoute = activeSection.startsWith('liefergebiet/');
         const isKnowledgeRoute = activeSection.startsWith('wissen/');
 
