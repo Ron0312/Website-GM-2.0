@@ -387,8 +387,8 @@ export const getSeoForPath = (path) => {
   }
 
   // 2. Dynamic Tank Routes
-  if (cleanPath.startsWith('tanks/')) {
-    const slug = cleanPath.split('/')[1];
+  if (cleanPath.startsWith('tanks/') || cleanPath.startsWith('fluessiggastank-kaufen/')) {
+    const slug = cleanPath.split('/').pop();
     const tank = tankDetails.find(t => t.slug === slug);
     if (tank) {
       const tankImage = tank.image || DEFAULT_IMAGE;
@@ -406,8 +406,8 @@ export const getSeoForPath = (path) => {
             getTankProductSchema(tank),
             getBreadcrumbSchema([
                 { name: 'Start', url: '/' },
-                { name: 'Tanks', url: '/tanks' },
-                { name: tank.name, url: `/tanks/${tank.slug}` }
+                { name: 'Tanks', url: '/fluessiggastank-kaufen' },
+                { name: tank.name, url: `/fluessiggastank-kaufen/${tank.slug}` }
             ]),
             getFAQSchema([
                 { question: `Ist der ${tank.name} für mein Haus geeignet?`, answer: `Der ${tank.name} mit ${tank.volume} Volumen eignet sich typischerweise für ${tank.idealFor}.` },
@@ -446,8 +446,8 @@ export const getSeoForPath = (path) => {
               desc: 'Wie sicher ist Flüssiggas? Alles zu Sicherheitsabständen, Schutzzonen und gesetzlichen Vorschriften für Ihren Gastank.'
           },
           'tank-entsorgen': {
-              title: 'Flüssiggastank entsorgen & stilllegen | Kosten & Fachfirma',
-              desc: 'Fachgerechte Entsorgung und Stilllegung von Flüssiggastanks. Wir holen Ihren alten Tank ab (Fachfirma). Jetzt Kosten & Ablauf prüfen!',
+              title: 'Flüssiggastank entsorgen: Kosten & Fachfirma (Stilllegung)',
+              desc: 'Gastank entsorgen lassen? Wir sind Ihre Fachfirma für die Stilllegung, Entleerung und Abholung alter Flüssiggastanks. Jetzt Kosten anfragen!',
               howTo: {
                   title: 'Alten Gastank entsorgen lassen',
                   steps: [
