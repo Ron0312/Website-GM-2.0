@@ -1,7 +1,7 @@
 export const tankDetails = [
     {
         slug: '1-2t-oberirdisch',
-        name: '1,2 t Flüssiggastank (oberirdisch)',
+        name: 'Flüssiggastank 2.700 Liter / 1,2 t (oberirdisch)',
         type: 'oberirdisch',
         capacity: '1,2 t',
         volume: '2.700 Liter',
@@ -40,7 +40,7 @@ export const tankDetails = [
     },
     {
         slug: '2-1t-oberirdisch',
-        name: '2,1 t Flüssiggastank (oberirdisch)',
+        name: 'Flüssiggastank 4.850 Liter / 2,1 t (oberirdisch)',
         type: 'oberirdisch',
         capacity: '2,1 t',
         volume: '4.850 Liter',
@@ -79,7 +79,7 @@ export const tankDetails = [
     },
     {
         slug: '2-9t-oberirdisch',
-        name: '2,9 t Flüssiggastank (oberirdisch)',
+        name: 'Flüssiggastank 6.400 Liter / 2,9 t (oberirdisch)',
         type: 'oberirdisch',
         capacity: '2,9 t',
         volume: '6.400 Liter',
@@ -117,7 +117,7 @@ export const tankDetails = [
     },
     {
         slug: '1-2t-halboberirdisch',
-        name: '1,2 t Flüssiggastank (halboberirdisch)',
+        name: 'Flüssiggastank 2.700 Liter / 1,2 t (halboberirdisch)',
         type: 'halboberirdisch',
         capacity: '1,2 t',
         volume: '2.700 Liter',
@@ -155,7 +155,7 @@ export const tankDetails = [
     },
     {
         slug: '2-1t-halboberirdisch',
-        name: '2,1 t Flüssiggastank (halboberirdisch)',
+        name: 'Flüssiggastank 4.850 Liter / 2,1 t (halboberirdisch)',
         type: 'halboberirdisch',
         capacity: '2,1 t',
         volume: '4.850 Liter',
@@ -193,7 +193,7 @@ export const tankDetails = [
     },
     {
         slug: '2-9t-halboberirdisch',
-        name: '2,9 t Flüssiggastank (halboberirdisch)',
+        name: 'Flüssiggastank 6.400 Liter / 2,9 t (halboberirdisch)',
         type: 'halboberirdisch',
         capacity: '2,9 t',
         volume: '6.400 Liter',
@@ -230,7 +230,7 @@ export const tankDetails = [
     },
     {
         slug: '1-2t-unterirdisch',
-        name: '1,2 t Flüssiggastank (unterirdisch)',
+        name: 'Flüssiggastank 2.700 Liter / 1,2 t (unterirdisch)',
         type: 'unterirdisch',
         capacity: '1,2 t',
         volume: '2.700 Liter',
@@ -268,7 +268,7 @@ export const tankDetails = [
     },
     {
         slug: '2-1t-unterirdisch',
-        name: '2,1 t Flüssiggastank (unterirdisch)',
+        name: 'Flüssiggastank 4.850 Liter / 2,1 t (unterirdisch)',
         type: 'unterirdisch',
         capacity: '2,1 t',
         volume: '4.850 Liter',
@@ -306,7 +306,7 @@ export const tankDetails = [
     },
     {
         slug: '2-9t-unterirdisch',
-        name: '2,9 t Flüssiggastank (unterirdisch)',
+        name: 'Flüssiggastank 6.400 Liter / 2,9 t (unterirdisch)',
         type: 'unterirdisch',
         capacity: '2,9 t',
         volume: '6.400 Liter',
