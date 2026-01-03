@@ -95,8 +95,8 @@ const Footer = ({ setActiveSection, openLegal }) => {
                 <div>
                     <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-wider">Schnellzugriff</h4>
                     <ul className="space-y-2">
-                        <li><button onClick={() => setActiveSection('gas')} className={linkClass}>Flüssiggas bestellen</button></li>
-                        <li><button onClick={() => setActiveSection('tanks')} className={linkClass}>Flüssiggastank kaufen</button></li>
+                        <li><button onClick={() => setActiveSection('fluessiggastank-kaufen')} className={linkClass}>Flüssiggastank kaufen</button></li>
+                        <li><button onClick={() => setActiveSection('fluessiggas-bestellen')} className={linkClass}>Flüssiggas bestellen</button></li>
                         <li><button onClick={() => setActiveSection('rechner')} className={linkClass}>Spar-Rechner</button></li>
                         <li><button onClick={() => setActiveSection('kontakt')} className={linkClass}>Kontakt</button></li>
                         <li className="pt-2 border-t border-gray-800 mt-2">

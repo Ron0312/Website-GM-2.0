@@ -159,9 +159,14 @@ const App = ({ path, context }) => {
 
     const renderSection = () => {
         // Check for dynamic routes
-        if (activeSection.startsWith('tanks/')) {
-            const slug = activeSection.split('/')[1];
-            return <Suspense fallback={<div className="h-screen flex items-center justify-center">Laden...</div>}><TankDetail slug={slug} onBack={() => changeSection('tanks')} openWizard={openWizard} /></Suspense>;
+        // Support both old 'tanks/' and new 'fluessiggastank-kaufen/' for detail views
+        const isTankDetail = activeSection.startsWith('tanks/') || activeSection.startsWith('fluessiggastank-kaufen/');
+        if (isTankDetail) {
+            const slug = activeSection.split('/').pop(); // Get last part
+            // If it's just the base path without slug, it should be handled by the switch below
+            if (slug && slug !== 'tanks' && slug !== 'fluessiggastank-kaufen') {
+                 return <Suspense fallback={<div className="h-screen flex items-center justify-center">Laden...</div>}><TankDetail slug={slug} onBack={() => changeSection('fluessiggastank-kaufen')} openWizard={openWizard} /></Suspense>;
+            }
         }
 
         if (activeSection.startsWith('wissen/')) {
@@ -192,17 +197,38 @@ const App = ({ path, context }) => {
         }
 
         // Sections
-        const validSections = ['start', 'tanks', 'gas', 'rechner', 'gewerbe', 'wissen', 'ueber-uns', 'kontakt', 'pruefungen', 'barrierefreiheit', 'liefergebiet', '404'];
+        const validSections = [
+            'start',
+            'fluessiggastank-kaufen', // New Speaking URL
+            'fluessiggas-bestellen',  // New Speaking URL
+            'rechner',
+            'gewerbe',
+            'wissen',
+            'ueber-uns',
+            'kontakt',
+            'pruefungen',
+            'barrierefreiheit',
+            'liefergebiet',
+            '404'
+        ];
 
-        // Return 404 if not a valid section
-        if (!validSections.includes(activeSection)) {
+        // Explicit Check for Legacy Redirects first
+        // If activeSection is 'tanks' or 'gas' (which are NOT in validSections anymore for strictly speaking URLs),
+        // we force a redirect check here.
+        if (!validSections.includes(activeSection) && !isTankDetail) {
             const legacyTarget = findClientRedirect(activeSection);
             if (legacyTarget) {
                  const cleanTarget = legacyTarget.replace(/^\//, '');
-                 if (validSections.includes(cleanTarget) || cleanTarget.startsWith('tanks/') || cleanTarget.startsWith('liefergebiet/') || cleanTarget.startsWith('wissen/')) {
+                 // Check if target is a valid speaking URL or dynamic route
+                 if (validSections.includes(cleanTarget) || cleanTarget.startsWith('fluessiggastank-kaufen/') || cleanTarget.startsWith('liefergebiet/') || cleanTarget.startsWith('wissen/')) {
                      if (context) {
                          context.url = legacyTarget;
                          context.status = 301;
+                     }
+                     // Client side update
+                     if (typeof window !== 'undefined') {
+                         changeSection(cleanTarget);
+                         return null; // Render nothing while redirecting
                      }
                  }
             }
@@ -248,8 +274,16 @@ const App = ({ path, context }) => {
                     </div>
                 </div>
                 <TankSection openWizard={openWizard} setActiveSection={changeSection} showTechnicalOverview={false} tankFilter={tankFilter} onFilterChange={setTankFilter} /><CommercialSection setActiveSection={changeSection} /><div className="max-w-7xl mx-auto px-4"><EnergyCalculator /></div><Suspense fallback={null}><KnowledgeTeaser setActiveSection={changeSection} /></Suspense><Suspense fallback={<div className="h-96 w-full bg-gray-100 animate-pulse rounded-xl" />}><DeliveryMap /></Suspense><FAQ /><ContactSection /></>;
-            case 'tanks': return <><TankSection openWizard={openWizard} setActiveSection={changeSection} isPageTitle={true} tankFilter={tankFilter} onFilterChange={setTankFilter} /><ContactSection /></>;
-            case 'gas': return <><GasOrderSection onCheckAvailability={handleGasCheckAvailability} setActiveSection={changeSection} /><FAQ /><ContactSection /></>;
+
+            // New Speaking URLs mappings
+            case 'fluessiggastank-kaufen':
+            case 'tanks': // Legacy fallback
+                return <><TankSection openWizard={openWizard} setActiveSection={changeSection} isPageTitle={true} tankFilter={tankFilter} onFilterChange={setTankFilter} /><ContactSection /></>;
+
+            case 'fluessiggas-bestellen':
+            case 'gas': // Legacy fallback
+                return <><GasOrderSection onCheckAvailability={handleGasCheckAvailability} setActiveSection={changeSection} /><FAQ /><ContactSection /></>;
+
             case 'pruefungen': return <><div className="pt-20"></div><InspectionSection openWizard={openWizard} /><ContactSection /></>;
             case 'rechner': return <><div className="pt-32 max-w-4xl mx-auto px-4"><EnergyCalculator defaultExpanded={true} /></div><ContactSection /></>;
             case 'gewerbe': return <><CommercialSection setActiveSection={changeSection} isPage={true} /><ContactSection /></>;

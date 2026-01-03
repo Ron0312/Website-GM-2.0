@@ -96,7 +96,7 @@ const Hero = ({
                                         <motion.button
                                             whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
                                             whileTap={{ scale: 0.95 }}
-                                            onClick={() => openWizard ? openWizard('tank') : setActiveSection('tanks')}
+                                            onClick={() => openWizard ? openWizard('tank') : setActiveSection('fluessiggastank-kaufen')}
                                             className="px-8 py-4 bg-gas hover:bg-gas-dark text-white text-base font-bold rounded-full shadow-xl shadow-gas/30 transition-all uppercase tracking-wide border-2 border-transparent"
                                         >
                                             Tank kaufen
@@ -104,7 +104,7 @@ const Hero = ({
                                         <motion.button
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
-                                            onClick={() => openWizard ? openWizard('gas') : setActiveSection('gas')}
+                                            onClick={() => openWizard ? openWizard('gas') : setActiveSection('fluessiggas-bestellen')}
                                             className="px-8 py-4 bg-white text-gas hover:bg-blue-50 text-base font-bold rounded-full shadow-xl shadow-white/10 transition-all uppercase tracking-wide flex items-center justify-center border-2 border-white"
                                         >
                                             Flüssiggas bestellen
