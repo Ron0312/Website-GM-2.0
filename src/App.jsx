@@ -112,44 +112,22 @@ const App = ({ path, context }) => {
 
     useEffect(() => {
         // Check for client-side legacy redirect if on 404/invalid section
-        // Note: 'tanks' and 'gas' are legacy sections now, but kept in validSections for logic,
-        // though renderSection handles them by rendering the new components or we rely on findClientRedirect.
-
-        // We actually want to Redirect if we land on 'tanks' or 'gas' to the new URL.
-        const validSections = [
-            'start',
-            'fluessiggastank-kaufen', // New
-            'fluessiggas-bestellen',  // New
-            'rechner',
-            'gewerbe',
-            'wissen',
-            'ueber-uns',
-            'kontakt',
-            'pruefungen',
-            'barrierefreiheit',
-            'liefergebiet',
-            '404'
-        ];
+        const validSections = ['start', 'tanks', 'gas', 'rechner', 'gewerbe', 'wissen', 'ueber-uns', 'kontakt', 'pruefungen', 'barrierefreiheit', 'liefergebiet', '404'];
 
         // Dynamic routes helper
-        const isTankRoute = activeSection.startsWith('fluessiggastank-kaufen/') || activeSection.startsWith('tanks/'); // Support legacy tank routes for redirect check
+        const isTankRoute = activeSection.startsWith('tanks/');
         const isCityRoute = activeSection.startsWith('liefergebiet/');
         const isKnowledgeRoute = activeSection.startsWith('wissen/');
 
-        // 1. Check if we need to redirect legacy simple routes
-        const redirect = findClientRedirect(activeSection);
-        if (redirect) {
-            const cleanTarget = redirect.replace(/^\//, '');
-            // Only redirect if different
-            if (cleanTarget !== activeSection) {
-                changeSection(cleanTarget);
-                return;
-            }
-        }
-
-        // 2. Check 404
+        // Only run this check if we are truly in an invalid state.
         if (!isTankRoute && !isCityRoute && !isKnowledgeRoute && !validSections.includes(activeSection)) {
-             if (activeSection !== '404') {
+             const legacyTarget = findClientRedirect(activeSection);
+             if (legacyTarget) {
+                 const cleanTarget = legacyTarget.replace(/^\//, '');
+                 changeSection(cleanTarget);
+                 return;
+             } else if (activeSection !== '404') {
+                 // If really not found and not 404 yet, go to 404
                  changeSection('404');
                  return;
              }
@@ -181,16 +159,9 @@ const App = ({ path, context }) => {
 
     const renderSection = () => {
         // Check for dynamic routes
-        // Handle new Speaking URLs for Tanks
-        if (activeSection.startsWith('fluessiggastank-kaufen/')) {
-            const slug = activeSection.split('/')[1];
-            return <Suspense fallback={<div className="h-screen flex items-center justify-center">Laden...</div>}><TankDetail slug={slug} onBack={() => changeSection('fluessiggastank-kaufen')} openWizard={openWizard} /></Suspense>;
-        }
-
-        // Legacy Tank Routes Fallback (Should be caught by useEffect redirect, but just in case)
         if (activeSection.startsWith('tanks/')) {
-             const slug = activeSection.split('/')[1];
-             return <Suspense fallback={<div className="h-screen flex items-center justify-center">Laden...</div>}><TankDetail slug={slug} onBack={() => changeSection('fluessiggastank-kaufen')} openWizard={openWizard} /></Suspense>;
+            const slug = activeSection.split('/')[1];
+            return <Suspense fallback={<div className="h-screen flex items-center justify-center">Laden...</div>}><TankDetail slug={slug} onBack={() => changeSection('tanks')} openWizard={openWizard} /></Suspense>;
         }
 
         if (activeSection.startsWith('wissen/')) {
@@ -221,21 +192,14 @@ const App = ({ path, context }) => {
         }
 
         // Sections
-        const validSections = [
-            'start',
-            'fluessiggastank-kaufen', 'tanks', // Support both for rendering
-            'fluessiggas-bestellen', 'gas',    // Support both for rendering
-            'rechner', 'gewerbe', 'wissen', 'ueber-uns', 'kontakt', 'pruefungen', 'barrierefreiheit', 'liefergebiet', '404'
-        ];
+        const validSections = ['start', 'tanks', 'gas', 'rechner', 'gewerbe', 'wissen', 'ueber-uns', 'kontakt', 'pruefungen', 'barrierefreiheit', 'liefergebiet', '404'];
 
         // Return 404 if not a valid section
         if (!validSections.includes(activeSection)) {
             const legacyTarget = findClientRedirect(activeSection);
             if (legacyTarget) {
                  const cleanTarget = legacyTarget.replace(/^\//, '');
-                 // Allow matching new dynamic routes in legacy redirects
-                 const isNewTank = cleanTarget.startsWith('fluessiggastank-kaufen/');
-                 if (validSections.includes(cleanTarget) || isNewTank || cleanTarget.startsWith('liefergebiet/') || cleanTarget.startsWith('wissen/')) {
+                 if (validSections.includes(cleanTarget) || cleanTarget.startsWith('tanks/') || cleanTarget.startsWith('liefergebiet/') || cleanTarget.startsWith('wissen/')) {
                      if (context) {
                          context.url = legacyTarget;
                          context.status = 301;
@@ -284,15 +248,8 @@ const App = ({ path, context }) => {
                     </div>
                 </div>
                 <TankSection openWizard={openWizard} setActiveSection={changeSection} showTechnicalOverview={false} tankFilter={tankFilter} onFilterChange={setTankFilter} /><CommercialSection setActiveSection={changeSection} /><div className="max-w-7xl mx-auto px-4"><EnergyCalculator /></div><Suspense fallback={null}><KnowledgeTeaser setActiveSection={changeSection} /></Suspense><Suspense fallback={<div className="h-96 w-full bg-gray-100 animate-pulse rounded-xl" />}><DeliveryMap /></Suspense><FAQ /><ContactSection /></>;
-
-            case 'tanks': // Legacy Fallback
-            case 'fluessiggastank-kaufen':
-                return <><TankSection openWizard={openWizard} setActiveSection={changeSection} isPageTitle={true} tankFilter={tankFilter} onFilterChange={setTankFilter} /><ContactSection /></>;
-
-            case 'gas': // Legacy Fallback
-            case 'fluessiggas-bestellen':
-                return <><GasOrderSection onCheckAvailability={handleGasCheckAvailability} setActiveSection={changeSection} /><FAQ /><ContactSection /></>;
-
+            case 'tanks': return <><TankSection openWizard={openWizard} setActiveSection={changeSection} isPageTitle={true} tankFilter={tankFilter} onFilterChange={setTankFilter} /><ContactSection /></>;
+            case 'gas': return <><GasOrderSection onCheckAvailability={handleGasCheckAvailability} setActiveSection={changeSection} /><FAQ /><ContactSection /></>;
             case 'pruefungen': return <><div className="pt-20"></div><InspectionSection openWizard={openWizard} /><ContactSection /></>;
             case 'rechner': return <><div className="pt-32 max-w-4xl mx-auto px-4"><EnergyCalculator defaultExpanded={true} /></div><ContactSection /></>;
             case 'gewerbe': return <><CommercialSection setActiveSection={changeSection} isPage={true} /><ContactSection /></>;
