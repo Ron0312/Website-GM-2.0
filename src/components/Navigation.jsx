@@ -26,7 +26,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
     }, [scrolled]);
 
     // Force "scrolled" style on non-start pages to ensure visibility
-    const isTransparentPage = activeSection === 'start' || activeSection === 'fluessiggastank-kaufen' || activeSection === 'tanks' || activeSection === 'gewerbe' || activeSection === 'fluessiggas-bestellen' || activeSection === 'gas';
+    const isTransparentPage = activeSection === 'start' || activeSection === 'tanks' || activeSection === 'gewerbe' || activeSection === 'gas';
     const effectiveScrolled = scrolled || !isTransparentPage;
 
     // Helper to handle Tank Category clicks (also resets scroll if already on page)
@@ -78,9 +78,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
 
     const isActive = (id) => {
         if (activeSection === id) return true;
-        // Legacy Support
-        if (id === 'fluessiggastank-kaufen' && (activeSection === 'tanks' || activeSection.startsWith('tanks') || activeSection.startsWith('fluessiggastank-kaufen'))) return true;
-        if (id === 'fluessiggas-bestellen' && (activeSection === 'gas' || activeSection.startsWith('fluessiggas-bestellen'))) return true;
+        if (id === 'fluessiggastank-kaufen' && (activeSection.startsWith('fluessiggastank-kaufen') || activeSection.startsWith('tanks'))) return true;
         if (id === 'service' && (activeSection === 'pruefungen' || activeSection.startsWith('wissen'))) return true;
         return false;
     };

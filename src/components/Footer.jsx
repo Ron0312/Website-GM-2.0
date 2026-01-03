@@ -1,201 +1,166 @@
-import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Facebook, Linkedin, ArrowRight, CheckCircle2 } from 'lucide-react';
-import { ImprintContent, PrivacyContent, TermsContent } from './Legal';
+import React, { useState, useEffect } from 'react';
+import { Send, CheckCircle, Loader2, Phone, Clock } from 'lucide-react';
+import { COMPANY_NAME, PHONE_NUMBER, PHONE_NUMBER_DISPLAY, EMAIL_ADDRESS, WEB3FORMS_ACCESS_KEY, SOCIAL_LINKS, OPENING_HOURS } from '../constants';
 
 const Footer = ({ setActiveSection, openLegal }) => {
     const [email, setEmail] = useState('');
-    const [status, setStatus] = useState(null); // null, 'loading', 'success', 'error'
-    const [termsAccepted, setTermsAccepted] = useState(false);
+    const [honeypot, setHoneypot] = useState('');
+    const [status, setStatus] = useState('idle'); // idle, loading, success, error
+    const [isOpenStatus, setIsOpenStatus] = useState(false);
 
-    const handleSubmit = async (e) => {
+    // Calculate Open Status (Mo-Fr 8:00 - 17:00)
+    useEffect(() => {
+        const checkTime = () => {
+            const now = new Date();
+            const formatter = new Intl.DateTimeFormat('en-US', {
+                timeZone: 'Europe/Berlin',
+                weekday: 'short',
+                hour: 'numeric',
+                hour12: false
+            });
+
+            const parts = formatter.formatToParts(now);
+            const weekday = parts.find(p => p.type === 'weekday').value;
+            const hour = parseInt(parts.find(p => p.type === 'hour').value, 10);
+
+            const isWeekday = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].includes(weekday);
+            const isWorkingHours = hour >= 8 && hour < 17;
+
+            setIsOpenStatus(isWeekday && isWorkingHours);
+        };
+
+        checkTime();
+        const interval = setInterval(checkTime, 60000); // Check every minute
+        return () => clearInterval(interval);
+    }, []);
+
+    const handleNewsletterSubmit = async (e) => {
         e.preventDefault();
-        if (!termsAccepted) {
-            alert("Bitte stimmen Sie der Datenschutzerklärung zu.");
-            return;
-        }
+        if (honeypot) return;
+        if (!email) return;
 
         setStatus('loading');
 
         try {
             const formData = new FormData();
+            formData.append("access_key", WEB3FORMS_ACCESS_KEY);
+            formData.append("subject", "Neue Newsletter Anmeldung");
             formData.append("email", email);
-            formData.append("access_key", "c9715a00-1b77-4008-9844-307775c0882d"); // Web3Forms Key
-            formData.append("subject", "Newsletter Anmeldung");
             formData.append("from_name", "gasmöller Website Footer");
-            formData.append("botcheck", ""); // Honeypot
 
-            const res = await fetch("https://api.web3forms.com/submit", {
+            const response = await fetch("https://api.web3forms.com/submit", {
                 method: "POST",
                 body: formData
             });
 
-            if (res.ok) {
+            const result = await response.json();
+            if (result.success) {
                 setStatus('success');
                 setEmail('');
             } else {
                 setStatus('error');
             }
         } catch (error) {
-            console.error(error);
             setStatus('error');
         }
     };
 
-    const linkClass = "text-gray-400 hover:text-white transition-colors text-sm py-1 inline-block cursor-pointer";
-
-    // Social Media Links (can be moved to constants)
-    const SOCIAL_LINKS = {
-        facebook: "https://www.facebook.com/people/Gas-Service-Möller/100083286084666/",
-        linkedin: "https://www.linkedin.com/company/gas-service-möller"
-    };
-
-    // Live Status Logic
-    const currentHour = new Date().getHours();
-    const isBusinessHours = currentHour >= 8 && currentHour < 17;
+    // A11y & UX: Larger touch targets on mobile (min 44px)
+    const linkClass = "hover:text-white transition-colors py-3 md:py-1 block md:inline-block w-full text-left min-h-[44px] md:min-h-0 flex items-center md:block";
 
     return (
-        <footer className="bg-gray-900 text-gray-300 border-t border-gray-800">
-            <div className="max-w-7xl mx-auto px-4 pt-16 pb-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-                    {/* Column 1: Brand & Contact */}
-                    <div>
-                        <div
-                            onClick={() => setActiveSection('start')}
-                            className="inline-block cursor-pointer group"
-                        >
-                             <img src="/logos/Icon-01.webp" alt="gasmöller" width="2222" height="747" loading="lazy" className="h-10 w-auto filter brightness-0 invert opacity-80 mb-6 group-hover:opacity-100 transition-opacity" />
-                        </div>
+        <footer className="bg-gray-900 text-gray-400 py-20 border-t border-gray-800 text-sm">
+            <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div className="col-span-1">
+                    <img src="/logos/Icon-01.webp" alt="gasmöller" width="2222" height="747" loading="lazy" className="h-10 w-auto filter brightness-0 invert opacity-80 mb-6" />
+                    <p className="leading-relaxed mb-4">Ihr unabhängiger Partner für Energie im Norden. Seit 2000.</p>
 
-                        <p className="text-sm leading-relaxed mb-6 text-gray-400">
-                            Ihr zuverlässiger Partner für Flüssiggas und Tankanlagen in Norddeutschland.
-                            Unabhängig, fair und persönlich.
-                        </p>
+                    {/* Live Status Indicator - Clickable on mobile */}
+                    <a
+                        href={isOpenStatus ? `tel:${PHONE_NUMBER}` : undefined}
+                        className={`inline-flex items-center gap-2 bg-gray-800 px-3 py-1.5 rounded-full text-xs font-semibold mb-6 ${isOpenStatus ? 'cursor-pointer hover:bg-gray-700' : 'cursor-default'}`}
+                        aria-label={isOpenStatus ? "Jetzt geöffnet - Anrufen" : "Derzeit geschlossen"}
+                    >
+                        <div className={`w-2 h-2 rounded-full ${isOpenStatus ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`} />
+                        <span className={isOpenStatus ? 'text-green-400' : 'text-gray-400'}>
+                            {isOpenStatus ? 'Jetzt geöffnet' : 'Geschlossen'}
+                        </span>
+                    </a>
 
-                        <div className="space-y-3">
-                            <a href="tel:04551897089" className="flex items-center gap-3 text-white hover:text-gas transition-colors group">
-                                <div className="w-8 h-8 rounded bg-gray-800 flex items-center justify-center group-hover:bg-gas transition-colors">
-                                    <Phone size={14} />
-                                </div>
-                                <span className="font-bold">04551 89 70 89</span>
-                            </a>
-                            <a href="mailto:kontakt@gasmoeller.de" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group">
-                                <div className="w-8 h-8 rounded bg-gray-800 flex items-center justify-center group-hover:bg-gas transition-colors">
-                                    <Mail size={14} />
-                                </div>
-                                <span>kontakt@gasmoeller.de</span>
-                            </a>
-                            <div className="flex items-start gap-3 text-gray-400 group">
-                                <div className="w-8 h-8 rounded bg-gray-800 flex items-center justify-center mt-0.5 group-hover:bg-gas transition-colors">
-                                    <MapPin size={14} />
-                                </div>
-                                <span>Neuenteichweg 7a<br/>23795 Schieren</span>
-                            </div>
-                        </div>
-
-                        {/* Social Media */}
-                        <div className="flex gap-3 mt-8">
-                            <a href={SOCIAL_LINKS.facebook} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer text-white" aria-label="Facebook">
-                                <Facebook size={18} />
-                            </a>
-                            <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer text-white" aria-label="LinkedIn">
-                                <Linkedin size={18} />
-                            </a>
-                        </div>
-                    </div>
-
-                    {/* Column 2: Quick Links */}
-                    <div>
-                        <h4 className="text-white font-bold mb-6 text-lg">Schnellzugriff</h4>
-                        <ul className="space-y-2">
-                            <li><button onClick={() => setActiveSection('start')} className={linkClass}>Startseite</button></li>
-                            <li><button onClick={() => setActiveSection('fluessiggas-bestellen')} className={linkClass}>Flüssiggas bestellen</button></li>
-                            <li><button onClick={() => setActiveSection('fluessiggastank-kaufen')} className={linkClass}>Flüssiggastank kaufen</button></li>
-                            <li><button onClick={() => setActiveSection('wissen')} className={linkClass}>Ratgeber & Wissen</button></li>
-                            <li><button onClick={() => setActiveSection('rechner')} className={linkClass}>Energie-Rechner</button></li>
-                            <li><button onClick={() => setActiveSection('gewerbe')} className={linkClass}>Gewerbekunden</button></li>
-                            <li><button onClick={() => setActiveSection('liefergebiet')} className={linkClass}>Liefergebiet</button></li>
-                        </ul>
-                    </div>
-
-                    {/* Column 3: Service & Legal */}
-                    <div>
-                        <h4 className="text-white font-bold mb-6 text-lg">Service & Rechtliches</h4>
-                        <ul className="space-y-2">
-                            <li><button onClick={() => setActiveSection('pruefungen')} className={linkClass}>Tankprüfungen & Wartung</button></li>
-                            <li><button onClick={() => setActiveSection('kontakt')} className={linkClass}>Kontakt aufnehmen</button></li>
-                            <li><button onClick={() => setActiveSection('ueber-uns')} className={linkClass}>Über Uns</button></li>
-                            <li className="pt-4 border-t border-gray-800 mt-2"></li>
-                            <li><button onClick={() => openLegal('imprint')} className={linkClass}>Impressum</button></li>
-                            <li><button onClick={() => openLegal('privacy')} className={linkClass}>Datenschutz</button></li>
-                            <li><button onClick={() => openLegal('terms')} className={linkClass}>AGB</button></li>
-                            <li><button onClick={() => window.dispatchEvent(new CustomEvent('openCookieBanner'))} className={linkClass}>Cookie-Einstellungen</button></li>
-                            <li><button onClick={() => openLegal('accessibility')} className={linkClass}>Barrierefreiheit</button></li>
-                            <li><a href="/sitemap.xml" target="_blank" className={linkClass}>Sitemap</a></li>
-                        </ul>
-                    </div>
-
-                    {/* Column 4: Newsletter & Status */}
-                    <div>
-                        <h4 className="text-white font-bold mb-6 text-lg">Newsletter</h4>
-                        <p className="mb-4 text-xs text-gray-400">Bleiben Sie über Flüssiggaspreise informiert.</p>
-
-                        {status === 'success' ? (
-                             <div className="bg-green-500/10 text-green-400 p-4 rounded-lg flex items-center gap-2 border border-green-500/20">
-                                <CheckCircle2 size={20} />
-                                <span className="text-sm font-bold">Angemeldet!</span>
-                             </div>
-                        ) : (
-                            <form onSubmit={handleSubmit} className="space-y-3">
-                                <div className="flex">
-                                    <input
-                                        type="email"
-                                        required
-                                        placeholder="Ihre E-Mail Adresse"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        className="bg-gray-800 border border-gray-700 rounded-l px-3 py-3 md:py-2 w-full text-white focus:ring-1 focus:ring-gas focus:border-gas outline-none transition-all placeholder-gray-500 disabled:opacity-50 text-sm"
-                                        disabled={status === 'loading'}
-                                    />
-                                    <button
-                                        type="submit"
-                                        disabled={status === 'loading'}
-                                        className="bg-gas text-white px-4 md:px-3 py-3 md:py-2 rounded-r hover:bg-gas-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                                        aria-label="Anmelden"
-                                    >
-                                        {status === 'loading' ? '...' : <ArrowRight size={18} />}
-                                    </button>
-                                </div>
-                                <label className="flex items-start gap-2 cursor-pointer group">
-                                    <input
-                                        type="checkbox"
-                                        checked={termsAccepted}
-                                        onChange={(e) => setTermsAccepted(e.target.checked)}
-                                        className="mt-1 w-3 h-3 rounded bg-gray-800 border-gray-700 checked:bg-gas focus:ring-gas transition-all"
-                                    />
-                                    <span className="text-[10px] text-gray-500 group-hover:text-gray-400 leading-tight">
-                                        Ich stimme zu, dass meine E-Mail für den Newsletter verwendet wird. Widerruf jederzeit möglich.
-                                    </span>
-                                </label>
-                            </form>
-                        )}
-
-                        <div className="mt-8 pt-6 border-t border-gray-800">
-                            <div className="flex items-center gap-2">
-                                <span className={`w-2.5 h-2.5 rounded-full ${isBusinessHours ? 'bg-green-500 animate-pulse' : 'bg-gray-600'}`}></span>
-                                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
-                                    {isBusinessHours ? 'Jetzt erreichbar' : 'Derzeit geschlossen'}
-                                </span>
-                            </div>
-                        </div>
+                    <div className="flex space-x-4">
+                        <a href={SOCIAL_LINKS.facebook} target="_blank" rel="noopener noreferrer" className="w-11 h-11 md:w-8 md:h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer text-xl font-bold" aria-label="Facebook">f</a>
+                        <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer" className="w-11 h-11 md:w-8 md:h-8 bg-gray-800 rounded flex items-center justify-center hover:bg-gas transition-colors cursor-pointer text-xl font-bold" aria-label="LinkedIn">in</a>
                     </div>
                 </div>
-
-                <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-600">
-                    <p>&copy; {new Date().getFullYear()} Gas-Service Müller e.K. Alle Rechte vorbehalten.</p>
-                    <p className="flex items-center gap-4">
-                        <span>Made in Northern Germany</span>
-                    </p>
+                <div>
+                    <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-wider">Schnellzugriff</h4>
+                    <ul className="space-y-2">
+                        <li><button onClick={() => setActiveSection('fluessiggastank-kaufen')} className={linkClass}>Flüssiggastank kaufen</button></li>
+                        <li><button onClick={() => setActiveSection('fluessiggas-bestellen')} className={linkClass}>Flüssiggas bestellen</button></li>
+                        <li><button onClick={() => setActiveSection('rechner')} className={linkClass}>Spar-Rechner</button></li>
+                        <li><button onClick={() => setActiveSection('kontakt')} className={linkClass}>Kontakt</button></li>
+                        <li className="pt-2 border-t border-gray-800 mt-2">
+                            <a href={`tel:${PHONE_NUMBER}`} className={`${linkClass} flex items-center gap-2 font-semibold`}>
+                                <Phone size={14} /> {PHONE_NUMBER_DISPLAY}
+                            </a>
+                        </li>
+                    </ul>
                 </div>
+                <div>
+                    <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-wider">Rechtliches</h4>
+                    <ul className="space-y-2">
+                        <li><button onClick={() => openLegal('imprint')} className={linkClass}>Impressum</button></li>
+                        <li><button onClick={() => openLegal('privacy')} className={linkClass}>Datenschutz</button></li>
+                        <li><button onClick={() => openLegal('terms')} className={linkClass}>AGB</button></li>
+                        <li><button onClick={() => openLegal('accessibility')} className={linkClass}>Barrierefreiheit</button></li>
+                        <li><a href="/sitemap.xml" className={linkClass} target="_blank">Sitemap</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-wider">Newsletter</h4>
+                    <p className="mb-4 text-xs">Bleiben Sie über Flüssiggaspreise informiert.</p>
+
+                    {status === 'success' ? (
+                        <div className="bg-green-500/10 text-green-400 p-3 rounded flex items-center border border-green-500/20">
+                            <CheckCircle size={16} className="mr-2" />
+                            <span>Angemeldet!</span>
+                        </div>
+                    ) : (
+                        <form onSubmit={handleNewsletterSubmit} className="flex relative">
+                            <input
+                                type="text"
+                                name="b_field"
+                                style={{ display: 'none' }}
+                                tabIndex="-1"
+                                autoComplete="off"
+                                value={honeypot}
+                                onChange={(e) => setHoneypot(e.target.value)}
+                                aria-hidden="true"
+                            />
+                            <input
+                                type="email"
+                                required
+                                autoComplete="email"
+                                placeholder="Ihre E-Mail Adresse"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                disabled={status === 'loading'}
+                                className="bg-gray-800 border border-gray-700 rounded-l px-3 py-3 md:py-2 w-full text-white focus:ring-1 focus:ring-gas focus:border-gas outline-none transition-all placeholder-gray-500 disabled:opacity-50"
+                            />
+                            <button
+                                type="submit"
+                                disabled={status === 'loading'}
+                                className="bg-gas text-white px-4 md:px-3 py-3 md:py-2 rounded-r hover:bg-gas-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                            >
+                                {status === 'loading' ? <Loader2 size={16} className="animate-spin"/> : <Send size={16}/>}
+                            </button>
+                        </form>
+                    )}
+                    {status === 'error' && <p className="text-red-400 text-xs mt-2">Ein Fehler ist aufgetreten.</p>}
+                </div>
+            </div>
+            <div className="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-gray-800 text-center text-xs text-gray-600">
+                &copy; {new Date().getFullYear()} {COMPANY_NAME} Alle Rechte vorbehalten.
             </div>
         </footer>
     );

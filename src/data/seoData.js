@@ -123,33 +123,18 @@ const getTankProductSchema = (tank) => ({
   },
   "sku": `TANK-${tank.slug.toUpperCase()}`,
   "mpn": `GSM-${tank.slug.toUpperCase()}`,
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "5.0",
-    "reviewCount": "124"
-  },
   "offers": {
     "@type": "Offer",
-    "url": `${BASE_URL}/fluessiggastank-kaufen/${tank.slug}`,
+    "url": `${BASE_URL}/tanks/${tank.slug}`,
     "priceCurrency": "EUR",
-    "price": "0.00",
-    "priceValidUntil": "2025-12-31",
     "availability": "https://schema.org/InStock",
     "itemCondition": "https://schema.org/NewCondition",
-    "hasMerchantReturnPolicy": {
-       "@type": "MerchantReturnPolicy",
-       "applicableCountry": "DE",
-       "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-       "merchantReturnDays": 14,
-       "returnMethod": "https://schema.org/ReturnByMail"
-    },
-    "priceSpecification": {
+     "priceSpecification": {
         "@type": "PriceSpecification",
-        "price": "0.00",
-        "priceCurrency": "EUR",
+        "price": "0.00", // Call for price
         "valueAddedTaxIncluded": "true"
-    },
-    "shippingDetails": {
+      },
+      "shippingDetails": {
         "@type": "OfferShippingDetails",
         "shippingRate": {
             "@type": "MonetaryAmount",
@@ -183,7 +168,7 @@ const getTankCatalogSchema = () => ({
   "@context": "https://schema.org",
   "@type": "OfferCatalog",
   "name": "Flüssiggastanks",
-  "url": `${BASE_URL}/fluessiggastank-kaufen`,
+  "url": `${BASE_URL}/tanks`,
   "numberOfItems": tankDetails.length,
   "itemListElement": tankDetails.map((tank, index) => ({
     "@type": "Offer",
@@ -191,7 +176,7 @@ const getTankCatalogSchema = () => ({
       "@type": "Product",
       "name": tank.name,
       "description": tank.description,
-       "url": `${BASE_URL}/fluessiggastank-kaufen/${tank.slug}`
+       "url": `${BASE_URL}/tanks/${tank.slug}`
     },
     "position": index + 1
   }))
@@ -292,17 +277,15 @@ export const getSeoForPath = (path) => {
         description: 'Ihr unabhängiger Flüssiggasanbieter. Flüssiggas günstig kaufen & Gastanks vertragsfrei erwerben. Preise vergleichen & sparen. Kaufen statt mieten.',
         schema: [getOrganizationSchema(), getWebSiteSchema()]
       };
-    case 'tanks': // Legacy Fallback
-    case 'fluessiggastank-kaufen':
+    case 'tanks':
       return {
         ...defaultSeo,
         title: 'Flüssiggastank kaufen (vertragsfrei) | 2700 Liter, 4850 Liter, 6400 Liter',
         description: 'Flüssiggastank günstig kaufen (Neu & Gebraucht). 1,2t (2700 Liter), 2,1t (4850 Liter) & 2,9t (6400 Liter). Oberirdisch & Unterirdisch. Keine Miete.',
-        url: `${BASE_URL}/fluessiggastank-kaufen`,
         schema: [
             getOrganizationSchema(),
             getTankCatalogSchema(),
-            getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Tanks', url: '/fluessiggastank-kaufen' }]),
+            getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Tanks', url: '/tanks' }]),
             getFAQSchema([
                 { question: "Was kostet ein Flüssiggastank?", answer: "Die Kosten hängen von der Größe (1,2t bis 2,9t) und der Installation (oberirdisch/unterirdisch) ab. Kauftanks amortisieren sich oft nach 3-5 Jahren im Vergleich zur Miete." },
                 { question: "Muss ich den Tank kaufen?", answer: "Nein, aber wir empfehlen es. Mit einem Kauftank sind Sie unabhängig und können das Gas auf dem freien Markt oft 20-30% günstiger einkaufen." },
@@ -310,17 +293,20 @@ export const getSeoForPath = (path) => {
             ])
         ]
       };
-    case 'gas': // Legacy Fallback
-    case 'fluessiggas-bestellen':
+    case 'gas':
       return {
         ...defaultSeo,
         title: 'Flüssiggas Preise aktuell | Günstig kaufen & bestellen (vertragsfrei)',
         description: 'Aktuelle Flüssiggaspreise 2025. Günstig bestellen beim freien Anbieter. Preisvergleich lohnt sich! Express-Lieferung möglich.',
-        url: `${BASE_URL}/fluessiggas-bestellen`,
         schema: [
             getOrganizationSchema(),
-            getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggas', url: '/fluessiggas-bestellen' }])
-            // Removed FAQSchema here because <FAQ /> component is rendered in App.jsx for this route
+            getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggas', url: '/gas' }]),
+            getFAQSchema([
+                { question: "Wie lange dauert die Lieferung?", answer: "In der Regel liefern wir innerhalb von 5-10 Werktagen nach Bestellung. In dringenden Fällen bieten wir auch einen Express-Service an." },
+                { question: "Muss ich bei der Lieferung anwesend sein?", answer: "Ja, idealerweise sind Sie vor Ort, um den Lieferschein zu unterschreiben und den Füllstand gemeinsam zu prüfen. Nach Absprache ist auch eine kontaktlose Lieferung möglich." },
+                { question: "Gibt es versteckte Kosten?", answer: "Nein. Wir nennen Ihnen einen festen Literpreis. Es fallen keine zusätzlichen Gebühren für Miete, Zähler oder ähnliches an (außer evtl. TÜV-Gebühren bei Prüfungen)." },
+                { question: "Welche Qualität hat das Gas?", answer: "Wir liefern ausschließlich reines Propan nach DIN 51622 (mind. 95% Propan). Dies garantiert eine saubere Verbrennung und Frostsicherheit auch im tiefsten Winter." }
+            ])
         ]
       };
     case 'rechner':
@@ -401,13 +387,8 @@ export const getSeoForPath = (path) => {
   }
 
   // 2. Dynamic Tank Routes
-  // Legacy: tanks/slug -> New: fluessiggastank-kaufen/slug
-  // We need to support both for matching, but always return new canonical URL and data.
-  const isTankRoute = cleanPath.startsWith('tanks/') || cleanPath.startsWith('fluessiggastank-kaufen/');
-
-  if (isTankRoute) {
-    const parts = cleanPath.split('/');
-    const slug = parts[parts.length - 1]; // Get last part as slug
+  if (cleanPath.startsWith('tanks/')) {
+    const slug = cleanPath.split('/')[1];
     const tank = tankDetails.find(t => t.slug === slug);
     if (tank) {
       const tankImage = tank.image || DEFAULT_IMAGE;
@@ -420,14 +401,13 @@ export const getSeoForPath = (path) => {
         title: seoTitle,
         description: seoDesc,
         image: tankImage,
-        url: `${BASE_URL}/fluessiggastank-kaufen/${tank.slug}`,
         schema: [
             getOrganizationSchema(),
             getTankProductSchema(tank),
             getBreadcrumbSchema([
                 { name: 'Start', url: '/' },
-                { name: 'Tanks', url: '/fluessiggastank-kaufen' },
-                { name: tank.name, url: `/fluessiggastank-kaufen/${tank.slug}` }
+                { name: 'Tanks', url: '/tanks' },
+                { name: tank.name, url: `/tanks/${tank.slug}` }
             ]),
             getFAQSchema([
                 { question: `Ist der ${tank.name} für mein Haus geeignet?`, answer: `Der ${tank.name} mit ${tank.volume} Volumen eignet sich typischerweise für ${tank.idealFor}.` },
