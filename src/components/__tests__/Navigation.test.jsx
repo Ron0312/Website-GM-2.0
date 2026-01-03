@@ -41,14 +41,15 @@ describe('Navigation', () => {
         );
 
         expect(screen.getByText('Startseite')).toBeDefined();
-        expect(screen.getByText('Flüssiggastanks & Kauf')).toBeDefined();
+        // Renamed label check
+        expect(screen.getByText('Flüssiggastanks')).toBeDefined();
         expect(screen.getByText('Flüssiggas bestellen')).toBeDefined();
         expect(screen.getByText('Gewerbe')).toBeDefined();
         expect(screen.getByText('Service')).toBeDefined();
         expect(screen.getByText('Über Uns')).toBeDefined();
     });
 
-    it('contains "Halboberirdische" (Category) in the menu', () => {
+    it('contains "Halboberirdisch" (Category) in the menu', () => {
         render(
             <Navigation
                 activeSection="start"
@@ -59,7 +60,6 @@ describe('Navigation', () => {
             />
         );
 
-        // We changed the structure. Now it just says "Halboberirdisch" as a header
         expect(screen.getByText('Halboberirdisch')).toBeDefined();
     });
 
