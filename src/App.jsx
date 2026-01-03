@@ -120,6 +120,7 @@ const App = ({ path, context }) => {
             'start',
             'fluessiggastank-kaufen', // New
             'fluessiggas-bestellen',  // New
+            'tanks', 'gas', // Kept for legacy handling until redirect is complete
             'rechner',
             'gewerbe',
             'wissen',

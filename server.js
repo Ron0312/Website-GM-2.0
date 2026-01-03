@@ -176,7 +176,7 @@ async function createServer() {
 
   // Valid Routes Configuration
   const staticRoutes = new Set([
-      '', 'tanks', 'gas', 'rechner', 'gewerbe',
+      '', 'fluessiggastank-kaufen', 'fluessiggas-bestellen', 'tanks', 'gas', 'rechner', 'gewerbe',
       'wissen', 'ueber-uns', 'kontakt', 'pruefungen', 'barrierefreiheit', '404',
       'sitemap.xml', 'robots.txt'
   ]);
@@ -198,8 +198,9 @@ async function createServer() {
    */
   const generateSitemapXml = () => {
       const SITE_URL = 'https://gasmoeller.de';
-      const routes = [...Array.from(staticRoutes).filter(r => r !== '404' && r !== 'sitemap.xml' && r !== 'robots.txt')];
-      tankSlugs.forEach(slug => routes.push(`tanks/${slug}`));
+      // Filter out legacy routes (tanks, gas) from sitemap
+      const routes = [...Array.from(staticRoutes).filter(r => r !== '404' && r !== 'sitemap.xml' && r !== 'robots.txt' && r !== 'tanks' && r !== 'gas')];
+      tankSlugs.forEach(slug => routes.push(`fluessiggastank-kaufen/${slug}`));
       citySlugs.forEach(slug => routes.push(`liefergebiet/${slug}`));
       knowledgeSlugs.forEach(slug => routes.push(`wissen/${slug}`));
 
@@ -292,20 +293,21 @@ ${routes.map(route => `  <url>
     ['/allgemeine-geschaeftsbediungungen', '/'],
     ['/haftungsausschluss', '/'],
     ['/cookie-richtlinie-eu', '/'],
-    ['/sonderpreise-und-entsorgung', '/tanks'],
-    ['/flussiggastank-oberirdisch-4850l-21t-fassungsvermogen', '/tanks/2-1t-oberirdisch'],
-    ['/fluessiggastank-oberirdisch-4850l-21t-fassungsvermoegen', '/tanks/2-1t-oberirdisch'],
-    ['/fluessiggastank-unterirdisch-4850l-21t-fassungsvermoegen', '/tanks/2-1t-unterirdisch'],
-    ['/fluessiggastank-unterirdisch-2700l-12t-fassungsvermoegen', '/tanks/1-2t-unterirdisch'],
-    ['/flussiggastank-oberirdisch-6400l', '/tanks/2-9t-oberirdisch'],
-    ['/fluessiggastank-oberirdisch-6400l', '/tanks/2-9t-oberirdisch'],
-    ['/fluessiggastank-unterirdisch-6400l-29t-fassungsvermoegen', '/tanks/2-9t-unterirdisch'],
-    ['/flussiggastank-oberirdisch-2700l', '/tanks/1-2t-oberirdisch'],
-    ['/fluessiggastank-oberirdisch-2700l', '/tanks/1-2t-oberirdisch'],
-    ['/fluessiggastank-kaufen', '/tanks'],
-    ['/fluessiggastank-kaufen-2', '/tanks'],
-    ['/flussiggastank-mieten-oder-kaufen', '/tanks'],
-    ['/fluessiggas-bestellen', '/gas'],
+    ['/sonderpreise-und-entsorgung', '/fluessiggastank-kaufen'],
+    ['/tanks', '/fluessiggastank-kaufen'],
+    ['/gas', '/fluessiggas-bestellen'],
+    ['/flussiggastank-oberirdisch-4850l-21t-fassungsvermogen', '/fluessiggastank-kaufen/2-1t-oberirdisch'],
+    ['/fluessiggastank-oberirdisch-4850l-21t-fassungsvermoegen', '/fluessiggastank-kaufen/2-1t-oberirdisch'],
+    ['/fluessiggastank-unterirdisch-4850l-21t-fassungsvermoegen', '/fluessiggastank-kaufen/2-1t-unterirdisch'],
+    ['/fluessiggastank-unterirdisch-2700l-12t-fassungsvermoegen', '/fluessiggastank-kaufen/1-2t-unterirdisch'],
+    ['/flussiggastank-oberirdisch-6400l', '/fluessiggastank-kaufen/2-9t-oberirdisch'],
+    ['/fluessiggastank-oberirdisch-6400l', '/fluessiggastank-kaufen/2-9t-oberirdisch'],
+    ['/fluessiggastank-unterirdisch-6400l-29t-fassungsvermoegen', '/fluessiggastank-kaufen/2-9t-unterirdisch'],
+    ['/flussiggastank-oberirdisch-2700l', '/fluessiggastank-kaufen/1-2t-oberirdisch'],
+    ['/fluessiggastank-oberirdisch-2700l', '/fluessiggastank-kaufen/1-2t-oberirdisch'],
+    ['/fluessiggastank-kaufen-2', '/fluessiggastank-kaufen'],
+    ['/flussiggastank-mieten-oder-kaufen', '/fluessiggastank-kaufen'],
+    ['/fluessiggas-bestellen-2', '/fluessiggas-bestellen'],
     ['/was-ist-ein-fluessiggastank', '/wissen'],
     ['/was-ist-fluessiggas', '/wissen'],
     ['/fluessiggas-eine-vielfaeltige-energiequelle', '/wissen'],
@@ -347,11 +349,11 @@ ${routes.map(route => `  <url>
     if (p.match(/(2\.9|2,9|29)t/) || p.includes('6400')) size = '2-9t';
 
     if (size) {
-        if (isOberirdisch) return `/tanks/${size}-oberirdisch`;
-        if (isUnterirdisch) return `/tanks/${size}-unterirdisch`;
+        if (isOberirdisch) return `/fluessiggastank-kaufen/${size}-oberirdisch`;
+        if (isUnterirdisch) return `/fluessiggastank-kaufen/${size}-unterirdisch`;
     }
-    if (isTank && (p.includes('kaufen') || p.includes('mieten') || p.includes('preis') || p.includes('angebot'))) return '/tanks';
-    if (p.includes('gas') && (p.includes('bestellen') || p.includes('liefern') || p.includes('preis'))) return '/gas';
+    if (isTank && (p.includes('kaufen') || p.includes('mieten') || p.includes('preis') || p.includes('angebot'))) return '/fluessiggastank-kaufen';
+    if (p.includes('gas') && (p.includes('bestellen') || p.includes('liefern') || p.includes('preis'))) return '/fluessiggas-bestellen';
     if (p.includes('wissen') || p.includes('ratgeber') || p.includes('faq') || p.includes('frage') || p.includes('was-ist') || p.includes('umruesten') || p.includes('umrüsten') || pNorm.includes('umruesten')) return '/wissen';
     if (p.includes('pruefung') || p.includes('prüfung') || p.includes('vorschriften') || pNorm.includes('pruefung')) return '/pruefungen';
     if (p.includes('impressum') || p.includes('datenschutz') || p.includes('agb')) return '/';
@@ -373,7 +375,7 @@ ${routes.map(route => `  <url>
         }
         const cleanPath = normalizedPath.replace(/^\//, '');
         if (staticRoutes.has(cleanPath)) return next();
-        if (cleanPath.startsWith('tanks/')) {
+        if (cleanPath.startsWith('tanks/') || cleanPath.startsWith('fluessiggastank-kaufen/')) {
             const slug = cleanPath.split('/')[1];
             if (tankSlugs.has(slug)) return next();
         }
