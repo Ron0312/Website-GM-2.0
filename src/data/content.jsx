@@ -220,15 +220,15 @@ export const CONTENT = {
                     description: 'Fachgerechte Entsorgung, Kosten und Ablauf durch Fachfirma.',
                     content: (
                         <div>
-                            <SourceBadge text="Fachbetriebspflicht" />
-                            <p className="lead text-lg text-gray-700 mb-6">Sie möchten Ihren alten Flüssiggastank entsorgen oder stilllegen lassen? Als zertifizierte Fachfirma übernehmen wir den kompletten Rückbau für Sie – sicher, sauber und gesetzeskonform.</p>
+                            <SourceBadge text="Fachfirma & Fachbetrieb" />
+                            <p className="lead text-lg text-gray-700 mb-6">Sie möchten Ihren alten Flüssiggastank entsorgen, stilllegen oder entleeren lassen? Als zertifizierte Fachfirma übernehmen wir den kompletten Rückbau für Sie – sicher, sauber und gesetzeskonform.</p>
 
                             <div className="bg-red-50 border-l-4 border-red-500 p-4 my-6">
                                 <p className="font-bold text-red-700">Wichtig: Nicht selbst demontieren!</p>
-                                <p className="text-sm text-red-600">Flüssiggastanks stehen auch leer noch unter Druck und enthalten Restgas. Eine unsachgemäße Demontage ist lebensgefährlich. Beauftragen Sie immer einen zugelassenen Fachbetrieb.</p>
+                                <p className="text-sm text-red-600">Flüssiggastanks stehen auch leer noch unter Druck und enthalten Restgas. Eine unsachgemäße Demontage ist lebensgefährlich. Beauftragen Sie immer einen zugelassenen Fachbetrieb ("Fachfirma").</p>
                             </div>
 
-                            <h4 className="text-xl font-bold text-gas mb-4">Ablauf der Entsorgung</h4>
+                            <h4 className="text-xl font-bold text-gas mb-4">Ablauf der Stilllegung & Entsorgung</h4>
                             <p className="mb-4">Wir holen den Tank "am Stück" ab. Es finden keine gefährlichen Schneidarbeiten in Ihrem Garten statt.</p>
 
                             <div className="space-y-6 my-8">
@@ -236,14 +236,14 @@ export const CONTENT = {
                                     <div className="flex-shrink-0 w-10 h-10 bg-gas text-white font-bold rounded-full flex items-center justify-center">1</div>
                                     <div>
                                         <h5 className="font-bold text-lg mb-1">Anfrage & Angebot</h5>
-                                        <p className="text-gray-600">Senden Sie uns ein Foto vom Typschild und vom Standort des Tanks. Wir erstellen Ihnen ein verbindliches <strong>Festpreis-Angebot</strong>.</p>
+                                        <p className="text-gray-600">Senden Sie uns ein Foto vom Typschild und vom Standort des Tanks. Wir erstellen Ihnen ein verbindliches <strong>Festpreis-Angebot</strong> für die Entsorgung.</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-4">
                                     <div className="flex-shrink-0 w-10 h-10 bg-gas text-white font-bold rounded-full flex items-center justify-center">2</div>
                                     <div>
-                                        <h5 className="font-bold text-lg mb-1">Restgas & Absaugung</h5>
-                                        <p className="text-gray-600">Ist noch Gas im Tank? Kein Problem. Unser Tankwagen saugt das verwertbare Restgas ab. Dieses wird Ihnen gutgeschrieben (zum aktuellen Tagespreis vergütet).</p>
+                                        <h5 className="font-bold text-lg mb-1">Restgas & Entleeren</h5>
+                                        <p className="text-gray-600">Ist noch Gas im Tank? Wir kümmern uns um das fachgerechte <strong>Entleeren</strong>. Unser Tankwagen saugt das verwertbare Restgas ab. Dieses wird Ihnen gutgeschrieben (zum aktuellen Tagespreis vergütet).</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-4">
@@ -276,25 +276,27 @@ export const CONTENT = {
                 {
                     id: 'tank-kosten',
                     title: 'Was kostet ein Flüssiggastank?',
-                    description: 'Preise für Tanks (oberirdisch & unterirdisch) und Installation.',
+                    description: 'Preise für Tanks (2700 Liter, 4850 Liter) und Installation.',
                     content: (
                         <div>
                              <SourceBadge text="Preisfaktoren 2025" />
-                             <p className="lead text-lg text-gray-700 mb-6">Die Kosten für einen eigenen Flüssiggastank setzen sich aus dem Kaufpreis des Behälters und den einmaligen Installationskosten zusammen. Hier erfahren Sie, mit welchem Budget Sie planen sollten.</p>
+                             <p className="lead text-lg text-gray-700 mb-6">Die Kosten für einen eigenen Flüssiggastank setzen sich aus dem Kaufpreis des Behälters und den einmaligen Installationskosten zusammen. Was kostet ein Tank mit 2700 Liter oder 4850 Liter Volumen?</p>
 
                              <h4 className="text-xl font-bold text-gas mb-4">1. Tankpreise (Neu & Gebraucht)</h4>
                              <p className="mb-4">Die Preise variieren je nach Stahlpreis und Saison. Generell gilt: Oberirdische Tanks sind deutlich günstiger als unterirdische Modelle.</p>
 
                              <ComparisonTable
-                                headers={['Tankart', 'Preis-Tendenz (Kauf)', 'Installations-Aufwand']}
+                                headers={['Größe', 'Oberirdisch Preis (Tendenz)', 'Unterirdisch Preis (Tendenz)']}
                                 rows={[
-                                    ['Oberirdisch (1,2t - 2,9t)', 'Günstig (Einstiegsklasse)', 'Gering (Fundamentplatte)'],
-                                    ['Unterirdisch (1,2t - 2,9t)', 'Höher (wegen Spezial-Epoxid)', 'Hoch (Erdarbeiten)'],
-                                    ['Gebraucht / Regeneriert', 'ca. 20-30% unter Neupreis', 'Identisch zu Neu']
+                                    ['2700 Liter (1,2 t)', 'Günstig (Einstieg)', 'Mittel (zzgl. Erdarbeiten)'],
+                                    ['4850 Liter (2,1 t)', 'Mittel (Standard)', 'Gehoben'],
+                                    ['6400 Liter (2,9 t)', 'Höher', 'Hoch'],
+                                    ['Gebraucht / Regeneriert', 'ca. 20-30% sparen', 'Verfügbarkeit prüfen']
                                 ]}
                             />
+                            <p className="text-xs text-gray-500 mt-2">* Konkrete Euro-Preise nennen wir Ihnen gerne im persönlichen Angebot, da diese tagesaktuell kalkuliert werden.</p>
 
-                            <h4 className="text-xl font-bold text-gas mb-4">2. Installationskosten</h4>
+                            <h4 className="text-xl font-bold text-gas mb-4 mt-6">2. Installationskosten</h4>
                             <p className="mb-4">Neben dem Tank selbst fallen Kosten für die Aufstellung an:</p>
                             <ul className="space-y-3 mb-6">
                                 <li className="flex items-start"><Wrench size={18} className="text-gray-400 mr-2 mt-1"/> <strong>Fundament:</strong> Eine Betonplatte für oberirdische Tanks kostet (in Eigenleistung) oft nur Material, vom Profi ca. 300-500€.</li>

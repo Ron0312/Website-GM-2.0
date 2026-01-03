@@ -281,8 +281,8 @@ export const getSeoForPath = (path) => {
     case 'tanks':
       return {
         ...defaultSeo,
-        title: 'Flüssiggastank kaufen (vertragsfrei) | 2700 Liter, 4850 Liter, 6400 Liter',
-        description: 'Flüssiggastank günstig kaufen (Neu & Gebraucht). 1,2t (2700 Liter), 2,1t (4850 Liter) & 2,9t (6400 Liter). Oberirdisch & Unterirdisch. Keine Miete.',
+        title: 'Flüssiggastank kaufen | 2700, 4850 & 6400 Liter | Neu & Gebraucht',
+        description: 'Flüssiggastank kaufen (Neu & Gebraucht). Größen: 2700 Liter (1,2t), 4850 Liter (2,1t) & 6400 Liter (2,9t). Oberirdisch & Unterirdisch. Fachfirma.',
         schema: [
             getOrganizationSchema(),
             getTankCatalogSchema(),
@@ -360,7 +360,7 @@ export const getSeoForPath = (path) => {
       return {
           ...defaultSeo,
           title: 'Tankprüfung & Rohrleitungsprüfung (2 & 10 Jahre) | Kosten',
-          description: 'Innere Prüfung (10 Jahre), Äußere Prüfung (2 Jahre) & Rohrleitungsprüfung für Flüssiggastanks. TÜV-Abnahme organisieren lassen.',
+          description: 'Innere Prüfung (10 Jahre), Äußere Prüfung (2 Jahre) & Rohrleitungsprüfung Flüssiggastank. TÜV-Abnahme durch Fachfirma organisieren lassen.',
           schema: [
               getOrganizationSchema(),
               getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Service', url: '/pruefungen' }]),
@@ -449,7 +449,7 @@ export const getSeoForPath = (path) => {
           },
           'tank-entsorgen': {
               title: 'Flüssiggastank entsorgen & stilllegen | Kosten & Fachfirma',
-              desc: 'Fachgerechte Entsorgung und Stilllegung von Flüssiggastanks. Wir holen Ihren alten Tank ab (Fachfirma). Jetzt Kosten & Ablauf prüfen!',
+              desc: 'Gastank entsorgen lassen durch Fachfirma. Wir kümmern uns um Restgas-Absaugung, Demontage & Abtransport. Jetzt Kosten für Stilllegung prüfen!',
               howTo: {
                   title: 'Alten Gastank entsorgen lassen',
                   steps: [
@@ -461,8 +461,8 @@ export const getSeoForPath = (path) => {
               }
           },
           'tank-kosten': {
-              title: 'Was kostet ein Flüssiggastank? | Preise 2025 & Installation',
-              desc: 'Was kostet ein eigener Flüssiggastank? Übersicht der Preise für oberirdische und unterirdische Tanks (1,2t - 2,9t). Neu vs. Gebraucht & Installationskosten.',
+              title: 'Was kostet ein Flüssiggastank? | Preis 2700, 4850, 6400 Liter',
+              desc: 'Aktuelle Preise für Flüssiggastanks (Oberirdisch & Unterirdisch). Kosten für 1,2t (2700l), 2,1t (4850l) & 2,9t (6400l). Neu & Gebraucht kaufen.',
               date: '2025-02-20'
           },
           'aufstellung': {
