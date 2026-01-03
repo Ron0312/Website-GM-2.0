@@ -35,8 +35,8 @@ export const tankDetails = [
             { title: 'Anschluss', desc: 'Verlegung der Rohrleitung zum Haus und Anschluss durch einen zertifizierten Fachbetrieb.' }
         ],
         maintenanceInfo: 'Gesetzlich vorgeschriebene Prüfungen: Äußere Prüfung alle 2 Jahre (Sichtprüfung), Innere Prüfung alle 10 Jahre. Als Eigentümer sind Sie verantwortlich, wir organisieren das aber gerne komplett für Sie.',
-        seoTitle: '1,2 t (2700 L) Flüssiggastank oberirdisch kaufen | Preis & Maße',
-        seoDesc: 'Kleiner 1,2t Flüssiggastank (2700 Liter) oberirdisch. Ideal für Ferienhäuser & Tiny Homes. Alle Maße, Daten & Preise. Jetzt Angebot anfordern!'
+        seoTitle: 'Flüssiggastank 2700 Liter kaufen | 1,2 t Oberirdisch Preis',
+        seoDesc: 'Flüssiggastank 2700 Liter (1,2t) oberirdisch kaufen. Ideal für Ferienhäuser & Tiny Homes. Alle Maße, Daten & Preise. Jetzt Angebot anfordern!'
     },
     {
         slug: '2-1t-oberirdisch',
@@ -74,8 +74,8 @@ export const tankDetails = [
             { title: 'Inbetriebnahme', desc: 'Anschluss, Dichtheitsprüfung und Einweisung.' }
         ],
         maintenanceInfo: 'Äußere Prüfung: alle 2 Jahre. Innere Prüfung: alle 10 Jahre (Druckprüfung/Einspeisung). Rohrleitungsprüfung: alle 10 Jahre.',
-        seoTitle: '2,1 t (4850 L) Flüssiggastank oberirdisch kaufen | Standardgröße',
-        seoDesc: '2,1t (4850 Liter) Flüssiggastank oberirdisch kaufen. Der Standard für Einfamilienhäuser. Maße, Technische Daten & Installation. Jetzt informieren!'
+        seoTitle: 'Flüssiggastank 4850 Liter kaufen | 2,1 t Oberirdisch Preis',
+        seoDesc: 'Flüssiggastank 4850 Liter (2,1t) oberirdisch kaufen. Der Standard für Einfamilienhäuser. Maße, Technische Daten & Preise. Jetzt informieren!'
     },
     {
         slug: '2-9t-oberirdisch',
@@ -263,8 +263,8 @@ export const tankDetails = [
             { title: 'Verfüllung', desc: 'Mit Sand einschlämmen. Domschacht aufsetzen.' }
         ],
         maintenanceInfo: 'Innere Prüfung alle 10 Jahre etwas aufwändiger (Einspeisung notwendig). Äußere Prüfung erfolgt über Domschacht/Messung.',
-        seoTitle: '1,2 t (2700 L) Flüssiggastank unterirdisch kaufen | Unsichtbar',
-        seoDesc: 'Unterirdischer 1,2t Flüssiggastank (2700 Liter). Perfekt für kleine Gärten. Verschwindet im Boden. Jetzt informieren & Angebot holen.'
+        seoTitle: 'Flüssiggastank Unterirdisch 2700 Liter kaufen | Gastank Preis',
+        seoDesc: 'Unterirdischer Flüssiggastank 2700 Liter (1,2t) kaufen. Perfekt für kleine Gärten. Verschwindet im Boden. Jetzt informieren & Angebot holen.'
     },
     {
         slug: '2-1t-unterirdisch',
@@ -301,8 +301,8 @@ export const tankDetails = [
             { title: 'Finish', desc: 'Oberboden auftragen, Rasen säen. Nur Deckel bleibt sichtbar.' }
         ],
         maintenanceInfo: 'Wartungsarm. Korrosionsschutz durch Epoxidharz und Sandbettung extrem langlebig.',
-        seoTitle: '2,1 t (4850 L) Flüssiggastank unterirdisch kaufen | Der Standard',
-        seoDesc: '2,1t (4850 Liter) Erdtank kaufen. Unsichtbare Energieversorgung für Ihr Einfamilienhaus. Maße & Einbau-Infos. Jetzt Preisliste!'
+        seoTitle: 'Flüssiggastank Unterirdisch 4850 Liter kaufen | Gastank Preis',
+        seoDesc: 'Flüssiggastank Unterirdisch 4850 Liter (2,1t) kaufen. Unsichtbare Energieversorgung für Ihr Einfamilienhaus. Maße & Preise 2025.'
     },
     {
         slug: '2-9t-unterirdisch',

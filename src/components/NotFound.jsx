@@ -117,7 +117,7 @@ const NotFound = ({ onGoHome }) => {
                     <button onClick={() => onGoHome('tanks')} className="bg-white border border-gray-200 px-3 py-1.5 rounded-lg hover:border-gas hover:text-gas transition-all">Tanks kaufen</button>
                     <button onClick={() => onGoHome('gas')} className="bg-white border border-gray-200 px-3 py-1.5 rounded-lg hover:border-gas hover:text-gas transition-all">Gas bestellen</button>
                     <button onClick={() => onGoHome('kontakt')} className="bg-white border border-gray-200 px-3 py-1.5 rounded-lg hover:border-gas hover:text-gas transition-all">Kontakt</button>
-                    <a href="/tanks/1-2t-oberirdisch" className="bg-white border border-gray-200 px-3 py-1.5 rounded-lg hover:border-gas hover:text-gas transition-all">1.2t Tank</a>
+                    <a href="/fluessiggastank-kaufen/1-2t-oberirdisch" className="bg-white border border-gray-200 px-3 py-1.5 rounded-lg hover:border-gas hover:text-gas transition-all">1.2t Tank</a>
                 </div>
             </div>
         </div>
