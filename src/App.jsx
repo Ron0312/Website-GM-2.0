@@ -28,6 +28,7 @@ import { cityData } from './data/cityData';
 import { tankDetails } from './data/tanks';
 import ErrorBoundary from './components/ErrorBoundary';
 import DualCTA from './components/DualCTA';
+import TankDisposalPage from './components/TankDisposalPage';
 
 // Lazy Load heavy components
 const WizardModal = React.lazy(() => import('./components/WizardModal'));
@@ -126,6 +127,7 @@ const App = ({ path, context }) => {
             'ueber-uns',
             'kontakt',
             'pruefungen',
+            'tank-entsorgen',
             'barrierefreiheit',
             'liefergebiet',
             '404'
@@ -286,6 +288,7 @@ const App = ({ path, context }) => {
             case 'gas': // Legacy fallback
                 return <><GasOrderSection onCheckAvailability={handleGasCheckAvailability} setActiveSection={changeSection} /><FAQ /><ContactSection /></>;
 
+            case 'tank-entsorgen': return <><div className="pt-20"></div><TankDisposalPage setActiveSection={changeSection} openWizard={openWizard} /></>;
             case 'pruefungen': return <><div className="pt-20"></div><InspectionSection openWizard={openWizard} /><ContactSection /></>;
             case 'rechner': return <><div className="pt-32 max-w-4xl mx-auto px-4"><EnergyCalculator defaultExpanded={true} /></div><ContactSection /></>;
             case 'gewerbe': return <><CommercialSection setActiveSection={changeSection} isPage={true} /><ContactSection /></>;

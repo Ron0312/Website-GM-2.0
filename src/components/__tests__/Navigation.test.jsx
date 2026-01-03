@@ -15,6 +15,10 @@ vi.mock('lucide-react', () => ({
     Settings: () => <div data-testid="settings-icon" />,
     Flame: () => <div data-testid="flame-icon" />,
     BookOpen: () => <div data-testid="book-open-icon" />,
+    Trash2: () => <div data-testid="trash-icon" />,
+    ArrowUpFromLine: () => <div data-testid="arrow-up-icon" />,
+    ArrowDownToLine: () => <div data-testid="arrow-down-icon" />,
+    Divide: () => <div data-testid="divide-icon" />
 }));
 
 vi.mock('framer-motion', () => ({
@@ -44,7 +48,7 @@ describe('Navigation', () => {
         expect(screen.getByText('Über Uns')).toBeDefined();
     });
 
-    it('contains "Halboberirdische Flüssiggastanks" in the menu', () => {
+    it('contains "Halboberirdische" (Category) in the menu', () => {
         render(
             <Navigation
                 activeSection="start"
@@ -55,14 +59,8 @@ describe('Navigation', () => {
             />
         );
 
-        // Since dropdown is hidden or conditional, we check if the label exists in the document structure
-        // Note: The structure in Navigation.jsx has the text "Halboberirdische Flüssiggastanks" in the JSX.
-        // It might be hidden via CSS, but queryByText should find it if it's rendered in DOM.
-        // However, looking at Navigation.jsx code, the desktop dropdown is rendered but hidden with CSS.
-        // The mobile menu renders items conditionally.
-        // Let's check for desktop presence.
-
-        expect(screen.getByText('Halboberirdische Flüssiggastanks')).toBeDefined();
+        // We changed the structure. Now it just says "Halboberirdisch" as a header
+        expect(screen.getByText('Halboberirdisch')).toBeDefined();
     });
 
     it('applies solid styling on non-start pages', () => {
@@ -75,11 +73,6 @@ describe('Navigation', () => {
                 openWizard={() => {}}
             />
         );
-
-        // On start page, not scrolled: bg-transparent
-        // Note: glass-nav class is applied when effectiveScrolled is true.
-        // effectiveScrolled = scrolled || activeSection !== 'start'
-        // initial scrolled is false.
 
         const header = container.querySelector('header');
         expect(header.className).toContain('bg-transparent');
@@ -94,7 +87,6 @@ describe('Navigation', () => {
             />
         );
 
-        // On other page: glass-nav (solid/scrolled style)
         expect(header.className).toContain('glass-nav');
     });
 });
