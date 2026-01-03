@@ -36,7 +36,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
         },
         halboberirdisch: {
             title: "Die goldene Mitte",
-            description: "Halboberirdische Tanks werden zur Hälfte im Erdreich versenkt. Sie sind weniger sichtbar als oberirdische Tanks und erfordern weniger Erdarbeiten als komplett unterirdische Tanks.",
+            description: "Halboberirdische Flüssiggastanks werden zur Hälfte im Erdreich versenkt. Sie sind weniger sichtbar als oberirdische Flüssiggastanks und erfordern weniger Erdarbeiten als komplett unterirdische Flüssiggastanks.",
             benefits: ["Weniger sichtbar", "Kompromisslösung", "Gute Zugänglichkeit"],
             color: "bg-blue-50 border-blue-100",
             iconColor: "text-blue-500",
@@ -81,8 +81,8 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
             <Hero
                 setActiveSection={setActiveSection}
                 openWizard={openWizard}
-                title={isPageTitle ? "Ihr neuer Flüssiggastank" : "Ihr neuer Flüssiggastank"}
-                subtitle="Kaufen oder Mieten – Sie haben die Wahl. Wir bieten Ihnen Flüssiggastanks in allen gängigen Größen, oberirdisch und unterirdisch."
+                title="Flüssiggastank kaufen"
+                subtitle="Preise für 2700l, 4850l & 6400l. Oberirdisch & Unterirdisch. Neu & Gebraucht."
                 backgroundImage="/images/tank-section-hero.webp"
                 badgeText="Sofort verfügbar & Installation durch Fachpartner"
                 // No custom buttons => uses default Tank Kaufen / Flüssiggas bestellen
@@ -90,8 +90,8 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
 
             <div className="py-24 max-w-7xl mx-auto px-4">
                 <div className="text-center mb-8">
-                    <h2 className="text-gas font-bold tracking-widest uppercase text-sm mb-2">Unser Sortiment</h2>
-                    <h3 className="text-4xl font-extrabold text-text mb-8">Flüssiggastanks für jeden Bedarf</h3>
+                    <h2 className="text-gas font-bold tracking-widest uppercase text-sm mb-2">Flüssiggastank 1,2t - 2,9t</h2>
+                    <h3 className="text-4xl font-extrabold text-text mb-8">Flüssiggastank kaufen: Unser Sortiment</h3>
 
                     {/* Visual Selection Area - Upgraded Toggle */}
                     <div className="flex justify-center">
@@ -189,18 +189,49 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
 
                 {/* Technical Overview Table */}
                 {showTechnicalOverview && (
-                    <div className="mt-20">
+                    <div className="mt-20 space-y-16">
                         <div className="max-w-4xl mx-auto bg-gray-50 rounded-2xl p-8 border border-gray-100">
-                            <h4 className="font-bold text-xl mb-4 text-center">Technische Übersicht</h4>
+                            <h4 className="font-bold text-xl mb-4 text-center">Technische Übersicht (2700l, 4850l, 6400l)</h4>
                             <div className="overflow-x-auto">
                                 <table className="w-full text-sm text-left">
                                     <thead className="text-xs text-gray-400 uppercase border-b border-gray-200"><tr><th className="py-3">Modell</th><th className="py-3">Maße (L x H)</th><th className="py-3">Gewicht</th><th className="py-3">Leistung</th></tr></thead>
                                     <tbody className="text-gray-600 divide-y divide-gray-100">
-                                        <tr><td className="py-3 font-bold">1,2 t</td><td className="py-3">2.500 x 1.250 mm</td><td className="py-3">~ 550 kg</td><td className="py-3">35 kW</td></tr>
-                                        <tr><td className="py-3 font-bold">2,1 t</td><td className="py-3">4.300 x 1.250 mm</td><td className="py-3">~ 980 kg</td><td className="py-3">60 kW</td></tr>
-                                        <tr><td className="py-3 font-bold">2,9 t</td><td className="py-3">5.500 x 1.250 mm</td><td className="py-3">~ 1.300 kg</td><td className="py-3">90 kW</td></tr>
+                                        <tr><td className="py-3 font-bold">1,2 t (2700 Liter)</td><td className="py-3">2.500 x 1.250 mm</td><td className="py-3">~ 550 kg</td><td className="py-3">35 kW</td></tr>
+                                        <tr><td className="py-3 font-bold">2,1 t (4850 Liter)</td><td className="py-3">4.300 x 1.250 mm</td><td className="py-3">~ 980 kg</td><td className="py-3">60 kW</td></tr>
+                                        <tr><td className="py-3 font-bold">2,9 t (6400 Liter)</td><td className="py-3">5.500 x 1.250 mm</td><td className="py-3">~ 1.300 kg</td><td className="py-3">90 kW</td></tr>
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+
+                        {/* Service Section for High Intent Keywords: Entsorgung & Gebraucht */}
+                        <div className="grid md:grid-cols-2 gap-8">
+                            <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <h4 className="text-xl font-bold text-gray-900 mb-3">Flüssiggastank entsorgen & Austausch</h4>
+                                <p className="text-gray-600 mb-4">
+                                    Sie möchten Ihren alten Flüssiggastank entsorgen oder gegen einen neuen austauschen?
+                                    Als Fachbetrieb übernehmen wir die Stilllegung, Restgas-Absaugung und den Abtransport.
+                                </p>
+                                <button
+                                    onClick={() => setActiveSection && setActiveSection('wissen/tank-entsorgen')}
+                                    className="text-gas font-bold hover:text-gas-dark underline decoration-gas/30 hover:decoration-gas transition-all"
+                                >
+                                    Mehr zur Flüssiggastankentsorgung
+                                </button>
+                            </div>
+
+                            <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <h4 className="text-xl font-bold text-gray-900 mb-3">Gebrauchte Flüssiggastanks (Regeneriert)</h4>
+                                <p className="text-gray-600 mb-4">
+                                    Sparen Sie Kosten mit unseren geprüften, regenerierten Flüssiggastanks.
+                                    Technisch einwandfrei, neu lackiert und mit voller Garantie – eine günstige Alternative zum Neukauf.
+                                </p>
+                                <button
+                                    onClick={() => openWizard ? openWizard('tank') : null}
+                                    className="text-gas font-bold hover:text-gas-dark underline decoration-gas/30 hover:decoration-gas transition-all"
+                                >
+                                    Angebot für gebrauchten Flüssiggastank
+                                </button>
                             </div>
                         </div>
                     </div>

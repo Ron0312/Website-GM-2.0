@@ -37,14 +37,14 @@ describe('Navigation', () => {
         );
 
         expect(screen.getByText('Startseite')).toBeDefined();
-        expect(screen.getByText('Tanks & Kauf')).toBeDefined();
+        expect(screen.getByText('Flüssiggastanks & Kauf')).toBeDefined();
         expect(screen.getByText('Flüssiggas bestellen')).toBeDefined();
         expect(screen.getByText('Gewerbe')).toBeDefined();
         expect(screen.getByText('Service')).toBeDefined();
         expect(screen.getByText('Über Uns')).toBeDefined();
     });
 
-    it('contains "Halboberirdische Tanks" in the menu', () => {
+    it('contains "Halboberirdische Flüssiggastanks" in the menu', () => {
         render(
             <Navigation
                 activeSection="start"
@@ -56,13 +56,13 @@ describe('Navigation', () => {
         );
 
         // Since dropdown is hidden or conditional, we check if the label exists in the document structure
-        // Note: The structure in Navigation.jsx has the text "Halboberirdische Tanks" in the JSX.
+        // Note: The structure in Navigation.jsx has the text "Halboberirdische Flüssiggastanks" in the JSX.
         // It might be hidden via CSS, but queryByText should find it if it's rendered in DOM.
         // However, looking at Navigation.jsx code, the desktop dropdown is rendered but hidden with CSS.
         // The mobile menu renders items conditionally.
         // Let's check for desktop presence.
 
-        expect(screen.getByText('Halboberirdische Tanks')).toBeDefined();
+        expect(screen.getByText('Halboberirdische Flüssiggastanks')).toBeDefined();
     });
 
     it('applies solid styling on non-start pages', () => {

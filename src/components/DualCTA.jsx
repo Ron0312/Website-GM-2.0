@@ -21,9 +21,9 @@ const DualCTA = ({ openWizard }) => {
                         <div className="bg-gas/5 p-5 rounded-2xl mb-6 group-hover:scale-105 group-hover:bg-gas/10 transition-all duration-300">
                             <Settings className="w-10 h-10 text-gas" strokeWidth={1.5} />
                         </div>
-                        <h3 className="text-xl font-bold text-gray-900 mb-3">Tank-Anfrage</h3>
+                        <h3 className="text-xl font-bold text-gray-900 mb-3">Flüssiggastank-Anfrage</h3>
                         <p className="text-gray-500 mb-8 leading-relaxed">
-                            Beratung & Angebot für neue Tanks, Wechsel oder Übernahme.
+                            Beratung & Angebot für neue Flüssiggastanks, Wechsel oder Übernahme.
                         </p>
                         <span className="mt-auto text-gas font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
                             Anfrage starten <ArrowRight className="w-5 h-5" />
@@ -38,7 +38,7 @@ const DualCTA = ({ openWizard }) => {
                         <div className="bg-orange-50 p-5 rounded-2xl mb-6 group-hover:scale-105 group-hover:bg-orange-100 transition-all duration-300">
                             <Flame className="w-10 h-10 text-orange-500" strokeWidth={1.5} />
                         </div>
-                        <h3 className="text-xl font-bold text-gray-900 mb-3">Gas bestellen</h3>
+                        <h3 className="text-xl font-bold text-gray-900 mb-3">Flüssiggas bestellen</h3>
                         <p className="text-gray-500 mb-8 leading-relaxed">
                             Tagesaktuelle Preise & Liefertermin direkt online anfragen.
                         </p>
