@@ -375,9 +375,9 @@ ${routes.map(route => `  <url>
     const isUnterirdisch = p.includes('unterirdisch') || pNorm.includes('unterirdisch');
 
     let size = null;
-    if (p.match(/(1\.2|1,2|12)t/) || p.includes('2700')) size = '1-2t';
-    if (p.match(/(2\.1|2,1|21)t/) || p.includes('4850')) size = '2-1t';
-    if (p.match(/(2\.9|2,9|29)t/) || p.includes('6400')) size = '2-9t';
+    if (p.match(/(1\.2|1,2|12|1-2)t/) || p.includes('2700')) size = '1-2t';
+    if (p.match(/(2\.1|2,1|21|2-1)t/) || p.includes('4850')) size = '2-1t';
+    if (p.match(/(2\.9|2,9|29|2-9)t/) || p.includes('6400')) size = '2-9t';
 
     if (size) {
         const sizeMap = {
