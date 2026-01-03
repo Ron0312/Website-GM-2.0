@@ -281,16 +281,17 @@ export const getSeoForPath = (path) => {
     case 'tanks':
       return {
         ...defaultSeo,
-        title: 'Flüssiggastank kaufen | Preise für 2700l, 4850l & 6400l',
-        description: 'Flüssiggastank kaufen statt mieten (Neu & Gebraucht). Alle Größen: 1,2t, 2,1t & 2,9t. Oberirdisch & Unterirdisch. Jetzt Gastank Preise 2025 vergleichen.',
+        title: 'Flüssiggastank kaufen | 2700 Liter, 4850 Liter | Neu & Gebraucht',
+        description: 'Flüssiggastank kaufen statt mieten. Preise für 1,2t (2700 Liter), 2,1t (4850 Liter) & 2,9t. Auch gebraucht & regeneriert. Entsorgung & Austausch durch Fachfirma.',
         schema: [
             getOrganizationSchema(),
             getTankCatalogSchema(),
             getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggastank kaufen', url: '/fluessiggastank-kaufen' }]),
             getFAQSchema([
-                { question: "Was kostet ein Flüssiggastank?", answer: "Die Kosten hängen von der Größe (1,2t bis 2,9t) und der Installation (oberirdisch/unterirdisch) ab. Kauftanks amortisieren sich oft nach 3-5 Jahren im Vergleich zur Miete." },
-                { question: "Muss ich den Tank kaufen?", answer: "Nein, aber wir empfehlen es. Mit einem Kauftank sind Sie unabhängig und können das Gas auf dem freien Markt oft 20-30% günstiger einkaufen." },
-                { question: "Gibt es auch gebrauchte Tanks?", answer: "Ja, wir bieten auch geprüfte, gebrauchte Flüssiggastanks (regeneriert) an. Diese sind deutlich günstiger als Neubehälter und technisch einwandfrei." }
+                { question: "Was kostet ein Flüssiggastank (2700l - 6400l)?", answer: "Die Preise hängen von der Größe (1,2t / 2700l bis 2,9t / 6400l) und der Installation (oberirdisch/unterirdisch) ab. Kauftanks amortisieren sich oft nach 3-5 Jahren." },
+                { question: "Bieten Sie auch gebrauchte Tanks an?", answer: "Ja, wir führen regenerierte, gebrauchte Flüssiggastanks (TÜV-geprüft). Diese sind eine günstige Alternative zum Neukauf." },
+                { question: "Können Sie meinen alten Gastank entsorgen?", answer: "Ja, als Fachbetrieb übernehmen wir die fachgerechte Entsorgung und Stilllegung alter Flüssiggastanks inklusive Restgas-Absaugung." },
+                { question: "Ist ein unterirdischer Tank teurer?", answer: "Ein unterirdischer Tank ist in der Anschaffung etwas teurer als ein oberirdischer, bietet aber den Vorteil, dass er im Garten fast unsichtbar ist." }
             ])
         ]
       };
@@ -298,16 +299,16 @@ export const getSeoForPath = (path) => {
     case 'gas':
       return {
         ...defaultSeo,
-        title: 'Flüssiggas Preise aktuell | Günstig Gas bestellen & liefern',
-        description: 'Aktuelle Flüssiggaspreise 2025 prüfen. Günstig Propan bestellen beim freien Anbieter. Express-Lieferung möglich. Jetzt Tagespreis anfragen & sparen.',
+        title: 'Flüssiggas Preis aktuell | Günstig kaufen & bestellen',
+        description: 'Aktueller Flüssiggas Preis 2025. Günstig Propan kaufen & bestellen beim freien Anbieter. Lieferung für 2700 Liter, 4850 Liter Tanks. Jetzt Tagespreis anfragen!',
         schema: [
             getOrganizationSchema(),
             getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggas bestellen', url: '/fluessiggas-bestellen' }]),
             getFAQSchema([
-                { question: "Wie lange dauert die Lieferung?", answer: "In der Regel liefern wir innerhalb von 5-10 Werktagen nach Bestellung. In dringenden Fällen bieten wir auch einen Express-Service an." },
-                { question: "Muss ich bei der Lieferung anwesend sein?", answer: "Ja, idealerweise sind Sie vor Ort, um den Lieferschein zu unterschreiben und den Füllstand gemeinsam zu prüfen. Nach Absprache ist auch eine kontaktlose Lieferung möglich." },
-                { question: "Gibt es versteckte Kosten?", answer: "Nein. Wir nennen Ihnen einen festen Literpreis. Es fallen keine zusätzlichen Gebühren für Miete, Zähler oder ähnliches an (außer evtl. TÜV-Gebühren bei Prüfungen)." },
-                { question: "Welche Qualität hat das Gas?", answer: "Wir liefern ausschließlich reines Propan nach DIN 51622 (mind. 95% Propan). Dies garantiert eine saubere Verbrennung und Frostsicherheit auch im tiefsten Winter." }
+                { question: "Wie ist der aktuelle Flüssiggas Preis?", answer: "Unsere Flüssiggaspreise orientieren sich am Tageskurs. Fordern Sie jetzt ein unverbindliches Angebot an, um den aktuellen Preis für Ihre PLZ zu erfahren." },
+                { question: "Kann ich Flüssiggas günstig kaufen, wenn ich miete?", answer: "Als Vertrags-Mieter sind Sie meist an den Anbieter gebunden. Als Eigentümer eines Tanks können Sie Flüssiggas günstig auf dem freien Markt kaufen und Anbieter vergleichen." },
+                { question: "Wie schnell können Sie liefern?", answer: "In der Regel liefern wir innerhalb von 5-10 Werktagen. In Notfällen bieten wir auch eine Express-Lieferung an." },
+                { question: "Welche Qualität liefern Sie?", answer: "Wir liefern ausschließlich reines Propan nach DIN 51622 (mind. 95% Propan), ideal für alle Heizungsanlagen und frostsicher im Winter." }
             ])
         ]
       };
@@ -461,8 +462,8 @@ export const getSeoForPath = (path) => {
               }
           },
           'tank-kosten': {
-              title: 'Was kostet ein Flüssiggastank? | Preis 2700, 4850, 6400 Liter',
-              desc: 'Aktuelle Preise für Flüssiggastanks (Oberirdisch & Unterirdisch). Kosten für 1,2t (2700l), 2,1t (4850l) & 2,9t (6400l). Neu & Gebraucht kaufen.',
+              title: 'Was kostet ein Flüssiggastank? | Preis 2700 Liter, 4850 Liter',
+              desc: 'Aktuelle Preise für Flüssiggastanks (Oberirdisch & Unterirdisch). Kosten für 1,2t (2700 Liter), 2,1t (4850 Liter) & 2,9t (6400 Liter). Neu & Gebraucht kaufen.',
               date: '2025-02-20'
           },
           'aufstellung': {

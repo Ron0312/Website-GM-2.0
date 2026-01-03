@@ -60,11 +60,11 @@ const GasOrderSection = ({ onCheckAvailability, setActiveSection }) => {
             <Hero
                 title={
                     <>
-                        Flüssiggas im Norden. <br/>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Fair & Zuverlässig.</span>
+                        Flüssiggas <br/>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">günstig kaufen</span>
                     </>
                 }
-                subtitle="Wir beliefern Privathaushalte und Gewerbe in Schleswig-Holstein, Hamburg, Niedersachsen und Mecklenburg-Vorpommern. Beste Preise, ohne Vertragsbindung."
+                subtitle="Aktueller Flüssiggas Preis für Schleswig-Holstein, Hamburg & MV. Einfach bestellen & sparen. Ohne Vertragsbindung."
                 backgroundImage="/images/gas-order-background.jpg"
                 badgeText="Der regionale Versorger"
                 customButtons={null}
@@ -207,32 +207,32 @@ const GasOrderSection = ({ onCheckAvailability, setActiveSection }) => {
             <section className="py-24 bg-gray-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl font-bold text-gray-900 mb-4">In 3 Schritten zum vollen Flüssiggastank</h2>
-                        <p className="text-gray-600">Unkompliziert, transparent und schnell.</p>
+                        <h2 className="text-3xl font-bold text-gray-900 mb-4">Flüssiggas bestellen: So einfach geht's</h2>
+                        <p className="text-gray-600">Unkompliziert, transparent und schnell zum aktuellen Tagespreis.</p>
                     </div>
                     <div className="grid md:grid-cols-3 gap-8">
                         {/* Step 1 */}
                         <div className="relative group">
                             <div className="text-9xl font-bold text-gray-100 absolute -top-10 -left-4 z-0 group-hover:text-blue-50 transition-colors">1</div>
                             <div className="relative z-10 bg-white p-8 rounded-2xl shadow-sm border border-gray-100 h-full hover:shadow-lg transition-shadow">
-                                <h3 className="text-xl font-bold text-gas mb-3">Angebot anfordern</h3>
-                                <p className="text-gray-600 leading-relaxed">Geben Sie Ihre PLZ und die gewünschte Menge in unseren Rechner ein. Sie erhalten umgehend ein unverbindliches Angebot.</p>
+                                <h3 className="text-xl font-bold text-gas mb-3">Flüssiggas Preis anfragen</h3>
+                                <p className="text-gray-600 leading-relaxed">Nutzen Sie unser Formular für eine Preisanfrage. Wir ermitteln den günstigsten Tagespreis für Ihre PLZ und Menge.</p>
                             </div>
                         </div>
                         {/* Step 2 */}
                         <div className="relative group">
                             <div className="text-9xl font-bold text-gray-100 absolute -top-10 -left-4 z-0 group-hover:text-blue-50 transition-colors">2</div>
                             <div className="relative z-10 bg-white p-8 rounded-2xl shadow-sm border border-gray-100 h-full hover:shadow-lg transition-shadow">
-                                <h3 className="text-xl font-bold text-gas mb-3">Bestellung aufgeben</h3>
-                                <p className="text-gray-600 leading-relaxed">Senden Sie die Anfrage ab. Wir bestätigen den Termin und den Preis. Keine versteckten Kosten, keine Vertragsbindung.</p>
+                                <h3 className="text-xl font-bold text-gas mb-3">Gas bestellen</h3>
+                                <p className="text-gray-600 leading-relaxed">Sagt Ihnen das Angebot zu? Dann können Sie das Flüssiggas direkt bestellen. Wir stimmen den Liefertermin mit Ihnen ab.</p>
                             </div>
                         </div>
                         {/* Step 3 */}
                         <div className="relative group">
                             <div className="text-9xl font-bold text-gray-100 absolute -top-10 -left-4 z-0 group-hover:text-blue-50 transition-colors">3</div>
                             <div className="relative z-10 bg-white p-8 rounded-2xl shadow-sm border border-gray-100 h-full hover:shadow-lg transition-shadow">
-                                <h3 className="text-xl font-bold text-gas mb-3">Lieferung erhalten</h3>
-                                <p className="text-gray-600 leading-relaxed">Unsere Fahrer füllen Ihren Flüssiggastank sicher und zuverlässig auf. Sie zahlen bequem per Rechnung nach der Lieferung.</p>
+                                <h3 className="text-xl font-bold text-gas mb-3">Lieferung & Tanken</h3>
+                                <p className="text-gray-600 leading-relaxed">Unsere Fahrer füllen Ihren Gastank sicher auf. Sie erhalten den Lieferschein und zahlen bequem per Rechnung.</p>
                             </div>
                         </div>
                     </div>
