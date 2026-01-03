@@ -1,6 +1,6 @@
 export const tankDetails = [
     {
-        slug: '1-2t-oberirdisch',
+        slug: 'fluessiggastank-2700l-oberirdisch-1-2t',
         name: 'Flüssiggastank 2.700 Liter / 1,2 t (oberirdisch)',
         type: 'oberirdisch',
         capacity: '1,2 t',
@@ -39,7 +39,7 @@ export const tankDetails = [
         seoDesc: 'Flüssiggastank 2700 Liter (1,2t) oberirdisch kaufen. Maße: 2,50m x 1,25m. Neu & Gebraucht. Ideal für Ferienhäuser. Jetzt Preis anfragen!'
     },
     {
-        slug: '2-1t-oberirdisch',
+        slug: 'fluessiggastank-4850l-oberirdisch-2-1t',
         name: 'Flüssiggastank 4.850 Liter / 2,1 t (oberirdisch)',
         type: 'oberirdisch',
         capacity: '2,1 t',
@@ -78,7 +78,7 @@ export const tankDetails = [
         seoDesc: 'Flüssiggastank 4850 Liter (2,1t) oberirdisch kaufen. Maße: 4,30m x 1,25m. Der Standard für Einfamilienhäuser. Neu & Gebraucht Preise.'
     },
     {
-        slug: '2-9t-oberirdisch',
+        slug: 'fluessiggastank-6400l-oberirdisch-2-9t',
         name: 'Flüssiggastank 6.400 Liter / 2,9 t (oberirdisch)',
         type: 'oberirdisch',
         capacity: '2,9 t',
@@ -116,7 +116,7 @@ export const tankDetails = [
         seoDesc: 'Flüssiggastank 6400 Liter (2,9t) oberirdisch kaufen. Maße: 5,50m x 1,25m. Für Gewerbe & MFH. Neu & Gebraucht Angebote.'
     },
     {
-        slug: '1-2t-halboberirdisch',
+        slug: 'fluessiggastank-2700l-halboberirdisch-1-2t',
         name: 'Flüssiggastank 2.700 Liter / 1,2 t (halboberirdisch)',
         type: 'halboberirdisch',
         capacity: '1,2 t',
@@ -154,7 +154,7 @@ export const tankDetails = [
         seoDesc: 'Halboberirdischer 1,2t Flüssiggastank (2700 Liter). Weniger sichtbar, einfachere Installation. Ideal bei schwierigen Bodenverhältnissen.'
     },
     {
-        slug: '2-1t-halboberirdisch',
+        slug: 'fluessiggastank-4850l-halboberirdisch-2-1t',
         name: 'Flüssiggastank 4.850 Liter / 2,1 t (halboberirdisch)',
         type: 'halboberirdisch',
         capacity: '2,1 t',
@@ -192,7 +192,7 @@ export const tankDetails = [
         seoDesc: '2,1t (4850 Liter) Tank halberdgedeckt. Die goldene Mitte für Ihr Einfamilienhaus. Alle Infos zu Maßen und Einbau.'
     },
     {
-        slug: '2-9t-halboberirdisch',
+        slug: 'fluessiggastank-6400l-halboberirdisch-2-9t',
         name: 'Flüssiggastank 6.400 Liter / 2,9 t (halboberirdisch)',
         type: 'halboberirdisch',
         capacity: '2,9 t',
@@ -229,7 +229,7 @@ export const tankDetails = [
         seoDesc: '2,9t (6400 Liter) halboberirdisch. Maximale Versorgungssicherheit bei reduzierter Sichtbarkeit. Datenblatt & Angebot.'
     },
     {
-        slug: '1-2t-unterirdisch',
+        slug: 'fluessiggastank-2700l-unterirdisch-1-2t',
         name: 'Flüssiggastank 2.700 Liter / 1,2 t (unterirdisch)',
         type: 'unterirdisch',
         capacity: '1,2 t',
@@ -267,7 +267,7 @@ export const tankDetails = [
         seoDesc: 'Flüssiggastank Unterirdisch 2700 Liter (1,2t) kaufen. Perfekt für kleine Gärten. Verschwindet im Boden. Was kostet ein unterirdischer Tank?'
     },
     {
-        slug: '2-1t-unterirdisch',
+        slug: 'fluessiggastank-4850l-unterirdisch-2-1t',
         name: 'Flüssiggastank 4.850 Liter / 2,1 t (unterirdisch)',
         type: 'unterirdisch',
         capacity: '2,1 t',
@@ -305,7 +305,7 @@ export const tankDetails = [
         seoDesc: 'Flüssiggastank Unterirdisch 4850 Liter (2,1t) kaufen. Unsichtbare Energieversorgung für Ihr Einfamilienhaus. Maße & Preise 2025.'
     },
     {
-        slug: '2-9t-unterirdisch',
+        slug: 'fluessiggastank-6400l-unterirdisch-2-9t',
         name: 'Flüssiggastank 6.400 Liter / 2,9 t (unterirdisch)',
         type: 'unterirdisch',
         capacity: '2,9 t',

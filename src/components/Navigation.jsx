@@ -51,15 +51,15 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
             label: 'Tanks & Kauf',
             hasChildren: true,
             children: [
-                { id: 'fluessiggastank-kaufen/1-2t-oberirdisch', label: '1,2 t Oberirdisch' },
-                { id: 'fluessiggastank-kaufen/2-1t-oberirdisch', label: '2,1 t Oberirdisch' },
-                { id: 'fluessiggastank-kaufen/2-9t-oberirdisch', label: '2,9 t Oberirdisch' },
-                { id: 'fluessiggastank-kaufen/1-2t-unterirdisch', label: '1,2 t Unterirdisch' },
-                { id: 'fluessiggastank-kaufen/2-1t-unterirdisch', label: '2,1 t Unterirdisch' },
-                { id: 'fluessiggastank-kaufen/2-9t-unterirdisch', label: '2,9 t Unterirdisch' },
-                { id: 'fluessiggastank-kaufen/1-2t-halboberirdisch', label: '1,2 t Halboberirdisch' },
-                { id: 'fluessiggastank-kaufen/2-1t-halboberirdisch', label: '2,1 t Halboberirdisch' },
-                { id: 'fluessiggastank-kaufen/2-9t-halboberirdisch', label: '2,9 t Halboberirdisch' }
+                { id: 'fluessiggastank-kaufen/fluessiggastank-2700l-oberirdisch-1-2t', label: '1,2 t Oberirdisch' },
+                { id: 'fluessiggastank-kaufen/fluessiggastank-4850l-oberirdisch-2-1t', label: '2,1 t Oberirdisch' },
+                { id: 'fluessiggastank-kaufen/fluessiggastank-6400l-oberirdisch-2-9t', label: '2,9 t Oberirdisch' },
+                { id: 'fluessiggastank-kaufen/fluessiggastank-2700l-unterirdisch-1-2t', label: '1,2 t Unterirdisch' },
+                { id: 'fluessiggastank-kaufen/fluessiggastank-4850l-unterirdisch-2-1t', label: '2,1 t Unterirdisch' },
+                { id: 'fluessiggastank-kaufen/fluessiggastank-6400l-unterirdisch-2-9t', label: '2,9 t Unterirdisch' },
+                { id: 'fluessiggastank-kaufen/fluessiggastank-2700l-halboberirdisch-1-2t', label: '1,2 t Halboberirdisch' },
+                { id: 'fluessiggastank-kaufen/fluessiggastank-4850l-halboberirdisch-2-1t', label: '2,1 t Halboberirdisch' },
+                { id: 'fluessiggastank-kaufen/fluessiggastank-6400l-halboberirdisch-2-9t', label: '2,9 t Halboberirdisch' }
             ]
         },
         { id: 'fluessiggas-bestellen', label: 'Flüssiggas bestellen', highlight: true },
