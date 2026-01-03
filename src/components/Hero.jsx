@@ -99,7 +99,7 @@ const Hero = ({
                                             onClick={() => openWizard ? openWizard('tank') : setActiveSection('fluessiggastank-kaufen')}
                                             className="px-8 py-4 bg-gas hover:bg-gas-dark text-white text-base font-bold rounded-full shadow-xl shadow-gas/30 transition-all uppercase tracking-wide border-2 border-transparent"
                                         >
-                                            Tank kaufen
+                                            Flüssiggastank kaufen
                                         </motion.button>
                                         <motion.button
                                             whileHover={{ scale: 1.05 }}

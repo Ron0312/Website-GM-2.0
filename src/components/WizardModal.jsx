@@ -255,7 +255,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
         formData.append("access_key", WEB3FORMS_ACCESS_KEY);
 
         const typeMap = {
-            'tank': 'Tank Kauf/Miete',
+            'tank': 'Flüssiggastank Kauf/Miete',
             'gas': 'Flüssiggas Bestellung',
             'service': 'Service Anfrage'
         };
@@ -401,7 +401,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                     <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                                         <h3 className="text-2xl font-bold text-center mb-8">Wie können wir helfen?</h3>
                                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                                            <SelectionCard title="Neuer Tank" description="Kauf oder Miete" icon={Settings} selected={type === 'tank'} onClick={() => setType('tank')} />
+                                            <SelectionCard title="Neuer Flüssiggastank" description="Kauf oder Miete" icon={Settings} selected={type === 'tank'} onClick={() => setType('tank')} />
                                             <SelectionCard title="Flüssiggas" description="Befüllung" icon={Flame} selected={type === 'gas'} onClick={() => setType('gas')} />
                                             <SelectionCard title="Service" description="Wartung" icon={Wrench} selected={type === 'service'} onClick={() => setType('service')} />
                                         </div>
@@ -428,7 +428,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                             </>
                                         ) : type === 'gas' ? (
                                             <>
-                                                <h3 className="text-2xl font-bold text-center mb-6">Wem gehört der Tank?</h3>
+                                                <h3 className="text-2xl font-bold text-center mb-6">Wem gehört der Flüssiggastank?</h3>
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                                                     <Controller name="details.ownership" control={control} render={({ field }) => (
                                                         <>
@@ -443,7 +443,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                         <div>
                                                             <h4 className="font-bold text-yellow-800 text-sm">Wichtiger Hinweis</h4>
                                                             <p className="text-sm text-yellow-700 mt-1 leading-relaxed">
-                                                                Bei Miettanks dürfen wir oft aus rechtlichen Gründen nicht befüllen. Bitte prüfen Sie Ihren Vertrag auf Fremdbefüllungsrechte.
+                                                                Bei Mietbehältern dürfen wir oft aus rechtlichen Gründen nicht befüllen. Bitte prüfen Sie Ihren Vertrag auf Fremdbefüllungsrechte.
                                                             </p>
                                                         </div>
                                                     </motion.div>
@@ -491,7 +491,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                             <>
                                                 <h3 className="text-2xl font-bold text-center mb-6">Bestelldetails</h3>
                                                 <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100 mb-6">
-                                                    <label className="block text-sm font-bold text-gray-700 mb-3">Tankgröße</label>
+                                                    <label className="block text-sm font-bold text-gray-700 mb-3">Flüssiggastankgröße</label>
                                                     <div className="grid grid-cols-3 gap-3 mb-6">
                                                         {TANK_SIZES.map((tank) => (
                                                             <button
@@ -555,7 +555,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                     )} />
                                                     <Controller name="details.tankSize" control={control} render={({ field }) => (
                                                         <div className="grid grid-cols-1 gap-3">
-                                                            <label className="text-sm font-bold text-gray-500 ml-1">Tankgröße</label>
+                                                            <label className="text-sm font-bold text-gray-500 ml-1">Flüssiggastankgröße</label>
                                                             <div className="grid grid-cols-3 gap-3">
                                                                 {['1.2t', '2.1t', '2.9t'].map(opt => (
                                                                     <button key={opt} type="button" onClick={() => field.onChange(opt)} className={`p-4 rounded-xl border-2 font-bold transition-all ${field.value === opt ? 'border-gas bg-gas text-white shadow-lg' : 'border-gray-100 hover:border-gas/30'}`}>{opt}</button>

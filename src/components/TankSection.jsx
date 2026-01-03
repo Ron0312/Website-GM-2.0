@@ -36,7 +36,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
         },
         halboberirdisch: {
             title: "Die goldene Mitte",
-            description: "Halboberirdische Tanks werden zur Hälfte im Erdreich versenkt. Sie sind weniger sichtbar als oberirdische Tanks und erfordern weniger Erdarbeiten als komplett unterirdische Tanks.",
+            description: "Halboberirdische Flüssiggastanks werden zur Hälfte im Erdreich versenkt. Sie sind weniger sichtbar als oberirdische Flüssiggastanks und erfordern weniger Erdarbeiten als komplett unterirdische Flüssiggastanks.",
             benefits: ["Weniger sichtbar", "Kompromisslösung", "Gute Zugänglichkeit"],
             color: "bg-blue-50 border-blue-100",
             iconColor: "text-blue-500",
@@ -207,7 +207,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                         {/* Service Section for High Intent Keywords: Entsorgung & Gebraucht */}
                         <div className="grid md:grid-cols-2 gap-8">
                             <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                                <h4 className="text-xl font-bold text-gray-900 mb-3">Gastank entsorgen & Austausch</h4>
+                                <h4 className="text-xl font-bold text-gray-900 mb-3">Flüssiggastank entsorgen & Austausch</h4>
                                 <p className="text-gray-600 mb-4">
                                     Sie möchten Ihren alten Flüssiggastank entsorgen oder gegen einen neuen austauschen?
                                     Als Fachbetrieb übernehmen wir die Stilllegung, Restgas-Absaugung und den Abtransport.
@@ -216,12 +216,12 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                                     onClick={() => setActiveSection && setActiveSection('wissen/tank-entsorgen')}
                                     className="text-gas font-bold hover:text-gas-dark underline decoration-gas/30 hover:decoration-gas transition-all"
                                 >
-                                    Mehr zur Tankentsorgung
+                                    Mehr zur Flüssiggastankentsorgung
                                 </button>
                             </div>
 
                             <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                                <h4 className="text-xl font-bold text-gray-900 mb-3">Gebrauchte Tanks (Regeneriert)</h4>
+                                <h4 className="text-xl font-bold text-gray-900 mb-3">Gebrauchte Flüssiggastanks (Regeneriert)</h4>
                                 <p className="text-gray-600 mb-4">
                                     Sparen Sie Kosten mit unseren geprüften, regenerierten Flüssiggastanks.
                                     Technisch einwandfrei, neu lackiert und mit voller Garantie – eine günstige Alternative zum Neukauf.
@@ -230,7 +230,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                                     onClick={() => openWizard ? openWizard('tank') : null}
                                     className="text-gas font-bold hover:text-gas-dark underline decoration-gas/30 hover:decoration-gas transition-all"
                                 >
-                                    Angebot für gebrauchten Tank
+                                    Angebot für gebrauchten Flüssiggastank
                                 </button>
                             </div>
                         </div>

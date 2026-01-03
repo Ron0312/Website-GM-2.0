@@ -48,7 +48,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
         { id: 'start', label: 'Startseite' },
         {
             id: 'fluessiggastank-kaufen',
-            label: 'Tanks & Kauf',
+            label: 'Flüssiggastanks & Kauf',
             hasChildren: true,
             children: [
                 { id: 'fluessiggastank-kaufen/fluessiggastank-2700l-oberirdisch-1-2t', label: '1,2 t Oberirdisch' },
@@ -139,14 +139,14 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                             /* Mega Menu Style for Tanks */
                                             <div className="grid grid-cols-1 gap-1">
                                                  <button onClick={handleMainTankClick} className="w-full text-left px-4 py-3 rounded-lg hover:bg-gas-light/30 text-sm font-bold text-gray-800 flex items-center justify-between group/link">
-                                                    <span>Alle Tanks ansehen</span>
+                                                    <span>Alle Flüssiggastanks ansehen</span>
                                                     <ChevronRight size={16} className="text-gray-400 group-hover/link:text-gas" />
                                                 </button>
                                                 <div className="h-px bg-gray-100 my-1"></div>
                                                 <div className="px-4 py-1 text-xs font-bold text-gray-400 uppercase tracking-wider">Kategorien</div>
-                                                <button onClick={() => handleTankClick('oberirdisch')} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Oberirdische Tanks</button>
-                                                <button onClick={() => handleTankClick('unterirdisch')} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Unterirdische Tanks</button>
-                                                <button onClick={() => handleTankClick('halboberirdisch')} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Halboberirdische Tanks</button>
+                                                <button onClick={() => handleTankClick('oberirdisch')} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Oberirdische Flüssiggastanks</button>
+                                                <button onClick={() => handleTankClick('unterirdisch')} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Unterirdische Flüssiggastanks</button>
+                                                <button onClick={() => handleTankClick('halboberirdisch')} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Halboberirdische Flüssiggastanks</button>
                                             </div>
                                         ) : (
                                             /* Standard Dropdown */

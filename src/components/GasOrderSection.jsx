@@ -223,7 +223,7 @@ const GasOrderSection = ({ onCheckAvailability, setActiveSection }) => {
                         <div className="relative group">
                             <div className="text-9xl font-bold text-gray-100 absolute -top-10 -left-4 z-0 group-hover:text-blue-50 transition-colors">2</div>
                             <div className="relative z-10 bg-white p-8 rounded-2xl shadow-sm border border-gray-100 h-full hover:shadow-lg transition-shadow">
-                                <h3 className="text-xl font-bold text-gas mb-3">Gas bestellen</h3>
+                                <h3 className="text-xl font-bold text-gas mb-3">Flüssiggas bestellen</h3>
                                 <p className="text-gray-600 leading-relaxed">Sagt Ihnen das Angebot zu? Dann können Sie das Flüssiggas direkt bestellen. Wir stimmen den Liefertermin mit Ihnen ab.</p>
                             </div>
                         </div>
@@ -232,7 +232,7 @@ const GasOrderSection = ({ onCheckAvailability, setActiveSection }) => {
                             <div className="text-9xl font-bold text-gray-100 absolute -top-10 -left-4 z-0 group-hover:text-blue-50 transition-colors">3</div>
                             <div className="relative z-10 bg-white p-8 rounded-2xl shadow-sm border border-gray-100 h-full hover:shadow-lg transition-shadow">
                                 <h3 className="text-xl font-bold text-gas mb-3">Lieferung & Tanken</h3>
-                                <p className="text-gray-600 leading-relaxed">Unsere Fahrer füllen Ihren Gastank sicher auf. Sie erhalten den Lieferschein und zahlen bequem per Rechnung.</p>
+                                <p className="text-gray-600 leading-relaxed">Unsere Fahrer füllen Ihren Flüssiggastank sicher auf. Sie erhalten den Lieferschein und zahlen bequem per Rechnung.</p>
                             </div>
                         </div>
                     </div>
@@ -251,7 +251,7 @@ const GasOrderSection = ({ onCheckAvailability, setActiveSection }) => {
                             <div className="inline-block px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-bold mb-6">DIN 51622</div>
                             <h2 className="text-3xl lg:text-4xl font-extrabold text-gray-900 mb-6">Geprüfte Qualität für Ihre Sicherheit</h2>
                             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                                Ihr Flüssiggas (Propan) unterliegt strengsten Qualitätskontrollen. Wir liefern ausschließlich Gas, das der DIN-Norm 51622 entspricht.
+                                Ihr Flüssiggas (Propan) unterliegt strengsten Qualitätskontrollen. Wir liefern ausschließlich Flüssiggas, das der DIN-Norm 51622 entspricht.
                                 Das garantiert Ihnen einen hohen Brennwert und eine saubere Verbrennung, die Ihre Heizungsanlage schont und die Umwelt entlastet.
                             </p>
                             <ul className="space-y-4">

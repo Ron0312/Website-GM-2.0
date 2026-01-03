@@ -21,7 +21,7 @@ const LocalFAQ = ({ city }) => {
             a: `Ja, ${city.name} (PLZ ${city.zip}) gehört zu unserem Kernliefergebiet ${preposition} ${city.state}. Wir beliefern Sie zuverlässig mit unseren eigenen Tankwagen.`
         },
         {
-            q: `Kann ich ${preposition} ${city.name} einen Gastank kaufen?`,
+            q: `Kann ich ${preposition} ${city.name} einen Flüssiggastank kaufen?`,
             a: `Absolut. Wir bieten Ihnen ${preposition} ${city.name} und Umgebung neue und regenerierte Flüssiggastanks zum Kauf an (1,2t bis 2,9t). Damit machen Sie sich unabhängig von teuren Mietverträgen.`
         },
         {
@@ -29,7 +29,7 @@ const LocalFAQ = ({ city }) => {
             a: `In dringenden Fällen (z.B. Heizungsausfall) sind wir schnell vor Ort. Unser Standort ermöglicht kurze Anfahrtswege nach ${city.name}. Rufen Sie im Notfall direkt an.`
         },
         {
-            q: "Bieten Sie auch Tankprüfungen an?",
+            q: "Bieten Sie auch Flüssiggastankprüfungen an?",
             a: `Ja, wir organisieren für Ihre Anlage ${preposition} ${city.name} sowohl die 2-jährige äußere Prüfung als auch die 10-jährige innere Prüfung. Alles aus einer Hand.`
         }
     ];
@@ -88,7 +88,7 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
         </>
     );
 
-    const heroSubtitle = `Ihr unabhängiger Anbieter für Flüssiggas ${preposition} ${city.name} (${city.zip}). Kaufen Sie Ihren Gastank direkt, sparen Sie Miete und genießen Sie freie Händlerwahl.`;
+    const heroSubtitle = `Ihr unabhängiger Anbieter für Flüssiggas ${preposition} ${city.name} (${city.zip}). Kaufen Sie Ihren Flüssiggastank direkt, sparen Sie Miete und genießen Sie freie Händlerwahl.`;
 
     // Find nearby cities (same state) - Deterministic shuffle to prevent hydration mismatch
     const seed = slug.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
@@ -148,7 +148,7 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
                                     <div className="flex-shrink-0 mt-1 w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
                                         <Check className="w-4 h-4 text-green-600" />
                                     </div>
-                                    <span><strong>Wertsteigerung:</strong> Ein eigener, moderner Gastank steigert den Wert Ihrer Immobilie {preposition} {city.zip} {city.name}.</span>
+                                    <span><strong>Wertsteigerung:</strong> Ein eigener, moderner Flüssiggastank steigert den Wert Ihrer Immobilie {preposition} {city.zip} {city.name}.</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <div className="flex-shrink-0 mt-1 w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
@@ -163,7 +163,7 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
                                 Viele Haushalte {preposition} <strong>{city.name}</strong> nutzen noch Mietverträge großer Konzerne. Dabei zahlen sie oft jahrelang drauf – durch Miete, Wartungspauschalen und gebundene Gaspreise.
                             </p>
                             <p className="text-gray-600 mb-8 leading-relaxed">
-                                Wir bieten Ihnen eine faire Alternative: <strong>Kaufen Sie Ihren Tank.</strong> Wir kümmern uns um die Aufstellung {preposition} {city.name}, den Anschluss und die regelmäßige Belieferung zu aktuellen Tagespreisen.
+                                Wir bieten Ihnen eine faire Alternative: <strong>Kaufen Sie Ihren Flüssiggastank.</strong> Wir kümmern uns um die Aufstellung {preposition} {city.name}, den Anschluss und die regelmäßige Belieferung zu aktuellen Tagespreisen.
                             </p>
                             <div className="space-y-4">
                                 <button

@@ -75,7 +75,7 @@ const getOrganizationSchema = () => ({
   },
   "knowsAbout": [
     "Flüssiggas",
-    "Gastanks",
+    "Flüssiggastanks",
     "Energieversorgung",
     "Heizung"
   ],
@@ -211,8 +211,8 @@ const getCitySchema = (city) => ({
             "addressCountry": "DE"
         }
     },
-    "description": `Günstiges Flüssiggas und Gastanks für ${city.name} und Umgebung. Lieferung, Aufstellung und Service aus einer Hand.`,
-    "name": `Flüssiggas & Tanks in ${city.name}`
+    "description": `Günstiges Flüssiggas und Flüssiggastanks für ${city.name} und Umgebung. Lieferung, Aufstellung und Service aus einer Hand.`,
+    "name": `Flüssiggas & Flüssiggastanks in ${city.name}`
 });
 
 // Helper for FAQ Schema
@@ -256,8 +256,8 @@ export const getSeoForPath = (path) => {
   }
 
   const defaultSeo = {
-    title: 'Gas-Service Möller | Ihr Partner für Flüssiggas & Tanks im Norden',
-    description: 'Flüssiggas kaufen, Gastanks mietfrei erwerben & erstklassiger Service. Wir beliefern Norddeutschland zuverlässig & günstig. Jetzt Angebot anfordern!',
+    title: 'Gas-Service Möller | Ihr Partner für Flüssiggas & Flüssiggastanks im Norden',
+    description: 'Flüssiggas kaufen, Flüssiggastanks mietfrei erwerben & erstklassiger Service. Wir beliefern Norddeutschland zuverlässig & günstig. Jetzt Angebot anfordern!',
     image: DEFAULT_IMAGE,
     type: 'website',
     url: `${BASE_URL}${cleanPathUrl && cleanPathUrl.startsWith('/') ? cleanPathUrl : '/' + (cleanPathUrl || '')}`,
@@ -273,8 +273,8 @@ export const getSeoForPath = (path) => {
     case '/':
       return {
         ...defaultSeo,
-        title: 'Gas-Service Möller | Flüssiggas & Tanks kaufen (Norddeutschland)',
-        description: 'Ihr unabhängiger Flüssiggasanbieter im Norden. Günstig Flüssiggas bestellen & Gastanks kaufen (1,2t - 2,9t). Vertragsfrei & zuverlässig. Jetzt Angebot anfordern!',
+        title: 'Gas-Service Möller | Flüssiggas & Flüssiggastanks kaufen (Norddeutschland)',
+        description: 'Ihr unabhängiger Flüssiggasanbieter im Norden. Günstig Flüssiggas bestellen & Flüssiggastanks kaufen (1,2t - 2,9t). Vertragsfrei & zuverlässig. Jetzt Angebot anfordern!',
         schema: [getOrganizationSchema(), getWebSiteSchema()]
       };
     case 'fluessiggastank-kaufen':
@@ -288,10 +288,10 @@ export const getSeoForPath = (path) => {
             getTankCatalogSchema(),
             getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggastank kaufen', url: '/fluessiggastank-kaufen' }]),
             getFAQSchema([
-                { question: "Was kostet ein Flüssiggastank (2700l - 6400l)?", answer: "Die Preise hängen von der Größe (1,2t / 2700l bis 2,9t / 6400l) und der Installation (oberirdisch/unterirdisch) ab. Kauftanks amortisieren sich oft nach 3-5 Jahren." },
-                { question: "Bieten Sie auch gebrauchte Tanks an?", answer: "Ja, wir führen regenerierte, gebrauchte Flüssiggastanks (TÜV-geprüft). Diese sind eine günstige Alternative zum Neukauf." },
-                { question: "Können Sie meinen alten Gastank entsorgen?", answer: "Ja, als Fachbetrieb übernehmen wir die fachgerechte Entsorgung und Stilllegung alter Flüssiggastanks inklusive Restgas-Absaugung." },
-                { question: "Ist ein unterirdischer Tank teurer?", answer: "Ein unterirdischer Tank ist in der Anschaffung etwas teurer als ein oberirdischer, bietet aber den Vorteil, dass er im Garten fast unsichtbar ist." }
+                { question: "Was kostet ein Flüssiggastank (2700l - 6400l)?", answer: "Die Preise hängen von der Größe (1,2t / 2700l bis 2,9t / 6400l) und der Installation (oberirdisch/unterirdisch) ab. Kauf-Flüssiggastanks amortisieren sich oft nach 3-5 Jahren." },
+                { question: "Bieten Sie auch gebrauchte Flüssiggastanks an?", answer: "Ja, wir führen regenerierte, gebrauchte Flüssiggastanks (TÜV-geprüft). Diese sind eine günstige Alternative zum Neukauf." },
+                { question: "Können Sie meinen alten Flüssiggastank entsorgen?", answer: "Ja, als Fachbetrieb übernehmen wir die fachgerechte Entsorgung und Stilllegung alter Flüssiggastanks inklusive Restgas-Absaugung." },
+                { question: "Ist ein unterirdischer Flüssiggastank teurer?", answer: "Ein unterirdischer Flüssiggastank ist in der Anschaffung etwas teurer als ein oberirdischer, bietet aber den Vorteil, dass er im Garten fast unsichtbar ist." }
             ])
         ]
       };
@@ -306,7 +306,7 @@ export const getSeoForPath = (path) => {
             getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggas bestellen', url: '/fluessiggas-bestellen' }]),
             getFAQSchema([
                 { question: "Wie ist der aktuelle Flüssiggas Preis?", answer: "Unsere Flüssiggaspreise orientieren sich am Tageskurs. Fordern Sie jetzt ein unverbindliches Angebot an, um den aktuellen Preis für Ihre PLZ zu erfahren." },
-                { question: "Kann ich Flüssiggas günstig kaufen, wenn ich miete?", answer: "Als Vertrags-Mieter sind Sie meist an den Anbieter gebunden. Als Eigentümer eines Tanks können Sie Flüssiggas günstig auf dem freien Markt kaufen und Anbieter vergleichen." },
+                { question: "Kann ich Flüssiggas günstig kaufen, wenn ich miete?", answer: "Als Vertrags-Mieter sind Sie meist an den Anbieter gebunden. Als Eigentümer eines Flüssiggastanks können Sie Flüssiggas günstig auf dem freien Markt kaufen und Anbieter vergleichen." },
                 { question: "Wie schnell können Sie liefern?", answer: "In der Regel liefern wir innerhalb von 5-10 Werktagen. In Notfällen bieten wir auch eine Express-Lieferung an." },
                 { question: "Welche Qualität liefern Sie?", answer: "Wir liefern ausschließlich reines Propan nach DIN 51622 (mind. 95% Propan), ideal für alle Heizungsanlagen und frostsicher im Winter." }
             ])
@@ -340,7 +340,7 @@ export const getSeoForPath = (path) => {
       return {
         ...defaultSeo,
         title: 'Wissen & Ratgeber Flüssiggas | Tipps & Infos | Gas-Service Möller',
-        description: 'Alles was Sie über Flüssiggas wissen müssen. Ratgeber zu Tankgrößen, Prüfpflichten, Sicherheit & Installation. Expertentipps vom Fachmann.',
+        description: 'Alles was Sie über Flüssiggas wissen müssen. Ratgeber zu Flüssiggastankgrößen, Prüfpflichten, Sicherheit & Installation. Expertentipps vom Fachmann.',
         schema: [getOrganizationSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Wissen', url: '/wissen' }])]
       };
     case 'ueber-uns':
@@ -354,22 +354,22 @@ export const getSeoForPath = (path) => {
       return {
         ...defaultSeo,
         title: 'Kontakt | Angebot anfordern | Gas-Service Möller',
-        description: 'Nehmen Sie Kontakt auf! Telefonisch, per E-Mail oder über unser Formular. Wir beraten Sie gerne zu Flüssiggas & Tanks. Kostenlos & unverbindlich.',
+        description: 'Nehmen Sie Kontakt auf! Telefonisch, per E-Mail oder über unser Formular. Wir beraten Sie gerne zu Flüssiggas & Flüssiggastanks. Kostenlos & unverbindlich.',
         schema: [getOrganizationSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Kontakt', url: '/kontakt' }])]
       };
     case 'pruefungen':
       return {
           ...defaultSeo,
-          title: 'Gastank Prüfungen & TÜV | 2 & 10 Jahre Fristen | Kosten',
-          description: 'Tankprüfung fällig? Wir organisieren die Innere (10 Jahre) & Äußere Prüfung (2 Jahre) sowie Rohrleitungsprüfungen. TÜV-Abnahme zum Festpreis.',
+          title: 'Flüssiggastank Prüfungen & TÜV | 2 & 10 Jahre Fristen | Kosten',
+          description: 'Flüssiggastankprüfung fällig? Wir organisieren die Innere (10 Jahre) & Äußere Prüfung (2 Jahre) sowie Rohrleitungsprüfungen. TÜV-Abnahme zum Festpreis.',
           schema: [
               getOrganizationSchema(),
               getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Service', url: '/pruefungen' }]),
               getHowToSchema('Flüssiggastank Prüfung beauftragen', [
-                  { title: 'Prüffrist prüfen', text: 'Schauen Sie auf das Typschild Ihres Tanks oder in das Prüfbuch.' },
+                  { title: 'Prüffrist prüfen', text: 'Schauen Sie auf das Typschild Ihres Flüssiggastanks oder in das Prüfbuch.' },
                   { title: 'Kontakt aufnehmen', text: 'Rufen Sie uns an oder nutzen Sie das Kontaktformular.' },
                   { title: 'Termin vereinbaren', text: 'Wir koordinieren den Termin mit der ZÜS (TÜV) und unserem Techniker.' },
-                  { title: 'Prüfung durchführen', text: 'Unser Team bereitet den Tank vor, der TÜV prüft, wir verschließen alles wieder.' }
+                  { title: 'Prüfung durchführen', text: 'Unser Team bereitet den Flüssiggastank vor, der TÜV prüft, wir verschließen alles wieder.' }
               ])
           ]
       };
@@ -440,23 +440,23 @@ export const getSeoForPath = (path) => {
               desc: 'Alles über Flüssiggas (LPG): Unterschied zu Erdgas, Heizwert, Herstellung und Verwendung. Warum Propan (DIN 51622) ideal zum Heizen ist.'
           },
           'miete-kauf': {
-              title: 'Gastank mieten oder kaufen? Rechner & Kosten-Vergleich',
+              title: 'Flüssiggastank mieten oder kaufen? Rechner & Kosten-Vergleich',
               desc: 'Miete vs. Kauf: Was lohnt sich wirklich? Wir rechnen nach. Vor- und Nachteile, Amortisation und Expertentipps für Ihre Entscheidung.',
               date: '2025-01-10'
           },
           'sicherheit': {
-              title: 'Gastank Vorschriften & Abstände | Sicherheit & Aufstellort',
+              title: 'Flüssiggastank Vorschriften & Abstände | Sicherheit & Aufstellort',
               desc: 'Welche Abstände gelten zum Nachbarn? Alles zu Grenzabständen, Schutzzonen und Brandschutz bei Flüssiggastanks (TRF 2021).'
           },
           'tank-entsorgen': {
               title: 'Flüssiggastank entsorgen & stilllegen | Kosten & Fachfirma',
-              desc: 'Gastank entsorgen oder stilllegen lassen? Wir sind Ihre Fachfirma. Restgas-Absaugung, Demontage & Abholung zum Festpreis. Jetzt Kosten prüfen!',
+              desc: 'Flüssiggastank entsorgen oder stilllegen lassen? Wir sind Ihre Fachfirma. Restgas-Absaugung, Demontage & Abholung zum Festpreis. Jetzt Kosten prüfen!',
               howTo: {
-                  title: 'Alten Gastank entsorgen lassen',
+                  title: 'Alten Flüssiggastank entsorgen lassen',
                   steps: [
-                      { title: 'Tankdaten übermitteln', text: 'Senden Sie uns ein Foto vom Typschild und Standort.' },
+                      { title: 'Flüssiggastankdaten übermitteln', text: 'Senden Sie uns ein Foto vom Typschild und Standort.' },
                       { title: 'Angebot erhalten', text: 'Wir erstellen ein Festpreisangebot für die Abholung.' },
-                      { title: 'Restgas absaugen', text: 'Unser Tankwagen saugt verbleibendes Gas ab und vergütet es ggf.' },
+                      { title: 'Restgas absaugen', text: 'Unser Tankwagen saugt verbleibendes Flüssiggas ab und vergütet es ggf.' },
                       { title: 'Abtransport', text: 'Der Kran-LKW hebt den leeren Behälter auf die Ladefläche.' }
                   ]
               }
@@ -467,7 +467,7 @@ export const getSeoForPath = (path) => {
               date: '2025-02-20'
           },
           'aufstellung': {
-              title: 'Gastank Vorschriften: Grenzabstand & Aufstellort (TRF 2021)',
+              title: 'Flüssiggastank Vorschriften: Grenzabstand & Aufstellort (TRF 2021)',
               desc: 'Alles zu Grenzabständen, Brandlasten, Zaun und Vorschriften bei der Aufstellung von Flüssiggastanks (Oberirdisch & Unterirdisch).'
           },
           'waermebedarf': {
@@ -479,8 +479,8 @@ export const getSeoForPath = (path) => {
               desc: 'Wechsel von Öl auf Gas: Kosten, Förderung und Vorteile. Platz gewinnen & CO2 sparen. Jetzt Umstieg planen.'
           },
           'notfall': {
-              title: 'Gastank leer? Notdienst & Hilfe bei Heizungsausfall',
-              desc: 'Kein Gas mehr? Unser Notdienst hilft sofort. Füllstand prüfen, Anlage entlüften & Express-Lieferung anfordern. 24h Erreichbarkeit.'
+              title: 'Flüssiggastank leer? Notdienst & Hilfe bei Heizungsausfall',
+              desc: 'Kein Flüssiggas mehr? Unser Notdienst hilft sofort. Füllstand prüfen, Anlage entlüften & Express-Lieferung anfordern. 24h Erreichbarkeit.'
           },
           'preis-guide': {
               title: 'Flüssiggas Preis-Guide: Wann kaufen? | Gasmöller',
@@ -498,7 +498,7 @@ export const getSeoForPath = (path) => {
               date: '2024-03-10'
           },
           'tank-leer': {
-              title: 'Hilfe, Gastank leer! Was tun? | Notdienst & Tipps',
+              title: 'Hilfe, Flüssiggastank leer! Was tun? | Notdienst & Tipps',
               desc: 'Heizung kalt? Wenn der Flüssiggastank leer ist: Notdienst rufen, Anlage entlüften und wie Sie Leerstände in Zukunft vermeiden.',
               date: '2024-11-05'
           },

@@ -49,13 +49,13 @@ export const CONTENT = {
 
                             <div className="bg-blue-50 border-l-4 border-gas p-4 my-6">
                                 <p className="font-bold text-gas-dark">Unser Tipp:</p>
-                                <p>Antizyklisch handeln! Wer seinen Tank im Frühsommer (Mai/Juni) füllt, umgeht oft die Preisspitzen im Herbst.</p>
+                                <p>Antizyklisch handeln! Wer seinen Flüssiggastank im Frühsommer (Mai/Juni) füllt, umgeht oft die Preisspitzen im Herbst.</p>
                             </div>
 
                             <h4 className="text-xl font-bold text-gas mb-4">Einflussfaktoren</h4>
                             <ul className="space-y-3 mb-6">
-                                <li className="flex items-start"><TrendingUp size={18} className="text-gray-400 mr-2 mt-1"/> <strong>Rohölpreis:</strong> Flüssiggas ist ein Raffinerieprodukt. Steigt Öl, steigt meist auch Gas.</li>
-                                <li className="flex items-start"><TrendingUp size={18} className="text-gray-400 mr-2 mt-1"/> <strong>Dollar-Kurs:</strong> Energie wird weltweit in Dollar gehandelt. Ein schwacher Euro macht Gas teurer.</li>
+                                <li className="flex items-start"><TrendingUp size={18} className="text-gray-400 mr-2 mt-1"/> <strong>Rohölpreis:</strong> Flüssiggas ist ein Raffinerieprodukt. Steigt Öl, steigt meist auch Flüssiggas.</li>
+                                <li className="flex items-start"><TrendingUp size={18} className="text-gray-400 mr-2 mt-1"/> <strong>Dollar-Kurs:</strong> Energie wird weltweit in Dollar gehandelt. Ein schwacher Euro macht Flüssiggas teurer.</li>
                             </ul>
 
                             <h4 className="text-xl font-bold text-gas mb-4">Warum Tagespreise?</h4>
@@ -69,7 +69,7 @@ export const CONTENT = {
                     description: 'Gibt es Unterschiede beim Flüssiggas? Propan vs. Gemisch.',
                     content: (
                         <div>
-                            <p>Nicht jedes Gas ist gleich. Für Heizungsanlagen in Deutschland ist die Qualität entscheidend für Langlebigkeit und Effizienz.</p>
+                            <p>Nicht jedes Flüssiggas ist gleich. Für Heizungsanlagen in Deutschland ist die Qualität entscheidend für Langlebigkeit und Effizienz.</p>
 
                             <h4 className="text-xl font-bold text-gas mb-4">Die Norm: DIN 51622</h4>
                             <p className="mb-4">In Deutschland darf zu Heizzwecken nur Flüssiggas nach <strong>DIN 51622</strong> verwendet werden. Diese Norm schreibt vor, dass es sich um mindestens 95% reines Propan handeln muss.</p>
@@ -100,7 +100,7 @@ export const CONTENT = {
                     description: 'Wie der Tankwagen zu Ihnen kommt und worauf Sie achten müssen.',
                     content: (
                         <div>
-                            <p>Die Gaslieferung ist unkompliziert. Unsere Fahrer sind Profis und kennen die örtlichen Gegebenheiten.</p>
+                            <p>Die Flüssiggaslieferung ist unkompliziert. Unsere Fahrer sind Profis und kennen die örtlichen Gegebenheiten.</p>
 
                             <div className="space-y-6 my-8">
                                 <div className="flex gap-4">
@@ -114,40 +114,40 @@ export const CONTENT = {
                                     <div className="flex-shrink-0 w-10 h-10 bg-gas text-white font-bold rounded-full flex items-center justify-center">2</div>
                                     <div>
                                         <h5 className="font-bold text-lg mb-1">Die Ankunft</h5>
-                                        <p className="text-gray-600">Der Tankwagen parkt an der Straße oder in der Einfahrt. Unsere Schläuche sind ca. 40-50 Meter lang. Bitte halten Sie den Zugang zum Tank frei.</p>
+                                        <p className="text-gray-600">Der Tankwagen parkt an der Straße oder in der Einfahrt. Unsere Schläuche sind ca. 40-50 Meter lang. Bitte halten Sie den Zugang zum Flüssiggastank frei.</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-4">
                                     <div className="flex-shrink-0 w-10 h-10 bg-gas text-white font-bold rounded-full flex items-center justify-center">3</div>
                                     <div>
                                         <h5 className="font-bold text-lg mb-1">Betankung & Sicherheit</h5>
-                                        <p className="text-gray-600">Der Fahrer schließt den Füllschlauch und die Gaspendelleitung an. Der Vorgang dauert ca. 20-30 Minuten. Währenddessen prüft er den Tank auf offensichtliche Mängel (Sichtprüfung).</p>
+                                        <p className="text-gray-600">Der Fahrer schließt den Füllschlauch und die Gaspendelleitung an. Der Vorgang dauert ca. 20-30 Minuten. Währenddessen prüft er den Flüssiggastank auf offensichtliche Mängel (Sichtprüfung).</p>
                                     </div>
                                 </div>
                             </div>
 
                             <h4 className="text-xl font-bold text-gas mb-2">Muss ich zu Hause sein?</h4>
-                            <p>Idealerweise ja, um den Füllstandsanzeiger gemeinsam zu prüfen und den Lieferschein zu unterschreiben. Wenn der Tank frei zugänglich ist, können wir nach Absprache auch in Ihrer Abwesenheit liefern.</p>
+                            <p>Idealerweise ja, um den Füllstandsanzeiger gemeinsam zu prüfen und den Lieferschein zu unterschreiben. Wenn der Flüssiggastank frei zugänglich ist, können wir nach Absprache auch in Ihrer Abwesenheit liefern.</p>
                         </div>
                     )
                 },
                 {
                     id: 'tank-leer',
-                    title: 'Hilfe, Tank leer!',
+                    title: 'Hilfe, Flüssiggastank leer!',
                     description: 'Was tun, wenn die Heizung kalt bleibt?',
                     content: (
                         <div>
                             <div className="bg-red-50 border border-red-200 rounded-xl p-6 text-center mb-8">
                                 <AlertCircle size={48} className="text-red-500 mx-auto mb-4" />
                                 <h3 className="text-2xl font-bold text-red-700 mb-2">Notdienst nötig?</h3>
-                                <p className="text-red-600 mb-4">Wenn der Tank komplett leer ist, muss die Anlage ggf. entlüftet werden.</p>
+                                <p className="text-red-600 mb-4">Wenn der Flüssiggastank komplett leer ist, muss die Anlage ggf. entlüftet werden.</p>
                                 <a href="tel:04551897089" className="inline-block bg-red-600 text-white font-bold py-3 px-8 rounded-full hover:bg-red-700 transition-colors">
                                     Jetzt 24h-Express anrufen
                                 </a>
                             </div>
 
                             <h4 className="text-xl font-bold text-gas mb-4">Wie verhindere ich das?</h4>
-                            <p className="mb-4">Ein leerer Tank ist ärgerlich und teurer (Notdienst-Zuschlag). Prüfen Sie regelmäßig den Füllstandsanzeiger am Tank (Prozent-Anzeige unter der Klappe).</p>
+                            <p className="mb-4">Ein leerer Flüssiggastank ist ärgerlich und teurer (Notdienst-Zuschlag). Prüfen Sie regelmäßig den Füllstandsanzeiger am Flüssiggastank (Prozent-Anzeige unter der Klappe).</p>
                             <p><strong>Faustregel:</strong> Bestellen Sie spätestens bei <strong>20-25% Restinhalt</strong>. So haben Sie genug Puffer für ca. 3-4 Wochen Lieferzeit im tiefsten Winter.</p>
                         </div>
                     )
@@ -188,7 +188,7 @@ export const CONTENT = {
                             <div className="bg-blue-50 border-l-4 border-gas p-6 my-6 rounded-r-lg">
                                 <p className="font-bold text-gas-dark mb-2">Das Wichtigste in Kürze:</p>
                                 <ul className="space-y-2">
-                                    <li className="flex items-start"><CheckCircle size={16} className="text-gas mr-2 mt-1 flex-shrink-0"/> <strong>Freie Händlerwahl:</strong> Kaufen Sie Ihr Gas dort, wo es am günstigsten ist.</li>
+                                <li className="flex items-start"><CheckCircle size={16} className="text-gas mr-2 mt-1 flex-shrink-0"/> <strong>Freie Händlerwahl:</strong> Kaufen Sie Ihr Flüssiggas dort, wo es am günstigsten ist.</li>
                                     <li className="flex items-start"><CheckCircle size={16} className="text-gas mr-2 mt-1 flex-shrink-0"/> <strong>Keine versteckten Kosten:</strong> Keine Zählermiete, keine Wartungspauschalen.</li>
                                     <li className="flex items-start"><CheckCircle size={16} className="text-gas mr-2 mt-1 flex-shrink-0"/> <strong>Amortisation:</strong> Der Kaufpreis rechnet sich oft schon nach 3-5 Jahren.</li>
                                 </ul>
@@ -199,10 +199,10 @@ export const CONTENT = {
                                 headers={['Kriterium', 'Miet-Tank', 'Kauf-Tank (Eigentum)']}
                                 rows={[
                                     ['Anschaffungskosten', 'Niedrig (oft 0€ - 300€)', 'Mittel (ab ca. 1.800€)'],
-                                    ['Gaspreis', 'Vom Anbieter festgelegt (oft hoch)', 'Frei verhandelbar (Tagespreis)'],
+                                    ['Flüssiggaspreis', 'Vom Anbieter festgelegt (oft hoch)', 'Frei verhandelbar (Tagespreis)'],
                                     ['Vertragsbindung', 'Oft 10+ Jahre', 'Keine Bindung'],
                                     ['Wartungskosten', 'Oft in Pauschale enthalten', 'Zahlen Sie selbst (aber günstiger)'],
-                                    ['Gesamtkosten (10 Jahre)', 'Sehr hoch (durch Gaspreis)', 'Niedrig']
+                                    ['Gesamtkosten (10 Jahre)', 'Sehr hoch (durch Flüssiggaspreis)', 'Niedrig']
                                 ]}
                             />
 
@@ -229,21 +229,21 @@ export const CONTENT = {
                             </div>
 
                             <h4 className="text-xl font-bold text-gas mb-4">Ablauf der Stilllegung & Entsorgung</h4>
-                            <p className="mb-4">Wir holen den Tank "am Stück" ab. Es finden keine gefährlichen Schneidarbeiten in Ihrem Garten statt.</p>
+                            <p className="mb-4">Wir holen den Flüssiggastank "am Stück" ab. Es finden keine gefährlichen Schneidarbeiten in Ihrem Garten statt.</p>
 
                             <div className="space-y-6 my-8">
                                 <div className="flex gap-4">
                                     <div className="flex-shrink-0 w-10 h-10 bg-gas text-white font-bold rounded-full flex items-center justify-center">1</div>
                                     <div>
                                         <h5 className="font-bold text-lg mb-1">Anfrage & Angebot</h5>
-                                        <p className="text-gray-600">Senden Sie uns ein Foto vom Typschild und vom Standort des Tanks. Wir erstellen Ihnen ein verbindliches <strong>Festpreis-Angebot</strong> für die Entsorgung.</p>
+                                        <p className="text-gray-600">Senden Sie uns ein Foto vom Typschild und vom Standort des Flüssiggastanks. Wir erstellen Ihnen ein verbindliches <strong>Festpreis-Angebot</strong> für die Entsorgung.</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-4">
                                     <div className="flex-shrink-0 w-10 h-10 bg-gas text-white font-bold rounded-full flex items-center justify-center">2</div>
                                     <div>
                                         <h5 className="font-bold text-lg mb-1">Restgas & Entleeren</h5>
-                                        <p className="text-gray-600">Ist noch Gas im Tank? Wir kümmern uns um das fachgerechte <strong>Entleeren</strong>. Unser Tankwagen saugt das verwertbare Restgas ab. Dieses wird Ihnen gutgeschrieben (zum aktuellen Tagespreis vergütet).</p>
+                                        <p className="text-gray-600">Ist noch Flüssiggas im Tank? Wir kümmern uns um das fachgerechte <strong>Entleeren</strong>. Unser Tankwagen saugt das verwertbare Restgas ab. Dieses wird Ihnen gutgeschrieben (zum aktuellen Tagespreis vergütet).</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-4">
@@ -256,11 +256,11 @@ export const CONTENT = {
                             </div>
 
                             <h4 className="text-xl font-bold text-gas mb-4">Was kostet die Entsorgung?</h4>
-                            <p className="mb-4">Die Kosten hängen von der Tankgröße, der Art (oberirdisch/unterirdisch) und der Zugänglichkeit ab. </p>
+                            <p className="mb-4">Die Kosten hängen von der Flüssiggastankgröße, der Art (oberirdisch/unterirdisch) und der Zugänglichkeit ab. </p>
                             <ul className="space-y-2 mb-6">
-                                <li className="flex items-center gap-2"><CheckCircle size={16} className="text-green-500"/> <strong>Oberirdische Tanks:</strong> Oft günstiger, da einfach zu verladen.</li>
-                                <li className="flex items-center gap-2"><CheckCircle size={16} className="text-green-500"/> <strong>Unterirdische Tanks:</strong> Aufwändiger, da der Tank freigelegt werden muss (Erdarbeiten nötig).</li>
-                                <li className="flex items-center gap-2"><CheckCircle size={16} className="text-green-500"/> <strong>Restgas-Vergütung:</strong> Der Wert des abgesaugten Gases wird oft direkt mit den Entsorgungskosten verrechnet, was die Rechnung senkt.</li>
+                                <li className="flex items-center gap-2"><CheckCircle size={16} className="text-green-500"/> <strong>Oberirdische Flüssiggastanks:</strong> Oft günstiger, da einfach zu verladen.</li>
+                                <li className="flex items-center gap-2"><CheckCircle size={16} className="text-green-500"/> <strong>Unterirdische Flüssiggastanks:</strong> Aufwändiger, da der Flüssiggastank freigelegt werden muss (Erdarbeiten nötig).</li>
+                                <li className="flex items-center gap-2"><CheckCircle size={16} className="text-green-500"/> <strong>Restgas-Vergütung:</strong> Der Wert des abgesaugten Flüssiggases wird oft direkt mit den Entsorgungskosten verrechnet, was die Rechnung senkt.</li>
                             </ul>
 
                             <div className="bg-gas-light/20 p-6 rounded-xl text-center border border-gas/20">
@@ -297,20 +297,20 @@ export const CONTENT = {
                             <p className="text-xs text-gray-500 mt-2">* Konkrete Euro-Preise nennen wir Ihnen gerne im persönlichen Angebot, da diese tagesaktuell kalkuliert werden.</p>
 
                             <h4 className="text-xl font-bold text-gas mb-4 mt-6">2. Installationskosten</h4>
-                            <p className="mb-4">Neben dem Tank selbst fallen Kosten für die Aufstellung an:</p>
+                            <p className="mb-4">Neben dem Flüssiggastank selbst fallen Kosten für die Aufstellung an:</p>
                             <ul className="space-y-3 mb-6">
-                                <li className="flex items-start"><Wrench size={18} className="text-gray-400 mr-2 mt-1"/> <strong>Fundament:</strong> Eine Betonplatte für oberirdische Tanks kostet (in Eigenleistung) oft nur Material, vom Profi ca. 300-500€.</li>
+                                <li className="flex items-start"><Wrench size={18} className="text-gray-400 mr-2 mt-1"/> <strong>Fundament:</strong> Eine Betonplatte für oberirdische Flüssiggastanks kostet (in Eigenleistung) oft nur Material, vom Profi ca. 300-500€.</li>
                                 <li className="flex items-start"><Truck size={18} className="text-gray-400 mr-2 mt-1"/> <strong>Anlieferung & Kran:</strong> Hängt von der Entfernung ab. Bei uns oft pauschaliert.</li>
                                 <li className="flex items-start"><Settings size={18} className="text-gray-400 mr-2 mt-1"/> <strong>Anschluss & Prüfung:</strong> Rohrleitung zum Haus, Regler und die erste TÜV-Abnahme (ca. 150-300€).</li>
                             </ul>
 
                              <div className="bg-blue-50 border-l-4 border-gas p-4 my-6">
-                                <p className="font-bold text-gas-dark">Spartipp: Gebrauchte Tanks</p>
-                                <p>Wir bieten regelmäßig regenerierte Tanks an. Diese sind technisch neuwertig (neu lackiert, geprüft, neue Armaturen), aber deutlich günstiger. Fragen Sie gezielt nach "Gebrauchttanks".</p>
+                                <p className="font-bold text-gas-dark">Spartipp: Gebrauchte Flüssiggastanks</p>
+                                <p>Wir bieten regelmäßig regenerierte Flüssiggastanks an. Diese sind technisch neuwertig (neu lackiert, geprüft, neue Armaturen), aber deutlich günstiger. Fragen Sie gezielt nach "Gebrauchten Flüssiggastanks".</p>
                             </div>
 
                             <h4 className="text-xl font-bold text-gas mb-4">Rentiert sich der Kauf?</h4>
-                            <p>Ja, meist schon nach kurzer Zeit. Als Eigentümer kaufen Sie das Gas auf dem freien Markt oft <strong>30-40% günstiger</strong> als Mieter. Bei einem Verbrauch von 2000 Litern sparen Sie so jährlich oft 300-500€ an Gaskosten. Der Tank hat sich damit oft nach 4-6 Jahren "selbst bezahlt".</p>
+                            <p>Ja, meist schon nach kurzer Zeit. Als Eigentümer kaufen Sie das Flüssiggas auf dem freien Markt oft <strong>30-40% günstiger</strong> als Mieter. Bei einem Verbrauch von 2000 Litern sparen Sie so jährlich oft 300-500€ an Flüssiggaskosten. Der Flüssiggastank hat sich damit oft nach 4-6 Jahren "selbst bezahlt".</p>
                         </div>
                     )
                 },
@@ -321,7 +321,7 @@ export const CONTENT = {
                     content: (
                         <div>
                             <h4>Oberirdisch vs. Unterirdisch</h4>
-                            <p><strong>Oberirdisch:</strong> Die günstige Standardlösung. Der Flüssiggastank steht auf einer Betonplatte im Garten. Ideal, wenn Optik zweitrangig ist oder der Tank versteckt (hinter Hecken) stehen kann.</p>
+                            <p><strong>Oberirdisch:</strong> Die günstige Standardlösung. Der Flüssiggastank steht auf einer Betonplatte im Garten. Ideal, wenn Optik zweitrangig ist oder der Flüssiggastank versteckt (hinter Hecken) stehen kann.</p>
                             <p><strong>Unterirdisch:</strong> Die elegante Lösung. Nur der Domdeckel ist sichtbar. Perfekt für kleine Grundstücke, da die Oberfläche begehbar bleibt.</p>
 
                             <h4>Sicherheitsabstände (TRF 2021)</h4>
@@ -348,7 +348,7 @@ export const CONTENT = {
                     description: 'Welcher Flüssiggastank passt zu meinem Haus?',
                     content: (
                         <div>
-                            <p>Die Wahl der Tankgröße hängt von Ihrem Jahresverbrauch und dem Platzangebot ab.</p>
+                            <p>Die Wahl der Flüssiggastankgröße hängt von Ihrem Jahresverbrauch und dem Platzangebot ab.</p>
                             <table className="w-full text-left text-sm border-collapse mb-8 zebra-table rounded-lg overflow-hidden">
                                 <thead>
                                     <tr className="bg-gas text-white">
@@ -415,7 +415,7 @@ export const CONTENT = {
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
                                 <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 text-center">
                                     <div className="bg-white w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2 shadow-sm text-gas font-bold">1</div>
-                                    <h5 className="font-bold text-gas">Der Tank</h5>
+                                    <h5 className="font-bold text-gas">Der Flüssiggastank</h5>
                                     <p className="text-xs text-gray-600 mt-1">Lagert den Energievorrat (meist für 1 Jahr) sicher im Garten.</p>
                                 </div>
                                 <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 text-center">

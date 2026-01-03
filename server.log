@@ -14,3 +14,15 @@
 {"level":"WARN","timestamp":"2026-01-03T21:34:38.656Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"18ms","ip":"::1"}
 {"level":"WARN","timestamp":"2026-01-03T21:34:38.672Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"13ms","ip":"::1"}
 9:41:03 PM [vite] hmr update /src/App.jsx, /src/index.css
+9:51:19 PM [vite] hmr update /src/components/DualCTA.jsx, /src/index.css
+9:51:38 PM [vite] hmr update /src/components/RentVsBuyGraphic.jsx, /src/index.css
+9:51:48 PM [vite] hmr update /src/components/KnowledgeCenter.jsx, /src/index.css
+9:52:14 PM [vite] hmr update /src/components/TankSection.jsx, /src/index.css
+9:52:39 PM [vite] hmr update /src/components/GasOrderSection.jsx, /src/index.css
+9:52:52 PM [vite] hmr update /src/components/LocalLandingPage.jsx, /src/index.css
+9:53:28 PM [vite] hmr update /src/App.jsx, /src/index.css
+9:55:22 PM [vite] hmr update /src/data/content.jsx, /src/index.css
+9:55:57 PM [vite] hmr update /src/components/WizardModal.jsx, /src/index.css
+9:56:36 PM [vite] hmr update /src/components/Navigation.jsx, /src/index.css
+9:56:49 PM [vite] hmr update /src/components/Hero.jsx, /src/index.css
+9:57:58 PM [vite] page reload src/components/__tests__/Navigation.test.jsx
