@@ -277,6 +277,22 @@ export const getSeoForPath = (path) => {
         description: 'Ihr unabhängiger Flüssiggasanbieter im Norden. Günstig Flüssiggas bestellen & Flüssiggastanks kaufen (1,2t - 2,9t). Vertragsfrei & zuverlässig. Jetzt Angebot anfordern!',
         schema: [getOrganizationSchema(), getWebSiteSchema()]
       };
+    case 'tank-entsorgen':
+      return {
+        ...defaultSeo,
+        title: 'Flüssiggastank entsorgen & stilllegen | Kosten & Fachfirma',
+        description: 'Flüssiggastank entsorgen oder stilllegen lassen? Wir sind Ihre Fachfirma. Restgas-Absaugung, Demontage & Abholung zum Festpreis. Jetzt Kosten prüfen!',
+        schema: [
+            getOrganizationSchema(),
+            getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Service', url: '/service' }, { name: 'Tank entsorgen', url: '/tank-entsorgen' }]),
+            getHowToSchema('Alten Flüssiggastank entsorgen lassen', [
+                { title: 'Flüssiggastankdaten übermitteln', text: 'Senden Sie uns ein Foto vom Typschild und Standort.' },
+                { title: 'Angebot erhalten', text: 'Wir erstellen ein Festpreisangebot für die Abholung.' },
+                { title: 'Restgas absaugen', text: 'Unser Tankwagen saugt verbleibendes Flüssiggas ab und vergütet es ggf.' },
+                { title: 'Abtransport', text: 'Der Kran-LKW hebt den leeren Behälter auf die Ladefläche.' }
+            ])
+        ]
+      };
     case 'fluessiggastank-kaufen':
     case 'tanks':
       return {

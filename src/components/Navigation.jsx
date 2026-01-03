@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Menu, X, Phone, User, Wrench, FileText, ChevronDown, ChevronRight, Settings, Flame, BookOpen } from 'lucide-react';
+import { Menu, X, Phone, User, Wrench, FileText, ChevronDown, ChevronRight, Settings, Flame, BookOpen, Trash2, ArrowUpFromLine, ArrowDownToLine, Divide } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobileMenuOpen, openWizard, setTankFilter }) => {
@@ -29,20 +29,12 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
     const isTransparentPage = activeSection === 'start' || activeSection === 'tanks' || activeSection === 'gewerbe' || activeSection === 'gas';
     const effectiveScrolled = scrolled || !isTransparentPage;
 
-    // Helper to handle Tank Category clicks (also resets scroll if already on page)
-    const handleTankClick = (filter) => {
-        if (setTankFilter) setTankFilter(filter);
-        setActiveSection('fluessiggastank-kaufen');
+    // Helper to handle Tank Detail clicks
+    const handleTankDetailClick = (slug) => {
+        setActiveSection(slug);
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setMobileMenuOpen(false); // Close mobile menu if open
     };
-
-    const handleMainTankClick = () => {
-         setActiveSection('fluessiggastank-kaufen');
-         window.scrollTo({ top: 0, behavior: 'smooth' });
-         setMobileMenuOpen(false);
-    };
-
 
     const navItems = [
         { id: 'start', label: 'Startseite' },
@@ -71,6 +63,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
             hasChildren: true,
             children: [
                 { id: 'pruefungen', label: 'Prüfungen & Wartung', icon: Wrench },
+                { id: 'tank-entsorgen', label: 'Flüssiggastank entsorgen', icon: Trash2 },
             ]
         },
         { id: 'ueber-uns', label: 'Über Uns' },
@@ -79,7 +72,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
     const isActive = (id) => {
         if (activeSection === id) return true;
         if (id === 'fluessiggastank-kaufen' && (activeSection.startsWith('fluessiggastank-kaufen') || activeSection.startsWith('tanks'))) return true;
-        if (id === 'service' && (activeSection === 'pruefungen' || activeSection.startsWith('wissen'))) return true;
+        if (id === 'service' && (activeSection === 'pruefungen' || activeSection === 'tank-entsorgen' || activeSection.startsWith('wissen'))) return true;
         return false;
     };
 
@@ -133,20 +126,71 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
 
                             {/* Dropdown Menu */}
                             {item.hasChildren && (
-                                <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 translate-y-2 w-64 z-50">
+                                <div className={`absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 translate-y-2 z-50 ${item.id === 'fluessiggastank-kaufen' ? 'w-[800px]' : 'w-64'}`}>
                                     <div className="bg-white rounded-xl shadow-xl border border-gray-100 p-2 overflow-hidden">
                                         {item.id === 'fluessiggastank-kaufen' ? (
                                             /* Mega Menu Style for Tanks */
-                                            <div className="grid grid-cols-1 gap-1">
-                                                 <button onClick={handleMainTankClick} className="w-full text-left px-4 py-3 rounded-lg hover:bg-gas-light/30 text-sm font-bold text-gray-800 flex items-center justify-between group/link">
-                                                    <span>Alle Flüssiggastanks ansehen</span>
-                                                    <ChevronRight size={16} className="text-gray-400 group-hover/link:text-gas" />
-                                                </button>
-                                                <div className="h-px bg-gray-100 my-1"></div>
-                                                <div className="px-4 py-1 text-xs font-bold text-gray-400 uppercase tracking-wider">Kategorien</div>
-                                                <button onClick={() => handleTankClick('oberirdisch')} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Oberirdische Flüssiggastanks</button>
-                                                <button onClick={() => handleTankClick('unterirdisch')} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Unterirdische Flüssiggastanks</button>
-                                                <button onClick={() => handleTankClick('halboberirdisch')} className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors">Halboberirdische Flüssiggastanks</button>
+                                            <div className="grid grid-cols-3 gap-4 p-4">
+                                                <div>
+                                                    <div className="flex items-center gap-2 font-bold text-gas mb-3 border-b border-gray-100 pb-2">
+                                                        <ArrowUpFromLine size={18} />
+                                                        <span>Oberirdisch</span>
+                                                    </div>
+                                                    <div className="flex flex-col gap-1">
+                                                        <button onClick={() => handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-2700l-oberirdisch-1-2t')} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item">
+                                                            <span>1,2 t (2700 Liter)</span>
+                                                            <ChevronRight size={14} className="opacity-0 group-hover/item:opacity-100 text-gas transition-opacity" />
+                                                        </button>
+                                                        <button onClick={() => handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-4850l-oberirdisch-2-1t')} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item">
+                                                            <span>2,1 t (4850 Liter)</span>
+                                                            <ChevronRight size={14} className="opacity-0 group-hover/item:opacity-100 text-gas transition-opacity" />
+                                                        </button>
+                                                        <button onClick={() => handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-6400l-oberirdisch-2-9t')} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item">
+                                                            <span>2,9 t (6400 Liter)</span>
+                                                            <ChevronRight size={14} className="opacity-0 group-hover/item:opacity-100 text-gas transition-opacity" />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div className="flex items-center gap-2 font-bold text-gas mb-3 border-b border-gray-100 pb-2">
+                                                        <ArrowDownToLine size={18} />
+                                                        <span>Unterirdisch</span>
+                                                    </div>
+                                                    <div className="flex flex-col gap-1">
+                                                        <button onClick={() => handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-2700l-unterirdisch-1-2t')} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item">
+                                                            <span>1,2 t (2700 Liter)</span>
+                                                            <ChevronRight size={14} className="opacity-0 group-hover/item:opacity-100 text-gas transition-opacity" />
+                                                        </button>
+                                                        <button onClick={() => handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-4850l-unterirdisch-2-1t')} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item">
+                                                            <span>2,1 t (4850 Liter)</span>
+                                                            <ChevronRight size={14} className="opacity-0 group-hover/item:opacity-100 text-gas transition-opacity" />
+                                                        </button>
+                                                        <button onClick={() => handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-6400l-unterirdisch-2-9t')} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item">
+                                                            <span>2,9 t (6400 Liter)</span>
+                                                            <ChevronRight size={14} className="opacity-0 group-hover/item:opacity-100 text-gas transition-opacity" />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div className="flex items-center gap-2 font-bold text-gas mb-3 border-b border-gray-100 pb-2">
+                                                        <Divide size={18} />
+                                                        <span>Halboberirdisch</span>
+                                                    </div>
+                                                    <div className="flex flex-col gap-1">
+                                                        <button onClick={() => handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-2700l-halboberirdisch-1-2t')} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item">
+                                                            <span>1,2 t (2700 Liter)</span>
+                                                            <ChevronRight size={14} className="opacity-0 group-hover/item:opacity-100 text-gas transition-opacity" />
+                                                        </button>
+                                                        <button onClick={() => handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-4850l-halboberirdisch-2-1t')} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item">
+                                                            <span>2,1 t (4850 Liter)</span>
+                                                            <ChevronRight size={14} className="opacity-0 group-hover/item:opacity-100 text-gas transition-opacity" />
+                                                        </button>
+                                                        <button onClick={() => handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-6400l-halboberirdisch-2-9t')} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item">
+                                                            <span>2,9 t (6400 Liter)</span>
+                                                            <ChevronRight size={14} className="opacity-0 group-hover/item:opacity-100 text-gas transition-opacity" />
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         ) : (
                                             /* Standard Dropdown */
