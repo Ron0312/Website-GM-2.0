@@ -273,16 +273,16 @@ export const getSeoForPath = (path) => {
     case '/':
       return {
         ...defaultSeo,
-        title: 'Flüssiggasanbieter Norddeutschland | Flüssiggas & Tanks vertragsfrei',
-        description: 'Ihr unabhängiger Flüssiggasanbieter. Flüssiggas günstig kaufen & Gastanks vertragsfrei erwerben. Preise vergleichen & sparen. Kaufen statt mieten.',
+        title: 'Gas-Service Möller | Flüssiggas & Tanks kaufen (Norddeutschland)',
+        description: 'Ihr unabhängiger Flüssiggasanbieter im Norden. Günstig Flüssiggas bestellen & Gastanks kaufen (1,2t - 2,9t). Vertragsfrei & zuverlässig. Jetzt Angebot anfordern!',
         schema: [getOrganizationSchema(), getWebSiteSchema()]
       };
     case 'fluessiggastank-kaufen':
     case 'tanks':
       return {
         ...defaultSeo,
-        title: 'Flüssiggastank kaufen | 2700, 4850 & 6400 Liter | Neu & Gebraucht',
-        description: 'Flüssiggastank kaufen (Neu & Gebraucht). Größen: 2700 Liter (1,2t), 4850 Liter (2,1t) & 6400 Liter (2,9t). Oberirdisch & Unterirdisch. Fachfirma.',
+        title: 'Flüssiggastank kaufen | Preise für 2700l, 4850l & 6400l',
+        description: 'Flüssiggastank kaufen statt mieten (Neu & Gebraucht). Alle Größen: 1,2t, 2,1t & 2,9t. Oberirdisch & Unterirdisch. Jetzt Gastank Preise 2025 vergleichen.',
         schema: [
             getOrganizationSchema(),
             getTankCatalogSchema(),
@@ -298,8 +298,8 @@ export const getSeoForPath = (path) => {
     case 'gas':
       return {
         ...defaultSeo,
-        title: 'Flüssiggas bestellen | Aktuelle Preise 2025 & Günstig Kaufen',
-        description: 'Aktuelle Flüssiggaspreise 2025. Günstig bestellen beim freien Anbieter (vertragsfrei). Preisvergleich lohnt sich! Express-Lieferung möglich.',
+        title: 'Flüssiggas Preise aktuell | Günstig Gas bestellen & liefern',
+        description: 'Aktuelle Flüssiggaspreise 2025 prüfen. Günstig Propan bestellen beim freien Anbieter. Express-Lieferung möglich. Jetzt Tagespreis anfragen & sparen.',
         schema: [
             getOrganizationSchema(),
             getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggas bestellen', url: '/fluessiggas-bestellen' }]),
@@ -314,8 +314,8 @@ export const getSeoForPath = (path) => {
     case 'rechner':
         return {
             ...defaultSeo,
-            title: 'Flüssiggas Rechner | Verbrauch & Kosten vergleichen | Gas-Service Möller',
-            description: 'Berechnen Sie Ihre Ersparnis! Vergleichsrechner: Flüssiggas vs. Öl, Holz, Pellets & Erdgas. Jetzt Umstieg prüfen und Kosten senken.',
+            title: 'Flüssiggas Rechner & Preisvergleich | Kosten vs. Öl & Pellets',
+            description: 'Energiekosten vergleichen mit dem Flüssiggas-Rechner. Wie viel sparen Sie gegenüber Öl, Pellets oder Strom? Jetzt Jahresverbrauch & Kosten berechnen.',
             schema: [getOrganizationSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Rechner', url: '/rechner' }]), {
                  "@context": "https://schema.org",
                  "@type": "SoftwareApplication",
@@ -331,8 +331,8 @@ export const getSeoForPath = (path) => {
     case 'gewerbe':
       return {
         ...defaultSeo,
-        title: 'Flüssiggas für Gewerbe: Hallenheizung & Staplergas | Gas-Service Möller',
-        description: 'Maßgeschneiderte Energielösungen für Landwirtschaft & Industrie. Hallenheizung, Prozesswärme & Staplergas. Zuverlässige Versorgung & faire Preise.',
+        title: 'Flüssiggas für Gewerbe & Industrie | Hallenheizung & Prozesswärme',
+        description: 'Gewerbegas Lösungen: Effiziente Hallenheizungen, Prozesswärme & Staplergas. Individuelle Versorgungskonzepte für Industrie & Landwirtschaft.',
         schema: [getOrganizationSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Gewerbe', url: '/gewerbe' }])]
       };
      case 'wissen':
@@ -359,8 +359,8 @@ export const getSeoForPath = (path) => {
     case 'pruefungen':
       return {
           ...defaultSeo,
-          title: 'Tankprüfung & Rohrleitungsprüfung (2 & 10 Jahre) | Kosten',
-          description: 'Innere Prüfung (10 Jahre), Äußere Prüfung (2 Jahre) & Rohrleitungsprüfung Flüssiggastank. TÜV-Abnahme durch Fachfirma organisieren lassen.',
+          title: 'Gastank Prüfungen & TÜV | 2 & 10 Jahre Fristen | Kosten',
+          description: 'Tankprüfung fällig? Wir organisieren die Innere (10 Jahre) & Äußere Prüfung (2 Jahre) sowie Rohrleitungsprüfungen. TÜV-Abnahme zum Festpreis.',
           schema: [
               getOrganizationSchema(),
               getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Service', url: '/pruefungen' }]),
@@ -444,12 +444,12 @@ export const getSeoForPath = (path) => {
               date: '2025-01-10'
           },
           'sicherheit': {
-              title: 'Sicherheit bei Flüssiggastanks | Prüfungen & Vorschriften',
-              desc: 'Wie sicher ist Flüssiggas? Alles zu Sicherheitsabständen, Schutzzonen und gesetzlichen Vorschriften für Ihren Gastank.'
+              title: 'Gastank Vorschriften & Abstände | Sicherheit & Aufstellort',
+              desc: 'Welche Abstände gelten zum Nachbarn? Alles zu Grenzabständen, Schutzzonen und Brandschutz bei Flüssiggastanks (TRF 2021).'
           },
           'tank-entsorgen': {
               title: 'Flüssiggastank entsorgen & stilllegen | Kosten & Fachfirma',
-              desc: 'Gastank entsorgen lassen durch Fachfirma. Wir kümmern uns um Restgas-Absaugung, Demontage & Abtransport. Jetzt Kosten für Stilllegung prüfen!',
+              desc: 'Gastank entsorgen oder stilllegen lassen? Wir sind Ihre Fachfirma. Restgas-Absaugung, Demontage & Abholung zum Festpreis. Jetzt Kosten prüfen!',
               howTo: {
                   title: 'Alten Gastank entsorgen lassen',
                   steps: [
@@ -478,8 +478,8 @@ export const getSeoForPath = (path) => {
               desc: 'Wechsel von Öl auf Gas: Kosten, Förderung und Vorteile. Platz gewinnen & CO2 sparen. Jetzt Umstieg planen.'
           },
           'notfall': {
-              title: 'Gastank leer? Notdienst & Füllstand prüfen | Hilfe',
-              desc: 'Heizung ausgefallen? Gastank leer? Unser Notdienst hilft. Prüfen Sie den Füllstand und rufen Sie uns an. 24h Express.'
+              title: 'Gastank leer? Notdienst & Hilfe bei Heizungsausfall',
+              desc: 'Kein Gas mehr? Unser Notdienst hilft sofort. Füllstand prüfen, Anlage entlüften & Express-Lieferung anfordern. 24h Erreichbarkeit.'
           },
           'preis-guide': {
               title: 'Flüssiggas Preis-Guide: Wann kaufen? | Gasmöller',
@@ -507,8 +507,8 @@ export const getSeoForPath = (path) => {
               date: '2024-09-15'
           },
           'preise': {
-              title: 'Flüssiggaspreise aktuell & Entwicklung 2025 | Prognose',
-              desc: 'Wie entwickeln sich die Flüssiggaspreise? Aktuelle Charts, Prognosen & Kaufempfehlung für 2025. Wann ist der beste Zeitpunkt zum Tanken?',
+              title: 'Flüssiggaspreise Entwicklung 2025 | Prognose & Trend',
+              desc: 'Wohin geht der Gaspreis? Aktuelle Charts & Prognosen für 2025. Wann ist der beste Kaufzeitpunkt? Analyse vom Experten.',
               date: '2025-02-01'
           },
           'heizung': {
