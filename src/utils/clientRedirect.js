@@ -6,26 +6,38 @@ const legacyRedirects = {
     '/allgemeine-geschaeftsbediungungen': '/',
     '/haftungsausschluss': '/',
     '/cookie-richtlinie-eu': '/',
-    '/sonderpreise-und-entsorgung': '/tanks',
+    '/sonderpreise-und-entsorgung': '/fluessiggastank-kaufen',
 
-    // Explicit Tank redirects
-    '/flussiggastank-oberirdisch-4850l-21t-fassungsvermogen': '/tanks/2-1t-oberirdisch',
-    '/fluessiggastank-unterirdisch-4850l-21t-fassungsvermoegen': '/tanks/2-1t-unterirdisch',
-    '/fluessiggastank-unterirdisch-2700l-12t-fassungsvermoegen': '/tanks/1-2t-unterirdisch',
-    '/flussiggastank-oberirdisch-6400l': '/tanks/2-9t-oberirdisch',
-    '/fluessiggastank-unterirdisch-6400l-29t-fassungsvermoegen': '/tanks/2-9t-unterirdisch',
-    '/flussiggastank-oberirdisch-2700l': '/tanks/1-2t-oberirdisch',
-    '/fluessiggastank-kaufen': '/tanks',
-    '/fluessiggastank-kaufen-2': '/tanks',
-    '/flussiggastank-mieten-oder-kaufen': '/tanks',
+    // Explicit Tank redirects (Old -> New)
+    '/tanks': '/fluessiggastank-kaufen',
+    '/tanks/': '/fluessiggastank-kaufen',
+    '/gas': '/fluessiggas-bestellen',
+    '/gas/': '/fluessiggas-bestellen',
+
+    '/flussiggastank-oberirdisch-4850l-21t-fassungsvermogen': '/fluessiggastank-kaufen/2-1t-oberirdisch',
+    '/fluessiggastank-unterirdisch-4850l-21t-fassungsvermoegen': '/fluessiggastank-kaufen/2-1t-unterirdisch',
+    '/fluessiggastank-unterirdisch-2700l-12t-fassungsvermoegen': '/fluessiggastank-kaufen/1-2t-unterirdisch',
+    '/flussiggastank-oberirdisch-6400l': '/fluessiggastank-kaufen/2-9t-oberirdisch',
+    '/fluessiggastank-unterirdisch-6400l-29t-fassungsvermoegen': '/fluessiggastank-kaufen/2-9t-unterirdisch',
+    '/flussiggastank-oberirdisch-2700l': '/fluessiggastank-kaufen/1-2t-oberirdisch',
+    '/fluessiggastank-kaufen-2': '/fluessiggastank-kaufen',
+    '/flussiggastank-mieten-oder-kaufen': '/fluessiggastank-kaufen',
+
+    // Legacy Internal Structure Redirects
+    '/tanks/1-2t-oberirdisch': '/fluessiggastank-kaufen/1-2t-oberirdisch',
+    '/tanks/1-2t-unterirdisch': '/fluessiggastank-kaufen/1-2t-unterirdisch',
+    '/tanks/2-1t-oberirdisch': '/fluessiggastank-kaufen/2-1t-oberirdisch',
+    '/tanks/2-1t-unterirdisch': '/fluessiggastank-kaufen/2-1t-unterirdisch',
+    '/tanks/2-9t-oberirdisch': '/fluessiggastank-kaufen/2-9t-oberirdisch',
+    '/tanks/2-9t-unterirdisch': '/fluessiggastank-kaufen/2-9t-unterirdisch',
 
     // Normalized variants
-    '/fluessiggastank-oberirdisch-4850l-21t-fassungsvermoegen': '/tanks/2-1t-oberirdisch',
-    '/fluessiggastank-oberirdisch-6400l': '/tanks/2-9t-oberirdisch',
-    '/fluessiggastank-oberirdisch-2700l': '/tanks/1-2t-oberirdisch',
+    '/fluessiggastank-oberirdisch-4850l-21t-fassungsvermoegen': '/fluessiggastank-kaufen/2-1t-oberirdisch',
+    '/fluessiggastank-oberirdisch-6400l': '/fluessiggastank-kaufen/2-9t-oberirdisch',
+    '/fluessiggastank-oberirdisch-2700l': '/fluessiggastank-kaufen/1-2t-oberirdisch',
 
     // Gas
-    '/fluessiggas-bestellen': '/gas',
+    '/fluessiggas-bestellen-2': '/fluessiggas-bestellen',
 
     // Content / Knowledge
     '/was-ist-ein-fluessiggastank': '/wissen',
@@ -76,24 +88,42 @@ export const findClientRedirect = (pathStr) => {
     if (p.match(/(2\.9|2,9|29)t/) || p.includes('6400')) size = '2-9t';
 
     if (size) {
-        if (isOberirdisch) return `/tanks/${size}-oberirdisch`;
-        if (isUnterirdisch) return `/tanks/${size}-unterirdisch`;
+        const target = isOberirdisch ? `/fluessiggastank-kaufen/${size}-oberirdisch` : `/fluessiggastank-kaufen/${size}-unterirdisch`;
+        if (p === target || '/' + p === target) return null; // Avoid loop
+        // Also check if p is already correct (e.g. input is 'fluessiggastank-kaufen/1-2t-oberirdisch')
+        if (p === target.substring(1) || p === target) return null;
+
+        return target;
     }
 
     // Fallback for general Tank intents
-    if (isTank && (p.includes('kaufen') || p.includes('mieten') || p.includes('preis') || p.includes('angebot'))) return 'tanks';
+    if (isTank && (p.includes('kaufen') || p.includes('mieten') || p.includes('preis') || p.includes('angebot'))) {
+        // Avoid redirect loop if already correct
+        if (p === 'fluessiggastank-kaufen' || p === '/fluessiggastank-kaufen' || p.startsWith('fluessiggastank-kaufen/') || p.startsWith('/fluessiggastank-kaufen/')) return null;
+        return '/fluessiggastank-kaufen';
+    }
 
     // 3. Gas Logic
-    if (p.includes('gas') && (p.includes('bestellen') || p.includes('liefern') || p.includes('preis'))) return 'gas';
+    if (p.includes('gas') && (p.includes('bestellen') || p.includes('liefern') || p.includes('preis'))) {
+        // Avoid redirect loop if already correct
+        if (p === 'fluessiggas-bestellen' || p === '/fluessiggas-bestellen') return null;
+        return '/fluessiggas-bestellen';
+    }
 
     // 4. Knowledge / Content
-    if (p.includes('wissen') || p.includes('ratgeber') || p.includes('faq') || p.includes('frage') || p.includes('was-ist') || p.includes('umruesten') || p.includes('umrüsten') || pNorm.includes('umruesten')) return 'wissen';
+    if (p.includes('wissen') || p.includes('ratgeber') || p.includes('faq') || p.includes('frage') || p.includes('was-ist') || p.includes('umruesten') || p.includes('umrüsten') || pNorm.includes('umruesten')) {
+         if(p === 'wissen' || p === '/wissen') return null;
+         return '/wissen';
+    }
 
     // 5. Service / Inspections
-    if (p.includes('pruefung') || p.includes('prüfung') || p.includes('vorschriften') || pNorm.includes('pruefung')) return 'pruefungen';
+    if (p.includes('pruefung') || p.includes('prüfung') || p.includes('vorschriften') || pNorm.includes('pruefung')) {
+        if(p === 'pruefungen' || p === '/pruefungen') return null;
+        return '/pruefungen';
+    }
 
     // 6. Legal / Home
-    if (p.includes('impressum') || p.includes('datenschutz') || p.includes('agb')) return 'start';
+    if (p.includes('impressum') || p.includes('datenschutz') || p.includes('agb')) return '/start';
 
     return null;
 };
