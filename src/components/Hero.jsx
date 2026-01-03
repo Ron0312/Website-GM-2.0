@@ -30,7 +30,7 @@ const Hero = ({
     // Subtitle logic
     const renderSubtitle = () => {
         if (subtitle) return subtitle;
-        return "Ihr unabhängiger Flüssiggasanbieter im Norden. Schluss mit teuren Mietverträgen: Kaufen Sie Tank & Gas günstig und vertragsfrei.";
+        return "Ihr unabhängiger Flüssiggasanbieter im Norden. Schluss mit teuren Mietverträgen: Kaufen Sie Flüssiggastank und Flüssiggas günstig und vertragsfrei.";
     };
 
     // Badge Logic

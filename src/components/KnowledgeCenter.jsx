@@ -31,11 +31,11 @@ const LinkInjector = ({ children, setActiveSection }) => {
             // We only replace exact matches or simple variations.
 
             const keywords = [
-                { pattern: /1,2\s*t(?:onnen)?\s*(?:Tank)?/gi, text: '1,2 t Tank', link: 'fluessiggastank-kaufen/1-2t-oberirdisch' },
-                { pattern: /2,1\s*t(?:onnen)?\s*(?:Tank)?/gi, text: '2,1 t Tank', link: 'fluessiggastank-kaufen/2-1t-oberirdisch' },
-                { pattern: /2,9\s*t(?:onnen)?\s*(?:Tank)?/gi, text: '2,9 t Tank', link: 'fluessiggastank-kaufen/2-9t-oberirdisch' },
-                { pattern: /Flüssiggas bestellen/gi, text: 'Flüssiggas bestellen', link: 'gas' },
-                { pattern: /Gas bestellen/gi, text: 'Gas bestellen', link: 'gas' },
+                { pattern: /1,2\s*t(?:onnen)?\s*(?:Tank)?/gi, text: '1,2 t Tank', link: 'fluessiggastank-kaufen/fluessiggastank-2700l-oberirdisch-1-2t' },
+                { pattern: /2,1\s*t(?:onnen)?\s*(?:Tank)?/gi, text: '2,1 t Tank', link: 'fluessiggastank-kaufen/fluessiggastank-4850l-oberirdisch-2-1t' },
+                { pattern: /2,9\s*t(?:onnen)?\s*(?:Tank)?/gi, text: '2,9 t Tank', link: 'fluessiggastank-kaufen/fluessiggastank-6400l-oberirdisch-2-9t' },
+                { pattern: /Flüssiggas bestellen/gi, text: 'Flüssiggas bestellen', link: 'fluessiggas-bestellen' },
+                { pattern: /Gas bestellen/gi, text: 'Gas bestellen', link: 'fluessiggas-bestellen' },
                 { pattern: /Gastank kaufen/gi, text: 'Gastank kaufen', link: 'tanks' },
                 { pattern: /Kontakt aufnehmen/gi, text: 'Kontakt aufnehmen', link: 'kontakt' },
                 { pattern: /Äußere Prüfung/g, text: 'Äußere Prüfung', link: 'pruefungen' },
