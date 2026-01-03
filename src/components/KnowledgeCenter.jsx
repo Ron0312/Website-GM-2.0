@@ -31,9 +31,9 @@ const LinkInjector = ({ children, setActiveSection }) => {
             // We only replace exact matches or simple variations.
 
             const keywords = [
-                { pattern: /1,2\s*t(?:onnen)?\s*(?:Tank)?/gi, text: '1,2 t Tank', link: 'tanks/1-2t-oberirdisch' },
-                { pattern: /2,1\s*t(?:onnen)?\s*(?:Tank)?/gi, text: '2,1 t Tank', link: 'tanks/2-1t-oberirdisch' },
-                { pattern: /2,9\s*t(?:onnen)?\s*(?:Tank)?/gi, text: '2,9 t Tank', link: 'tanks/2-9t-oberirdisch' },
+                { pattern: /1,2\s*t(?:onnen)?\s*(?:Tank)?/gi, text: '1,2 t Tank', link: 'fluessiggastank-kaufen/1-2t-oberirdisch' },
+                { pattern: /2,1\s*t(?:onnen)?\s*(?:Tank)?/gi, text: '2,1 t Tank', link: 'fluessiggastank-kaufen/2-1t-oberirdisch' },
+                { pattern: /2,9\s*t(?:onnen)?\s*(?:Tank)?/gi, text: '2,9 t Tank', link: 'fluessiggastank-kaufen/2-9t-oberirdisch' },
                 { pattern: /Flüssiggas bestellen/gi, text: 'Flüssiggas bestellen', link: 'gas' },
                 { pattern: /Gas bestellen/gi, text: 'Gas bestellen', link: 'gas' },
                 { pattern: /Gastank kaufen/gi, text: 'Gastank kaufen', link: 'tanks' },

@@ -176,7 +176,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                             {/* Detail Link */}
                             <div className="mt-4 text-center">
                                 <button
-                                    onClick={() => setActiveSection ? setActiveSection(`tanks/${tank.slug}`) : null}
+                                    onClick={() => setActiveSection ? setActiveSection(`fluessiggastank-kaufen/${tank.slug}`) : null}
                                     className="text-sm font-bold text-gray-400 hover:text-gas transition-colors border-b border-transparent hover:border-gas pb-0.5"
                                     aria-label={`Details und Maße für ${tank.name} ansehen`}
                                 >

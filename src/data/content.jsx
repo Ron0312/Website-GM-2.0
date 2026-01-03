@@ -216,28 +216,99 @@ export const CONTENT = {
                 },
                 {
                     id: 'tank-entsorgen',
-                    title: 'Flüssiggastank entsorgen',
-                    description: 'So werden Sie den alten Flüssiggastank los.',
+                    title: 'Flüssiggastank entsorgen & stilllegen',
+                    description: 'Fachgerechte Entsorgung, Kosten und Ablauf durch Fachfirma.',
                     content: (
                         <div>
                             <SourceBadge text="Fachbetriebspflicht" />
-                            <p>Wir holen Ihren alten Tank ab. Der Flüssiggastank wird nicht gereinigt oder zersägt, sondern als Ganzes abtransportiert.</p>
+                            <p className="lead text-lg text-gray-700 mb-6">Sie möchten Ihren alten Flüssiggastank entsorgen oder stilllegen lassen? Als zertifizierte Fachfirma übernehmen wir den kompletten Rückbau für Sie – sicher, sauber und gesetzeskonform.</p>
+
+                            <div className="bg-red-50 border-l-4 border-red-500 p-4 my-6">
+                                <p className="font-bold text-red-700">Wichtig: Nicht selbst demontieren!</p>
+                                <p className="text-sm text-red-600">Flüssiggastanks stehen auch leer noch unter Druck und enthalten Restgas. Eine unsachgemäße Demontage ist lebensgefährlich. Beauftragen Sie immer einen zugelassenen Fachbetrieb.</p>
+                            </div>
 
                             <h4 className="text-xl font-bold text-gas mb-4">Ablauf der Entsorgung</h4>
-                            <div className="space-y-4 my-6">
-                                <div className="flex items-start gap-3">
-                                    <div className="bg-gas/10 text-gas font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">1</div>
-                                    <p><strong>Daten senden:</strong> Schicken Sie uns ein Foto vom Typschild und Standort.</p>
+                            <p className="mb-4">Wir holen den Tank "am Stück" ab. Es finden keine gefährlichen Schneidarbeiten in Ihrem Garten statt.</p>
+
+                            <div className="space-y-6 my-8">
+                                <div className="flex gap-4">
+                                    <div className="flex-shrink-0 w-10 h-10 bg-gas text-white font-bold rounded-full flex items-center justify-center">1</div>
+                                    <div>
+                                        <h5 className="font-bold text-lg mb-1">Anfrage & Angebot</h5>
+                                        <p className="text-gray-600">Senden Sie uns ein Foto vom Typschild und vom Standort des Tanks. Wir erstellen Ihnen ein verbindliches <strong>Festpreis-Angebot</strong>.</p>
+                                    </div>
                                 </div>
-                                <div className="flex items-start gap-3">
-                                    <div className="bg-gas/10 text-gas font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">2</div>
-                                    <p><strong>Angebot:</strong> Sie erhalten einen Festpreis für die Abholung.</p>
+                                <div className="flex gap-4">
+                                    <div className="flex-shrink-0 w-10 h-10 bg-gas text-white font-bold rounded-full flex items-center justify-center">2</div>
+                                    <div>
+                                        <h5 className="font-bold text-lg mb-1">Restgas & Absaugung</h5>
+                                        <p className="text-gray-600">Ist noch Gas im Tank? Kein Problem. Unser Tankwagen saugt das verwertbare Restgas ab. Dieses wird Ihnen gutgeschrieben (zum aktuellen Tagespreis vergütet).</p>
+                                    </div>
                                 </div>
-                                <div className="flex items-start gap-3">
-                                    <div className="bg-gas/10 text-gas font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">3</div>
-                                    <p><strong>Abholung:</strong> Unser Kran-LKW kommt, saugt Restgas ab (wird vergütet) und nimmt den Tank mit.</p>
+                                <div className="flex gap-4">
+                                    <div className="flex-shrink-0 w-10 h-10 bg-gas text-white font-bold rounded-full flex items-center justify-center">3</div>
+                                    <div>
+                                        <h5 className="font-bold text-lg mb-1">Abtransport</h5>
+                                        <p className="text-gray-600">Unser Kran-LKW hebt den leeren Behälter auf die Ladefläche. Die Abholung dauert meist nur ca. 30-60 Minuten.</p>
+                                    </div>
                                 </div>
                             </div>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Was kostet die Entsorgung?</h4>
+                            <p className="mb-4">Die Kosten hängen von der Tankgröße, der Art (oberirdisch/unterirdisch) und der Zugänglichkeit ab. </p>
+                            <ul className="space-y-2 mb-6">
+                                <li className="flex items-center gap-2"><CheckCircle size={16} className="text-green-500"/> <strong>Oberirdische Tanks:</strong> Oft günstiger, da einfach zu verladen.</li>
+                                <li className="flex items-center gap-2"><CheckCircle size={16} className="text-green-500"/> <strong>Unterirdische Tanks:</strong> Aufwändiger, da der Tank freigelegt werden muss (Erdarbeiten nötig).</li>
+                                <li className="flex items-center gap-2"><CheckCircle size={16} className="text-green-500"/> <strong>Restgas-Vergütung:</strong> Der Wert des abgesaugten Gases wird oft direkt mit den Entsorgungskosten verrechnet, was die Rechnung senkt.</li>
+                            </ul>
+
+                            <div className="bg-gas-light/20 p-6 rounded-xl text-center border border-gas/20">
+                                <h5 className="font-bold text-gas-dark text-lg mb-2">Jetzt Angebot anfordern</h5>
+                                <p className="text-sm text-gray-600 mb-4">Senden Sie uns Ihre Anfrage bequem per Kontaktformular.</p>
+                                <a href="/kontakt" className="inline-block bg-gas text-white font-bold py-3 px-8 rounded-full hover:bg-gas-dark transition-colors">
+                                    Zur Entsorgungs-Anfrage
+                                </a>
+                            </div>
+                        </div>
+                    )
+                },
+                {
+                    id: 'tank-kosten',
+                    title: 'Was kostet ein Flüssiggastank?',
+                    description: 'Preise für Tanks (oberirdisch & unterirdisch) und Installation.',
+                    content: (
+                        <div>
+                             <SourceBadge text="Preisfaktoren 2025" />
+                             <p className="lead text-lg text-gray-700 mb-6">Die Kosten für einen eigenen Flüssiggastank setzen sich aus dem Kaufpreis des Behälters und den einmaligen Installationskosten zusammen. Hier erfahren Sie, mit welchem Budget Sie planen sollten.</p>
+
+                             <h4 className="text-xl font-bold text-gas mb-4">1. Tankpreise (Neu & Gebraucht)</h4>
+                             <p className="mb-4">Die Preise variieren je nach Stahlpreis und Saison. Generell gilt: Oberirdische Tanks sind deutlich günstiger als unterirdische Modelle.</p>
+
+                             <ComparisonTable
+                                headers={['Tankart', 'Preis-Tendenz (Kauf)', 'Installations-Aufwand']}
+                                rows={[
+                                    ['Oberirdisch (1,2t - 2,9t)', 'Günstig (Einstiegsklasse)', 'Gering (Fundamentplatte)'],
+                                    ['Unterirdisch (1,2t - 2,9t)', 'Höher (wegen Spezial-Epoxid)', 'Hoch (Erdarbeiten)'],
+                                    ['Gebraucht / Regeneriert', 'ca. 20-30% unter Neupreis', 'Identisch zu Neu']
+                                ]}
+                            />
+
+                            <h4 className="text-xl font-bold text-gas mb-4">2. Installationskosten</h4>
+                            <p className="mb-4">Neben dem Tank selbst fallen Kosten für die Aufstellung an:</p>
+                            <ul className="space-y-3 mb-6">
+                                <li className="flex items-start"><Wrench size={18} className="text-gray-400 mr-2 mt-1"/> <strong>Fundament:</strong> Eine Betonplatte für oberirdische Tanks kostet (in Eigenleistung) oft nur Material, vom Profi ca. 300-500€.</li>
+                                <li className="flex items-start"><Truck size={18} className="text-gray-400 mr-2 mt-1"/> <strong>Anlieferung & Kran:</strong> Hängt von der Entfernung ab. Bei uns oft pauschaliert.</li>
+                                <li className="flex items-start"><Settings size={18} className="text-gray-400 mr-2 mt-1"/> <strong>Anschluss & Prüfung:</strong> Rohrleitung zum Haus, Regler und die erste TÜV-Abnahme (ca. 150-300€).</li>
+                            </ul>
+
+                             <div className="bg-blue-50 border-l-4 border-gas p-4 my-6">
+                                <p className="font-bold text-gas-dark">Spartipp: Gebrauchte Tanks</p>
+                                <p>Wir bieten regelmäßig regenerierte Tanks an. Diese sind technisch neuwertig (neu lackiert, geprüft, neue Armaturen), aber deutlich günstiger. Fragen Sie gezielt nach "Gebrauchttanks".</p>
+                            </div>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Rentiert sich der Kauf?</h4>
+                            <p>Ja, meist schon nach kurzer Zeit. Als Eigentümer kaufen Sie das Gas auf dem freien Markt oft <strong>30-40% günstiger</strong> als Mieter. Bei einem Verbrauch von 2000 Litern sparen Sie so jährlich oft 300-500€ an Gaskosten. Der Tank hat sich damit oft nach 4-6 Jahren "selbst bezahlt".</p>
                         </div>
                     )
                 },
