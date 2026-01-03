@@ -26,6 +26,7 @@ import { ImprintContent, PrivacyContent, TermsContent, AccessibilityStatementCon
 import { findClientRedirect } from './utils/clientRedirect';
 import { cityData } from './data/cityData';
 import ErrorBoundary from './components/ErrorBoundary';
+import DualCTA from './components/DualCTA';
 
 // Lazy Load heavy components
 const WizardModal = React.lazy(() => import('./components/WizardModal'));
@@ -261,33 +262,7 @@ const App = ({ path, context }) => {
                 if (context) context.status = 404;
                 return <><div className="pt-20"></div><NotFound onGoHome={changeSection} /><ContactSection /></>;
             case 'start': return <><Hero openWizard={openWizard} setActiveSection={changeSection} /><TrustBar />
-                <div className="my-16 max-w-4xl mx-auto px-4">
-                    <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-8">
-                         <div className="text-center mb-8">
-                             <h2 className="text-2xl font-bold text-gray-900 mb-2">Wie können wir helfen?</h2>
-                             <p className="text-gray-500">Wählen Sie Ihr Anliegen für den passenden Service.</p>
-                         </div>
-                         <div className="grid md:grid-cols-2 gap-6">
-                             <div className="group relative overflow-hidden rounded-2xl bg-gas-light/20 hover:bg-gas-light/40 transition-all border border-gas/10 hover:border-gas/30 cursor-pointer p-6 flex flex-col items-center text-center" onClick={() => openWizard('tank')}>
-                                 <div className="bg-white p-4 rounded-full shadow-md mb-4 group-hover:scale-110 transition-transform">
-                                     <Settings size={32} className="text-gas" />
-                                 </div>
-                                 <h3 className="text-xl font-bold text-gray-900 mb-2">Tank-Anfrage</h3>
-                                 <p className="text-sm text-gray-600 mb-4">Beratung & Angebot für neue Tanks oder Wechsel</p>
-                                 <span className="text-gas font-bold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">Starten <ArrowRight size={16}/></span>
-                             </div>
-
-                             <div className="group relative overflow-hidden rounded-2xl bg-orange-50 hover:bg-orange-100 transition-all border border-orange-100 hover:border-orange-200 cursor-pointer p-6 flex flex-col items-center text-center" onClick={() => openWizard('gas')}>
-                                 <div className="bg-white p-4 rounded-full shadow-md mb-4 group-hover:scale-110 transition-transform">
-                                     <span className="text-3xl">🔥</span>
-                                 </div>
-                                 <h3 className="text-xl font-bold text-gray-900 mb-2">Gas bestellen</h3>
-                                 <p className="text-sm text-gray-600 mb-4">Tagesaktuelle Preise & Liefertermin anfragen</p>
-                                 <span className="text-orange-600 font-bold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">Bestellen <ArrowRight size={16}/></span>
-                             </div>
-                         </div>
-                    </div>
-                </div>
+                <DualCTA openWizard={openWizard} />
                 <TankSection openWizard={openWizard} setActiveSection={changeSection} showTechnicalOverview={false} tankFilter={tankFilter} onFilterChange={setTankFilter} /><CommercialSection setActiveSection={changeSection} /><div className="max-w-7xl mx-auto px-4"><EnergyCalculator /></div><Suspense fallback={null}><KnowledgeTeaser setActiveSection={changeSection} /></Suspense><Suspense fallback={<div className="h-96 w-full bg-gray-100 animate-pulse rounded-xl" />}><DeliveryMap /></Suspense><FAQ /><ContactSection /></>;
 
             // New Speaking URLs mappings

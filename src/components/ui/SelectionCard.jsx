@@ -7,33 +7,35 @@ const SelectionCard = ({ selected, onClick, title, description, icon: Icon, clas
         <motion.button
             type="button"
             onClick={onClick}
-            whileHover={{ scale: 1.03, boxShadow: "0 10px 30px -10px rgba(0,0,0,0.1)" }}
-            whileTap={{ scale: 0.97 }}
-            className={`relative w-full p-6 text-left rounded-2xl border-2 transition-all duration-300 overflow-hidden group ${className} ${
+            whileHover={{ y: -4 }}
+            whileTap={{ scale: 0.98 }}
+            className={`relative w-full p-6 text-left rounded-2xl border transition-all duration-200 overflow-hidden group ${className} ${
                 selected
-                ? 'border-gas bg-gas text-white shadow-xl shadow-gas/20'
-                : 'border-gray-100 bg-white hover:border-gas/50 hover:shadow-lg'
+                ? 'border-gas bg-gas text-white shadow-xl shadow-gas/20 ring-2 ring-gas ring-offset-2'
+                : 'border-gray-200 bg-white hover:border-gas/50 hover:shadow-lg'
             }`}
         >
-            <div className="flex items-start justify-between relative z-10">
-                <div className="flex flex-col items-start">
-                    {Icon && <Icon size={32} className={`mb-4 ${selected ? 'text-white' : 'text-gas group-hover:scale-110 transition-transform duration-300'}`} />}
-                    <h3 className={`text-xl font-bold mb-1 ${selected ? 'text-white' : 'text-gray-900'}`}>{title}</h3>
-                    {description && <p className={`text-sm ${selected ? 'text-blue-100' : 'text-gray-500'}`}>{description}</p>}
-                </div>
+            <div className="flex flex-col items-center text-center relative z-10 w-full">
+                {Icon && (
+                    <div className={`mb-4 p-3 rounded-xl transition-colors duration-300 ${
+                        selected ? 'bg-white/20 text-white' : 'bg-gas/5 text-gas group-hover:bg-gas/10'
+                    }`}>
+                        <Icon size={28} strokeWidth={1.5} className="group-hover:scale-110 transition-transform duration-300" />
+                    </div>
+                )}
+                <h3 className={`text-lg font-bold mb-1 ${selected ? 'text-white' : 'text-gray-900'}`}>{title}</h3>
+                {description && <p className={`text-sm ${selected ? 'text-blue-100' : 'text-gray-500'}`}>{description}</p>}
+
                 {selected && (
                     <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
-                        className="bg-white/20 p-2 rounded-full absolute top-0 right-0"
+                        className="absolute top-2 right-2 bg-white text-gas rounded-full p-1"
                     >
-                        <Check size={20} className="text-white" />
+                        <Check size={14} strokeWidth={3} />
                     </motion.div>
                 )}
             </div>
-
-            {/* Background Decoration */}
-            <div className={`absolute -right-8 -bottom-8 w-32 h-32 rounded-full blur-3xl transition-opacity duration-500 ${selected ? 'bg-white/20 opacity-100' : 'bg-gas/5 opacity-0 group-hover:opacity-100'}`} />
         </motion.button>
     );
 };
