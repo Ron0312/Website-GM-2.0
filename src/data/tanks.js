@@ -35,8 +35,8 @@ export const tankDetails = [
             { title: 'Anschluss', desc: 'Verlegung der Rohrleitung zum Haus und Anschluss durch einen zertifizierten Fachbetrieb.' }
         ],
         maintenanceInfo: 'Gesetzlich vorgeschriebene Prüfungen: Äußere Prüfung alle 2 Jahre (Sichtprüfung), Innere Prüfung alle 10 Jahre. Als Eigentümer sind Sie verantwortlich, wir organisieren das aber gerne komplett für Sie.',
-        seoTitle: 'Flüssiggastank 2700 Liter kaufen | 1,2 t Oberirdisch & Maße',
-        seoDesc: 'Flüssiggastank 2700 Liter (1,2t) oberirdisch kaufen. Maße: 2,50m x 1,25m. Neu & Gebraucht. Ideal für Ferienhäuser. Jetzt Preis anfragen!'
+        seoTitle: 'Flüssiggastank 2700 Liter kaufen | 1,2 t Preis & Maße',
+        seoDesc: 'Flüssiggastank 2700 Liter (1,2 t) kaufen. Maße: 2,50 m x 1,25 m. Ideal für Ferienhäuser & kleine Gärten. Neu & Gebraucht Preise anfragen.'
     },
     {
         slug: 'fluessiggastank-4850l-oberirdisch-2-1t',
@@ -74,8 +74,8 @@ export const tankDetails = [
             { title: 'Inbetriebnahme', desc: 'Anschluss, Dichtheitsprüfung und Einweisung.' }
         ],
         maintenanceInfo: 'Äußere Prüfung: alle 2 Jahre. Innere Prüfung: alle 10 Jahre (Druckprüfung/Einspeisung). Rohrleitungsprüfung: alle 10 Jahre.',
-        seoTitle: 'Flüssiggastank 4850 Liter kaufen | 2,1 t Oberirdisch & Maße',
-        seoDesc: 'Flüssiggastank 4850 Liter (2,1t) oberirdisch kaufen. Maße: 4,30m x 1,25m. Der Standard für Einfamilienhäuser. Neu & Gebraucht Preise.'
+        seoTitle: 'Flüssiggastank 4850 Liter kaufen | 2,1 t Preis & Maße',
+        seoDesc: 'Flüssiggastank 4850 Liter (2,1 t) kaufen. Maße: 4,30 m x 1,25 m. Der Standard für Einfamilienhäuser. Neu & Gebraucht Angebote vergleichen.'
     },
     {
         slug: 'fluessiggastank-6400l-oberirdisch-2-9t',
@@ -112,8 +112,8 @@ export const tankDetails = [
             { title: 'Sicherheit', desc: 'Einhaltung von Sicherheitsabständen (Brandlasten) besonders wichtig.' }
         ],
         maintenanceInfo: 'Standardintervalle (2/10 Jahre). Bei gewerblicher Nutzung gelten ggf. zusätzliche Vorschriften der Berufsgenossenschaft.',
-        seoTitle: 'Flüssiggastank 6400 Liter kaufen | 2,9 t Oberirdisch & Maße',
-        seoDesc: 'Flüssiggastank 6400 Liter (2,9t) oberirdisch kaufen. Maße: 5,50m x 1,25m. Für Gewerbe & MFH. Neu & Gebraucht Angebote.'
+        seoTitle: 'Flüssiggastank 6400 Liter kaufen | 2,9 t Preis & Maße',
+        seoDesc: 'Flüssiggastank 6400 Liter (2,9 t) kaufen. Maße: 5,50 m x 1,25 m. Für Gewerbe & Mehrfamilienhäuser. Jetzt Flüssiggastank Preis anfragen.'
     },
     {
         slug: 'fluessiggastank-2700l-halboberirdisch-1-2t',
@@ -150,8 +150,8 @@ export const tankDetails = [
             { title: 'Einlagerung', desc: 'Tank einsetzen und anfüllen.' }
         ],
         maintenanceInfo: 'Ähnlich wie oberirdisch, jedoch muss der Korrosionsschutz im Erdreichbereich (Epoxid/Bitumen) intakt sein.',
-        seoTitle: 'Flüssiggastank 2700 Liter halboberirdisch | 1,2t Kaufen',
-        seoDesc: 'Halboberirdischer 1,2t Flüssiggastank (2700 Liter). Weniger sichtbar, einfachere Installation. Ideal bei schwierigen Bodenverhältnissen.'
+        seoTitle: 'Flüssiggastank 2700 Liter halboberirdisch | 1,2 t Kaufen',
+        seoDesc: 'Halboberirdischer Flüssiggastank 2700 Liter (1,2 t). Weniger sichtbar, einfachere Installation. Ideal bei schwierigen Bodenverhältnissen.'
     },
     {
         slug: 'fluessiggastank-4850l-halboberirdisch-2-1t',
@@ -188,8 +188,8 @@ export const tankDetails = [
             { title: 'Anfüllen', desc: 'Mit steinfreiem Material anfüllen.' }
         ],
         maintenanceInfo: 'Prüfung alle 2/10 Jahre. Sichtprüfung des oberen Teils einfach möglich.',
-        seoTitle: 'Flüssiggastank 4850 Liter halboberirdisch | 2,1t Kaufen',
-        seoDesc: '2,1t (4850 Liter) Tank halberdgedeckt. Die goldene Mitte für Ihr Einfamilienhaus. Alle Infos zu Maßen und Einbau.'
+        seoTitle: 'Flüssiggastank 4850 Liter halboberirdisch | 2,1 t Kaufen',
+        seoDesc: 'Halboberirdischer Flüssiggastank 4850 Liter (2,1 t). Die goldene Mitte für Ihr Einfamilienhaus. Alle Infos zu Maßen und Einbau.'
     },
     {
         slug: 'fluessiggastank-6400l-halboberirdisch-2-9t',
@@ -225,8 +225,8 @@ export const tankDetails = [
             { title: 'Kranarbeit', desc: 'Einsatz von Schwerlastkran.' }
         ],
         maintenanceInfo: 'Standardintervalle. Gewerbliche Vorschriften beachten.',
-        seoTitle: 'Flüssiggastank 6400 Liter halboberirdisch | 2,9t Kaufen',
-        seoDesc: '2,9t (6400 Liter) halboberirdisch. Maximale Versorgungssicherheit bei reduzierter Sichtbarkeit. Datenblatt & Angebot.'
+        seoTitle: 'Flüssiggastank 6400 Liter halboberirdisch | 2,9 t Kaufen',
+        seoDesc: 'Halboberirdischer Flüssiggastank 6400 Liter (2,9 t). Maximale Versorgungssicherheit bei reduzierter Sichtbarkeit. Datenblatt & Angebot.'
     },
     {
         slug: 'fluessiggastank-2700l-unterirdisch-1-2t',
@@ -264,7 +264,7 @@ export const tankDetails = [
         ],
         maintenanceInfo: 'Innere Prüfung alle 10 Jahre etwas aufwändiger (Einspeisung notwendig). Äußere Prüfung erfolgt über Domschacht/Messung.',
         seoTitle: 'Flüssiggastank Unterirdisch 2700 Liter kaufen | Preis 1,2 t',
-        seoDesc: 'Flüssiggastank Unterirdisch 2700 Liter (1,2t) kaufen. Perfekt für kleine Gärten. Verschwindet im Boden. Was kostet ein unterirdischer Tank?'
+        seoDesc: 'Flüssiggastank Unterirdisch 2700 Liter (1,2 t) kaufen. Perfekt für kleine Gärten. Verschwindet im Boden. Was kostet ein unterirdischer Flüssiggastank?'
     },
     {
         slug: 'fluessiggastank-4850l-unterirdisch-2-1t',
@@ -302,7 +302,7 @@ export const tankDetails = [
         ],
         maintenanceInfo: 'Wartungsarm. Korrosionsschutz durch Epoxidharz und Sandbettung extrem langlebig.',
         seoTitle: 'Flüssiggastank Unterirdisch 4850 Liter kaufen | Preis 2,1 t',
-        seoDesc: 'Flüssiggastank Unterirdisch 4850 Liter (2,1t) kaufen. Unsichtbare Energieversorgung für Ihr Einfamilienhaus. Maße & Preise 2025.'
+        seoDesc: 'Flüssiggastank Unterirdisch 4850 Liter (2,1 t) kaufen. Unsichtbare Energieversorgung für Ihr Einfamilienhaus. Maße & Preise 2025.'
     },
     {
         slug: 'fluessiggastank-6400l-unterirdisch-2-9t',
@@ -339,6 +339,6 @@ export const tankDetails = [
         ],
         maintenanceInfo: '10-jährige Prüfung per Schallemission möglich (ohne Entleerung), wenn vorbereitet.',
         seoTitle: 'Flüssiggastank Unterirdisch 6400 Liter kaufen | Preis 2,9 t',
-        seoDesc: '2,9t (6400 Liter) Flüssiggastank unterirdisch kaufen. Für Gewerbe & MFH. Preise & Kosten für den Erdtank.'
+        seoDesc: 'Flüssiggastank Unterirdisch 6400 Liter (2,9 t) kaufen. Für Gewerbe & MFH. Preise & Kosten für den unterirdischen Flüssiggastank.'
     }
 ];
