@@ -14,7 +14,7 @@ const formatTitleFromSlug = (slug) => {
 const getOrganizationSchema = () => ({
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "Gas-Service Möller",
+  "name": "Gas-Service Möller e.K.",
   "image": [
     "https://gasmoeller.de/logos/logo-gasmoeller.png",
     "https://gasmoeller.de/images/gas-order-hero.webp"
@@ -50,7 +50,7 @@ const getOrganizationSchema = () => ({
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "5.0",
-    "reviewCount": "124"
+    "reviewCount": "25"
   },
   "sameAs": [
     "https://www.facebook.com/people/Gas-Service-Möller/100083286084666/",
@@ -123,6 +123,11 @@ const getTankProductSchema = (tank) => ({
   },
   "sku": `TANK-${tank.slug.toUpperCase()}`,
   "mpn": `GSM-${tank.slug.toUpperCase()}`,
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "25"
+  },
   "offers": {
     "@type": "Offer",
     "url": `${BASE_URL}/fluessiggastank-kaufen/${tank.slug}`,
@@ -189,7 +194,7 @@ const getCitySchema = (city) => ({
     "serviceType": "Flüssiggaslieferung und Tankverkauf",
     "provider": {
         "@type": "LocalBusiness",
-        "name": "Gas-Service Möller",
+        "name": "Gas-Service Möller e.K.",
         "image": `${BASE_URL}/logos/logo-gasmoeller.png`,
         "telephone": "+49 176 416 84 326",
         "address": {
@@ -198,6 +203,11 @@ const getCitySchema = (city) => ({
             "addressLocality": "Schieren",
             "postalCode": "23795",
             "addressCountry": "DE"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5.0",
+            "reviewCount": "25"
         }
     },
     "areaServed": {
