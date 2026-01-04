@@ -2,7 +2,7 @@ import React from 'react';
 import {
     Settings, CheckCircle, Factory, Home, Wrench, BookOpen,
     Flame, AlertTriangle, XCircle, FileText, Download, ThermometerSun, Snowflake,
-    TrendingUp, Truck, Users, AlertCircle, ShieldCheck
+    TrendingUp, Truck, Users, AlertCircle, ShieldCheck, Zap
 } from 'lucide-react';
 import SourceBadge from '../components/SourceBadge';
 import SafetyChecklist from '../components/SafetyChecklist';
@@ -59,7 +59,9 @@ export const CONTENT = {
                             </ul>
 
                             <h4 className="text-xl font-bold text-gas mb-4">Warum Tagespreise?</h4>
-                            <p>Wir arbeiten mit Tagespreisen, um Preissenkungen sofort an Sie weiterzugeben. Statt starrer Listenpreise erhalten Sie bei uns immer das aktuelle Marktangebot.</p>
+                            <p className="mb-6">Wir arbeiten mit Tagespreisen, um Preissenkungen sofort an Sie weiterzugeben. Statt starrer Listenpreise erhalten Sie bei uns immer das aktuelle Marktangebot.</p>
+
+                            <p className="text-sm text-gray-500">Möchten Sie mehr über die Qualität erfahren? Lesen Sie unseren <a href="/wissen/qualitaets-check" className="text-gas hover:underline">Qualitäts-Check</a>.</p>
                         </div>
                     )
                 },
@@ -91,6 +93,7 @@ export const CONTENT = {
                                     <span className="text-green-700 text-sm">Wir liefern ausschließlich reines Propan nach DIN 51622. Keine Import-Gemische, keine Kompromisse. Das schont Ihren Brenner und sichert die Wärme auch bei -20 Grad.</span>
                                 </div>
                             </div>
+                            <p className="text-sm text-gray-500 mt-4">Mehr zum Thema <a href="/wissen/was-ist" className="text-gas hover:underline">Was ist Flüssiggas?</a> finden Sie in unserem Basiswissen.</p>
                         </div>
                     )
                 },
@@ -127,7 +130,8 @@ export const CONTENT = {
                             </div>
 
                             <h4 className="text-xl font-bold text-gas mb-2">Muss ich zu Hause sein?</h4>
-                            <p>Idealerweise ja, um den Füllstandsanzeiger gemeinsam zu prüfen und den Lieferschein zu unterschreiben. Wenn der Flüssiggastank frei zugänglich ist, können wir nach Absprache auch in Ihrer Abwesenheit liefern.</p>
+                            <p className="mb-4">Idealerweise ja, um den Füllstandsanzeiger gemeinsam zu prüfen und den Lieferschein zu unterschreiben. Wenn der Flüssiggastank frei zugänglich ist, können wir nach Absprache auch in Ihrer Abwesenheit liefern.</p>
+                            <p className="text-sm text-gray-500">Haben Sie Fragen zur Bezahlung oder Bestellung? Schauen Sie in unseren <a href="/wissen/preis-guide" className="text-gas hover:underline">Preis-Guide</a>.</p>
                         </div>
                     )
                 },
@@ -148,7 +152,8 @@ export const CONTENT = {
 
                             <h4 className="text-xl font-bold text-gas mb-4">Wie verhindere ich das?</h4>
                             <p className="mb-4">Ein leerer Flüssiggastank ist ärgerlich und teurer (Notdienst-Zuschlag). Prüfen Sie regelmäßig den Füllstandsanzeiger am Flüssiggastank (Prozent-Anzeige unter der Klappe).</p>
-                            <p><strong>Faustregel:</strong> Bestellen Sie spätestens bei <strong>20-25% Restinhalt</strong>. So haben Sie genug Puffer für ca. 3-4 Wochen Lieferzeit im tiefsten Winter.</p>
+                            <p className="mb-6"><strong>Faustregel:</strong> Bestellen Sie spätestens bei <strong>20-25% Restinhalt</strong>. So haben Sie genug Puffer für ca. 3-4 Wochen Lieferzeit im tiefsten Winter.</p>
+                            <p className="text-sm text-gray-500">Erfahren Sie mehr über unseren <a href="/wissen/notfall" className="text-gas hover:underline">Notdienst-Service</a>.</p>
                         </div>
                     )
                 },
@@ -169,6 +174,7 @@ export const CONTENT = {
 
                             <h4 className="text-xl font-bold text-gas mb-4">So funktioniert's</h4>
                             <p>Sprechen Sie Ihre Nachbarn an. Einer übernimmt die Koordination und ruft uns an. Wir erstellen ein Angebot für die Gesamtmenge, aber <strong>jeder erhält seine eigene Rechnung</strong>. Sie müssen also kein Geld von den Nachbarn einsammeln!</p>
+                            <p className="text-sm text-gray-500 mt-4">Wollen Sie wissen, wann der beste Zeitpunkt zum Bestellen ist? Unser <a href="/wissen/preis-guide" className="text-gas hover:underline">Preis-Guide</a> hilft weiter.</p>
                         </div>
                     )
                 }
@@ -211,6 +217,7 @@ export const CONTENT = {
 
                             <h4 className="text-xl font-bold text-gas mb-4">Ihr Vorteil als Eigentümer</h4>
                             <p className="mb-4 leading-relaxed text-gray-600">Ein eigener Flüssiggastank gehört Ihnen. Sie können bei jeder Füllung den günstigsten Anbieter wählen – ähnlich wie bei Heizöl. Wir organisieren die gesetzlichen Prüfungen (2- und 10-Jahres-Prüfung) gerne für Sie, aber Sie entscheiden.</p>
+                            <p className="text-sm text-gray-500 mt-4">Interessiert an einem eigenen Tank? Prüfen Sie die aktuellen <a href="/wissen/tank-kosten" className="text-gas hover:underline">Tank-Kosten</a>.</p>
                         </div>
                     )
                 },
@@ -279,7 +286,7 @@ export const CONTENT = {
                     description: 'Preise für Tanks (2700 Liter, 4850 Liter) und Installation.',
                     content: (
                         <div>
-                             <SourceBadge text="Preisfaktoren 2025" />
+                             <SourceBadge text="Preisfaktoren 2026" />
                              <p className="lead text-lg text-gray-700 mb-6">Die Kosten für einen eigenen Flüssiggastank setzen sich aus dem Kaufpreis des Behälters und den einmaligen Installationskosten zusammen. Was kostet ein Tank mit 2700 Liter oder 4850 Liter Volumen?</p>
 
                              <h4 className="text-xl font-bold text-gas mb-4">1. Tankpreise (Neu & Gebraucht)</h4>
@@ -311,6 +318,7 @@ export const CONTENT = {
 
                             <h4 className="text-xl font-bold text-gas mb-4">Rentiert sich der Kauf?</h4>
                             <p>Ja, meist schon nach kurzer Zeit. Als Eigentümer kaufen Sie das Flüssiggas auf dem freien Markt oft <strong>30-40% günstiger</strong> als Mieter. Bei einem Verbrauch von 2000 Litern sparen Sie so jährlich oft 300-500€ an Flüssiggaskosten. Der Flüssiggastank hat sich damit oft nach 4-6 Jahren "selbst bezahlt".</p>
+                            <p className="text-sm text-gray-500 mt-4">Hier finden Sie mehr Infos zu <a href="/wissen/miete-kauf" className="text-gas hover:underline">Miete vs. Kauf</a>.</p>
                         </div>
                     )
                 },
@@ -320,25 +328,40 @@ export const CONTENT = {
                     description: 'Abstände, Grenzen und TRF 2021.',
                     content: (
                         <div>
-                            <h4>Oberirdisch vs. Unterirdisch</h4>
-                            <p><strong>Oberirdisch:</strong> Die günstige Standardlösung. Der Flüssiggastank steht auf einer Betonplatte im Garten. Ideal, wenn Optik zweitrangig ist oder der Flüssiggastank versteckt (hinter Hecken) stehen kann.</p>
-                            <p><strong>Unterirdisch:</strong> Die elegante Lösung. Nur der Domdeckel ist sichtbar. Perfekt für kleine Grundstücke, da die Oberfläche begehbar bleibt.</p>
-
-                            <h4>Sicherheitsabstände (TRF 2021)</h4>
-                            <ul className="space-y-2">
-                                <li className="flex items-center gap-2"><AlertTriangle size={16} className="text-orange-500"/> <strong>Brandlasten:</strong> 3m Abstand zu Holzhütten, Stroh, etc.</li>
-                                <li className="flex items-center gap-2"><AlertTriangle size={16} className="text-orange-500"/> <strong>Öffnungen:</strong> 1m (mit Strahlungsschutzwand) bis 3m zu Kellerfenstern/Lichtschächten.</li>
+                            <h4>Oberirdisch vs. Unterirdisch: Die Entscheidung</h4>
+                            <p className="mb-4">Die Wahl der Installationsart hängt oft von den Gegebenheiten auf dem Grundstück ab. Hier die wichtigsten Unterschiede:</p>
+                            <ul className="space-y-3 mb-6">
+                                <li>
+                                    <strong>Oberirdisch:</strong> Die kostengünstigste Variante. Der Tank steht auf einer Betonplatte im Garten.
+                                    <br/><span className="text-sm text-gray-600">Ideal für:</span> Große Grundstücke, Gewerbe oder wenn der Tank hinter Hecken versteckt werden kann.
+                                </li>
+                                <li>
+                                    <strong>Unterirdisch:</strong> Die ästhetische Lösung. Der Tank wird komplett eingegraben, nur der grüne Domdeckel bleibt sichtbar.
+                                    <br/><span className="text-sm text-gray-600">Ideal für:</span> Kleine Grundstücke, Vorgärten oder wenn die Optik entscheidend ist.
+                                </li>
                             </ul>
+
+                            <h4>Sicherheitsabstände und Schutzzonen (TRF 2021)</h4>
+                            <p className="mb-4">Bei der Aufstellung müssen gesetzliche Sicherheitsabstände eingehalten werden, um den Brandschutz zu gewährleisten:</p>
+                            <ul className="space-y-2 mb-6">
+                                <li className="flex items-center gap-2"><AlertTriangle size={16} className="text-orange-500"/> <strong>Brandlasten:</strong> Mindestens 3m Abstand zu brennbaren Materialien (Holzhütten, Carports, Stroh).</li>
+                                <li className="flex items-center gap-2"><AlertTriangle size={16} className="text-orange-500"/> <strong>Gebäudeöffnungen:</strong> 1m bis 3m Abstand zu Kellerfenstern, Türen oder Lichtschächten.</li>
+                                <li className="flex items-center gap-2"><AlertTriangle size={16} className="text-orange-500"/> <strong>Grenzabstand:</strong> Je nach Bundesland oft 3m zur Grundstücksgrenze (oder Brandschutzwand).</li>
+                            </ul>
+
+                            <h4 className="text-xl font-bold text-gas mb-2">Ex-Zonen</h4>
+                            <p className="mb-4">Um den Tank herum existiert eine sogenannte Explosionsschutzzone (Ex-Zone). In diesem Bereich dürfen sich keine Zündquellen (Lampen, Steckdosen, Gullis) befinden. Bei oberirdischen Tanks beträgt der Radius oft 3m um die Armaturen, bei unterirdischen Tanks meist nur 1m um den Domdeckel.</p>
 
                             <div className="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-between">
                                 <div>
                                     <span className="font-bold text-gray-700 block">Checkliste Aufstellung</span>
-                                    <span className="text-sm text-gray-500">PDF, 1.2 MB</span>
+                                    <span className="text-sm text-gray-500">Detaillierte PDF-Anleitung für Bauherren.</span>
                                 </div>
                                 <button className="bg-white border border-gray-300 px-4 py-2 rounded-lg text-sm font-bold text-gray-600 flex items-center gap-2 hover:bg-gray-50">
                                     <Download size={16} /> Download
                                 </button>
                             </div>
+                            <p className="text-sm text-gray-500 mt-4">Mehr Details zur Sicherheit finden Sie im Artikel <a href="/wissen/sicherheit" className="text-gas hover:underline">Prüfung & Sicherheit</a>.</p>
                         </div>
                     )
                 },
@@ -348,37 +371,44 @@ export const CONTENT = {
                     description: 'Welcher Flüssiggastank passt zu meinem Haus?',
                     content: (
                         <div>
-                            <p>Die Wahl der Flüssiggastankgröße hängt von Ihrem Jahresverbrauch und dem Platzangebot ab.</p>
+                            <p className="mb-6">Die Wahl der richtigen Tankgröße ist entscheidend für Ihren Komfort. Ein zu kleiner Tank muss zu oft befüllt werden, ein zu großer Tank kostet unnötig Platz und Geld. Hier finden Sie die gängigen Größen im Detail.</p>
+
                             <table className="w-full text-left text-sm border-collapse mb-8 zebra-table rounded-lg overflow-hidden">
                                 <thead>
                                     <tr className="bg-gas text-white">
                                         <th className="p-3 font-bold">Bezeichnung</th>
                                         <th className="p-3 font-bold">Volumen (L)</th>
                                         <th className="p-3 font-bold">Maße (L x H) ca.</th>
-                                        <th className="p-3 font-bold">Eignung</th>
+                                        <th className="p-3 font-bold">Ideal für</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr className="border-b border-gray-100">
-                                        <td className="p-3 font-bold">1,2 t</td>
+                                        <td className="p-3 font-bold">1,2 t (Mini)</td>
                                         <td className="p-3">2.700</td>
                                         <td className="p-3">2,50 x 1,25 m</td>
-                                        <td className="p-3">Niedrigenergiehaus / Ferienhaus</td>
+                                        <td className="p-3">Niedrigenergiehäuser, Ferienhäuser oder als Zusatzheizung (Verbrauch &lt; 1500L/Jahr).</td>
                                     </tr>
                                     <tr className="border-b border-gray-100">
-                                        <td className="p-3 font-bold">2,1 t</td>
+                                        <td className="p-3 font-bold">2,1 t (Standard)</td>
                                         <td className="p-3">4.850</td>
                                         <td className="p-3">4,30 x 1,25 m</td>
-                                        <td className="p-3">Standard Einfamilienhaus</td>
+                                        <td className="p-3">Klassisches Einfamilienhaus (120-180 m²). Reicht oft für 1 Jahr Heizen & Warmwasser.</td>
                                     </tr>
                                     <tr className="border-b border-gray-100">
-                                        <td className="p-3 font-bold">2,9 t</td>
+                                        <td className="p-3 font-bold">2,9 t (Maxi)</td>
                                         <td className="p-3">6.400</td>
                                         <td className="p-3">5,50 x 1,25 m</td>
-                                        <td className="p-3">Mehrfamilienhaus / Gewerbe</td>
+                                        <td className="p-3">Mehrfamilienhäuser, große Altbauten, Gewerbe oder Hotels mit hohem Wärmebedarf.</td>
                                     </tr>
                                 </tbody>
                             </table>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Wie berechne ich meinen Bedarf?</h4>
+                            <p className="mb-4">Als Faustformel gilt: Ihr Tank sollte etwa den Jahresbedarf an Flüssiggas fassen. So müssen Sie nur einmal im Jahr tanken – idealerweise im Sommer, wenn die Preise niedrig sind.</p>
+                            <p>Beispiel: Ein typisches Einfamilienhaus verbraucht ca. 20.000 kWh Wärme pro Jahr. Das entspricht etwa 3.000 Litern Flüssiggas. Ein 2,1t Tank (4.850 Liter) bietet hier genug Puffer.</p>
+
+                            <p className="text-sm text-gray-500 mt-4">Unsicher bei den Kosten? Hier geht es zum <a href="/wissen/tank-kosten" className="text-gas hover:underline">Kosten-Vergleich</a>.</p>
                         </div>
                     )
                 },
@@ -388,20 +418,32 @@ export const CONTENT = {
                     description: 'Warum sind Prüfungen notwendig?',
                     content: (
                         <div>
-                            <p>Flüssiggastanks unterliegen strengen Sicherheitsvorschriften. Wir kümmern uns um die Einhaltung.</p>
-                            <h4>Prüfintervalle</h4>
-                            <div className="grid gap-4 md:grid-cols-2 my-4">
-                                <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
-                                    <div className="font-bold text-gas text-lg mb-1">Alle 2 Jahre</div>
-                                    <div className="font-bold text-gray-800">Äußere Prüfung</div>
-                                    <p className="text-sm text-gray-500 mt-2">Sichtprüfung auf Korrosion, Zugänglichkeit und Beschilderung. Schnell erledigt.</p>
+                            <p className="mb-4">Flüssiggas ist ein sicherer Energieträger, solange die technischen Anlagen regelmäßig gewartet werden. In Deutschland schreibt der Gesetzgeber (BetrSichV) feste Prüfintervalle vor, um die Sicherheit für Sie und Ihre Nachbarn zu garantieren.</p>
+
+                            <h4>Die Prüfintervalle im Überblick</h4>
+                            <div className="grid gap-4 md:grid-cols-2 my-6">
+                                <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-md">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <div className="bg-gas text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">2</div>
+                                        <h5 className="font-bold text-gas text-lg">Äußere Prüfung</h5>
+                                    </div>
+                                    <p className="font-bold text-gray-800 mb-2">Intervall: Alle 2 Jahre</p>
+                                    <p className="text-sm text-gray-600">Hier prüft eine "befähigte Person" den Tank von außen auf Korrosion, Lackschäden, die Zugänglichkeit sowie die korrekte Beschilderung. Auch die Rohrleitungen werden einer Sichtprüfung unterzogen.</p>
                                 </div>
-                                <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
-                                    <div className="font-bold text-gas text-lg mb-1">Alle 10 Jahre</div>
-                                    <div className="font-bold text-gray-800">Innere Prüfung</div>
-                                    <p className="text-sm text-gray-500 mt-2">Umfassende Prüfung durch ZÜS (TÜV). Austausch Sicherheitsventil. Wir koordinieren das.</p>
+                                <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-md">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <div className="bg-gas text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">10</div>
+                                        <h5 className="font-bold text-gas text-lg">Innere Prüfung</h5>
+                                    </div>
+                                    <p className="font-bold text-gray-800 mb-2">Intervall: Alle 10 Jahre</p>
+                                    <p className="text-sm text-gray-600">Diese Prüfung ist umfangreicher und wird meist von einer zugelassenen Überwachungsstelle (ZÜS, z.B. TÜV) durchgeführt. Oft wird dabei auch das Sicherheitsventil ausgetauscht. Bei unterirdischen Tanks wird eine Schallemissionsprüfung durchgeführt.</p>
                                 </div>
                             </div>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Wer ist verantwortlich?</h4>
+                            <p className="mb-4">Bei einem <strong>Miet-Tank</strong> kümmert sich der Vermieter automatisch um die Prüfungen (die Kosten sind oft in der Miete enthalten). Bei einem <strong>Eigentums-Tank</strong> sind Sie als Betreiber verantwortlich. Aber keine Sorge: Wir erinnern Sie gerne an anstehende Termine und organisieren die Prüfung für Sie.</p>
+
+                            <p className="text-sm text-gray-500">Mehr zur Technik finden Sie unter <a href="/wissen/anlage" className="text-gas hover:underline">Die Flüssiggasanlage</a>.</p>
                         </div>
                     )
                 },
@@ -411,24 +453,30 @@ export const CONTENT = {
                     description: 'Vom Tank bis zum Brenner: Wie es funktioniert.',
                     content: (
                         <div>
-                            <p>Eine Flüssiggasanlage ist überraschend simpel und wartungsarm.</p>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
-                                <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 text-center">
-                                    <div className="bg-white w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2 shadow-sm text-gas font-bold">1</div>
-                                    <h5 className="font-bold text-gas">Der Flüssiggastank</h5>
-                                    <p className="text-xs text-gray-600 mt-1">Lagert den Energievorrat (meist für 1 Jahr) sicher im Garten.</p>
+                            <p className="mb-6">Eine Flüssiggasanlage ist überraschend simpel und wartungsarm aufgebaut. Sie besteht im Wesentlichen aus drei Hauptkomponenten, die perfekt zusammenspielen.</p>
+
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+                                <div className="bg-blue-50 p-6 rounded-lg border border-blue-100 text-center hover:shadow-lg transition-shadow">
+                                    <div className="bg-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm text-gas font-bold text-xl">1</div>
+                                    <h5 className="font-bold text-gas mb-2">Der Flüssiggastank</h5>
+                                    <p className="text-sm text-gray-600">Hier lagert Ihr Energievorrat. Der Tank ist robust, wetterfest und fasst meist den Jahresbedarf. Er verfügt über Armaturen zum Befüllen und zur Entnahme.</p>
                                 </div>
-                                <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 text-center">
-                                    <div className="bg-white w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2 shadow-sm text-gas font-bold">2</div>
-                                    <h5 className="font-bold text-gas">Die Leitung</h5>
-                                    <p className="text-xs text-gray-600 mt-1">Erdverlegtes Rohr ins Haus. Ein Regler reduziert den Druck auf 50mbar.</p>
+                                <div className="bg-blue-50 p-6 rounded-lg border border-blue-100 text-center hover:shadow-lg transition-shadow">
+                                    <div className="bg-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm text-gas font-bold text-xl">2</div>
+                                    <h5 className="font-bold text-gas mb-2">Leitung & Regler</h5>
+                                    <p className="text-sm text-gray-600">Ein Druckregler am Tank reduziert den hohen Tankdruck auf die benötigten 50 mbar für das Haus. Über eine erdverlegte Kupfer- oder Kunststoffleitung gelangt das Gas ins Gebäude.</p>
                                 </div>
-                                <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 text-center">
-                                    <div className="bg-white w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2 shadow-sm text-gas font-bold">3</div>
-                                    <h5 className="font-bold text-gas">Die Heizung</h5>
-                                    <p className="text-xs text-gray-600 mt-1">Meist eine Gas-Brennwerttherme an der Wand.</p>
+                                <div className="bg-blue-50 p-6 rounded-lg border border-blue-100 text-center hover:shadow-lg transition-shadow">
+                                    <div className="bg-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm text-gas font-bold text-xl">3</div>
+                                    <h5 className="font-bold text-gas mb-2">Die Heizung</h5>
+                                    <p className="text-sm text-gray-600">Meist eine moderne Gas-Brennwerttherme. Sie arbeitet hocheffizient und kann an der Wand hängen (geringer Platzbedarf). Auch Herde oder Kamine können angeschlossen werden.</p>
                                 </div>
                             </div>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Hauseinführung und Sicherheit</h4>
+                            <p>Die Hauseinführung ist der Punkt, an dem die Leitung durch die Wand ins Gebäude tritt. Hier wird eine Hauptabsperreinrichtung (HAE) installiert, mit der Sie die Gaszufuhr im Notfall sofort unterbrechen können. Alle Bauteile sind DVGW-geprüft und sicher.</p>
+
+                            <p className="text-sm text-gray-500 mt-4">Informieren Sie sich auch über die <a href="/wissen/aufstellung" className="text-gas hover:underline">Vorschriften zur Aufstellung</a>.</p>
                         </div>
                     )
                 }]
@@ -444,12 +492,31 @@ export const CONTENT = {
                     description: 'Die ideale Kombi aus Erneuerbaren und Bewährtem.',
                     content: (
                         <div>
-                            <p>Eine Hybridheizung kombiniert eine Flüssiggasbrennwerttherme mit erneuerbaren Energien, meist einer Wärmepumpe.</p>
-                            <h4>So funktioniert es</h4>
-                            <ul className="space-y-2">
-                                <li className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-1"/> <strong>Grundlast:</strong> Die Wärmepumpe übernimmt an milden Tagen.</li>
-                                <li className="flex items-start gap-2"><CheckCircle size={16} className="text-green-500 mt-1"/> <strong>Spitzenlast:</strong> Bei Eiseskälte springt das Flüssiggas ein.</li>
+                            <p className="mb-6">Eine Hybridheizung ist die Antwort auf die Herausforderungen der Energiewende. Sie kombiniert die Zuverlässigkeit einer Gasheizung mit der Umweltfreundlichkeit erneuerbarer Energien – meist einer Luft-Wasser-Wärmepumpe.</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Das Prinzip: Arbeitsteilung</h4>
+                            <p className="mb-4">Das System entscheidet intelligent, welcher Energieträger gerade effizienter oder günstiger ist:</p>
+                            <ul className="space-y-4 mb-6">
+                                <li className="flex items-start gap-3 p-4 bg-green-50 rounded-lg border border-green-100">
+                                    <CheckCircle size={20} className="text-green-600 mt-1 flex-shrink-0"/>
+                                    <div>
+                                        <strong>Die Wärmepumpe (Grundlast):</strong>
+                                        <p className="text-sm text-gray-700 mt-1">Sie übernimmt die Versorgung an milden Tagen (Frühling, Herbst) und produziert warmes Wasser. Hier arbeitet sie mit höchster Effizienz (COP).</p>
+                                    </div>
+                                </li>
+                                <li className="flex items-start gap-3 p-4 bg-blue-50 rounded-lg border border-blue-100">
+                                    <CheckCircle size={20} className="text-blue-600 mt-1 flex-shrink-0"/>
+                                    <div>
+                                        <strong>Die Gastherme (Spitzenlast):</strong>
+                                        <p className="text-sm text-gray-700 mt-1">Sobald die Außentemperaturen unter den Gefrierpunkt fallen (Bivalenzpunkt), springt die Gasheizung ein. Sie liefert verlässlich hohe Vorlauftemperaturen, die die Wärmepumpe allein nur mit viel Strom schaffen würde.</p>
+                                    </div>
+                                </li>
                             </ul>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Vorteile im Altbau</h4>
+                            <p>Gerade in nicht perfekt gedämmten Häusern ist die Hybridheizung oft die beste Lösung. Sie müssen das Haus nicht komplett sanieren, um "Wärmepumpen-ready" zu sein, da das Gas für die nötige Wärme an kalten Tagen sorgt.</p>
+
+                            <p className="text-sm text-gray-500 mt-4">Lesen Sie auch unseren Vergleich zur <a href="/wissen/waermepumpe" className="text-gas hover:underline">reinen Wärmepumpe</a>.</p>
                         </div>
                     )
                 },
@@ -459,29 +526,51 @@ export const CONTENT = {
                     description: 'Der Kosten- & Komfort-Check.',
                     content: (
                         <div>
+                            <p className="mb-6">Wer seine alte Ölheizung austauscht, schwankt oft zwischen Pellets und Flüssiggas. Beide Systeme gelten als etablierte Alternativen, unterscheiden sich aber massiv in Komfort, Platzbedarf und Anschaffungskosten.</p>
+
                             <ComparisonTable
-                                headers={['', 'Flüssiggas', 'Pellets']}
+                                headers={['Kriterium', 'Flüssiggas-Heizung', 'Pellet-Heizung']}
                                 rows={[
-                                    ['Anschaffungskosten', 'Gering (Therme ab 4.000€)', 'Hoch (ab 15.000€)'],
-                                    ['Platzbedarf', 'Gering (Wandgerät)', 'Hoch (Lagerraum + Kessel)'],
-                                    ['Wartung', 'Wenig (alle 2 Jahre)', 'Viel (Asche leeren, Reinigung)'],
-                                    ['Feinstaub', 'Nahezu Null', 'Vorhanden (Filterpflicht)']
+                                    ['Anschaffungskosten', 'Gering (Therme ab 4.000€)', 'Hoch (System oft 15.000€ - 25.000€)'],
+                                    ['Platzbedarf', 'Minimal (Wandgerät, Tank im Garten)', 'Hoch (Kessel + Lagerraum/Silo im Haus)'],
+                                    ['Wartungsaufwand', 'Gering (alle 2 Jahre)', 'Hoch (Asche leeren, Reinigung, Förderschnecke)'],
+                                    ['Emissionen (Feinstaub)', 'Nahezu emissionsfrei', 'Feinstaubbelastung (Filter oft Pflicht)'],
+                                    ['Betriebsgeräusch', 'Sehr leise', 'Hörbar (Gebläse, Förderschnecke)']
                                 ]}
                             />
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Der Komfort-Faktor</h4>
+                            <p className="mb-4">Eine Flüssiggasheizung läuft vollautomatisch und sauber. Sie müssen keine Ascheboxen leeren und keine Lagerraurreinigung durchführen. Zudem ist die Technik ausgereift und weniger störanfällig als die Mechanik von Pelletfördersystemen.</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Investitionskosten</h4>
+                            <p>Während Pellets im laufenden Betrieb oft günstiger sein können als Gas, ist die Anfangsinvestition enorm. Bis sich der Mehrpreis einer Pelletheizung amortisiert hat, vergehen oft 15-20 Jahre. Eine Gasheizung ermöglicht Modernisierung auch bei kleinerem Budget.</p>
+
+                            <p className="text-sm text-gray-500 mt-4">Vergleichen Sie auch die Kosten für den <a href="/wissen/tank-kosten" className="text-gas hover:underline">Flüssiggastank</a>.</p>
                         </div>
                     )
                 },
                 {
                     id: 'geg',
-                    title: 'Heizungsgesetz (GEG) 2024',
+                    title: 'Heizungsgesetz (GEG) 2026',
                     description: 'Was gilt für Flüssiggasheizungen?',
                     content: (
                         <div>
-                            <div className="bg-yellow-50 p-4 rounded-xl border border-yellow-200 mb-6">
-                                <p className="font-bold text-yellow-800">Gute Nachrichten:</p>
-                                <p className="text-yellow-700 text-sm">Bestandsanlagen dürfen weiterlaufen. Neue Gasheizungen sind oft als Hybrid ("H2-Ready" oder mit Wärmepumpe) erlaubt.</p>
+                            <SourceBadge text="Update 2026" />
+                            <div className="bg-yellow-50 p-6 rounded-xl border border-yellow-200 mb-6 shadow-sm">
+                                <p className="font-bold text-yellow-800 text-lg mb-2">Entwarnung für Hausbesitzer:</p>
+                                <p className="text-yellow-900">Das Gebäudeenergiegesetz (GEG) bedeutet <strong>nicht</strong> das Aus für Flüssiggas. Bestehende Anlagen haben Bestandsschutz und dürfen repariert werden. Auch neue Gasheizungen sind unter bestimmten Bedingungen weiterhin erlaubt.</p>
                             </div>
-                            <p>Das Gebäudeenergiegesetz (GEG) erlaubt weiterhin Flüssiggas, oft in Kombination mit 65% erneuerbaren Energien (z.B. BioLPG oder Hybrid).</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Die 65%-Regel erfüllen</h4>
+                            <p className="mb-4">Seit 2024 müssen neue Heizungen in Neubaugebieten zu 65% mit erneuerbaren Energien betrieben werden. Für den Bestand gelten Übergangsfristen bis zur kommunalen Wärmeplanung (oft bis 2026/2028). Doch auch danach ist Flüssiggas eine Option:</p>
+
+                            <ul className="space-y-3 mb-6">
+                                <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-600 mt-1"/> <strong>Hybridheizung:</strong> Kombinieren Sie Gas mit einer Wärmepumpe. Die Wärmepumpe deckt rechnerisch die 65% ab.</li>
+                                <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-600 mt-1"/> <strong>Bio-LPG (Bio-Flüssiggas):</strong> Es gibt regeneratives Flüssiggas, das aus organischen Reststoffen hergestellt wird. Damit kann auch eine reine Gasheizung die Anforderungen erfüllen (Verfügbarkeit prüfen).</li>
+                                <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-600 mt-1"/> <strong>H2-Ready:</strong> Viele moderne Thermen sind bereits für Wasserstoffbeimischungen vorbereitet.</li>
+                            </ul>
+
+                            <p className="text-sm text-gray-500">Mehr zu Kombinationsmöglichkeiten finden Sie unter <a href="/wissen/hybrid" className="text-gas hover:underline">Hybridheizung</a>.</p>
                         </div>
                     )
                 },
@@ -491,15 +580,23 @@ export const CONTENT = {
                     description: 'Sauberer, platzsparender, günstiger.',
                     content: (
                         <div>
-                            <h4>Öltank raus – Platz gewinnen</h4>
-                            <p>Der alte Öltank im Keller nimmt wertvollen Platz weg. Ein Flüssiggastank im Garten schafft im Keller Platz für einen Hobbyraum.</p>
-                            <h4>Vorteile</h4>
-                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                                <li className="flex items-center gap-2 bg-green-50 p-2 rounded"><CheckCircle size={14} className="text-green-600"/> Kein Ölgeruch mehr</li>
-                                <li className="flex items-center gap-2 bg-green-50 p-2 rounded"><CheckCircle size={14} className="text-green-600"/> Raumgewinn im Keller</li>
-                                <li className="flex items-center gap-2 bg-green-50 p-2 rounded"><CheckCircle size={14} className="text-green-600"/> Weniger CO2</li>
-                                <li className="flex items-center gap-2 bg-green-50 p-2 rounded"><CheckCircle size={14} className="text-green-600"/> Günstige Anschaffung</li>
+                            <p className="mb-6">Viele Hausbesitzer nutzen den Moment der Heizungssanierung, um sich von ihrer alten Ölheizung zu trennen. Der Wechsel auf Flüssiggas bringt sofort spürbare Vorteile für Wohnqualität und Geldbeutel.</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Raumgewinn im Keller</h4>
+                            <p className="mb-4">Der wohl größte Vorteil: Der alte Öltank verschwindet aus dem Keller. Wo früher 3.000 Liter Öl lagerten und es oft unangenehm roch, entsteht plötzlich Platz für einen Hobbyraum, eine Sauna oder einen Hauswirtschaftsraum. Der neue Flüssiggastank steht sicher und unsichtbar (unterirdisch) oder dezent im Garten.</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Die Vorteile im Überblick</h4>
+                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                <li className="flex items-center gap-3 bg-green-50 p-3 rounded-lg border border-green-100"><CheckCircle size={18} className="text-green-600"/> <strong>Kein Ölgeruch mehr:</strong> Saubere Verbrennung, geruchlose Lagerung.</li>
+                                <li className="flex items-center gap-3 bg-green-50 p-3 rounded-lg border border-green-100"><CheckCircle size={18} className="text-green-600"/> <strong>Geringere Investition:</strong> Gasthermen sind deutlich günstiger als Ölkessel.</li>
+                                <li className="flex items-center gap-3 bg-green-50 p-3 rounded-lg border border-green-100"><CheckCircle size={18} className="text-green-600"/> <strong>Weniger CO2:</strong> Flüssiggas verbrennt emissionsärmer als Heizöl.</li>
+                                <li className="flex items-center gap-3 bg-green-50 p-3 rounded-lg border border-green-100"><CheckCircle size={18} className="text-green-600"/> <strong>Kombinierbar:</strong> Perfekt als Partner für Solarthermie oder Wärmepumpen.</li>
                             </ul>
+
+                            <h4 className="text-xl font-bold text-gas mb-2">Wie läuft der Wechsel ab?</h4>
+                            <p>Der Aufwand ist überschaubar. Eine Fachfirma entsorgt den Öltank. Wir stellen den Flüssiggastank auf. Der Heizungsbauer installiert die neue Therme. Oft ist der komplette Wechsel in 2-3 Tagen erledigt.</p>
+
+                            <p className="text-sm text-gray-500 mt-4">Planen Sie den Tankstandort mit unserem Ratgeber zur <a href="/wissen/aufstellung" className="text-gas hover:underline">Aufstellung</a>.</p>
                         </div>
                     )
                 },
@@ -509,8 +606,20 @@ export const CONTENT = {
                     description: 'Warum Flüssiggas im Altbau oft gewinnt.',
                     content: (
                         <div>
-                            <p>Wärmepumpen sind effizient – aber oft nicht im ungedämmten Altbau. Wenn Vorlauftemperaturen über 55°C benötigt werden, sinkt die Effizienz drastisch.</p>
-                            <p><strong>Die Lösung:</strong> Flüssiggas schafft hohe Temperaturen für alte Heizkörper problemlos und kostengünstig.</p>
+                            <p className="mb-6">Wärmepumpen sind die Stars der Energiewende – aber nicht jedes Haus ist für sie geeignet. Besonders im ungedämmten Altbau stoßen sie oft an ihre physikalischen und ökonomischen Grenzen.</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Das Problem mit der Vorlauftemperatur</h4>
+                            <p className="mb-4">Wärmepumpen arbeiten am effizientesten bei niedrigen Vorlauftemperaturen (35-50°C), wie sie Fußbodenheizungen benötigen. Alte Radiatoren brauchen im Winter oft 60-70°C. Um diese Temperaturen zu erreichen, muss die Wärmepumpe extrem viel Strom verbrauchen – die Betriebskosten explodieren ("JAZ-Problem").</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Warum Flüssiggas hier punktet</h4>
+                            <p className="mb-4">Eine Gasheizung schafft hohe Vorlauftemperaturen spielend, ohne dass der Verbrauch übermäßig steigt. Sie ist "temperatur-tolerant".</p>
+
+                            <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 mb-6">
+                                <p className="font-bold text-blue-900">Fazit für Altbauten:</p>
+                                <p className="text-blue-800">Bevor Sie 50.000€ in Dämmung und Fußbodenheizung investieren müssen, um eine Wärmepumpe effizient zu betreiben, ist eine moderne Flüssiggasheizung (ggf. als Hybrid) oft die wirtschaftlichere Wahl.</p>
+                            </div>
+
+                            <p className="text-sm text-gray-500">Erfahren Sie mehr über die Kombination beider Systeme: <a href="/wissen/hybrid" className="text-gas hover:underline">Hybridheizung</a>.</p>
                         </div>
                     )
                 },
@@ -520,13 +629,32 @@ export const CONTENT = {
                     description: 'Kleine Maßnahmen, große Wirkung.',
                     content: (
                         <div>
-                            <ul className="space-y-3">
-                                <li><strong>1. Hydraulischer Abgleich:</strong> Lassen Sie Ihre Heizung vom Profi einstellen.</li>
-                                <li><strong>2. Stoßlüften:</strong> Fenster ganz auf, nicht kippen!</li>
-                                <li><strong>3. Dämmen:</strong> Heizungsrohre im Keller dämmen.</li>
-                                <li><strong>4. Thermostate:</strong> Smarte Thermostate nutzen.</li>
-                                <li><strong>5. Wartung:</strong> Regelmäßige Wartung spart Energie.</li>
+                            <p className="mb-6">Die günstigste Energie ist die, die wir nicht verbrauchen. Oft lassen sich schon mit kleinen Verhaltensänderungen und geringen Investitionen 10-20% der Heizkosten einsparen.</p>
+
+                            <ul className="space-y-4">
+                                <li className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                                    <strong className="text-gas block mb-1">1. Hydraulischer Abgleich</strong>
+                                    <span className="text-gray-600">Lassen Sie Ihre Heizung vom Profi einstellen. Dies sorgt dafür, dass alle Heizkörper gleichmäßig warm werden und die Pumpe nicht unnötig arbeitet. Förderung möglich!</span>
+                                </li>
+                                <li className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                                    <strong className="text-gas block mb-1">2. Richtig Lüften (Stoßlüften)</strong>
+                                    <span className="text-gray-600">Fenster im Winter nicht auf "Kipp" lassen! Das kühlt die Wände aus. Besser: 3-mal täglich für 5 Minuten alle Fenster weit aufreißen (Querlüften).</span>
+                                </li>
+                                <li className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                                    <strong className="text-gas block mb-1">3. Programmierbare Thermostate</strong>
+                                    <span className="text-gray-600">Nutzen Sie smarte Thermostate. Senken Sie die Temperatur automatisch ab, wenn Sie bei der Arbeit sind oder schlafen. Jedes Grad weniger spart ca. 6% Energie.</span>
+                                </li>
+                                <li className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                                    <strong className="text-gas block mb-1">4. Heizkörper freihalten</strong>
+                                    <span className="text-gray-600">Verkleidungen, lange Vorhänge oder Möbel vor den Heizkörpern verhindern die Wärmeverteilung. Die Wärme staut sich, der Raum bleibt kalt.</span>
+                                </li>
+                                <li className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                                    <strong className="text-gas block mb-1">5. Rohre dämmen</strong>
+                                    <span className="text-gray-600">Isolieren Sie freiliegende Heizungsrohre im unbeheizten Keller. Materialkosten: wenige Euro. Effekt: Die Wärme kommt im Wohnzimmer an, statt im Keller zu verpuffen.</span>
+                                </li>
                             </ul>
+
+                            <p className="text-sm text-gray-500 mt-6">Haben Sie schon über einen Anbieterwechsel nachgedacht? Prüfen Sie unsere <a href="/wissen/preis-guide" className="text-gas hover:underline">Preise</a>.</p>
                         </div>
                     )
                 }
@@ -541,19 +669,69 @@ export const CONTENT = {
                     id: 'bhkw',
                     title: 'Strom & Wärme (BHKW)',
                     description: 'Doppelt sparen mit Kraft-Wärme-Kopplung.',
-                    content: (<div><p>Ein Blockheizkraftwerk (BHKW) produziert gleichzeitig Strom und Wärme. Ideal für Hotels oder Gewerbe mit hohem Wärmebedarf.</p></div>)
+                    content: (
+                        <div>
+                            <p className="mb-4">Ein Blockheizkraftwerk (BHKW) ist ein "Alleskönner" für Gewerbebetriebe mit hohem Energiebedarf. Es arbeitet nach dem Prinzip der Kraft-Wärme-Kopplung (KWK).</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Strom und Wärme gleichzeitig</h4>
+                            <p className="mb-4">Während ein herkömmliches Kraftwerk nur Strom produziert und die Wärme ungenutzt an die Umwelt abgibt, nutzt ein BHKW diese Abwärme direkt vor Ort zum Heizen. Ein motorbetriebener Generator erzeugt Strom, die Motorwärme heizt das Gebäude.</p>
+
+                            <div className="flex gap-4 p-4 bg-gray-50 border-l-4 border-gas my-6">
+                                <Zap className="text-yellow-500 flex-shrink-0" />
+                                <div>
+                                    <p className="font-bold text-gray-800">Ideal für Hotels, Gastronomie & Landwirtschaft</p>
+                                    <p className="text-sm text-gray-600">Überall dort, wo gleichzeitig viel Strom und viel Wärme benötigt wird (z.B. Wellnessbereiche, Schwimmbäder, Prozesswärme), amortisiert sich ein flüssiggasbetriebenes BHKW in Rekordzeit.</p>
+                                </div>
+                            </div>
+
+                            <p>Flüssiggas ist hier der ideale Kraftstoff: Es verbrennt sauberer als Heizöl und lagert platzsparend in Tanks, unabhängig vom Erdgasnetz.</p>
+                            <p className="text-sm text-gray-500 mt-4">Für Großverbraucher bieten wir spezielle <a href="/wissen/tank-kosten" className="text-gas hover:underline">Großbehälter</a> an.</p>
+                        </div>
+                    )
                 },
                 {
                     id: 'hallenheizung',
                     title: 'Hallenheizung & Dunkelstrahler',
                     description: 'Effizienz für hohe Räume.',
-                    content: (<div><p>Dunkelstrahler erwärmen Flächen, nicht Luft. Das spart in hohen Hallen bis zu 40% Energie.</p></div>)
+                    content: (
+                        <div>
+                            <p className="mb-6">Das Beheizen von hohen Industrie- oder Lagerhallen mit konventionellen Warmluftgebläsen ist extreme Geldverschwendung. Die warme Luft steigt sofort unter das Dach, während es am Boden bei den Mitarbeitern kalt bleibt.</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Das Prinzip der Sonne (Dunkelstrahler)</h4>
+                            <p className="mb-4">Moderne flüssiggasbetriebene Dunkelstrahler nutzen Infrarotstrahlung. Sie erwärmen nicht die Luft, sondern die Oberflächen, auf die sie treffen (Boden, Maschinen, Menschen). Erst diese Flächen geben die Wärme an die Umgebung ab.</p>
+
+                            <ul className="space-y-3 mb-6">
+                                <li className="flex items-center gap-2"><CheckCircle size={16} className="text-gas"/> <strong>Energieeinsparung:</strong> Bis zu 40% weniger Verbrauch im Vergleich zu Warmluftsystemen.</li>
+                                <li className="flex items-center gap-2"><CheckCircle size={16} className="text-gas"/> <strong>Zonierung:</strong> Beheizen Sie nur die Arbeitsbereiche, in denen tatsächlich gearbeitet wird.</li>
+                                <li className="flex items-center gap-2"><CheckCircle size={16} className="text-gas"/> <strong>Komfort:</strong> Keine Staubaufwirbelung, kein Zugluftgefühl.</li>
+                            </ul>
+
+                            <p className="text-sm text-gray-500">Interessiert an gewerblichen Lösungen? <a href="/kontakt" className="text-gas hover:underline">Kontaktieren Sie uns</a>.</p>
+                        </div>
+                    )
                 },
                 {
                     id: 'stapler',
                     title: 'Treibgas für Stapler',
                     description: 'Sauberer als Diesel, stärker als Elektro.',
-                    content: (<div><p>Gasstapler sind sofort einsatzbereit (keine Ladezeit) und dürfen auch in Hallen fahren.</p></div>)
+                    content: (
+                        <div>
+                            <p className="mb-6">Treibgasstapler (LPG) vereinen die Vorteile von Diesel- und Elektrostaplern, ohne deren Nachteile zu übernehmen. Sie sind die "Allrounder" für Logistik und Industrie.</p>
+
+                            <ComparisonTable
+                                headers={['', 'Treibgas (LPG)', 'Diesel', 'Elektro']}
+                                rows={[
+                                    ['Einsatzort', 'Innen & Außen', 'Nur Außen (Abgase)', 'Innen (Glatter Boden)'],
+                                    ['Verfügbarkeit', 'Sofort (Flaschenwechsel)', 'Sofort (Tanken)', 'Ladezeiten (Stunden)'],
+                                    ['Kraft/Power', 'Hoch', 'Hoch', 'Mittel'],
+                                    ['Investition', 'Niedrig', 'Mittel', 'Hoch (Batterie)']
+                                ]}
+                            />
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Sauber & Flexibel</h4>
+                            <p>Treibgas verbrennt so sauber, dass die Stapler auch in geschlossenen Hallen fahren dürfen (im Gegensatz zu Diesel). Gleichzeitig haben sie Kraft für den Außeneinsatz auf unebenem Gelände. Der Flaschenwechsel dauert keine 2 Minuten – ideal für den Mehrschichtbetrieb ohne teure Zweitbatterien.</p>
+                        </div>
+                    )
                 }
             ]
         },
@@ -573,6 +751,7 @@ export const CONTENT = {
                                 <p className="font-bold text-red-800 mb-2">24h Notdienst für Kunden:</p>
                                 <a href="tel:04551897089" className="text-3xl font-extrabold text-red-600 block hover:scale-105 transition-transform">04551 89 70 89</a>
                             </div>
+                            <p className="text-sm text-gray-500 mt-4 text-center">Tipp: Ein regelmäßiger <a href="/wissen/qualitaets-check" className="text-gas hover:underline">Qualitäts-Check</a> vermeidet Störungen.</p>
                         </div>
                     )
                 }
@@ -587,7 +766,24 @@ export const CONTENT = {
                     id: 'was-ist',
                     title: 'Was ist Flüssiggas?',
                     description: 'Eigenschaften und Herkunft.',
-                    content: (<div><p>LPG (Liquefied Petroleum Gas) besteht aus Propan und Butan. Es verflüssigt sich unter geringem Druck.</p></div>)
+                    content: (
+                        <div>
+                            <p className="mb-6">Flüssiggas (LPG = Liquefied Petroleum Gas) ist ein hochwertiger Energieträger, der hauptsächlich aus <strong>Propan</strong> und <strong>Butan</strong> besteht. Das Besondere an diesem Gas ist seine physikalische Eigenschaft: Schon unter geringem Druck (ca. 6-8 bar) verflüssigt es sich.</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Das 1:260 Wunder</h4>
+                            <p className="mb-4">Durch die Verflüssigung schrumpft das Volumen enorm. Aus 1 Liter flüssigem Gas entstehen ca. 260 Liter gasförmige Energie. Das macht Flüssiggas zum idealen Energievorrat: In einem relativ kleinen Tank im Garten lagert Energie für ein ganzes Jahr.</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Woher kommt es?</h4>
+                            <p className="mb-4">Flüssiggas ist kein reines Erdölprodukt. Es entsteht:</p>
+                            <ul className="list-disc pl-5 mb-4 text-gray-700">
+                                <li>Zu ca. 60% bei der Förderung von Erdgas (als nasses Begleitgas).</li>
+                                <li>Zu ca. 40% in Raffinerien bei der Verarbeitung von Rohöl.</li>
+                            </ul>
+                            <p>Es verbrennt extrem sauber (kaum Ruß, wenig Stickoxide) und darf deshalb sogar in Wasserschutzgebieten eingesetzt werden.</p>
+
+                            <p className="text-sm text-gray-500">Mehr zur Qualität erfahren Sie im <a href="/wissen/qualitaets-check" className="text-gas hover:underline">Qualitäts-Check</a>.</p>
+                        </div>
+                    )
                 },
                 {
                     id: 'preise',
@@ -595,16 +791,21 @@ export const CONTENT = {
                     description: 'Wann ist der beste Zeitpunkt?',
                     content: (
                         <div>
-                            <SourceBadge text="Stand: 2025" />
-                            <p>Flüssiggaspreise schwanken saisonal. Im Sommer ist es oft günstiger.</p>
+                            <SourceBadge text="Stand: 2026" />
+                            <p className="mb-4">Wie alle Energieträger unterliegt auch Flüssiggas Preisschwankungen an den internationalen Börsen. Dennoch folgt der Preis oft saisonalen Mustern.</p>
 
                             <div className="my-6 p-4 bg-blue-50 rounded-lg flex gap-4 items-center">
-                                <Snowflake className="text-blue-400" />
+                                <Snowflake className="text-blue-400 flex-shrink-0" />
                                 <div>
                                     <span className="font-bold block text-gray-700">Winter-Tipp:</span>
-                                    <span className="text-sm">Bestellen Sie rechtzeitig vor dem Frost, um Lieferengpässe zu vermeiden.</span>
+                                    <span className="text-sm">Im Winter steigt die Nachfrage weltweit. Versuchen Sie, Ihren Tank bereits im Sommer oder frühen Herbst zu füllen, um Preisspitzen zu vermeiden.</span>
                                 </div>
                             </div>
+
+                            <h4 className="text-xl font-bold text-gas mb-2">Unabhängigkeit zahlt sich aus</h4>
+                            <p>Im Gegensatz zu leitungsgebundenem Erdgas, wo Sie an einen Versorger und dessen Preiserhöhungen gebunden sind, können Sie als Eigentümer eines Flüssiggastanks (Kauf-Tank) bei jeder Bestellung Preise vergleichen und den günstigen Moment abpassen.</p>
+
+                            <p className="text-sm text-gray-500 mt-4">Detaillierte Infos zur Preisgestaltung finden Sie in unserem <a href="/wissen/preis-guide" className="text-gas hover:underline">Preis-Guide</a>.</p>
                         </div>
                     )
                 },
@@ -614,10 +815,26 @@ export const CONTENT = {
                     description: 'Verwirrung bei der Umrechnung?',
                     content: (
                         <div>
-                             <div className="bg-gray-100 p-4 rounded-lg font-mono text-sm my-4 space-y-2">
-                                <div>1 Liter flüssig ≈ 6,57 kWh</div>
-                                <div>1 m³ gasförmig ≈ 3,93 Liter flüssig</div>
+                            <p className="mb-6">Auf Ihrer Gasrechnung stehen Liter, der Zähler zeigt Kubikmeter (m³) und verglichen wird oft in Kilowattstunden (kWh). Hier bringen wir Licht ins Dunkel.</p>
+
+                             <div className="bg-gray-100 p-6 rounded-lg font-mono text-sm my-6 space-y-4 border border-gray-200">
+                                <div>
+                                    <strong>1 Liter flüssig ≈ 6,57 kWh</strong>
+                                    <p className="text-gray-500 text-xs mt-1">Das ist der Heizwert von Propan. Ein 4850 Liter Tank enthält also ca. 31.800 kWh Energie.</p>
+                                </div>
+                                <div className="border-t border-gray-300 pt-2">
+                                    <strong>1 m³ gasförmig ≈ 3,93 Liter flüssig</strong>
+                                    <p className="text-gray-500 text-xs mt-1">Wenn Ihr Gaszähler 100 m³ Verbrauch anzeigt, haben Sie ca. 393 Liter aus dem Tank verbraucht.</p>
+                                </div>
+                                <div className="border-t border-gray-300 pt-2">
+                                    <strong>1 kg Propan ≈ 1,96 Liter flüssig</strong>
+                                    <p className="text-gray-500 text-xs mt-1">Wichtig für Flaschengas-Nutzer.</p>
+                                </div>
                             </div>
+
+                            <p className="text-sm">Hinweis: Diese Werte gelten für reines Propan bei 15°C. Temperatur und Druck beeinflussen die Dichte geringfügig.</p>
+
+                            <p className="text-sm text-gray-500 mt-4">Nutzen Sie unseren <a href="/rechner" className="text-gas hover:underline">Energie-Rechner</a> für genaue Vergleiche.</p>
                         </div>
                     )
                 }
