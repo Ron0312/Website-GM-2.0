@@ -10,17 +10,9 @@
   # ----------------------------------------------------------------------
   # Explicitly exclude sitemap.xml and robots.txt from ANY rewrites to prevent 404s
   # This ensures Apache tries to serve them physically first.
-  # We use REQUEST_URI to be absolutely sure we catch the path
   RewriteCond %{REQUEST_URI} ^/sitemap\.xml$ [OR]
   RewriteCond %{REQUEST_URI} ^/robots\.txt$
   RewriteRule ^ - [L]
-
-  # Security Headers
-  <IfModule mod_headers.c>
-    Header set X-Content-Type-Options "nosniff"
-    Header set X-Frame-Options "SAMEORIGIN"
-    Header set X-XSS-Protection "1; mode=block"
-  </IfModule>
 
   # ----------------------------------------------------------------------
   # Legacy Redirects (301 Permanent)
@@ -35,7 +27,6 @@
   RewriteRule ^cookie-richtlinie-eu/?$ / [R=301,L]
 
   # Tanks - General
-  # Explicitly redirect old specific buying pages to /tanks
   RewriteRule ^fluessiggastank-kaufen/?$ /tanks [R=301,L]
   RewriteRule ^fluessiggastank-kaufen-2/?$ /tanks [R=301,L]
   RewriteRule ^flussiggastank-mieten-oder-kaufen/?$ /tanks [R=301,L]
@@ -70,9 +61,6 @@
   RewriteRule ^flussiggasbehalter-vorschriften-und-prufungen/?$ /pruefungen [R=301,L]
   RewriteRule ^aeussere-pruefung/?$ /pruefungen [R=301,L]
 
-  # Note: URLs like /kontakt/ are handled by the static file mapping below
-  # which treats /kontakt/ as needing /kontakt.html
-
   # ----------------------------------------------------------------------
   # Static File Handling
   # ----------------------------------------------------------------------
@@ -82,25 +70,48 @@
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
-  # Handle .html extension hiding (e.g. /gas -> /gas.html)
-  # Check if .html file exists for the requested path (removing trailing slash for check)
-  # We use a trick: match the request filename against the document root + request + .html
-  # But REQUEST_FILENAME is absolute path usually.
-
-  # Simple case: Root level pages
+  # Handle .html extension hiding
   RewriteCond %{DOCUMENT_ROOT}/$1.html -f
   RewriteRule ^([^/]+)/?$ $1.html [L]
 
-  # Nested pages (e.g. /tanks/slug)
   RewriteCond %{DOCUMENT_ROOT}/$1/$2.html -f
   RewriteRule ^([^/]+)/([^/]+)/?$ $1/$2.html [L]
 
   # Fallback for 404
-  # If no file found and no html mapping, serve 404.html if it exists
-  # IMPORTANT: Do not rewrite sitemap.xml to 404 even if check fails,
-  # although the top rule should have prevented this.
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^ 404.html [L]
 
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Headers & Caching
+# ----------------------------------------------------------------------
+<IfModule mod_headers.c>
+  # Security Headers
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+
+  # 1. Long Cache (1 Year) for Static Assets
+  # Applied first. Matches most assets.
+  <FilesMatch "\.(css|js|gif|jpe?g|png|svg|webp|woff2?|ico|avif)$">
+    Header set Cache-Control "max-age=31536000, public"
+  </FilesMatch>
+
+  # 2. No Cache for Critical Entry Points
+  # Overrides the above for specific files like sw.js
+  # Also applies to all HTML files to ensure updates are seen immediately (SSG).
+  <FilesMatch "(^sw\.js$|^workbox-.*\.js$|index\.html|manifest\.json|sitemap\.xml|robots\.txt|\.html)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+
+  # 3. No Cache for Data files
+  <FilesMatch "\.(xml|json)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
 </IfModule>
