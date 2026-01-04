@@ -447,7 +447,7 @@ export const getSeoForPath = (path) => {
 
       let articleTitle = formatTitleFromSlug(slug);
       let articleDesc = 'Detaillierter Ratgeber-Artikel von Gas-Service Möller.';
-      let dateModified = "2024-01-01"; // Default date
+      let dateModified = "2026-01-15"; // Default date
 
       // Specific overrides for known major articles if we want perfect titles without importing CONTENT
       const knowledgeOverrides = {
@@ -458,7 +458,7 @@ export const getSeoForPath = (path) => {
           'miete-kauf': {
               title: 'Flüssiggastank mieten oder kaufen? Rechner & Kosten-Vergleich',
               desc: 'Miete vs. Kauf: Was lohnt sich wirklich? Wir rechnen nach. Vor- und Nachteile, Amortisation und Expertentipps für Ihre Entscheidung.',
-              date: '2025-01-10'
+              date: '2026-01-20'
           },
           'sicherheit': {
               title: 'Flüssiggastank Vorschriften & Abstände | Sicherheit & Aufstellort',
@@ -480,7 +480,7 @@ export const getSeoForPath = (path) => {
           'tank-kosten': {
               title: 'Was kostet ein Flüssiggastank? | Preis 2700 Liter, 4850 Liter',
               desc: 'Aktuelle Preise für Flüssiggastanks (Oberirdisch & Unterirdisch). Kosten für 1,2t (2700 Liter), 2,1t (4850 Liter) & 2,9t (6400 Liter). Neu & Gebraucht kaufen.',
-              date: '2025-02-20'
+              date: '2026-02-10'
           },
           'aufstellung': {
               title: 'Flüssiggastank Vorschriften: Grenzabstand & Aufstellort (TRF 2021)',
@@ -501,37 +501,37 @@ export const getSeoForPath = (path) => {
           'preis-guide': {
               title: 'Flüssiggas Preis-Guide: Wann kaufen? | Gasmöller',
               desc: 'Der große Preis-Guide: Wann ist Flüssiggas am günstigsten? Saisonale Trends, Einflussfaktoren & Spartipps vom Experten.',
-              date: '2025-02-15'
+              date: '2026-01-25'
           },
           'qualitaets-check': {
               title: 'Flüssiggas Qualität: Propan DIN 51622 vs. Gemisch',
               desc: 'Warum reines Propan (DIN 51622) besser ist als Butan-Gemische. Heizwert, Wintertauglichkeit und Qualitätsunterschiede erklärt.',
-              date: '2024-01-20'
+              date: '2026-01-10'
           },
           'liefer-ablauf': {
               title: 'Ablauf der Flüssiggas-Lieferung | Schritt für Schritt',
               desc: 'Wie läuft die Gaslieferung ab? Terminierung, Anfahrt und Betankung. Alles aus einer Hand.',
-              date: '2024-03-10'
+              date: '2026-01-15'
           },
           'tank-leer': {
               title: 'Hilfe, Flüssiggastank leer! Was tun? | Notdienst & Tipps',
               desc: 'Heizung kalt? Wenn der Flüssiggastank leer ist: Notdienst rufen, Anlage entlüften und wie Sie Leerstände in Zukunft vermeiden.',
-              date: '2024-11-05'
+              date: '2026-01-05'
           },
           'sammelbestellung': {
               title: 'Flüssiggas Sammelbestellung | Nachbarn & Kosten sparen',
               desc: 'Gemeinsam tanken und sparen! Vorteile von Sammelbestellungen für Nachbarschaften. Günstigerer Literpreis & geteilte Anfahrt.',
-              date: '2024-09-15'
+              date: '2026-01-20'
           },
           'preise': {
-              title: 'Flüssiggaspreise Entwicklung 2025 | Prognose & Trend',
-              desc: 'Wohin geht der Gaspreis? Aktuelle Charts & Prognosen für 2025. Wann ist der beste Kaufzeitpunkt? Analyse vom Experten.',
-              date: '2025-02-01'
+              title: 'Flüssiggaspreise Entwicklung 2026 | Prognose & Trend',
+              desc: 'Wohin geht der Gaspreis? Aktuelle Charts & Prognosen für 2026. Wann ist der beste Kaufzeitpunkt? Analyse vom Experten.',
+              date: '2026-02-01'
           },
           'heizung': {
-               title: 'Heizungsgesetz (GEG) 2024 | Flüssiggas erlaubt?',
-               desc: 'Was bedeutet das GEG 2024 für Flüssiggasheizungen? Bestandsschutz, 65%-Regel und Hybrid-Lösungen erklärt.',
-               date: '2025-01-15'
+               title: 'Heizungsgesetz (GEG) 2026 | Flüssiggas erlaubt?',
+               desc: 'Was bedeutet das GEG 2026 für Flüssiggasheizungen? Bestandsschutz, 65%-Regel und Hybrid-Lösungen erklärt.',
+               date: '2026-01-15'
           }
       };
 
