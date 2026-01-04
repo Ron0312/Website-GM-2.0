@@ -253,6 +253,29 @@ const getHowToSchema = (title, steps) => ({
     }))
 });
 
+const getCommercialServiceSchema = () => ({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Gewerbe- und Industriegasversorgung",
+    "provider": {
+        "@type": "LocalBusiness",
+        "name": "Gas-Service Möller e.K.",
+        "image": `${BASE_URL}/logos/logo-gasmoeller.png`
+    },
+    "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Norddeutschland"
+    },
+    "description": "Maßgeschneiderte Flüssiggas-Versorgungskonzepte für Industrie, Landwirtschaft und Gewerbe. Prozesswärme, Hallenheizung und Staplergas.",
+    "name": "Gewerbegas & Industrielösungen",
+    "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock"
+    }
+});
+
 export const getSchemaForPath = (path) => {
    const seo = getSeoForPath(path);
    return seo.schema;
@@ -358,9 +381,13 @@ export const getSeoForPath = (path) => {
     case 'gewerbe':
       return {
         ...defaultSeo,
-        title: 'Flüssiggas für Gewerbe & Industrie | Hallenheizung & Prozesswärme',
-        description: 'Gewerbegas Lösungen: Effiziente Hallenheizungen, Prozesswärme & Staplergas. Individuelle Versorgungskonzepte für Industrie & Landwirtschaft.',
-        schema: [getOrganizationSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Gewerbe', url: '/gewerbe' }])]
+        title: 'Flüssiggas für Gewerbe, Industrie & Landwirtschaft | Prozesswärme & Hallenheizung',
+        description: 'Maßgeschneiderte Flüssiggas-Konzepte für Unternehmen. Prozesswärme, Hallenheizung & Staplergas. Jetzt Angebot für Gewerbegas anfordern! ➔ Vertragsfrei & Effizient.',
+        schema: [
+            getOrganizationSchema(),
+            getCommercialServiceSchema(),
+            getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Gewerbe', url: '/gewerbe' }])
+        ]
       };
      case 'wissen':
       return {
