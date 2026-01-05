@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Suspense } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import { Settings, ArrowRight, RotateCcw } from 'lucide-react';
 import { getSeoForPath } from './data/seoData';
 import Navigation from './components/Navigation';
@@ -29,6 +30,7 @@ import { tankDetails } from './data/tanks';
 import ErrorBoundary from './components/ErrorBoundary';
 import DualCTA from './components/DualCTA';
 import TankDisposalPage from './components/TankDisposalPage';
+import Toast from './components/ui/Toast';
 
 // Lazy Load heavy components
 const WizardModal = React.lazy(() => import('./components/WizardModal'));
@@ -57,6 +59,7 @@ const App = ({ path, context }) => {
     const [wizardOpen, setWizardOpen] = useState(false);
     const [wizardType, setWizardType] = useState('tank');
     const [wizardData, setWizardData] = useState(null);
+    const [isOffline, setIsOffline] = useState(false);
 
     // Legal Modals
     const [legalModal, setLegalModal] = useState({ open: false, title: '', content: '' });
@@ -91,6 +94,24 @@ const App = ({ path, context }) => {
         if (typeof window !== 'undefined') {
             window.openPrivacy = () => openLegal('privacy');
         }
+    }, []);
+
+    useEffect(() => {
+        const handleOnline = () => setIsOffline(false);
+        const handleOffline = () => setIsOffline(true);
+
+        window.addEventListener('online', handleOnline);
+        window.addEventListener('offline', handleOffline);
+
+        // Initial check
+        if (typeof navigator !== 'undefined' && !navigator.onLine) {
+            setIsOffline(true);
+        }
+
+        return () => {
+            window.removeEventListener('online', handleOnline);
+            window.removeEventListener('offline', handleOffline);
+        };
     }, []);
 
     // Handle Browser Back/Forward
@@ -314,6 +335,16 @@ const App = ({ path, context }) => {
                     <WizardModal isOpen={wizardOpen} onClose={() => setWizardOpen(false)} initialType={wizardType} initialData={wizardData} openLegal={openLegal} />
                 </Suspense>
                 <CookieBanner />
+                <AnimatePresence>
+                    {isOffline && (
+                        <Toast
+                            message="Keine Internetverbindung. Wir versuchen es weiter, bis du wieder online bist!"
+                            type="error"
+                            duration={0}
+                            onClose={() => setIsOffline(false)}
+                        />
+                    )}
+                </AnimatePresence>
                 <SimpleModal isOpen={legalModal.open} onClose={() => setLegalModal({ ...legalModal, open: false })} title={legalModal.title} content={legalModal.content} />
                 <StickyCTA openWizard={openWizard} />
                 <AccessibilityWidget />
