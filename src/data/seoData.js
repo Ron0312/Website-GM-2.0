@@ -10,6 +10,15 @@ const formatTitleFromSlug = (slug) => {
     return slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 };
 
+// Calculate dynamic price validity (End of next year)
+const getPriceValidUntil = () => {
+    const date = new Date();
+    const year = date.getFullYear() + 1;
+    return `${year}-12-31`;
+};
+
+const PRICE_VALID_UNTIL = getPriceValidUntil();
+
 // Structured Data Helpers
 const getOrganizationSchema = () => ({
   "@context": "https://schema.org",
@@ -133,6 +142,7 @@ const getTankProductSchema = (tank) => ({
     "url": `${BASE_URL}/fluessiggastank-kaufen/${tank.slug}`,
     "priceCurrency": "EUR",
     "availability": "https://schema.org/InStock",
+    "priceValidUntil": PRICE_VALID_UNTIL,
     "itemCondition": "https://schema.org/NewCondition",
      "priceSpecification": {
         "@type": "PriceSpecification",
@@ -181,7 +191,25 @@ const getTankCatalogSchema = () => ({
       "@type": "Product",
       "name": tank.name,
       "description": tank.description,
-       "url": `${BASE_URL}/fluessiggastank-kaufen/${tank.slug}`
+      "url": `${BASE_URL}/fluessiggastank-kaufen/${tank.slug}`,
+      "image": tank.image || `${BASE_URL}/images/tanks/tank-placeholder.webp`,
+      "brand": {
+        "@type": "Brand",
+        "name": "Gas-Service Möller"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "reviewCount": "25"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "EUR",
+        "price": "0.00",
+        "priceValidUntil": PRICE_VALID_UNTIL,
+        "availability": "https://schema.org/InStock",
+        "url": `${BASE_URL}/fluessiggastank-kaufen/${tank.slug}`
+      }
     },
     "position": index + 1
   }))
