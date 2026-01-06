@@ -162,7 +162,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                 </div>
 
                 {/* Tank Grid with Horizontal Scroll on Mobile */}
-                <div className="md:hidden text-center text-xs text-gray-400 mb-2 animate-pulse">
+                <div className="md:hidden text-center text-xs text-gray-500 mb-2 animate-pulse font-medium">
                     ← Nach links wischen für mehr →
                 </div>
                 <div className="flex md:grid md:grid-cols-3 gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none pb-4 md:pb-0 px-4 md:px-0 -mx-4 md:mx-0 scrollbar-hide">
@@ -194,7 +194,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                             <h4 className="font-bold text-xl mb-4 text-center">Technische Übersicht (2700l, 4850l, 6400l)</h4>
                             <div className="overflow-x-auto">
                                 <table className="w-full text-sm text-left">
-                                    <thead className="text-xs text-gray-400 uppercase border-b border-gray-200"><tr><th className="py-3">Modell</th><th className="py-3">Maße (L x H)</th><th className="py-3">Gewicht</th><th className="py-3">Leistung</th></tr></thead>
+                                    <thead className="text-xs text-gray-500 uppercase border-b border-gray-200 font-bold"><tr><th className="py-3">Modell</th><th className="py-3">Maße (L x H)</th><th className="py-3">Gewicht</th><th className="py-3">Leistung</th></tr></thead>
                                     <tbody className="text-gray-600 divide-y divide-gray-100">
                                         <tr><td className="py-3 font-bold">1,2 t (2700 Liter)</td><td className="py-3">2.500 x 1.250 mm</td><td className="py-3">~ 550 kg</td><td className="py-3">35 kW</td></tr>
                                         <tr><td className="py-3 font-bold">2,1 t (4850 Liter)</td><td className="py-3">4.300 x 1.250 mm</td><td className="py-3">~ 980 kg</td><td className="py-3">60 kW</td></tr>

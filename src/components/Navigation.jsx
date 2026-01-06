@@ -89,8 +89,8 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                     <img
                         src="/logos/Icon-01.webp"
                         alt="Gas-Service Möller Logo"
-                        width="2222"
-                        height="747"
+                        width="422"
+                        height="142"
                         className={`h-10 w-auto transition-transform duration-300 group-hover:scale-105 ${effectiveScrolled ? '' : 'brightness-0 invert'}`}
                     />
                 </div>
@@ -274,6 +274,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                         <button
                                             onClick={() => setMobileMenuOpen(false)}
                                             className="p-2 rounded-full hover:bg-gray-100 text-gray-500"
+                                            aria-label="Menü schließen"
                                         >
                                             <X size={24} />
                                         </button>

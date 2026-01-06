@@ -46,7 +46,7 @@ export default defineConfig({
         quality: 80,
       },
       webp: {
-        lossless: true,
+        quality: 80,
       },
       avif: {
         quality: 70, // Use lossy compression for AVIF to ensure smaller file sizes
