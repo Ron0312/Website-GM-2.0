@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const TankCard = ({ tank, type, onContact }) => {
+const TankCard = ({ tank, type, onContact, setActiveSection }) => {
     // Determine scale based on capacity for visual differentiation
     let scaleClass = "w-32";
     if (tank.capacity === '2,1 t') scaleClass = "w-40";
@@ -67,15 +67,23 @@ const TankCard = ({ tank, type, onContact }) => {
                     {tank.usage}
                 </p>
 
-                <button
-                    onClick={onContact}
-                    className={`px-8 py-3 rounded-full font-bold text-sm transition-all transform
+                <a
+                    href={`/fluessiggastank-kaufen/${tank.slug}`}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        if (setActiveSection) {
+                            setActiveSection(`fluessiggastank-kaufen/${tank.slug}`);
+                        } else {
+                            window.location.href = `/fluessiggastank-kaufen/${tank.slug}`;
+                        }
+                    }}
+                    className={`inline-block px-8 py-3 rounded-full font-bold text-sm transition-all transform
                         ${tank.highlight
                             ? 'bg-gas text-white shadow-xl shadow-gas/20 hover:scale-105'
                             : 'bg-gray-50 text-gray-900 hover:bg-white hover:shadow-lg border border-transparent hover:border-gray-100'}`}
                 >
                     Details & Preis
-                </button>
+                </a>
             </div>
         </motion.div>
     );
