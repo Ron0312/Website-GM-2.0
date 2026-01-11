@@ -363,13 +363,7 @@ export const getSeoForPath = (path) => {
         schema: [
             getOrganizationSchema(),
             getTankCatalogSchema(),
-            getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggastank kaufen', url: '/fluessiggastank-kaufen' }]),
-            getFAQSchema([
-                { question: "Was kostet ein Flüssiggastank (2700l - 6400l)?", answer: "Die Preise hängen von der Größe (1,2t / 2700l bis 2,9t / 6400l) und der Installation (oberirdisch/unterirdisch) ab. Kauf-Flüssiggastanks amortisieren sich oft nach 3-5 Jahren." },
-                { question: "Bieten Sie auch gebrauchte Flüssiggastanks an?", answer: "Ja, wir führen regenerierte, gebrauchte Flüssiggastanks (TÜV-geprüft). Diese sind eine günstige Alternative zum Neukauf." },
-                { question: "Können Sie meinen alten Flüssiggastank entsorgen?", answer: "Ja, als Fachbetrieb übernehmen wir die fachgerechte Entsorgung und Stilllegung alter Flüssiggastanks inklusive Restgas-Absaugung." },
-                { question: "Ist ein unterirdischer Flüssiggastank teurer?", answer: "Ein unterirdischer Flüssiggastank ist in der Anschaffung etwas teurer als ein oberirdischer, bietet aber den Vorteil, dass er im Garten fast unsichtbar ist." }
-            ])
+            getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggastank kaufen', url: '/fluessiggastank-kaufen' }])
         ]
       };
     case 'fluessiggas-bestellen':
@@ -380,13 +374,7 @@ export const getSeoForPath = (path) => {
         description: 'Aktueller Flüssiggas Preis 2025. Günstig Propan kaufen & bestellen beim freien Anbieter. Lieferung für 2700 Liter, 4850 Liter Tanks. Jetzt Tagespreis anfragen!',
         schema: [
             getOrganizationSchema(),
-            getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggas bestellen', url: '/fluessiggas-bestellen' }]),
-            getFAQSchema([
-                { question: "Wie ist der aktuelle Flüssiggas Preis?", answer: "Unsere Flüssiggaspreise orientieren sich am Tageskurs. Fordern Sie jetzt ein unverbindliches Angebot an, um den aktuellen Preis für Ihre PLZ zu erfahren." },
-                { question: "Kann ich Flüssiggas günstig kaufen, wenn ich miete?", answer: "Als Vertrags-Mieter sind Sie meist an den Anbieter gebunden. Als Eigentümer eines Flüssiggastanks können Sie Flüssiggas günstig auf dem freien Markt kaufen und Anbieter vergleichen." },
-                { question: "Wie schnell können Sie liefern?", answer: "In der Regel liefern wir innerhalb von 5-10 Werktagen. In Notfällen bieten wir auch eine Express-Lieferung an." },
-                { question: "Welche Qualität liefern Sie?", answer: "Wir liefern ausschließlich reines Propan nach DIN 51622 (mind. 95% Propan), ideal für alle Heizungsanlagen und frostsicher im Winter." }
-            ])
+            getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggas bestellen', url: '/fluessiggas-bestellen' }])
         ]
       };
     case 'rechner':
@@ -492,10 +480,6 @@ export const getSeoForPath = (path) => {
                 { name: 'Start', url: '/' },
                 { name: 'Flüssiggastank kaufen', url: '/fluessiggastank-kaufen' },
                 { name: tank.name, url: `/fluessiggastank-kaufen/${tank.slug}` }
-            ]),
-            getFAQSchema([
-                { question: `Ist der ${tank.name} für mein Haus geeignet?`, answer: `Der ${tank.name} mit ${tank.volume} Volumen eignet sich typischerweise für ${tank.idealFor}.` },
-                { question: "Wie groß muss die Bodenplatte sein?", answer: "Wir stellen Ihnen einen genauen Fundamentplan zur Verfügung. Die Maße hängen vom gewählten Modell ab." }
             ])
         ]
       };
