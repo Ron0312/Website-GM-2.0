@@ -172,12 +172,13 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
                                 >
                                     Jetzt Angebot für {city.name} anfordern
                                 </button>
-                                <button
-                                    onClick={() => setActiveSection('wissen/preis-guide')}
+                                <a
+                                    href="/wissen/preis-guide"
+                                    onClick={(e) => { e.preventDefault(); setActiveSection('wissen/preis-guide'); }}
                                     className="flex items-center justify-center gap-2 text-gas font-bold hover:text-gas-dark transition-colors w-full md:w-auto px-8 py-2"
                                 >
                                     Nicht sicher? Lesen Sie unseren Preis-Guide <ArrowRight size={16} />
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -238,20 +239,22 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
                         <h3 className="text-2xl font-bold text-gray-800 mb-8">Wir sind auch in Ihrer Nähe</h3>
                         <div className="flex flex-wrap justify-center gap-4">
                             {nearbyCities.map(neighbor => (
-                                <button
+                                <a
+                                    href={`/liefergebiet/${neighbor.slug}`}
                                     key={neighbor.slug}
-                                    onClick={() => setActiveSection(`liefergebiet/${neighbor.slug}`)}
+                                    onClick={(e) => { e.preventDefault(); setActiveSection(`liefergebiet/${neighbor.slug}`); }}
                                     className="px-6 py-3 bg-white border border-gray-200 rounded-full text-gray-600 hover:border-gas hover:text-gas hover:shadow-sm transition-all font-medium"
                                 >
                                     {neighbor.name}
-                                </button>
+                                </a>
                             ))}
-                            <button
-                                onClick={() => setActiveSection('liefergebiet')}
+                            <a
+                                href="/liefergebiet"
+                                onClick={(e) => { e.preventDefault(); setActiveSection('liefergebiet'); }}
                                 className="px-6 py-3 bg-gas-light/20 border border-transparent rounded-full text-gas font-bold hover:bg-gas-light/40 transition-all"
                             >
                                 Alle Städte anzeigen
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>

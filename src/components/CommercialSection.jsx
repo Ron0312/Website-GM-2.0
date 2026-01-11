@@ -17,13 +17,14 @@ const CommercialSection = ({ setActiveSection, isPage = false }) => (
                 badgeText="B2B Industrielösungen"
                 backgroundImage="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80"
                 customButtons={
-                     <button
-                        onClick={() => setActiveSection('kontakt')}
+                     <a
+                        href="/kontakt"
+                        onClick={(e) => { e.preventDefault(); setActiveSection('kontakt'); }}
                         className="px-8 py-4 bg-gas hover:bg-gas-dark text-white text-base font-bold rounded-full shadow-xl shadow-gas/30 transition-all uppercase tracking-wide border-2 border-transparent flex items-center gap-2 group"
                     >
                         Angebot anfordern
                         <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-                    </button>
+                    </a>
                 }
             />
         )}
@@ -175,9 +176,9 @@ const CommercialSection = ({ setActiveSection, isPage = false }) => (
                     <div className="bg-gray-50 rounded-2xl p-8 text-center border border-gray-100">
                         <h3 className="font-bold text-xl mb-2">Individuelles Angebot</h3>
                         <p className="text-gray-500 text-sm mb-6">Lassen Sie uns über Ihren Energiebedarf sprechen. Wir erstellen Ihnen ein maßgeschneidertes Konzept.</p>
-                        <button onClick={() => setActiveSection('kontakt')} className="w-full bg-gas text-white py-4 rounded-xl font-bold hover:bg-gas-dark transition-all shadow-lg hover:shadow-xl">
+                        <a href="/kontakt" onClick={(e) => { e.preventDefault(); setActiveSection('kontakt'); }} className="w-full bg-gas text-white py-4 rounded-xl font-bold hover:bg-gas-dark transition-all shadow-lg hover:shadow-xl block">
                             Jetzt anfragen
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
