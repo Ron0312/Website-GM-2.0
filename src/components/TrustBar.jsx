@@ -1,32 +1,50 @@
 import React from 'react';
 import { ShieldCheck, BadgeCheck, Star } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const TrustBar = () => (
-    <div className="bg-white py-8 md:py-12 border-b border-gray-100 relative z-30 -mt-8 mx-4 md:mx-auto max-w-6xl rounded-2xl shadow-xl flex flex-col md:flex-row items-center justify-around space-y-6 md:space-y-0 px-8">
-        <div className="flex items-center space-x-4 opacity-80 hover:opacity-100 transition-opacity w-full md:w-auto justify-start md:justify-center">
-            <ShieldCheck size={40} className="text-gas flex-shrink-0"/>
-            <div>
-                <div className="font-bold text-lg text-gray-800">TÜV Geprüft</div>
-                <div className="text-xs text-gray-500">Sicherheit & Qualität</div>
-            </div>
-        </div>
-        <div className="h-px w-full bg-gray-100 md:hidden"></div>
-        <div className="h-10 w-px bg-gray-200 hidden md:block"></div>
-        <div className="flex items-center space-x-4 opacity-80 hover:opacity-100 transition-opacity w-full md:w-auto justify-start md:justify-center">
-            <BadgeCheck size={40} className="text-gas flex-shrink-0"/>
-            <div>
-                <div className="font-bold text-lg text-gray-800">DIN 51622</div>
-                <div className="text-xs text-gray-500">Reinste Propan-Qualität</div>
-            </div>
-        </div>
-        <div className="h-px w-full bg-gray-100 md:hidden"></div>
-        <div className="h-10 w-px bg-gray-200 hidden md:block"></div>
-        <div className="flex items-center space-x-4 opacity-80 hover:opacity-100 transition-opacity w-full md:w-auto justify-start md:justify-center">
-            <Star size={40} className="text-gas flex-shrink-0"/>
-            <div>
-                <div className="font-bold text-lg text-gray-800">5.0 / 5.0</div>
-                <div className="text-xs text-gray-500">Kundenzufriedenheit</div>
-            </div>
+    <div className="relative z-30 -mt-12 md:-mt-16 mx-auto max-w-7xl px-4 pointer-events-none">
+        <div className="flex flex-col md:flex-row items-center justify-center md:justify-around gap-8 py-8">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="flex items-center space-x-4 bg-white/80 backdrop-blur-md px-8 py-4 rounded-full shadow-sm border border-white/50 pointer-events-auto"
+            >
+                <ShieldCheck size={32} className="text-gas flex-shrink-0"/>
+                <div>
+                    <div className="font-bold text-gray-900 leading-tight">TÜV Geprüft</div>
+                    <div className="text-xs text-gray-500 font-medium">Sicherheit & Qualität</div>
+                </div>
+            </motion.div>
+
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="flex items-center space-x-4 bg-white/80 backdrop-blur-md px-8 py-4 rounded-full shadow-sm border border-white/50 pointer-events-auto"
+            >
+                <BadgeCheck size={32} className="text-gas flex-shrink-0"/>
+                <div>
+                    <div className="font-bold text-gray-900 leading-tight">DIN 51622</div>
+                    <div className="text-xs text-gray-500 font-medium">Reinste Propan-Qualität</div>
+                </div>
+            </motion.div>
+
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="flex items-center space-x-4 bg-white/80 backdrop-blur-md px-8 py-4 rounded-full shadow-sm border border-white/50 pointer-events-auto"
+            >
+                <div className="flex items-center">
+                     <Star size={32} className="text-gas flex-shrink-0 fill-gas"/>
+                </div>
+                <div>
+                    <div className="font-bold text-gray-900 leading-tight">5.0 / 5.0</div>
+                    <div className="text-xs text-gray-500 font-medium">Kundenzufriedenheit</div>
+                </div>
+            </motion.div>
         </div>
     </div>
 );

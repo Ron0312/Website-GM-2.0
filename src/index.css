@@ -213,3 +213,8 @@ select:-webkit-autofill:focus {
 .skeleton-pulse {
   animation: pulse-custom 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
+
+/* Custom Clip Path for Organic Flow */
+.clip-path-slant {
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
