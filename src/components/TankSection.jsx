@@ -4,7 +4,7 @@ import EnergyCalculator from './EnergyCalculator';
 import Hero from './Hero';
 import { tankDetails } from '../data/tanks';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check } from 'lucide-react';
+import { Check, ArrowRight } from 'lucide-react';
 
 const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = true, isPageTitle = false, tankFilter, onFilterChange }) => {
     const [filter, setFilter] = useState('oberirdisch');
@@ -26,33 +26,21 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
     const tankInfo = {
         oberirdisch: {
             title: "Der sichtbare Klassiker",
-            description: "Oberirdische Flüssiggastanks sind die meistgewählte Variante. Sie lassen sich einfach aufstellen, erfordern keine Erdarbeiten und sind kostengünstig in der Installation.",
-            benefits: ["Günstige Anschaffung", "Schnelle Installation", "Einfache Wartung"],
-            color: "bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 border-gray-700 shadow-2xl",
-            iconColor: "text-green-400",
-            titleColor: "text-white",
-            textColor: "text-gray-300",
-            benefitClass: "bg-white/10 backdrop-blur text-white border-white/20"
+            description: "Oberirdische Tanks sind die wirtschaftlichste Lösung. Einfache Aufstellung ohne Erdarbeiten.",
+            benefits: ["Günstigste Installation", "Keine Erdarbeiten", "Jederzeit zugänglich"],
+            color: "text-gray-900"
         },
         halboberirdisch: {
             title: "Die goldene Mitte",
-            description: "Halboberirdische Flüssiggastanks werden zur Hälfte im Erdreich versenkt. Sie sind weniger sichtbar als oberirdische Flüssiggastanks und erfordern weniger Erdarbeiten als komplett unterirdische Flüssiggastanks.",
-            benefits: ["Weniger sichtbar", "Kompromisslösung", "Gute Zugänglichkeit"],
-            color: "bg-blue-50 border-blue-100",
-            iconColor: "text-blue-500",
-            titleColor: "text-gray-900",
-            textColor: "text-gray-600",
-            benefitClass: "bg-white text-gray-700 border-gray-100"
+            description: "Nutzt die Vorteile beider Welten. Nur der Deckel schaut heraus, der Rest liegt sicher im Sandbett.",
+            benefits: ["Kaum sichtbar", "Reduzierte Erdarbeiten", "Perfekter Kompromiss"],
+            color: "text-blue-900"
         },
         unterirdisch: {
             title: "Die unsichtbare Lösung",
-            description: "Unterirdische Flüssiggastanks verschwinden komplett unter der Erde. Nur der Domschachtdeckel bleibt sichtbar – ideal für gepflegte Gärten und maximale Raumnutzung.",
-            benefits: ["Nicht sichtbar", "Maximale Gartennutzung", "Gut geschützt"],
-            color: "bg-green-50 border-green-100",
-            iconColor: "text-green-500",
-            titleColor: "text-gray-900",
-            textColor: "text-gray-600",
-            benefitClass: "bg-white text-gray-700 border-gray-100"
+            description: "Verschwindet komplett im Garten. Ideal für Neubauten und ästhetisch anspruchsvolle Grundstücke.",
+            benefits: ["100% Unsichtbar", "Maximale Gartennutzung", "Frostsicher"],
+            color: "text-green-900"
         }
     };
 
@@ -76,7 +64,11 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
     }, [filter]);
 
     return (
-        <section className="bg-white" id="tanks">
+        <section className="bg-white relative overflow-hidden" id="tanks">
+
+            {/* Background Flow Element */}
+            <div className="absolute top-0 left-0 right-0 h-[800px] bg-gradient-to-b from-gray-50/50 to-white -z-10 clip-path-slant"></div>
+
             {/* Standardized Hero Section */}
             <Hero
                 setActiveSection={setActiveSection}
@@ -89,150 +81,156 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
             />
 
             <div className="py-24 max-w-7xl mx-auto px-4">
-                <div className="text-center mb-8">
-                    <h2 className="text-gas font-bold tracking-widest uppercase text-sm mb-2">Flüssiggastank 1,2t - 2,9t</h2>
-                    <h3 className="text-4xl font-extrabold text-text mb-8">Flüssiggastank kaufen: Unser Sortiment</h3>
 
-                    {/* Visual Selection Area - Upgraded Toggle */}
-                    <div className="flex justify-center">
-                        <div className="bg-gray-100 p-1.5 rounded-2xl inline-flex relative">
-                            {/* Sliding Background */}
-                            <motion.div
-                                className="absolute top-1.5 bottom-1.5 bg-white rounded-xl shadow-sm z-0"
-                                initial={false}
-                                animate={{
-                                    x: filter === 'oberirdisch' ? 0 : filter === 'halboberirdisch' ? '100%' : '200%',
-                                    width: '33.333%'
-                                }}
-                                transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                                style={{ left: 6, width: 'calc(33.333% - 4px)' }}
-                            />
+                {/* Header Area */}
+                <div className="text-center mb-16 relative z-10">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                    >
+                        <h2 className="text-gas font-bold tracking-[0.2em] uppercase text-xs mb-4">Unsere Tankmodelle</h2>
+                        <h3 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-10 tracking-tight">Wählen Sie Ihre Bauart.</h3>
 
-                            <button
-                                onClick={() => handleFilterChange('oberirdisch')}
-                                className={`relative z-10 px-4 md:px-8 py-3 rounded-xl text-xs md:text-sm font-bold transition-colors w-32 md:w-40 ${
-                                    filter === 'oberirdisch' ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'
-                                }`}
-                            >
-                                Oberirdisch
-                            </button>
-                            <button
-                                onClick={() => handleFilterChange('halboberirdisch')}
-                                className={`relative z-10 px-4 md:px-8 py-3 rounded-xl text-xs md:text-sm font-bold transition-colors w-32 md:w-40 ${
-                                    filter === 'halboberirdisch' ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'
-                                }`}
-                            >
-                                Halboberirdisch
-                            </button>
-                            <button
-                                onClick={() => handleFilterChange('unterirdisch')}
-                                className={`relative z-10 px-4 md:px-8 py-3 rounded-xl text-xs md:text-sm font-bold transition-colors w-32 md:w-40 ${
-                                    filter === 'unterirdisch' ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'
-                                }`}
-                            >
-                                Unterirdisch
-                            </button>
+                        {/* Minimalist Tab Switcher - Responsive Scroll Container */}
+                        <div className="overflow-x-auto pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide flex justify-start md:justify-center">
+                            <div className="inline-flex bg-gray-100/80 backdrop-blur p-1.5 rounded-full relative whitespace-nowrap min-w-min mx-auto">
+                                {/* Sliding Background */}
+                                <motion.div
+                                    className="absolute top-1.5 bottom-1.5 bg-white rounded-full shadow-sm z-0"
+                                    initial={false}
+                                    animate={{
+                                        x: filter === 'oberirdisch' ? 0 : filter === 'halboberirdisch' ? '100%' : '200%',
+                                        width: '33.333%'
+                                    }}
+                                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                    style={{ left: 6, width: 'calc(33.333% - 4px)' }}
+                                />
+                                {['oberirdisch', 'halboberirdisch', 'unterirdisch'].map((t) => (
+                                    <button
+                                        key={t}
+                                        onClick={() => handleFilterChange(t)}
+                                        className={`relative z-10 px-4 md:px-6 py-3 rounded-full text-sm font-bold transition-colors min-w-[120px] md:w-40 capitalize ${
+                                            filter === t ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'
+                                        }`}
+                                    >
+                                        {t}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
 
-                {/* Info Block - Dynamic Content based on Filter */}
-                <div className="max-w-3xl mx-auto mb-12 min-h-[300px]">
-                    <AnimatePresence mode="popLayout">
+                {/* Description & Benefits - "Floating" Text */}
+                <div className="max-w-4xl mx-auto mb-12 md:mb-20 text-center">
+                    <AnimatePresence mode="wait">
                         <motion.div
                             key={filter}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.95 }}
-                            transition={{ duration: 0.15 }}
-                            className={`rounded-2xl p-8 border ${currentInfo.color} text-center shadow-lg`}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.2 }}
                         >
-                            <h4 className={`text-2xl font-bold mb-4 ${currentInfo.titleColor}`}>{currentInfo.title}</h4>
-                            <p className={`mb-8 max-w-2xl mx-auto text-lg ${currentInfo.textColor}`}>{currentInfo.description}</p>
-                            <div className="flex flex-wrap justify-center gap-3">
+                            <h4 className={`text-2xl font-bold mb-4 ${currentInfo.color}`}>{currentInfo.title}</h4>
+                            <p className="text-xl text-gray-500 mb-8 leading-relaxed font-light">{currentInfo.description}</p>
+
+                            <div className="flex flex-wrap justify-center gap-4 md:gap-8">
                                 {currentInfo.benefits.map((benefit, idx) => (
-                                    <span key={idx} className={`inline-flex items-center text-sm font-medium px-4 py-2 rounded-full shadow-sm border ${currentInfo.benefitClass}`}>
-                                        <Check className={`w-4 h-4 mr-2 ${currentInfo.iconColor}`} />
+                                    <div key={idx} className="flex items-center gap-2 text-sm font-bold text-gray-700">
+                                        <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                                            <Check size={12} strokeWidth={3} />
+                                        </div>
                                         {benefit}
-                                    </span>
+                                    </div>
                                 ))}
                             </div>
                         </motion.div>
                     </AnimatePresence>
                 </div>
 
-                {/* Tank Grid with Horizontal Scroll on Mobile */}
-                <div className="md:hidden text-center text-xs text-gray-500 mb-2 animate-pulse font-medium">
-                    ← Nach links wischen für mehr →
+                {/* Mobile Slider Hint */}
+                <div className="md:hidden text-center text-xs text-gray-400 mb-4 animate-pulse font-medium">
+                    ← Wischen für mehr →
                 </div>
-                <div className="flex md:grid md:grid-cols-3 gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none pb-4 md:pb-0 px-4 md:px-0 -mx-4 md:mx-0 scrollbar-hide">
+
+                {/* The Tank "Stage" Grid - Slider on Mobile */}
+                <div className="flex md:grid md:grid-cols-3 gap-8 mb-32 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none -mx-4 px-4 md:mx-0 md:px-0 pb-12 md:pb-0 scrollbar-hide">
                     {visibleTanks.map((tank, i) => (
-                        <div key={i} className="relative group min-w-[85vw] md:min-w-0 snap-center first:pl-0 last:pr-0">
+                        <div key={i} className="min-w-[85vw] md:min-w-0 snap-center">
                             <TankCard
                                 tank={tank}
                                 type={filter}
                                 onContact={() => openWizard ? openWizard('tank') : null}
                             />
-                            {/* Detail Link */}
-                            <div className="mt-4 text-center">
-                                <button
-                                    onClick={() => setActiveSection ? setActiveSection(`fluessiggastank-kaufen/${tank.slug}`) : null}
-                                    className="text-sm font-bold text-gray-400 hover:text-gas transition-colors border-b border-transparent hover:border-gas pb-0.5"
-                                    aria-label={`Details und Maße für ${tank.name} ansehen`}
-                                >
-                                    Details & Maße ansehen
-                                </button>
-                            </div>
                         </div>
                     ))}
                 </div>
 
-                {/* Technical Overview Table */}
+                {/* Technical Overview Table - Cleaner Look */}
                 {showTechnicalOverview && (
-                    <div className="mt-20 space-y-16">
-                        <div className="max-w-4xl mx-auto bg-gray-50 rounded-2xl p-8 border border-gray-100">
-                            <h4 className="font-bold text-xl mb-4 text-center">Technische Übersicht (2700l, 4850l, 6400l)</h4>
+                    <div className="mt-8 md:mt-32 max-w-5xl mx-auto">
+                        <div className="bg-white rounded-3xl p-8 md:p-12 shadow-2xl shadow-gray-200/50 border border-gray-100">
+                            <div className="flex flex-col md:flex-row justify-between items-end mb-8 border-b border-gray-100 pb-8">
+                                <div>
+                                    <h4 className="font-bold text-2xl text-gray-900 mb-2">Technische Daten</h4>
+                                    <p className="text-gray-500">Alle Maße und Gewichte im direkten Vergleich.</p>
+                                </div>
+                                <button onClick={() => window.open('/downloads/datenblatt.pdf', '_blank')} className="text-gas font-bold text-sm flex items-center hover:underline mt-4 md:mt-0">
+                                    PDF herunterladen <ArrowRight size={16} className="ml-2"/>
+                                </button>
+                            </div>
+
                             <div className="overflow-x-auto">
-                                <table className="w-full text-sm text-left">
-                                    <thead className="text-xs text-gray-500 uppercase border-b border-gray-200 font-bold"><tr><th className="py-3">Modell</th><th className="py-3">Maße (L x H)</th><th className="py-3">Gewicht</th><th className="py-3">Leistung</th></tr></thead>
-                                    <tbody className="text-gray-600 divide-y divide-gray-100">
-                                        <tr><td className="py-3 font-bold">1,2 t (2700 Liter)</td><td className="py-3">2.500 x 1.250 mm</td><td className="py-3">~ 550 kg</td><td className="py-3">35 kW</td></tr>
-                                        <tr><td className="py-3 font-bold">2,1 t (4850 Liter)</td><td className="py-3">4.300 x 1.250 mm</td><td className="py-3">~ 980 kg</td><td className="py-3">60 kW</td></tr>
-                                        <tr><td className="py-3 font-bold">2,9 t (6400 Liter)</td><td className="py-3">5.500 x 1.250 mm</td><td className="py-3">~ 1.300 kg</td><td className="py-3">90 kW</td></tr>
+                                <table className="w-full text-left border-collapse">
+                                    <thead className="text-xs text-gray-400 uppercase tracking-wider font-bold">
+                                        <tr>
+                                            <th className="py-4 pr-8">Modell</th>
+                                            <th className="py-4 pr-8">Maße (L x H)</th>
+                                            <th className="py-4 pr-8">Gewicht</th>
+                                            <th className="py-4 pr-8">Leistung</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="text-gray-700 font-medium divide-y divide-gray-100">
+                                        <tr className="group hover:bg-gray-50 transition-colors">
+                                            <td className="py-4 pr-8 font-bold text-gray-900">1,2 t (2700 Liter)</td>
+                                            <td className="py-4 pr-8">2.500 x 1.250 mm</td>
+                                            <td className="py-4 pr-8">~ 550 kg</td>
+                                            <td className="py-4 pr-8 text-gas">35 kW</td>
+                                        </tr>
+                                        <tr className="group hover:bg-gray-50 transition-colors">
+                                            <td className="py-4 pr-8 font-bold text-gray-900">2,1 t (4850 Liter)</td>
+                                            <td className="py-4 pr-8">4.300 x 1.250 mm</td>
+                                            <td className="py-4 pr-8">~ 980 kg</td>
+                                            <td className="py-4 pr-8 text-gas">60 kW</td>
+                                        </tr>
+                                        <tr className="group hover:bg-gray-50 transition-colors">
+                                            <td className="py-4 pr-8 font-bold text-gray-900">2,9 t (6400 Liter)</td>
+                                            <td className="py-4 pr-8">5.500 x 1.250 mm</td>
+                                            <td className="py-4 pr-8">~ 1.300 kg</td>
+                                            <td className="py-4 pr-8 text-gas">90 kW</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
 
-                        {/* Service Section for High Intent Keywords: Entsorgung & Gebraucht */}
-                        <div className="grid md:grid-cols-2 gap-8">
-                            <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                                <h4 className="text-xl font-bold text-gray-900 mb-3">Flüssiggastank entsorgen & Austausch</h4>
-                                <p className="text-gray-600 mb-4">
-                                    Sie möchten Ihren alten Flüssiggastank entsorgen oder gegen einen neuen austauschen?
-                                    Als Fachbetrieb übernehmen wir die Stilllegung, Restgas-Absaugung und den Abtransport.
-                                </p>
-                                <button
-                                    onClick={() => setActiveSection && setActiveSection('wissen/tank-entsorgen')}
-                                    className="text-gas font-bold hover:text-gas-dark underline decoration-gas/30 hover:decoration-gas transition-all"
-                                >
-                                    Mehr zur Flüssiggastankentsorgung
-                                </button>
-                            </div>
-
-                            <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                                <h4 className="text-xl font-bold text-gray-900 mb-3">Gebrauchte Flüssiggastanks (Regeneriert)</h4>
-                                <p className="text-gray-600 mb-4">
-                                    Sparen Sie Kosten mit unseren geprüften, regenerierten Flüssiggastanks.
-                                    Technisch einwandfrei, neu lackiert und mit voller Garantie – eine günstige Alternative zum Neukauf.
-                                </p>
-                                <button
-                                    onClick={() => openWizard ? openWizard('tank') : null}
-                                    className="text-gas font-bold hover:text-gas-dark underline decoration-gas/30 hover:decoration-gas transition-all"
-                                >
-                                    Angebot für gebrauchten Flüssiggastank
-                                </button>
-                            </div>
+                         {/* Integrated Service Links */}
+                        <div className="grid md:grid-cols-2 gap-8 mt-12">
+                             <a href="/wissen/tank-entsorgen" onClick={(e) => { e.preventDefault(); setActiveSection('wissen/tank-entsorgen'); }} className="group block p-8 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-colors">
+                                <h4 className="text-lg font-bold text-gray-900 mb-2 flex items-center">
+                                    Alttank entsorgen?
+                                    <ArrowRight size={16} className="ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-gas"/>
+                                </h4>
+                                <p className="text-sm text-gray-500">Wir kümmern uns um die fachgerechte Stilllegung und Abholung.</p>
+                             </a>
+                             <div onClick={() => openWizard('tank')} className="group block p-8 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer">
+                                <h4 className="text-lg font-bold text-gray-900 mb-2 flex items-center">
+                                    Gebrauchte Tanks
+                                    <ArrowRight size={16} className="ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-gas"/>
+                                </h4>
+                                <p className="text-sm text-gray-500">Sparen Sie bis zu 40% mit unseren regenerierten Tanks.</p>
+                             </div>
                         </div>
                     </div>
                 )}
