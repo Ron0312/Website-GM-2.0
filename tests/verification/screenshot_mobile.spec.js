@@ -28,7 +28,7 @@ test.describe('Mobile Design Verification', () => {
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.waitForTimeout(500);
 
-    // 5. Hero Screenshot
+    // 5. Hero Screenshot (includes TrustBar)
     await page.screenshot({
         path: path.join(process.cwd(), 'verification/screenshots/mobile_1_hero.png'),
         fullPage: false,

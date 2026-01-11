@@ -92,36 +92,38 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                         <h2 className="text-gas font-bold tracking-[0.2em] uppercase text-xs mb-4">Unsere Tankmodelle</h2>
                         <h3 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-10 tracking-tight">Wählen Sie Ihre Bauart.</h3>
 
-                        {/* Minimalist Tab Switcher */}
-                        <div className="inline-flex bg-gray-100/80 backdrop-blur p-1.5 rounded-full relative">
-                             {/* Sliding Background */}
-                             <motion.div
-                                className="absolute top-1.5 bottom-1.5 bg-white rounded-full shadow-sm z-0"
-                                initial={false}
-                                animate={{
-                                    x: filter === 'oberirdisch' ? 0 : filter === 'halboberirdisch' ? '100%' : '200%',
-                                    width: '33.333%'
-                                }}
-                                transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                                style={{ left: 6, width: 'calc(33.333% - 4px)' }}
-                            />
-                            {['oberirdisch', 'halboberirdisch', 'unterirdisch'].map((t) => (
-                                <button
-                                    key={t}
-                                    onClick={() => handleFilterChange(t)}
-                                    className={`relative z-10 px-6 py-3 rounded-full text-sm font-bold transition-colors w-32 md:w-40 capitalize ${
-                                        filter === t ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'
-                                    }`}
-                                >
-                                    {t}
-                                </button>
-                            ))}
+                        {/* Minimalist Tab Switcher - Responsive Scroll Container */}
+                        <div className="overflow-x-auto pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide flex justify-start md:justify-center">
+                            <div className="inline-flex bg-gray-100/80 backdrop-blur p-1.5 rounded-full relative whitespace-nowrap min-w-min mx-auto">
+                                {/* Sliding Background */}
+                                <motion.div
+                                    className="absolute top-1.5 bottom-1.5 bg-white rounded-full shadow-sm z-0"
+                                    initial={false}
+                                    animate={{
+                                        x: filter === 'oberirdisch' ? 0 : filter === 'halboberirdisch' ? '100%' : '200%',
+                                        width: '33.333%'
+                                    }}
+                                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                    style={{ left: 6, width: 'calc(33.333% - 4px)' }}
+                                />
+                                {['oberirdisch', 'halboberirdisch', 'unterirdisch'].map((t) => (
+                                    <button
+                                        key={t}
+                                        onClick={() => handleFilterChange(t)}
+                                        className={`relative z-10 px-4 md:px-6 py-3 rounded-full text-sm font-bold transition-colors min-w-[120px] md:w-40 capitalize ${
+                                            filter === t ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'
+                                        }`}
+                                    >
+                                        {t}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
                     </motion.div>
                 </div>
 
                 {/* Description & Benefits - "Floating" Text */}
-                <div className="max-w-4xl mx-auto mb-20 text-center">
+                <div className="max-w-4xl mx-auto mb-12 md:mb-20 text-center">
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={filter}
@@ -147,21 +149,27 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                     </AnimatePresence>
                 </div>
 
-                {/* The Tank "Stage" Grid */}
-                <div className="grid md:grid-cols-3 gap-12 md:gap-8 mb-32">
+                {/* Mobile Slider Hint */}
+                <div className="md:hidden text-center text-xs text-gray-400 mb-4 animate-pulse font-medium">
+                    ← Wischen für mehr →
+                </div>
+
+                {/* The Tank "Stage" Grid - Slider on Mobile */}
+                <div className="flex md:grid md:grid-cols-3 gap-8 mb-32 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none -mx-4 px-4 md:mx-0 md:px-0 pb-12 md:pb-0 scrollbar-hide">
                     {visibleTanks.map((tank, i) => (
-                        <TankCard
-                            key={i}
-                            tank={tank}
-                            type={filter}
-                            onContact={() => openWizard ? openWizard('tank') : null}
-                        />
+                        <div key={i} className="min-w-[85vw] md:min-w-0 snap-center">
+                            <TankCard
+                                tank={tank}
+                                type={filter}
+                                onContact={() => openWizard ? openWizard('tank') : null}
+                            />
+                        </div>
                     ))}
                 </div>
 
                 {/* Technical Overview Table - Cleaner Look */}
                 {showTechnicalOverview && (
-                    <div className="mt-32 max-w-5xl mx-auto">
+                    <div className="mt-8 md:mt-32 max-w-5xl mx-auto">
                         <div className="bg-white rounded-3xl p-8 md:p-12 shadow-2xl shadow-gray-200/50 border border-gray-100">
                             <div className="flex flex-col md:flex-row justify-between items-end mb-8 border-b border-gray-100 pb-8">
                                 <div>
