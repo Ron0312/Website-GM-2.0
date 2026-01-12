@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import TankCard from './TankCard';
 import EnergyCalculator from './EnergyCalculator';
 import Hero from './Hero';
@@ -8,11 +8,17 @@ import { Check, ArrowRight } from 'lucide-react';
 
 const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = true, isPageTitle = false, tankFilter, onFilterChange }) => {
     const [filter, setFilter] = useState('oberirdisch');
+    const [activeIndex, setActiveIndex] = useState(0);
+    const scrollContainerRef = useRef(null);
 
     // Update filter when tankFilter prop changes (from navigation)
     useEffect(() => {
         if (tankFilter) {
             setFilter(tankFilter);
+            setActiveIndex(0); // Reset scroll index when filter changes
+            if (scrollContainerRef.current) {
+                scrollContainerRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+            }
         }
     }, [tankFilter]);
 
@@ -20,6 +26,18 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
         setFilter(newFilter);
         if (onFilterChange) {
             onFilterChange(newFilter);
+        }
+    };
+
+    const handleScroll = () => {
+        if (scrollContainerRef.current) {
+            const scrollLeft = scrollContainerRef.current.scrollLeft;
+            const width = scrollContainerRef.current.offsetWidth;
+            // Assuming cards are roughly 75vw wide + gaps.
+            // But getting precise index from scroll position:
+            const cardWidth = scrollContainerRef.current.children[0]?.offsetWidth || width;
+            const newIndex = Math.round(scrollLeft / cardWidth);
+            setActiveIndex(newIndex);
         }
     };
 
@@ -148,13 +166,19 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                     </AnimatePresence>
                 </div>
 
-                {/* Mobile Slider Hint - Replaced with visual peeking design, removed text as per modern UX patterns */}
-
                 {/* The Tank "Stage" Grid - Slider on Mobile */}
-                {/* Adjusted min-w to 80vw to allow "peeking" of next card (better affordance) */}
-                <div className="flex md:grid md:grid-cols-3 gap-4 md:gap-8 mb-32 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none -mx-4 px-4 md:mx-0 md:px-0 pb-12 md:pb-0 scrollbar-hide">
+                {/*
+                    Adjusted Layout for better "Swipe Affordance":
+                    - Reduced card width to w-[75vw] on mobile to force "peeking" of the next card.
+                    - Added pagination dots below.
+                */}
+                <div
+                    ref={scrollContainerRef}
+                    onScroll={handleScroll}
+                    className="flex md:grid md:grid-cols-3 gap-4 md:gap-8 mb-8 md:mb-32 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none -mx-4 px-4 md:mx-0 md:px-0 pb-8 md:pb-0 scrollbar-hide"
+                >
                     {visibleTanks.map((tank, i) => (
-                        <div key={i} className="min-w-[80vw] md:min-w-0 snap-center pl-2 first:pl-0">
+                        <div key={i} className="min-w-[75vw] md:min-w-0 snap-center pl-2 first:pl-0">
                             <TankCard
                                 tank={tank}
                                 type={filter}
@@ -162,6 +186,16 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                                 setActiveSection={setActiveSection}
                             />
                         </div>
+                    ))}
+                </div>
+
+                {/* Mobile Pagination Dots */}
+                <div className="flex justify-center gap-2 mb-24 md:hidden">
+                    {visibleTanks.map((_, i) => (
+                        <div
+                            key={i}
+                            className={`h-2 rounded-full transition-all duration-300 ${i === activeIndex ? 'w-8 bg-gas' : 'w-2 bg-gray-200'}`}
+                        />
                     ))}
                 </div>
 

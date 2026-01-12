@@ -52,3 +52,8 @@ TankSection Filter: oberirdisch Found: 3 First: fluessiggastank-2700l-oberirdisc
 {"level":"WARN","timestamp":"2026-01-12T11:24:42.058Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"15ms","ip":"::1"}
 {"level":"WARN","timestamp":"2026-01-12T11:24:42.089Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"9ms","ip":"::1"}
 {"level":"WARN","timestamp":"2026-01-12T11:24:42.113Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"18ms","ip":"::1"}
+11:43:05 AM [vite] hmr update /src/components/TankSection.jsx, /src/index.css
+{"level":"WARN","timestamp":"2026-01-12T11:43:28.784Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"28ms","ip":"::1"}
+{"level":"WARN","timestamp":"2026-01-12T11:43:29.232Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"39ms","ip":"::1"}
+{"level":"WARN","timestamp":"2026-01-12T11:43:29.368Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"37ms","ip":"::1"}
+{"level":"WARN","timestamp":"2026-01-12T11:43:29.389Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"12ms","ip":"::1"}
