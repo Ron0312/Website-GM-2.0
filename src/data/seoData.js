@@ -15,7 +15,7 @@ const NEXT_YEAR = CURRENT_YEAR + 1;
 
 // Calculate dynamic price validity (End of next year)
 const getPriceValidUntil = () => {
-    return `${NEXT_YEAR}-12-31`;
+    return `2026-12-31`;
 };
 
 const PRICE_VALID_UNTIL = getPriceValidUntil();
@@ -389,7 +389,7 @@ export const getSeoForPath = (path) => {
     case 'gas':
       return {
         ...defaultSeo,
-        title: `Flüssiggas Preis aktuell | Lieferant wechseln & sparen ${CURRENT_YEAR}`,
+        title: `Flüssiggas Preis aktuell | Lieferant wechseln & sparen 2026`,
         description: `Flüssiggas bestellen zum Tagespreis. Ihr regionaler Lieferant (frei Haus). Anbieter wechseln leicht gemacht: Pünktlich, zuverlässig & ohne Vertragsbindung. Jetzt Preis prüfen!`,
         schema: [
             getOrganizationSchema(),

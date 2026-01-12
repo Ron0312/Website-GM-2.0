@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import SourceBadge from '../components/SourceBadge';
 import SafetyChecklist from '../components/SafetyChecklist';
+import PriceChart from '../components/PriceChart';
 
 // Helper for Comparison Table
 const ComparisonTable = ({ headers, rows }) => (
@@ -820,6 +821,11 @@ export const CONTENT = {
                         <div>
                             <SourceBadge text="Stand: 2026" />
                             <p className="mb-4">Wie alle Energieträger unterliegt auch Flüssiggas Preisschwankungen an den internationalen Börsen. Dennoch folgt der Preis oft saisonalen Mustern.</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Historische Preisentwicklung (2020 - 2026)</h4>
+                            <p className="mb-4">Sehen Sie hier die Entwicklung der Flüssiggaspreise über die letzten Jahre. Diese Transparenz hilft Ihnen, den richtigen Kaufzeitpunkt zu finden.</p>
+
+                            <PriceChart />
 
                             <div className="my-6 p-4 bg-blue-50 rounded-lg flex gap-4 items-center">
                                 <Snowflake className="text-blue-400 flex-shrink-0" />

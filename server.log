@@ -1,4 +1,0 @@
-{"level":"INFO","timestamp":"2026-01-12T16:23:23.535Z","message":"Loaded 27 knowledge articles."}
-{"level":"INFO","timestamp":"2026-01-12T16:23:23.573Z","message":"Starting server. Initial mode: DEVELOPMENT"}
-WebSocket server error: Port is already in use
-{"level":"INFO","timestamp":"2026-01-12T16:37:17.903Z","message":"Server started at http://localhost:5173"}
