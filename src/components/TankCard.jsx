@@ -10,9 +10,27 @@ const TankCard = ({ tank, type, onContact, setActiveSection }) => {
     const isUnderground = type === 'unterirdisch';
     const isSemiUnderground = type === 'halboberirdisch';
 
+    const handleCardClick = (e) => {
+        // Prevent default if it's already a link click (though we wrap everything, just to be safe)
+        // But we want the whole card to act as the link.
+        // If the user clicks the explicit button, that handler fires.
+        // This handler is for the rest of the card.
+        e.preventDefault();
+        // Remove leading slash for setActiveSection because App.jsx expects it without slash for logic checks
+        const path = `fluessiggastank-kaufen/${tank.slug}`;
+        const url = `/${path}`;
+
+        if (setActiveSection) {
+            setActiveSection(path);
+        } else {
+            window.location.href = url;
+        }
+    };
+
     return (
         <motion.div
             whileHover={{ y: -5 }}
+            onClick={handleCardClick}
             className={`relative flex flex-col items-center group cursor-pointer ${tank.highlight ? 'z-10' : 'z-0 opacity-90 hover:opacity-100'}`}
         >
             {/* The "Stage" - Replaces the card box */}
@@ -63,19 +81,14 @@ const TankCard = ({ tank, type, onContact, setActiveSection }) => {
                      <span className="h-px w-8 bg-gray-200"></span>
                 </div>
 
-                <p className="text-gray-500 text-sm mb-6 leading-relaxed max-w-[200px] mx-auto min-h-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">
+                <p className="text-gray-500 text-sm mb-6 leading-relaxed max-w-[200px] mx-auto min-h-[40px] opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 transform translate-y-0 md:translate-y-2 md:group-hover:translate-y-0">
                     {tank.usage}
                 </p>
 
-                <a
-                    href={`/fluessiggastank-kaufen/${tank.slug}`}
+                <button
                     onClick={(e) => {
-                        e.preventDefault();
-                        if (setActiveSection) {
-                            setActiveSection(`fluessiggastank-kaufen/${tank.slug}`);
-                        } else {
-                            window.location.href = `/fluessiggastank-kaufen/${tank.slug}`;
-                        }
+                        e.stopPropagation(); // Prevent double firing if nested
+                        handleCardClick(e);
                     }}
                     className={`inline-block px-8 py-3 rounded-full font-bold text-sm transition-all transform
                         ${tank.highlight
@@ -83,7 +96,7 @@ const TankCard = ({ tank, type, onContact, setActiveSection }) => {
                             : 'bg-gray-50 text-gray-900 hover:bg-white hover:shadow-lg border border-transparent hover:border-gray-100'}`}
                 >
                     Details & Preis
-                </a>
+                </button>
             </div>
         </motion.div>
     );
