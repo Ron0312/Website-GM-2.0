@@ -228,15 +228,15 @@ export const CONTENT = {
                     content: (
                         <div>
                             <SourceBadge text="Fachfirma & Fachbetrieb" />
-                            <p className="lead text-lg text-gray-700 mb-6">Sie möchten Ihren alten Flüssiggastank entsorgen, stilllegen oder entleeren lassen? Als zertifizierte Fachfirma übernehmen wir den kompletten Rückbau für Sie – sicher, sauber und gesetzeskonform.</p>
+                            <p className="lead text-lg text-gray-700 mb-6">Sie möchten Ihren alten Flüssiggastank oder <strong>Gastank entsorgen</strong>, stilllegen oder entleeren lassen? Als zertifizierte <strong>Fachfirma</strong> übernehmen wir den kompletten Rückbau für Sie – sicher, sauber und gesetzeskonform.</p>
 
                             <div className="bg-red-50 border-l-4 border-red-500 p-4 my-6">
-                                <p className="font-bold text-red-700">Wichtig: Nicht selbst demontieren!</p>
-                                <p className="text-sm text-red-600">Flüssiggastanks stehen auch leer noch unter Druck und enthalten Restgas. Eine unsachgemäße Demontage ist lebensgefährlich. Beauftragen Sie immer einen zugelassenen Fachbetrieb ("Fachfirma").</p>
+                                <p className="font-bold text-red-700">Wichtig: Gastank nicht selbst demontieren!</p>
+                                <p className="text-sm text-red-600">Flüssiggastanks (Gastanks) stehen auch leer noch unter Druck und enthalten Restgas. Eine unsachgemäße Demontage ist lebensgefährlich. Beauftragen Sie immer einen zugelassenen Fachbetrieb ("Fachfirma").</p>
                             </div>
 
-                            <h4 className="text-xl font-bold text-gas mb-4">Ablauf der Stilllegung & Entsorgung</h4>
-                            <p className="mb-4">Wir holen den Flüssiggastank "am Stück" ab. Es finden keine gefährlichen Schneidarbeiten in Ihrem Garten statt.</p>
+                            <h4 className="text-xl font-bold text-gas mb-4">Ablauf: Gastank stilllegen & entsorgen</h4>
+                            <p className="mb-4">Wir holen den Gastank "am Stück" ab. Es finden keine gefährlichen Schneidarbeiten in Ihrem Garten statt. Egal ob Sie den Gastank stilllegen oder komplett entsorgen möchten.</p>
 
                             <div className="space-y-6 my-8">
                                 <div className="flex gap-4">
@@ -287,13 +287,13 @@ export const CONTENT = {
                     content: (
                         <div>
                              <SourceBadge text="Preisfaktoren 2026" />
-                             <p className="lead text-lg text-gray-700 mb-6">Die Kosten für einen eigenen Flüssiggastank setzen sich aus dem Kaufpreis des Behälters und den einmaligen Installationskosten zusammen. Was kostet ein Tank mit 2700 Liter oder 4850 Liter Volumen?</p>
+                             <p className="lead text-lg text-gray-700 mb-6">Die Kosten für einen eigenen Flüssiggastank (oft auch Gastank oder Propangastank genannt) setzen sich aus dem Kaufpreis des Behälters und den Installationskosten zusammen. Viele Kunden fragen: <strong>"Was kostet ein Gastank 2700 Liter?"</strong> oder <strong>"Was kostet ein Gastank 4850 Liter?"</strong>.</p>
 
-                             <h4 className="text-xl font-bold text-gas mb-4">1. Tankpreise (Neu & Gebraucht)</h4>
-                             <p className="mb-4">Die Preise variieren je nach Stahlpreis und Saison. Generell gilt: Oberirdische Tanks sind deutlich günstiger als unterirdische Modelle.</p>
+                             <h4 className="text-xl font-bold text-gas mb-4">1. Gastank Preise (Neu & Gebraucht)</h4>
+                             <p className="mb-4">Die Preise variieren je nach aktuellem Stahlpreis. Generell gilt: Oberirdische Tanks sind deutlich günstiger als unterirdische Modelle.</p>
 
                              <ComparisonTable
-                                headers={['Größe', 'Oberirdisch Preis (Tendenz)', 'Unterirdisch Preis (Tendenz)']}
+                                headers={['Gastank Größe', 'Oberirdisch Preis (Tendenz)', 'Unterirdisch Preis (Tendenz)']}
                                 rows={[
                                     ['2700 Liter (1,2 t)', 'Günstig (Einstieg)', 'Mittel (zzgl. Erdarbeiten)'],
                                     ['4850 Liter (2,1 t)', 'Mittel (Standard)', 'Gehoben'],
@@ -768,7 +768,7 @@ export const CONTENT = {
                     description: 'Eigenschaften und Herkunft.',
                     content: (
                         <div>
-                            <p className="mb-6">Flüssiggas (LPG = Liquefied Petroleum Gas) ist ein hochwertiger Energieträger, der hauptsächlich aus <strong>Propan</strong> und <strong>Butan</strong> besteht. Das Besondere an diesem Gas ist seine physikalische Eigenschaft: Schon unter geringem Druck (ca. 6-8 bar) verflüssigt es sich.</p>
+                            <p className="mb-6">Flüssiggas (LPG = Liquefied Petroleum Gas), oft auch als <strong>Propangas</strong> bezeichnet, ist ein hochwertiger Energieträger. Er besteht hauptsächlich aus <strong>Propan</strong> und <strong>Butan</strong>. Das Besondere: Schon unter geringem Druck (ca. 6-8 bar) verflüssigt es sich im <strong>Gastank</strong> oder in der Gasflasche.</p>
 
                             <h4 className="text-xl font-bold text-gas mb-4">Das 1:260 Wunder</h4>
                             <p className="mb-4">Durch die Verflüssigung schrumpft das Volumen enorm. Aus 1 Liter flüssigem Gas entstehen ca. 260 Liter gasförmige Energie. Das macht Flüssiggas zum idealen Energievorrat: In einem relativ kleinen Tank im Garten lagert Energie für ein ganzes Jahr.</p>
