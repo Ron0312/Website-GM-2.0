@@ -200,6 +200,25 @@ const App = ({ path, context }) => {
         }
         metaDesc.content = seoInfo.description;
 
+        // Update Open Graph tags for Social Sharing
+        const updateMeta = (property, content) => {
+            let tag = document.querySelector(`meta[property="${property}"]`);
+            if (!tag) {
+                tag = document.createElement('meta');
+                tag.setAttribute('property', property);
+                document.head.appendChild(tag);
+            }
+            tag.content = content;
+        };
+
+        updateMeta('og:title', seoInfo.title);
+        updateMeta('og:description', seoInfo.description);
+        updateMeta('og:image', seoInfo.image || 'https://gasmoeller.de/images/gas-order-hero.webp');
+        updateMeta('og:url', seoInfo.url || window.location.href);
+        updateMeta('og:type', seoInfo.type || 'website');
+        updateMeta('og:site_name', 'Gas-Service Möller');
+        updateMeta('og:locale', 'de_DE');
+
     }, [activeSection]);
 
     const handleGasCheckAvailability = (plz, liters, selectedTank, fillLevel) => {
