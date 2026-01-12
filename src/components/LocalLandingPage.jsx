@@ -1,6 +1,6 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Check, ArrowRight } from 'lucide-react';
+import { ChevronDown, Check, ArrowRight, ShieldCheck, MapPin } from 'lucide-react';
 import { getCityBySlug, cityData } from '../data/cityData';
 import Hero from './Hero';
 import TankSection from './TankSection';
@@ -81,6 +81,28 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
 
     const preposition = city.preposition || 'in';
 
+    // State Specific Content Logic (SEO Boost)
+    const stateSpecifics = {
+        'Schleswig-Holstein': {
+            regulation: 'Landesbauordnung Schleswig-Holstein (LBO SH)',
+            text: 'In Schleswig-Holstein gelten für Flüssiggastanks spezifische Grenzabstände gemäß LBO SH. Genehmigungsfrei sind Tanks oft bis 2,9t, sofern die Abstände eingehalten werden.'
+        },
+        'Mecklenburg-Vorpommern': {
+            regulation: 'Landesbauordnung Mecklenburg-Vorpommern (LBauO M-V)',
+            text: 'Für Mecklenburg-Vorpommern beachten wir bei der Aufstellung die LBauO M-V. Besonders in Wasserschutzgebieten der Seenplatte gelten gesonderte Auflagen, die wir für Sie prüfen.'
+        },
+        'Niedersachsen': {
+            regulation: 'Niedersächsische Bauordnung (NBauO)',
+            text: 'In Niedersachsen prüfen wir die Aufstellbedingungen nach NBauO. Abstände zu Nachbargrenzen sind hier besonders wichtig für eine reibungslose Abnahme.'
+        },
+        'Hamburg': {
+            regulation: 'Hamburgische Bauordnung (HBauO)',
+            text: 'In Hamburg ist aufgrund der dichten Bebauung oft eine unterirdische Lagerung oder ein genauer Blick auf die Abstände (HBauO) nötig.'
+        }
+    };
+
+    const regionalInfo = stateSpecifics[city.state] || stateSpecifics['Schleswig-Holstein'];
+
     const heroTitle = (
         <>
             Flüssiggas & Tanks <br/>
@@ -114,6 +136,9 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
                 openWizard={openWizard}
                 title={heroTitle}
                 subtitle={heroSubtitle}
+                backgroundImage="/images/gas-order-hero.webp" // Explicitly passed to ensure consistency
+                // Enhance SEO for Hero Image
+                imageAlt={`Flüssiggaslieferung und Tankwagen in ${city.name}`}
             />
 
             <section className="py-16 bg-white">
@@ -165,6 +190,18 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
                             <p className="text-gray-600 mb-8 leading-relaxed">
                                 Wir bieten Ihnen eine faire Alternative: <strong>Kaufen Sie Ihren Flüssiggastank.</strong> Wir kümmern uns um die Aufstellung {preposition} {city.name}, den Anschluss und die regelmäßige Belieferung zu aktuellen Tagespreisen.
                             </p>
+
+                            {/* Regional Specific Content Block (Doorway Page Mitigation) */}
+                            <div className="bg-blue-50 border border-blue-100 p-6 rounded-xl mb-8">
+                                <h4 className="flex items-center gap-2 font-bold text-gas-dark mb-2">
+                                    <ShieldCheck className="w-5 h-5"/>
+                                    Vorschriften in {city.state}
+                                </h4>
+                                <p className="text-sm text-gray-700 leading-relaxed">
+                                    {regionalInfo.text} Wir kennen die Anforderungen der {regionalInfo.regulation} genau und unterstützen Sie bei der Antragsstellung.
+                                </p>
+                            </div>
+
                             <div className="space-y-4">
                                 <button
                                     onClick={() => openWizard('tank')}
@@ -221,8 +258,8 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
                             <DeliveryMap />
                         </Suspense>
                         {/* Overlay to ensure touch interaction works but visual indication is clear */}
-                        <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur px-4 py-2 rounded-lg text-xs font-bold text-gas shadow-sm border border-gas/10 pointer-events-none">
-                            Liefergebiet Norddeutschland
+                        <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur px-4 py-2 rounded-lg text-xs font-bold text-gas shadow-sm border border-gas/10 pointer-events-none flex items-center gap-2">
+                            <MapPin size={12}/> Liefergebiet Norddeutschland
                         </div>
                      </div>
                  </div>
