@@ -1,9 +1,20 @@
-
-> gasmoeller-vite@0.0.0 dev
-> node server.js
-
-{"level":"INFO","timestamp":"2025-12-18T08:10:00.520Z","message":"Starting server. Initial mode: DEVELOPMENT"}
-{"level":"INFO","timestamp":"2025-12-18T08:10:00.807Z","message":"Server started at http://localhost:5173"}
-{"level":"INFO","timestamp":"2025-12-18T08:10:58.606Z","message":"Redirecting: /src/components/FAQ.jsx -> /wissen"}
-{"level":"INFO","timestamp":"2025-12-18T08:13:11.253Z","message":"Redirecting: /src/components/FAQ.jsx -> /wissen"}
-{"level":"INFO","timestamp":"2025-12-18T08:13:16.238Z","message":"Redirecting: /src/components/FAQ.jsx -> /wissen"}
+{"level":"INFO","timestamp":"2026-01-12T19:22:03.880Z","message":"Loaded 29 knowledge articles."}
+{"level":"INFO","timestamp":"2026-01-12T19:22:03.887Z","message":"Starting server. Initial mode: DEVELOPMENT"}
+{"level":"INFO","timestamp":"2026-01-12T19:22:04.686Z","message":"Server started at http://localhost:5173"}
+{"level":"WARN","timestamp":"2026-01-12T19:22:47.982Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"108ms","ip":"::1"}
+{"level":"WARN","timestamp":"2026-01-12T19:22:48.024Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"37ms","ip":"::1"}
+{"level":"WARN","timestamp":"2026-01-12T19:22:48.063Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"30ms","ip":"::1"}
+{"level":"WARN","timestamp":"2026-01-12T19:22:48.219Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"108ms","ip":"::1"}
+{"level":"WARN","timestamp":"2026-01-12T19:22:50.800Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"27ms","ip":"::1"}
+{"level":"WARN","timestamp":"2026-01-12T19:22:50.877Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"36ms","ip":"::1"}
+{"level":"WARN","timestamp":"2026-01-12T19:22:50.952Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"30ms","ip":"::1"}
+{"level":"WARN","timestamp":"2026-01-12T19:22:51.004Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"46ms","ip":"::1"}
+7:32:02 PM [vite] hmr update /src/App.jsx, /src/index.css
+7:32:28 PM [vite] hmr update /src/data/content.jsx, /src/index.css
+{"level":"INFO","timestamp":"2026-01-12T19:33:23.531Z","message":"Redirecting: /wissen/fernwaerme-vergleich -> /wissen"}
+{"level":"WARN","timestamp":"2026-01-12T19:33:24.733Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"20ms","ip":"::1"}
+{"level":"WARN","timestamp":"2026-01-12T19:33:24.849Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"21ms","ip":"::1"}
+{"level":"WARN","timestamp":"2026-01-12T19:33:24.870Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"17ms","ip":"::1"}
+{"level":"WARN","timestamp":"2026-01-12T19:33:24.900Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"28ms","ip":"::1"}
+{"level":"INFO","timestamp":"2026-01-12T19:34:33.557Z","message":"Received kill signal, shutting down gracefully"}
+{"level":"INFO","timestamp":"2026-01-12T19:34:33.558Z","message":"Closed out remaining connections"}

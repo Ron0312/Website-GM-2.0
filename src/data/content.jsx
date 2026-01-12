@@ -603,6 +603,36 @@ export const CONTENT = {
                     )
                 },
                 {
+                    id: 'bio-fluessiggas',
+                    title: 'Bio-Flüssiggas: Die 65%-Lösung',
+                    description: 'Erfüllen Sie das GEG ohne Heizungstausch.',
+                    content: (
+                        <div>
+                            <SourceBadge text="GEG-Konform" />
+                            <p className="lead text-lg text-gray-700 mb-6">Viele Hausbesitzer fürchten, dass sie ihre funktionierende Gasheizung herausreißen müssen, um die 65%-Regel des Gebäudeenergiegesetzes (GEG) zu erfüllen. <strong>Das ist oft nicht nötig.</strong> Die Lösung heißt Bio-Flüssiggas (Bio-LPG).</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Was ist Bio-Flüssiggas?</h4>
+                            <div className="bg-green-50 border-l-4 border-green-500 p-4 mb-6">
+                                <p className="font-bold text-green-900">Definition für Entscheider:</p>
+                                <p className="text-green-800">Bio-Flüssiggas (Bio-LPG) ist chemisch identisch zu herkömmlichem Propan (C3H8), wird aber aus <strong>organischen Reststoffen</strong> und nachwachsenden Rohstoffen hergestellt. Es verbrennt CO2-neutraler und ist zu 100% kompatibel mit Ihrer bestehenden Technik.</p>
+                            </div>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Die Vorteile auf einen Blick</h4>
+                            <ul className="space-y-3 mb-6">
+                                <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-600 mt-1"/> <strong>Kein Heizungstausch:</strong> Ihr Brenner merkt keinen Unterschied.</li>
+                                <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-600 mt-1"/> <strong>Kein neuer Tank:</strong> Sie können Bio-LPG in Ihren bestehenden Tank füllen (auch gemischt).</li>
+                                <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-600 mt-1"/> <strong>GEG-Erfüllung:</strong> In vielen Fällen gilt eine Bio-Gas-Quote als Erfüllung der 65%-Pflicht (abhängig von kommunaler Wärmeplanung).</li>
+                            </ul>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Herstellung & Verfügbarkeit</h4>
+                            <p className="mb-4">Bio-LPG entsteht oft als Nebenprodukt bei der Herstellung von Biodiesel (HVO) aus Altspeiseölen und Fetten. Es steht nicht in Konkurrenz zur Nahrungsmittelproduktion.</p>
+                            <p><strong>Status Quo:</strong> Die Verfügbarkeit wächst, ist aber noch begrenzter als bei fossilem Gas. Sprechen Sie uns auf aktuelle Kontingente an.</p>
+
+                            <p className="text-sm text-gray-500 mt-4">Interessiert an einer Umrüstung? Prüfen Sie den <a href="/wissen/oel-wechsel" className="text-gas hover:underline">Wechsel von Öl auf Gas</a>.</p>
+                        </div>
+                    )
+                },
+                {
                     id: 'oel-wechsel',
                     title: 'Wechsel von Öl auf Flüssiggas',
                     description: 'Sauberer, platzsparender, günstiger.',
@@ -648,6 +678,40 @@ export const CONTENT = {
                             </div>
 
                             <p className="text-sm text-gray-500">Erfahren Sie mehr über die Kombination beider Systeme: <a href="/wissen/hybrid" className="text-gas hover:underline">Hybridheizung</a>.</p>
+                        </div>
+                    )
+                },
+                {
+                    id: 'fernwaerme-vergleich',
+                    title: 'Fernwärme vs. Flüssiggas',
+                    description: 'Droht der Anschlusszwang? Ein Kosten-Vergleich.',
+                    content: (
+                        <div>
+                             <SourceBadge text="Wärmeplanung 2026" />
+                             <p className="lead text-lg text-gray-700 mb-6">Mit der kommunalen Wärmeplanung fragen sich viele Hausbesitzer: Muss ich mich an das Fernwärmenetz anschließen lassen? Und ist das überhaupt günstiger als meine Gasheizung?</p>
+
+                             <h4 className="text-xl font-bold text-gas mb-4">Droht der Anschlusszwang?</h4>
+                             <div className="bg-yellow-50 p-4 border-l-4 border-yellow-500 mb-6">
+                                 <p className="font-bold text-yellow-900">Kurz gesagt:</p>
+                                 <p className="text-yellow-800"><strong>Ein Anschluss- und Benutzungszwang ist rechtlich nur unter sehr strengen Voraussetzungen möglich.</strong> In den meisten Fällen haben Hausbesitzer weiterhin die Wahl, sofern sie die gesetzlichen Klimavorgaben (65% Erneuerbare) anders erfüllen – z.B. durch <a href="/wissen/bio-fluessiggas" className="text-gas hover:underline">Bio-Flüssiggas</a> oder eine Hybridheizung.</p>
+                             </div>
+
+                             <h4 className="text-xl font-bold text-gas mb-4">Vergleich: Fernwärme vs. Flüssiggas</h4>
+                             <ComparisonTable
+                                headers={['Kriterium', 'Fernwärme', 'Flüssiggas (Eigentumstank)']}
+                                rows={[
+                                    ['Investition', 'Hoch (Anschlusskosten oft 10.000€+)', 'Gering (Therme + Tank)'],
+                                    ['Laufende Kosten', 'Oft hoher Grundpreis (fix)', 'Kein Grundpreis (nur Verbrauch)'],
+                                    ['Anbieterwahl', 'Monopol (1 Anbieter)', 'Frei wählbar (Wettbewerb)'],
+                                    ['Preistransparenz', 'Intransparent (Preisgleitklauseln)', 'Transparent (Tagespreis)'],
+                                    ['Versorgungssicherheit', 'Abhängig vom Netzbetreiber', 'Unabhängig (eigener Vorrat)']
+                                ]}
+                            />
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Die Kosten-Falle "Grundpreis"</h4>
+                            <p className="mb-4">Fernwärme-Rechnungen bestehen oft zu 30-40% aus dem sogenannten <strong>Leistungspreis (Grundpreis)</strong>. Diesen zahlen Sie immer, auch wenn Sie sparen. Bei Flüssiggas zahlen Sie fast nur für das, was Sie wirklich verbrauchen. Wer sein Haus dämmt, spart bei Gas also sofort – bei Fernwärme nur bedingt.</p>
+
+                            <p className="text-sm text-gray-500 mt-4">Sichern Sie sich Ihre Unabhängigkeit mit einem eigenen <a href="/wissen/tank-kosten" className="text-gas hover:underline">Flüssiggastank</a>.</p>
                         </div>
                     )
                 },
@@ -839,6 +903,38 @@ export const CONTENT = {
                             <p>Im Gegensatz zu leitungsgebundenem Erdgas, wo Sie an einen Versorger und dessen Preiserhöhungen gebunden sind, können Sie als Eigentümer eines Flüssiggastanks (Kauf-Tank) bei jeder Bestellung Preise vergleichen und den günstigen Moment abpassen.</p>
 
                             <p className="text-sm text-gray-500 mt-4">Detaillierte Infos zur Preisgestaltung finden Sie in unserem <a href="/wissen/preis-guide" className="text-gas hover:underline">Preis-Guide</a>.</p>
+                        </div>
+                    )
+                },
+                {
+                    id: 'co2-steuer',
+                    title: 'CO2-Steuer Tabelle 2026-2030',
+                    description: 'Was kostet die CO2-Abgabe für Flüssiggas?',
+                    content: (
+                        <div>
+                            <p className="mb-6">Seit 2021 gibt es in Deutschland einen CO2-Preis auf fossile Brennstoffe (BEHG). Dieser soll den Umstieg auf klimafreundliche Alternativen fördern. Doch was bedeutet das konkret für Ihre Heizkosten?</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">CO2-Preis Prognose (Cent pro Liter)</h4>
+                            <p className="mb-4">Die CO2-Steuer wird stufenweise angehoben. Hier sehen Sie die voraussichtliche Belastung pro Liter Flüssiggas (netto, zzgl. MwSt.).</p>
+
+                            <ComparisonTable
+                                headers={['Jahr', 'CO2-Preis / Tonne', 'Aufschlag / Liter (netto)', 'Kosten bei 3000L (netto)']}
+                                rows={[
+                                    ['2024', '45 €', 'ca. 7,1 Cent', 'ca. 213 €'],
+                                    ['2025', '55 €', 'ca. 8,7 Cent', 'ca. 261 €'],
+                                    ['2026', '65 € (Prognose)', 'ca. 10,3 Cent', 'ca. 309 €'],
+                                    ['2027', 'Marktpreis (Korridor)', 'variabel', 'variabel'],
+                                    ['2030', 'Zielkorridor EU', 'steigend', 'steigend']
+                                ]}
+                            />
+                            <p className="text-xs text-gray-500 mt-2">* Werte sind gerundete Näherungswerte basierend auf dem Emissionsfaktor von Flüssiggas (ca. 1,5 kg CO2/Liter).</p>
+
+                            <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 my-6">
+                                <p className="font-bold text-blue-900">Gut zu wissen:</p>
+                                <p className="text-blue-800">Flüssiggas verursacht ca. <strong>15% weniger CO2</strong> als Heizöl. Dadurch fällt die CO2-Steuer bei einer Gasheizung niedriger aus als bei einer vergleichbaren Ölheizung.</p>
+                            </div>
+
+                            <p className="text-sm text-gray-500">Möchten Sie CO2 sparen? Informieren Sie sich über <a href="/wissen/bio-fluessiggas" className="text-gas hover:underline">Bio-Flüssiggas</a>.</p>
                         </div>
                     )
                 },
