@@ -61,12 +61,12 @@ const GasOrderSection = ({ onCheckAvailability, setActiveSection }) => {
                 title={
                     <>
                         Flüssiggas <br/>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">günstig kaufen</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">zum Tagespreis</span>
                     </>
                 }
-                subtitle="Aktueller Flüssiggas Preis für Schleswig-Holstein, Hamburg & MV. Einfach bestellen & sparen. Ohne Vertragsbindung."
+                subtitle="Ihr regionaler Lieferant: Pünktlich, fair & transparent. Jetzt aktuellen Preis prüfen & direkt Liefertermin sichern."
                 backgroundImage="/images/gas-order-background.jpg"
-                badgeText="Der regionale Versorger"
+                badgeText="Bestpreis-Garantie"
                 customButtons={null}
             >
                 {/* Right Column: The Glassmorphism Card */}
@@ -78,8 +78,8 @@ const GasOrderSection = ({ onCheckAvailability, setActiveSection }) => {
                 >
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gas-light to-blue-500"></div>
 
-                    <h2 className="text-xl md:text-2xl font-bold text-white mb-2">Liefergebiet prüfen</h2>
-                    <p className="text-gray-300 text-sm mb-6 md:mb-8">Erhalten Sie jetzt Ihr unverbindliches Angebot.</p>
+                    <h2 className="text-xl md:text-2xl font-bold text-white mb-2">Tagespreis abfragen</h2>
+                    <p className="text-gray-300 text-sm mb-6 md:mb-8">PLZ eingeben und aktuellen Lieferpreis prüfen.</p>
 
                     <div className="space-y-4 md:space-y-6">
                         {/* Tank Size Selection */}
@@ -195,7 +195,7 @@ const GasOrderSection = ({ onCheckAvailability, setActiveSection }) => {
                         >
                             {isChecking ? <Loader2 size={24} className="animate-spin" /> : (
                                 <>
-                                    Angebot anfordern
+                                    Tagespreis prüfen
                                     <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                                 </>
                             )}

@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import SourceBadge from '../components/SourceBadge';
 import SafetyChecklist from '../components/SafetyChecklist';
+import PriceChart from '../components/PriceChart';
 
 // Helper for Comparison Table
 const ComparisonTable = ({ headers, rows }) => (
@@ -36,6 +37,33 @@ export const CONTENT = {
             title: 'Gasbestellung & Preise',
             icon: TrendingUp,
             articles: [
+                {
+                    id: 'anbieterwechsel',
+                    title: 'Anbieterwechsel leicht gemacht',
+                    description: 'Hängen Sie im Vertrag fest? So wechseln Sie.',
+                    content: (
+                        <div>
+                             <SourceBadge text="Freiheit genießen" />
+                             <p className="lead text-lg text-gray-700 mb-6">Viele Flüssiggas-Kunden glauben, sie seien auf Gedeih und Verderb an ihren aktuellen Lieferanten gebunden. Das ist oft ein Irrtum. Ein Wechsel zu einem freien Anbieter spart oft bares Geld.</p>
+
+                             <h4 className="text-xl font-bold text-gas mb-4">1. Wenn Ihnen der Tank gehört (Eigentum)</h4>
+                             <p className="mb-4">Das ist der Idealfall. Sie sind <strong>vollkommen frei</strong> in Ihrer Entscheidung. Sie können bei jeder Füllung den günstigsten Anbieter wählen – genau wie beim Heizöl. Lassen Sie sich nicht einschüchtern: Niemand kann Ihnen vorschreiben, wo Sie bestellen, solange das Gas der Norm (DIN 51622) entspricht.</p>
+
+                             <h4 className="text-xl font-bold text-gas mb-4">2. Wenn Sie einen Miettank haben</h4>
+                             <p className="mb-4">Hier sind Sie meist vertraglich gebunden. Aber: Prüfen Sie Ihre Laufzeiten! Viele alte Verträge laufen irgendwann aus oder haben kurze Kündigungsfristen. Ein Wechsel (Kündigung des Miettanks + Kauf eines eigenen Tanks) rechnet sich oft schon nach der ersten Füllung.</p>
+
+                             <div className="bg-green-50 p-4 rounded-xl border border-green-100 flex items-start gap-3 my-6">
+                                <CheckCircle className="text-green-600 flex-shrink-0" size={24} />
+                                <div>
+                                    <span className="font-bold text-green-800 block">Wir helfen beim Wechsel!</span>
+                                    <span className="text-green-700 text-sm">Sie sind unsicher? Schicken Sie uns Ihren aktuellen Vertrag (geschwärzt). Wir prüfen kostenlos, ob und wann Sie wechseln können.</span>
+                                </div>
+                            </div>
+
+                            <p className="text-sm text-gray-500 mt-4">Prüfen Sie jetzt unseren aktuellen <a href="/fluessiggas-bestellen" className="text-gas hover:underline">Tagespreis</a>.</p>
+                        </div>
+                    )
+                },
                 {
                     id: 'preis-guide',
                     title: 'Der große Preis-Guide',
@@ -228,15 +256,15 @@ export const CONTENT = {
                     content: (
                         <div>
                             <SourceBadge text="Fachfirma & Fachbetrieb" />
-                            <p className="lead text-lg text-gray-700 mb-6">Sie möchten Ihren alten Flüssiggastank entsorgen, stilllegen oder entleeren lassen? Als zertifizierte Fachfirma übernehmen wir den kompletten Rückbau für Sie – sicher, sauber und gesetzeskonform.</p>
+                            <p className="lead text-lg text-gray-700 mb-6">Sie möchten Ihren alten Flüssiggastank oder <strong>Gastank entsorgen</strong>, stilllegen oder entleeren lassen? Als zertifizierte <strong>Fachfirma</strong> übernehmen wir den kompletten Rückbau für Sie – sicher, sauber und gesetzeskonform.</p>
 
                             <div className="bg-red-50 border-l-4 border-red-500 p-4 my-6">
-                                <p className="font-bold text-red-700">Wichtig: Nicht selbst demontieren!</p>
-                                <p className="text-sm text-red-600">Flüssiggastanks stehen auch leer noch unter Druck und enthalten Restgas. Eine unsachgemäße Demontage ist lebensgefährlich. Beauftragen Sie immer einen zugelassenen Fachbetrieb ("Fachfirma").</p>
+                                <p className="font-bold text-red-700">Wichtig: Gastank nicht selbst demontieren!</p>
+                                <p className="text-sm text-red-600">Flüssiggastanks (Gastanks) stehen auch leer noch unter Druck und enthalten Restgas. Eine unsachgemäße Demontage ist lebensgefährlich. Beauftragen Sie immer einen zugelassenen Fachbetrieb ("Fachfirma").</p>
                             </div>
 
-                            <h4 className="text-xl font-bold text-gas mb-4">Ablauf der Stilllegung & Entsorgung</h4>
-                            <p className="mb-4">Wir holen den Flüssiggastank "am Stück" ab. Es finden keine gefährlichen Schneidarbeiten in Ihrem Garten statt.</p>
+                            <h4 className="text-xl font-bold text-gas mb-4">Ablauf: Gastank stilllegen & entsorgen</h4>
+                            <p className="mb-4">Wir holen den Gastank "am Stück" ab. Es finden keine gefährlichen Schneidarbeiten in Ihrem Garten statt. Egal ob Sie den Gastank stilllegen oder komplett entsorgen möchten.</p>
 
                             <div className="space-y-6 my-8">
                                 <div className="flex gap-4">
@@ -287,13 +315,13 @@ export const CONTENT = {
                     content: (
                         <div>
                              <SourceBadge text="Preisfaktoren 2026" />
-                             <p className="lead text-lg text-gray-700 mb-6">Die Kosten für einen eigenen Flüssiggastank setzen sich aus dem Kaufpreis des Behälters und den einmaligen Installationskosten zusammen. Was kostet ein Tank mit 2700 Liter oder 4850 Liter Volumen?</p>
+                             <p className="lead text-lg text-gray-700 mb-6">Die Kosten für einen eigenen Flüssiggastank (oft auch Gastank oder Propangastank genannt) setzen sich aus dem Kaufpreis des Behälters und den Installationskosten zusammen. Viele Kunden fragen: <strong>"Was kostet ein Gastank 2700 Liter?"</strong> oder <strong>"Was kostet ein Gastank 4850 Liter?"</strong>.</p>
 
-                             <h4 className="text-xl font-bold text-gas mb-4">1. Tankpreise (Neu & Gebraucht)</h4>
-                             <p className="mb-4">Die Preise variieren je nach Stahlpreis und Saison. Generell gilt: Oberirdische Tanks sind deutlich günstiger als unterirdische Modelle.</p>
+                             <h4 className="text-xl font-bold text-gas mb-4">1. Gastank Preise (Neu & Gebraucht)</h4>
+                             <p className="mb-4">Die Preise variieren je nach aktuellem Stahlpreis. Generell gilt: Oberirdische Tanks sind deutlich günstiger als unterirdische Modelle.</p>
 
                              <ComparisonTable
-                                headers={['Größe', 'Oberirdisch Preis (Tendenz)', 'Unterirdisch Preis (Tendenz)']}
+                                headers={['Gastank Größe', 'Oberirdisch Preis (Tendenz)', 'Unterirdisch Preis (Tendenz)']}
                                 rows={[
                                     ['2700 Liter (1,2 t)', 'Günstig (Einstieg)', 'Mittel (zzgl. Erdarbeiten)'],
                                     ['4850 Liter (2,1 t)', 'Mittel (Standard)', 'Gehoben'],
@@ -768,7 +796,7 @@ export const CONTENT = {
                     description: 'Eigenschaften und Herkunft.',
                     content: (
                         <div>
-                            <p className="mb-6">Flüssiggas (LPG = Liquefied Petroleum Gas) ist ein hochwertiger Energieträger, der hauptsächlich aus <strong>Propan</strong> und <strong>Butan</strong> besteht. Das Besondere an diesem Gas ist seine physikalische Eigenschaft: Schon unter geringem Druck (ca. 6-8 bar) verflüssigt es sich.</p>
+                            <p className="mb-6">Flüssiggas (LPG = Liquefied Petroleum Gas), oft auch als <strong>Propangas</strong> bezeichnet, ist ein hochwertiger Energieträger. Er besteht hauptsächlich aus <strong>Propan</strong> und <strong>Butan</strong>. Das Besondere: Schon unter geringem Druck (ca. 6-8 bar) verflüssigt es sich im <strong>Gastank</strong> oder in der Gasflasche.</p>
 
                             <h4 className="text-xl font-bold text-gas mb-4">Das 1:260 Wunder</h4>
                             <p className="mb-4">Durch die Verflüssigung schrumpft das Volumen enorm. Aus 1 Liter flüssigem Gas entstehen ca. 260 Liter gasförmige Energie. Das macht Flüssiggas zum idealen Energievorrat: In einem relativ kleinen Tank im Garten lagert Energie für ein ganzes Jahr.</p>
@@ -793,6 +821,11 @@ export const CONTENT = {
                         <div>
                             <SourceBadge text="Stand: 2026" />
                             <p className="mb-4">Wie alle Energieträger unterliegt auch Flüssiggas Preisschwankungen an den internationalen Börsen. Dennoch folgt der Preis oft saisonalen Mustern.</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Historische Preisentwicklung (2020 - 2026)</h4>
+                            <p className="mb-4">Sehen Sie hier die Entwicklung der Flüssiggaspreise über die letzten Jahre. Diese Transparenz hilft Ihnen, den richtigen Kaufzeitpunkt zu finden.</p>
+
+                            <PriceChart />
 
                             <div className="my-6 p-4 bg-blue-50 rounded-lg flex gap-4 items-center">
                                 <Snowflake className="text-blue-400 flex-shrink-0" />

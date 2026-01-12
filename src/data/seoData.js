@@ -15,7 +15,7 @@ const NEXT_YEAR = CURRENT_YEAR + 1;
 
 // Calculate dynamic price validity (End of next year)
 const getPriceValidUntil = () => {
-    return `${NEXT_YEAR}-12-31`;
+    return `2026-12-31`;
 };
 
 const PRICE_VALID_UNTIL = getPriceValidUntil();
@@ -354,14 +354,14 @@ export const getSeoForPath = (path) => {
     case 'tank-entsorgen':
       return {
         ...defaultSeo,
-        title: 'Flüssiggastank entsorgen & stilllegen | Kosten & Fachfirma',
-        description: 'Flüssiggastank entsorgen oder stilllegen lassen? Wir sind Ihre Fachfirma. Restgas-Absaugung, Demontage & Abholung zum Festpreis. Jetzt Kosten prüfen!',
+        title: 'Gastank entsorgen & stilllegen | Fachfirma, Kosten & Entleeren',
+        description: 'Alten Flüssiggastank/Gastank entsorgen, abholen oder stilllegen lassen? Wir sind Ihre zertifizierte Fachfirma. Restgas-Absaugung & Demontage zum Festpreis.',
         schema: [
             getOrganizationSchema(),
             getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Service', url: '/service' }, { name: 'Tank entsorgen', url: '/tank-entsorgen' }]),
-            getHowToSchema('Alten Flüssiggastank entsorgen lassen', [
-                { title: 'Flüssiggastankdaten übermitteln', text: 'Senden Sie uns ein Foto vom Typschild und Standort.' },
-                { title: 'Angebot erhalten', text: 'Wir erstellen ein Festpreisangebot für die Abholung.' },
+            getHowToSchema('Alten Gastank entsorgen lassen', [
+                { title: 'Tankdaten übermitteln', text: 'Senden Sie uns ein Foto vom Typschild und Standort des Gastanks.' },
+                { title: 'Angebot erhalten', text: 'Wir erstellen ein Festpreisangebot für die Abholung und Stilllegung.' },
                 { title: 'Restgas absaugen', text: 'Unser Tankwagen saugt verbleibendes Flüssiggas ab und vergütet es ggf.' },
                 { title: 'Abtransport', text: 'Der Kran-LKW hebt den leeren Behälter auf die Ladefläche.' }
             ])
@@ -371,16 +371,16 @@ export const getSeoForPath = (path) => {
     case 'tanks':
       return {
         ...defaultSeo,
-        title: 'Flüssiggastank kaufen | 2700 Liter, 4850 Liter | Neu & Gebraucht',
-        description: 'Flüssiggastank kaufen statt mieten. Preise für 1,2t (2700 Liter), 2,1t (4850 Liter) & 2,9t. Auch gebraucht & regeneriert. Entsorgung & Austausch durch Fachfirma.',
+        title: 'Flüssiggastank & Gastank kaufen | Neu & Gebraucht | 2700 - 6400 Liter',
+        description: 'Flüssiggastank & Gastank kaufen (Neu & Gebraucht). Preise für 2700 Liter (1,2t), 4850 Liter (2,1t) & 6400 Liter. Oberirdisch & Unterirdisch vom Fachhändler.',
         schema: [
             getOrganizationSchema(),
             getTankCatalogSchema(),
             getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggastank kaufen', url: '/fluessiggastank-kaufen' }]),
             getFAQSchema([
                 { question: 'Kann man einen Flüssiggastank kaufen?', answer: 'Ja, Sie können Flüssiggastanks (1,2t, 2,1t, 2,9t) käuflich erwerben. Damit entfallen monatliche Mietgebühren und Sie können Ihren Flüssiggaslieferanten frei wählen.' },
-                { question: 'Was kostet ein Flüssiggastank 2700 Liter?', answer: 'Die Preise variieren je nach Stahlpreis. Ein oberirdischer Tank ist günstiger als ein unterirdischer. Kontaktieren Sie uns für ein tagesaktuelles Angebot.' },
-                { question: 'Welche Tankgrößen gibt es?', answer: 'Gängige Größen für Privathaushalte sind 1,2 Tonnen (2700 Liter), 2,1 Tonnen (4850 Liter) und 2,9 Tonnen (6400 Liter).' },
+                { question: 'Was kostet ein Gastank 2700 Liter?', answer: 'Die Preise für einen Gastank 2700 Liter variieren je nach Stahlpreis. Ein oberirdischer Tank ist günstiger als ein unterirdischer. Kontaktieren Sie uns für ein tagesaktuelles Angebot.' },
+                { question: 'Welche Gastank Größen gibt es?', answer: 'Gängige Größen für Privathaushalte sind 1,2 Tonnen (2700 Liter), 2,1 Tonnen (4850 Liter) und 2,9 Tonnen (6400 Liter).' },
                 { question: 'Sind gebrauchte Tanks sicher?', answer: 'Ja, unsere regenerierten Tanks werden komplett überholt, neu lackiert und erhalten eine neue TÜV-Prüfung vor Auslieferung.' }
             ])
         ]
@@ -389,8 +389,8 @@ export const getSeoForPath = (path) => {
     case 'gas':
       return {
         ...defaultSeo,
-        title: `Flüssiggas Preis aktuell | Günstig kaufen & bestellen ${CURRENT_YEAR}`,
-        description: `Aktueller Flüssiggas Preis ${CURRENT_YEAR}. Günstig Propan kaufen & bestellen beim freien Anbieter. Lieferung für 2700 Liter, 4850 Liter Tanks. Jetzt Tagespreis anfragen!`,
+        title: `Flüssiggas Preis aktuell | Lieferant wechseln & sparen 2026`,
+        description: `Flüssiggas bestellen zum Tagespreis. Ihr regionaler Lieferant (frei Haus). Anbieter wechseln leicht gemacht: Pünktlich, zuverlässig & ohne Vertragsbindung. Jetzt Preis prüfen!`,
         schema: [
             getOrganizationSchema(),
             getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggas bestellen', url: '/fluessiggas-bestellen' }])
@@ -399,8 +399,8 @@ export const getSeoForPath = (path) => {
     case 'rechner':
         return {
             ...defaultSeo,
-            title: 'Flüssiggas Rechner & Preisvergleich | Kosten vs. Öl & Pellets',
-            description: 'Energiekosten vergleichen mit dem Flüssiggas-Rechner. Wie viel sparen Sie gegenüber Öl, Pellets oder Strom? Jetzt Jahresverbrauch & Kosten berechnen.',
+            title: 'Flüssiggas Rechner & Verbrauchsrechner | Heizkosten Vergleich',
+            description: 'Der große Flüssiggas Rechner: Heizkosten & Jahresverbrauch berechnen. Vergleich: Flüssiggas vs. Öl, Pellets & Wärmepumpe. Wie viel Liter brauche ich?',
             schema: [getOrganizationSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Rechner', url: '/rechner' }]), {
                  "@context": "https://schema.org",
                  "@type": "SoftwareApplication",
@@ -592,9 +592,9 @@ export const getSeoForPath = (path) => {
               date: `${CURRENT_YEAR}-01-20`
           },
           'preise': {
-              title: `Flüssiggaspreise Entwicklung ${NEXT_YEAR} | Prognose & Trend`,
-              desc: `Wohin geht der Gaspreis? Aktuelle Charts & Prognosen für ${NEXT_YEAR}. Wann ist der beste Kaufzeitpunkt? Analyse vom Experten.`,
-              date: `${CURRENT_YEAR}-02-01`
+              title: `Flüssiggaspreise 2026 | Aktuelle Entwicklung (Tabelle & Chart)`,
+              desc: `Aktuelle Flüssiggaspreise 2026: Interaktive Tabelle & Chart zur Preisentwicklung. Prognosen, historische Daten und bester Kaufzeitpunkt im Vergleich.`,
+              date: `2026-01-12`
           },
           'heizung': {
                title: `Heizungsgesetz (GEG) ${NEXT_YEAR} | Flüssiggas erlaubt?`,
