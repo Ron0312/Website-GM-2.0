@@ -137,11 +137,44 @@ const PriceChart = () => {
 
   return (
     <div className="w-full bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-      <div className="h-[400px] md:h-[500px]">
+      <div className="h-[400px] md:h-[500px] mb-6">
         <Line data={chartData} options={options} />
       </div>
-      <div className="text-right text-xs text-gray-500 mt-2">
-        <em>Quelle: Bund der Energieverbraucher e.V. | 12.01.2026</em>
+
+      {/* SEO Friendly Table for Data Transparency and Featured Snippets */}
+      <details className="group border-t border-gray-100 pt-4">
+        <summary className="flex items-center justify-between font-medium text-gray-700 cursor-pointer list-none hover:text-gas transition-colors">
+          <span>Detaillierte Preistabelle anzeigen</span>
+          <span className="transform group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <div className="mt-4 overflow-x-auto">
+          <table className="min-w-full text-sm text-left text-gray-600">
+            <thead className="bg-gray-50 text-gray-900 font-bold">
+              <tr>
+                <th className="px-4 py-2">Datum</th>
+                <th className="px-4 py-2">Preis &lt; 3000 Liter (ct/l)</th>
+                <th className="px-4 py-2">Preis &gt; 3000 Liter (ct/l)</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {/* Reverse to show newest first */}
+              {[...chartData.datasets[0].data].reverse().map((point, index) => {
+                 const pointOver3000 = [...chartData.datasets[1].data].reverse()[index];
+                 return (
+                  <tr key={index} className="hover:bg-gray-50">
+                    <td className="px-4 py-2 whitespace-nowrap">{new Date(point.x).toLocaleDateString('de-DE', { month: 'long', year: 'numeric' })}</td>
+                    <td className="px-4 py-2">{point.y.toFixed(2)}</td>
+                    <td className="px-4 py-2">{pointOver3000 ? pointOver3000.y.toFixed(2) : '-'}</td>
+                  </tr>
+                 );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </details>
+
+      <div className="text-right text-xs text-gray-500 mt-4">
+        <em>Quelle: Bund der Energieverbraucher e.V. | Stand: 12.01.2026</em>
       </div>
     </div>
   );

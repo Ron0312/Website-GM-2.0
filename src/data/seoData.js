@@ -592,9 +592,9 @@ export const getSeoForPath = (path) => {
               date: `${CURRENT_YEAR}-01-20`
           },
           'preise': {
-              title: `Flüssiggaspreise Entwicklung ${NEXT_YEAR} | Prognose & Trend`,
-              desc: `Wohin geht der Gaspreis? Aktuelle Charts & Prognosen für ${NEXT_YEAR}. Wann ist der beste Kaufzeitpunkt? Analyse vom Experten.`,
-              date: `${CURRENT_YEAR}-02-01`
+              title: `Flüssiggaspreise 2026 | Aktuelle Entwicklung (Tabelle & Chart)`,
+              desc: `Aktuelle Flüssiggaspreise 2026: Interaktive Tabelle & Chart zur Preisentwicklung. Prognosen, historische Daten und bester Kaufzeitpunkt im Vergleich.`,
+              date: `2026-01-12`
           },
           'heizung': {
                title: `Heizungsgesetz (GEG) ${NEXT_YEAR} | Flüssiggas erlaubt?`,
