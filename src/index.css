@@ -218,3 +218,9 @@ select:-webkit-autofill:focus {
 .clip-path-slant {
     clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
 }
+
+/* Performance: Content Visibility for Below-the-Fold */
+.render-optimization {
+    content-visibility: auto;
+    contain-intrinsic-size: 1000px; /* Approximate height to prevent scroll jumps */
+}

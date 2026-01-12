@@ -307,15 +307,72 @@ const getCommercialServiceSchema = () => ({
 
 // Shared Person/Author Schema for E-E-A-T
 const getAuthorSchema = () => ({
+    "@context": "https://schema.org",
     "@type": "Person",
     "name": "Thomas Möller",
-    "jobTitle": "Geschäftsführung & Sachkundiger",
+    "jobTitle": "Geschäftsführung & Sachkundiger für Flüssiggasanlagen",
+    "worksFor": {
+        "@type": "Organization",
+        "name": "Gas-Service Möller e.K."
+    },
     "url": "https://gasmoeller.de/ueber-uns",
     "image": "https://gasmoeller.de/images/team/thomas-moeller-lkw.webp",
+    "description": "Experte für energetische Versorgung im ländlichen Raum und zertifizierte Flüssiggastank-Prüfungen.",
+    "knowsAbout": [
+        "Technische Regeln Flüssiggas (TRF 2021)",
+        "Gebäudeenergiegesetz (GEG)",
+        "Flüssiggas-Logistik",
+        "Druckbehälterverordnung",
+        "Bio-Flüssiggas"
+    ],
+    "alumniOf": [
+        {
+            "@type": "Organization",
+            "name": "DVFG (Deutscher Verband Flüssiggas e.V.)",
+            "description": "Mitgliedschaft"
+        }
+    ],
     "sameAs": [
         "https://www.linkedin.com/company/gas-service-möller"
     ]
 });
+
+// New Helper for Deep Semantic Schema (Wikidata/Knowledge Graph)
+const getDeepArticleSchema = (article, author, publisher) => {
+    const schema = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": article.headline,
+        "image": article.image || DEFAULT_IMAGE,
+        "author": author,
+        "publisher": publisher,
+        "datePublished": article.datePublished || "2023-01-01",
+        "dateModified": article.dateModified,
+        "description": article.description,
+        "mainEntityOfPage": {
+             "@type": "WebPage",
+             "@id": article.url
+        }
+    };
+
+    if (article.about) {
+        schema.about = article.about.map(entity => ({
+            "@type": "Thing",
+            "name": entity.name,
+            "sameAs": entity.wikidata
+        }));
+    }
+
+    if (article.mentions) {
+        schema.mentions = article.mentions.map(entity => ({
+            "@type": "Thing",
+            "name": entity.name,
+            "sameAs": entity.wikidata
+        }));
+    }
+
+    return schema;
+};
 
 export const getSchemaForPath = (path) => {
    const seo = getSeoForPath(path);
@@ -521,7 +578,10 @@ export const getSeoForPath = (path) => {
       const knowledgeOverrides = {
           'was-ist': {
               title: 'Was ist Flüssiggas? | Eigenschaften, Verwendung & Unterschied zu Erdgas',
-              desc: 'Alles über Flüssiggas (LPG): Unterschied zu Erdgas, Heizwert, Herstellung und Verwendung. Warum Propan (DIN 51622) ideal zum Heizen ist.'
+              desc: 'Alles über Flüssiggas (LPG): Unterschied zu Erdgas, Heizwert, Herstellung und Verwendung. Warum Propan (DIN 51622) ideal zum Heizen ist.',
+              semantic: {
+                  about: [{ name: 'Flüssiggas', wikidata: 'https://www.wikidata.org/wiki/Q351609' }]
+              }
           },
           'miete-kauf': {
               title: 'Flüssiggastank mieten oder kaufen? Rechner & Kosten-Vergleich',
@@ -530,11 +590,18 @@ export const getSeoForPath = (path) => {
           },
           'sicherheit': {
               title: 'Flüssiggastank Vorschriften & Abstände | Sicherheit & Aufstellort',
-              desc: 'Welche Abstände gelten zum Nachbarn? Alles zu Grenzabständen, Schutzzonen und Brandschutz bei Flüssiggastanks (TRF 2021).'
+              desc: 'Welche Abstände gelten zum Nachbarn? Alles zu Grenzabständen, Schutzzonen und Brandschutz bei Flüssiggastanks (TRF 2021).',
+              semantic: {
+                  about: [{ name: 'Technische Regeln Flüssiggas', wikidata: 'https://www.wikidata.org/wiki/Q2399222' }]
+              }
           },
           'tank-entsorgen': {
               title: 'Flüssiggastank entsorgen & stilllegen | Kosten & Fachfirma',
               desc: 'Flüssiggastank entsorgen oder stilllegen lassen? Wir sind Ihre Fachfirma. Restgas-Absaugung, Demontage & Abholung zum Festpreis. Jetzt Kosten prüfen!',
+              semantic: {
+                  about: [{ name: 'Abfallentsorgung', wikidata: 'https://www.wikidata.org/wiki/Q200726' }],
+                  mentions: [{ name: 'Recycling', wikidata: 'https://www.wikidata.org/wiki/Q132589' }]
+              },
               howTo: {
                   title: 'Alten Flüssiggastank entsorgen lassen',
                   steps: [
@@ -552,7 +619,10 @@ export const getSeoForPath = (path) => {
           },
           'aufstellung': {
               title: 'Flüssiggastank Vorschriften: Grenzabstand & Aufstellort (TRF 2021)',
-              desc: 'Alles zu Grenzabständen, Brandlasten, Zaun und Vorschriften bei der Aufstellung von Flüssiggastanks (Oberirdisch & Unterirdisch).'
+              desc: 'Alles zu Grenzabständen, Brandlasten, Zaun und Vorschriften bei der Aufstellung von Flüssiggastanks (Oberirdisch & Unterirdisch).',
+              semantic: {
+                  about: [{ name: 'Technische Regeln Flüssiggas', wikidata: 'https://www.wikidata.org/wiki/Q2399222' }]
+              }
           },
           'waermebedarf': {
               title: 'Flüssiggas Verbrauch Einfamilienhaus | Tabelle & Rechner',
@@ -560,7 +630,10 @@ export const getSeoForPath = (path) => {
           },
           'oel-wechsel': {
               title: 'Ölheizung auf Flüssiggas umrüsten | Kosten & Förderung',
-              desc: 'Wechsel von Öl auf Gas: Kosten, Förderung und Vorteile. Platz gewinnen & CO2 sparen. Jetzt Umstieg planen.'
+              desc: 'Wechsel von Öl auf Gas: Kosten, Förderung und Vorteile. Platz gewinnen & CO2 sparen. Jetzt Umstieg planen.',
+              semantic: {
+                  mentions: [{ name: 'Heizöl', wikidata: 'https://www.wikidata.org/wiki/Q901968' }]
+              }
           },
           'notfall': {
               title: 'Flüssiggastank leer? Notdienst & Hilfe bei Heizungsausfall',
@@ -574,7 +647,10 @@ export const getSeoForPath = (path) => {
           'qualitaets-check': {
               title: 'Flüssiggas Qualität: Propan DIN 51622 vs. Gemisch',
               desc: 'Warum reines Propan (DIN 51622) besser ist als Butan-Gemische. Heizwert, Wintertauglichkeit und Qualitätsunterschiede erklärt.',
-              date: `${CURRENT_YEAR}-01-10`
+              date: `${CURRENT_YEAR}-01-10`,
+              semantic: {
+                   about: [{ name: 'Propan', wikidata: 'https://www.wikidata.org/wiki/Q131349' }]
+              }
           },
           'liefer-ablauf': {
               title: 'Ablauf der Flüssiggas-Lieferung | Schritt für Schritt',
@@ -599,7 +675,27 @@ export const getSeoForPath = (path) => {
           'heizung': {
                title: `Heizungsgesetz (GEG) ${NEXT_YEAR} | Flüssiggas erlaubt?`,
                desc: `Was bedeutet das GEG ${NEXT_YEAR} für Flüssiggasheizungen? Bestandsschutz, 65%-Regel und Hybrid-Lösungen erklärt.`,
-               date: `${CURRENT_YEAR}-01-15`
+               date: `${CURRENT_YEAR}-01-15`,
+               semantic: {
+                   about: [{ name: 'Gebäudeenergiegesetz', wikidata: 'https://www.wikidata.org/wiki/Q1498376' }],
+                   mentions: [{ name: 'Wärmepumpe', wikidata: 'https://www.wikidata.org/wiki/Q13636' }]
+               }
+          },
+          'bio-fluessiggas': {
+                title: 'Bio-Flüssiggas (Bio-LPG) | Klimaneutral Heizen',
+                desc: 'Bio-Flüssiggas als Alternative. CO2-neutral heizen ohne Heizungstausch. Herstellung, Kosten & Verfügbarkeit.',
+                semantic: {
+                     about: [{ name: 'Bio-LPG', wikidata: 'https://www.wikidata.org/wiki/Q2452774' }]
+                }
+          },
+          'fernwaerme-vergleich': {
+               title: 'Fernwärme oder Flüssiggas? Vergleich & Anschlusszwang',
+               desc: 'Kommunale Wärmeplanung: Droht der Anschlusszwang? Fernwärme vs. Flüssiggas im Kosten-Vergleich. Was Hausbesitzer wissen müssen.',
+               date: `${CURRENT_YEAR}-03-10`,
+               semantic: {
+                   about: [{ name: 'Fernwärme', wikidata: 'https://www.wikidata.org/wiki/Q1447029' }],
+                   mentions: [{ name: 'Kommunale Wärmeplanung', wikidata: 'https://www.wikidata.org/wiki/Q123018873' }]
+               }
           }
       };
 
@@ -610,6 +706,17 @@ export const getSeoForPath = (path) => {
           if (override.date) dateModified = override.date;
       }
 
+      const articleData = {
+          headline: articleTitle.split('|')[0].trim(),
+          image: DEFAULT_IMAGE,
+          datePublished: "2023-01-01",
+          dateModified: dateModified,
+          description: articleDesc,
+          url: `${BASE_URL}/wissen/${slug}`,
+          about: knowledgeOverrides[slug]?.semantic?.about,
+          mentions: knowledgeOverrides[slug]?.semantic?.mentions
+      };
+
       const schemas = [
           getOrganizationSchema(),
           getBreadcrumbSchema([
@@ -617,24 +724,14 @@ export const getSeoForPath = (path) => {
               { name: 'Wissen', url: '/wissen' },
               { name: articleTitle.split('|')[0].trim(), url: `/wissen/${slug}` }
           ]),
-          {
-              "@context": "https://schema.org",
-              "@type": "Article",
-              "headline": articleTitle.split('|')[0].trim(),
-              "image": DEFAULT_IMAGE,
-              "author": getAuthorSchema(), // Use E-E-A-T Author Schema
-              "publisher": {
-                  "@type": "Organization",
-                  "name": "Gas-Service Möller",
-                  "logo": {
-                      "@type": "ImageObject",
-                      "url": "https://gasmoeller.de/logos/logo-gasmoeller.png"
-                  }
-              },
-              "datePublished": "2023-01-01",
-              "dateModified": dateModified,
-              "description": articleDesc
-          }
+          getDeepArticleSchema(articleData, getAuthorSchema(), {
+              "@type": "Organization",
+              "name": "Gas-Service Möller",
+              "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://gasmoeller.de/logos/logo-gasmoeller.png"
+              }
+          })
       ];
 
       // Add HowTo schema if defined in override
