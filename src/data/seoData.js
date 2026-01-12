@@ -10,11 +10,12 @@ const formatTitleFromSlug = (slug) => {
     return slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 };
 
+const CURRENT_YEAR = new Date().getFullYear();
+const NEXT_YEAR = CURRENT_YEAR + 1;
+
 // Calculate dynamic price validity (End of next year)
 const getPriceValidUntil = () => {
-    const date = new Date();
-    const year = date.getFullYear() + 1;
-    return `${year}-12-31`;
+    return `${NEXT_YEAR}-12-31`;
 };
 
 const PRICE_VALID_UNTIL = getPriceValidUntil();
@@ -304,6 +305,18 @@ const getCommercialServiceSchema = () => ({
     }
 });
 
+// Shared Person/Author Schema for E-E-A-T
+const getAuthorSchema = () => ({
+    "@type": "Person",
+    "name": "Thomas Möller",
+    "jobTitle": "Geschäftsführung & Sachkundiger",
+    "url": "https://gasmoeller.de/ueber-uns",
+    "image": "https://gasmoeller.de/images/team/thomas-moeller-lkw.webp",
+    "sameAs": [
+        "https://www.linkedin.com/company/gas-service-möller"
+    ]
+});
+
 export const getSchemaForPath = (path) => {
    const seo = getSeoForPath(path);
    return seo.schema;
@@ -363,15 +376,21 @@ export const getSeoForPath = (path) => {
         schema: [
             getOrganizationSchema(),
             getTankCatalogSchema(),
-            getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggastank kaufen', url: '/fluessiggastank-kaufen' }])
+            getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggastank kaufen', url: '/fluessiggastank-kaufen' }]),
+            getFAQSchema([
+                { question: 'Kann man einen Flüssiggastank kaufen?', answer: 'Ja, Sie können Flüssiggastanks (1,2t, 2,1t, 2,9t) käuflich erwerben. Damit entfallen monatliche Mietgebühren und Sie können Ihren Flüssiggaslieferanten frei wählen.' },
+                { question: 'Was kostet ein Flüssiggastank 2700 Liter?', answer: 'Die Preise variieren je nach Stahlpreis. Ein oberirdischer Tank ist günstiger als ein unterirdischer. Kontaktieren Sie uns für ein tagesaktuelles Angebot.' },
+                { question: 'Welche Tankgrößen gibt es?', answer: 'Gängige Größen für Privathaushalte sind 1,2 Tonnen (2700 Liter), 2,1 Tonnen (4850 Liter) und 2,9 Tonnen (6400 Liter).' },
+                { question: 'Sind gebrauchte Tanks sicher?', answer: 'Ja, unsere regenerierten Tanks werden komplett überholt, neu lackiert und erhalten eine neue TÜV-Prüfung vor Auslieferung.' }
+            ])
         ]
       };
     case 'fluessiggas-bestellen':
     case 'gas':
       return {
         ...defaultSeo,
-        title: 'Flüssiggas Preis aktuell | Günstig kaufen & bestellen',
-        description: 'Aktueller Flüssiggas Preis 2025. Günstig Propan kaufen & bestellen beim freien Anbieter. Lieferung für 2700 Liter, 4850 Liter Tanks. Jetzt Tagespreis anfragen!',
+        title: `Flüssiggas Preis aktuell | Günstig kaufen & bestellen ${CURRENT_YEAR}`,
+        description: `Aktueller Flüssiggas Preis ${CURRENT_YEAR}. Günstig Propan kaufen & bestellen beim freien Anbieter. Lieferung für 2700 Liter, 4850 Liter Tanks. Jetzt Tagespreis anfragen!`,
         schema: [
             getOrganizationSchema(),
             getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggas bestellen', url: '/fluessiggas-bestellen' }])
@@ -496,7 +515,7 @@ export const getSeoForPath = (path) => {
 
       let articleTitle = formatTitleFromSlug(slug);
       let articleDesc = 'Detaillierter Ratgeber-Artikel von Gas-Service Möller.';
-      let dateModified = "2026-01-15"; // Default date
+      let dateModified = `${CURRENT_YEAR}-01-15`; // Default date, dynamically updated
 
       // Specific overrides for known major articles if we want perfect titles without importing CONTENT
       const knowledgeOverrides = {
@@ -507,7 +526,7 @@ export const getSeoForPath = (path) => {
           'miete-kauf': {
               title: 'Flüssiggastank mieten oder kaufen? Rechner & Kosten-Vergleich',
               desc: 'Miete vs. Kauf: Was lohnt sich wirklich? Wir rechnen nach. Vor- und Nachteile, Amortisation und Expertentipps für Ihre Entscheidung.',
-              date: '2026-01-20'
+              date: `${CURRENT_YEAR}-01-20`
           },
           'sicherheit': {
               title: 'Flüssiggastank Vorschriften & Abstände | Sicherheit & Aufstellort',
@@ -529,7 +548,7 @@ export const getSeoForPath = (path) => {
           'tank-kosten': {
               title: 'Was kostet ein Flüssiggastank? | Preis 2700 Liter, 4850 Liter',
               desc: 'Aktuelle Preise für Flüssiggastanks (Oberirdisch & Unterirdisch). Kosten für 1,2t (2700 Liter), 2,1t (4850 Liter) & 2,9t (6400 Liter). Neu & Gebraucht kaufen.',
-              date: '2026-02-10'
+              date: `${CURRENT_YEAR}-02-10`
           },
           'aufstellung': {
               title: 'Flüssiggastank Vorschriften: Grenzabstand & Aufstellort (TRF 2021)',
@@ -550,41 +569,39 @@ export const getSeoForPath = (path) => {
           'preis-guide': {
               title: 'Flüssiggas Preis-Guide: Wann kaufen? | Gasmöller',
               desc: 'Der große Preis-Guide: Wann ist Flüssiggas am günstigsten? Saisonale Trends, Einflussfaktoren & Spartipps vom Experten.',
-              date: '2026-01-25'
+              date: `${CURRENT_YEAR}-01-25`
           },
           'qualitaets-check': {
               title: 'Flüssiggas Qualität: Propan DIN 51622 vs. Gemisch',
               desc: 'Warum reines Propan (DIN 51622) besser ist als Butan-Gemische. Heizwert, Wintertauglichkeit und Qualitätsunterschiede erklärt.',
-              date: '2026-01-10'
+              date: `${CURRENT_YEAR}-01-10`
           },
           'liefer-ablauf': {
               title: 'Ablauf der Flüssiggas-Lieferung | Schritt für Schritt',
               desc: 'Wie läuft die Gaslieferung ab? Terminierung, Anfahrt und Betankung. Alles aus einer Hand.',
-              date: '2026-01-15'
+              date: `${CURRENT_YEAR}-01-15`
           },
           'tank-leer': {
               title: 'Hilfe, Flüssiggastank leer! Was tun? | Notdienst & Tipps',
               desc: 'Heizung kalt? Wenn der Flüssiggastank leer ist: Notdienst rufen, Anlage entlüften und wie Sie Leerstände in Zukunft vermeiden.',
-              date: '2026-01-05'
+              date: `${CURRENT_YEAR}-01-05`
           },
           'sammelbestellung': {
               title: 'Flüssiggas Sammelbestellung | Nachbarn & Kosten sparen',
               desc: 'Gemeinsam tanken und sparen! Vorteile von Sammelbestellungen für Nachbarschaften. Günstigerer Literpreis & geteilte Anfahrt.',
-              date: '2026-01-20'
+              date: `${CURRENT_YEAR}-01-20`
           },
           'preise': {
-              title: 'Flüssiggaspreise Entwicklung 2026 | Prognose & Trend',
-              desc: 'Wohin geht der Gaspreis? Aktuelle Charts & Prognosen für 2026. Wann ist der beste Kaufzeitpunkt? Analyse vom Experten.',
-              date: '2026-02-01'
+              title: `Flüssiggaspreise Entwicklung ${NEXT_YEAR} | Prognose & Trend`,
+              desc: `Wohin geht der Gaspreis? Aktuelle Charts & Prognosen für ${NEXT_YEAR}. Wann ist der beste Kaufzeitpunkt? Analyse vom Experten.`,
+              date: `${CURRENT_YEAR}-02-01`
           },
           'heizung': {
-               title: 'Heizungsgesetz (GEG) 2026 | Flüssiggas erlaubt?',
-               desc: 'Was bedeutet das GEG 2026 für Flüssiggasheizungen? Bestandsschutz, 65%-Regel und Hybrid-Lösungen erklärt.',
-               date: '2026-01-15'
+               title: `Heizungsgesetz (GEG) ${NEXT_YEAR} | Flüssiggas erlaubt?`,
+               desc: `Was bedeutet das GEG ${NEXT_YEAR} für Flüssiggasheizungen? Bestandsschutz, 65%-Regel und Hybrid-Lösungen erklärt.`,
+               date: `${CURRENT_YEAR}-01-15`
           }
       };
-
-      // REMOVED 'camping' override because content is missing in src/data/content.jsx and scope excludes gas bottles.
 
       if (knowledgeOverrides[slug]) {
           const override = knowledgeOverrides[slug];
@@ -605,10 +622,7 @@ export const getSeoForPath = (path) => {
               "@type": "Article",
               "headline": articleTitle.split('|')[0].trim(),
               "image": DEFAULT_IMAGE,
-              "author": {
-                  "@type": "Organization",
-                  "name": "Gas-Service Möller"
-              },
+              "author": getAuthorSchema(), // Use E-E-A-T Author Schema
               "publisher": {
                   "@type": "Organization",
                   "name": "Gas-Service Möller",

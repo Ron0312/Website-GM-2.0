@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, ChevronRight } from 'lucide-react';
+import { BookOpen, ChevronRight, List } from 'lucide-react';
 import { CONTENT } from '../data/content';
 import RentVsBuyGraphic from './RentVsBuyGraphic';
 
@@ -25,11 +25,6 @@ const LinkInjector = ({ children, setActiveSection }) => {
 
     const processNode = (node) => {
         if (typeof node === 'string') {
-            // Regex for keywords - defined here for simplicity, could be moved to config
-            // We use simple replacements for common terms
-            // Note: This is a basic implementation. Complex HTML/React tree traversal is tricky.
-            // We only replace exact matches or simple variations.
-
             const keywords = [
                 { pattern: /1,2\s*t(?:onnen)?\s*(?:Tank)?/gi, text: '1,2 t Flüssiggastank', link: 'fluessiggastank-kaufen/fluessiggastank-2700l-oberirdisch-1-2t' },
                 { pattern: /2,1\s*t(?:onnen)?\s*(?:Tank)?/gi, text: '2,1 t Flüssiggastank', link: 'fluessiggastank-kaufen/fluessiggastank-4850l-oberirdisch-2-1t' },
@@ -42,7 +37,6 @@ const LinkInjector = ({ children, setActiveSection }) => {
                 { pattern: /Innere Prüfung/g, text: 'Innere Prüfung', link: 'pruefungen' }
             ];
 
-            // Use split/map to replace
             let parts = [node];
 
             keywords.forEach(({ pattern, text, link }) => {
@@ -75,11 +69,9 @@ const LinkInjector = ({ children, setActiveSection }) => {
         }
 
         if (React.isValidElement(node)) {
-            // Prevent nested anchors: if the current node is an anchor, do not process its children for links
             if (node.type === 'a') {
                 return node;
             }
-            // Recursively process children
             return React.cloneElement(node, {
                 ...node.props,
                 children: React.Children.map(node.props.children, child => processNode(child))
@@ -92,14 +84,74 @@ const LinkInjector = ({ children, setActiveSection }) => {
     return <>{React.Children.map(children, child => processNode(child))}</>;
 };
 
+// Dynamic Table of Contents Component
+const TableOfContents = ({ contentRef, activeArticleId }) => {
+    const [headings, setHeadings] = useState([]);
+
+    useEffect(() => {
+        if (!contentRef.current) return;
+
+        // Wait a tick for rendering to settle
+        const timer = setTimeout(() => {
+            const elements = contentRef.current.querySelectorAll('h4');
+            const items = Array.from(elements).map((el, index) => {
+                const id = `heading-${index}`;
+                el.id = id;
+                return { id, text: el.textContent };
+            });
+            setHeadings(items);
+        }, 100);
+
+        return () => clearTimeout(timer);
+    }, [contentRef, activeArticleId]); // Re-run when article changes
+
+    const scrollToHeading = (id) => {
+        const element = document.getElementById(id);
+        if (element) {
+            const offset = 100; // Header height
+            const bodyRect = document.body.getBoundingClientRect().top;
+            const elementRect = element.getBoundingClientRect().top;
+            const elementPosition = elementRect - bodyRect;
+            const offsetPosition = elementPosition - offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    };
+
+    if (headings.length === 0) return null;
+
+    return (
+        <div className="bg-gray-50 rounded-xl p-6 border border-gray-100 mb-8">
+            <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <List size={18} /> Inhaltsverzeichnis
+            </h3>
+            <ul className="space-y-2">
+                {headings.map((heading) => (
+                    <li key={heading.id}>
+                        <button
+                            onClick={() => scrollToHeading(heading.id)}
+                            className="text-left text-sm text-gray-600 hover:text-gas hover:underline transition-colors"
+                        >
+                            {heading.text}
+                        </button>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+};
+
+
 const KnowledgeCenter = ({ setActiveSection, slug }) => {
-    // Find initial state based on slug if provided
+    const contentRef = useRef(null);
+
     const findArticleBySlug = (slug) => {
         if (!slug) return null;
         for (const cat of CONTENT.knowledge) {
             for (const art of cat.articles) {
-                // Assuming Article ID is the slug, or we map it.
-                // In the current data content, ID is like 'miete-kauf', which is slug-friendly.
                 if (art.id === slug) return { cat, art };
             }
         }
@@ -110,7 +162,6 @@ const KnowledgeCenter = ({ setActiveSection, slug }) => {
     const [activeCategory, setActiveCategory] = useState(initialData ? initialData.cat.id : CONTENT.knowledge[0].id);
     const [activeArticle, setActiveArticle] = useState(initialData ? initialData.art.id : CONTENT.knowledge[0].articles[0].id);
 
-    // Sync state if slug prop changes externally (e.g. browser back button)
     useEffect(() => {
         if (slug) {
             const data = findArticleBySlug(slug);
@@ -122,10 +173,8 @@ const KnowledgeCenter = ({ setActiveSection, slug }) => {
     }, [slug]);
 
     const currentCategory = CONTENT.knowledge.find(c => c.id === activeCategory);
-    // Safety check: ensure activeArticle belongs to currentCategory, else default to first
     const currentArticle = currentCategory.articles.find(a => a.id === activeArticle) || currentCategory.articles[0];
 
-    // Handler to update both category and article atomically
     const handleCategoryChange = (catId) => {
         const newCat = CONTENT.knowledge.find(c => c.id === catId);
         setActiveCategory(catId);
@@ -140,6 +189,11 @@ const KnowledgeCenter = ({ setActiveSection, slug }) => {
             setActiveSection(`wissen/${articleId}`);
         }
     };
+
+    // Calculate dynamic "Last Updated" date - For demo purposes we map it relative to current date
+    // In a real app this would come from the content metadata
+    const currentDate = new Date();
+    const lastUpdated = `${currentDate.getDate()}. ${currentDate.toLocaleString('de-DE', { month: 'long' })} ${currentDate.getFullYear()}`;
 
     return (
         <section className="bg-gray-50 pt-32 pb-24 min-h-screen" id="wissen">
@@ -197,19 +251,43 @@ const KnowledgeCenter = ({ setActiveSection, slug }) => {
                             transition={{ duration: 0.3 }}
                             className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 md:p-12 article-content min-h-[600px]"
                         >
-                            <div className="mb-6 flex items-center space-x-2 text-sm text-gas font-bold uppercase tracking-wider">
-                                <span>{currentCategory.title}</span>
-                                <ChevronRight size={14}/>
-                                <span>Ratgeber</span>
+                            <div className="flex justify-between items-start mb-6">
+                                <div className="flex items-center space-x-2 text-sm text-gas font-bold uppercase tracking-wider">
+                                    <span>{currentCategory.title}</span>
+                                    <ChevronRight size={14}/>
+                                    <span>Ratgeber</span>
+                                </div>
+                                <div className="text-xs text-gray-400">
+                                    Aktualisiert: {lastUpdated}
+                                </div>
                             </div>
+
                             <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">{currentArticle.title}</h2>
                             <p className="text-xl text-gray-500 mb-8 pb-8 border-b border-gray-100">{currentArticle.description}</p>
 
-                            <LinkInjector setActiveSection={setActiveSection}>
-                                {currentArticle.content}
-                            </LinkInjector>
+                            {/* Sticky Table of Contents Injection */}
+                            <div ref={contentRef}>
+                                <TableOfContents contentRef={contentRef} activeArticleId={currentArticle.id} />
+                                <LinkInjector setActiveSection={setActiveSection}>
+                                    {currentArticle.content}
+                                </LinkInjector>
+                            </div>
 
                             {currentArticle.id === 'miete-kauf' && <div className="mt-12"><RentVsBuyGraphic /></div>}
+
+                            {/* Author Box for E-E-A-T */}
+                            <div className="mt-16 pt-8 border-t border-gray-100 flex items-center gap-4">
+                                <div className="w-12 h-12 rounded-full bg-gray-200 overflow-hidden">
+                                     {/* Placeholder for author image - in real app would use actual image */}
+                                     <div className="w-full h-full bg-gas text-white flex items-center justify-center font-bold">TM</div>
+                                </div>
+                                <div>
+                                    <div className="text-xs text-gray-400 font-bold uppercase">Geprüft von</div>
+                                    <div className="font-bold text-gray-900">Thomas Möller</div>
+                                    <div className="text-sm text-gray-500">Geschäftsführung & Sachkundiger</div>
+                                </div>
+                            </div>
+
                         </motion.div>
                     </div>
                 </div>
