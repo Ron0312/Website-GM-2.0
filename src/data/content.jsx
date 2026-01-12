@@ -37,6 +37,33 @@ export const CONTENT = {
             icon: TrendingUp,
             articles: [
                 {
+                    id: 'anbieterwechsel',
+                    title: 'Anbieterwechsel leicht gemacht',
+                    description: 'Hängen Sie im Vertrag fest? So wechseln Sie.',
+                    content: (
+                        <div>
+                             <SourceBadge text="Freiheit genießen" />
+                             <p className="lead text-lg text-gray-700 mb-6">Viele Flüssiggas-Kunden glauben, sie seien auf Gedeih und Verderb an ihren aktuellen Lieferanten gebunden. Das ist oft ein Irrtum. Ein Wechsel zu einem freien Anbieter spart oft bares Geld.</p>
+
+                             <h4 className="text-xl font-bold text-gas mb-4">1. Wenn Ihnen der Tank gehört (Eigentum)</h4>
+                             <p className="mb-4">Das ist der Idealfall. Sie sind <strong>vollkommen frei</strong> in Ihrer Entscheidung. Sie können bei jeder Füllung den günstigsten Anbieter wählen – genau wie beim Heizöl. Lassen Sie sich nicht einschüchtern: Niemand kann Ihnen vorschreiben, wo Sie bestellen, solange das Gas der Norm (DIN 51622) entspricht.</p>
+
+                             <h4 className="text-xl font-bold text-gas mb-4">2. Wenn Sie einen Miettank haben</h4>
+                             <p className="mb-4">Hier sind Sie meist vertraglich gebunden. Aber: Prüfen Sie Ihre Laufzeiten! Viele alte Verträge laufen irgendwann aus oder haben kurze Kündigungsfristen. Ein Wechsel (Kündigung des Miettanks + Kauf eines eigenen Tanks) rechnet sich oft schon nach der ersten Füllung.</p>
+
+                             <div className="bg-green-50 p-4 rounded-xl border border-green-100 flex items-start gap-3 my-6">
+                                <CheckCircle className="text-green-600 flex-shrink-0" size={24} />
+                                <div>
+                                    <span className="font-bold text-green-800 block">Wir helfen beim Wechsel!</span>
+                                    <span className="text-green-700 text-sm">Sie sind unsicher? Schicken Sie uns Ihren aktuellen Vertrag (geschwärzt). Wir prüfen kostenlos, ob und wann Sie wechseln können.</span>
+                                </div>
+                            </div>
+
+                            <p className="text-sm text-gray-500 mt-4">Prüfen Sie jetzt unseren aktuellen <a href="/fluessiggas-bestellen" className="text-gas hover:underline">Tagespreis</a>.</p>
+                        </div>
+                    )
+                },
+                {
                     id: 'preis-guide',
                     title: 'Der große Preis-Guide',
                     description: 'Wann ist Flüssiggas am günstigsten? Ein Insider-Bericht.',

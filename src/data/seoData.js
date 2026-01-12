@@ -389,8 +389,8 @@ export const getSeoForPath = (path) => {
     case 'gas':
       return {
         ...defaultSeo,
-        title: `Flüssiggas Preis aktuell & Entwicklung | Propangas bestellen ${CURRENT_YEAR}`,
-        description: `Aktueller Flüssiggas & Propangas Preis ${CURRENT_YEAR}. Günstig tanken beim freien Anbieter. Preisentwicklung für 2700 Liter & 4850 Liter Tanks. Jetzt Tagespreis!`,
+        title: `Flüssiggas Preis aktuell | Lieferant wechseln & sparen ${CURRENT_YEAR}`,
+        description: `Flüssiggas bestellen zum Tagespreis. Ihr regionaler Lieferant (frei Haus). Anbieter wechseln leicht gemacht: Pünktlich, zuverlässig & ohne Vertragsbindung. Jetzt Preis prüfen!`,
         schema: [
             getOrganizationSchema(),
             getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Flüssiggas bestellen', url: '/fluessiggas-bestellen' }])
