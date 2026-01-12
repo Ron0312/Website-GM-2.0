@@ -13,6 +13,61 @@ const slugify = (text) => {
         .replace(/-+$/, '');
 };
 
+// Helper Component for Contextual CTA
+const ArticleCTA = ({ categoryId, setActiveSection }) => {
+    let ctaContent = null;
+
+    if (categoryId === 'gas-bestellung') {
+        ctaContent = (
+            <div className="bg-gas-light/20 p-6 rounded-xl border border-gas/20 mt-12 flex flex-col md:flex-row items-center gap-6 justify-between">
+                <div>
+                    <h4 className="font-bold text-gas-dark text-lg mb-2">Aktuellen Tagespreis prüfen?</h4>
+                    <p className="text-gray-600 text-sm">Sparen Sie bei Ihrer nächsten Flüssiggas-Lieferung. Unverbindlich & kostenlos.</p>
+                </div>
+                <button
+                    onClick={() => { if(setActiveSection) { setActiveSection('fluessiggas-bestellen'); window.scrollTo(0,0); } }}
+                    className="whitespace-nowrap bg-gas text-white font-bold py-3 px-6 rounded-lg hover:bg-gas-dark transition-colors shadow-md hover:shadow-lg"
+                >
+                    Tagespreis berechnen
+                </button>
+            </div>
+        );
+    } else if (categoryId === 'tank-technik') {
+        ctaContent = (
+            <div className="bg-gas-light/20 p-6 rounded-xl border border-gas/20 mt-12 flex flex-col md:flex-row items-center gap-6 justify-between">
+                <div>
+                    <h4 className="font-bold text-gas-dark text-lg mb-2">Interesse am eigenen Tank?</h4>
+                    <p className="text-gray-600 text-sm">Machen Sie sich unabhängig von Mietverträgen. Jetzt Angebot für Kauftank anfordern.</p>
+                </div>
+                 <button
+                    onClick={() => { if(setActiveSection) { setActiveSection('fluessiggastank-kaufen'); window.scrollTo(0,0); } }}
+                    className="whitespace-nowrap bg-gas text-white font-bold py-3 px-6 rounded-lg hover:bg-gas-dark transition-colors shadow-md hover:shadow-lg"
+                >
+                    Tank-Angebot anfordern
+                </button>
+            </div>
+        );
+    } else {
+        // Default generic CTA
+        ctaContent = (
+             <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 mt-12 flex flex-col md:flex-row items-center gap-6 justify-between">
+                <div>
+                    <h4 className="font-bold text-gray-800 text-lg mb-2">Noch Fragen offen?</h4>
+                    <p className="text-gray-600 text-sm">Unser Team berät Sie gerne persönlich zu allen Themen rund um Flüssiggas.</p>
+                </div>
+                 <button
+                    onClick={() => { if(setActiveSection) { setActiveSection('kontakt'); window.scrollTo(0,0); } }}
+                    className="whitespace-nowrap bg-white text-gas font-bold border-2 border-gas py-3 px-6 rounded-lg hover:bg-gas hover:text-white transition-colors"
+                >
+                    Kontakt aufnehmen
+                </button>
+            </div>
+        );
+    }
+
+    return ctaContent;
+};
+
 // Component to automate internal linking in text
 const LinkInjector = ({ children, setActiveSection }) => {
     const handleLinkClick = (path, e) => {
@@ -244,26 +299,26 @@ const KnowledgeCenter = ({ setActiveSection, slug }) => {
 
                     {/* Main Content Area */}
                     <div className="lg:col-span-8">
-                        <motion.div
+                        <motion.article
                             key={currentArticle.id}
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.3 }}
                             className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 md:p-12 article-content min-h-[600px]"
                         >
-                            <div className="flex justify-between items-start mb-6">
+                            <header className="flex justify-between items-start mb-6">
                                 <div className="flex items-center space-x-2 text-sm text-gas font-bold uppercase tracking-wider">
                                     <span>{currentCategory.title}</span>
                                     <ChevronRight size={14}/>
                                     <span>Ratgeber</span>
                                 </div>
-                                <div className="text-xs text-gray-400">
+                                <time dateTime={currentDate.toISOString()} className="text-xs text-gray-400">
                                     Aktualisiert: {lastUpdated}
-                                </div>
-                            </div>
+                                </time>
+                            </header>
 
-                            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">{currentArticle.title}</h2>
-                            <p className="text-xl text-gray-500 mb-8 pb-8 border-b border-gray-100">{currentArticle.description}</p>
+                            <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">{currentArticle.title}</h1>
+                            <p className="lead text-xl text-gray-500 mb-8 pb-8 border-b border-gray-100">{currentArticle.description}</p>
 
                             {/* Sticky Table of Contents Injection */}
                             <div ref={contentRef}>
@@ -275,11 +330,15 @@ const KnowledgeCenter = ({ setActiveSection, slug }) => {
 
                             {currentArticle.id === 'miete-kauf' && <div className="mt-12"><RentVsBuyGraphic /></div>}
 
+                            {/* Contextual Smart CTA */}
+                            <ArticleCTA categoryId={currentCategory.id} setActiveSection={setActiveSection} />
+
                             {/* Author Box for E-E-A-T */}
                             <div className="mt-16 pt-8 border-t border-gray-100 flex items-center gap-4">
                                 <div className="w-12 h-12 rounded-full bg-gray-200 overflow-hidden">
                                      {/* Placeholder for author image - in real app would use actual image */}
-                                     <div className="w-full h-full bg-gas text-white flex items-center justify-center font-bold">TM</div>
+                                     <img src="/images/team/thomas-moeller-lkw.webp" alt="Thomas Möller" className="w-full h-full object-cover" onError={(e) => {e.target.style.display='none'; e.target.nextSibling.style.display='flex'}} />
+                                     <div className="w-full h-full bg-gas text-white hidden items-center justify-center font-bold">TM</div>
                                 </div>
                                 <div>
                                     <div className="text-xs text-gray-400 font-bold uppercase">Geprüft von</div>
@@ -288,7 +347,7 @@ const KnowledgeCenter = ({ setActiveSection, slug }) => {
                                 </div>
                             </div>
 
-                        </motion.div>
+                        </motion.article>
                     </div>
                 </div>
             </div>
