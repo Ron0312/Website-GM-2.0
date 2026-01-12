@@ -71,6 +71,14 @@ const TankDetail = ({ slug, onBack, openWizard }) => {
                                     <rect x="190" y="50" width="20" height="10" fill="silver" />
                                     <circle cx="200" cy="55" r="15" fill="silver" opacity="0.5"/>
                                 </svg>
+                            ) : tank.type === 'halboberirdisch' ? (
+                                <svg viewBox="0 0 400 200" className="w-full drop-shadow-xl text-blue-600">
+                                    <path d="M0 100 L400 100" stroke="#93c5fd" strokeWidth="4" strokeDasharray="10 5" />
+                                    <rect x="50" y="60" width="300" height="80" rx="40" fill="currentColor" opacity="0.1" />
+                                    <rect x="50" y="60" width="300" height="80" rx="40" stroke="currentColor" strokeWidth="2" fill="none" />
+                                    <rect x="170" y="40" width="60" height="20" rx="2" fill="silver" />
+                                    <rect x="180" y="35" width="40" height="5" fill="#374151" />
+                                </svg>
                             ) : (
                                 <svg viewBox="0 0 400 200" className="w-full drop-shadow-xl text-green-600">
                                     <path d="M0 100 L400 100" stroke="#86efac" strokeWidth="4" strokeDasharray="10 5" />

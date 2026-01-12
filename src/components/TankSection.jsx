@@ -47,9 +47,8 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
     const currentInfo = tankInfo[filter];
 
     const visibleTanks = useMemo(() => {
-        return tankDetails
-            .filter(t => t.type === filter)
-            .map(t => ({
+        const filtered = tankDetails.filter(t => t.type === filter);
+        return filtered.map(t => ({
                 type: t.type,
                 size: t.volume,
                 capacity: t.capacity,
@@ -149,15 +148,13 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                     </AnimatePresence>
                 </div>
 
-                {/* Mobile Slider Hint */}
-                <div className="md:hidden text-center text-xs text-gray-400 mb-4 animate-pulse font-medium">
-                    ← Wischen für mehr →
-                </div>
+                {/* Mobile Slider Hint - Replaced with visual peeking design, removed text as per modern UX patterns */}
 
                 {/* The Tank "Stage" Grid - Slider on Mobile */}
-                <div className="flex md:grid md:grid-cols-3 gap-8 mb-32 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none -mx-4 px-4 md:mx-0 md:px-0 pb-12 md:pb-0 scrollbar-hide">
+                {/* Adjusted min-w to 80vw to allow "peeking" of next card (better affordance) */}
+                <div className="flex md:grid md:grid-cols-3 gap-4 md:gap-8 mb-32 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none -mx-4 px-4 md:mx-0 md:px-0 pb-12 md:pb-0 scrollbar-hide">
                     {visibleTanks.map((tank, i) => (
-                        <div key={i} className="min-w-[85vw] md:min-w-0 snap-center">
+                        <div key={i} className="min-w-[80vw] md:min-w-0 snap-center pl-2 first:pl-0">
                             <TankCard
                                 tank={tank}
                                 type={filter}

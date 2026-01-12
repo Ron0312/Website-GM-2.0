@@ -83,7 +83,8 @@ export const findClientRedirect = (pathStr) => {
 
     // 2. Tank Logic
     const isTank = p.includes('tank') || p.includes('behaelter') || p.includes('behälter') || pNorm.includes('tank');
-    const isOberirdisch = p.includes('oberirdisch') || pNorm.includes('oberirdisch');
+    const isHalboberirdisch = p.includes('halboberirdisch') || pNorm.includes('halboberirdisch');
+    const isOberirdisch = (p.includes('oberirdisch') || pNorm.includes('oberirdisch')) && !isHalboberirdisch;
     const isUnterirdisch = p.includes('unterirdisch') || pNorm.includes('unterirdisch');
 
     let size = null;
@@ -98,6 +99,7 @@ export const findClientRedirect = (pathStr) => {
             '2-9t': '6400l'
         };
         const vol = sizeMap[size];
+        if (isHalboberirdisch) return `/fluessiggastank-kaufen/fluessiggastank-${vol}-halboberirdisch-${size}`;
         if (isOberirdisch) return `/fluessiggastank-kaufen/fluessiggastank-${vol}-oberirdisch-${size}`;
         if (isUnterirdisch) return `/fluessiggastank-kaufen/fluessiggastank-${vol}-unterirdisch-${size}`;
     }
