@@ -162,6 +162,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                                 tank={tank}
                                 type={filter}
                                 onContact={() => openWizard ? openWizard('tank') : null}
+                                setActiveSection={setActiveSection}
                             />
                         </div>
                     ))}

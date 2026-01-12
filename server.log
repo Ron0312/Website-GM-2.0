@@ -2,22 +2,12 @@
 > gasmoeller-vite@0.0.0 dev
 > node server.js
 
-{"level":"INFO","timestamp":"2026-01-05T22:04:57.682Z","message":"Loaded 26 knowledge articles."}
-{"level":"INFO","timestamp":"2026-01-05T22:04:57.687Z","message":"Starting server. Initial mode: DEVELOPMENT"}
-{"level":"INFO","timestamp":"2026-01-05T22:04:57.971Z","message":"Server started at http://localhost:5173"}
-{"level":"WARN","timestamp":"2026-01-05T22:05:18.273Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"25ms","ip":"::1"}
-{"level":"WARN","timestamp":"2026-01-05T22:05:18.435Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"17ms","ip":"::1"}
-{"level":"WARN","timestamp":"2026-01-05T22:05:18.460Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"18ms","ip":"::1"}
-{"level":"WARN","timestamp":"2026-01-05T22:05:18.506Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"28ms","ip":"::1"}
-{"level":"WARN","timestamp":"2026-01-05T22:05:20.634Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"10ms","ip":"::1"}
-{"level":"WARN","timestamp":"2026-01-05T22:05:20.679Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"13ms","ip":"::1"}
-{"level":"WARN","timestamp":"2026-01-05T22:05:20.704Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"15ms","ip":"::1"}
-{"level":"WARN","timestamp":"2026-01-05T22:05:20.728Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"22ms","ip":"::1"}
-{"level":"WARN","timestamp":"2026-01-05T22:05:35.048Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"46ms","ip":"::1"}
-{"level":"WARN","timestamp":"2026-01-05T22:05:35.112Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"14ms","ip":"::1"}
-{"level":"WARN","timestamp":"2026-01-05T22:05:35.148Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"10ms","ip":"::1"}
-{"level":"WARN","timestamp":"2026-01-05T22:05:35.165Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"17ms","ip":"::1"}
-{"level":"WARN","timestamp":"2026-01-05T22:05:36.887Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"15ms","ip":"::1"}
-{"level":"WARN","timestamp":"2026-01-05T22:05:36.953Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"20ms","ip":"::1"}
-{"level":"WARN","timestamp":"2026-01-05T22:05:36.983Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"25ms","ip":"::1"}
-{"level":"WARN","timestamp":"2026-01-05T22:05:36.999Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"14ms","ip":"::1"}
+{"level":"INFO","timestamp":"2026-01-11T23:26:29.276Z","message":"Loaded 26 knowledge articles."}
+{"level":"INFO","timestamp":"2026-01-11T23:26:29.283Z","message":"Starting server. Initial mode: DEVELOPMENT"}
+{"level":"INFO","timestamp":"2026-01-11T23:26:29.943Z","message":"Server started at http://localhost:5173"}
+{"level":"WARN","timestamp":"2026-01-11T23:27:33.976Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"61ms","ip":"::1"}
+{"level":"WARN","timestamp":"2026-01-11T23:27:34.102Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"50ms","ip":"::1"}
+{"level":"WARN","timestamp":"2026-01-11T23:27:34.267Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"22ms","ip":"::1"}
+{"level":"WARN","timestamp":"2026-01-11T23:27:34.316Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"31ms","ip":"::1"}
+{"level":"INFO","timestamp":"2026-01-11T23:33:47.087Z","message":"Received kill signal, shutting down gracefully"}
+{"level":"INFO","timestamp":"2026-01-11T23:33:47.088Z","message":"Closed out remaining connections"}

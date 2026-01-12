@@ -99,37 +99,53 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                 <nav className="hidden lg:flex items-center gap-1" role="navigation" aria-label="Hauptnavigation">
                     {navItems.map((item) => (
                         <div key={item.id} className="relative group">
-                            <button
-                                onClick={() => {
-                                    // For tanks, allow clicking parent to navigate
-                                    if (item.id === 'fluessiggastank-kaufen') {
+                            {item.hasChildren && item.id !== 'fluessiggastank-kaufen' ? (
+                                <button
+                                    className={`
+                                        px-4 py-2 rounded-lg text-sm font-bold transition-all flex items-center gap-1 relative whitespace-nowrap
+                                        ${effectiveScrolled ? 'text-gray-700 hover:text-gas hover:bg-gas-light/30' : 'text-white/90 hover:text-white hover:bg-white/10'}
+                                        ${isActive(item.id) ? (effectiveScrolled ? 'text-gas bg-gas-light/50' : 'text-white bg-white/20') : ''}
+                                    `}
+                                    aria-expanded={item.hasChildren ? "false" : undefined}
+                                    aria-haspopup={item.hasChildren ? "true" : undefined}
+                                >
+                                    {item.label}
+                                    <ChevronDown size={14} className="mt-0.5 opacity-70 group-hover:rotate-180 transition-transform" />
+                                     {isActive(item.id) && (
+                                        <motion.div
+                                            layoutId="activeNav"
+                                            className={`absolute bottom-0 left-2 right-2 h-0.5 rounded-full ${effectiveScrolled ? 'bg-gas' : 'bg-white'}`}
+                                            initial={false}
+                                        />
+                                    )}
+                                </button>
+                            ) : (
+                                <a
+                                    href={item.id === 'start' ? '/' : `/${item.id}`}
+                                    onClick={(e) => {
+                                        e.preventDefault();
                                         setActiveSection(item.id);
-                                    } else if (!item.hasChildren) {
-                                        setActiveSection(item.id);
-                                    }
-                                }}
-                                className={`
-                                    px-4 py-2 rounded-lg text-sm font-bold transition-all flex items-center gap-1 relative whitespace-nowrap
-                                    ${effectiveScrolled ? 'text-gray-700 hover:text-gas hover:bg-gas-light/30' : 'text-white/90 hover:text-white hover:bg-white/10'}
-                                    ${isActive(item.id) ? (effectiveScrolled ? 'text-gas bg-gas-light/50' : 'text-white bg-white/20') : ''}
-                                `}
-                                aria-current={isActive(item.id) ? 'page' : undefined}
-                                aria-expanded={item.hasChildren ? "false" : undefined}
-                                aria-haspopup={item.hasChildren ? "true" : undefined}
-                            >
-                                {item.highlight && <Flame size={16} className={`mr-1 ${effectiveScrolled ? 'text-orange-500' : 'text-orange-400'}`} />}
-                                {item.label}
-                                {item.hasChildren && <ChevronDown size={14} className="mt-0.5 opacity-70 group-hover:rotate-180 transition-transform" />}
+                                    }}
+                                    className={`
+                                        px-4 py-2 rounded-lg text-sm font-bold transition-all flex items-center gap-1 relative whitespace-nowrap
+                                        ${effectiveScrolled ? 'text-gray-700 hover:text-gas hover:bg-gas-light/30' : 'text-white/90 hover:text-white hover:bg-white/10'}
+                                        ${isActive(item.id) ? (effectiveScrolled ? 'text-gas bg-gas-light/50' : 'text-white bg-white/20') : ''}
+                                    `}
+                                    aria-current={isActive(item.id) ? 'page' : undefined}
+                                >
+                                    {item.highlight && <Flame size={16} className={`mr-1 ${effectiveScrolled ? 'text-orange-500' : 'text-orange-400'}`} />}
+                                    {item.label}
+                                    {item.hasChildren && <ChevronDown size={14} className="mt-0.5 opacity-70 group-hover:rotate-180 transition-transform" />}
 
-                                {/* Active Underscore Animation */}
-                                {isActive(item.id) && (
-                                    <motion.div
-                                        layoutId="activeNav"
-                                        className={`absolute bottom-0 left-2 right-2 h-0.5 rounded-full ${effectiveScrolled ? 'bg-gas' : 'bg-white'}`}
-                                        initial={false}
-                                    />
-                                )}
-                            </button>
+                                    {isActive(item.id) && (
+                                        <motion.div
+                                            layoutId="activeNav"
+                                            className={`absolute bottom-0 left-2 right-2 h-0.5 rounded-full ${effectiveScrolled ? 'bg-gas' : 'bg-white'}`}
+                                            initial={false}
+                                        />
+                                    )}
+                                </a>
+                            )}
 
                             {/* Dropdown Menu */}
                             {item.hasChildren && (
@@ -144,18 +160,18 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                                         <span>Oberirdisch</span>
                                                     </div>
                                                     <div className="flex flex-col gap-1">
-                                                        <button onClick={() => handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-2700l-oberirdisch-1-2t')} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item">
+                                                        <a href="/fluessiggastank-kaufen/fluessiggastank-2700l-oberirdisch-1-2t" onClick={(e) => { e.preventDefault(); handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-2700l-oberirdisch-1-2t'); }} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item block">
                                                             <span>1,2 t (2700 Liter)</span>
                                                             <ChevronRight size={14} className="opacity-0 group-hover/item:opacity-100 text-gas transition-opacity" />
-                                                        </button>
-                                                        <button onClick={() => handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-4850l-oberirdisch-2-1t')} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item">
+                                                        </a>
+                                                        <a href="/fluessiggastank-kaufen/fluessiggastank-4850l-oberirdisch-2-1t" onClick={(e) => { e.preventDefault(); handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-4850l-oberirdisch-2-1t'); }} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item block">
                                                             <span>2,1 t (4850 Liter)</span>
                                                             <ChevronRight size={14} className="opacity-0 group-hover/item:opacity-100 text-gas transition-opacity" />
-                                                        </button>
-                                                        <button onClick={() => handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-6400l-oberirdisch-2-9t')} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item">
+                                                        </a>
+                                                        <a href="/fluessiggastank-kaufen/fluessiggastank-6400l-oberirdisch-2-9t" onClick={(e) => { e.preventDefault(); handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-6400l-oberirdisch-2-9t'); }} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item block">
                                                             <span>2,9 t (6400 Liter)</span>
                                                             <ChevronRight size={14} className="opacity-0 group-hover/item:opacity-100 text-gas transition-opacity" />
-                                                        </button>
+                                                        </a>
                                                     </div>
                                                 </div>
                                                 <div>
@@ -164,18 +180,18 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                                         <span>Unterirdisch</span>
                                                     </div>
                                                     <div className="flex flex-col gap-1">
-                                                        <button onClick={() => handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-2700l-unterirdisch-1-2t')} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item">
+                                                        <a href="/fluessiggastank-kaufen/fluessiggastank-2700l-unterirdisch-1-2t" onClick={(e) => { e.preventDefault(); handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-2700l-unterirdisch-1-2t'); }} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item block">
                                                             <span>1,2 t (2700 Liter)</span>
                                                             <ChevronRight size={14} className="opacity-0 group-hover/item:opacity-100 text-gas transition-opacity" />
-                                                        </button>
-                                                        <button onClick={() => handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-4850l-unterirdisch-2-1t')} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item">
+                                                        </a>
+                                                        <a href="/fluessiggastank-kaufen/fluessiggastank-4850l-unterirdisch-2-1t" onClick={(e) => { e.preventDefault(); handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-4850l-unterirdisch-2-1t'); }} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item block">
                                                             <span>2,1 t (4850 Liter)</span>
                                                             <ChevronRight size={14} className="opacity-0 group-hover/item:opacity-100 text-gas transition-opacity" />
-                                                        </button>
-                                                        <button onClick={() => handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-6400l-unterirdisch-2-9t')} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item">
+                                                        </a>
+                                                        <a href="/fluessiggastank-kaufen/fluessiggastank-6400l-unterirdisch-2-9t" onClick={(e) => { e.preventDefault(); handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-6400l-unterirdisch-2-9t'); }} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item block">
                                                             <span>2,9 t (6400 Liter)</span>
                                                             <ChevronRight size={14} className="opacity-0 group-hover/item:opacity-100 text-gas transition-opacity" />
-                                                        </button>
+                                                        </a>
                                                     </div>
                                                 </div>
                                                 <div>
@@ -184,18 +200,18 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                                         <span>Halboberirdisch</span>
                                                     </div>
                                                     <div className="flex flex-col gap-1">
-                                                        <button onClick={() => handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-2700l-halboberirdisch-1-2t')} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item">
+                                                        <a href="/fluessiggastank-kaufen/fluessiggastank-2700l-halboberirdisch-1-2t" onClick={(e) => { e.preventDefault(); handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-2700l-halboberirdisch-1-2t'); }} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item block">
                                                             <span>1,2 t (2700 Liter)</span>
                                                             <ChevronRight size={14} className="opacity-0 group-hover/item:opacity-100 text-gas transition-opacity" />
-                                                        </button>
-                                                        <button onClick={() => handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-4850l-halboberirdisch-2-1t')} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item">
+                                                        </a>
+                                                        <a href="/fluessiggastank-kaufen/fluessiggastank-4850l-halboberirdisch-2-1t" onClick={(e) => { e.preventDefault(); handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-4850l-halboberirdisch-2-1t'); }} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item block">
                                                             <span>2,1 t (4850 Liter)</span>
                                                             <ChevronRight size={14} className="opacity-0 group-hover/item:opacity-100 text-gas transition-opacity" />
-                                                        </button>
-                                                        <button onClick={() => handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-6400l-halboberirdisch-2-9t')} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item">
+                                                        </a>
+                                                        <a href="/fluessiggastank-kaufen/fluessiggastank-6400l-halboberirdisch-2-9t" onClick={(e) => { e.preventDefault(); handleTankDetailClick('fluessiggastank-kaufen/fluessiggastank-6400l-halboberirdisch-2-9t'); }} className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 text-sm text-gray-600 hover:text-gas transition-colors flex justify-between items-center group/item block">
                                                             <span>2,9 t (6400 Liter)</span>
                                                             <ChevronRight size={14} className="opacity-0 group-hover/item:opacity-100 text-gas transition-opacity" />
-                                                        </button>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -203,14 +219,15 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                             /* Standard Dropdown */
                                             <div className="flex flex-col gap-1">
                                                 {item.children.map((child) => (
-                                                    <button
+                                                    <a
+                                                        href={`/${child.id}`}
                                                         key={child.id}
-                                                        onClick={() => setActiveSection(child.id)}
-                                                        className="w-full text-left px-4 py-3 rounded-lg hover:bg-gas-light/30 text-sm font-medium text-gray-700 hover:text-gas flex items-center gap-3 transition-colors"
+                                                        onClick={(e) => { e.preventDefault(); setActiveSection(child.id); }}
+                                                        className="w-full text-left px-4 py-3 rounded-lg hover:bg-gas-light/30 text-sm font-medium text-gray-700 hover:text-gas flex items-center gap-3 transition-colors block"
                                                     >
                                                         {child.icon && <child.icon size={16} className="text-gas opacity-70" />}
                                                         {child.label}
-                                                    </button>
+                                                    </a>
                                                 ))}
                                             </div>
                                         )}
@@ -307,27 +324,29 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                                                     className="overflow-hidden bg-gray-50 rounded-lg mb-2"
                                                                 >
                                                                     {item.children.map(child => (
-                                                                        <button
+                                                                        <a
+                                                                            href={`/${child.id}`}
                                                                             key={child.id}
-                                                                            onClick={() => setActiveSection(child.id)}
+                                                                            onClick={(e) => { e.preventDefault(); setActiveSection(child.id); }}
                                                                             className="block w-full text-left px-4 py-3 text-sm font-medium text-gray-600 border-b border-gray-100 last:border-0 hover:text-gas"
                                                                         >
                                                                             {child.label}
-                                                                        </button>
+                                                                        </a>
                                                                     ))}
                                                                 </motion.div>
                                                             )}
                                                         </AnimatePresence>
                                                     </div>
                                                 ) : (
-                                                    <button
-                                                        onClick={() => setActiveSection(item.id)}
-                                                        className={`w-full text-left py-4 font-bold flex items-center gap-2 ${isActive(item.id) ? 'text-gas' : 'text-gray-800'} ${item.highlight ? 'text-orange-500' : ''}`}
+                                                    <a
+                                                        href={item.id === 'start' ? '/' : `/${item.id}`}
+                                                        onClick={(e) => { e.preventDefault(); setActiveSection(item.id); }}
+                                                        className={`w-full text-left py-4 font-bold flex items-center gap-2 ${isActive(item.id) ? 'text-gas' : 'text-gray-800'} ${item.highlight ? 'text-orange-500' : ''} block`}
                                                     >
                                                         {item.icon && <item.icon size={20} className={item.highlight ? 'text-orange-500' : 'text-gas'} />}
                                                         {item.highlight && <Flame size={20} className="text-orange-500" />}
                                                         {item.label}
-                                                    </button>
+                                                    </a>
                                                 )}
                                             </div>
                                         ))}

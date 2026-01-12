@@ -52,11 +52,12 @@ const KnowledgeTeaser = ({ setActiveSection }) => {
 
                 <div className="grid md:grid-cols-3 gap-8">
                     {articles.map((article) => (
-                        <motion.div
+                        <motion.a
                             key={article.id}
+                            href={`/wissen/${article.id}`}
+                            onClick={(e) => { e.preventDefault(); handleReadMore(article.id); }}
                             whileHover={{ y: -5 }}
-                            className="bg-gray-50 rounded-2xl p-8 border border-gray-100 hover:shadow-xl transition-all cursor-pointer group"
-                            onClick={() => handleReadMore(article.id)}
+                            className="bg-gray-50 rounded-2xl p-8 border border-gray-100 hover:shadow-xl transition-all cursor-pointer group block"
                         >
                             <div className={`w-14 h-14 ${article.bg} rounded-2xl flex items-center justify-center ${article.color} mb-6 group-hover:scale-110 transition-transform`}>
                                 <article.icon size={28} />
@@ -69,17 +70,18 @@ const KnowledgeTeaser = ({ setActiveSection }) => {
                             <div className="flex items-center text-gas font-bold group-hover:gap-2 transition-all">
                                 Artikel lesen <ArrowRight size={18} className="ml-2" />
                             </div>
-                        </motion.div>
+                        </motion.a>
                     ))}
                 </div>
 
                 <div className="mt-12 text-center">
-                    <button
-                        onClick={() => { setActiveSection('wissen'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                    <a
+                        href="/wissen"
+                        onClick={(e) => { e.preventDefault(); setActiveSection('wissen'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                         className="inline-flex items-center gap-2 text-gray-500 font-bold hover:text-gas transition-colors"
                     >
                         Alle Ratgeber-Artikel ansehen <ArrowRight size={18} />
-                    </button>
+                    </a>
                 </div>
             </div>
         </section>

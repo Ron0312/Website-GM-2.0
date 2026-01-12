@@ -127,12 +127,13 @@ const GasOrderSection = ({ onCheckAvailability, setActiveSection }) => {
                             </div>
 
                             <div className="mt-2 text-right">
-                                <button
-                                    onClick={() => setActiveSection && setActiveSection('wissen/preis-guide')}
-                                    className="text-xs text-blue-200 hover:text-white underline decoration-blue-200/50 hover:decoration-white transition-all text-left"
+                                <a
+                                    href="/wissen/preis-guide"
+                                    onClick={(e) => { e.preventDefault(); setActiveSection && setActiveSection('wissen/preis-guide'); }}
+                                    className="text-xs text-blue-200 hover:text-white underline decoration-blue-200/50 hover:decoration-white transition-all text-left inline-block"
                                 >
                                     Wann ist der beste Kaufzeitpunkt?
-                                </button>
+                                </a>
                             </div>
                         </div>
 

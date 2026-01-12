@@ -48,11 +48,12 @@ const DeliveryAreaOverview = ({ setActiveSection }) => {
                             </h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                                 {citiesByState[state].map((city) => (
-                                    <motion.button
+                                    <motion.a
+                                        href={`/liefergebiet/${city.slug}`}
                                         key={city.slug}
                                         whileHover={{ scale: 1.02 }}
-                                        onClick={() => setActiveSection(`liefergebiet/${city.slug}`)}
-                                        className="group bg-white p-4 rounded-xl border border-gray-200 hover:border-gas hover:shadow-md transition-all text-left flex items-center justify-between"
+                                        onClick={(e) => { e.preventDefault(); setActiveSection(`liefergebiet/${city.slug}`); }}
+                                        className="group bg-white p-4 rounded-xl border border-gray-200 hover:border-gas hover:shadow-md transition-all text-left flex items-center justify-between block"
                                     >
                                         <div>
                                             <span className="font-bold text-gray-800 group-hover:text-gas transition-colors block">
@@ -61,7 +62,7 @@ const DeliveryAreaOverview = ({ setActiveSection }) => {
                                             <span className="text-sm text-gray-400">{city.zip}</span>
                                         </div>
                                         <ArrowRight size={16} className="text-gray-300 group-hover:text-gas transform group-hover:translate-x-1 transition-all" />
-                                    </motion.button>
+                                    </motion.a>
                                 ))}
                             </div>
                         </div>
@@ -75,12 +76,13 @@ const DeliveryAreaOverview = ({ setActiveSection }) => {
                             Kein Problem! Wir liefern in weiten Teilen Norddeutschlands.
                             Geben Sie einfach Ihre Postleitzahl in unserem Anfrage-Assistenten ein.
                         </p>
-                        <button
-                            onClick={() => setActiveSection('start')} // Assuming start has the wizard or calculator
-                            className="bg-white text-gas-dark px-8 py-4 rounded-xl font-bold hover:bg-gray-100 transition-colors"
+                        <a
+                            href="/"
+                            onClick={(e) => { e.preventDefault(); setActiveSection('start'); }}
+                            className="bg-white text-gas-dark px-8 py-4 rounded-xl font-bold hover:bg-gray-100 transition-colors inline-block"
                         >
                             Jetzt Verfügbarkeit prüfen
-                        </button>
+                        </a>
                     </div>
                     {/* Decorative background circles */}
                     <div className="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>

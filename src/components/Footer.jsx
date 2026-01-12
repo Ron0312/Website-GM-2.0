@@ -66,7 +66,12 @@ const Footer = ({ setActiveSection, openLegal }) => {
     };
 
     // A11y & UX: Larger touch targets on mobile (min 44px)
-    const linkClass = "hover:text-white transition-colors py-3 md:py-1 block md:inline-block w-full text-left min-h-[44px] md:min-h-0 flex items-center md:block";
+    const linkClass = "hover:text-white transition-colors py-3 md:py-1 block md:inline-block w-full text-left min-h-[44px] md:min-h-0 flex items-center md:block cursor-pointer";
+
+    const handleNav = (e, slug) => {
+        e.preventDefault();
+        setActiveSection(slug);
+    };
 
     return (
         <footer className="bg-gray-900 text-gray-400 py-20 border-t border-gray-800 text-sm">
@@ -95,10 +100,10 @@ const Footer = ({ setActiveSection, openLegal }) => {
                 <div>
                     <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-wider">Schnellzugriff</h4>
                     <ul className="space-y-2">
-                        <li><button onClick={() => setActiveSection('fluessiggastank-kaufen')} className={linkClass}>Flüssiggastank kaufen</button></li>
-                        <li><button onClick={() => setActiveSection('fluessiggas-bestellen')} className={linkClass}>Flüssiggas bestellen</button></li>
-                        <li><button onClick={() => setActiveSection('rechner')} className={linkClass}>Spar-Rechner</button></li>
-                        <li><button onClick={() => setActiveSection('kontakt')} className={linkClass}>Kontakt</button></li>
+                        <li><a href="/fluessiggastank-kaufen" onClick={(e) => handleNav(e, 'fluessiggastank-kaufen')} className={linkClass}>Flüssiggastank kaufen</a></li>
+                        <li><a href="/fluessiggas-bestellen" onClick={(e) => handleNav(e, 'fluessiggas-bestellen')} className={linkClass}>Flüssiggas bestellen</a></li>
+                        <li><a href="/rechner" onClick={(e) => handleNav(e, 'rechner')} className={linkClass}>Spar-Rechner</a></li>
+                        <li><a href="/kontakt" onClick={(e) => handleNav(e, 'kontakt')} className={linkClass}>Kontakt</a></li>
                         <li className="pt-2 border-t border-gray-800 mt-2">
                             <a href={`tel:${PHONE_NUMBER}`} className={`${linkClass} flex items-center gap-2 font-semibold`}>
                                 <Phone size={14} /> {PHONE_NUMBER_DISPLAY}
@@ -112,7 +117,7 @@ const Footer = ({ setActiveSection, openLegal }) => {
                         <li><button onClick={() => openLegal('imprint')} className={linkClass}>Impressum</button></li>
                         <li><button onClick={() => openLegal('privacy')} className={linkClass}>Datenschutz</button></li>
                         <li><button onClick={() => openLegal('terms')} className={linkClass}>AGB</button></li>
-                        <li><button onClick={() => openLegal('accessibility')} className={linkClass}>Barrierefreiheit</button></li>
+                        <li><a href="/barrierefreiheit" onClick={(e) => handleNav(e, 'barrierefreiheit')} className={linkClass}>Barrierefreiheit</a></li>
                         <li><a href="/sitemap.xml" className={linkClass} target="_blank">Sitemap</a></li>
                     </ul>
                 </div>
