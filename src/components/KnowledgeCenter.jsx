@@ -279,12 +279,12 @@ const KnowledgeCenter = ({ setActiveSection, slug }) => {
                             <div className="mt-16 pt-8 border-t border-gray-100 flex items-center gap-4">
                                 <div className="w-12 h-12 rounded-full bg-gray-200 overflow-hidden">
                                      {/* Placeholder for author image - in real app would use actual image */}
-                                     <div className="w-full h-full bg-gas text-white flex items-center justify-center font-bold">AM</div>
+                                     <div className="w-full h-full bg-gas text-white flex items-center justify-center font-bold">TM</div>
                                 </div>
                                 <div>
                                     <div className="text-xs text-gray-400 font-bold uppercase">Geprüft von</div>
-                                    <div className="font-bold text-gray-900">Anja Müller</div>
-                                    <div className="text-sm text-gray-500">Expertin für Energiewirtschaft</div>
+                                    <div className="font-bold text-gray-900">Thomas Möller</div>
+                                    <div className="text-sm text-gray-500">Geschäftsführung & Sachkundiger</div>
                                 </div>
                             </div>
 

@@ -308,10 +308,10 @@ const getCommercialServiceSchema = () => ({
 // Shared Person/Author Schema for E-E-A-T
 const getAuthorSchema = () => ({
     "@type": "Person",
-    "name": "Anja Müller",
-    "jobTitle": "Inhaberin",
+    "name": "Thomas Möller",
+    "jobTitle": "Geschäftsführung & Sachkundiger",
     "url": "https://gasmoeller.de/ueber-uns",
-    "image": "https://gasmoeller.de/images/team/anja-mueller.webp", // Assuming this exists or falls back
+    "image": "https://gasmoeller.de/images/team/thomas-moeller-lkw.webp",
     "sameAs": [
         "https://www.linkedin.com/company/gas-service-möller"
     ]
