@@ -23,6 +23,7 @@ const contactSchema = z.object({
         city: z.string().min(2, "Ort ist erforderlich"),
         email: z.string().email("Gültige E-Mail erforderlich"),
         phone: z.string().optional(),
+        message: z.string().optional(),
         honeypot: z.string().max(0).optional(),
         consent: z.literal(true, { errorMap: () => ({ message: "Zustimmung erforderlich" }) })
     })
@@ -59,6 +60,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                 city: '',
                 email: '',
                 phone: '',
+                message: '',
                 honeypot: '',
                 consent: false
             }
@@ -284,6 +286,10 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
         formData.append("Adresse", `${data.contact.street} ${data.contact.number}, ${data.plz} ${data.contact.city}`);
         formData.append("E-Mail", data.contact.email);
         formData.append("Telefon", data.contact.phone);
+
+        if (data.contact.message) {
+            formData.append("Nachricht", data.contact.message);
+        }
 
         try {
             const response = await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
@@ -532,7 +538,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                 <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
                                             </>
                                         ) : (
-                                            <ContactFormFields control={control} errors={errors} submitting={submitting} submitForm={submitForm} handleBack={handleBack} openLegal={openLegal} />
+                                            <ContactFormFields control={control} errors={errors} submitting={submitting} submitForm={submitForm} handleBack={handleBack} openLegal={openLegal} type={type} />
                                         )}
                                     </motion.div>
                                 )}
@@ -568,14 +574,14 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                 </div>
                                             </>
                                         ) : (
-                                            <ContactFormFields control={control} errors={errors} submitting={submitting} submitForm={submitForm} handleBack={handleBack} openLegal={openLegal} />
+                                            <ContactFormFields control={control} errors={errors} submitting={submitting} submitForm={submitForm} handleBack={handleBack} openLegal={openLegal} type={type} />
                                         )}
                                     </motion.div>
                                 )}
 
                                 {step === 6 && type === 'tank' && (
                                     <motion.div key="step6" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                                        <ContactFormFields control={control} errors={errors} submitting={submitting} submitForm={submitForm} handleBack={handleBack} openLegal={openLegal} />
+                                        <ContactFormFields control={control} errors={errors} submitting={submitting} submitForm={submitForm} handleBack={handleBack} openLegal={openLegal} type={type} />
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -587,7 +593,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
     );
 };
 
-const ContactFormFields = ({ control, errors, submitting, submitForm, handleBack, openLegal }) => (
+const ContactFormFields = ({ control, errors, submitting, submitForm, handleBack, openLegal, type }) => (
     <>
         <h3 className="text-2xl font-bold text-center mb-6 text-gray-900">Kontakt</h3>
         <div className="space-y-2 max-w-md mx-auto">
@@ -619,6 +625,12 @@ const ContactFormFields = ({ control, errors, submitting, submitForm, handleBack
             <Controller name="contact.phone" control={control} render={({ field }) => (
                 <ModernInput {...field} label="Telefon" type="tel" inputMode="tel" autoComplete="tel" />
             )} />
+
+            {type !== 'service' && (
+                <Controller name="contact.message" control={control} render={({ field }) => (
+                    <ModernInput {...field} label="Nachricht (Optional)" multiline placeholder="Ihre Nachricht..." />
+                )} />
+            )}
 
             <div className="flex items-start text-xs text-gray-500 mt-2 mb-6 p-4 bg-gray-50 rounded-xl border border-gray-100">
                 <Controller name="contact.consent" control={control} rules={{ required: true }} render={({ field: { onChange, value } }) => (
