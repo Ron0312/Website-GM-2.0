@@ -2,11 +2,10 @@ import { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import * as z from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Check, Settings, Flame, Wrench, AlertTriangle, Home, Building2, Factory, Sparkles, RefreshCw, Info, Phone, ThumbsUp } from 'lucide-react';
+import { X, Check, Settings, Flame, Wrench, AlertTriangle, ArrowUpFromLine, ArrowDownToLine, Layers, Home, Building2, Factory, Sparkles, RefreshCw, Info, Phone, ThumbsUp } from 'lucide-react';
 import { getPlzError } from '../utils/validation';
 import ModernInput from './ui/ModernInput';
 import SelectionCard from './ui/SelectionCard';
-import SegmentedControl from './ui/SegmentedControl';
 import Skeleton from './ui/Skeleton';
 import Toast from './ui/Toast';
 import { TANK_SIZES, WEB3FORMS_ACCESS_KEY, PHONE_NUMBER_DISPLAY, PHONE_NUMBER } from '../constants';
@@ -434,22 +433,14 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                     <motion.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                                         {type === 'tank' ? (
                                             <>
-                                                <div className="text-center mb-10">
-                                                    <h3 className="text-3xl font-bold mb-3 text-gray-900">Wählen Sie Ihre Bauart.</h3>
-                                                </div>
-
-                                                <div className="max-w-xl mx-auto mb-10">
+                                                <h3 className="text-2xl font-bold text-center mb-8">Installation?</h3>
+                                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                                                     <Controller name="installationType" control={control} render={({ field }) => (
-                                                        <SegmentedControl
-                                                            name="installationType"
-                                                            value={field.value}
-                                                            onChange={field.onChange}
-                                                            options={[
-                                                                { value: 'oberirdisch', label: 'Oberirdisch' },
-                                                                { value: 'halboberirdisch', label: 'Halboberirdisch' },
-                                                                { value: 'unterirdisch', label: 'Unterirdisch' }
-                                                            ]}
-                                                        />
+                                                        <>
+                                                            <SelectionCard title="Oberirdisch" description="Im Garten" icon={ArrowUpFromLine} selected={field.value === 'oberirdisch'} onClick={() => field.onChange('oberirdisch')} className="!p-3 !text-sm flex-col items-center text-center justify-center" />
+                                                            <SelectionCard title="Halboberirdisch" description="Teils versenkt" icon={Layers} selected={field.value === 'halboberirdisch'} onClick={() => field.onChange('halboberirdisch')} className="!p-3 !text-sm flex-col items-center text-center justify-center" />
+                                                            <SelectionCard title="Unterirdisch" description="Im Boden" icon={ArrowDownToLine} selected={field.value === 'unterirdisch'} onClick={() => field.onChange('unterirdisch')} className="!p-3 !text-sm flex-col items-center text-center justify-center" />
+                                                        </>
                                                     )} />
                                                 </div>
                                                 <button type="button" onClick={handleNext} disabled={!formValues.installationType} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 hover:bg-gas-dark transition-all">Weiter</button>

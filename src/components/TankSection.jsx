@@ -5,6 +5,7 @@ import Hero from './Hero';
 import { tankDetails } from '../data/tanks';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, ArrowRight } from 'lucide-react';
+import SegmentedControl from './ui/SegmentedControl';
 
 const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = true, isPageTitle = false, tankFilter, onFilterChange }) => {
     const [filter, setFilter] = useState('oberirdisch');
@@ -110,31 +111,17 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                         <h3 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-10 tracking-tight">Wählen Sie Ihre Bauart.</h3>
 
                         {/* Minimalist Tab Switcher - Responsive Scroll Container */}
-                        <div className="overflow-x-auto pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide flex justify-start md:justify-center">
-                            <div className="inline-flex bg-gray-100/80 backdrop-blur p-1.5 rounded-full relative whitespace-nowrap min-w-min mx-auto">
-                                {/* Sliding Background */}
-                                <motion.div
-                                    className="absolute top-1.5 bottom-1.5 bg-white rounded-full shadow-sm z-0"
-                                    initial={false}
-                                    animate={{
-                                        x: filter === 'oberirdisch' ? 0 : filter === 'halboberirdisch' ? '100%' : '200%',
-                                        width: '33.333%'
-                                    }}
-                                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                                    style={{ left: 6, width: 'calc(33.333% - 4px)' }}
-                                />
-                                {['oberirdisch', 'halboberirdisch', 'unterirdisch'].map((t) => (
-                                    <button
-                                        key={t}
-                                        onClick={() => handleFilterChange(t)}
-                                        className={`relative z-10 px-4 md:px-6 py-3 rounded-full text-sm font-bold transition-colors min-w-[120px] md:w-40 capitalize ${
-                                            filter === t ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'
-                                        }`}
-                                    >
-                                        {t}
-                                    </button>
-                                ))}
-                            </div>
+                        <div className="max-w-xl mx-auto">
+                            <SegmentedControl
+                                name="tankType"
+                                value={filter}
+                                onChange={handleFilterChange}
+                                options={[
+                                    { value: 'oberirdisch', label: 'Oberirdisch' },
+                                    { value: 'halboberirdisch', label: 'Halboberirdisch' },
+                                    { value: 'unterirdisch', label: 'Unterirdisch' }
+                                ]}
+                            />
                         </div>
                     </motion.div>
                 </div>
