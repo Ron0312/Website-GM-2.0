@@ -490,6 +490,22 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                         </>
                                                     )} />
                                                 </div>
+
+                                                <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 flex items-center gap-4 mb-6">
+                                                    <div className="w-16 h-16 bg-white rounded-lg p-1 flex items-center justify-center border border-blue-100">
+                                                        {/* Simple SVG representation of a tank */}
+                                                        <svg viewBox="0 0 100 60" className="w-full h-full text-gas">
+                                                            <rect x="10" y="20" width="80" height="30" rx="10" ry="10" fill="currentColor" fillOpacity="0.2" stroke="currentColor" strokeWidth="2" />
+                                                            <line x1="20" y1="20" x2="20" y2="50" stroke="currentColor" strokeWidth="1" />
+                                                            <line x1="80" y1="20" x2="80" y2="50" stroke="currentColor" strokeWidth="1" />
+                                                            <rect x="40" y="15" width="20" height="5" fill="currentColor" />
+                                                        </svg>
+                                                    </div>
+                                                    <div>
+                                                        <p className="font-bold text-blue-900 text-sm">Ihr Flüssiggastank</p>
+                                                        <p className="text-xs text-blue-700">Wird komplett inklusive Armaturen geliefert.</p>
+                                                    </div>
+                                                </div>
                                                 <button type="button" onClick={handleNext} disabled={!formValues.details.condition} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 hover:bg-gas-dark transition-all">Weiter</button>
                                                 <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
                                             </>

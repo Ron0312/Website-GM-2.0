@@ -12,7 +12,7 @@ def verify_changes():
             page.wait_for_load_state("networkidle")
 
             # Check Calculator
-            print("Checking Calculator & Converter...")
+            print("Checking Calculator...")
             calculator = page.locator("#calculator")
             calculator.scroll_into_view_if_needed()
             page.wait_for_timeout(500)
@@ -23,27 +23,25 @@ def verify_changes():
                 page.get_by_text("Energie-Berater & Rechner").click()
                 page.wait_for_timeout(1000)
 
-            # Tab 1: Cost Check
-            page.screenshot(path="verification/calculator_cost.png")
-            print("Captured calculator_cost.png")
+            # Check Advanced Settings
+            print("Checking Advanced Settings...")
+            settings_btn = page.get_by_role("button", name="Basiswerte anpassen")
+            if settings_btn.is_visible():
+                settings_btn.click()
+                page.wait_for_timeout(500)
+                page.screenshot(path="verification/calculator_settings.png")
+                print("Captured calculator_settings.png")
+            else:
+                print("Error: Settings button not found!")
 
-            # Tab 3: Converter
-            print("Switching to Converter Tab...")
-            page.get_by_role("button", name="Umrechner").click()
-            page.wait_for_timeout(500)
-            page.screenshot(path="verification/calculator_converter.png")
-            print("Captured calculator_converter.png")
-
-            # Interact with Converter
-            # Find input for kWh and change it
-            print("Interacting with Converter...")
-            kwh_input = page.locator("input").first # First input is typically kWh in our grid
-            kwh_input.fill("10000")
-            page.wait_for_timeout(500) # Wait for react state updates
-
-            # Verify update (take screenshot)
-            page.screenshot(path="verification/calculator_converter_updated.png")
-            print("Captured calculator_converter_updated.png")
+            # Verify Disclaimer
+            print("Checking Disclaimer...")
+            # Use specific text fragment to avoid ambiguity
+            disclaimer = page.locator(".calculator-result").get_by_text("Verivox, BDEW")
+            if disclaimer.is_visible():
+                 print("Disclaimer found.")
+            else:
+                 print("Error: Updated disclaimer not found!")
 
         except Exception as e:
             print(f"Error: {e}")

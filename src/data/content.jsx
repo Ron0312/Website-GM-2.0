@@ -507,6 +507,84 @@ export const CONTENT = {
                             <p className="text-sm text-gray-500 mt-4">Informieren Sie sich auch über die <a href="/wissen/aufstellung" className="text-gas hover:underline">Vorschriften zur Aufstellung</a>.</p>
                         </div>
                     )
+                },
+                {
+                    id: 'tank-streichen',
+                    title: 'Darf ich meinen Tank streichen?',
+                    description: 'Farben, Vorschriften & Hitzeschutz.',
+                    content: (
+                        <div>
+                             <SourceBadge text="TRF 2021" />
+                             <p className="lead text-lg text-gray-700 mb-6">Viele Gartenbesitzer stören sich an der Optik ihres weißen Flüssiggastanks. Die Frage "Darf ich den Tank grün oder anthrazit streichen?" hören wir oft. Die Antwort ist ein klares <strong>Jein</strong>.</p>
+
+                             <h4 className="text-xl font-bold text-gas mb-4">Warum sind Tanks weiß?</h4>
+                             <p className="mb-4">Flüssiggas dehnt sich bei Wärme stark aus. Ein weißer (oder hellgrüner) Tank reflektiert das Sonnenlicht und verhindert, dass sich das Gas im Inneren zu stark aufheizt. Würde der Tank dunkel gestrichen, könnte der Druck im Sommer so stark steigen, dass das Sicherheitsventil abbläst (Gasverlust & Explosionsgefahr).</p>
+
+                             <div className="bg-red-50 border-l-4 border-red-500 p-4 my-6">
+                                <p className="font-bold text-red-700">Verbotene Farben:</p>
+                                <p>Dunkle Farben wie Anthrazit, Schwarz, Dunkelbraun oder Dunkelgrün sind für oberirdische Tanks streng verboten.</p>
+                            </div>
+
+                             <h4 className="text-xl font-bold text-gas mb-4">Erlaubte Alternativen</h4>
+                             <ul className="space-y-3 mb-6">
+                                <li className="flex items-start"><CheckCircle size={18} className="text-green-600 mr-2 mt-1"/> <strong>Reflektierende Farben:</strong> Hellgrün ("Resedagrün" RAL 6011) ist oft erlaubt, muss aber spezielle Reflexionseigenschaften haben.</li>
+                                <li className="flex items-start"><CheckCircle size={18} className="text-green-600 mr-2 mt-1"/> <strong>Bepflanzung:</strong> Sie können den Tank mit Rankgittern oder Hecken "verstecken". Wichtig: 2 Seiten müssen für die Belüftung offen bleiben und der Fahrer muss ungehindert drankommen.</li>
+                            </ul>
+
+                            <p className="text-sm text-gray-500 mt-4">Tipp: Ein <a href="/wissen/tank-kosten" className="text-gas hover:underline">unterirdischer Tank</a> ist komplett unsichtbar.</p>
+                        </div>
+                    )
+                },
+                {
+                    id: 'grenzabstaende',
+                    title: 'Grenzabstände & Visualisierung',
+                    description: 'Wie nah darf der Tank an den Nachbarn?',
+                    content: (
+                        <div>
+                            <p className="mb-6">Streit mit dem Nachbarn wegen des Flüssiggastanks? Das muss nicht sein. Die Technischen Regeln Flüssiggas (TRF) geben klare Abstände vor.</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Grundregel: 2 Meter? 3 Meter?</h4>
+                            <p className="mb-4">Es gibt zwei Arten von Abständen zu beachten:</p>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm relative overflow-hidden">
+                                    <div className="absolute top-0 right-0 bg-orange-100 text-orange-600 px-3 py-1 text-xs font-bold rounded-bl-lg">Brandschutz</div>
+                                    <h5 className="font-bold text-lg mb-2">Abstand zu Brennbarem</h5>
+                                    <p className="text-sm text-gray-600 mb-4">Zu Holzhütten, Stroh, Carports oder dem Nachbarhaus.</p>
+                                    <div className="flex items-center gap-2">
+                                        <div className="h-2 flex-1 bg-gray-200 rounded-full relative">
+                                            <div className="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gas">Mind. 3 m</div>
+                                            <div className="w-full h-full bg-orange-200 rounded-full"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm relative overflow-hidden">
+                                    <div className="absolute top-0 right-0 bg-blue-100 text-blue-600 px-3 py-1 text-xs font-bold rounded-bl-lg">Ex-Zone</div>
+                                    <h5 className="font-bold text-lg mb-2">Abstand zu Zündquellen</h5>
+                                    <p className="text-sm text-gray-600 mb-4">Zu offenen Fenstern, Kellerschächten, Gullis.</p>
+                                    <div className="flex items-center gap-2">
+                                        <div className="h-2 flex-1 bg-gray-200 rounded-full relative">
+                                            <div className="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gas">1 m - 3 m</div>
+                                            <div className="w-full h-full bg-blue-200 rounded-full"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Die Strahlenschutzwand</h4>
+                            <p className="mb-4">Sie haben keine 3 Meter Platz? Kein Problem. Durch eine <strong>Strahlenschutzwand</strong> (nicht brennbar, F90, z.B. Betonmauer) kann der Abstand auf bis zu 0 Meter reduziert werden.</p>
+
+                            <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 text-center">
+                                <div className="inline-block relative w-48 h-32 bg-white border border-gray-300 rounded-lg shadow-inner mx-auto mb-4">
+                                    <div className="absolute bottom-2 left-4 w-12 h-12 bg-gray-200 rounded-full border border-gray-400 flex items-center justify-center text-[10px]">Tank</div>
+                                    <div className="absolute bottom-0 left-20 w-2 h-24 bg-red-500 shadow-lg"></div>
+                                    <div className="absolute bottom-2 right-4 w-12 h-16 bg-orange-100 border border-orange-300 flex items-center justify-center text-[10px]">Haus</div>
+                                    <div className="absolute top-1/2 left-20 -translate-y-1/2 bg-white px-1 text-xs font-bold text-red-500 border border-red-500 rounded">Mauer</div>
+                                </div>
+                                <p className="text-sm text-gray-500">Visualisierung: Die Mauer schützt das Objekt vor Strahlungswärme.</p>
+                            </div>
+                        </div>
+                    )
                 }]
         },
         {
