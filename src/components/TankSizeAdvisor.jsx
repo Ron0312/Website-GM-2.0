@@ -48,8 +48,8 @@ const TankSizeAdvisor = () => {
         // Add hot water per person (approx 800 kWh/person)
         const totalKwh = kwhPerYear + (data.persons * 800);
 
-        // Convert to Liters LPG (approx 7 kWh/L)
-        const litersNeeded = totalKwh / 7.1;
+        // Convert to Liters LPG (approx 6.57 kWh/L)
+        const litersNeeded = totalKwh / 6.57;
 
         if (litersNeeded < 2500) return TANK_RECOMMENDATIONS.small;
         if (litersNeeded > 4500) return TANK_RECOMMENDATIONS.large;
