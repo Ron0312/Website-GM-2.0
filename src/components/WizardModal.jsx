@@ -204,7 +204,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
             }
         } else if (step === 4) {
              if (type === 'tank') {
-                if (formValues.details.condition) valid = true;
+                if (formValues.details.interest) valid = true;
              } else if (type === 'gas') {
                 valid = true;
              } else {
@@ -214,13 +214,21 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
              }
         } else if (step === 5) {
              if (type === 'tank') {
-                 valid = true;
+                 if (formValues.details.condition) valid = true;
              } else {
                 const result = contactSchema.safeParse({ contact: formValues.contact });
                 if (result.success) valid = true;
                 else await trigger('contact');
              }
         } else if (step === 6) {
+             if (type === 'tank') {
+                 valid = true;
+             } else {
+                 const result = contactSchema.safeParse({ contact: formValues.contact });
+                 if (result.success) valid = true;
+                 else await trigger('contact');
+             }
+        } else if (step === 7) {
             const result = contactSchema.safeParse({ contact: formValues.contact });
             if (result.success) valid = true;
             else await trigger('contact');
@@ -235,12 +243,16 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
         else if (step === 2) setStep(3);
         else if (step === 3) setStep(4);
         else if (step === 4) {
-            if (type === 'service') submitForm();
+            if (type === 'tank') setStep(5);
+            else if (type === 'service') submitForm();
             else setStep(5);
         } else if (step === 5) {
             if (type === 'tank') setStep(6);
             else submitForm();
         } else if (step === 6) {
+            if (type === 'tank') setStep(7);
+            else submitForm();
+        } else if (step === 7) {
             submitForm();
         }
     };
@@ -269,6 +281,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
 
         if (type === 'tank') {
             formData.append("Installation", data.installationType);
+            formData.append("Interesse", data.details.interest);
             formData.append("Zustand", data.details.condition);
             formData.append("Gebäude", data.details.building);
             formData.append("Tankgröße", data.details.tankSize);
@@ -309,7 +322,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
     });
 
     const getTotalSteps = () => {
-        if (type === 'tank') return 6;
+        if (type === 'tank') return 7;
         if (type === 'gas') return 5;
         return 4;
     };
@@ -476,37 +489,16 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                     <motion.div key="step4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                                         {type === 'tank' ? (
                                             <>
-                                                <h3 className="text-2xl font-bold text-center mb-4">Zustand</h3>
+                                                <h3 className="text-2xl font-bold text-center mb-6">Kaufoption</h3>
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                                                    <Controller name="details.condition" control={control} render={({ field }) => (
+                                                    <Controller name="details.interest" control={control} render={({ field }) => (
                                                         <>
-                                                            <SelectionCard title="Neu" description="Fabrikneu" icon={Sparkles} selected={field.value === 'Neu'} onClick={() => field.onChange('Neu')} />
-                                                            <div className="relative">
-                                                                <SelectionCard title="Gebraucht" description="Aufbereitet" icon={RefreshCw} selected={field.value === 'Gebraucht / Aufbereitet'} onClick={() => field.onChange('Gebraucht / Aufbereitet')} />
-                                                                <div className="absolute -top-3 -right-2 bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-md uppercase tracking-wide">
-                                                                    Günstiger
-                                                                </div>
-                                                            </div>
+                                                            <SelectionCard title="Kauf" description="Eigentumstank" icon={ThumbsUp} selected={field.value === 'Kauf'} onClick={() => field.onChange('Kauf')} />
+                                                            <SelectionCard title="Miete" description="Mietmodell" icon={RefreshCw} selected={field.value === 'Miete'} onClick={() => field.onChange('Miete')} />
                                                         </>
                                                     )} />
                                                 </div>
-
-                                                <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 flex items-center gap-4 mb-6">
-                                                    <div className="w-16 h-16 bg-white rounded-lg p-1 flex items-center justify-center border border-blue-100">
-                                                        {/* Simple SVG representation of a tank */}
-                                                        <svg viewBox="0 0 100 60" className="w-full h-full text-gas">
-                                                            <rect x="10" y="20" width="80" height="30" rx="10" ry="10" fill="currentColor" fillOpacity="0.2" stroke="currentColor" strokeWidth="2" />
-                                                            <line x1="20" y1="20" x2="20" y2="50" stroke="currentColor" strokeWidth="1" />
-                                                            <line x1="80" y1="20" x2="80" y2="50" stroke="currentColor" strokeWidth="1" />
-                                                            <rect x="40" y="15" width="20" height="5" fill="currentColor" />
-                                                        </svg>
-                                                    </div>
-                                                    <div>
-                                                        <p className="font-bold text-blue-900 text-sm">Ihr Flüssiggastank</p>
-                                                        <p className="text-xs text-blue-700">Wird komplett inklusive Armaturen geliefert.</p>
-                                                    </div>
-                                                </div>
-                                                <button type="button" onClick={handleNext} disabled={!formValues.details.condition} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 hover:bg-gas-dark transition-all">Weiter</button>
+                                                <button type="button" onClick={handleNext} disabled={!formValues.details.interest} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 hover:bg-gas-dark transition-all">Weiter</button>
                                                 <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
                                             </>
                                         ) : type === 'gas' ? (
@@ -563,6 +555,49 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                     <motion.div key="step5" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                                         {type === 'tank' ? (
                                             <>
+                                                <h3 className="text-2xl font-bold text-center mb-4">Zustand</h3>
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                                    <Controller name="details.condition" control={control} render={({ field }) => (
+                                                        <>
+                                                            <SelectionCard title="Neu" description="Fabrikneu" icon={Sparkles} selected={field.value === 'Neu'} onClick={() => field.onChange('Neu')} />
+                                                            <div className="relative">
+                                                                <SelectionCard title="Gebraucht" description="Aufbereitet" icon={RefreshCw} selected={field.value === 'Gebraucht / Aufbereitet'} onClick={() => field.onChange('Gebraucht / Aufbereitet')} />
+                                                                <div className="absolute -top-3 -right-2 bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-md uppercase tracking-wide">
+                                                                    Günstiger
+                                                                </div>
+                                                            </div>
+                                                        </>
+                                                    )} />
+                                                </div>
+
+                                                <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 flex items-center gap-4 mb-6">
+                                                    <div className="w-16 h-16 bg-white rounded-lg p-1 flex items-center justify-center border border-blue-100">
+                                                        {/* Simple SVG representation of a tank */}
+                                                        <svg viewBox="0 0 100 60" className="w-full h-full text-gas">
+                                                            <rect x="10" y="20" width="80" height="30" rx="10" ry="10" fill="currentColor" fillOpacity="0.2" stroke="currentColor" strokeWidth="2" />
+                                                            <line x1="20" y1="20" x2="20" y2="50" stroke="currentColor" strokeWidth="1" />
+                                                            <line x1="80" y1="20" x2="80" y2="50" stroke="currentColor" strokeWidth="1" />
+                                                            <rect x="40" y="15" width="20" height="5" fill="currentColor" />
+                                                        </svg>
+                                                    </div>
+                                                    <div>
+                                                        <p className="font-bold text-blue-900 text-sm">Ihr Flüssiggastank</p>
+                                                        <p className="text-xs text-blue-700">Wird komplett inklusive Armaturen geliefert.</p>
+                                                    </div>
+                                                </div>
+                                                <button type="button" onClick={handleNext} disabled={!formValues.details.condition} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 hover:bg-gas-dark transition-all">Weiter</button>
+                                                <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
+                                            </>
+                                        ) : (
+                                            <ContactFormFields control={control} errors={errors} submitting={submitting} submitForm={submitForm} handleBack={handleBack} openLegal={openLegal} type={type} />
+                                        )}
+                                    </motion.div>
+                                )}
+
+                                {step === 6 && (
+                                    <motion.div key="step6" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+                                        {type === 'tank' ? (
+                                            <>
                                                 <h3 className="text-2xl font-bold text-center mb-6">Details</h3>
                                                 <div className="space-y-6">
                                                     <Controller name="details.building" control={control} render={({ field }) => (
@@ -583,6 +618,9 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                                     <button key={opt} type="button" onClick={() => field.onChange(opt)} className={`p-4 rounded-xl border-2 font-bold transition-all ${field.value === opt ? 'border-gas bg-gas text-white shadow-lg' : 'border-gray-100 hover:border-gas/30'}`}>{opt}</button>
                                                                 ))}
                                                             </div>
+                                                            <a href="/rechner" target="_blank" className="text-center text-xs text-gas font-bold hover:underline flex items-center justify-center gap-1 mt-2">
+                                                                <Info size={12} /> Unsicher? Nutzen Sie unseren Tank-Berater
+                                                            </a>
                                                         </div>
                                                     )} />
                                                     <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg mt-4 hover:bg-gas-dark transition-all">Weiter</button>
@@ -595,8 +633,8 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                     </motion.div>
                                 )}
 
-                                {step === 6 && type === 'tank' && (
-                                    <motion.div key="step6" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+                                {step === 7 && type === 'tank' && (
+                                    <motion.div key="step7" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                                         <ContactFormFields control={control} errors={errors} submitting={submitting} submitForm={submitForm} handleBack={handleBack} openLegal={openLegal} type={type} />
                                     </motion.div>
                                 )}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Menu, X, Phone, User, Wrench, FileText, ChevronDown, ChevronRight, Settings, Flame, BookOpen, Trash2, ArrowUpFromLine, ArrowDownToLine, Divide } from 'lucide-react';
+import { Menu, X, Phone, User, Wrench, FileText, ChevronDown, ChevronRight, Settings, Flame, BookOpen, Trash2, ArrowUpFromLine, ArrowDownToLine, Divide, Calculator } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobileMenuOpen, openWizard, setTankFilter }) => {
@@ -64,6 +64,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
             children: [
                 { id: 'pruefungen', label: 'Prüfungen & Wartung', icon: Wrench },
                 { id: 'tank-entsorgen', label: 'Flüssiggastank entsorgen', icon: Trash2 },
+                { id: 'rechner', label: 'Energie-Rechner', icon: Calculator },
             ]
         },
         { id: 'ueber-uns', label: 'Über Uns' },

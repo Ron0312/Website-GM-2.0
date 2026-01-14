@@ -8,7 +8,7 @@ import PriceChart from './calculator/PriceChart';
 
 // Default Factors for 2026 (Verified Germany)
 const DEFAULT_FACTORS = {
-    lpg: { kwh: 7.105, label: 'Liter', price: 0.72, co2: 0.23 },
+    lpg: { kwh: 6.57, label: 'Liter', price: 0.72, co2: 0.23 },
     oil: { kwh: 9.8, label: 'Liter', price: 1.10, co2: 0.27 },
     gas: { kwh: 1.0, label: 'kWh', price: 0.12, co2: 0.20 },
     pellets: { kwh: 4.8, label: 'kg', price: 0.35, co2: 0.03 },
