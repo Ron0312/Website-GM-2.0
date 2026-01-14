@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Calculator, ArrowRight, Info, RotateCcw, ChevronDown, ChevronUp, Flame, Zap, Droplets, Leaf, RefreshCw, Settings } from 'lucide-react';
+import { Calculator, ArrowRight, Info, RotateCcw, ChevronDown, ChevronUp, Flame, Zap, Droplets, Leaf, RefreshCw, Settings, TrendingUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Skeleton from './ui/Skeleton';
 import TankSizeAdvisor from './TankSizeAdvisor';
 import UnitConverter from './UnitConverter';
+import PriceChart from './calculator/PriceChart';
 
 // Default Factors for 2026 (Verified Germany)
 const DEFAULT_FACTORS = {
@@ -165,154 +166,163 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
 
                             <div className="bg-white">
                                 {activeTab === 'calculator' && (
-                                    <div className="p-6 md:p-10 grid md:grid-cols-2 gap-12">
-                                        {/* Inputs */}
-                                        <div className="space-y-8">
-                                            <div>
-                                                <label className="block text-sm font-bold text-gray-700 mb-2">Aktueller Energieträger <Tooltip text="Wählen Sie Ihre aktuelle Heizquelle aus." /></label>
-                                                <div className="grid grid-cols-2 gap-3">
-                                                    <button
-                                                        onClick={() => handleSourceChange('oil')}
-                                                        className={`py-3 px-4 rounded-xl text-sm font-bold border-2 transition-all flex items-center justify-center gap-2 ${sourceType === 'oil' ? 'border-gas bg-gas text-white shadow-lg' : 'border-gray-100 text-gray-600 hover:border-gas/30'}`}
-                                                    >
-                                                        <Droplets size={16} /> Heizöl
-                                                    </button>
-                                                    <button
-                                                        onClick={() => handleSourceChange('gas')}
-                                                        className={`py-3 px-4 rounded-xl text-sm font-bold border-2 transition-all flex items-center justify-center gap-2 ${sourceType === 'gas' ? 'border-gas bg-gas text-white shadow-lg' : 'border-gray-100 text-gray-600 hover:border-gas/30'}`}
-                                                    >
-                                                        <Flame size={16} /> Erdgas
-                                                    </button>
-                                                    <button
-                                                        onClick={() => handleSourceChange('pellets')}
-                                                        className={`py-3 px-4 rounded-xl text-sm font-bold border-2 transition-all flex items-center justify-center gap-2 ${sourceType === 'pellets' ? 'border-gas bg-gas text-white shadow-lg' : 'border-gray-100 text-gray-600 hover:border-gas/30'}`}
-                                                    >
-                                                        <Leaf size={16} /> Pellets
-                                                    </button>
-                                                    <button
-                                                        onClick={() => handleSourceChange('electric')}
-                                                        className={`py-3 px-4 rounded-xl text-sm font-bold border-2 transition-all flex items-center justify-center gap-2 ${sourceType === 'electric' ? 'border-gas bg-gas text-white shadow-lg' : 'border-gray-100 text-gray-600 hover:border-gas/30'}`}
-                                                    >
-                                                        <Zap size={16} /> Strom
-                                                    </button>
+                                    <div className="p-6 md:p-10">
+                                        <div className="grid md:grid-cols-2 gap-12">
+                                            {/* Inputs */}
+                                            <div className="space-y-8">
+                                                <div>
+                                                    <label className="block text-sm font-bold text-gray-700 mb-2">Aktueller Energieträger <Tooltip text="Wählen Sie Ihre aktuelle Heizquelle aus." /></label>
+                                                    <div className="grid grid-cols-2 gap-3">
+                                                        <button
+                                                            onClick={() => handleSourceChange('oil')}
+                                                            className={`py-3 px-4 rounded-xl text-sm font-bold border-2 transition-all flex items-center justify-center gap-2 ${sourceType === 'oil' ? 'border-gas bg-gas text-white shadow-lg' : 'border-gray-100 text-gray-600 hover:border-gas/30'}`}
+                                                        >
+                                                            <Droplets size={16} /> Heizöl
+                                                        </button>
+                                                        <button
+                                                            onClick={() => handleSourceChange('gas')}
+                                                            className={`py-3 px-4 rounded-xl text-sm font-bold border-2 transition-all flex items-center justify-center gap-2 ${sourceType === 'gas' ? 'border-gas bg-gas text-white shadow-lg' : 'border-gray-100 text-gray-600 hover:border-gas/30'}`}
+                                                        >
+                                                            <Flame size={16} /> Erdgas
+                                                        </button>
+                                                        <button
+                                                            onClick={() => handleSourceChange('pellets')}
+                                                            className={`py-3 px-4 rounded-xl text-sm font-bold border-2 transition-all flex items-center justify-center gap-2 ${sourceType === 'pellets' ? 'border-gas bg-gas text-white shadow-lg' : 'border-gray-100 text-gray-600 hover:border-gas/30'}`}
+                                                        >
+                                                            <Leaf size={16} /> Pellets
+                                                        </button>
+                                                        <button
+                                                            onClick={() => handleSourceChange('electric')}
+                                                            className={`py-3 px-4 rounded-xl text-sm font-bold border-2 transition-all flex items-center justify-center gap-2 ${sourceType === 'electric' ? 'border-gas bg-gas text-white shadow-lg' : 'border-gray-100 text-gray-600 hover:border-gas/30'}`}
+                                                        >
+                                                            <Zap size={16} /> Strom
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div>
-                                                <label className="block text-sm font-bold text-gray-700 mb-2">Jahresverbrauch ({factors[sourceType].label}) <Tooltip text="Entnehmen Sie diesen Wert Ihrer letzten Jahresabrechnung." /></label>
-                                                <div className="relative">
+                                                <div>
+                                                    <label className="block text-sm font-bold text-gray-700 mb-2">Jahresverbrauch ({factors[sourceType].label}) <Tooltip text="Entnehmen Sie diesen Wert Ihrer letzten Jahresabrechnung." /></label>
+                                                    <div className="relative">
+                                                        <input
+                                                            type="number"
+                                                            value={consumption}
+                                                            onChange={(e) => setConsumption(Number(e.target.value))}
+                                                            className="w-full p-4 bg-gray-50 border-2 border-gray-100 rounded-xl text-xl font-bold text-gray-900 focus:border-gas outline-none"
+                                                        />
+                                                        <span className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400 font-bold">{factors[sourceType].label}</span>
+                                                    </div>
                                                     <input
-                                                        type="number"
+                                                        type="range"
+                                                        min={sourceType === 'oil' ? 500 : 1000}
+                                                        max={sourceType === 'gas' || sourceType === 'electric' ? 50000 : 10000}
+                                                        step={100}
                                                         value={consumption}
                                                         onChange={(e) => setConsumption(Number(e.target.value))}
-                                                        className="w-full p-4 bg-gray-50 border-2 border-gray-100 rounded-xl text-xl font-bold text-gray-900 focus:border-gas outline-none"
+                                                        className="w-full mt-4 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-gas"
                                                     />
-                                                    <span className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400 font-bold">{factors[sourceType].label}</span>
                                                 </div>
-                                                <input
-                                                    type="range"
-                                                    min={sourceType === 'oil' ? 500 : 1000}
-                                                    max={sourceType === 'gas' || sourceType === 'electric' ? 50000 : 10000}
-                                                    step={100}
-                                                    value={consumption}
-                                                    onChange={(e) => setConsumption(Number(e.target.value))}
-                                                    className="w-full mt-4 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-gas"
-                                                />
+
+                                                {/* Advanced Settings Toggle */}
+                                                <div className="pt-4 border-t border-gray-100">
+                                                    <button
+                                                        onClick={() => setShowSettings(!showSettings)}
+                                                        className="flex items-center gap-2 text-sm text-gray-500 font-medium hover:text-gas transition-colors"
+                                                    >
+                                                        <Settings size={16} />
+                                                        {showSettings ? 'Basiswerte ausblenden' : 'Basiswerte anpassen'}
+                                                    </button>
+
+                                                    <AnimatePresence>
+                                                        {showSettings && (
+                                                            <motion.div
+                                                                initial={{ height: 0, opacity: 0 }}
+                                                                animate={{ height: 'auto', opacity: 1 }}
+                                                                exit={{ height: 0, opacity: 0 }}
+                                                                className="overflow-hidden"
+                                                            >
+                                                                <div className="grid grid-cols-2 gap-4 mt-4 bg-gray-50 p-4 rounded-xl text-sm">
+                                                                    <div>
+                                                                        <label className="block text-gray-500 text-xs font-bold mb-1">Ihr Preis ({factors[sourceType].label})</label>
+                                                                        <div className="flex items-center bg-white border border-gray-200 rounded-lg px-2">
+                                                                            <input
+                                                                                type="number"
+                                                                                step="0.01"
+                                                                                value={factors[sourceType].price}
+                                                                                onChange={(e) => handlePriceChange(sourceType, e.target.value)}
+                                                                                className="w-full py-2 bg-transparent outline-none font-bold text-gray-700"
+                                                                            />
+                                                                            <span className="text-gray-400 text-xs">€</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <label className="block text-gray-500 text-xs font-bold mb-1">Flüssiggas Preis (Liter)</label>
+                                                                        <div className="flex items-center bg-white border border-gray-200 rounded-lg px-2">
+                                                                            <input
+                                                                                type="number"
+                                                                                step="0.01"
+                                                                                value={factors.lpg.price}
+                                                                                onChange={(e) => handlePriceChange('lpg', e.target.value)}
+                                                                                className="w-full py-2 bg-transparent outline-none font-bold text-gray-700"
+                                                                            />
+                                                                            <span className="text-gray-400 text-xs">€</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </motion.div>
+                                                        )}
+                                                    </AnimatePresence>
+                                                </div>
                                             </div>
 
-                                             {/* Advanced Settings Toggle */}
-                                            <div className="pt-4 border-t border-gray-100">
-                                                <button
-                                                    onClick={() => setShowSettings(!showSettings)}
-                                                    className="flex items-center gap-2 text-sm text-gray-500 font-medium hover:text-gas transition-colors"
-                                                >
-                                                    <Settings size={16} />
-                                                    {showSettings ? 'Basiswerte ausblenden' : 'Basiswerte anpassen'}
-                                                </button>
+                                            {/* Results */}
+                                            <div className="bg-gradient-to-br from-gas-light/30 to-white rounded-2xl p-8 border border-gas/10 flex flex-col justify-center calculator-result">
+                                                <div className="text-center mb-8">
+                                                    <p className="text-gray-500 font-medium mb-1 uppercase tracking-wider text-xs">Mögliche Ersparnis pro Jahr</p>
+                                                    <motion.div
+                                                        key={savings}
+                                                        initial={{ scale: 0.8, opacity: 0 }}
+                                                        animate={{ scale: 1, opacity: 1 }}
+                                                        className="text-5xl font-extrabold text-gas"
+                                                    >
+                                                        {savings > 0 ? `${savings} €` : <span className="text-3xl text-gray-400">Keine Ersparnis</span>}
+                                                    </motion.div>
+                                                </div>
 
-                                                <AnimatePresence>
-                                                    {showSettings && (
-                                                        <motion.div
-                                                            initial={{ height: 0, opacity: 0 }}
-                                                            animate={{ height: 'auto', opacity: 1 }}
-                                                            exit={{ height: 0, opacity: 0 }}
-                                                            className="overflow-hidden"
-                                                        >
-                                                            <div className="grid grid-cols-2 gap-4 mt-4 bg-gray-50 p-4 rounded-xl text-sm">
-                                                                <div>
-                                                                    <label className="block text-gray-500 text-xs font-bold mb-1">Ihr Preis ({factors[sourceType].label})</label>
-                                                                    <div className="flex items-center bg-white border border-gray-200 rounded-lg px-2">
-                                                                         <input
-                                                                            type="number"
-                                                                            step="0.01"
-                                                                            value={factors[sourceType].price}
-                                                                            onChange={(e) => handlePriceChange(sourceType, e.target.value)}
-                                                                            className="w-full py-2 bg-transparent outline-none font-bold text-gray-700"
-                                                                        />
-                                                                        <span className="text-gray-400 text-xs">€</span>
-                                                                    </div>
-                                                                </div>
-                                                                 <div>
-                                                                    <label className="block text-gray-500 text-xs font-bold mb-1">Flüssiggas Preis (Liter)</label>
-                                                                    <div className="flex items-center bg-white border border-gray-200 rounded-lg px-2">
-                                                                         <input
-                                                                            type="number"
-                                                                            step="0.01"
-                                                                            value={factors.lpg.price}
-                                                                            onChange={(e) => handlePriceChange('lpg', e.target.value)}
-                                                                            className="w-full py-2 bg-transparent outline-none font-bold text-gray-700"
-                                                                        />
-                                                                        <span className="text-gray-400 text-xs">€</span>
-                                                                    </div>
-                                                                </div>
+                                                <div className="space-y-4">
+                                                    <div className="flex items-center justify-between p-4 bg-white rounded-xl shadow-sm">
+                                                        <div className="flex items-center gap-3">
+                                                            <div className="bg-green-100 p-2 rounded-lg text-green-600">
+                                                                <ArrowRight size={18} className="rotate-[-45deg]" />
                                                             </div>
-                                                        </motion.div>
-                                                    )}
-                                                </AnimatePresence>
-                                            </div>
-                                        </div>
-
-                                        {/* Results */}
-                                        <div className="bg-gradient-to-br from-gas-light/30 to-white rounded-2xl p-8 border border-gas/10 flex flex-col justify-center calculator-result">
-                                            <div className="text-center mb-8">
-                                                <p className="text-gray-500 font-medium mb-1 uppercase tracking-wider text-xs">Mögliche Ersparnis pro Jahr</p>
-                                                <motion.div
-                                                    key={savings}
-                                                    initial={{ scale: 0.8, opacity: 0 }}
-                                                    animate={{ scale: 1, opacity: 1 }}
-                                                    className="text-5xl font-extrabold text-gas"
-                                                >
-                                                    {savings > 0 ? `${savings} €` : <span className="text-3xl text-gray-400">Keine Ersparnis</span>}
-                                                </motion.div>
-                                            </div>
-
-                                            <div className="space-y-4">
-                                                <div className="flex items-center justify-between p-4 bg-white rounded-xl shadow-sm">
-                                                    <div className="flex items-center gap-3">
-                                                        <div className="bg-green-100 p-2 rounded-lg text-green-600">
-                                                            <ArrowRight size={18} className="rotate-[-45deg]" />
+                                                            <span className="font-bold text-gray-700">CO2 Reduktion</span>
                                                         </div>
-                                                        <span className="font-bold text-gray-700">CO2 Reduktion</span>
+                                                        <span className={`font-bold ${co2Savings > 0 ? 'text-green-600' : 'text-gray-400'}`}>{co2Savings > 0 ? `${co2Savings} kg` : '-'}</span>
                                                     </div>
-                                                    <span className={`font-bold ${co2Savings > 0 ? 'text-green-600' : 'text-gray-400'}`}>{co2Savings > 0 ? `${co2Savings} kg` : '-'}</span>
+
+                                                    <div className="p-4 bg-yellow-50 rounded-xl border border-yellow-100 text-xs text-yellow-800 leading-relaxed">
+                                                        <Info size={14} className="inline mr-1 mb-0.5" />
+                                                        <strong>Hinweis:</strong> Unverbindliche Modellrechnung (Stand 2026). Preise sind Durchschnittswerte (Quellen: Verivox, BDEW). Sie können diese unter "Basiswerte anpassen" ändern.
+                                                        {sourceType === 'electric' && (
+                                                            <span className="block mt-2 font-bold">Hinweis Strom: Berechnung basiert auf Direktheizung/Nachtspeicher (1:1), nicht Wärmepumpe.</span>
+                                                        )}
+                                                    </div>
                                                 </div>
 
-                                                <div className="p-4 bg-yellow-50 rounded-xl border border-yellow-100 text-xs text-yellow-800 leading-relaxed">
-                                                    <Info size={14} className="inline mr-1 mb-0.5" />
-                                                    <strong>Hinweis:</strong> Unverbindliche Modellrechnung (Stand 2026). Preise sind Durchschnittswerte (Quellen: Verivox, BDEW). Sie können diese unter "Basiswerte anpassen" ändern.
-                                                    {sourceType === 'electric' && (
-                                                        <span className="block mt-2 font-bold">Hinweis Strom: Berechnung basiert auf Direktheizung/Nachtspeicher (1:1), nicht Wärmepumpe.</span>
-                                                    )}
-                                                </div>
+                                                <button
+                                                    onClick={() => { handleSourceChange('oil'); setFactors(DEFAULT_FACTORS); }}
+                                                    className="mt-6 flex items-center justify-center gap-2 text-gray-400 text-xs font-bold hover:text-gas transition-colors"
+                                                >
+                                                    <RotateCcw size={12} /> Zurücksetzen
+                                                </button>
                                             </div>
-
-                                            <button
-                                                onClick={() => { handleSourceChange('oil'); setFactors(DEFAULT_FACTORS); }}
-                                                className="mt-6 flex items-center justify-center gap-2 text-gray-400 text-xs font-bold hover:text-gas transition-colors"
-                                            >
-                                                <RotateCcw size={12} /> Zurücksetzen
-                                            </button>
                                         </div>
+
+                                        {/* Chart Section */}
+                                        <PriceChart
+                                            consumption={consumption}
+                                            factorSource={factors[sourceType]}
+                                            factors={factors}
+                                        />
                                     </div>
                                 )}
 
