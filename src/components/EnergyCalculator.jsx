@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Calculator, ArrowRight, Info, RotateCcw, ChevronDown, ChevronUp, Flame, Zap, Droplets, Leaf, RefreshCw } from 'lucide-react';
+import { Calculator, ArrowRight, Info, RotateCcw, ChevronDown, ChevronUp, Flame, Zap, Droplets, Leaf, RefreshCw, Settings } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Skeleton from './ui/Skeleton';
 import TankSizeAdvisor from './TankSizeAdvisor';
 import UnitConverter from './UnitConverter';
 
-// Updated Factors for 2025 (Germany)
-const FACTORS = {
-    lpg: { kwh: 7.105, label: 'Liter', price: 0.65, co2: 0.23 },
-    oil: { kwh: 9.8, label: 'Liter', price: 1.15, co2: 0.27 },
-    gas: { kwh: 1.0, label: 'kWh', price: 0.12, co2: 0.20 }, // Natural Gas now in kWh for easier comparison
+// Default Factors for 2026 (Verified Germany)
+const DEFAULT_FACTORS = {
+    lpg: { kwh: 7.105, label: 'Liter', price: 0.72, co2: 0.23 },
+    oil: { kwh: 9.8, label: 'Liter', price: 1.10, co2: 0.27 },
+    gas: { kwh: 1.0, label: 'kWh', price: 0.12, co2: 0.20 },
     pellets: { kwh: 4.8, label: 'kg', price: 0.35, co2: 0.03 },
-    electric: { kwh: 1.0, label: 'kWh', price: 0.30, co2: 0.40 } // Mixed grid
+    electric: { kwh: 1.0, label: 'kWh', price: 0.38, co2: 0.40 } // Mixed grid
 };
 
 const Tooltip = ({ text }) => (
@@ -33,6 +33,10 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
     const [consumption, setConsumption] = useState(2500); // Standard value for Oil/LPG liters
     const [sourceType, setSourceType] = useState('oil');
 
+    // Factors (Allow editing)
+    const [factors, setFactors] = useState(DEFAULT_FACTORS);
+    const [showSettings, setShowSettings] = useState(false);
+
     // Results
     const [savings, setSavings] = useState(0);
     const [co2Savings, setCo2Savings] = useState(0);
@@ -48,22 +52,20 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
         if (!loading) {
             calculate();
         }
-    }, [consumption, sourceType, loading]);
+    }, [consumption, sourceType, factors, loading]);
 
     const calculate = () => {
-        const factor = FACTORS[sourceType];
+        const factor = factors[sourceType];
 
         // 1. Calculate Total kWh needed per year
-        // Special case for Gas/Electric if input is already kWh, factor is 1
         const totalKWh = consumption * factor.kwh;
 
         // 2. Calculate Current Cost
         const currentCost = consumption * factor.price;
 
         // 3. Calculate LPG Cost for same kWh
-        // LPG needs totalKWh / 7.105 liters
-        const lpgLitersNeeded = totalKWh / FACTORS.lpg.kwh;
-        const lpgCost = lpgLitersNeeded * FACTORS.lpg.price;
+        const lpgLitersNeeded = totalKWh / factors.lpg.kwh;
+        const lpgCost = lpgLitersNeeded * factors.lpg.price;
 
         // 4. Savings
         const saveAmount = currentCost - lpgCost;
@@ -71,7 +73,7 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
 
         // 5. CO2 Savings
         const co2Current = totalKWh * factor.co2;
-        const co2Lpg = totalKWh * FACTORS.lpg.co2;
+        const co2Lpg = totalKWh * factors.lpg.co2;
         setCo2Savings(Math.round(co2Current - co2Lpg));
     };
 
@@ -82,6 +84,16 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
         if (type === 'gas') setConsumption(20000); // kWh
         if (type === 'pellets') setConsumption(5000); // kg
         if (type === 'electric') setConsumption(15000); // kWh heat pump
+    };
+
+    const handlePriceChange = (type, newPrice) => {
+        const price = parseFloat(newPrice.replace(',', '.'));
+        if (!isNaN(price)) {
+            setFactors(prev => ({
+                ...prev,
+                [type]: { ...prev[type], price }
+            }));
+        }
     };
 
     if (loading) {
@@ -187,7 +199,7 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
                                             </div>
 
                                             <div>
-                                                <label className="block text-sm font-bold text-gray-700 mb-2">Jahresverbrauch ({FACTORS[sourceType].label}) <Tooltip text="Entnehmen Sie diesen Wert Ihrer letzten Jahresabrechnung." /></label>
+                                                <label className="block text-sm font-bold text-gray-700 mb-2">Jahresverbrauch ({factors[sourceType].label}) <Tooltip text="Entnehmen Sie diesen Wert Ihrer letzten Jahresabrechnung." /></label>
                                                 <div className="relative">
                                                     <input
                                                         type="number"
@@ -195,7 +207,7 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
                                                         onChange={(e) => setConsumption(Number(e.target.value))}
                                                         className="w-full p-4 bg-gray-50 border-2 border-gray-100 rounded-xl text-xl font-bold text-gray-900 focus:border-gas outline-none"
                                                     />
-                                                    <span className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400 font-bold">{FACTORS[sourceType].label}</span>
+                                                    <span className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400 font-bold">{factors[sourceType].label}</span>
                                                 </div>
                                                 <input
                                                     type="range"
@@ -206,6 +218,57 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
                                                     onChange={(e) => setConsumption(Number(e.target.value))}
                                                     className="w-full mt-4 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-gas"
                                                 />
+                                            </div>
+
+                                             {/* Advanced Settings Toggle */}
+                                            <div className="pt-4 border-t border-gray-100">
+                                                <button
+                                                    onClick={() => setShowSettings(!showSettings)}
+                                                    className="flex items-center gap-2 text-sm text-gray-500 font-medium hover:text-gas transition-colors"
+                                                >
+                                                    <Settings size={16} />
+                                                    {showSettings ? 'Basiswerte ausblenden' : 'Basiswerte anpassen'}
+                                                </button>
+
+                                                <AnimatePresence>
+                                                    {showSettings && (
+                                                        <motion.div
+                                                            initial={{ height: 0, opacity: 0 }}
+                                                            animate={{ height: 'auto', opacity: 1 }}
+                                                            exit={{ height: 0, opacity: 0 }}
+                                                            className="overflow-hidden"
+                                                        >
+                                                            <div className="grid grid-cols-2 gap-4 mt-4 bg-gray-50 p-4 rounded-xl text-sm">
+                                                                <div>
+                                                                    <label className="block text-gray-500 text-xs font-bold mb-1">Ihr Preis ({factors[sourceType].label})</label>
+                                                                    <div className="flex items-center bg-white border border-gray-200 rounded-lg px-2">
+                                                                         <input
+                                                                            type="number"
+                                                                            step="0.01"
+                                                                            value={factors[sourceType].price}
+                                                                            onChange={(e) => handlePriceChange(sourceType, e.target.value)}
+                                                                            className="w-full py-2 bg-transparent outline-none font-bold text-gray-700"
+                                                                        />
+                                                                        <span className="text-gray-400 text-xs">€</span>
+                                                                    </div>
+                                                                </div>
+                                                                 <div>
+                                                                    <label className="block text-gray-500 text-xs font-bold mb-1">Flüssiggas Preis (Liter)</label>
+                                                                    <div className="flex items-center bg-white border border-gray-200 rounded-lg px-2">
+                                                                         <input
+                                                                            type="number"
+                                                                            step="0.01"
+                                                                            value={factors.lpg.price}
+                                                                            onChange={(e) => handlePriceChange('lpg', e.target.value)}
+                                                                            className="w-full py-2 bg-transparent outline-none font-bold text-gray-700"
+                                                                        />
+                                                                        <span className="text-gray-400 text-xs">€</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </motion.div>
+                                                    )}
+                                                </AnimatePresence>
                                             </div>
                                         </div>
 
@@ -236,12 +299,15 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
 
                                                 <div className="p-4 bg-yellow-50 rounded-xl border border-yellow-100 text-xs text-yellow-800 leading-relaxed">
                                                     <Info size={14} className="inline mr-1 mb-0.5" />
-                                                    <strong>Hinweis:</strong> Unverbindliche Modellrechnung (Stand 2026). Preise sind Markt-Durchschnittswerte und können regional abweichen.
+                                                    <strong>Hinweis:</strong> Unverbindliche Modellrechnung (Stand 2026). Preise sind Durchschnittswerte (Quellen: Verivox, BDEW). Sie können diese unter "Basiswerte anpassen" ändern.
+                                                    {sourceType === 'electric' && (
+                                                        <span className="block mt-2 font-bold">Hinweis Strom: Berechnung basiert auf Direktheizung/Nachtspeicher (1:1), nicht Wärmepumpe.</span>
+                                                    )}
                                                 </div>
                                             </div>
 
                                             <button
-                                                onClick={() => { handleSourceChange('oil'); }}
+                                                onClick={() => { handleSourceChange('oil'); setFactors(DEFAULT_FACTORS); }}
                                                 className="mt-6 flex items-center justify-center gap-2 text-gray-400 text-xs font-bold hover:text-gas transition-colors"
                                             >
                                                 <RotateCcw size={12} /> Zurücksetzen
