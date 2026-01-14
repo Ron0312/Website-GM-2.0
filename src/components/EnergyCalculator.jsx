@@ -282,9 +282,16 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
                                                         key={savings}
                                                         initial={{ scale: 0.8, opacity: 0 }}
                                                         animate={{ scale: 1, opacity: 1 }}
-                                                        className="text-5xl font-extrabold text-gas"
+                                                        className={`text-5xl font-extrabold ${savings >= 0 ? 'text-gas' : 'text-orange-500'}`}
                                                     >
-                                                        {savings > 0 ? `${savings} €` : <span className="text-3xl text-gray-400">Keine Ersparnis</span>}
+                                                        {savings > 0 && `${savings} €`}
+                                                        {savings === 0 && <span className="text-3xl text-gray-400">Keine Ersparnis</span>}
+                                                        {savings < 0 && (
+                                                            <div className="flex flex-col items-center">
+                                                                <span className="text-3xl text-gray-400 mb-1">Keine Ersparnis</span>
+                                                                <span className="text-lg text-orange-500 font-bold">({Math.abs(savings)} € Mehrkosten)</span>
+                                                            </div>
+                                                        )}
                                                     </motion.div>
                                                 </div>
 
