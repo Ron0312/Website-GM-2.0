@@ -53,3 +53,9 @@
 {"level":"WARN","timestamp":"2026-01-14T18:56:23.995Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"27ms","ip":"::1"}
 {"level":"WARN","timestamp":"2026-01-14T18:56:24.033Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"35ms","ip":"::1"}
 {"level":"WARN","timestamp":"2026-01-14T18:56:24.089Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"40ms","ip":"::1"}
+7:06:25 PM [vite] hmr update /src/components/ReviewsWidget.jsx, /src/index.css
+7:08:02 PM [vite] hmr update /src/components/EnergyCalculator.jsx, /src/index.css
+{"level":"WARN","timestamp":"2026-01-14T19:08:41.555Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"30ms","ip":"::1"}
+{"level":"WARN","timestamp":"2026-01-14T19:08:41.816Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"25ms","ip":"::1"}
+{"level":"WARN","timestamp":"2026-01-14T19:08:41.883Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"27ms","ip":"::1"}
+{"level":"WARN","timestamp":"2026-01-14T19:08:41.912Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"10ms","ip":"::1"}
