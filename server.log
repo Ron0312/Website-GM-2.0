@@ -2,12 +2,12 @@
 > gasmoeller-vite@0.0.0 dev
 > node server.js
 
-{"level":"INFO","timestamp":"2026-01-15T19:06:29.975Z","message":"Loaded 32 knowledge articles."}
-{"level":"INFO","timestamp":"2026-01-15T19:06:29.980Z","message":"Starting server. Initial mode: DEVELOPMENT"}
-{"level":"INFO","timestamp":"2026-01-15T19:06:30.328Z","message":"Server started at http://localhost:5173"}
-{"level":"WARN","timestamp":"2026-01-15T19:07:09.702Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"23ms","ip":"::1"}
-{"level":"WARN","timestamp":"2026-01-15T19:07:09.736Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"23ms","ip":"::1"}
-{"level":"WARN","timestamp":"2026-01-15T19:07:09.761Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"14ms","ip":"::1"}
-{"level":"WARN","timestamp":"2026-01-15T19:07:09.806Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"33ms","ip":"::1"}
-{"level":"INFO","timestamp":"2026-01-15T19:08:20.822Z","message":"Received kill signal, shutting down gracefully"}
-{"level":"INFO","timestamp":"2026-01-15T19:08:20.823Z","message":"Closed out remaining connections"}
+{"level":"INFO","timestamp":"2026-01-15T19:14:45.939Z","message":"Loaded 32 knowledge articles."}
+{"level":"INFO","timestamp":"2026-01-15T19:14:45.945Z","message":"Starting server. Initial mode: DEVELOPMENT"}
+{"level":"INFO","timestamp":"2026-01-15T19:14:46.582Z","message":"Server started at http://localhost:5173"}
+{"level":"WARN","timestamp":"2026-01-15T19:15:27.890Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"22ms","ip":"::1"}
+{"level":"WARN","timestamp":"2026-01-15T19:15:27.999Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"23ms","ip":"::1"}
+{"level":"WARN","timestamp":"2026-01-15T19:15:28.027Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"26ms","ip":"::1"}
+{"level":"WARN","timestamp":"2026-01-15T19:15:28.092Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"28ms","ip":"::1"}
+{"level":"INFO","timestamp":"2026-01-15T19:16:06.987Z","message":"Received kill signal, shutting down gracefully"}
+{"level":"INFO","timestamp":"2026-01-15T19:16:06.988Z","message":"Closed out remaining connections"}
