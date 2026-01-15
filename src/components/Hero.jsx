@@ -11,6 +11,7 @@ const Hero = ({
     backgroundImage = "/images/gas-order-hero.webp",
     badgeText,
     customButtons,
+    hideButtons = false,
     fullHeight = false,
     children
 }) => {
@@ -59,7 +60,7 @@ const Hero = ({
     };
 
     return (
-        <header className={`relative bg-white pt-32 pb-20 lg:pt-64 lg:pb-48 overflow-hidden ${fullHeight ? 'min-h-screen flex items-center' : ''}`}>
+        <header className={`relative bg-white pt-32 ${hideButtons ? 'pb-10 lg:pb-32' : 'pb-20 lg:pb-48'} overflow-hidden ${fullHeight ? 'min-h-screen flex items-center' : ''}`}>
             <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 to-gray-900/30 z-10"></div>
                 <img
@@ -90,53 +91,55 @@ const Hero = ({
                                 {renderSubtitle()}
                             </p>
 
-                            <div className="flex flex-col sm:flex-row gap-4">
-                                {customButtons ? customButtons : (
-                                    <>
-                                        {openWizard ? (
-                                            <motion.button
-                                                whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
-                                                whileTap={{ scale: 0.95 }}
-                                                onClick={() => openWizard('tank')}
-                                                className="px-8 py-4 bg-gas hover:bg-gas-dark text-white text-base font-bold rounded-full shadow-xl shadow-gas/30 transition-all uppercase tracking-wide border-2 border-transparent"
-                                            >
-                                                Flüssiggastank kaufen
-                                            </motion.button>
-                                        ) : (
-                                            <motion.a
-                                                href="/fluessiggastank-kaufen"
-                                                whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
-                                                whileTap={{ scale: 0.95 }}
-                                                onClick={(e) => { e.preventDefault(); setActiveSection('fluessiggastank-kaufen'); }}
-                                                className="px-8 py-4 bg-gas hover:bg-gas-dark text-white text-base font-bold rounded-full shadow-xl shadow-gas/30 transition-all uppercase tracking-wide border-2 border-transparent block text-center"
-                                            >
-                                                Flüssiggastank kaufen
-                                            </motion.a>
-                                        )}
+                            {!hideButtons && (
+                                <div className="flex flex-col sm:flex-row gap-4">
+                                    {customButtons ? customButtons : (
+                                        <>
+                                            {openWizard ? (
+                                                <motion.button
+                                                    whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                    onClick={() => openWizard('tank')}
+                                                    className="px-8 py-4 bg-gas hover:bg-gas-dark text-white text-base font-bold rounded-full shadow-xl shadow-gas/30 transition-all uppercase tracking-wide border-2 border-transparent"
+                                                >
+                                                    Flüssiggastank kaufen
+                                                </motion.button>
+                                            ) : (
+                                                <motion.a
+                                                    href="/fluessiggastank-kaufen"
+                                                    whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                    onClick={(e) => { e.preventDefault(); setActiveSection('fluessiggastank-kaufen'); }}
+                                                    className="px-8 py-4 bg-gas hover:bg-gas-dark text-white text-base font-bold rounded-full shadow-xl shadow-gas/30 transition-all uppercase tracking-wide border-2 border-transparent block text-center"
+                                                >
+                                                    Flüssiggastank kaufen
+                                                </motion.a>
+                                            )}
 
-                                        {openWizard ? (
-                                            <motion.button
-                                                whileHover={{ scale: 1.05 }}
-                                                whileTap={{ scale: 0.95 }}
-                                                onClick={() => openWizard('gas')}
-                                                className="px-8 py-4 bg-white text-gas hover:bg-blue-50 text-base font-bold rounded-full shadow-xl shadow-white/10 transition-all uppercase tracking-wide flex items-center justify-center border-2 border-white"
-                                            >
-                                                Flüssiggas bestellen
-                                            </motion.button>
-                                        ) : (
-                                            <motion.a
-                                                href="/fluessiggas-bestellen"
-                                                whileHover={{ scale: 1.05 }}
-                                                whileTap={{ scale: 0.95 }}
-                                                onClick={(e) => { e.preventDefault(); setActiveSection('fluessiggas-bestellen'); }}
-                                                className="px-8 py-4 bg-white text-gas hover:bg-blue-50 text-base font-bold rounded-full shadow-xl shadow-white/10 transition-all uppercase tracking-wide flex items-center justify-center border-2 border-white block text-center"
-                                            >
-                                                Flüssiggas bestellen
-                                            </motion.a>
-                                        )}
-                                    </>
-                                )}
-                            </div>
+                                            {openWizard ? (
+                                                <motion.button
+                                                    whileHover={{ scale: 1.05 }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                    onClick={() => openWizard('gas')}
+                                                    className="px-8 py-4 bg-white text-gas hover:bg-blue-50 text-base font-bold rounded-full shadow-xl shadow-white/10 transition-all uppercase tracking-wide flex items-center justify-center border-2 border-white"
+                                                >
+                                                    Flüssiggas bestellen
+                                                </motion.button>
+                                            ) : (
+                                                <motion.a
+                                                    href="/fluessiggas-bestellen"
+                                                    whileHover={{ scale: 1.05 }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                    onClick={(e) => { e.preventDefault(); setActiveSection('fluessiggas-bestellen'); }}
+                                                    className="px-8 py-4 bg-white text-gas hover:bg-blue-50 text-base font-bold rounded-full shadow-xl shadow-white/10 transition-all uppercase tracking-wide flex items-center justify-center border-2 border-white block text-center"
+                                                >
+                                                    Flüssiggas bestellen
+                                                </motion.a>
+                                            )}
+                                        </>
+                                    )}
+                                </div>
+                            )}
                         </motion.div>
                     </div>
                     {children && (

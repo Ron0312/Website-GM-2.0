@@ -317,9 +317,9 @@ const App = ({ path, context }) => {
             case '404':
                 if (context) context.status = 404;
                 return <><div className="pt-20"></div><NotFound onGoHome={changeSection} /><ContactSection /></>;
-            case 'start': return <><Hero openWizard={openWizard} setActiveSection={changeSection} /><TrustBar />
+            case 'start': return <><Hero openWizard={openWizard} setActiveSection={changeSection} hideButtons={true} /><TrustBar />
                 <DualCTA openWizard={openWizard} />
-                <TankSection openWizard={openWizard} setActiveSection={changeSection} showTechnicalOverview={false} tankFilter={tankFilter} onFilterChange={setTankFilter} /><CommercialSection setActiveSection={changeSection} /><div className="max-w-7xl mx-auto px-4"><EnergyCalculator /></div><ReviewsWidget /><Suspense fallback={null}><KnowledgeTeaser setActiveSection={changeSection} /></Suspense><Suspense fallback={<div className="h-96 w-full bg-gray-100 animate-pulse rounded-xl render-optimization" />}><DeliveryMap /></Suspense><FAQ /><ContactSection /></>;
+                <TankSection openWizard={openWizard} setActiveSection={changeSection} showTechnicalOverview={false} tankFilter={tankFilter} onFilterChange={setTankFilter} hideHero={true} /><CommercialSection setActiveSection={changeSection} /><div className="max-w-7xl mx-auto px-4"><EnergyCalculator /></div><ReviewsWidget /><Suspense fallback={null}><KnowledgeTeaser setActiveSection={changeSection} /></Suspense><Suspense fallback={<div className="h-96 w-full bg-gray-100 animate-pulse rounded-xl render-optimization" />}><DeliveryMap /></Suspense><FAQ /><ContactSection /></>;
 
             // New Speaking URLs mappings
             case 'fluessiggastank-kaufen':
