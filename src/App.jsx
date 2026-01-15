@@ -322,8 +322,9 @@ const App = ({ path, context }) => {
                 <TankSection openWizard={openWizard} setActiveSection={changeSection} showTechnicalOverview={false} tankFilter={tankFilter} onFilterChange={setTankFilter} hideHero={true} />
                 <div className="max-w-7xl mx-auto px-4"><EnergyCalculator /></div>
                 <ReviewsWidget />
-                <CommercialSection setActiveSection={changeSection} />
-                <Suspense fallback={null}><KnowledgeTeaser setActiveSection={changeSection} /></Suspense><Suspense fallback={<div className="h-96 w-full bg-gray-100 animate-pulse rounded-xl render-optimization" />}><DeliveryMap /></Suspense><FAQ /><ContactSection /></>;
+                <Suspense fallback={<div className="h-96 w-full bg-gray-100 animate-pulse rounded-xl render-optimization" />}><DeliveryMap /></Suspense>
+                <Suspense fallback={null}><KnowledgeTeaser setActiveSection={changeSection} /></Suspense>
+                <FAQ /><ContactSection /></>;
 
             // New Speaking URLs mappings
             case 'fluessiggastank-kaufen':
