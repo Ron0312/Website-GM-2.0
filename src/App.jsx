@@ -32,6 +32,7 @@ import DualCTA from './components/DualCTA';
 import TankDisposalPage from './components/TankDisposalPage';
 import Toast from './components/ui/Toast';
 import ReviewsWidget from './components/ReviewsWidget';
+import FounderTeaser from './components/FounderTeaser';
 
 // Lazy Load heavy components
 const WizardModal = React.lazy(() => import('./components/WizardModal'));
@@ -64,6 +65,13 @@ const App = ({ path, context }) => {
 
     // Legal Modals
     const [legalModal, setLegalModal] = useState({ open: false, title: '', content: '' });
+
+    const tankFAQs = [
+        { q: 'Kann man einen Flüssiggastank kaufen?', a: 'Ja, Sie können Flüssiggastanks (1,2t, 2,1t, 2,9t) käuflich erwerben. Damit entfallen monatliche Mietgebühren und Sie können Ihren Flüssiggaslieferanten frei wählen.' },
+        { q: 'Was kostet ein Gastank 2700 Liter?', a: 'Die Preise für einen Gastank 2700 Liter variieren je nach Stahlpreis. Ein oberirdischer Tank ist günstiger als ein unterirdischer. Kontaktieren Sie uns für ein tagesaktuelles Angebot.' },
+        { q: 'Welche Gastank Größen gibt es?', a: 'Gängige Größen für Privathaushalte sind 1,2 Tonnen (2700 Liter), 2,1 Tonnen (4850 Liter) und 2,9 Tonnen (6400 Liter).' },
+        { q: 'Sind gebrauchte Tanks sicher?', a: 'Ja, unsere regenerierten Tanks werden komplett überholt, neu lackiert und erhalten eine neue TÜV-Prüfung vor Auslieferung.' }
+    ];
 
     const openWizard = (type) => {
         setWizardType(type);
@@ -323,13 +331,14 @@ const App = ({ path, context }) => {
                 <div className="max-w-7xl mx-auto px-4"><EnergyCalculator /></div>
                 <ReviewsWidget />
                 <Suspense fallback={<div className="h-96 w-full bg-gray-100 animate-pulse rounded-xl render-optimization" />}><DeliveryMap /></Suspense>
+                <FounderTeaser />
                 <Suspense fallback={null}><KnowledgeTeaser setActiveSection={changeSection} /></Suspense>
                 <FAQ /><ContactSection /></>;
 
             // New Speaking URLs mappings
             case 'fluessiggastank-kaufen':
             case 'tanks': // Legacy fallback
-                return <><TankSection openWizard={openWizard} setActiveSection={changeSection} isPageTitle={true} tankFilter={tankFilter} onFilterChange={setTankFilter} /><ContactSection /></>;
+                return <><TankSection openWizard={openWizard} setActiveSection={changeSection} isPageTitle={true} tankFilter={tankFilter} onFilterChange={setTankFilter} /><FAQ items={tankFAQs} /><ContactSection /></>;
 
             case 'fluessiggas-bestellen':
             case 'gas': // Legacy fallback
