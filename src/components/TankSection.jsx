@@ -6,7 +6,7 @@ import { tankDetails } from '../data/tanks';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, ArrowRight } from 'lucide-react';
 
-const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = true, isPageTitle = false, tankFilter, onFilterChange }) => {
+const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = true, isPageTitle = false, tankFilter, onFilterChange, hideHero = false }) => {
     const [filter, setFilter] = useState('oberirdisch');
     const [activeIndex, setActiveIndex] = useState(0);
     const scrollContainerRef = useRef(null);
@@ -87,17 +87,19 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
             <div className="absolute top-0 left-0 right-0 h-[800px] bg-gradient-to-b from-gray-50/50 to-white -z-10 clip-path-slant"></div>
 
             {/* Standardized Hero Section */}
-            <Hero
-                setActiveSection={setActiveSection}
-                openWizard={openWizard}
-                title="Flüssiggastank kaufen"
-                subtitle="Preise für 2700l, 4850l & 6400l. Oberirdisch & Unterirdisch. Neu & Gebraucht."
-                backgroundImage="/images/tank-section-hero.webp"
-                badgeText="Sofort verfügbar & Installation durch Fachpartner"
-                // No custom buttons => uses default Tank Kaufen / Flüssiggas bestellen
-            />
+            {!hideHero && (
+                <Hero
+                    setActiveSection={setActiveSection}
+                    openWizard={openWizard}
+                    title="Flüssiggastank kaufen"
+                    subtitle="Preise für 2700l, 4850l & 6400l. Oberirdisch & Unterirdisch. Neu & Gebraucht."
+                    backgroundImage="/images/tank-section-hero.webp"
+                    badgeText="Sofort verfügbar & Installation durch Fachpartner"
+                    // No custom buttons => uses default Tank Kaufen / Flüssiggas bestellen
+                />
+            )}
 
-            <div className="py-24 max-w-7xl mx-auto px-4">
+            <div className={`max-w-7xl mx-auto px-4 ${hideHero ? 'pt-10 pb-24' : 'py-24'}`}>
 
                 {/* Header Area */}
                 <div className="text-center mb-16 relative z-10">
