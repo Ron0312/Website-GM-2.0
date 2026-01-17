@@ -10,8 +10,6 @@ import CommercialSection from './components/CommercialSection';
 import InspectionSection from './components/InspectionSection';
 import FAQ from './components/FAQ';
 import ContactSection from './components/ContactSection';
-import GasOrderSection from './components/GasOrderSection';
-import EnergyCalculator from './components/EnergyCalculator';
 import KnowledgeCenter from './components/KnowledgeCenter';
 import AboutPage from './components/AboutPage';
 import Footer from './components/Footer';
@@ -40,6 +38,8 @@ const DeliveryMap = React.lazy(() => import('./components/DeliveryMap'));
 const DeliveryAreaOverview = React.lazy(() => import('./components/DeliveryAreaOverview'));
 const TankDetail = React.lazy(() => import('./components/TankDetail'));
 const KnowledgeTeaser = React.lazy(() => import('./components/KnowledgeTeaser'));
+const EnergyCalculator = React.lazy(() => import('./components/EnergyCalculator'));
+const GasOrderSection = React.lazy(() => import('./components/GasOrderSection'));
 
 const App = ({ path, context }) => {
     // Initial state based on path if provided (SSR), otherwise default to window location (CSR)
@@ -328,7 +328,7 @@ const App = ({ path, context }) => {
             case 'start': return <><Hero openWizard={openWizard} setActiveSection={changeSection} hideButtons={true} /><TrustBar />
                 <DualCTA openWizard={openWizard} />
                 <TankSection openWizard={openWizard} setActiveSection={changeSection} showTechnicalOverview={false} tankFilter={tankFilter} onFilterChange={setTankFilter} hideHero={true} />
-                <div className="max-w-7xl mx-auto px-4"><EnergyCalculator /></div>
+                <div className="max-w-7xl mx-auto px-4"><Suspense fallback={<div className="h-64 w-full bg-gray-50 rounded-3xl animate-pulse my-12" />}><EnergyCalculator /></Suspense></div>
                 <ReviewsWidget />
                 <Suspense fallback={<div className="h-96 w-full bg-gray-100 animate-pulse rounded-xl render-optimization" />}><DeliveryMap /></Suspense>
                 <FounderTeaser />
@@ -342,11 +342,11 @@ const App = ({ path, context }) => {
 
             case 'fluessiggas-bestellen':
             case 'gas': // Legacy fallback
-                return <><GasOrderSection onCheckAvailability={handleGasCheckAvailability} setActiveSection={changeSection} /><FAQ /><ContactSection /></>;
+                return <><Suspense fallback={<div className="h-screen flex items-center justify-center">Laden...</div>}><GasOrderSection onCheckAvailability={handleGasCheckAvailability} setActiveSection={changeSection} /></Suspense><FAQ /><ContactSection /></>;
 
             case 'tank-entsorgen': return <><div className="pt-20"></div><TankDisposalPage setActiveSection={changeSection} openWizard={openWizard} /></>;
             case 'pruefungen': return <><div className="pt-20"></div><InspectionSection openWizard={openWizard} /><ContactSection /></>;
-            case 'rechner': return <><div className="pt-32 max-w-4xl mx-auto px-4"><EnergyCalculator defaultExpanded={true} /></div><ContactSection /></>;
+            case 'rechner': return <><div className="pt-32 max-w-4xl mx-auto px-4"><Suspense fallback={<div className="h-screen flex items-center justify-center">Laden...</div>}><EnergyCalculator defaultExpanded={true} /></Suspense></div><ContactSection /></>;
             case 'gewerbe': return <><CommercialSection setActiveSection={changeSection} isPage={true} /><ContactSection /></>;
             case 'wissen': return <><div className="pt-20"></div><KnowledgeCenter setActiveSection={changeSection} /><ContactSection /></>;
             case 'ueber-uns': return <><div className="pt-20"></div><AboutPage setActiveSection={changeSection} /><ContactSection /></>;

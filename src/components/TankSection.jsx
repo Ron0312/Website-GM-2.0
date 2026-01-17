@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import TankCard from './TankCard';
-import EnergyCalculator from './EnergyCalculator';
 import Hero from './Hero';
 import { tankDetails } from '../data/tanks';
 import { motion, AnimatePresence } from 'framer-motion';
