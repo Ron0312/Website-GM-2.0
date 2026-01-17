@@ -34,7 +34,7 @@ export const tankDetails = [
             { title: 'Aufstellung', desc: 'Der Tank wird direkt auf das Fundament gehoben und verankert.' },
             { title: 'Anschluss', desc: 'Verlegung der Rohrleitung zum Haus und Anschluss durch einen zertifizierten Fachbetrieb.' }
         ],
-        maintenanceInfo: 'Gesetzlich vorgeschriebene Prüfungen: Äußere Prüfung alle 2 Jahre (Sichtprüfung), Innere Prüfung alle 10 Jahre. Als Eigentümer sind Sie verantwortlich, wir organisieren das aber gerne komplett für Sie.',
+        maintenanceInfo: 'Gesetzlich vorgeschriebene Prüfungen: <a href="/wissen/sicherheit" class="underline hover:text-blue-600">Äußere Prüfung</a> alle 2 Jahre (Sichtprüfung), <a href="/wissen/sicherheit" class="underline hover:text-blue-600">Innere Prüfung</a> alle 10 Jahre. Als Eigentümer sind Sie verantwortlich, wir organisieren das aber gerne komplett für Sie.',
         seoTitle: 'Gastank 2700 Liter kaufen | 1,2 t Oberirdisch | Preis',
         seoDesc: 'Gastank 2700 Liter (1,2 t) kaufen. Maße: 2,50 m x 1,25 m. Ideal für Ferienhäuser. Neu & Gebraucht (regeneriert) Preise anfragen.'
     },
@@ -73,9 +73,9 @@ export const tankDetails = [
             { title: 'Aufstellung', desc: 'Platzierung auf dem Fundament.' },
             { title: 'Inbetriebnahme', desc: 'Anschluss, Dichtheitsprüfung und Einweisung.' }
         ],
-        maintenanceInfo: 'Äußere Prüfung: alle 2 Jahre. Innere Prüfung: alle 10 Jahre (Druckprüfung/Einspeisung). Rohrleitungsprüfung: alle 10 Jahre.',
-        seoTitle: 'Flüssiggastank 4850 Liter kaufen | 2,1 t Gastank | Neu & Gebraucht',
-        seoDesc: 'Flüssiggastank & Gastank 4850 Liter (2,1 t) kaufen. Maße: 4,30 m x 1,25 m. Der Standard für Einfamilienhäuser. Neu & Gebraucht Angebote vergleichen.'
+        maintenanceInfo: '<a href="/wissen/sicherheit" class="underline hover:text-blue-600">Äußere Prüfung</a>: alle 2 Jahre. <a href="/wissen/sicherheit" class="underline hover:text-blue-600">Innere Prüfung</a>: alle 10 Jahre. Rohrleitungsprüfung: alle 10 Jahre. Wir koordinieren alle Termine.',
+        seoTitle: 'Flüssiggastank 4850 Liter kaufen | 2,1 t Oberirdisch | Preis',
+        seoDesc: 'Flüssiggastank 4850 Liter (2,1 t) oberirdisch kaufen. Maße: 4,30 m x 1,25 m. Der Standard für Einfamilienhäuser. Neu & Gebraucht Angebote vergleichen.'
     },
     {
         slug: 'fluessiggastank-6400l-oberirdisch-2-9t',
@@ -112,8 +112,8 @@ export const tankDetails = [
             { title: 'Sicherheit', desc: 'Einhaltung von Sicherheitsabständen (Brandlasten) besonders wichtig.' }
         ],
         maintenanceInfo: 'Standardintervalle (2/10 Jahre). Bei gewerblicher Nutzung gelten ggf. zusätzliche Vorschriften der Berufsgenossenschaft.',
-        seoTitle: 'Gastank 6400 Liter kaufen | 2,9 t Großtank | Preis',
-        seoDesc: 'Gastank 6400 Liter (2,9 t) kaufen. Maße: 5,50 m x 1,25 m. Für Gewerbe & Mehrfamilienhäuser. Jetzt Gastank Preis anfragen.'
+        seoTitle: 'Flüssiggastank 6400 Liter kaufen | 2,9 t Oberirdisch | Preis',
+        seoDesc: 'Flüssiggastank 6400 Liter (2,9 t) oberirdisch kaufen. Maße: 5,50 m x 1,25 m. Für Gewerbe & Mehrfamilienhäuser. Jetzt Gastank Preis anfragen.'
     },
     {
         slug: 'fluessiggastank-2700l-halboberirdisch-1-2t',
@@ -263,8 +263,8 @@ export const tankDetails = [
             { title: 'Verfüllung', desc: 'Mit Sand einschlämmen. Domschacht aufsetzen.' }
         ],
         maintenanceInfo: 'Innere Prüfung alle 10 Jahre etwas aufwändiger (Einspeisung notwendig). Äußere Prüfung erfolgt über Domschacht/Messung.',
-        seoTitle: 'Gastank 2700 Liter unterirdisch | 1,2 t Preis & Kaufen',
-        seoDesc: 'Gastank Unterirdisch 2700 Liter (1,2 t) kaufen. Perfekt für kleine Gärten. Verschwindet im Boden. Was kostet ein unterirdischer Gastank?'
+        seoTitle: 'Flüssiggastank 2700 Liter unterirdisch | 1,2 t Erdtank kaufen',
+        seoDesc: 'Flüssiggastank Unterirdisch 2700 Liter (1,2 t) kaufen. Der unsichtbare Erdtank für kleine Gärten. Verschwindet im Boden. Jetzt Preis anfragen.'
     },
     {
         slug: 'fluessiggastank-4850l-unterirdisch-2-1t',
@@ -301,8 +301,8 @@ export const tankDetails = [
             { title: 'Finish', desc: 'Oberboden auftragen, Rasen säen. Nur Deckel bleibt sichtbar.' }
         ],
         maintenanceInfo: 'Wartungsarm. Korrosionsschutz durch Epoxidharz und Sandbettung extrem langlebig.',
-        seoTitle: 'Flüssiggastank 4850 Liter unterirdisch | 2,1 t Erdtank',
-        seoDesc: 'Flüssiggastank Unterirdisch 4850 Liter (2,1 t) kaufen. Unsichtbare Energieversorgung für Ihr Einfamilienhaus. Maße & Preise.'
+        seoTitle: 'Flüssiggastank 4850 Liter unterirdisch | 2,1 t Erdtank kaufen',
+        seoDesc: 'Flüssiggastank Unterirdisch 4850 Liter (2,1 t) kaufen. Der Standard-Erdtank für Einfamilienhäuser. Unsichtbar & sicher. Jetzt Angebot sichern!'
     },
     {
         slug: 'fluessiggastank-6400l-unterirdisch-2-9t',
@@ -338,7 +338,7 @@ export const tankDetails = [
             { title: 'Einbau', desc: 'Professionelle Erdarbeiten unumgänglich.' }
         ],
         maintenanceInfo: '10-jährige Prüfung per Schallemission möglich (ohne Entleerung), wenn vorbereitet.',
-        seoTitle: 'Gastank 6400 Liter unterirdisch | 2,9 t Preis & Kaufen',
-        seoDesc: 'Gastank Unterirdisch 6400 Liter (2,9 t) kaufen. Für Gewerbe & MFH. Preise & Kosten für den unterirdischen Gastank.'
+        seoTitle: 'Flüssiggastank 6400 Liter unterirdisch | 2,9 t Erdtank kaufen',
+        seoDesc: 'Flüssiggastank Unterirdisch 6400 Liter (2,9 t) kaufen. Der große Erdtank für Gewerbe & Mehrfamilienhäuser. Preise & Kosten anfragen.'
     }
 ];

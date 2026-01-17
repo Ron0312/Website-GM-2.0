@@ -416,6 +416,7 @@ export const getSeoForPath = (path) => {
                 { question: "Muss ich bei der Lieferung zu Hause sein?", answer: "Nicht zwingend, sofern der Flüssiggastank und der Füllanschluss für unseren Fahrer frei zugänglich sind. Wir informieren Sie vorab über den Liefertermin." },
                 { question: "Liefern Sie auch im Notfall?", answer: "Ja, wenn Ihre Heizung kalt bleibt, versuchen wir schnellstmöglich zu helfen. Rufen Sie uns direkt an unter 04551 89 70 89." },
                 { question: "Was genau ist Flüssiggas?", answer: "Flüssiggas (LPG) besteht aus Propan und Butan. Als Heizgas verwenden wir in Deutschland gemäß DIN 51622 fast ausschließlich reines Propan, da dieses auch bei tiefen Temperaturen im Winter zuverlässig verdampft." },
+                { question: "Bieten Sie auch Gasflaschen (Flaschengas) an?", answer: "Unser Kerngeschäft ist die Belieferung von Flüssiggastanks. Für Gasflaschen (11kg / 33kg) wenden Sie sich bitte an lokale Baumärkte oder Camping-Händler. Wir bieten jedoch Treibgas für Stapler (Gewerbe) an." },
                 { question: "Welche Prüfungen sind beim Flüssiggastank vorgeschrieben?", answer: "Alle 2 Jahre muss eine äußere Prüfung durch eine befähigte Person erfolgen. Alle 10 Jahre ist eine innere Prüfung durch eine ZÜS (z.B. TÜV, DEKRA) notwendig. Wir unterstützen Sie gerne bei der Organisation." }
             ])
         ]
@@ -423,8 +424,8 @@ export const getSeoForPath = (path) => {
     case 'tank-entsorgen':
       return {
         ...defaultSeo,
-        title: 'Gastank entsorgen & stilllegen | Fachfirma, Kosten & Entleeren',
-        description: 'Alten Flüssiggastank/Gastank entsorgen, abholen oder stilllegen lassen? Wir sind Ihre zertifizierte Fachfirma. Restgas-Absaugung & Demontage zum Festpreis.',
+        title: 'Flüssiggastank entsorgen & stilllegen | Kosten & Fachfirma',
+        description: 'Alten Flüssiggastank entsorgen, abholen oder stilllegen lassen? Wir sind Ihre zertifizierte Fachfirma. Restgas-Absaugung & Demontage zum Festpreis.',
         schema: [
             getOrganizationSchema(),
             getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Service', url: '/service' }, { name: 'Tank entsorgen', url: '/tank-entsorgen' }]),
@@ -440,8 +441,8 @@ export const getSeoForPath = (path) => {
     case 'tanks':
       return {
         ...defaultSeo,
-        title: 'Flüssiggastank & Gastank kaufen | Neu & Gebraucht | 2700 - 6400 Liter',
-        description: 'Flüssiggastank & Gastank kaufen (Neu & Gebraucht). Preise für 2700 Liter (1,2t), 4850 Liter (2,1t) & 6400 Liter. Oberirdisch & Unterirdisch vom Fachhändler.',
+        title: 'Flüssiggastank kaufen | Neu & Gebraucht | Preise 2026',
+        description: 'Flüssiggastank kaufen (Neu & Gebraucht). Aktuelle Preise 2026 für 2700l, 4850l & 6400l. Oberirdisch & Unterirdisch vom Fachhändler. Jetzt Angebot prüfen!',
         schema: [
             getOrganizationSchema(),
             getTankCatalogSchema(),
@@ -518,7 +519,7 @@ export const getSeoForPath = (path) => {
       return {
           ...defaultSeo,
           title: 'Flüssiggastank Prüfungen & TÜV | 2 & 10 Jahre Fristen | Kosten',
-          description: 'Flüssiggastankprüfung fällig? Wir organisieren die Innere (10 Jahre) & Äußere Prüfung (2 Jahre) sowie Rohrleitungsprüfungen. TÜV-Abnahme zum Festpreis.',
+          description: 'Flüssiggastank Prüfung (TÜV/DEKRA) fällig? Wir organisieren Äußere (2 Jahre), Innere Prüfung (10 Jahre) & Rohrleitungsprüfung. Festpreis-Service.',
           schema: [
               getOrganizationSchema(),
               getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Service', url: '/pruefungen' }]),
@@ -596,13 +597,13 @@ export const getSeoForPath = (path) => {
               }
           },
           'miete-kauf': {
-              title: 'Flüssiggastank mieten oder kaufen? Rechner & Kosten-Vergleich',
-              desc: 'Miete vs. Kauf: Was lohnt sich wirklich? Wir rechnen nach. Vor- und Nachteile, Amortisation und Expertentipps für Ihre Entscheidung.',
+              title: 'Flüssiggastank mieten oder kaufen? Kosten-Vergleich 2026',
+              desc: 'Flüssiggastank mieten? Stopp! Warum Kaufen oft 30-40% günstiger ist. Unser Rechner zeigt: So sparen Sie tausende Euro gegenüber der Miete.',
               date: `${CURRENT_YEAR}-01-20`
           },
           'sicherheit': {
-              title: 'Flüssiggastank Vorschriften & Abstände | Sicherheit & Aufstellort',
-              desc: 'Welche Abstände gelten zum Nachbarn? Alles zu Grenzabständen, Schutzzonen und Brandschutz bei Flüssiggastanks (TRF 2021).',
+              title: 'Flüssiggastank Vorschriften & Abstände (TRF 2021) | Checkliste',
+              desc: 'Aktuelle Flüssiggastank Vorschriften 2026: Grenzabstände, Brandschutz & Ex-Zonen. Einfache Checkliste für die Aufstellung (Oberirdisch & Unterirdisch).',
               semantic: {
                   about: [{ name: 'Technische Regeln Flüssiggas', wikidata: 'https://www.wikidata.org/wiki/Q2399222' }]
               }

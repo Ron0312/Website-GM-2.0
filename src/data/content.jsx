@@ -380,10 +380,46 @@ export const CONTENT = {
                             <h4 className="text-xl font-bold text-gas mb-2">Ex-Zonen</h4>
                             <p className="mb-4">Um den Tank herum existiert eine sogenannte Explosionsschutzzone (Ex-Zone). In diesem Bereich dürfen sich keine Zündquellen (Lampen, Steckdosen, Gullis) befinden. Bei oberirdischen Tanks beträgt der Radius oft 3m um die Armaturen, bei unterirdischen Tanks meist nur 1m um den Domdeckel.</p>
 
+                            <div className="my-8">
+                                <h4 className="text-xl font-bold text-gas mb-4">Checkliste: Vorschriften auf einen Blick</h4>
+                                <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                                    <div className="divide-y divide-gray-100">
+                                        <div className="p-4 flex items-start gap-3">
+                                            <CheckCircle className="text-green-500 flex-shrink-0 mt-1" size={20} />
+                                            <div>
+                                                <span className="font-bold text-gray-800 block">3 Meter Brandlast-Abstand</span>
+                                                <span className="text-sm text-gray-600">Kein Holz, Stroh oder Carport im 3m Radius.</span>
+                                            </div>
+                                        </div>
+                                        <div className="p-4 flex items-start gap-3">
+                                            <CheckCircle className="text-green-500 flex-shrink-0 mt-1" size={20} />
+                                            <div>
+                                                <span className="font-bold text-gray-800 block">1 Meter zu Öffnungen</span>
+                                                <span className="text-sm text-gray-600">Mindestabstand zu Kellerfenstern, Lichtschächten oder Türen.</span>
+                                            </div>
+                                        </div>
+                                        <div className="p-4 flex items-start gap-3">
+                                            <CheckCircle className="text-green-500 flex-shrink-0 mt-1" size={20} />
+                                            <div>
+                                                <span className="font-bold text-gray-800 block">Stabiles Fundament</span>
+                                                <span className="text-sm text-gray-600">Betonplatte erforderlich (verhindert Absacken).</span>
+                                            </div>
+                                        </div>
+                                        <div className="p-4 flex items-start gap-3">
+                                            <CheckCircle className="text-green-500 flex-shrink-0 mt-1" size={20} />
+                                            <div>
+                                                <span className="font-bold text-gray-800 block">Zugänglichkeit</span>
+                                                <span className="text-sm text-gray-600">Der Tankwagen muss bis auf ca. 40m heranfahren können.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-between">
                                 <div>
-                                    <span className="font-bold text-gray-700 block">Checkliste Aufstellung</span>
-                                    <span className="text-sm text-gray-500">Detaillierte PDF-Anleitung für Bauherren.</span>
+                                    <span className="font-bold text-gray-700 block">PDF-Anleitung Aufstellung</span>
+                                    <span className="text-sm text-gray-500">Alle Maße und Skizzen zum Download.</span>
                                 </div>
                                 <button className="bg-white border border-gray-300 px-4 py-2 rounded-lg text-sm font-bold text-gray-600 flex items-center gap-2 hover:bg-gray-50">
                                     <Download size={16} /> Download
@@ -468,8 +504,24 @@ export const CONTENT = {
                                 </div>
                             </div>
 
+                            <h4 className="text-xl font-bold text-gas mb-4">Rohrleitungsprüfung (10 Jahre)</h4>
+                            <p className="mb-4">Oft vergessen, aber gesetzlich vorgeschrieben: Auch die erdverlegte Rohrleitung zwischen Tank und Haus muss alle 10 Jahre geprüft werden. Dies geschieht meist zusammen mit der Inneren Prüfung.</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Kosten & Übersicht (Tabelle)</h4>
+                            <p className="mb-4">Mit welchen Kosten müssen Sie rechnen? Hier eine Übersicht für Eigentumstanks (ZÜS: z.B. TÜV, DEKRA).</p>
+
+                            <ComparisonTable
+                                headers={['Prüfung', 'Intervall', 'Durchführung', 'Kosten ca. (netto)']}
+                                rows={[
+                                    ['Äußere Prüfung', 'Alle 2 Jahre', 'Befähigte Person (Gasmöller)', 'ab 69 €'],
+                                    ['Innere Prüfung', 'Alle 10 Jahre', 'ZÜS (TÜV / DEKRA)', 'ab 290 €'],
+                                    ['Rohrleitungsprüfung', 'Alle 10 Jahre', 'Fachfirma', 'ab 120 €']
+                                ]}
+                            />
+                            <p className="text-xs text-gray-500 mb-6">* Preise sind Richtwerte und können je nach Anfahrt und Aufwand variieren. Wir bieten Ihnen gerne Festpreise an.</p>
+
                             <h4 className="text-xl font-bold text-gas mb-4">Wer ist verantwortlich?</h4>
-                            <p className="mb-4">Bei einem <strong>Miet-Tank</strong> kümmert sich der Vermieter automatisch um die Prüfungen (die Kosten sind oft in der Miete enthalten). Bei einem <strong>Eigentums-Tank</strong> sind Sie als Betreiber verantwortlich. Aber keine Sorge: Wir erinnern Sie gerne an anstehende Termine und organisieren die Prüfung für Sie.</p>
+                            <p className="mb-4">Bei einem <strong>Miet-Tank</strong> kümmert sich der Vermieter automatisch um die Prüfungen (die Kosten sind oft in der Miete enthalten). Bei einem <strong>Eigentums-Tank</strong> sind Sie als Betreiber verantwortlich. Aber keine Sorge: Wir erinnern Sie gerne an anstehende Termine und organisieren die Prüfung (inkl. TÜV/DEKRA Koordination) für Sie.</p>
 
                             <p className="text-sm text-gray-500">Mehr zur Technik finden Sie unter <a href="/wissen/anlage" className="text-gas hover:underline">Die Flüssiggasanlage</a>.</p>
                         </div>
@@ -1008,6 +1060,13 @@ export const CONTENT = {
                             <p className="mb-4">Sehen Sie hier die Entwicklung der Flüssiggaspreise über die letzten Jahre. Diese Transparenz hilft Ihnen, den richtigen Kaufzeitpunkt zu finden.</p>
 
                             <PriceChart />
+
+                            <div className="text-center my-8">
+                                <p className="mb-4 font-bold text-gray-700">Warten oder Kaufen? Sichern Sie sich den heutigen Kurs.</p>
+                                <a href="/fluessiggas-bestellen" className="inline-block bg-gas text-white text-lg font-bold py-4 px-8 rounded-full shadow-lg hover:bg-gas-dark hover:scale-105 transition-all transform">
+                                    Jetzt Tagespreis anfragen
+                                </a>
+                            </div>
 
                             <div className="my-6 p-4 bg-blue-50 rounded-lg flex gap-4 items-center">
                                 <Snowflake className="text-blue-400 flex-shrink-0" />
