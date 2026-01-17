@@ -380,10 +380,46 @@ export const CONTENT = {
                             <h4 className="text-xl font-bold text-gas mb-2">Ex-Zonen</h4>
                             <p className="mb-4">Um den Tank herum existiert eine sogenannte Explosionsschutzzone (Ex-Zone). In diesem Bereich dürfen sich keine Zündquellen (Lampen, Steckdosen, Gullis) befinden. Bei oberirdischen Tanks beträgt der Radius oft 3m um die Armaturen, bei unterirdischen Tanks meist nur 1m um den Domdeckel.</p>
 
+                            <div className="my-8">
+                                <h4 className="text-xl font-bold text-gas mb-4">Checkliste: Vorschriften auf einen Blick</h4>
+                                <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                                    <div className="divide-y divide-gray-100">
+                                        <div className="p-4 flex items-start gap-3">
+                                            <CheckCircle className="text-green-500 flex-shrink-0 mt-1" size={20} />
+                                            <div>
+                                                <span className="font-bold text-gray-800 block">3 Meter Brandlast-Abstand</span>
+                                                <span className="text-sm text-gray-600">Kein Holz, Stroh oder Carport im 3m Radius.</span>
+                                            </div>
+                                        </div>
+                                        <div className="p-4 flex items-start gap-3">
+                                            <CheckCircle className="text-green-500 flex-shrink-0 mt-1" size={20} />
+                                            <div>
+                                                <span className="font-bold text-gray-800 block">1 Meter zu Öffnungen</span>
+                                                <span className="text-sm text-gray-600">Mindestabstand zu Kellerfenstern, Lichtschächten oder Türen.</span>
+                                            </div>
+                                        </div>
+                                        <div className="p-4 flex items-start gap-3">
+                                            <CheckCircle className="text-green-500 flex-shrink-0 mt-1" size={20} />
+                                            <div>
+                                                <span className="font-bold text-gray-800 block">Stabiles Fundament</span>
+                                                <span className="text-sm text-gray-600">Betonplatte erforderlich (verhindert Absacken).</span>
+                                            </div>
+                                        </div>
+                                        <div className="p-4 flex items-start gap-3">
+                                            <CheckCircle className="text-green-500 flex-shrink-0 mt-1" size={20} />
+                                            <div>
+                                                <span className="font-bold text-gray-800 block">Zugänglichkeit</span>
+                                                <span className="text-sm text-gray-600">Der Tankwagen muss bis auf ca. 40m heranfahren können.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-between">
                                 <div>
-                                    <span className="font-bold text-gray-700 block">Checkliste Aufstellung</span>
-                                    <span className="text-sm text-gray-500">Detaillierte PDF-Anleitung für Bauherren.</span>
+                                    <span className="font-bold text-gray-700 block">PDF-Anleitung Aufstellung</span>
+                                    <span className="text-sm text-gray-500">Alle Maße und Skizzen zum Download.</span>
                                 </div>
                                 <button className="bg-white border border-gray-300 px-4 py-2 rounded-lg text-sm font-bold text-gray-600 flex items-center gap-2 hover:bg-gray-50">
                                     <Download size={16} /> Download

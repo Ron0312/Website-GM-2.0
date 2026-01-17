@@ -263,8 +263,8 @@ export const tankDetails = [
             { title: 'Verfüllung', desc: 'Mit Sand einschlämmen. Domschacht aufsetzen.' }
         ],
         maintenanceInfo: 'Innere Prüfung alle 10 Jahre etwas aufwändiger (Einspeisung notwendig). Äußere Prüfung erfolgt über Domschacht/Messung.',
-        seoTitle: 'Gastank 2700 Liter unterirdisch | 1,2 t Preis & Kaufen',
-        seoDesc: 'Gastank Unterirdisch 2700 Liter (1,2 t) kaufen. Perfekt für kleine Gärten. Verschwindet im Boden. Was kostet ein unterirdischer Gastank?'
+        seoTitle: 'Flüssiggastank 2700 Liter unterirdisch | 1,2 t Erdtank kaufen',
+        seoDesc: 'Flüssiggastank Unterirdisch 2700 Liter (1,2 t) kaufen. Der unsichtbare Erdtank für kleine Gärten. Verschwindet im Boden. Jetzt Preis anfragen.'
     },
     {
         slug: 'fluessiggastank-4850l-unterirdisch-2-1t',
@@ -301,8 +301,8 @@ export const tankDetails = [
             { title: 'Finish', desc: 'Oberboden auftragen, Rasen säen. Nur Deckel bleibt sichtbar.' }
         ],
         maintenanceInfo: 'Wartungsarm. Korrosionsschutz durch Epoxidharz und Sandbettung extrem langlebig.',
-        seoTitle: 'Flüssiggastank 4850 Liter unterirdisch | 2,1 t Erdtank',
-        seoDesc: 'Flüssiggastank Unterirdisch 4850 Liter (2,1 t) kaufen. Unsichtbare Energieversorgung für Ihr Einfamilienhaus. Maße & Preise.'
+        seoTitle: 'Flüssiggastank 4850 Liter unterirdisch | 2,1 t Erdtank kaufen',
+        seoDesc: 'Flüssiggastank Unterirdisch 4850 Liter (2,1 t) kaufen. Der Standard-Erdtank für Einfamilienhäuser. Unsichtbar & sicher. Jetzt Angebot sichern!'
     },
     {
         slug: 'fluessiggastank-6400l-unterirdisch-2-9t',
@@ -338,7 +338,7 @@ export const tankDetails = [
             { title: 'Einbau', desc: 'Professionelle Erdarbeiten unumgänglich.' }
         ],
         maintenanceInfo: '10-jährige Prüfung per Schallemission möglich (ohne Entleerung), wenn vorbereitet.',
-        seoTitle: 'Gastank 6400 Liter unterirdisch | 2,9 t Preis & Kaufen',
-        seoDesc: 'Gastank Unterirdisch 6400 Liter (2,9 t) kaufen. Für Gewerbe & MFH. Preise & Kosten für den unterirdischen Gastank.'
+        seoTitle: 'Flüssiggastank 6400 Liter unterirdisch | 2,9 t Erdtank kaufen',
+        seoDesc: 'Flüssiggastank Unterirdisch 6400 Liter (2,9 t) kaufen. Der große Erdtank für Gewerbe & Mehrfamilienhäuser. Preise & Kosten anfragen.'
     }
 ];

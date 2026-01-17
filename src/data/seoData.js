@@ -596,13 +596,13 @@ export const getSeoForPath = (path) => {
               }
           },
           'miete-kauf': {
-              title: 'Flüssiggastank mieten oder kaufen? Rechner & Kosten-Vergleich',
-              desc: 'Miete vs. Kauf: Was lohnt sich wirklich? Wir rechnen nach. Vor- und Nachteile, Amortisation und Expertentipps für Ihre Entscheidung.',
+              title: 'Flüssiggastank mieten oder kaufen? Kosten-Vergleich 2026',
+              desc: 'Flüssiggastank mieten? Stopp! Warum Kaufen oft 30-40% günstiger ist. Unser Rechner zeigt: So sparen Sie tausende Euro gegenüber der Miete.',
               date: `${CURRENT_YEAR}-01-20`
           },
           'sicherheit': {
-              title: 'Flüssiggastank Vorschriften & Abstände | Sicherheit & Aufstellort',
-              desc: 'Welche Abstände gelten zum Nachbarn? Alles zu Grenzabständen, Schutzzonen und Brandschutz bei Flüssiggastanks (TRF 2021).',
+              title: 'Flüssiggastank Vorschriften & Abstände (TRF 2021) | Checkliste',
+              desc: 'Aktuelle Flüssiggastank Vorschriften 2026: Grenzabstände, Brandschutz & Ex-Zonen. Einfache Checkliste für die Aufstellung (Oberirdisch & Unterirdisch).',
               semantic: {
                   about: [{ name: 'Technische Regeln Flüssiggas', wikidata: 'https://www.wikidata.org/wiki/Q2399222' }]
               }
