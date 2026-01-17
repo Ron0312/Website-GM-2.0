@@ -18,7 +18,8 @@ vi.mock('lucide-react', () => ({
     Trash2: () => <div data-testid="trash-icon" />,
     ArrowUpFromLine: () => <div data-testid="arrow-up-icon" />,
     ArrowDownToLine: () => <div data-testid="arrow-down-icon" />,
-    Divide: () => <div data-testid="divide-icon" />
+    Divide: () => <div data-testid="divide-icon" />,
+    Calculator: () => <div data-testid="calculator-icon" />
 }));
 
 vi.mock('framer-motion', () => ({
