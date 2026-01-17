@@ -16,8 +16,22 @@ const FAQ = ({ items }) => {
     const [open, setOpen] = useState(0);
     const faqs = items || defaultFaqs;
 
+    const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.question || faq.q,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.answer || faq.a
+            }
+        }))
+    };
+
     return (
         <div className="max-w-3xl mx-auto px-4 py-24">
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
             <h3 className="text-3xl font-bold text-center mb-12">Häufig gestellte Fragen</h3>
             <div className="space-y-4">
                 {faqs.map((faq, i) => (

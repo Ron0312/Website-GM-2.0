@@ -593,6 +593,46 @@ export const CONTENT = {
             icon: Home,
             articles: [
                 {
+                    id: 'waermepumpe-altbau',
+                    title: 'Wärmepumpe im Altbau',
+                    description: 'Wann Flüssiggas die bessere Alternative ist.',
+                    content: (
+                        <div>
+                             <SourceBadge text="Altbau-Sanierung" />
+                             <p className="lead text-lg text-gray-700 mb-6">Jeder redet über die Wärmepumpe. Sie gilt als Heizsystem der Zukunft. Doch viele Altbau-Besitzer erleben nach dem Einbau ein böses Erwachen: Hohe Stromkosten und kalte Räume. Wir zeigen, warum Flüssiggas im ungedämmten Altbau oft die smartere Wahl ist.</p>
+
+                             <h4 className="text-xl font-bold text-gas mb-4">Das Physik-Problem im Altbau</h4>
+                             <p className="mb-4">Eine Wärmepumpe arbeitet wie ein umgekehrter Kühlschrank. Sie holt Wärme aus der Umwelt. Das funktioniert super, solange das Haus mit niedrigen Temperaturen (35-40°C im Heizkörper) warm wird. Im Altbau benötigen alte Radiatoren aber oft 55-70°C, um den Raum zu heizen.</p>
+
+                             <div className="bg-red-50 p-4 border-l-4 border-red-500 mb-6">
+                                <p className="font-bold text-red-900">Die JAZ-Falle:</p>
+                                <p className="text-red-800">Muss die Wärmepumpe diese hohen Temperaturen erzeugen, sinkt ihre Jahresarbeitszahl (JAZ) massiv. Sie wird zur reinen Stromheizung. Strom ist in Deutschland ca. 3-4 mal teurer als Gas.</p>
+                            </div>
+
+                             <h4 className="text-xl font-bold text-gas mb-4">Vergleich: Wärmepumpe vs. Flüssiggas (Altbau)</h4>
+                             <ComparisonTable
+                                headers={['Kriterium', 'Wärmepumpe (Luft-Wasser)', 'Flüssiggas-Brennwert']}
+                                rows={[
+                                    ['Investition', 'Sehr hoch (25.000€ - 40.000€)', 'Niedrig (8.000€ - 12.000€)'],
+                                    ['Dämmung nötig?', 'Zwingend erforderlich', 'Nein (funktioniert auch ungedämmt)'],
+                                    ['Heizkörper', 'Oft Tausch nötig (Fußbodenh.)', 'Alte Radiatoren bleiben'],
+                                    ['Platzbedarf', 'Groß (Außeneinheit + Speicher)', 'Klein (Wandgerät)'],
+                                    ['Lautstärke', 'Außeneinheit hörbar', 'Sehr leise']
+                                ]}
+                            />
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Der Hybrid-Weg: Das Beste aus zwei Welten</h4>
+                            <p className="mb-4">Sie müssen sich nicht "Entweder-Oder" entscheiden. Eine <strong>Gas-Hybridheizung</strong> kombiniert eine kleine Wärmepumpe mit einer Gastherme.</p>
+                            <ul className="space-y-3 mb-6">
+                                <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-600 mt-1"/> <strong>Frühling/Herbst:</strong> Die Wärmepumpe läuft effizient und günstig.</li>
+                                <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-600 mt-1"/> <strong>Eisiger Winter:</strong> Die Gasheizung springt an und liefert verlässlich Wärme ohne Strom-Exzess.</li>
+                            </ul>
+
+                            <p className="text-sm text-gray-500 mt-4">Mehr zur Technik finden Sie unter <a href="/wissen/hybrid" className="text-gas hover:underline">Hybridheizung</a>.</p>
+                        </div>
+                    )
+                },
+                {
                     id: 'hybrid',
                     title: 'Flüssiggas-Hybridheizung',
                     description: 'Die ideale Kombi aus Erneuerbaren und Bewährtem.',
@@ -622,7 +662,7 @@ export const CONTENT = {
                             <h4 className="text-xl font-bold text-gas mb-4">Vorteile im Altbau</h4>
                             <p>Gerade in nicht perfekt gedämmten Häusern ist die Hybridheizung oft die beste Lösung. Sie müssen das Haus nicht komplett sanieren, um "Wärmepumpen-ready" zu sein, da das Gas für die nötige Wärme an kalten Tagen sorgt.</p>
 
-                            <p className="text-sm text-gray-500 mt-4">Lesen Sie auch unseren Vergleich zur <a href="/wissen/waermepumpe" className="text-gas hover:underline">reinen Wärmepumpe</a>.</p>
+                            <p className="text-sm text-gray-500 mt-4">Lesen Sie auch unseren Vergleich zur <a href="/wissen/waermepumpe-altbau" className="text-gas hover:underline">Wärmepumpe im Altbau</a>.</p>
                         </div>
                     )
                 },
