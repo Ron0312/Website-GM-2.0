@@ -7,6 +7,7 @@ import {
 import SourceBadge from '../components/SourceBadge';
 import SafetyChecklist from '../components/SafetyChecklist';
 import PriceChart from '../components/PriceChart';
+import RentVsBuyGraphic from '../components/RentVsBuyGraphic';
 
 // Helper for Comparison Table
 const ComparisonTable = ({ headers, rows }) => (
@@ -227,6 +228,8 @@ export const CONTENT = {
                                     <li className="flex items-start"><CheckCircle size={16} className="text-gas mr-2 mt-1 flex-shrink-0"/> <strong>Amortisation:</strong> Der Kaufpreis rechnet sich oft schon nach 3-5 Jahren.</li>
                                 </ul>
                             </div>
+
+                            <RentVsBuyGraphic />
 
                             <h4 className="text-xl font-bold text-gas mb-4">Der direkte Vergleich</h4>
                             <ComparisonTable
@@ -592,6 +595,46 @@ export const CONTENT = {
             title: 'Heizung & Modernisierung',
             icon: Home,
             articles: [
+                {
+                    id: 'waermepumpe-altbau',
+                    title: 'Wärmepumpe im Altbau',
+                    description: 'Geht das? Die Wahrheit über Kosten & Effizienz.',
+                    content: (
+                        <div>
+                             <SourceBadge text="Praxis-Check" />
+                             <p className="lead text-lg text-gray-700 mb-6">"Wärmepumpe funktioniert nur im Neubau!" – dieser Satz hält sich hartnäckig. Doch stimmt das? Wir machen den Realitäts-Check für Ihr altes Haus und zeigen, warum Flüssiggas oft der Retter in der Not ist.</p>
+
+                             <h4 className="text-xl font-bold text-gas mb-4">Das Problem: Alte Heizkörper</h4>
+                             <p className="mb-4">Klassische Radiatoren (Rippenheizkörper) benötigen hohe Temperaturen (55-70°C), um einen Raum warm zu bekommen. Eine Wärmepumpe arbeitet aber am effizientesten bei 35°C (Fußbodenheizung). Muss sie das Wasser auf 65°C aufheizen, verbraucht sie extrem viel Strom. Die Stromrechnung explodiert.</p>
+
+                             <div className="bg-red-50 border-l-4 border-red-500 p-4 my-6">
+                                <p className="font-bold text-red-700">Die JAZ-Falle (Jahresarbeitszahl)</p>
+                                <p className="text-sm text-red-800">Sinkt die Jahresarbeitszahl (JAZ) unter 3,0, gilt die Wärmepumpe als ineffizient und ökologisch fragwürdig. Im ungedämmten Altbau ist dies oft der Fall.</p>
+                            </div>
+
+                             <h4 className="text-xl font-bold text-gas mb-4">Lösung 1: Komplettsanierung</h4>
+                             <p className="mb-4">Um das Haus "Wärmepumpen-ready" zu machen, müssten Sie dämmen, Fenster tauschen und Fußbodenheizung fräsen. Kostenpunkt: Oft 50.000 € bis 100.000 €.</p>
+
+                             <h4 className="text-xl font-bold text-gas mb-4">Lösung 2: Flüssiggas (Der Preis-Sieger)</h4>
+                             <p className="mb-4">Eine moderne Gas-Brennwerttherme hat kein Problem mit hohen Vorlauftemperaturen. Sie heizt auch ungedämmte Häuser zuverlässig warm – bei einem Bruchteil der Investitionskosten.</p>
+
+                             <ComparisonTable
+                                headers={['', 'Wärmepumpe (Altbau)', 'Flüssiggas-Heizung']}
+                                rows={[
+                                    ['Investition', 'Sehr hoch (25.000€++)', 'Niedrig (ab 6.000€)'],
+                                    ['Sanierungsbedarf', 'Hoch (Dämmung Pflicht)', 'Gering (Alte Rohre ok)'],
+                                    ['Wärme-Garantie', 'Risiko (wird es warm?)', 'Garantiert warm'],
+                                    ['Betriebskosten', 'Abhängig vom Strompreis', 'Abhängig vom Gaspreis']
+                                ]}
+                            />
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Der Kompromiss: Hybrid</h4>
+                            <p>Sie wollen nicht ganz auf Erneuerbare verzichten? Dann kombinieren Sie einfach! Eine kleine Wärmepumpe für den Sommer (Warmwasser) und Flüssiggas für den kalten Winter. So sparen Sie Stromkosten und haben es trotzdem immer warm.</p>
+
+                            <p className="text-sm text-gray-500 mt-4">Mehr dazu unter <a href="/wissen/hybrid" className="text-gas hover:underline">Hybridheizung</a>.</p>
+                        </div>
+                    )
+                },
                 {
                     id: 'hybrid',
                     title: 'Flüssiggas-Hybridheizung',
