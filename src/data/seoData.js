@@ -416,6 +416,7 @@ export const getSeoForPath = (path) => {
                 { question: "Muss ich bei der Lieferung zu Hause sein?", answer: "Nicht zwingend, sofern der Flüssiggastank und der Füllanschluss für unseren Fahrer frei zugänglich sind. Wir informieren Sie vorab über den Liefertermin." },
                 { question: "Liefern Sie auch im Notfall?", answer: "Ja, wenn Ihre Heizung kalt bleibt, versuchen wir schnellstmöglich zu helfen. Rufen Sie uns direkt an unter 04551 89 70 89." },
                 { question: "Was genau ist Flüssiggas?", answer: "Flüssiggas (LPG) besteht aus Propan und Butan. Als Heizgas verwenden wir in Deutschland gemäß DIN 51622 fast ausschließlich reines Propan, da dieses auch bei tiefen Temperaturen im Winter zuverlässig verdampft." },
+                { question: "Bieten Sie auch Gasflaschen (Flaschengas) an?", answer: "Unser Kerngeschäft ist die Belieferung von Flüssiggastanks. Für Gasflaschen (11kg / 33kg) wenden Sie sich bitte an lokale Baumärkte oder Camping-Händler. Wir bieten jedoch Treibgas für Stapler (Gewerbe) an." },
                 { question: "Welche Prüfungen sind beim Flüssiggastank vorgeschrieben?", answer: "Alle 2 Jahre muss eine äußere Prüfung durch eine befähigte Person erfolgen. Alle 10 Jahre ist eine innere Prüfung durch eine ZÜS (z.B. TÜV, DEKRA) notwendig. Wir unterstützen Sie gerne bei der Organisation." }
             ])
         ]

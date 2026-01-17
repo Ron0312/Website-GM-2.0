@@ -184,9 +184,7 @@ const TankDetail = ({ slug, onBack, openWizard }) => {
                         {tank.maintenanceInfo && (
                             <div className="bg-blue-50 border border-blue-100 rounded-xl p-6">
                                 <h3 className="text-xl font-bold text-blue-900 mb-3 flex items-center"><ShieldCheck size={20} className="mr-2"/> Wartung & Sicherheit</h3>
-                                <p className="text-blue-800 leading-relaxed">
-                                    {tank.maintenanceInfo}
-                                </p>
+                                <p className="text-blue-800 leading-relaxed" dangerouslySetInnerHTML={{ __html: tank.maintenanceInfo }}></p>
                             </div>
                         )}
 

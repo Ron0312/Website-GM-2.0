@@ -34,7 +34,7 @@ export const tankDetails = [
             { title: 'Aufstellung', desc: 'Der Tank wird direkt auf das Fundament gehoben und verankert.' },
             { title: 'Anschluss', desc: 'Verlegung der Rohrleitung zum Haus und Anschluss durch einen zertifizierten Fachbetrieb.' }
         ],
-        maintenanceInfo: 'Gesetzlich vorgeschriebene Prüfungen: Äußere Prüfung alle 2 Jahre (Sichtprüfung), Innere Prüfung alle 10 Jahre. Als Eigentümer sind Sie verantwortlich, wir organisieren das aber gerne komplett für Sie.',
+        maintenanceInfo: 'Gesetzlich vorgeschriebene Prüfungen: <a href="/wissen/sicherheit" class="underline hover:text-blue-600">Äußere Prüfung</a> alle 2 Jahre (Sichtprüfung), <a href="/wissen/sicherheit" class="underline hover:text-blue-600">Innere Prüfung</a> alle 10 Jahre. Als Eigentümer sind Sie verantwortlich, wir organisieren das aber gerne komplett für Sie.',
         seoTitle: 'Gastank 2700 Liter kaufen | 1,2 t Oberirdisch | Preis',
         seoDesc: 'Gastank 2700 Liter (1,2 t) kaufen. Maße: 2,50 m x 1,25 m. Ideal für Ferienhäuser. Neu & Gebraucht (regeneriert) Preise anfragen.'
     },
@@ -73,7 +73,7 @@ export const tankDetails = [
             { title: 'Aufstellung', desc: 'Platzierung auf dem Fundament.' },
             { title: 'Inbetriebnahme', desc: 'Anschluss, Dichtheitsprüfung und Einweisung.' }
         ],
-        maintenanceInfo: 'Äußere Prüfung: alle 2 Jahre. Innere Prüfung: alle 10 Jahre (Druckprüfung/Einspeisung). Rohrleitungsprüfung: alle 10 Jahre.',
+        maintenanceInfo: '<a href="/wissen/sicherheit" class="underline hover:text-blue-600">Äußere Prüfung</a>: alle 2 Jahre. <a href="/wissen/sicherheit" class="underline hover:text-blue-600">Innere Prüfung</a>: alle 10 Jahre. Rohrleitungsprüfung: alle 10 Jahre. Wir koordinieren alle Termine.',
         seoTitle: 'Flüssiggastank 4850 Liter kaufen | 2,1 t Oberirdisch | Preis',
         seoDesc: 'Flüssiggastank 4850 Liter (2,1 t) oberirdisch kaufen. Maße: 4,30 m x 1,25 m. Der Standard für Einfamilienhäuser. Neu & Gebraucht Angebote vergleichen.'
     },

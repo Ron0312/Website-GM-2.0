@@ -1061,6 +1061,13 @@ export const CONTENT = {
 
                             <PriceChart />
 
+                            <div className="text-center my-8">
+                                <p className="mb-4 font-bold text-gray-700">Warten oder Kaufen? Sichern Sie sich den heutigen Kurs.</p>
+                                <a href="/fluessiggas-bestellen" className="inline-block bg-gas text-white text-lg font-bold py-4 px-8 rounded-full shadow-lg hover:bg-gas-dark hover:scale-105 transition-all transform">
+                                    Jetzt Tagespreis anfragen
+                                </a>
+                            </div>
+
                             <div className="my-6 p-4 bg-blue-50 rounded-lg flex gap-4 items-center">
                                 <Snowflake className="text-blue-400 flex-shrink-0" />
                                 <div>
