@@ -278,7 +278,7 @@ export const CONTENT = {
                                     <div className="flex-shrink-0 w-10 h-10 bg-gas text-white font-bold rounded-full flex items-center justify-center">2</div>
                                     <div>
                                         <h5 className="font-bold text-lg mb-1">Restgas & Entleeren</h5>
-                                        <p className="text-gray-600">Ist noch Flüssiggas im Tank? Wir kümmern uns um das fachgerechte <strong>Entleeren</strong>. Unser Tankwagen saugt das verwertbare Restgas ab. Dieses wird Ihnen gutgeschrieben (zum aktuellen Tagespreis vergütet).</p>
+                                        <p className="text-gray-600">Ist noch Flüssiggas im Tank? Wir kümmern uns um das fachgerechte <strong>Entleeren</strong>. Unser Tankwagen saugt das verwertbare Restgas ab. Dieses wird Ihnen gutgeschrieben (sofern qualitativ einwandfrei).</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-4">
@@ -500,7 +500,7 @@ export const CONTENT = {
                                         <h5 className="font-bold text-gas text-lg">Innere Prüfung</h5>
                                     </div>
                                     <p className="font-bold text-gray-800 mb-2">Intervall: Alle 10 Jahre</p>
-                                    <p className="text-sm text-gray-600">Diese Prüfung ist umfangreicher und wird meist von einer zugelassenen Überwachungsstelle (ZÜS, z.B. TÜV) durchgeführt. Oft wird dabei auch das Sicherheitsventil ausgetauscht. Bei unterirdischen Tanks wird eine Schallemissionsprüfung durchgeführt.</p>
+                                    <p className="text-sm text-gray-600">Diese Prüfung ist umfangreicher und wird meist von einer zugelassenen Überwachungsstelle (ZÜS, z.B. TÜV) durchgeführt. Oft wird dabei auch das Sicherheitsventil ausgetauscht. Bei unterirdischen Tanks wird statt der Öffnung meist eine <strong>Schallemissionsprüfung</strong> durchgeführt, um Erdarbeiten zu vermeiden.</p>
                                 </div>
                             </div>
 
@@ -1099,8 +1099,8 @@ export const CONTENT = {
                                 rows={[
                                     ['2024', '45 €', 'ca. 7,1 Cent', 'ca. 213 €'],
                                     ['2025', '55 €', 'ca. 8,7 Cent', 'ca. 261 €'],
-                                    ['2026', '65 € (Prognose)', 'ca. 10,3 Cent', 'ca. 309 €'],
-                                    ['2027', 'Marktpreis (Korridor)', 'variabel', 'variabel'],
+                                    ['2026', '55 € - 65 € (Korridor)', 'ca. 8,7 - 10,3 Cent', 'ca. 261 - 309 €'],
+                                    ['2027', 'Handelspreis (EU-ETS 2)', 'variabel', 'variabel'],
                                     ['2030', 'Zielkorridor EU', 'steigend', 'steigend']
                                 ]}
                             />
@@ -1125,8 +1125,8 @@ export const CONTENT = {
 
                              <div className="bg-gray-100 p-6 rounded-lg font-mono text-sm my-6 space-y-4 border border-gray-200">
                                 <div>
-                                    <strong>1 Liter flüssig ≈ 6,57 kWh</strong>
-                                    <p className="text-gray-500 text-xs mt-1">Das ist der Heizwert von Propan. Ein 4850 Liter Tank enthält also ca. 31.800 kWh Energie.</p>
+                                    <strong>1 Liter flüssig ≈ 7,17 kWh (Brennwert)</strong>
+                                    <p className="text-gray-500 text-xs mt-1">Moderne Heizungen nutzen den Brennwert (Hs). Der Heizwert (Hi) liegt bei ca. 6,57 kWh/l.</p>
                                 </div>
                                 <div className="border-t border-gray-300 pt-2">
                                     <strong>1 m³ gasförmig ≈ 3,93 Liter flüssig</strong>
