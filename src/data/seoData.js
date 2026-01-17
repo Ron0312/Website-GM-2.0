@@ -423,8 +423,8 @@ export const getSeoForPath = (path) => {
     case 'tank-entsorgen':
       return {
         ...defaultSeo,
-        title: 'Gastank entsorgen & stilllegen | Fachfirma, Kosten & Entleeren',
-        description: 'Alten Flüssiggastank/Gastank entsorgen, abholen oder stilllegen lassen? Wir sind Ihre zertifizierte Fachfirma. Restgas-Absaugung & Demontage zum Festpreis.',
+        title: 'Flüssiggastank entsorgen & stilllegen | Kosten & Fachfirma',
+        description: 'Alten Flüssiggastank entsorgen, abholen oder stilllegen lassen? Wir sind Ihre zertifizierte Fachfirma. Restgas-Absaugung & Demontage zum Festpreis.',
         schema: [
             getOrganizationSchema(),
             getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Service', url: '/service' }, { name: 'Tank entsorgen', url: '/tank-entsorgen' }]),
@@ -440,8 +440,8 @@ export const getSeoForPath = (path) => {
     case 'tanks':
       return {
         ...defaultSeo,
-        title: 'Flüssiggastank & Gastank kaufen | Neu & Gebraucht | 2700 - 6400 Liter',
-        description: 'Flüssiggastank & Gastank kaufen (Neu & Gebraucht). Preise für 2700 Liter (1,2t), 4850 Liter (2,1t) & 6400 Liter. Oberirdisch & Unterirdisch vom Fachhändler.',
+        title: 'Flüssiggastank kaufen | Neu & Gebraucht | Preise 2026',
+        description: 'Flüssiggastank kaufen (Neu & Gebraucht). Aktuelle Preise 2026 für 2700l, 4850l & 6400l. Oberirdisch & Unterirdisch vom Fachhändler. Jetzt Angebot prüfen!',
         schema: [
             getOrganizationSchema(),
             getTankCatalogSchema(),
@@ -518,7 +518,7 @@ export const getSeoForPath = (path) => {
       return {
           ...defaultSeo,
           title: 'Flüssiggastank Prüfungen & TÜV | 2 & 10 Jahre Fristen | Kosten',
-          description: 'Flüssiggastankprüfung fällig? Wir organisieren die Innere (10 Jahre) & Äußere Prüfung (2 Jahre) sowie Rohrleitungsprüfungen. TÜV-Abnahme zum Festpreis.',
+          description: 'Flüssiggastank Prüfung (TÜV/DEKRA) fällig? Wir organisieren Äußere (2 Jahre), Innere Prüfung (10 Jahre) & Rohrleitungsprüfung. Festpreis-Service.',
           schema: [
               getOrganizationSchema(),
               getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Service', url: '/pruefungen' }]),

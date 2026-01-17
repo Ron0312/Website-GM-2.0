@@ -74,8 +74,8 @@ export const tankDetails = [
             { title: 'Inbetriebnahme', desc: 'Anschluss, Dichtheitsprüfung und Einweisung.' }
         ],
         maintenanceInfo: 'Äußere Prüfung: alle 2 Jahre. Innere Prüfung: alle 10 Jahre (Druckprüfung/Einspeisung). Rohrleitungsprüfung: alle 10 Jahre.',
-        seoTitle: 'Flüssiggastank 4850 Liter kaufen | 2,1 t Gastank | Neu & Gebraucht',
-        seoDesc: 'Flüssiggastank & Gastank 4850 Liter (2,1 t) kaufen. Maße: 4,30 m x 1,25 m. Der Standard für Einfamilienhäuser. Neu & Gebraucht Angebote vergleichen.'
+        seoTitle: 'Flüssiggastank 4850 Liter kaufen | 2,1 t Oberirdisch | Preis',
+        seoDesc: 'Flüssiggastank 4850 Liter (2,1 t) oberirdisch kaufen. Maße: 4,30 m x 1,25 m. Der Standard für Einfamilienhäuser. Neu & Gebraucht Angebote vergleichen.'
     },
     {
         slug: 'fluessiggastank-6400l-oberirdisch-2-9t',
@@ -112,8 +112,8 @@ export const tankDetails = [
             { title: 'Sicherheit', desc: 'Einhaltung von Sicherheitsabständen (Brandlasten) besonders wichtig.' }
         ],
         maintenanceInfo: 'Standardintervalle (2/10 Jahre). Bei gewerblicher Nutzung gelten ggf. zusätzliche Vorschriften der Berufsgenossenschaft.',
-        seoTitle: 'Gastank 6400 Liter kaufen | 2,9 t Großtank | Preis',
-        seoDesc: 'Gastank 6400 Liter (2,9 t) kaufen. Maße: 5,50 m x 1,25 m. Für Gewerbe & Mehrfamilienhäuser. Jetzt Gastank Preis anfragen.'
+        seoTitle: 'Flüssiggastank 6400 Liter kaufen | 2,9 t Oberirdisch | Preis',
+        seoDesc: 'Flüssiggastank 6400 Liter (2,9 t) oberirdisch kaufen. Maße: 5,50 m x 1,25 m. Für Gewerbe & Mehrfamilienhäuser. Jetzt Gastank Preis anfragen.'
     },
     {
         slug: 'fluessiggastank-2700l-halboberirdisch-1-2t',

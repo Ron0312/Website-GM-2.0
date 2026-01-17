@@ -468,8 +468,24 @@ export const CONTENT = {
                                 </div>
                             </div>
 
+                            <h4 className="text-xl font-bold text-gas mb-4">Rohrleitungsprüfung (10 Jahre)</h4>
+                            <p className="mb-4">Oft vergessen, aber gesetzlich vorgeschrieben: Auch die erdverlegte Rohrleitung zwischen Tank und Haus muss alle 10 Jahre geprüft werden. Dies geschieht meist zusammen mit der Inneren Prüfung.</p>
+
+                            <h4 className="text-xl font-bold text-gas mb-4">Kosten & Übersicht (Tabelle)</h4>
+                            <p className="mb-4">Mit welchen Kosten müssen Sie rechnen? Hier eine Übersicht für Eigentumstanks (ZÜS: z.B. TÜV, DEKRA).</p>
+
+                            <ComparisonTable
+                                headers={['Prüfung', 'Intervall', 'Durchführung', 'Kosten ca. (netto)']}
+                                rows={[
+                                    ['Äußere Prüfung', 'Alle 2 Jahre', 'Befähigte Person (Gasmöller)', 'ab 69 €'],
+                                    ['Innere Prüfung', 'Alle 10 Jahre', 'ZÜS (TÜV / DEKRA)', 'ab 290 €'],
+                                    ['Rohrleitungsprüfung', 'Alle 10 Jahre', 'Fachfirma', 'ab 120 €']
+                                ]}
+                            />
+                            <p className="text-xs text-gray-500 mb-6">* Preise sind Richtwerte und können je nach Anfahrt und Aufwand variieren. Wir bieten Ihnen gerne Festpreise an.</p>
+
                             <h4 className="text-xl font-bold text-gas mb-4">Wer ist verantwortlich?</h4>
-                            <p className="mb-4">Bei einem <strong>Miet-Tank</strong> kümmert sich der Vermieter automatisch um die Prüfungen (die Kosten sind oft in der Miete enthalten). Bei einem <strong>Eigentums-Tank</strong> sind Sie als Betreiber verantwortlich. Aber keine Sorge: Wir erinnern Sie gerne an anstehende Termine und organisieren die Prüfung für Sie.</p>
+                            <p className="mb-4">Bei einem <strong>Miet-Tank</strong> kümmert sich der Vermieter automatisch um die Prüfungen (die Kosten sind oft in der Miete enthalten). Bei einem <strong>Eigentums-Tank</strong> sind Sie als Betreiber verantwortlich. Aber keine Sorge: Wir erinnern Sie gerne an anstehende Termine und organisieren die Prüfung (inkl. TÜV/DEKRA Koordination) für Sie.</p>
 
                             <p className="text-sm text-gray-500">Mehr zur Technik finden Sie unter <a href="/wissen/anlage" className="text-gas hover:underline">Die Flüssiggasanlage</a>.</p>
                         </div>
