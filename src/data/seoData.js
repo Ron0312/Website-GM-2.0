@@ -268,6 +268,13 @@ const getFAQSchema = (questions) => ({
     }))
 });
 
+// Helper for Speakable Schema (Voice Search / Assistant optimization)
+const getSpeakableSchema = (cssSelector) => ({
+    "@context": "https://schema.org",
+    "@type": "SpeakableSpecification",
+    "cssSelector": cssSelector || [".lead", "h1"]
+});
+
 // Helper for HowTo Schema
 const getHowToSchema = (title, steps) => ({
     "@context": "https://schema.org",
@@ -352,7 +359,8 @@ const getDeepArticleSchema = (article, author, publisher) => {
         "mainEntityOfPage": {
              "@type": "WebPage",
              "@id": article.url
-        }
+        },
+        "speakable": getSpeakableSchema([".lead", ".summary-box"])
     };
 
     if (article.about) {

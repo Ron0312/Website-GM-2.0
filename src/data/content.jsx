@@ -30,6 +30,23 @@ const ComparisonTable = ({ headers, rows }) => (
     </div>
 );
 
+// Helper for AI Summary Box (GEO Optimization)
+const SummaryBox = ({ title, items }) => (
+    <div className="summary-box bg-white border-l-4 border-gas p-6 my-8 rounded-r-xl shadow-sm">
+        <h4 className="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
+            <BookOpen size={20} className="text-gas"/> {title || "Das Wichtigste in Kürze"}
+        </h4>
+        <ul className="space-y-2">
+            {items.map((item, i) => (
+                <li key={i} className="flex items-start gap-3 text-gray-700">
+                    <CheckCircle size={18} className="text-green-500 mt-1 flex-shrink-0" />
+                    <span>{item}</span>
+                </li>
+            ))}
+        </ul>
+    </div>
+);
+
 export const CONTENT = {
     knowledge: [
         {
@@ -70,6 +87,14 @@ export const CONTENT = {
                     description: 'Wann ist Flüssiggas am günstigsten? Ein Insider-Bericht.',
                     content: (
                         <div>
+                            <SummaryBox
+                                title="Wann Flüssiggas kaufen?"
+                                items={[
+                                    "Bester Kaufzeitpunkt: Statistisch gesehen in den Sommermonaten (Mai - August).",
+                                    "Einflussfaktoren: Rohölpreis, Dollar-Kurs und globale Nachfrage.",
+                                    "Strategie: Antizyklisch handeln und den Tank füllen, wenn nicht geheizt wird."
+                                ]}
+                            />
                             <p className="lead text-lg text-gray-700 mb-6">Jeder Hausbesitzer fragt sich: Soll ich jetzt tanken oder warten? Wir erklären die Mechanismen des Flüssiggasmarktes.</p>
 
                             <h4 className="text-xl font-bold text-gas mb-4">Saisonale Schwankungen</h4>
@@ -315,6 +340,15 @@ export const CONTENT = {
                     content: (
                         <div>
                              <SourceBadge text="Preisfaktoren 2026" />
+                             <SummaryBox
+                                title="Kostenübersicht Flüssiggastank (Kauf)"
+                                items={[
+                                    "2.700 Liter (1,2t): ca. 1.800€ - 2.400€ (Oberirdisch)",
+                                    "4.850 Liter (2,1t): ca. 2.200€ - 2.800€ (Oberirdisch)",
+                                    "6.400 Liter (2,9t): ca. 2.800€ - 3.500€ (Oberirdisch)",
+                                    "Installation: ca. 300€ - 600€ für Fundament, Anlieferung & Anschluss."
+                                ]}
+                             />
                              <p className="lead text-lg text-gray-700 mb-6">Die Kosten für einen eigenen Flüssiggastank (oft auch Gastank oder Propangastank genannt) setzen sich aus dem Kaufpreis des Behälters und den Installationskosten zusammen. Viele Kunden fragen: <strong>"Was kostet ein Gastank 2700 Liter?"</strong> oder <strong>"Was kostet ein Gastank 4850 Liter?"</strong>.</p>
 
                              <h4 className="text-xl font-bold text-gas mb-4">1. Gastank Preise (Neu & Gebraucht)</h4>
