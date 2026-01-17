@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { Calculator, ArrowRight, Info, RotateCcw, ChevronDown, ChevronUp, Flame, Zap, Droplets, Leaf, RefreshCw, Settings, TrendingUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Skeleton from './ui/Skeleton';
 import TankSizeAdvisor from './TankSizeAdvisor';
 import UnitConverter from './UnitConverter';
-import PriceChart from './calculator/PriceChart';
+
+const PriceChart = React.lazy(() => import('./calculator/PriceChart'));
 
 // Default Factors for 2026 (Verified Germany)
 const DEFAULT_FACTORS = {
@@ -325,11 +326,13 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
                                         </div>
 
                                         {/* Chart Section */}
-                                        <PriceChart
-                                            consumption={consumption}
-                                            factorSource={factors[sourceType]}
-                                            factors={factors}
-                                        />
+                                        <Suspense fallback={<div className="h-[300px] w-full mt-8 flex items-center justify-center bg-gray-50 rounded-xl"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gas"></div></div>}>
+                                            <PriceChart
+                                                consumption={consumption}
+                                                factorSource={factors[sourceType]}
+                                                factors={factors}
+                                            />
+                                        </Suspense>
                                     </div>
                                 )}
 

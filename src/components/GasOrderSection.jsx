@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Check, ShieldCheck, MapPin, ArrowRight, Truck, Heart, Coins, Loader2, X } from 'lucide-react';
-import DeliveryMap from './DeliveryMap';
 import FAQItem from './FAQItem';
 import { getPlzError } from '../utils/validation';
 import Hero from './Hero';
+
+const DeliveryMap = React.lazy(() => import('./DeliveryMap'));
 
 const GasOrderSection = ({ onCheckAvailability, setActiveSection }) => {
     // Tank sizes: 1.2t = ~2700L, 2.1t = ~4850L, 2.9t = ~6400L
@@ -345,7 +346,9 @@ const GasOrderSection = ({ onCheckAvailability, setActiveSection }) => {
             </section>
 
             {/* 4. Map Integration */}
-            <DeliveryMap />
+            <Suspense fallback={<div className="h-96 w-full bg-gray-100 animate-pulse" />}>
+                <DeliveryMap />
+            </Suspense>
         </div>
     );
 };
