@@ -217,6 +217,11 @@ export const CONTENT = {
                     id: 'miete-kauf',
                     title: 'Miete vs. Kauf: Der Vergleich',
                     description: 'Warum Sie als Eigentümer tausende Euro sparen können.',
+                    summary: 'Der Kauf eines Flüssiggastanks ist langfristig wirtschaftlicher als die Miete. Eigentümer sparen durch den freien Gaseinkauf oft 30-40% der Brennstoffkosten und vermeiden langfristige Vertragsbindungen.',
+                    sources: [
+                        { text: 'Bund der Energieverbraucher e.V.', url: 'https://www.energieverbraucher.de' },
+                        { text: 'Verbraucherzentrale Energieberatung', url: 'https://www.verbraucherzentrale.de' }
+                    ],
                     content: (
                         <div>
                             <div className="bg-blue-50 border-l-4 border-gas p-6 my-6 rounded-r-lg">
@@ -253,6 +258,11 @@ export const CONTENT = {
                     id: 'tank-entsorgen',
                     title: 'Flüssiggastank entsorgen & stilllegen',
                     description: 'Fachgerechte Entsorgung, Kosten und Ablauf durch Fachfirma.',
+                    summary: 'Die Entsorgung eines Flüssiggastanks darf nur durch zertifizierte Fachbetriebe erfolgen. Restgas wird abgesaugt und vergütet. Der Tank wird meist per Kran "am Stück" abtransportiert und dem Recycling zugeführt.',
+                    sources: [
+                        { text: 'Kreislaufwirtschaftsgesetz (KrWG)', url: 'https://www.gesetze-im-internet.de/krwg/' },
+                        { text: 'DVFG - Technische Regeln', url: 'https://www.dvfg.de' }
+                    ],
                     content: (
                         <div>
                             <SourceBadge text="Fachfirma & Fachbetrieb" />
@@ -312,6 +322,11 @@ export const CONTENT = {
                     id: 'tank-kosten',
                     title: 'Was kostet ein Flüssiggastank?',
                     description: 'Preise für Tanks (2700 Liter, 4850 Liter) und Installation.',
+                    summary: 'Ein neuer Flüssiggastank (2,1 t / 4850 Liter) kostet oberirdisch ca. 2.200 € bis 2.800 €, unterirdisch ca. 2.800 € bis 3.500 €. Gebrauchte Tanks sind oft 20-30% günstiger. Die Preise variieren je nach Stahlpreis.',
+                    sources: [
+                        { text: 'Aktuelle Stahlpreise Indizes', url: '#' },
+                        { text: 'Gas-Service Möller Preisliste 2026', url: '/fluessiggastank-kaufen' }
+                    ],
                     content: (
                         <div>
                              <SourceBadge text="Preisfaktoren 2026" />
@@ -480,6 +495,11 @@ export const CONTENT = {
                     id: 'sicherheit',
                     title: 'Prüfung & Sicherheit',
                     description: 'Warum sind Prüfungen notwendig?',
+                    summary: 'Flüssiggastanks müssen alle 2 Jahre einer äußeren Prüfung (befähigte Person) und alle 10 Jahre einer inneren Prüfung (ZÜS/TÜV) unterzogen werden. Rohrleitungen unterliegen ebenfalls der 10-Jahres-Prüffrist.',
+                    sources: [
+                        { text: 'Betriebssicherheitsverordnung (BetrSichV)', url: 'https://www.gesetze-im-internet.de/betrsichv_2015/' },
+                        { text: 'Technische Regeln Flüssiggas (TRF 2021)', url: 'https://www.trf-online.de/' }
+                    ],
                     content: (
                         <div>
                             <p className="mb-4">Flüssiggas ist ein sicherer Energieträger, solange die technischen Anlagen regelmäßig gewartet werden. In Deutschland schreibt der Gesetzgeber (BetrSichV) feste Prüfintervalle vor, um die Sicherheit für Sie und Ihre Nachbarn zu garantieren.</p>
@@ -1028,6 +1048,11 @@ export const CONTENT = {
                     id: 'was-ist',
                     title: 'Was ist Flüssiggas?',
                     description: 'Eigenschaften und Herkunft.',
+                    summary: 'Flüssiggas (LPG) besteht aus Propan und Butan und verflüssigt sich unter geringem Druck. Es ist ein hochwertiger, netzunabhängiger Energieträger, der nach DIN 51622 als Heizgas (mind. 95% Propan) verwendet wird.',
+                    sources: [
+                        { text: 'DVFG e.V. - Was ist Flüssiggas?', url: 'https://www.dvfg.de' },
+                        { text: 'DIN 51622 Norm (Beuth Verlag)', url: 'https://www.beuth.de' }
+                    ],
                     content: (
                         <div>
                             <p className="mb-6">Flüssiggas (LPG = Liquefied Petroleum Gas), oft auch als <strong>Propangas</strong> bezeichnet, ist ein hochwertiger Energieträger. Er besteht hauptsächlich aus <strong>Propan</strong> und <strong>Butan</strong>. Das Besondere: Schon unter geringem Druck (ca. 6-8 bar) verflüssigt es sich im <strong>Gastank</strong> oder in der Gasflasche.</p>

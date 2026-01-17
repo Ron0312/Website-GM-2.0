@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, ChevronRight, List } from 'lucide-react';
+import { BookOpen, ChevronRight, List, Sparkles, ExternalLink, Link as LinkIcon } from 'lucide-react';
 import { CONTENT } from '../data/content';
 import RentVsBuyGraphic from './RentVsBuyGraphic';
 
@@ -137,6 +137,54 @@ const LinkInjector = ({ children, setActiveSection }) => {
     };
 
     return <>{React.Children.map(children, child => processNode(child))}</>;
+};
+
+// AI Summary Box Component for GEO
+const AiSummaryBox = ({ text }) => {
+    if (!text) return null;
+    return (
+        <div className="bg-gradient-to-br from-indigo-50 via-blue-50 to-white border border-indigo-100 rounded-xl p-6 mb-8 shadow-sm relative overflow-hidden group">
+            <div className="absolute -top-4 -right-4 p-4 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
+                <Sparkles size={120} className="text-indigo-600" />
+            </div>
+            <div className="relative z-10">
+                <h3 className="text-indigo-800 font-bold flex items-center gap-2 mb-3 text-xs uppercase tracking-widest">
+                    <Sparkles size={14} className="text-indigo-600" />
+                    Das Wichtigste in Kürze
+                </h3>
+                <p className="text-indigo-950 font-medium text-lg leading-relaxed geo-summary">
+                    {text}
+                </p>
+            </div>
+        </div>
+    );
+};
+
+// Source List Component for E-E-A-T
+const SourceList = ({ sources }) => {
+    if (!sources || sources.length === 0) return null;
+    return (
+        <div className="mt-8 pt-6 border-t border-dashed border-gray-200">
+            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+                <LinkIcon size={12} /> Quellen & Verweise
+            </h4>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {sources.map((source, idx) => (
+                    <li key={idx}>
+                        <a
+                            href={source.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-start gap-2 text-gray-600 hover:text-gas transition-colors text-sm group"
+                        >
+                            <ExternalLink size={14} className="text-gray-400 group-hover:text-gas mt-0.5 flex-shrink-0" />
+                            <span className="underline decoration-gray-300 group-hover:decoration-gas underline-offset-4 decoration-1">{source.text}</span>
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
 };
 
 // Dynamic Table of Contents Component
@@ -317,7 +365,11 @@ const KnowledgeCenter = ({ setActiveSection, slug }) => {
                                 </time>
                             </header>
 
-                            <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">{currentArticle.title}</h1>
+                            <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6">{currentArticle.title}</h1>
+
+                            {/* GEO Optimization: AI Summary Box */}
+                            <AiSummaryBox text={currentArticle.summary} />
+
                             <p className="lead text-xl text-gray-500 mb-8 pb-8 border-b border-gray-100">{currentArticle.description}</p>
 
                             {/* Sticky Table of Contents Injection */}
@@ -332,6 +384,9 @@ const KnowledgeCenter = ({ setActiveSection, slug }) => {
 
                             {/* Contextual Smart CTA */}
                             <ArticleCTA categoryId={currentCategory.id} setActiveSection={setActiveSection} />
+
+                            {/* GEO Optimization: Sources/Citations */}
+                            <SourceList sources={currentArticle.sources} />
 
                             {/* Author Box for E-E-A-T */}
                             <div className="mt-16 pt-8 border-t border-gray-100 flex items-center gap-4">

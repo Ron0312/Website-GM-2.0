@@ -371,6 +371,17 @@ const getDeepArticleSchema = (article, author, publisher) => {
         }));
     }
 
+    if (article.citations) {
+        schema.citation = article.citations;
+    }
+
+    if (article.enableSpeakable) {
+        schema.speakable = {
+             "@type": "SpeakableSpecification",
+             "cssSelector": [".geo-summary", ".lead"]
+        };
+    }
+
     return schema;
 };
 
@@ -592,6 +603,8 @@ export const getSeoForPath = (path) => {
           'was-ist': {
               title: 'Was ist Flüssiggas? | Eigenschaften, Verwendung & Unterschied zu Erdgas',
               desc: 'Alles über Flüssiggas (LPG): Unterschied zu Erdgas, Heizwert, Herstellung und Verwendung. Warum Propan (DIN 51622) ideal zum Heizen ist.',
+              hasSummary: true,
+              citations: ['https://www.dvfg.de', 'https://www.beuth.de'],
               semantic: {
                   about: [{ name: 'Flüssiggas', wikidata: 'https://www.wikidata.org/wiki/Q351609' }]
               }
@@ -599,11 +612,15 @@ export const getSeoForPath = (path) => {
           'miete-kauf': {
               title: 'Flüssiggastank mieten oder kaufen? Kosten-Vergleich 2026',
               desc: 'Flüssiggastank mieten? Stopp! Warum Kaufen oft 30-40% günstiger ist. Unser Rechner zeigt: So sparen Sie tausende Euro gegenüber der Miete.',
-              date: `${CURRENT_YEAR}-01-20`
+              date: `${CURRENT_YEAR}-01-20`,
+              hasSummary: true,
+              citations: ['https://www.energieverbraucher.de', 'https://www.verbraucherzentrale.de']
           },
           'sicherheit': {
               title: 'Flüssiggastank Vorschriften & Abstände (TRF 2021) | Checkliste',
               desc: 'Aktuelle Flüssiggastank Vorschriften 2026: Grenzabstände, Brandschutz & Ex-Zonen. Einfache Checkliste für die Aufstellung (Oberirdisch & Unterirdisch).',
+              hasSummary: true,
+              citations: ['https://www.gesetze-im-internet.de/betrsichv_2015/', 'https://www.trf-online.de/'],
               semantic: {
                   about: [{ name: 'Technische Regeln Flüssiggas', wikidata: 'https://www.wikidata.org/wiki/Q2399222' }]
               }
@@ -611,6 +628,8 @@ export const getSeoForPath = (path) => {
           'tank-entsorgen': {
               title: 'Flüssiggastank entsorgen & stilllegen | Kosten & Fachfirma',
               desc: 'Flüssiggastank entsorgen oder stilllegen lassen? Wir sind Ihre Fachfirma. Restgas-Absaugung, Demontage & Abholung zum Festpreis. Jetzt Kosten prüfen!',
+              hasSummary: true,
+              citations: ['https://www.gesetze-im-internet.de/krwg/', 'https://www.dvfg.de'],
               semantic: {
                   about: [{ name: 'Abfallentsorgung', wikidata: 'https://www.wikidata.org/wiki/Q200726' }],
                   mentions: [{ name: 'Recycling', wikidata: 'https://www.wikidata.org/wiki/Q132589' }]
@@ -628,7 +647,9 @@ export const getSeoForPath = (path) => {
           'tank-kosten': {
               title: 'Was kostet ein Flüssiggastank? | Preis 2700 Liter, 4850 Liter',
               desc: 'Aktuelle Preise für Flüssiggastanks (Oberirdisch & Unterirdisch). Kosten für 1,2t (2700 Liter), 2,1t (4850 Liter) & 2,9t (6400 Liter). Neu & Gebraucht kaufen.',
-              date: `${CURRENT_YEAR}-02-10`
+              date: `${CURRENT_YEAR}-02-10`,
+              hasSummary: true,
+              citations: ['https://gasmoeller.de/fluessiggastank-kaufen']
           },
           'aufstellung': {
               title: 'Flüssiggastank Vorschriften: Grenzabstand & Aufstellort (TRF 2021)',
@@ -727,7 +748,9 @@ export const getSeoForPath = (path) => {
           description: articleDesc,
           url: `${BASE_URL}/wissen/${slug}`,
           about: knowledgeOverrides[slug]?.semantic?.about,
-          mentions: knowledgeOverrides[slug]?.semantic?.mentions
+          mentions: knowledgeOverrides[slug]?.semantic?.mentions,
+          citations: knowledgeOverrides[slug]?.citations,
+          enableSpeakable: knowledgeOverrides[slug]?.hasSummary
       };
 
       const schemas = [
