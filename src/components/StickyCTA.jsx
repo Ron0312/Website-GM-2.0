@@ -34,7 +34,7 @@ const StickyCTA = ({ openWizard }) => {
                     className="fixed bottom-0 left-0 right-0 z-[50] p-4 bg-white/90 backdrop-blur-lg border-t border-gray-200 md:hidden shadow-[0_-5px_15px_rgba(0,0,0,0.1)] flex gap-3 safe-area-pb"
                 >
                     {/* Social Proof Badge - Floating on top */}
-                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-white border border-gray-100 shadow-md rounded-full px-3 py-1 text-[10px] font-bold text-gray-600 flex items-center gap-1 whitespace-nowrap">
+                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-white border border-gray-100 shadow-md rounded-full px-3 py-1 text-[10px] font-bold text-gray-700 flex items-center gap-1 whitespace-nowrap">
                         <div className="flex">
                             <Star size={10} className="fill-yellow-400 text-yellow-400" />
                             <Star size={10} className="fill-yellow-400 text-yellow-400" />
@@ -43,7 +43,7 @@ const StickyCTA = ({ openWizard }) => {
                             <Star size={10} className="fill-yellow-400 text-yellow-400" />
                         </div>
                         <span className="text-gray-900 ml-1">5.0</span>
-                        <span className="text-gray-400 font-normal">bei Google</span>
+                        <span className="text-gray-600 font-normal">bei Google</span>
                     </div>
 
                     <a

@@ -112,4 +112,16 @@ export default defineConfig({
       }
     })
   ],
+  build: {
+    sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'framer-motion', 'react-helmet-async'],
+          charts: ['chart.js', 'react-chartjs-2'],
+          icons: ['lucide-react']
+        }
+      }
+    }
+  }
 })

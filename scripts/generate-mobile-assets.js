@@ -8,7 +8,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.resolve(__dirname, '../public/images');
 
 const imagesToProcess = [
-    { src: 'gas-order-hero.webp', dest: 'gas-order-hero-mobile.webp', width: 800 }
+    { src: 'gas-order-hero.webp', dest: 'gas-order-hero-mobile.webp', width: 640 }
 ];
 
 async function generateAssets() {
@@ -20,7 +20,7 @@ async function generateAssets() {
             console.log(`Processing ${img.src}...`);
             await sharp(srcPath)
                 .resize(img.width)
-                .webp({ quality: 80 })
+                .webp({ quality: 60 })
                 .toFile(destPath);
             console.log(`Generated ${img.dest}`);
         } else {
