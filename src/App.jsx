@@ -31,6 +31,7 @@ import TankDisposalPage from './components/TankDisposalPage';
 import Toast from './components/ui/Toast';
 import ReviewsWidget from './components/ReviewsWidget';
 import FounderTeaser from './components/FounderTeaser';
+import LazyLoadSection from './components/utils/LazyLoadSection';
 
 // Lazy Load heavy components
 const WizardModal = React.lazy(() => import('./components/WizardModal'));
@@ -328,7 +329,11 @@ const App = ({ path, context }) => {
             case 'start': return <><Hero openWizard={openWizard} setActiveSection={changeSection} hideButtons={true} /><TrustBar />
                 <DualCTA openWizard={openWizard} />
                 <TankSection openWizard={openWizard} setActiveSection={changeSection} showTechnicalOverview={false} tankFilter={tankFilter} onFilterChange={setTankFilter} hideHero={true} />
-                <div className="max-w-7xl mx-auto px-4"><Suspense fallback={<div className="h-64 w-full bg-gray-50 rounded-3xl animate-pulse my-12" />}><EnergyCalculator /></Suspense></div>
+                <div className="max-w-7xl mx-auto px-4">
+                    <LazyLoadSection minHeight="500px">
+                        <EnergyCalculator />
+                    </LazyLoadSection>
+                </div>
                 <ReviewsWidget />
                 <Suspense fallback={<div className="h-96 w-full bg-gray-100 animate-pulse rounded-xl render-optimization" />}><DeliveryMap /></Suspense>
                 <FounderTeaser />
