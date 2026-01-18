@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import {
     Settings, CheckCircle, Factory, Home, Wrench, BookOpen,
     Flame, AlertTriangle, XCircle, FileText, Download, ThermometerSun, Snowflake,
@@ -6,7 +6,8 @@ import {
 } from 'lucide-react';
 import SourceBadge from '../components/SourceBadge';
 import SafetyChecklist from '../components/SafetyChecklist';
-import PriceChart from '../components/PriceChart';
+
+const PriceChart = React.lazy(() => import('../components/PriceChart'));
 
 // Helper for Comparison Table
 const ComparisonTable = ({ headers, rows }) => (
@@ -1059,7 +1060,9 @@ export const CONTENT = {
                             <h4 className="text-xl font-bold text-gas mb-4">Historische Preisentwicklung (2020 - 2026)</h4>
                             <p className="mb-4">Sehen Sie hier die Entwicklung der Flüssiggaspreise über die letzten Jahre. Diese Transparenz hilft Ihnen, den richtigen Kaufzeitpunkt zu finden.</p>
 
-                            <PriceChart />
+                            <Suspense fallback={<div className="h-[400px] bg-gray-50 rounded-xl animate-pulse flex items-center justify-center text-gray-400">Lade Preischart...</div>}>
+                                <PriceChart />
+                            </Suspense>
 
                             <div className="text-center my-8">
                                 <p className="mb-4 font-bold text-gray-700">Warten oder Kaufen? Sichern Sie sich den heutigen Kurs.</p>
