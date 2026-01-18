@@ -216,7 +216,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
 
                             <div className="overflow-x-auto">
                                 <table className="w-full text-left border-collapse">
-                                    <thead className="text-xs text-gray-400 uppercase tracking-wider font-bold">
+                                    <thead className="text-xs text-gray-600 uppercase tracking-wider font-bold">
                                         <tr>
                                             <th className="py-4 pr-8">Modell</th>
                                             <th className="py-4 pr-8">Maße (L x H)</th>
@@ -257,13 +257,13 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                                 </h4>
                                 <p className="text-sm text-gray-500">Wir kümmern uns um die fachgerechte Stilllegung und Abholung.</p>
                              </a>
-                             <div onClick={() => openWizard('tank')} className="group block p-8 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer">
+                             <button onClick={() => openWizard('tank')} className="w-full text-left group block p-8 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-gas">
                                 <h4 className="text-lg font-bold text-gray-900 mb-2 flex items-center">
                                     Gebrauchte Tanks
                                     <ArrowRight size={16} className="ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-gas"/>
                                 </h4>
                                 <p className="text-sm text-gray-500">Sparen Sie bis zu 40% mit unseren regenerierten Tanks.</p>
-                             </div>
+                             </button>
                         </div>
                     </div>
                 )}

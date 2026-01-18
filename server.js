@@ -539,7 +539,9 @@ ${routes.map(route => `  <url>
         }
 
     const isHomePage = url === '/' || url === '/index.html';
-    const preloadLink = isHomePage ? '<link rel="preload" as="image" href="/images/gas-order-hero.webp" fetchpriority="high">' : '';
+    const preloadLink = isHomePage ? `
+    <link rel="preload" as="image" href="/images/gas-order-hero-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
+    <link rel="preload" as="image" href="/images/gas-order-hero.webp" media="(min-width: 769px)" fetchpriority="high">` : '';
 
     const metaTags = `
     ${preloadLink}
