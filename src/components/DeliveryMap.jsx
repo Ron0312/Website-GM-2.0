@@ -129,7 +129,7 @@ const DeliveryMap = () => {
                         <span className="text-xs font-bold uppercase tracking-widest">Liefergebiet</span>
                     </div>
                     <h2 className="text-4xl font-extrabold mb-6">Zu Hause im Norden.</h2>
-                    <p className="text-xl text-gray-500 mb-8 leading-relaxed">
+                    <p className="text-xl text-gray-300 mb-8 leading-relaxed">
                         Von der Nordsee bis zur Ostsee, von Hamburg bis zur dänischen Grenze. Wir liefern Energie dorthin, wo Sie sie brauchen.
                     </p>
                     <div className="grid grid-cols-2 gap-4">
@@ -143,7 +143,7 @@ const DeliveryMap = () => {
                             </motion.div>
                         ))}
                     </div>
-                    <div className="mt-6 flex items-center text-xs text-gray-500 gap-2">
+                    <div className="mt-6 flex items-center text-xs text-gray-400 gap-2">
                         <MousePointer2 size={12} className="animate-bounce" />
                         <span>Fahren Sie über die Karte für Details</span>
                     </div>
