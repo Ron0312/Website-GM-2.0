@@ -67,7 +67,7 @@ const TankCard = ({ tank, type, onContact, setActiveSection }) => {
                 </svg>
 
                 {/* Capacity Badge - Floating near tank */}
-                <div className="absolute top-0 right-10 bg-white/90 backdrop-blur shadow-sm px-3 py-1 rounded-full text-xs font-bold text-gray-600 border border-white/50">
+                <div className="absolute top-0 right-10 bg-white/90 backdrop-blur shadow-sm px-3 py-1 rounded-full text-xs font-bold text-gray-700 border border-white/50">
                     {tank.capacity}
                 </div>
             </div>
@@ -81,7 +81,7 @@ const TankCard = ({ tank, type, onContact, setActiveSection }) => {
                      <span className="h-px w-8 bg-gray-200"></span>
                 </div>
 
-                <p className="text-gray-500 text-sm mb-6 leading-relaxed max-w-[200px] mx-auto min-h-[40px] opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 transform translate-y-0 md:translate-y-2 md:group-hover:translate-y-0">
+                <p className="text-gray-600 text-sm mb-6 leading-relaxed max-w-[200px] mx-auto min-h-[40px] opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 transform translate-y-0 md:translate-y-2 md:group-hover:translate-y-0">
                     {tank.usage}
                 </p>
 
