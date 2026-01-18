@@ -14,9 +14,10 @@ const DualCTA = ({ openWizard }) => {
 
                 <div className="relative z-10 grid md:grid-cols-2">
                     {/* Tank-Anfrage */}
-                    <div
+                    <button
                         onClick={() => openWizard('tank')}
-                        className="group p-12 md:p-16 cursor-pointer relative overflow-hidden transition-colors hover:bg-gray-50/50"
+                        className="w-full text-left group p-12 md:p-16 cursor-pointer relative overflow-hidden transition-colors hover:bg-gray-50/50 focus:outline-none focus:ring-4 focus:ring-gas/50 rounded-tl-[3rem] rounded-bl-[3rem] md:rounded-bl-[3rem] md:rounded-tr-none rounded-tr-[3rem] md:rounded-l-[3rem]"
+                        aria-label="Flüssiggastank kaufen & mieten Assistent starten"
                     >
                         <div className="relative z-10 flex flex-col h-full items-start text-left">
                             <div className="bg-blue-100/50 p-4 rounded-2xl mb-8 group-hover:scale-110 transition-transform duration-300">
@@ -38,12 +39,13 @@ const DualCTA = ({ openWizard }) => {
 
                         {/* Background Effect */}
                         <div className="absolute -right-12 -bottom-12 w-64 h-64 bg-gas/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    </div>
+                    </button>
 
                     {/* Gas bestellen */}
-                    <div
+                    <button
                         onClick={() => openWizard('gas')}
-                        className="group p-12 md:p-16 cursor-pointer relative overflow-hidden transition-colors hover:bg-orange-50/30"
+                        className="w-full text-left group p-12 md:p-16 cursor-pointer relative overflow-hidden transition-colors hover:bg-orange-50/30 focus:outline-none focus:ring-4 focus:ring-orange-500/50 rounded-br-[3rem] rounded-bl-[3rem] md:rounded-bl-none md:rounded-tr-[3rem]"
+                        aria-label="Flüssiggas bestellen Preisrechner starten"
                     >
                         <div className="relative z-10 flex flex-col h-full items-start text-left">
                             <div className="bg-orange-100/50 p-4 rounded-2xl mb-8 group-hover:scale-110 transition-transform duration-300">
@@ -65,7 +67,7 @@ const DualCTA = ({ openWizard }) => {
 
                          {/* Background Effect */}
                          <div className="absolute -right-12 -bottom-12 w-64 h-64 bg-orange-500/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    </div>
+                    </button>
                 </div>
             </div>
         </div>

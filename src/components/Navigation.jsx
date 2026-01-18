@@ -77,6 +77,11 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
         return false;
     };
 
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     return (
         <header
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${effectiveScrolled ? 'glass-nav shadow-sm py-3' : 'bg-transparent py-5'}`}
@@ -268,7 +273,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
             </div>
 
             {/* Mobile Menu Overlay with Backdrop Animation - Portaled to body to avoid clipping */}
-            {typeof document !== 'undefined' && createPortal(
+            {mounted && createPortal(
                 <AnimatePresence>
                     {mobileMenuOpen && (
                         <>

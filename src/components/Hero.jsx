@@ -63,15 +63,23 @@ const Hero = ({
         <header className={`relative bg-white pt-32 ${hideButtons ? 'pb-10 lg:pb-32' : 'pb-20 lg:pb-48'} overflow-hidden ${fullHeight ? 'min-h-screen flex items-center' : ''}`}>
             <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 to-gray-900/30 z-10"></div>
-                <img
-                    src={backgroundImage}
-                    alt="Hero Background"
-                    width="1920"
-                    height="1080"
-                    className="w-full h-full object-cover absolute inset-0 object-[35%_center] md:object-[75%_center] lg:object-center"
-                    loading="eager"
-                    fetchpriority="high"
-                />
+                <picture>
+                    {backgroundImage === "/images/gas-order-hero.webp" && (
+                        <source
+                            media="(max-width: 768px)"
+                            srcSet="/images/gas-order-hero-mobile.webp"
+                        />
+                    )}
+                    <img
+                        src={backgroundImage}
+                        alt="Hero Background"
+                        width="1920"
+                        height="1080"
+                        className="w-full h-full object-cover absolute inset-0 object-[35%_center] md:object-[75%_center] lg:object-center"
+                        loading="eager"
+                        fetchpriority="high"
+                    />
+                </picture>
             </div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
                 <div className="lg:grid lg:grid-cols-2 lg:gap-20 items-center">
