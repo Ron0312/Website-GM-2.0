@@ -98,7 +98,7 @@ const Footer = ({ setActiveSection, openLegal }) => {
                     </div>
                 </div>
                 <div>
-                    <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-wider">Schnellzugriff</h4>
+                    <h2 className="text-white font-bold mb-4 uppercase text-xs tracking-wider">Schnellzugriff</h2>
                     <ul className="space-y-2">
                         <li><a href="/fluessiggastank-kaufen" onClick={(e) => handleNav(e, 'fluessiggastank-kaufen')} className={linkClass}>Flüssiggastank kaufen</a></li>
                         <li><a href="/fluessiggas-bestellen" onClick={(e) => handleNav(e, 'fluessiggas-bestellen')} className={linkClass}>Flüssiggas bestellen</a></li>
@@ -112,7 +112,7 @@ const Footer = ({ setActiveSection, openLegal }) => {
                     </ul>
                 </div>
                 <div>
-                    <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-wider">Rechtliches</h4>
+                    <h2 className="text-white font-bold mb-4 uppercase text-xs tracking-wider">Rechtliches</h2>
                     <ul className="space-y-2">
                         <li><button onClick={() => openLegal('imprint')} className={linkClass}>Impressum</button></li>
                         <li><button onClick={() => openLegal('privacy')} className={linkClass}>Datenschutz</button></li>
@@ -122,7 +122,7 @@ const Footer = ({ setActiveSection, openLegal }) => {
                     </ul>
                 </div>
                 <div>
-                    <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-wider">Newsletter</h4>
+                    <h2 className="text-white font-bold mb-4 uppercase text-xs tracking-wider">Newsletter</h2>
                     <p className="mb-4 text-xs">Bleiben Sie über Flüssiggaspreise informiert.</p>
 
                     {status === 'success' ? (
@@ -156,6 +156,7 @@ const Footer = ({ setActiveSection, openLegal }) => {
                                 type="submit"
                                 disabled={status === 'loading'}
                                 className="bg-gas text-white px-4 md:px-3 py-3 md:py-2 rounded-r hover:bg-gas-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                aria-label="Anmelden"
                             >
                                 {status === 'loading' ? <Loader2 size={16} className="animate-spin"/> : <Send size={16}/>}
                             </button>
@@ -164,7 +165,7 @@ const Footer = ({ setActiveSection, openLegal }) => {
                     {status === 'error' && <p className="text-red-400 text-xs mt-2">Ein Fehler ist aufgetreten.</p>}
                 </div>
             </div>
-            <div className="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-gray-800 text-center text-xs text-gray-600">
+            <div className="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-gray-800 text-center text-xs text-gray-400">
                 &copy; {new Date().getFullYear()} {COMPANY_NAME} Alle Rechte vorbehalten.
             </div>
         </footer>
