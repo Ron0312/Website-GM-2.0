@@ -82,8 +82,8 @@ export const CONTENT = {
 
                             <h4 className="text-xl font-bold text-gas mb-4">Einflussfaktoren</h4>
                             <ul className="space-y-3 mb-6">
-                                <li className="flex items-start"><TrendingUp size={18} className="text-gray-400 mr-2 mt-1"/> <strong>Rohölpreis:</strong> Flüssiggas ist ein Raffinerieprodukt. Steigt Öl, steigt meist auch Flüssiggas.</li>
-                                <li className="flex items-start"><TrendingUp size={18} className="text-gray-400 mr-2 mt-1"/> <strong>Dollar-Kurs:</strong> Energie wird weltweit in Dollar gehandelt. Ein schwacher Euro macht Flüssiggas teurer.</li>
+                                <li className="flex items-start"><TrendingUp size={18} className="text-gray-500 mr-2 mt-1"/> <strong>Rohölpreis:</strong> Flüssiggas ist ein Raffinerieprodukt. Steigt Öl, steigt meist auch Flüssiggas.</li>
+                                <li className="flex items-start"><TrendingUp size={18} className="text-gray-500 mr-2 mt-1"/> <strong>Dollar-Kurs:</strong> Energie wird weltweit in Dollar gehandelt. Ein schwacher Euro macht Flüssiggas teurer.</li>
                             </ul>
 
                             <h4 className="text-xl font-bold text-gas mb-4">Warum Tagespreise?</h4>
@@ -334,9 +334,9 @@ export const CONTENT = {
                             <h4 className="text-xl font-bold text-gas mb-4 mt-6">2. Installationskosten</h4>
                             <p className="mb-4">Neben dem Flüssiggastank selbst fallen Kosten für die Aufstellung an:</p>
                             <ul className="space-y-3 mb-6">
-                                <li className="flex items-start"><Wrench size={18} className="text-gray-400 mr-2 mt-1"/> <strong>Fundament:</strong> Eine Betonplatte für oberirdische Flüssiggastanks kostet (in Eigenleistung) oft nur Material, vom Profi ca. 300-500€.</li>
-                                <li className="flex items-start"><Truck size={18} className="text-gray-400 mr-2 mt-1"/> <strong>Anlieferung & Kran:</strong> Hängt von der Entfernung ab. Bei uns oft pauschaliert.</li>
-                                <li className="flex items-start"><Settings size={18} className="text-gray-400 mr-2 mt-1"/> <strong>Anschluss & Prüfung:</strong> Rohrleitung zum Haus, Regler und die erste TÜV-Abnahme (ca. 150-300€).</li>
+                                <li className="flex items-start"><Wrench size={18} className="text-gray-500 mr-2 mt-1"/> <strong>Fundament:</strong> Eine Betonplatte für oberirdische Flüssiggastanks kostet (in Eigenleistung) oft nur Material, vom Profi ca. 300-500€.</li>
+                                <li className="flex items-start"><Truck size={18} className="text-gray-500 mr-2 mt-1"/> <strong>Anlieferung & Kran:</strong> Hängt von der Entfernung ab. Bei uns oft pauschaliert.</li>
+                                <li className="flex items-start"><Settings size={18} className="text-gray-500 mr-2 mt-1"/> <strong>Anschluss & Prüfung:</strong> Rohrleitung zum Haus, Regler und die erste TÜV-Abnahme (ca. 150-300€).</li>
                             </ul>
 
                              <div className="bg-blue-50 border-l-4 border-gas p-4 my-6">

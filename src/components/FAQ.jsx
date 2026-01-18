@@ -32,13 +32,13 @@ const FAQ = ({ items }) => {
     return (
         <div className="max-w-3xl mx-auto px-4 py-24">
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-            <h3 className="text-3xl font-bold text-center mb-12">Häufig gestellte Fragen</h3>
+            <h2 className="text-3xl font-bold text-center mb-12">Häufig gestellte Fragen</h2>
             <div className="space-y-4">
                 {faqs.map((faq, i) => (
                     <div key={i} className="border border-gray-200 rounded-xl overflow-hidden">
                         <button onClick={() => setOpen(open === i ? -1 : i)} className="w-full flex justify-between items-center p-5 bg-white hover:bg-gray-50 text-left font-bold text-text transition-colors">
                             <span>{faq.question || faq.q}</span>
-                            <ChevronDown size={20} className={`transform transition-transform duration-300 ${open === i ? 'rotate-180 text-gas' : 'text-gray-400'}`}/>
+                            <ChevronDown size={20} className={`transform transition-transform duration-300 ${open === i ? 'rotate-180 text-gas' : 'text-gray-500'}`}/>
                         </button>
                         <AnimatePresence>
                             {open === i && (

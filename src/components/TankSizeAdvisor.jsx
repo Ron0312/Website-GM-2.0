@@ -73,7 +73,7 @@ const TankSizeAdvisor = () => {
                         <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                             <label className="block text-sm font-bold text-gray-700 mb-4">Wie groß ist die zu beheizende Wohnfläche?</label>
                             <div className="flex items-center gap-4 mb-8">
-                                <Home size={24} className="text-gray-400" />
+                                <Home size={24} className="text-gray-500" />
                                 <div className="flex-1">
                                     <input
                                         type="range"
@@ -148,7 +148,7 @@ const TankSizeAdvisor = () => {
                                 </div>
                             </div>
 
-                            <button onClick={() => setStep(1)} className="w-full border-2 border-gray-100 text-gray-400 py-3 rounded-xl font-bold hover:text-gas hover:border-gas transition-colors text-sm flex items-center justify-center gap-2">
+                            <button onClick={() => setStep(1)} className="w-full border-2 border-gray-100 text-gray-500 py-3 rounded-xl font-bold hover:text-gas hover:border-gas transition-colors text-sm flex items-center justify-center gap-2">
                                 <ArrowRight className="rotate-180" size={14} /> Neu berechnen
                             </button>
                         </motion.div>

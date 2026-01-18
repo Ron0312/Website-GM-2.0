@@ -18,7 +18,7 @@ const DEFAULT_FACTORS = {
 
 const Tooltip = ({ text }) => (
     <div className="group relative inline-block ml-1">
-        <Info size={14} className="text-gray-400 cursor-help hover:text-gas transition-colors" />
+        <Info size={14} className="text-gray-500 cursor-help hover:text-gas transition-colors" />
         <div className="invisible group-hover:visible absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 bg-gray-900 text-white text-xs rounded p-2 z-50 text-center shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
             {text}
             <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900" />
@@ -210,7 +210,7 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
                                                             onChange={(e) => setConsumption(Number(e.target.value))}
                                                             className="w-full p-4 bg-gray-50 border-2 border-gray-100 rounded-xl text-xl font-bold text-gray-900 focus:border-gas outline-none"
                                                         />
-                                                        <span className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400 font-bold">{factors[sourceType].label}</span>
+                                                        <span className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 font-bold">{factors[sourceType].label}</span>
                                                     </div>
                                                     <input
                                                         type="range"
@@ -252,7 +252,7 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
                                                                                 onChange={(e) => handlePriceChange(sourceType, e.target.value)}
                                                                                 className="w-full py-2 bg-transparent outline-none font-bold text-gray-700"
                                                                             />
-                                                                            <span className="text-gray-400 text-xs">€</span>
+                                                                            <span className="text-gray-500 text-xs">€</span>
                                                                         </div>
                                                                     </div>
                                                                     <div>
@@ -265,7 +265,7 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
                                                                                 onChange={(e) => handlePriceChange('lpg', e.target.value)}
                                                                                 className="w-full py-2 bg-transparent outline-none font-bold text-gray-700"
                                                                             />
-                                                                            <span className="text-gray-400 text-xs">€</span>
+                                                                            <span className="text-gray-500 text-xs">€</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -286,10 +286,10 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
                                                         className={`text-5xl font-extrabold ${savings >= 0 ? 'text-gas' : 'text-orange-500'}`}
                                                     >
                                                         {savings > 0 && `${savings} €`}
-                                                        {savings === 0 && <span className="text-3xl text-gray-400">Keine Ersparnis</span>}
+                                                        {savings === 0 && <span className="text-3xl text-gray-500">Keine Ersparnis</span>}
                                                         {savings < 0 && (
                                                             <div className="flex flex-col items-center">
-                                                                <span className="text-3xl text-gray-400 mb-1">Keine Ersparnis</span>
+                                                                <span className="text-3xl text-gray-500 mb-1">Keine Ersparnis</span>
                                                                 <span className="text-lg text-orange-500 font-bold">({Math.abs(savings)} € Mehrkosten)</span>
                                                             </div>
                                                         )}
@@ -304,7 +304,7 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
                                                             </div>
                                                             <span className="font-bold text-gray-700">CO2 Reduktion</span>
                                                         </div>
-                                                        <span className={`font-bold ${co2Savings > 0 ? 'text-green-600' : 'text-gray-400'}`}>{co2Savings > 0 ? `${co2Savings} kg` : '-'}</span>
+                                                        <span className={`font-bold ${co2Savings > 0 ? 'text-green-600' : 'text-gray-500'}`}>{co2Savings > 0 ? `${co2Savings} kg` : '-'}</span>
                                                     </div>
 
                                                     <div className="p-4 bg-yellow-50 rounded-xl border border-yellow-100 text-xs text-yellow-800 leading-relaxed">
@@ -318,7 +318,7 @@ const EnergyCalculator = ({ defaultExpanded = false }) => {
 
                                                 <button
                                                     onClick={() => { handleSourceChange('oil'); setFactors(DEFAULT_FACTORS); }}
-                                                    className="mt-6 flex items-center justify-center gap-2 text-gray-400 text-xs font-bold hover:text-gas transition-colors"
+                                                    className="mt-6 flex items-center justify-center gap-2 text-gray-500 text-xs font-bold hover:text-gas transition-colors"
                                                 >
                                                     <RotateCcw size={12} /> Zurücksetzen
                                                 </button>

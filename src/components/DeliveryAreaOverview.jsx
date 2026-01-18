@@ -59,7 +59,7 @@ const DeliveryAreaOverview = ({ setActiveSection }) => {
                                             <span className="font-bold text-gray-800 group-hover:text-gas transition-colors block">
                                                 {city.name}
                                             </span>
-                                            <span className="text-sm text-gray-400">{city.zip}</span>
+                                            <span className="text-sm text-gray-500">{city.zip}</span>
                                         </div>
                                         <ArrowRight size={16} className="text-gray-300 group-hover:text-gas transform group-hover:translate-x-1 transition-all" />
                                     </motion.a>

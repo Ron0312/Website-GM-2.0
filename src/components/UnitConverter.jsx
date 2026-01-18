@@ -87,7 +87,7 @@ const UnitConverter = () => {
                         onBlur={handleBlur}
                         placeholder="0"
                     />
-                    <span className="text-sm font-bold text-gray-400 shrink-0">{unit}</span>
+                    <span className="text-sm font-bold text-gray-500 shrink-0">{unit}</span>
                 </div>
             </div>
         );

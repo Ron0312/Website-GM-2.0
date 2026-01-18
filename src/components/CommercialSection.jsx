@@ -48,7 +48,7 @@ const CommercialSection = ({ setActiveSection, isPage = false }) => (
                         <item.i size={40} className="text-gray-300 group-hover:text-gas mb-6 transition-colors"/>
                         <h3 className="font-bold text-xl mb-2">{item.t}</h3>
                         <p className="text-gray-500 font-medium mb-3">{item.d}</p>
-                        <p className="text-sm text-gray-400 leading-relaxed">{item.desc}</p>
+                        <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
                     </div>
                 ))}
             </div>

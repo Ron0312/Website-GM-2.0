@@ -317,7 +317,7 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                                                             className="w-full flex justify-between items-center py-4 text-left font-bold text-gray-800"
                                                         >
                                                             {item.label}
-                                                            <ChevronDown size={16} className={`text-gray-400 transition-transform ${((item.id === 'service' && serviceOpen) || (item.id === 'fluessiggastank-kaufen' && tanksOpen)) ? 'rotate-180' : ''}`} />
+                                                            <ChevronDown size={16} className={`text-gray-500 transition-transform ${((item.id === 'service' && serviceOpen) || (item.id === 'fluessiggastank-kaufen' && tanksOpen)) ? 'rotate-180' : ''}`} />
                                                         </button>
 
                                                         {/* Mobile Submenu */}

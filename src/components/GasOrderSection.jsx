@@ -329,15 +329,15 @@ const GasOrderSection = ({ onCheckAvailability, setActiveSection }) => {
                     <div className="mt-20 pt-10 border-t border-gray-200/60">
                         <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
                             <div className="flex items-center gap-3">
-                                <ShieldCheck size={32} className="text-gray-400" />
+                                <ShieldCheck size={32} className="text-gray-500" />
                                 <span className="font-bold text-gray-500 text-lg">TÜV Nord</span>
                             </div>
                             <div className="flex items-center gap-3">
-                                <Check size={32} className="text-gray-400" />
+                                <Check size={32} className="text-gray-500" />
                                 <span className="font-bold text-gray-500 text-lg">DVFG Mitglied</span>
                             </div>
                              <div className="flex items-center gap-3">
-                                <MapPin size={32} className="text-gray-400" />
+                                <MapPin size={32} className="text-gray-500" />
                                 <span className="font-bold text-gray-500 text-lg">Standort Schleswig-Holstein</span>
                             </div>
                         </div>

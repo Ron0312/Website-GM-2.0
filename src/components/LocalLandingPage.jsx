@@ -56,7 +56,7 @@ const LocalFAQ = ({ city }) => {
                     <div key={i} className="border border-gray-200 rounded-xl overflow-hidden">
                         <button onClick={() => setOpen(open === i ? -1 : i)} className="w-full flex justify-between items-center p-5 bg-white hover:bg-gray-50 text-left font-bold text-text transition-colors">
                             <span>{faq.q}</span>
-                            <ChevronDown size={20} className={`transform transition-transform duration-300 ${open === i ? 'rotate-180 text-gas' : 'text-gray-400'}`}/>
+                            <ChevronDown size={20} className={`transform transition-transform duration-300 ${open === i ? 'rotate-180 text-gas' : 'text-gray-500'}`}/>
                         </button>
                         <AnimatePresence>
                             {open === i && (
@@ -223,17 +223,17 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
                     {/* Regional Info Block */}
                     <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm text-center">
-                            <div className="text-gray-400 text-sm font-bold uppercase tracking-wider mb-2">Entfernung zum Lager</div>
+                            <div className="text-gray-500 text-sm font-bold uppercase tracking-wider mb-2">Entfernung zum Lager</div>
                             <div className="text-3xl font-extrabold text-gas-dark mb-1">ca. {distanceKm} km</div>
                             <p className="text-sm text-gray-500">Schnelle Lieferung nach {city.name}</p>
                         </div>
                         <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm text-center">
-                            <div className="text-gray-400 text-sm font-bold uppercase tracking-wider mb-2">Liefertage</div>
+                            <div className="text-gray-500 text-sm font-bold uppercase tracking-wider mb-2">Liefertage</div>
                             <div className="text-3xl font-extrabold text-gas-dark mb-1">{deliveryDays}</div>
                             <p className="text-sm text-gray-500">Hauptrouten in {city.state}</p>
                         </div>
                          <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm text-center">
-                            <div className="text-gray-400 text-sm font-bold uppercase tracking-wider mb-2">Ihr Ansprechpartner</div>
+                            <div className="text-gray-500 text-sm font-bold uppercase tracking-wider mb-2">Ihr Ansprechpartner</div>
                             <div className="text-3xl font-extrabold text-gas-dark mb-1">{regionalManager}</div>
                             <p className="text-sm text-gray-500">Experte für die Region {city.zip}</p>
                         </div>
@@ -254,7 +254,7 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
                          Wir sind in ganz {city.state} für Sie unterwegs. Prüfen Sie jetzt direkt, wann wir das nächste Mal bei Ihnen {preposition} {city.zip} {city.name} sind.
                      </p>
                      <div className="h-96 w-full rounded-xl overflow-hidden bg-white shadow-inner border border-gray-100 relative">
-                        <Suspense fallback={<div className="absolute inset-0 bg-gray-100 animate-pulse flex items-center justify-center text-gray-400">Karte wird geladen...</div>}>
+                        <Suspense fallback={<div className="absolute inset-0 bg-gray-100 animate-pulse flex items-center justify-center text-gray-500">Karte wird geladen...</div>}>
                             <DeliveryMap />
                         </Suspense>
                         {/* Overlay to ensure touch interaction works but visual indication is clear */}

@@ -346,13 +346,13 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                 <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-white z-20">
                     <div>
                         <h2 id="wizard-title" className="text-xl font-bold text-gray-900">Anfrage stellen</h2>
-                        {loading ? <Skeleton className="w-20 h-4 mt-1"/> : <p className="text-sm text-gray-400 font-medium">Schritt {step} von {totalSteps}</p>}
+                        {loading ? <Skeleton className="w-20 h-4 mt-1"/> : <p className="text-sm text-gray-500 font-medium">Schritt {step} von {totalSteps}</p>}
                     </div>
                     <div className="flex items-center gap-4">
                         <a href={`tel:${PHONE_NUMBER}`} className="hidden sm:flex items-center gap-2 text-gas font-bold text-sm bg-gas-light/20 px-3 py-1.5 rounded-lg">
                             <Phone size={14} /> <span>{PHONE_NUMBER_DISPLAY}</span>
                         </a>
-                        <button onClick={onClose} className="p-2 rounded-full hover:bg-gray-100"><X size={24}/></button>
+                        <button onClick={onClose} className="p-2 rounded-full hover:bg-gray-100" aria-label="Schließen"><X size={24}/></button>
                     </div>
                 </div>
 
@@ -425,7 +425,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                             <SelectionCard title="Service" description="Wartung" icon={Wrench} selected={type === 'service'} onClick={() => setType('service')} />
                                         </div>
                                         <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg mb-4 hover:bg-gas-dark transition-all">Weiter</button>
-                                        <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold hover:text-gray-600 transition-colors">Zurück</button>
+                                        <button type="button" onClick={handleBack} className="w-full text-gray-500 font-bold hover:text-gray-600 transition-colors">Zurück</button>
                                     </motion.div>
                                 )}
 
@@ -481,7 +481,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                 <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg mt-4 hover:bg-gas-dark transition-all">Weiter zu Kontakt</button>
                                             </>
                                         )}
-                                        <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
+                                        <button type="button" onClick={handleBack} className="w-full text-gray-500 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
                                     </motion.div>
                                 )}
 
@@ -499,7 +499,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                     )} />
                                                 </div>
                                                 <button type="button" onClick={handleNext} disabled={!formValues.details.interest} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 hover:bg-gas-dark transition-all">Weiter</button>
-                                                <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
+                                                <button type="button" onClick={handleBack} className="w-full text-gray-500 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
                                             </>
                                         ) : type === 'gas' ? (
                                             <>
@@ -543,7 +543,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                     </div>
                                                 </div>
                                                 <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg hover:bg-gas-dark transition-all">Weiter zu Kontakt</button>
-                                                <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
+                                                <button type="button" onClick={handleBack} className="w-full text-gray-500 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
                                             </>
                                         ) : (
                                             <ContactFormFields control={control} errors={errors} submitting={submitting} submitForm={submitForm} handleBack={handleBack} openLegal={openLegal} type={type} />
@@ -586,7 +586,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                     </div>
                                                 </div>
                                                 <button type="button" onClick={handleNext} disabled={!formValues.details.condition} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 hover:bg-gas-dark transition-all">Weiter</button>
-                                                <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
+                                                <button type="button" onClick={handleBack} className="w-full text-gray-500 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
                                             </>
                                         ) : (
                                             <ContactFormFields control={control} errors={errors} submitting={submitting} submitForm={submitForm} handleBack={handleBack} openLegal={openLegal} type={type} />
@@ -624,7 +624,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                         </div>
                                                     )} />
                                                     <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg mt-4 hover:bg-gas-dark transition-all">Weiter</button>
-                                                    <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
+                                                    <button type="button" onClick={handleBack} className="w-full text-gray-500 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
                                                 </div>
                                             </>
                                         ) : (
@@ -699,7 +699,7 @@ const ContactFormFields = ({ control, errors, submitting, submitForm, handleBack
             <button type="button" onClick={submitForm} disabled={submitting} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg hover:bg-gas-dark transition-all hover:scale-[1.02] active:scale-[0.98]">
                 {submitting ? 'Wird gesendet...' : 'Kostenlos anfragen'}
             </button>
-            <button type="button" onClick={handleBack} className="w-full text-gray-400 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
+            <button type="button" onClick={handleBack} className="w-full text-gray-500 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
         </div>
     </>
 );
