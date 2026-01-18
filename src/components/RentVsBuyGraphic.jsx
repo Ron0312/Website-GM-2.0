@@ -75,7 +75,7 @@ const RentVsBuyGraphic = () => {
                     onChange={(e) => setConsumption(parseInt(e.target.value))}
                     className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-gas hover:accent-gas-dark transition-all"
                 />
-                <div className="flex justify-between text-xs text-gray-400 mt-2 font-medium">
+                <div className="flex justify-between text-xs text-gray-500 mt-2 font-medium">
                     <span>Weniger (1.000L)</span>
                     <span>Viel (6.000L)</span>
                 </div>

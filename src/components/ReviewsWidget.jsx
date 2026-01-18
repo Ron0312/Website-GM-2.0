@@ -41,10 +41,10 @@ const ReviewsWidget = () => {
 
                     <div className="flex items-center gap-4">
                         <div className="flex gap-2">
-                            <button onClick={prevSlide} className="p-2 rounded-full border border-gray-200 hover:bg-gray-50 text-gray-600">
+                            <button onClick={prevSlide} className="p-2 rounded-full border border-gray-200 hover:bg-gray-50 text-gray-600" aria-label="Vorherige Bewertungen">
                                 <ChevronLeft size={20} />
                             </button>
-                            <button onClick={nextSlide} className="p-2 rounded-full border border-gray-200 hover:bg-gray-50 text-gray-600">
+                            <button onClick={nextSlide} className="p-2 rounded-full border border-gray-200 hover:bg-gray-50 text-gray-600" aria-label="Nächste Bewertungen">
                                 <ChevronRight size={20} />
                             </button>
                         </div>
@@ -71,7 +71,7 @@ const ReviewsWidget = () => {
                                     </div>
                                     <span className="font-bold text-sm text-gray-900 truncate max-w-[120px]" title={review.author}>{review.author}</span>
                                 </div>
-                                <span className="text-xs text-gray-400 whitespace-nowrap">{review.date}</span>
+                                <span className="text-xs text-gray-500 whitespace-nowrap">{review.date}</span>
                             </div>
 
                             <div className="flex text-yellow-400 mb-3">
@@ -87,7 +87,7 @@ const ReviewsWidget = () => {
 
                             {review.response && (
                                 <div className="mt-4 pt-4 border-t border-gray-200/50">
-                                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Antwort vom Inhaber</p>
+                                    <p className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Antwort vom Inhaber</p>
                                     <p className="text-xs text-gray-500 italic truncate">"{review.response}"</p>
                                 </div>
                             )}
@@ -102,7 +102,7 @@ const ReviewsWidget = () => {
                          // Better: Simplified mobile view handling.
                          null
                     ))}
-                    <span className="text-xs text-gray-400">Zeige {startIndex + 1} - {startIndex + 4} von {totalReviews}</span>
+                    <span className="text-xs text-gray-500">Zeige {startIndex + 1} - {startIndex + 4} von {totalReviews}</span>
                 </div>
             </div>
         </div>

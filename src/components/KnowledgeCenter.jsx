@@ -288,9 +288,9 @@ const KnowledgeCenter = ({ setActiveSection, slug }) => {
                                     >
                                         <div>
                                             <div className="font-semibold group-hover:text-gas transition-colors">{article.title}</div>
-                                            <div className="text-xs text-gray-400 mt-1 line-clamp-1">{article.description}</div>
+                                            <div className="text-xs text-gray-500 mt-1 line-clamp-1">{article.description}</div>
                                         </div>
-                                        <ChevronRight size={16} className={`opacity-0 group-hover:opacity-100 transition-opacity ${currentArticle.id === article.id ? 'text-gas opacity-100' : 'text-gray-400'}`} />
+                                        <ChevronRight size={16} className={`opacity-0 group-hover:opacity-100 transition-opacity ${currentArticle.id === article.id ? 'text-gas opacity-100' : 'text-gray-500'}`} />
                                     </button>
                                 ))}
                             </div>
@@ -312,7 +312,7 @@ const KnowledgeCenter = ({ setActiveSection, slug }) => {
                                     <ChevronRight size={14}/>
                                     <span>Ratgeber</span>
                                 </div>
-                                <time dateTime={currentDate.toISOString()} className="text-xs text-gray-400">
+                                <time dateTime={currentDate.toISOString()} className="text-xs text-gray-500">
                                     Aktualisiert: {lastUpdated}
                                 </time>
                             </header>
@@ -341,7 +341,7 @@ const KnowledgeCenter = ({ setActiveSection, slug }) => {
                                      <div className="w-full h-full bg-gas text-white hidden items-center justify-center font-bold">TM</div>
                                 </div>
                                 <div>
-                                    <div className="text-xs text-gray-400 font-bold uppercase">Geprüft von</div>
+                                    <div className="text-xs text-gray-500 font-bold uppercase">Geprüft von</div>
                                     <div className="font-bold text-gray-900">Thomas Möller</div>
                                     <div className="text-sm text-gray-500">Geschäftsführung & Sachkundiger</div>
                                 </div>

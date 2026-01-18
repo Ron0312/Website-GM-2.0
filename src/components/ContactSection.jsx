@@ -94,14 +94,14 @@ const ContactSection = () => {
                         <a href="tel:04551897089" className="flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 px-6 py-4 rounded-xl transition-all border border-white/10">
                             <Phone className="text-gas-light" />
                             <div className="text-left">
-                                <div className="text-xs text-gray-400 uppercase font-bold tracking-wider">Zentrale</div>
+                                <div className="text-xs text-gray-500 uppercase font-bold tracking-wider">Zentrale</div>
                                 <div className="font-bold text-lg tabular-nums">04551 89 70 89</div>
                             </div>
                         </a>
                         <button
                             onClick={(e) => { e.preventDefault(); copyToClipboard('04551897089', 'phone'); }}
                             className="absolute -top-3 -right-3 p-2 bg-white text-gas rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
-                            aria-label="Nummer kopieren"
+                            aria-label="Nummer der Zentrale kopieren"
                         >
                             {copiedPhone ? <Check size={14} /> : <Copy size={14} />}
                         </button>
@@ -111,14 +111,14 @@ const ContactSection = () => {
                         <a href="tel:+4917641684326" className="flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 px-6 py-4 rounded-xl transition-all border border-white/10">
                             <User className="text-gas-light" />
                             <div className="text-left">
-                                <div className="text-xs text-gray-400 uppercase font-bold tracking-wider">Thomas Möller / Notfall</div>
+                                <div className="text-xs text-gray-500 uppercase font-bold tracking-wider">Thomas Möller / Notfall</div>
                                 <div className="font-bold text-lg tabular-nums">+49 176 416 84 326</div>
                             </div>
                         </a>
                         <button
                             onClick={(e) => { e.preventDefault(); copyToClipboard('+4917641684326', 'mobile'); }}
                             className="absolute -top-3 -right-3 p-2 bg-white text-gas rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
-                            aria-label="Nummer kopieren"
+                            aria-label="Notfallnummer kopieren"
                         >
                             {copiedMobile ? <Check size={14} /> : <Copy size={14} />}
                         </button>

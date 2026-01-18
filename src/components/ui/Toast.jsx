@@ -42,7 +42,7 @@ const Toast = ({ message, type = 'success', onClose, duration = 5000 }) => {
             <div className={`flex-1 text-sm font-medium ${textColors[type]}`}>
                 {message}
             </div>
-            <button onClick={onClose} className={`ml-3 text-gray-400 hover:text-gray-600`}>
+            <button onClick={onClose} className={`ml-3 text-gray-500 hover:text-gray-600`}>
                 <X size={16} />
             </button>
         </motion.div>

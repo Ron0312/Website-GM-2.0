@@ -62,7 +62,7 @@ const KnowledgeTeaser = ({ setActiveSection }) => {
                             <div className={`w-14 h-14 ${article.bg} rounded-2xl flex items-center justify-center ${article.color} mb-6 group-hover:scale-110 transition-transform`}>
                                 <article.icon size={28} />
                             </div>
-                            <div className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">{article.category}</div>
+                            <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">{article.category}</div>
                             <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-gas transition-colors">{article.title}</h3>
                             <p className="text-gray-600 mb-6 leading-relaxed">
                                 {article.description}

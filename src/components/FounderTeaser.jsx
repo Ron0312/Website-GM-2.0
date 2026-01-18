@@ -66,7 +66,7 @@ const FounderTeaser = () => {
                         </div>
 
                         <div className="flex items-center gap-6">
-                            <img src="/logos/Icon-01.webp" alt="Unterschrift Logo" className="h-12 w-auto opacity-80" />
+                            <img src="/logos/Icon-01.webp" alt="Unterschrift Logo" width="422" height="142" className="h-12 w-auto opacity-80" />
                             <div className="h-10 w-px bg-gray-200"></div>
                             <div className="text-sm text-gray-500">
                                 <span className="block font-bold text-gray-900">Ihr Gas-Service Möller Team</span>

@@ -109,7 +109,7 @@ const TankDetail = ({ slug, onBack, openWizard }) => {
                         {/* Ideal For Tags */}
                         {tank.idealFor && (
                             <div className="mb-6">
-                                <p className="text-xs text-gray-400 font-bold uppercase tracking-wider mb-2">Empfohlen für:</p>
+                                <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-2">Empfohlen für:</p>
                                 <div className="flex flex-wrap gap-2">
                                     {tank.idealFor.map((tag, i) => (
                                         <span key={i} className="bg-green-50 text-green-700 px-2 py-1 rounded text-sm font-medium border border-green-100">{tag}</span>
@@ -205,7 +205,7 @@ const TankDetail = ({ slug, onBack, openWizard }) => {
                     <div>
                         <div className="bg-gray-900 text-white rounded-2xl p-8 sticky top-24">
                             <h4 className="text-xl font-bold mb-4">Warum kaufen?</h4>
-                            <p className="text-gray-400 mb-6 text-sm">Ein eigener Tank macht Sie unabhängig. Sie sparen bei jeder Füllung, da Sie den Anbieter frei wählen können.</p>
+                            <p className="text-gray-500 mb-6 text-sm">Ein eigener Tank macht Sie unabhängig. Sie sparen bei jeder Füllung, da Sie den Anbieter frei wählen können.</p>
                             <ul className="space-y-3 mb-8 text-sm">
                                 <li className="flex items-center text-gray-300"><Check size={16} className="text-green-400 mr-2"/> Freie Händlerwahl</li>
                                 <li className="flex items-center text-gray-300"><Check size={16} className="text-green-400 mr-2"/> Keine Mietgebühren</li>

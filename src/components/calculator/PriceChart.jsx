@@ -129,7 +129,7 @@ const PriceChart = ({ consumption, factorSource, factors }) => {
              <div className="h-[300px] w-full">
                 <Line options={options} data={data} />
             </div>
-            <p className="text-[10px] text-gray-400 mt-2 text-center">
+            <p className="text-[10px] text-gray-500 mt-2 text-center">
                 *Prognose basierend auf einer angenommenen jährlichen Inflation von 3%. Tatsächliche Entwicklung kann abweichen.
             </p>
         </div>
