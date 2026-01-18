@@ -96,8 +96,9 @@ const Navigation = ({ activeSection, setActiveSection, mobileMenuOpen, setMobile
                         src="/logos/Icon-01.webp"
                         alt="Gas-Service Möller Logo"
                         width="422"
-                        height="142"
-                        className={`h-10 w-auto transition-transform duration-300 group-hover:scale-105 ${effectiveScrolled ? '' : 'brightness-0 invert'}`}
+                        height="140"
+                        style={{ aspectRatio: '422/140' }}
+                        className={`h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105 ${effectiveScrolled ? '' : 'brightness-0 invert'}`}
                     />
                 </div>
 
