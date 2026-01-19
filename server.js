@@ -40,6 +40,17 @@ try {
     Logger.warn('Failed to load knowledge slugs:', e.message);
 }
 
+// Verify cityData loading
+try {
+    if (cityData && Array.isArray(cityData)) {
+        Logger.info(`Loaded ${cityData.length} cities.`);
+    } else {
+        Logger.error('FAILED TO LOAD CITYDATA: Not an array or undefined');
+    }
+} catch (e) {
+    Logger.error('Error checking cityData:', e);
+}
+
 /**
  * Validates Environment Variables at Startup
  */
@@ -284,29 +295,6 @@ ${routes.map(route => `  <url>
     return false
   }
 
-  // Explicitly serve sitemap.xml
-  app.get('/sitemap.xml', async (req, res) => {
-    try {
-        const handled = await serveOrGenerate(res, 'sitemap.xml', 'application/xml', generateSitemapXml);
-        if (!handled && !res.headersSent) {
-            res.status(404).send('Sitemap not found');
-        }
-    } catch (e) {
-        res.status(500).end();
-    }
-  })
-
-  // Explicitly serve robots.txt
-  app.get('/robots.txt', async (req, res) => {
-    try {
-        const handled = await serveOrGenerate(res, 'robots.txt', 'text/plain', null);
-        if (!handled && !res.headersSent) {
-            res.status(404).send('Robots.txt not found');
-        }
-    } catch (e) {
-         res.status(500).end();
-    }
-  })
 
 
   // Legacy Redirects Map (Specific overrides)
@@ -503,11 +491,40 @@ ${routes.map(route => `  <url>
       getSchemaForPath = () => ({});
   }
 
-  app.use(async (req, res) => {
-    const url = req.originalUrl
-    if (url === '/sitemap.xml') {
+  // Explicitly serve sitemap.xml
+  app.get('/sitemap.xml', async (req, res) => {
+    try {
         const handled = await serveOrGenerate(res, 'sitemap.xml', 'application/xml', generateSitemapXml);
-        if (handled) return;
+        if (!handled && !res.headersSent) {
+            res.status(404).send('Sitemap not found');
+        }
+    } catch (e) {
+        Logger.error('Sitemap Error:', e);
+        res.status(500).end();
+    }
+  })
+
+  // Explicitly serve robots.txt
+  app.get('/robots.txt', async (req, res) => {
+    try {
+        const handled = await serveOrGenerate(res, 'robots.txt', 'text/plain', null);
+        if (!handled && !res.headersSent) {
+            res.status(404).send('Robots.txt not found');
+        }
+    } catch (e) {
+         Logger.error('Robots.txt Error:', e);
+         res.status(500).end();
+    }
+  })
+
+  app.use(async (req, res) => {
+    let url = req.originalUrl
+    try {
+        if (url.includes('%')) {
+            url = decodeURIComponent(url);
+        }
+    } catch (e) {
+        Logger.warn('Failed to decode URL in SSR middleware:', e);
     }
 
     try {
