@@ -2,6 +2,7 @@ import React, { Suspense, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Check, ArrowRight, ShieldCheck, MapPin } from 'lucide-react';
 import { getCityBySlug, cityData } from '../data/cityData';
+import { getLocalContent } from '../data/localContent';
 import Hero from './Hero';
 import TankSection from './TankSection';
 import ContactSection from './ContactSection';
@@ -128,6 +129,8 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
     const distanceKm = Math.floor((seed % 60) + 15); // Deterministic distance between 15 and 75 km
     const deliveryDays = ['Montag & Donnerstag', 'Dienstag & Freitag', 'Mittwoch & Freitag'][seed % 3];
 
+    const localContent = getLocalContent(slug);
+
     return (
         <div className="min-h-screen bg-white">
             <Hero
@@ -240,6 +243,23 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
 
                 </div>
             </section>
+
+            {/* SEO Content Section */}
+            {localContent && (
+                <section className="py-16 bg-gray-50 border-y border-gray-100">
+                    <div className="max-w-4xl mx-auto px-4">
+                        <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">{localContent.title}</h2>
+                        <div className="space-y-12">
+                            {localContent.sections.map((section, idx) => (
+                                <div key={idx} className="prose prose-lg max-w-none text-gray-600">
+                                    <h3 className="text-2xl font-bold text-gas-dark mb-4">{section.heading}</h3>
+                                    <p className="leading-relaxed text-lg">{section.text}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            )}
 
             {/* Tank Section - Standard Reuse */}
             <TankSection openWizard={openWizard} setActiveSection={setActiveSection} showTechnicalOverview={false} />
