@@ -8,6 +8,7 @@ import ContactSection from './ContactSection';
 import CommercialSection from './CommercialSection';
 import InspectionSection from './InspectionSection';
 import NotFound from './NotFound';
+import ComponentErrorBoundary from './ComponentErrorBoundary';
 
 // Lazy load Map to save initial bytes
 const DeliveryMap = React.lazy(() => import('./DeliveryMap'));
@@ -254,9 +255,11 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
                          Wir sind in ganz {city.state} für Sie unterwegs. Prüfen Sie jetzt direkt, wann wir das nächste Mal bei Ihnen {preposition} {city.zip} {city.name} sind.
                      </p>
                      <div className="h-96 w-full rounded-xl overflow-hidden bg-white shadow-inner border border-gray-100 relative">
-                        <Suspense fallback={<div className="absolute inset-0 bg-gray-100 animate-pulse flex items-center justify-center text-gray-500">Karte wird geladen...</div>}>
-                            <DeliveryMap />
-                        </Suspense>
+                        <ComponentErrorBoundary>
+                            <Suspense fallback={<div className="absolute inset-0 bg-gray-100 animate-pulse flex items-center justify-center text-gray-500">Karte wird geladen...</div>}>
+                                <DeliveryMap />
+                            </Suspense>
+                        </ComponentErrorBoundary>
                         {/* Overlay to ensure touch interaction works but visual indication is clear */}
                         <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur px-4 py-2 rounded-lg text-xs font-bold text-gas shadow-sm border border-gas/10 pointer-events-none flex items-center gap-2">
                             <MapPin size={12}/> Liefergebiet Norddeutschland

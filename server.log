@@ -2,7 +2,6 @@
 > gasmoeller-vite@0.0.0 dev
 > node server.js
 
-{"level":"INFO","timestamp":"2026-01-18T17:40:41.163Z","message":"Loaded 33 knowledge articles."}
-{"level":"INFO","timestamp":"2026-01-18T17:40:41.167Z","message":"Starting server. Initial mode: DEVELOPMENT"}
-{"level":"INFO","timestamp":"2026-01-18T17:40:41.436Z","message":"Server started at http://localhost:5173"}
-{"level":"WARN","timestamp":"2026-01-18T17:41:26.053Z","message":"Request Error 404","method":"GET","url":"/404","status":404,"duration":"24ms","ip":"::1"}
+{"level":"INFO","timestamp":"2026-01-19T17:07:12.674Z","message":"Loaded 33 knowledge articles."}
+{"level":"INFO","timestamp":"2026-01-19T17:07:12.678Z","message":"Starting server. Initial mode: DEVELOPMENT"}
+{"level":"INFO","timestamp":"2026-01-19T17:07:12.961Z","message":"Server started at http://localhost:5173"}
