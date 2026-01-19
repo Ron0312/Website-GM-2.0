@@ -65,7 +65,6 @@ const routesWith404 = [...routesToPrerender, '/404'];
 (async () => {
     // Determine output directory
     const distClient = toAbsolute('dist/client');
-    const sitemapUrls = [];
 
     for (const url of routesWith404) {
         // Render app HTML
@@ -139,30 +138,7 @@ const routesWith404 = [...routesToPrerender, '/404'];
         console.log(`Prerendering ${url} to ${fileName}...`);
         fs.writeFileSync(filePath, pageHtml);
 
-        // Add to sitemap list (skip duplicate /start if / is present, or keep both? Canonical handles it)
-        // We will prefer the cleaner URLs (no /start if / is there, but here we render both)
-        // Let's rely on canonicals.
-        // Also exclude 404 from sitemap
-        if (url !== '/start' && url !== '/404') { // Skip /start as it is same as /
-             sitemapUrls.push(seoData.url);
-        } else if (url === '/' && !sitemapUrls.includes(seoData.url)) {
-             sitemapUrls.push(seoData.url);
-        }
     }
-
-    // --- Generate Sitemap.xml ---
-    console.log('Generating sitemap.xml...');
-    const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${sitemapUrls.map(u => `  <url>
-    <loc>${u}</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>${u === 'https://www.gasmoeller.de' ? '1.0' : '0.8'}</priority>
-  </url>`).join('\n')}
-</urlset>`;
-
-    fs.writeFileSync(path.join(distClient, 'sitemap.xml'), sitemapContent);
 
     console.log('Prerendering complete.');
 })();

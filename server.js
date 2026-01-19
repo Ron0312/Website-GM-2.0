@@ -199,6 +199,18 @@ async function createServer() {
 
   const citySlugs = new Set(cityData.map(c => c.slug));
 
+  const escapeXml = (unsafe) => {
+    return unsafe.replace(/[<>&'"]/g, (c) => {
+        switch (c) {
+            case '<': return '&lt;';
+            case '>': return '&gt;';
+            case '&': return '&amp;';
+            case '\'': return '&apos;';
+            case '"': return '&quot;';
+        }
+    });
+  };
+
   /**
    * Generates sitemap.xml dynamically
    * @returns {string} XML Content
@@ -220,7 +232,7 @@ async function createServer() {
       return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${routes.map(route => `  <url>
-    <loc>${SITE_URL}/${route}</loc>
+    <loc>${escapeXml(`${SITE_URL}/${route}`)}</loc>
     <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
     <changefreq>${route === '' ? 'daily' : 'weekly'}</changefreq>
     <priority>${route === '' ? '1.0' : (route.startsWith('liefergebiet/') ? '0.7' : (route.startsWith('wissen/') ? '0.8' : '0.9'))}</priority>
