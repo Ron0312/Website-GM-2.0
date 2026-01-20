@@ -6,7 +6,16 @@ test('homepage has title and critical elements', async ({ page }) => {
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Flüssiggas/);
 
+  // Scroll to the Calculator Section wrapper to ensure we pass the lazy loading threshold
+  const calculatorSection = page.getByTestId('calculator-section');
+  await calculatorSection.scrollIntoViewIfNeeded();
+
+  // Wait a bit for the intersection observer to fire and the component to load
+  // IntersectionObserver might take a moment to trigger
+  await page.waitForTimeout(1000);
+
   // Check for Calculator
+  // We use a broader check in case ID is hidden or inside shadow (unlikely here)
   const calculator = page.locator('#calculator');
   await expect(calculator).toBeVisible();
 });
