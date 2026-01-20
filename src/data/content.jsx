@@ -215,6 +215,74 @@ export const CONTENT = {
             icon: Settings,
             articles: [
                 {
+                    id: 'fluessiggastank-gebraucht',
+                    title: 'Gebrauchten Flüssiggastank kaufen',
+                    description: 'Geprüft, regeneriert & günstig: Die Alternative zum Neukauf.',
+                    content: (
+                        <div>
+                             <SourceBadge text="Nachhaltig & Günstig" />
+                             <p className="lead text-lg text-gray-700 mb-6">Ein neuer Flüssiggastank ist eine Investition. Wer sparen möchte, ohne auf Sicherheit zu verzichten, greift oft zum <strong>regenerierten Flüssiggastank</strong>. Diese Tanks sind technisch neuwertig, aber deutlich günstiger im Preis.</p>
+
+                             <h4 className="text-xl font-bold text-gas mb-4">Was bedeutet "regeneriert"?</h4>
+                             <p className="mb-4">Ein gebrauchter Flüssiggastank wird nicht einfach "weiterverkauft". Er durchläuft einen strengen Prozess in unserer Fachwerkstatt:</p>
+                             <ul className="space-y-3 mb-6">
+                                <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-600 mt-1"/> <strong>Sandstrahlen:</strong> Der alte Lack wird komplett entfernt. Der Stahl wird blank geschliffen.</li>
+                                <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-600 mt-1"/> <strong>Prüfung:</strong> Eine zugelassene Überwachungsstelle (ZÜS/TÜV) prüft den Behälter auf Herz und Nieren (Wanddickenmessung, Druckprüfung).</li>
+                                <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-600 mt-1"/> <strong>Neulackierung:</strong> Der Tank erhält eine hochwertige Epoxidharz-Grundierung und eine neue Decklackierung (reflektierendes Weiß/Hellgrün).</li>
+                                <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-600 mt-1"/> <strong>Neue Armaturen:</strong> Sicherheitsventil, Füllventil und Inhaltsanzeiger werden oft komplett erneuert.</li>
+                             </ul>
+
+                             <div className="bg-blue-50 border-l-4 border-gas p-4 my-6">
+                                <p className="font-bold text-gas-dark">Das Ergebnis:</p>
+                                <p>Sie erhalten einen Flüssiggastank, der optisch und technisch von einem Neubehälter kaum zu unterscheiden ist – aber oft <strong>20% bis 30% günstiger</strong> ist.</p>
+                            </div>
+
+                             <h4 className="text-xl font-bold text-gas mb-4">Vorteile gegenüber Miet-Tanks</h4>
+                             <p className="mb-4">Auch bei gebrauchten Tanks gilt: Kaufen ist besser als Mieten. Sie amortisieren die Anschaffungskosten durch die günstigeren Gaspreise (freie Händlerwahl) oft noch schneller als bei einem Neutank.</p>
+
+                             <h4 className="text-xl font-bold text-gas mb-4">Verfügbarkeit</h4>
+                             <p className="mb-4">Da wir auf Rückläufer angewiesen sind, ist das Angebot begrenzt. Besonders beliebt sind:</p>
+                             <ul className="list-disc pl-5 mb-4 text-gray-700">
+                                <li><strong>Flüssiggastank 1,2 t (2700 Liter) oberirdisch:</strong> Ideal für Ferienhäuser.</li>
+                                <li><strong>Flüssiggastank 2,1 t (4850 Liter) unterirdisch:</strong> Der Klassiker für Neubauten.</li>
+                             </ul>
+
+                             <p className="text-sm text-gray-500 mt-4">Fragen Sie unseren aktuellen Bestand an: <a href="/kontakt" className="text-gas hover:underline">Bestand prüfen</a>.</p>
+                        </div>
+                    )
+                },
+                {
+                    id: 'fluessiggastank-fuellstand-app',
+                    title: 'Flüssiggastank Füllstand per App',
+                    description: 'Nie wieder leerlaufen: Smart Metering für Ihren Gastank.',
+                    content: (
+                        <div>
+                             <SourceBadge text="Smart Home Ready" />
+                             <p className="lead text-lg text-gray-700 mb-6">In Zeiten von Smart Home möchten viele Hausbesitzer auch ihren <strong>Flüssiggastank digital überwachen</strong>. Schluss mit dem Gang in den Garten bei Regen, um unter die Tankklappe zu schauen. Mit modernen Telemetrie-Modulen haben Sie den Füllstand direkt auf dem Smartphone.</p>
+
+                             <h4 className="text-xl font-bold text-gas mb-4">Wie funktioniert das?</h4>
+                             <p className="mb-4">Anstelle des klassischen mechanischen Inhaltsanzeigers (Prozent-Skala) oder zusätzlich dazu wird ein digitaler Sensor installiert. Dieser sendet die Daten per Mobilfunk (NB-IoT) oder WLAN an eine Cloud.</p>
+
+                             <h4 className="text-xl font-bold text-gas mb-4">Die Vorteile</h4>
+                             <ul className="space-y-3 mb-6">
+                                <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-600 mt-1"/> <strong>Volle Transparenz:</strong> Sehen Sie jederzeit in der App, wie viel Gas noch im Tank ist.</li>
+                                <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-600 mt-1"/> <strong>Automatische Bestellung:</strong> Sie können einen Grenzwert (z.B. 20%) festlegen. Wird dieser unterschritten, erhalten Sie oder wir automatisch eine Meldung.</li>
+                                <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-600 mt-1"/> <strong>Verbrauchsanalyse:</strong> Erkennen Sie ungewöhnlich hohen Verbrauch (z.B. durch eine defekte Heizung) sofort.</li>
+                             </ul>
+
+                             <h4 className="text-xl font-bold text-gas mb-4">Nachrüstung möglich?</h4>
+                             <p className="mb-4">Ja, fast jeder oberirdische und unterirdische Flüssiggastank lässt sich nachrüsten. Gängige Systeme wie <strong>OilFox</strong> oder <strong>RCT</strong> werden einfach auf den vorhandenen Inhaltsanzeiger aufgeclipst oder ersetzen diesen. Die Installation dauert meist keine 15 Minuten und erfordert kein Ablassen des Gases.</p>
+
+                             <div className="bg-gray-100 p-4 rounded-lg border border-gray-200">
+                                <p className="font-bold text-gray-700">Kosten:</p>
+                                <p className="text-sm">Die Hardware kostet einmalig ca. 150€ - 250€. Dazu kommt oft eine kleine jährliche Gebühr für die Datenübertragung (App-Nutzung).</p>
+                             </div>
+
+                             <p className="text-sm text-gray-500 mt-4">Interessiert an einer Nachrüstung? <a href="/kontakt" className="text-gas hover:underline">Fragen Sie uns</a>.</p>
+                        </div>
+                    )
+                },
+                {
                     id: 'miete-kauf',
                     title: 'Miete vs. Kauf: Der Vergleich',
                     description: 'Warum Sie als Eigentümer tausende Euro sparen können.',
@@ -1003,6 +1071,46 @@ export const CONTENT = {
             title: 'Service & Notfall',
             icon: Wrench,
             articles: [
+                {
+                    id: 'fluessiggastank-heizung-stoerung',
+                    title: 'Heizung kalt? Störung am Flüssiggastank?',
+                    description: 'Checkliste zur Selbsthilfe bei Heizungsausfall.',
+                    content: (
+                        <div>
+                             <SourceBadge text="Erste Hilfe Guide" />
+                             <p className="lead text-lg text-gray-700 mb-6">Die Heizung bleibt kalt? Bevor Sie den teuren Notdienst rufen, lohnt sich oft ein Blick auf den Flüssiggastank. Viele Störungen haben simple Ursachen, die Sie selbst beheben können.</p>
+
+                             <h4 className="text-xl font-bold text-gas mb-4">Checkliste: Ursachenforschung</h4>
+
+                             <div className="space-y-4 mb-8">
+                                <div className="bg-white border border-gray-200 p-4 rounded-xl shadow-sm">
+                                    <h5 className="font-bold text-red-600 flex items-center gap-2"><AlertCircle size={20}/> 1. Ist der Tank leer?</h5>
+                                    <p className="text-sm text-gray-600 mt-2">Prüfen Sie den Inhaltsanzeiger unter der Haube. Zeigt er unter 3-5% an? Dann ist vermutlich kein flüssiges Gas mehr da, um Druck aufzubauen. -> <strong>Sofort bestellen!</strong></p>
+                                </div>
+                                <div className="bg-white border border-gray-200 p-4 rounded-xl shadow-sm">
+                                    <h5 className="font-bold text-red-600 flex items-center gap-2"><AlertCircle size={20}/> 2. Ist das Ventil offen?</h5>
+                                    <p className="text-sm text-gray-600 mt-2">Wurde der Tank gerade gefüllt oder gewartet? Manchmal wird vergessen, das Hauptentnahmeventil (Handrad) wieder aufzudrehen. Drehen Sie es gegen den Uhrzeigersinn (Links) auf.</p>
+                                </div>
+                                <div className="bg-white border border-gray-200 p-4 rounded-xl shadow-sm">
+                                    <h5 className="font-bold text-red-600 flex items-center gap-2"><AlertCircle size={20}/> 3. Druckregler (SAV) ausgelöst?</h5>
+                                    <p className="text-sm text-gray-600 mt-2">Der Druckregler hat oft ein Sicherheitsabsperrventil (SAV). Hat es ausgelöst (z.B. durch Erschütterung)? Schauen Sie, ob ein kleiner Stift oder Hebel am Regler heraussteht oder eingerastet werden muss. (Vorsicht: Nur wenn Sie sich auskennen!)</p>
+                                </div>
+                                <div className="bg-white border border-gray-200 p-4 rounded-xl shadow-sm">
+                                    <h5 className="font-bold text-red-600 flex items-center gap-2"><AlertCircle size={20}/> 4. Vereisung?</h5>
+                                    <p className="text-sm text-gray-600 mt-2">Bei sehr hoher Entnahme im Winter kann der Tank vereisen (Reifbildung außen). Das ist physikalisch normal. Wenn aber der Regler vereist ist, kann die Zufuhr stoppen.</p>
+                                </div>
+                             </div>
+
+                             <div className="bg-red-50 p-6 rounded-xl border border-red-100 text-center">
+                                <p className="font-bold text-red-800 mb-2">Nichts hilft?</p>
+                                <p className="text-sm text-red-700 mb-4">Dann liegt der Fehler vermutlich an der Therme selbst (Zündung, Pumpe) oder die Leitung ist verstopft.</p>
+                                <a href="tel:04551897089" className="inline-block bg-red-600 text-white font-bold py-3 px-8 rounded-full hover:bg-red-700 transition-colors shadow-lg">
+                                    Notdienst anrufen: 04551 89 70 89
+                                </a>
+                             </div>
+                        </div>
+                    )
+                },
                 {
                     id: 'notfall',
                     title: 'Heizung funktioniert nicht?',
