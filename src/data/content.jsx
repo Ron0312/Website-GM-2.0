@@ -1085,7 +1085,7 @@ export const CONTENT = {
                              <div className="space-y-4 mb-8">
                                 <div className="bg-white border border-gray-200 p-4 rounded-xl shadow-sm">
                                     <h5 className="font-bold text-red-600 flex items-center gap-2"><AlertCircle size={20}/> 1. Ist der Tank leer?</h5>
-                                    <p className="text-sm text-gray-600 mt-2">Prüfen Sie den Inhaltsanzeiger unter der Haube. Zeigt er unter 3-5% an? Dann ist vermutlich kein flüssiges Gas mehr da, um Druck aufzubauen. -> <strong>Sofort bestellen!</strong></p>
+                                    <p className="text-sm text-gray-600 mt-2">Prüfen Sie den Inhaltsanzeiger unter der Haube. Zeigt er unter 3-5% an? Dann ist vermutlich kein flüssiges Gas mehr da, um Druck aufzubauen. &rarr; <strong>Sofort bestellen!</strong></p>
                                 </div>
                                 <div className="bg-white border border-gray-200 p-4 rounded-xl shadow-sm">
                                     <h5 className="font-bold text-red-600 flex items-center gap-2"><AlertCircle size={20}/> 2. Ist das Ventil offen?</h5>
