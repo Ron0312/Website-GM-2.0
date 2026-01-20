@@ -40,6 +40,12 @@ export const cityData = [
     { name: 'Quickborn', slug: 'quickborn', zip: '25451', state: 'Schleswig-Holstein' },
     { name: 'Bargteheide', slug: 'bargteheide', zip: '22941', state: 'Schleswig-Holstein' },
     { name: 'Glinde', slug: 'glinde', zip: '21509', state: 'Schleswig-Holstein' },
+    { name: 'Ratzeburg', slug: 'ratzeburg', zip: '23909', state: 'Schleswig-Holstein' },
+    { name: 'Schwarzenbek', slug: 'schwarzenbek', zip: '21493', state: 'Schleswig-Holstein' },
+    { name: 'Bad Bramstedt', slug: 'bad-bramstedt', zip: '24576', state: 'Schleswig-Holstein' },
+    { name: 'Preetz', slug: 'preetz', zip: '24211', state: 'Schleswig-Holstein' },
+    { name: 'Glückstadt', slug: 'glueckstadt', zip: '25348', state: 'Schleswig-Holstein' },
+    { name: 'Uetersen', slug: 'uetersen', zip: '25436', state: 'Schleswig-Holstein' },
     // Additional Cities SH
     { name: 'Insel Fehmarn', slug: 'fehmarn', zip: '23769', state: 'Schleswig-Holstein', preposition: 'auf' },
     { name: 'Sylt', slug: 'sylt', zip: '25980', state: 'Schleswig-Holstein', preposition: 'auf' },

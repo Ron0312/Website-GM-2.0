@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Check, ArrowRight, ShieldCheck, MapPin } from 'lucide-react';
 import { getCityBySlug, cityData } from '../data/cityData';
 import { getLocalContent } from '../data/localContent';
+import { calculateDistance } from '../utils/distance';
 import Hero from './Hero';
 import TankSection from './TankSection';
 import ContactSection from './ContactSection';
@@ -126,7 +127,10 @@ const LocalLandingPage = ({ slug, setActiveSection, openWizard }) => {
     // Dynamic Content Generation based on City
     const managers = ['Thomas Müller', 'Hans Christian Müller', 'Anja Müller'];
     const regionalManager = managers[seed % managers.length];
-    const distanceKm = Math.floor((seed % 60) + 15); // Deterministic distance between 15 and 75 km
+
+    // Use real distance calculation instead of random
+    const distanceKm = calculateDistance(slug, city.zip);
+
     const deliveryDays = ['Montag & Donnerstag', 'Dienstag & Freitag', 'Mittwoch & Freitag'][seed % 3];
 
     const localContent = getLocalContent(slug);

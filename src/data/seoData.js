@@ -596,6 +596,24 @@ export const getSeoForPath = (path) => {
                   about: [{ name: 'Flüssiggas', wikidata: 'https://www.wikidata.org/wiki/Q351609' }]
               }
           },
+          'fluessiggastank-gebraucht': {
+              title: 'Gebrauchten Flüssiggastank kaufen | Preis & Sicherheit',
+              desc: 'Gebrauchten Flüssiggastank kaufen: Regenerierte Tanks (TÜV geprüft) bis zu 30% günstiger. Nachhaltige Alternative zum Neukauf. Jetzt Bestand prüfen!',
+              semantic: {
+                  mentions: [{ name: 'Nachhaltigkeit', wikidata: 'https://www.wikidata.org/wiki/Q214963' }]
+              }
+          },
+          'fluessiggastank-fuellstand-app': {
+              title: 'Flüssiggastank Füllstand App & Fernabfrage | Smart Meter',
+              desc: 'Flüssiggastank Füllstand per App überwachen. Smart Metering (OilFox, RCT) nachrüsten. Nie wieder leerlaufen. Jetzt informieren!',
+              semantic: {
+                   about: [{ name: 'Smart Meter', wikidata: 'https://www.wikidata.org/wiki/Q1138600' }]
+              }
+          },
+          'fluessiggastank-heizung-stoerung': {
+               title: 'Heizung kalt? Störung am Flüssiggastank beheben | Checkliste',
+               desc: 'Heizung springt nicht an? Checkliste für Störungen am Flüssiggastank: Leerer Tank, vereister Regler oder geschlossenes Ventil? Erste Hilfe hier.',
+          },
           'miete-kauf': {
               title: 'Flüssiggastank mieten oder kaufen? Kosten-Vergleich 2026',
               desc: 'Flüssiggastank mieten? Stopp! Warum Kaufen oft 30-40% günstiger ist. Unser Rechner zeigt: So sparen Sie tausende Euro gegenüber der Miete.',
