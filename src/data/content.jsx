@@ -216,12 +216,12 @@ export const CONTENT = {
             articles: [
                 {
                     id: 'fluessiggastank-gebraucht',
-                    title: 'Gebrauchten Flüssiggastank kaufen',
+                    title: 'Gebrauchten Flüssiggastank kaufen (TÜV-geprüft)',
                     description: 'Geprüft, regeneriert & günstig: Die Alternative zum Neukauf.',
                     content: (
                         <div>
                              <SourceBadge text="Nachhaltig & Günstig" />
-                             <p className="lead text-lg text-gray-700 mb-6">Ein neuer Flüssiggastank ist eine Investition. Wer sparen möchte, ohne auf Sicherheit zu verzichten, greift oft zum <strong>regenerierten Flüssiggastank</strong>. Diese Tanks sind technisch neuwertig, aber deutlich günstiger im Preis.</p>
+                             <p className="lead text-lg text-gray-700 mb-6">Ein neuer Flüssiggastank ist eine Investition. Wer sparen möchte, ohne auf Sicherheit zu verzichten, greift oft zum <strong>regenerierten Flüssiggastank</strong>. Diese Tanks sind technisch neuwertig (TÜV-geprüft), aber deutlich günstiger im Preis.</p>
 
                              <h4 className="text-xl font-bold text-gas mb-4">Was bedeutet "regeneriert"?</h4>
                              <p className="mb-4">Ein gebrauchter Flüssiggastank wird nicht einfach "weiterverkauft". Er durchläuft einen strengen Prozess in unserer Fachwerkstatt:</p>
@@ -240,11 +240,12 @@ export const CONTENT = {
                              <h4 className="text-xl font-bold text-gas mb-4">Vorteile gegenüber Miet-Tanks</h4>
                              <p className="mb-4">Auch bei gebrauchten Tanks gilt: Kaufen ist besser als Mieten. Sie amortisieren die Anschaffungskosten durch die günstigeren Gaspreise (freie Händlerwahl) oft noch schneller als bei einem Neutank.</p>
 
-                             <h4 className="text-xl font-bold text-gas mb-4">Verfügbarkeit</h4>
+                             <h4 className="text-xl font-bold text-gas mb-4">Verfügbarkeit & Größen</h4>
                              <p className="mb-4">Da wir auf Rückläufer angewiesen sind, ist das Angebot begrenzt. Besonders beliebt sind:</p>
                              <ul className="list-disc pl-5 mb-4 text-gray-700">
-                                <li><strong>Flüssiggastank 1,2 t (2700 Liter) oberirdisch:</strong> Ideal für Ferienhäuser.</li>
-                                <li><strong>Flüssiggastank 2,1 t (4850 Liter) unterirdisch:</strong> Der Klassiker für Neubauten.</li>
+                                <li><strong>Flüssiggastank 2700 Liter gebraucht (1,2 t):</strong> Ideal für Ferienhäuser & Tiny Homes (oberirdisch).</li>
+                                <li><strong>Flüssiggastank 4850 Liter gebraucht (2,1 t):</strong> Der Klassiker für Einfamilienhäuser (oft unterirdisch verfügbar).</li>
+                                <li><strong>Gastank 6400 Liter gebraucht (2,9 t):</strong> Für Gewerbe & Mehrfamilienhäuser.</li>
                              </ul>
 
                              <p className="text-sm text-gray-500 mt-4">Fragen Sie unseren aktuellen Bestand an: <a href="/kontakt" className="text-gas hover:underline">Bestand prüfen</a>.</p>
@@ -284,7 +285,7 @@ export const CONTENT = {
                 },
                 {
                     id: 'miete-kauf',
-                    title: 'Miete vs. Kauf: Der Vergleich',
+                    title: 'Miete vs. Kauf: Die Kosten-Falle',
                     description: 'Warum Sie als Eigentümer tausende Euro sparen können.',
                     content: (
                         <div>

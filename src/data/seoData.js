@@ -600,8 +600,8 @@ export const getSeoForPath = (path) => {
               }
           },
           'fluessiggastank-gebraucht': {
-              title: 'Gebrauchten Flüssiggastank kaufen | Preis & Sicherheit',
-              desc: 'Gebrauchten Flüssiggastank kaufen: Regenerierte Tanks (TÜV geprüft) bis zu 30% günstiger. Nachhaltige Alternative zum Neukauf. Jetzt Bestand prüfen!',
+              title: 'Gebrauchten Flüssiggastank kaufen | TÜV-geprüft & Günstig',
+              desc: 'Gebrauchten Flüssiggastank kaufen: Regenerierte Tanks (TÜV-geprüft) bis zu 30% günstiger. Sicher wie Neu, aber nachhaltiger. Aktueller Bestand & Preise.',
               semantic: {
                   mentions: [{ name: 'Nachhaltigkeit', wikidata: 'https://www.wikidata.org/wiki/Q214963' }]
               }
@@ -618,12 +618,12 @@ export const getSeoForPath = (path) => {
                desc: 'Heizung springt nicht an? Checkliste für Störungen am Flüssiggastank: Leerer Tank, vereister Regler oder geschlossenes Ventil? Erste Hilfe hier.',
           },
           'miete-kauf': {
-              title: 'Flüssiggastank mieten oder kaufen? Kosten-Vergleich 2026',
-              desc: 'Flüssiggastank mieten? Stopp! Warum Kaufen oft 30-40% günstiger ist. Unser Rechner zeigt: So sparen Sie tausende Euro gegenüber der Miete.',
+              title: 'Flüssiggastank mieten? Kosten-Falle! Vergleich vs. Kaufen 2026',
+              desc: 'Flüssiggastank mieten oder kaufen? Warum Kaufen oft 30-40% günstiger ist. Der große Kosten-Vergleich 2026. Vermeiden Sie teure Mietverträge!',
               date: `${CURRENT_YEAR}-01-20`
           },
           'sicherheit': {
-              title: 'Flüssiggastank Vorschriften & Abstände (TRF 2021) | Checkliste',
+              title: 'Flüssiggastank Vorschriften 2026: Abstände & Checkliste (TRF 2021)',
               desc: 'Aktuelle Flüssiggastank Vorschriften 2026: Grenzabstände, Brandschutz & Ex-Zonen. Einfache Checkliste für die Aufstellung (Oberirdisch & Unterirdisch).',
               semantic: {
                   about: [{ name: 'Technische Regeln Flüssiggas', wikidata: 'https://www.wikidata.org/wiki/Q2399222' }]
