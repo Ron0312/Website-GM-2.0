@@ -7,6 +7,7 @@ import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
 import { Logger } from './src/utils/logger.js'
 import { cityData } from './src/data/cityData.js'
+import { tankDetails } from './src/data/tanks.js'
 
 // Prevent crash on unhandled exceptions
 process.on('uncaughtException', (err) => {
@@ -196,17 +197,7 @@ async function createServer() {
       'sitemap.xml', 'robots.txt'
   ]);
 
-  const tankSlugs = new Set([
-    'fluessiggastank-2700l-oberirdisch-1-2t',
-    'fluessiggastank-4850l-oberirdisch-2-1t',
-    'fluessiggastank-6400l-oberirdisch-2-9t',
-    'fluessiggastank-2700l-halboberirdisch-1-2t',
-    'fluessiggastank-4850l-halboberirdisch-2-1t',
-    'fluessiggastank-6400l-halboberirdisch-2-9t',
-    'fluessiggastank-2700l-unterirdisch-1-2t',
-    'fluessiggastank-4850l-unterirdisch-2-1t',
-    'fluessiggastank-6400l-unterirdisch-2-9t'
-  ]);
+  const tankSlugs = new Set(tankDetails.map(t => t.slug));
 
   const citySlugs = new Set(cityData.map(c => c.slug));
 
