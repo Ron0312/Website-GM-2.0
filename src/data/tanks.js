@@ -2,6 +2,7 @@ export const tankDetails = [
     {
         slug: 'fluessiggastank-2700l-oberirdisch-1-2t',
         name: 'Flüssiggastank 2.700 Liter / 1,2 t (oberirdisch)',
+        condition: 'new',
         type: 'oberirdisch',
         capacity: '1,2 t',
         volume: '2.700 Liter',
@@ -41,6 +42,7 @@ export const tankDetails = [
     {
         slug: 'fluessiggastank-4850l-oberirdisch-2-1t',
         name: 'Flüssiggastank 4.850 Liter / 2,1 t (oberirdisch)',
+        condition: 'new',
         type: 'oberirdisch',
         capacity: '2,1 t',
         volume: '4.850 Liter',
@@ -80,6 +82,7 @@ export const tankDetails = [
     {
         slug: 'fluessiggastank-6400l-oberirdisch-2-9t',
         name: 'Flüssiggastank 6.400 Liter / 2,9 t (oberirdisch)',
+        condition: 'new',
         type: 'oberirdisch',
         capacity: '2,9 t',
         volume: '6.400 Liter',
@@ -118,6 +121,7 @@ export const tankDetails = [
     {
         slug: 'fluessiggastank-2700l-halboberirdisch-1-2t',
         name: 'Flüssiggastank 2.700 Liter / 1,2 t (halboberirdisch)',
+        condition: 'new',
         type: 'halboberirdisch',
         capacity: '1,2 t',
         volume: '2.700 Liter',
@@ -156,6 +160,7 @@ export const tankDetails = [
     {
         slug: 'fluessiggastank-4850l-halboberirdisch-2-1t',
         name: 'Flüssiggastank 4.850 Liter / 2,1 t (halboberirdisch)',
+        condition: 'new',
         type: 'halboberirdisch',
         capacity: '2,1 t',
         volume: '4.850 Liter',
@@ -194,6 +199,7 @@ export const tankDetails = [
     {
         slug: 'fluessiggastank-6400l-halboberirdisch-2-9t',
         name: 'Flüssiggastank 6.400 Liter / 2,9 t (halboberirdisch)',
+        condition: 'new',
         type: 'halboberirdisch',
         capacity: '2,9 t',
         volume: '6.400 Liter',
@@ -231,6 +237,7 @@ export const tankDetails = [
     {
         slug: 'fluessiggastank-2700l-unterirdisch-1-2t',
         name: 'Flüssiggastank 2.700 Liter / 1,2 t (unterirdisch)',
+        condition: 'new',
         type: 'unterirdisch',
         capacity: '1,2 t',
         volume: '2.700 Liter',
@@ -269,6 +276,7 @@ export const tankDetails = [
     {
         slug: 'fluessiggastank-4850l-unterirdisch-2-1t',
         name: 'Flüssiggastank 4.850 Liter / 2,1 t (unterirdisch)',
+        condition: 'new',
         type: 'unterirdisch',
         capacity: '2,1 t',
         volume: '4.850 Liter',
@@ -307,6 +315,7 @@ export const tankDetails = [
     {
         slug: 'fluessiggastank-6400l-unterirdisch-2-9t',
         name: 'Flüssiggastank 6.400 Liter / 2,9 t (unterirdisch)',
+        condition: 'new',
         type: 'unterirdisch',
         capacity: '2,9 t',
         volume: '6.400 Liter',
@@ -347,6 +356,7 @@ export const tankDetails = [
     {
         slug: 'fluessiggastank-2700l-gebraucht-oberirdisch',
         name: 'Gebrauchter Flüssiggastank 2.700 Liter (oberirdisch)',
+        condition: 'used',
         type: 'oberirdisch',
         capacity: '1,2 t',
         volume: '2.700 Liter',
@@ -355,13 +365,13 @@ export const tankDetails = [
         power: '35 kW',
         image: null,
         description: 'Der Preissieger: 2.700 Liter (1,2 t) Gastank gebraucht / regeneriert. Komplett TÜV-neu, neu lackiert. Sparen Sie 30% gegenüber Neupreis.',
-        longDescription: 'Unser meistverkaufter gebrauchter Tank! Dieser 1,2 t Behälter (2700 Liter) wurde in unserer Fachwerkstatt komplett regeneriert. Das bedeutet: Er wurde sandgestrahlt, auf Wandstärke geprüft, hat neue Ventile erhalten und wurde frisch lackiert. Sie erhalten technisch einen neuwertigen Tank, zahlen aber deutlich weniger. Perfekt für Ferienhäuser oder Sparfüchse.',
+        longDescription: 'Geprüfte Qualität zum Bestpreis. Der 1,2 t Flüssiggastank (2700 Liter) als regenerierte Variante ist der ideale Einstieg für Preisbewusste. Jeder gebrauchte Tank durchläuft in unserer Fachwerkstatt einen strengen 5-Punkte-Aufarbeitungsprozess: Er wird komplett sandgestrahlt (SA 2.5), auf Wandstärke geprüft und erhält eine hochwertige neue Epoxidharz-Beschichtung in Reinweiß oder Hellgrün. Sicherheitsrelevante Armaturen werden ausgetauscht. Sie erhalten einen technisch neuwertigen Behälter mit aktueller TÜV-Prüfbescheinigung. Ihr Vorteil: Sie sparen bis zu 30% gegenüber dem Neupreis bei identischer Lebensdauer. Zudem schonen Sie durch die Weiternutzung des Stahlkörpers wertvolle Ressourcen (ca. 800 kg CO2-Ersparnis).',
         idealFor: ['Preissensible Kunden', 'Ferienhäuser', 'Tiny Homes', 'Schnäppchenjäger'],
         features: [
             'ca. 30% günstiger als Neu',
-            'Inkl. neuer TÜV-Abnahme',
+            'Inkl. neuer TÜV-Prüfbescheinigung',
             'Neu lackiert (Reinweiß/Hellgrün)',
-            'Sofort verfügbar (Zwischenverkauf vorbehalten)'
+            'Nachhaltig (CO2-Ersparnis)'
         ],
         technicalData: {
             'Durchmesser': '1.250 mm',
@@ -385,6 +395,7 @@ export const tankDetails = [
     {
         slug: 'fluessiggastank-4850l-gebraucht-oberirdisch',
         name: 'Gebrauchter Flüssiggastank 4.850 Liter (oberirdisch)',
+        condition: 'used',
         type: 'oberirdisch',
         capacity: '2,1 t',
         volume: '4.850 Liter',
@@ -393,13 +404,13 @@ export const tankDetails = [
         power: '60 kW',
         image: null,
         description: 'Gebrauchter 2,1 t Tank (4850 Liter). Der Standard für Familien. Generalüberholt mit neuer Prüfung. Günstig & Sicher.',
-        longDescription: 'Warum neu kaufen, wenn "gut wie neu" reicht? Dieser 4.850 Liter Tank deckt den Jahresbedarf eines Einfamilienhauses. Er wurde professionell aufgearbeitet und ist optisch kaum von einem Neubehälter zu unterscheiden. Durch das Recycling sparen Sie nicht nur Geld, sondern schonen auch Ressourcen (Stahlproduktion).',
+        longDescription: 'Der Familien-Klassiker zum Sparpreis. Warum neu kaufen, wenn "gut wie neu" reicht? Dieser 4.850 Liter Tank deckt den Jahresbedarf eines Einfamilienhauses. Im Aufbereitungsprozess wird der Behälter komplett entlackt, technisch geprüft und erhält einen neuen Korrosionsschutz sowie neue Ventile. Mit der inkludierten TÜV-Prüfbescheinigung sind Sie auf der sicheren Seite. Der Preisvorteil ist enorm, und ganz nebenbei sparen Sie durch den Verzicht auf eine Neuproduktion ca. 1.200 kg CO2 ein. Eine kaufmännisch und ökologisch kluge Entscheidung.',
         idealFor: ['Einfamilienhäuser', 'Nachhaltige Bauherren', 'Budget-orientierte Projekte'],
         features: [
             'Preiswerter Standard-Tank',
+            'Inkl. TÜV-Prüfbescheinigung',
             'Ressourcenschonend (Nachhaltig)',
-            'Volle 10 Jahre Prüffrist',
-            'Neue Armaturen'
+            'Neue Armaturen & Lackierung'
         ],
         technicalData: {
             'Durchmesser': '1.250 mm',
@@ -422,6 +433,7 @@ export const tankDetails = [
     {
         slug: 'fluessiggastank-4850l-gebraucht-unterirdisch',
         name: 'Gebrauchter Flüssiggastank 4.850 Liter (unterirdisch)',
+        condition: 'used',
         type: 'unterirdisch',
         capacity: '2,1 t',
         volume: '4.850 Liter',
@@ -430,13 +442,13 @@ export const tankDetails = [
         power: '60 kW',
         image: null,
         description: 'Rarität: Gebrauchter Erdtank 2,1 t (4850 Liter). Neu beschichtet (Epoxid) und geprüft. Unsichtbar sparen.',
-        longDescription: 'Gebrauchte unterirdische Tanks sind selten, da der Ausbau aufwändig ist. Wenn wir welche am Lager haben, sind sie schnell vergriffen. Diese Tanks werden besonders gründlich geprüft und erhalten eine komplett neue Epoxidharz-Beschichtung (Isolierung) für den dauerhaften Schutz im Erdreich. Eine extrem günstige Alternative zum teuren neuen Erdtank.',
+        longDescription: 'Gebrauchte unterirdische Tanks sind eine gesuchte Rarität. Dieser Tank bietet Ihnen die Möglichkeit, die unsichtbare Lagerung (Erdtank) zum Preis eines oberirdischen Neubehälters zu realisieren. Das Wichtigste bei Erdtanks ist der Korrosionsschutz: Unsere gebrauchten Behälter erhalten eine fabrikneue Epoxidharz-Isolierung (mind. 500µm), die per Hochspannungsrissprüfung getestet wird. Damit ist der dauerhafte Schutz im Erdreich garantiert. Sie erhalten einen sanierten Tank inkl. Prüfbescheinigung und Domschacht. Schnell sein lohnt sich, da diese Modelle oft vergriffen sind.',
         idealFor: ['Neubau mit begrenztem Budget', 'Gartenfreunde', 'Schnelle Entscheider'],
         features: [
             'Seltene Gelegenheit (Erdtank)',
-            'Neue Isolierung (Epoxid)',
+            'Neue Epoxid-Isolierung (geprüft)',
             'Massive Preisersparnis',
-            '100% Unsichtbar'
+            'Inkl. TÜV-Abnahme'
         ],
         technicalData: {
             'Durchmesser': '1.250 mm',
@@ -459,6 +471,7 @@ export const tankDetails = [
     {
         slug: 'fluessiggastank-2700l-gebraucht-unterirdisch',
         name: 'Gebrauchter Flüssiggastank 2.700 Liter (unterirdisch)',
+        condition: 'used',
         type: 'unterirdisch',
         capacity: '1,2 t',
         volume: '2.700 Liter',
@@ -467,7 +480,7 @@ export const tankDetails = [
         power: '35 kW',
         image: null,
         description: 'Kompakter Erdtank gebraucht (2700 Liter). Platzsparend & Günstig. Neu isoliert & geprüft.',
-        longDescription: 'Der kleine Erdtank als preiswerte Gebraucht-Variante. Ideal für kleine Gärten, wo jeder Euro und jeder Quadratmeter zählt. Der Tank verschwindet komplett im Boden. Durch die Aufarbeitung (Sandstrahlen + neue Epoxid-Isolierung) ist er für Jahrzehnte im Erdreich geschützt.',
+        longDescription: 'Der kleine Erdtank als preiswerte Gebraucht-Variante. Ideal für kleine Gärten, wo jeder Euro und jeder Quadratmeter zählt. Der Tank verschwindet komplett im Boden. Durch die Aufarbeitung (Sandstrahlen + neue Epoxid-Isolierung) ist er für Jahrzehnte im Erdreich geschützt. Sie erhalten volle Sicherheit durch die neue TÜV-Abnahme und sparen dabei erheblich gegenüber einem Neukauf. Perfekt für Reihenhäuser oder die Nachrüstung im Bestand.',
         idealFor: ['Kleine Gärten', 'Reihenhäuser', 'Sparfüchse'],
         features: [
             'Unsichtbar & Günstig',
@@ -495,6 +508,7 @@ export const tankDetails = [
     {
         slug: 'fluessiggastank-6400l-gebraucht-oberirdisch',
         name: 'Gebrauchter Flüssiggastank 6.400 Liter (oberirdisch)',
+        condition: 'used',
         type: 'oberirdisch',
         capacity: '2,9 t',
         volume: '6.400 Liter',
@@ -503,13 +517,13 @@ export const tankDetails = [
         power: '90 kW',
         image: null,
         description: 'Großtank gebraucht (6400 Liter). Für Gewerbe & Landwirtschaft. Maximale Ersparnis bei maximalem Volumen.',
-        longDescription: 'Für Unternehmen zählt jeder Cent. Ein gebrauchter 2,9 t Tank bietet das gleiche Volumen wie ein Neuer, kostet aber tausende Euro weniger. Ideal für Hallenheizungen, Stallungen oder Prozesswärme. Technisch einwandfrei, optisch aufgearbeitet – eine kaufmännisch kluge Entscheidung.',
+        longDescription: 'Für Unternehmen zählt jeder Cent. Ein gebrauchter 2,9 t Tank bietet das gleiche Volumen wie ein Neuer, kostet aber tausende Euro weniger. Ideal für Hallenheizungen, Stallungen oder Prozesswärme. Der Tank ist technisch einwandfrei, sandgestrahlt, geprüft und neu lackiert. Mit der beiliegenden Prüfbescheinigung erfüllen Sie alle gewerblichen Auflagen. Investieren Sie klug in Ihre Infrastruktur und nutzen Sie die steuerlichen Vorteile.',
         idealFor: ['Gewerbe', 'Landwirtschaft', 'Großverbraucher'],
         features: [
             'Maximale Ersparnis',
             'Großvolumen sofort verfügbar',
-            'Robust & Langlebig',
-            'Steuerlich attraktiv (Investition)'
+            'Inkl. Prüfbescheinigung',
+            'Steuerlich attraktiv'
         ],
         technicalData: {
             'Durchmesser': '1.250 mm',
