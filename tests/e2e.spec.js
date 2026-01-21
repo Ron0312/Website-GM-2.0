@@ -7,6 +7,10 @@ test('homepage has title and critical elements', async ({ page }) => {
   await expect(page).toHaveTitle(/Flüssiggas/);
 
   // Check for Calculator
+  // Scroll to calculator wrapper to trigger LazyLoad
+  const calculatorWrapper = page.locator('#calculator-wrapper');
+  await calculatorWrapper.scrollIntoViewIfNeeded();
+
   const calculator = page.locator('#calculator');
   await expect(calculator).toBeVisible();
 });
