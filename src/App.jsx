@@ -329,7 +329,7 @@ const App = ({ path, context }) => {
             case 'start': return <><Hero openWizard={openWizard} setActiveSection={changeSection} hideButtons={true} /><TrustBar />
                 <DualCTA openWizard={openWizard} />
                 <TankSection openWizard={openWizard} setActiveSection={changeSection} showTechnicalOverview={false} tankFilter={tankFilter} onFilterChange={setTankFilter} hideHero={true} />
-                <div className="max-w-7xl mx-auto px-4">
+                <div id="calculator-wrapper" className="max-w-7xl mx-auto px-4">
                     <LazyLoadSection minHeight="500px">
                         <EnergyCalculator />
                     </LazyLoadSection>
