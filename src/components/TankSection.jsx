@@ -3,10 +3,11 @@ import TankCard from './TankCard';
 import Hero from './Hero';
 import { tankDetails } from '../data/tanks';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, ArrowRight } from 'lucide-react';
+import { Check, ArrowRight, RefreshCw, Star } from 'lucide-react';
 
 const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = true, isPageTitle = false, tankFilter, onFilterChange, hideHero = false }) => {
     const [filter, setFilter] = useState('oberirdisch');
+    const [condition, setCondition] = useState('new'); // 'new' | 'used'
     const [activeIndex, setActiveIndex] = useState(0);
     const scrollContainerRef = useRef(null);
 
@@ -32,39 +33,64 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
         if (scrollContainerRef.current) {
             const scrollLeft = scrollContainerRef.current.scrollLeft;
             const width = scrollContainerRef.current.offsetWidth;
-            // Assuming cards are roughly 75vw wide + gaps.
-            // But getting precise index from scroll position:
             const cardWidth = scrollContainerRef.current.children[0]?.offsetWidth || width;
             const newIndex = Math.round(scrollLeft / cardWidth);
             setActiveIndex(newIndex);
         }
     };
 
-    const tankInfo = {
-        oberirdisch: {
-            title: "Der sichtbare Klassiker",
-            description: "Oberirdische Tanks sind die wirtschaftlichste Lösung. Einfache Aufstellung ohne Erdarbeiten.",
-            benefits: ["Günstigste Installation", "Keine Erdarbeiten", "Jederzeit zugänglich"],
-            color: "text-gray-900"
-        },
-        halboberirdisch: {
-            title: "Die goldene Mitte",
-            description: "Nutzt die Vorteile beider Welten. Nur der Deckel schaut heraus, der Rest liegt sicher im Sandbett.",
-            benefits: ["Kaum sichtbar", "Reduzierte Erdarbeiten", "Perfekter Kompromiss"],
-            color: "text-blue-900"
-        },
-        unterirdisch: {
-            title: "Die unsichtbare Lösung",
-            description: "Verschwindet komplett im Garten. Ideal für Neubauten und ästhetisch anspruchsvolle Grundstücke.",
-            benefits: ["100% Unsichtbar", "Maximale Gartennutzung", "Frostsicher"],
-            color: "text-green-900"
+    const getTankInfo = (type, condition) => {
+        if (condition === 'used') {
+             const baseInfo = {
+                oberirdisch: {
+                    title: "Geprüfte Qualität zum Bestpreis",
+                    description: "Unsere regenerierten Tanks sind technisch neuwertig (sandgestrahlt, geprüft, neu lackiert). Sie sparen bis zu 30% gegenüber dem Neupreis.",
+                    benefits: ["ca. 30% Preisvorteil", "Inkl. TÜV-Prüfbescheinigung", "Sofort verfügbar"],
+                    color: "text-orange-600"
+                },
+                halboberirdisch: {
+                    title: "Nachhaltig & Unauffällig",
+                    description: "Der ideale Kompromiss als nachhaltige Gebraucht-Variante. Weniger sichtbar im Garten, massiv günstiger in der Anschaffung.",
+                    benefits: ["Ressourcenschonend (CO2)", "Halb verdeckt eingebaut", "Geprüfte Sicherheit"],
+                    color: "text-orange-600"
+                },
+                unterirdisch: {
+                    title: "Die rare Gelegenheit",
+                    description: "Gebrauchte Erdtanks sind selten und begehrt. Mit neuer Epoxidharz-Isolierung bieten sie Schutz für Jahrzehnte zum kleinen Preis.",
+                    benefits: ["Neue Epoxid-Isolierung", "Unsichtbar im Garten", "Top Preis-Leistung"],
+                    color: "text-orange-600"
+                }
+            };
+            return baseInfo[type] || baseInfo['oberirdisch'];
         }
+
+        const baseInfo = {
+            oberirdisch: {
+                title: "Der sichtbare Klassiker",
+                description: "Oberirdische Tanks sind die wirtschaftlichste Lösung. Einfache Aufstellung ohne Erdarbeiten.",
+                benefits: ["Günstigste Installation", "Keine Erdarbeiten", "Jederzeit zugänglich"],
+                color: "text-gray-900"
+            },
+            halboberirdisch: {
+                title: "Die goldene Mitte",
+                description: "Nutzt die Vorteile beider Welten. Nur der Deckel schaut heraus, der Rest liegt sicher im Sandbett.",
+                benefits: ["Kaum sichtbar", "Reduzierte Erdarbeiten", "Perfekter Kompromiss"],
+                color: "text-blue-900"
+            },
+            unterirdisch: {
+                title: "Die unsichtbare Lösung",
+                description: "Verschwindet komplett im Garten. Ideal für Neubauten und ästhetisch anspruchsvolle Grundstücke.",
+                benefits: ["100% Unsichtbar", "Maximale Gartennutzung", "Frostsicher"],
+                color: "text-green-900"
+            }
+        };
+        return baseInfo[type];
     };
 
-    const currentInfo = tankInfo[filter];
+    const currentInfo = getTankInfo(filter, condition);
 
     const visibleTanks = useMemo(() => {
-        const filtered = tankDetails.filter(t => t.type === filter);
+        const filtered = tankDetails.filter(t => t.type === filter && t.condition === condition);
         return filtered.map(t => ({
                 type: t.type,
                 size: t.volume,
@@ -77,7 +103,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                 weight: t.weight,
                 slug: t.slug
             }));
-    }, [filter]);
+    }, [filter, condition]);
 
     return (
         <section className="bg-white relative overflow-hidden" id="tanks">
@@ -94,7 +120,6 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                     subtitle="Preise für 2700l, 4850l & 6400l. Oberirdisch & Unterirdisch. Neu & Gebraucht."
                     backgroundImage="/images/tank-section-hero.webp"
                     badgeText="Sofort verfügbar & Installation durch Fachpartner"
-                    // No custom buttons => uses default Tank Kaufen / Flüssiggas bestellen
                 />
             )}
 
@@ -110,12 +135,39 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                         <h2 className="text-gas font-bold tracking-[0.2em] uppercase text-xs mb-4">Unsere Tankmodelle</h2>
                         <h3 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-10 tracking-tight">Wählen Sie Ihre Bauart.</h3>
 
-                        {/* Minimalist Tab Switcher - Responsive Scroll Container */}
-                        <div className="overflow-x-auto pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide flex justify-start md:justify-center">
-                            <div className="inline-flex bg-gray-100/80 backdrop-blur p-1.5 rounded-full relative whitespace-nowrap min-w-min mx-auto">
-                                {/* Sliding Background */}
+                        {/* Condition Toggle (New vs Used) */}
+                        <div className="flex justify-center mb-10">
+                            <div className="bg-gray-100 p-1.5 rounded-full inline-flex relative shadow-inner">
                                 <motion.div
                                     className="absolute top-1.5 bottom-1.5 bg-white rounded-full shadow-sm z-0"
+                                    initial={false}
+                                    animate={{
+                                        x: condition === 'new' ? 0 : '100%',
+                                        width: '50%'
+                                    }}
+                                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                                    style={{ left: 6, width: 'calc(50% - 6px)' }}
+                                />
+                                <button
+                                    onClick={() => setCondition('new')}
+                                    className={`relative z-10 px-6 py-3 rounded-full text-sm font-bold transition-colors w-40 flex items-center justify-center gap-2 ${condition === 'new' ? 'text-gas' : 'text-gray-500 hover:text-gray-700'}`}
+                                >
+                                    <Star size={16} className={condition === 'new' ? 'fill-current' : ''} /> Neuware
+                                </button>
+                                <button
+                                    onClick={() => setCondition('used')}
+                                    className={`relative z-10 px-6 py-3 rounded-full text-sm font-bold transition-colors w-40 flex items-center justify-center gap-2 ${condition === 'used' ? 'text-orange-600' : 'text-gray-500 hover:text-gray-700'}`}
+                                >
+                                    <RefreshCw size={16} /> Gebraucht
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Type Filter Switcher */}
+                        <div className="overflow-x-auto pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide flex justify-start md:justify-center">
+                            <div className="inline-flex bg-white border border-gray-100 shadow-sm p-1.5 rounded-full relative whitespace-nowrap min-w-min mx-auto">
+                                <motion.div
+                                    className="absolute top-1.5 bottom-1.5 bg-gray-900 rounded-full shadow-sm z-0"
                                     initial={false}
                                     animate={{
                                         x: filter === 'oberirdisch' ? 0 : filter === 'halboberirdisch' ? '100%' : '200%',
@@ -128,8 +180,8 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                                     <button
                                         key={t}
                                         onClick={() => handleFilterChange(t)}
-                                        className={`relative z-10 px-4 md:px-6 py-3 rounded-full text-sm font-bold transition-colors min-w-[120px] md:w-40 capitalize ${
-                                            filter === t ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'
+                                        className={`relative z-10 px-4 md:px-6 py-2 rounded-full text-xs md:text-sm font-bold transition-colors min-w-[120px] md:w-40 capitalize ${
+                                            filter === t ? 'text-white' : 'text-gray-500 hover:text-gray-700'
                                         }`}
                                     >
                                         {t}
@@ -144,19 +196,22 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                 <div className="max-w-4xl mx-auto mb-12 md:mb-20 text-center">
                     <AnimatePresence mode="wait">
                         <motion.div
-                            key={filter}
+                            key={filter + condition}
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
                             transition={{ duration: 0.2 }}
                         >
-                            <h4 className={`text-2xl font-bold mb-4 ${currentInfo.color}`}>{currentInfo.title}</h4>
+                            <h4 className={`text-2xl font-bold mb-4 ${currentInfo.color}`}>
+                                {currentInfo.title}
+                                {condition === 'used' && <span className="ml-2 bg-orange-100 text-orange-600 text-xs px-2 py-1 rounded-full align-middle">Gebraucht</span>}
+                            </h4>
                             <p className="text-xl text-gray-500 mb-8 leading-relaxed font-light">{currentInfo.description}</p>
 
                             <div className="flex flex-wrap justify-center gap-4 md:gap-8">
                                 {currentInfo.benefits.map((benefit, idx) => (
                                     <div key={idx} className="flex items-center gap-2 text-sm font-bold text-gray-700">
-                                        <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                                        <div className={`w-5 h-5 rounded-full flex items-center justify-center ${condition === 'used' ? 'bg-orange-100 text-orange-600' : 'bg-green-100 text-green-600'}`}>
                                             <Check size={12} strokeWidth={3} />
                                         </div>
                                         {benefit}
@@ -167,27 +222,29 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                     </AnimatePresence>
                 </div>
 
-                {/* The Tank "Stage" Grid - Slider on Mobile */}
-                {/*
-                    Adjusted Layout for better "Swipe Affordance":
-                    - Reduced card width to w-[75vw] on mobile to force "peeking" of the next card.
-                    - Added pagination dots below.
-                */}
+                {/* The Tank "Stage" Grid */}
                 <div
                     ref={scrollContainerRef}
                     onScroll={handleScroll}
                     className="flex md:grid md:grid-cols-3 gap-4 md:gap-8 mb-8 md:mb-32 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none -mx-4 px-4 md:mx-0 md:px-0 pb-8 md:pb-0 scrollbar-hide"
                 >
-                    {visibleTanks.map((tank, i) => (
-                        <div key={i} className="min-w-[75vw] md:min-w-0 snap-center pl-2 first:pl-0">
-                            <TankCard
-                                tank={tank}
-                                type={filter}
-                                onContact={() => openWizard ? openWizard('tank') : null}
-                                setActiveSection={setActiveSection}
-                            />
+                    {visibleTanks.length > 0 ? (
+                        visibleTanks.map((tank, i) => (
+                            <div key={i} className="min-w-[75vw] md:min-w-0 snap-center pl-2 first:pl-0">
+                                <TankCard
+                                    tank={tank}
+                                    type={filter}
+                                    onContact={() => openWizard ? openWizard('tank') : null}
+                                    setActiveSection={setActiveSection}
+                                />
+                            </div>
+                        ))
+                    ) : (
+                        <div className="col-span-3 text-center py-12 bg-gray-50 rounded-2xl border border-dashed border-gray-300 text-gray-500">
+                            <p>Derzeit keine Modelle in dieser Kategorie verfügbar.</p>
+                            <button onClick={() => setCondition('new')} className="text-gas font-bold mt-2 hover:underline">Zu den neuen Tanks wechseln</button>
                         </div>
-                    ))}
+                    )}
                 </div>
 
                 {/* Mobile Pagination Dots */}
@@ -200,7 +257,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                     ))}
                 </div>
 
-                {/* Technical Overview Table - Cleaner Look */}
+                {/* Technical Overview Table */}
                 {showTechnicalOverview && (
                     <div className="mt-8 md:mt-32 max-w-5xl mx-auto">
                         <div className="bg-white rounded-3xl p-8 md:p-12 shadow-2xl shadow-gray-200/50 border border-gray-100">
@@ -248,7 +305,7 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                             </div>
                         </div>
 
-                         {/* Integrated Service Links */}
+                         {/* Integrated Service Links - Adjusted */}
                         <div className="grid md:grid-cols-2 gap-8 mt-12">
                              <a href="/wissen/tank-entsorgen" onClick={(e) => { e.preventDefault(); setActiveSection('wissen/tank-entsorgen'); }} className="group block p-8 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-colors">
                                 <h4 className="text-lg font-bold text-gray-900 mb-2 flex items-center">
@@ -257,13 +314,13 @@ const TankSection = ({ openWizard, setActiveSection, showTechnicalOverview = tru
                                 </h4>
                                 <p className="text-sm text-gray-500">Wir kümmern uns um die fachgerechte Stilllegung und Abholung.</p>
                              </a>
-                             <button onClick={() => openWizard('tank')} className="w-full text-left group block p-8 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-gas">
+                             <a href="/fluessiggas-bestellen" className="w-full text-left group block p-8 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-gas">
                                 <h4 className="text-lg font-bold text-gray-900 mb-2 flex items-center">
-                                    Gebrauchte Tanks
+                                    Gas bestellen
                                     <ArrowRight size={16} className="ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-gas"/>
                                 </h4>
-                                <p className="text-sm text-gray-500">Sparen Sie bis zu 40% mit unseren regenerierten Tanks.</p>
-                             </button>
+                                <p className="text-sm text-gray-500">Prüfen Sie unseren aktuellen Tagespreis für Flüssiggas.</p>
+                             </a>
                         </div>
                     </div>
                 )}
