@@ -115,7 +115,7 @@ export const tankDetails = [
             { title: 'Sicherheit', desc: 'Einhaltung von Sicherheitsabständen (Brandlasten) besonders wichtig.' }
         ],
         maintenanceInfo: 'Standardintervalle (2/10 Jahre). Bei gewerblicher Nutzung gelten ggf. zusätzliche Vorschriften der Berufsgenossenschaft.',
-        seoTitle: 'Flüssiggastank 6400 Liter kaufen | 2,9 t Oberirdisch | Preis',
+        seoTitle: 'Flüssiggastank 6400 Liter kaufen | 2,9 t Oberirdisch | Komplettset',
         seoDesc: 'Flüssiggastank 6400 Liter (2,9 t) oberirdisch kaufen. Maße: 5,50 m x 1,25 m. Für Gewerbe & Mehrfamilienhäuser. Jetzt Gastank Preis anfragen.'
     },
     {
@@ -154,8 +154,8 @@ export const tankDetails = [
             { title: 'Einlagerung', desc: 'Tank einsetzen und anfüllen.' }
         ],
         maintenanceInfo: 'Ähnlich wie oberirdisch, jedoch muss der Korrosionsschutz im Erdreichbereich (Epoxid/Bitumen) intakt sein.',
-        seoTitle: 'Gastank 2700 Liter halboberirdisch | 1,2 t Kaufen',
-        seoDesc: 'Halboberirdischer Gastank 2700 Liter (1,2 t). Weniger sichtbar, einfachere Installation. Ideal bei schwierigen Bodenverhältnissen.'
+        seoTitle: 'Flüssiggastank 2700 Liter halboberirdisch | 1,2 t Komplettset',
+        seoDesc: 'Halboberirdischer Gastank 2700 Liter (1,2 t). Weniger sichtbar, einfachere Installation. Ideal bei schwierigen Bodenverhältnissen. Jetzt Angebot.'
     },
     {
         slug: 'fluessiggastank-4850l-halboberirdisch-2-1t',
@@ -193,8 +193,8 @@ export const tankDetails = [
             { title: 'Anfüllen', desc: 'Mit steinfreiem Material anfüllen.' }
         ],
         maintenanceInfo: 'Prüfung alle 2/10 Jahre. Sichtprüfung des oberen Teils einfach möglich.',
-        seoTitle: 'Flüssiggastank 4850 Liter halboberirdisch | 2,1 t Gastank',
-        seoDesc: 'Halboberirdischer Flüssiggastank 4850 Liter (2,1 t). Die goldene Mitte für Ihr Einfamilienhaus. Alle Infos zu Maßen und Einbau.'
+        seoTitle: 'Flüssiggastank 4850 Liter halboberirdisch | 2,1 t Komplettset',
+        seoDesc: 'Halboberirdischer Flüssiggastank 4850 Liter (2,1 t). Die goldene Mitte für Ihr Einfamilienhaus. Alle Infos zu Maßen und Einbau. Preis anfragen!'
     },
     {
         slug: 'fluessiggastank-6400l-halboberirdisch-2-9t',
@@ -231,7 +231,7 @@ export const tankDetails = [
             { title: 'Kranarbeit', desc: 'Einsatz von Schwerlastkran.' }
         ],
         maintenanceInfo: 'Standardintervalle. Gewerbliche Vorschriften beachten.',
-        seoTitle: 'Gastank 6400 Liter halboberirdisch | 2,9 t Kaufen',
+        seoTitle: 'Flüssiggastank 6400 Liter halboberirdisch | 2,9 t Komplettset',
         seoDesc: 'Halboberirdischer Gastank 6400 Liter (2,9 t). Maximale Versorgungssicherheit bei reduzierter Sichtbarkeit. Datenblatt & Angebot.'
     },
     {
@@ -270,7 +270,7 @@ export const tankDetails = [
             { title: 'Verfüllung', desc: 'Mit Sand einschlämmen. Domschacht aufsetzen.' }
         ],
         maintenanceInfo: 'Innere Prüfung alle 10 Jahre etwas aufwändiger (Einspeisung notwendig). Äußere Prüfung erfolgt über Domschacht/Messung.',
-        seoTitle: 'Flüssiggastank 2700 Liter unterirdisch | 1,2 t Erdtank kaufen',
+        seoTitle: 'Flüssiggastank 2700 Liter unterirdisch | 1,2 t Erdtank Komplettset',
         seoDesc: 'Flüssiggastank Unterirdisch 2700 Liter (1,2 t) kaufen. Der unsichtbare Erdtank für kleine Gärten. Verschwindet im Boden. Jetzt Preis anfragen.'
     },
     {
@@ -309,7 +309,7 @@ export const tankDetails = [
             { title: 'Finish', desc: 'Oberboden auftragen, Rasen säen. Nur Deckel bleibt sichtbar.' }
         ],
         maintenanceInfo: 'Wartungsarm. Korrosionsschutz durch Epoxidharz und Sandbettung extrem langlebig.',
-        seoTitle: 'Flüssiggastank 4850 Liter unterirdisch | 2,1 t Erdtank kaufen',
+        seoTitle: 'Flüssiggastank 4850 Liter unterirdisch | 2,1 t Erdtank Komplettset',
         seoDesc: 'Flüssiggastank Unterirdisch 4850 Liter (2,1 t) kaufen. Der Standard-Erdtank für Einfamilienhäuser. Unsichtbar & sicher. Jetzt Angebot sichern!'
     },
     {
@@ -347,7 +347,7 @@ export const tankDetails = [
             { title: 'Einbau', desc: 'Professionelle Erdarbeiten unumgänglich.' }
         ],
         maintenanceInfo: '10-jährige Prüfung per Schallemission möglich (ohne Entleerung), wenn vorbereitet.',
-        seoTitle: 'Flüssiggastank 6400 Liter unterirdisch | 2,9 t Erdtank kaufen',
+        seoTitle: 'Flüssiggastank 6400 Liter unterirdisch | 2,9 t Erdtank Komplettset',
         seoDesc: 'Flüssiggastank Unterirdisch 6400 Liter (2,9 t) kaufen. Der große Erdtank für Gewerbe & Mehrfamilienhäuser. Preise & Kosten anfragen.'
     },
 
@@ -389,7 +389,7 @@ export const tankDetails = [
             { title: 'Garantie', desc: 'Wir geben 2 Jahre Garantie auf Dichtheit & Armaturen.' }
         ],
         maintenanceInfo: 'Die Prüffristen (2/10 Jahre) beginnen mit dem Kauf neu zu laufen, da der Tank frisch geprüft ausgeliefert wird.',
-        seoTitle: 'Gebrauchter Gastank 2700 Liter kaufen | 1,2 t Oberirdisch | TÜV-neu',
+        seoTitle: 'Gebrauchter Flüssiggastank 2700 Liter | 1,2 t Oberirdisch | TÜV-neu',
         seoDesc: 'Gebrauchten Gastank 2700 Liter (1,2 t) kaufen. Oberirdisch, komplett überholt & TÜV-geprüft. Die günstige Alternative. Jetzt Bestand prüfen!'
     },
     {
@@ -427,8 +427,193 @@ export const tankDetails = [
             { title: 'Abnahme', desc: 'Inbetriebnahmeprüfung erfolgt vor Ort.' }
         ],
         maintenanceInfo: 'Startet mit voller 10-Jahres-Frist für die nächste innere Prüfung.',
-        seoTitle: 'Gebrauchter Flüssiggastank 4850 Liter kaufen | 2,1 t Oberirdisch',
+        seoTitle: 'Gebrauchter Flüssiggastank 4850 Liter | 2,1 t Oberirdisch | TÜV-neu',
         seoDesc: 'Gebrauchter Flüssiggastank 4850 Liter (2,1 t) oberirdisch. Generalüberholt & TÜV-geprüft. Ideal für Einfamilienhäuser. Jetzt Angebot anfordern!'
+    },
+    {
+        slug: 'fluessiggastank-6400l-gebraucht-oberirdisch',
+        name: 'Gebrauchter Flüssiggastank 6.400 Liter (oberirdisch)',
+        condition: 'used',
+        type: 'oberirdisch',
+        capacity: '2,9 t',
+        volume: '6.400 Liter',
+        dimensions: '5,50 x 1,25 m',
+        weight: '1.300 kg',
+        power: '90 kW',
+        image: null,
+        description: 'Großtank gebraucht (6400 Liter). Für Gewerbe & Landwirtschaft. Maximale Ersparnis bei maximalem Volumen.',
+        longDescription: 'Für Unternehmen zählt jeder Cent. Ein gebrauchter 2,9 t Tank bietet das gleiche Volumen wie ein Neuer, kostet aber tausende Euro weniger. Ideal für Hallenheizungen, Stallungen oder Prozesswärme. Der Tank ist technisch einwandfrei, sandgestrahlt, geprüft und neu lackiert. Mit der beiliegenden Prüfbescheinigung erfüllen Sie alle gewerblichen Auflagen. Investieren Sie klug in Ihre Infrastruktur und nutzen Sie die steuerlichen Vorteile.',
+        idealFor: ['Gewerbe', 'Landwirtschaft', 'Großverbraucher'],
+        features: [
+            'Maximale Ersparnis',
+            'Großvolumen sofort verfügbar',
+            'Inkl. Prüfbescheinigung',
+            'Steuerlich attraktiv'
+        ],
+        technicalData: {
+            'Durchmesser': '1.250 mm',
+            'Länge': '5.500 mm',
+            'Gewicht': 'ca. 1.300 kg',
+            'Volumen': '6.400 Liter',
+            'Baujahr': 'Generalüberholt 2024/2025',
+            'Material': 'Feinkornbaustahl',
+            'Beschichtung': 'Epoxidharz-Beschichtung (hellgrün)'
+        },
+        installation: 'Großes Fundament benötigt. Wir koordinieren den Schwertransport.',
+        installationSteps: [
+            { title: 'Logistik', desc: 'Anlieferung auch in schwieriges Gelände (Hof) möglich.' }
+        ],
+        maintenanceInfo: 'Gewerbliche Prüffristen beachten.',
+        seoTitle: 'Gebrauchter Flüssiggastank 6400 Liter | 2,9 t Oberirdisch | Gewerbe',
+        seoDesc: 'Gebrauchter Flüssiggastank 6400 Liter (2,9 t) oberirdisch. Die günstige Lösung für Gewerbe & Agrar. TÜV-geprüft & sofort lieferbar.'
+    },
+    {
+        slug: 'fluessiggastank-2700l-gebraucht-halboberirdisch',
+        name: 'Gebrauchter Flüssiggastank 2.700 Liter (halboberirdisch)',
+        condition: 'used',
+        type: 'halboberirdisch',
+        capacity: '1,2 t',
+        volume: '2.700 Liter',
+        dimensions: '2,50 x 1,25 m',
+        weight: '575 kg',
+        power: '35 kW',
+        image: null,
+        description: 'Der Kompromiss zum Sparpreis: 1,2 t Tank (2700 Liter) halboberirdisch gebraucht. Weniger sichtbar, kleiner Preis.',
+        longDescription: 'Sie suchen den Kompromiss aus "unsichtbar" und "günstig"? Hier ist er: Ein regenerierter halboberirdischer Tank. Er ragt nur zur Hälfte aus dem Boden, stört also kaum die Optik, kostet aber deutlich weniger als ein neuer Erdtank. Unsere gebrauchten Tanks sind sandgestrahlt und erhalten im Erdreich-Bereich eine neue Bitumen-Dickbeschichtung, oben eine frische Lackierung. Technisch geprüft und vom TÜV abgenommen.',
+        idealFor: ['Kleine Grundstücke', 'Sparfüchse', 'Diffizile Bodenverhältnisse'],
+        features: [
+            '50% unsichtbar',
+            'Deutlich günstiger als Neuware',
+            'Neue Beschichtung (Bitumen/Lack)',
+            'Inkl. TÜV-Siegel'
+        ],
+        technicalData: {
+            'Durchmesser': '1.250 mm',
+            'Länge': '2.500 mm',
+            'Gewicht': 'ca. 575 kg',
+            'Volumen': '2.700 Liter',
+            'Baujahr': 'Generalüberholt 2024/2025',
+            'Material': 'Feinkornbaustahl',
+            'Beschichtung': 'Bitumen (unten) / Lack (oben)'
+        },
+        installation: 'Einbau in halbhohe Grube. Gleiche Anforderungen wie bei neuen Tanks.',
+        installationSteps: [
+            { title: 'Verfügbarkeit', desc: 'Bitte telefonisch anfragen, da oft vergriffen.' }
+        ],
+        maintenanceInfo: 'Reguläre Prüffristen. Bitumen-Schutzschicht ist erneuert.',
+        seoTitle: 'Gebrauchter Gastank 2700 Liter halboberirdisch | 1,2 t Kaufen',
+        seoDesc: 'Halboberirdischer Gastank gebraucht 2700 Liter (1,2 t). Der clevere Kompromiss: Weniger sichtbar, kleiner Preis. Neu geprüft & beschichtet.'
+    },
+    {
+        slug: 'fluessiggastank-4850l-gebraucht-halboberirdisch',
+        name: 'Gebrauchter Flüssiggastank 4.850 Liter (halboberirdisch)',
+        condition: 'used',
+        type: 'halboberirdisch',
+        capacity: '2,1 t',
+        volume: '4.850 Liter',
+        dimensions: '4,30 x 1,25 m',
+        weight: '1.050 kg',
+        power: '60 kW',
+        image: null,
+        description: 'Standardgröße 2,1 t (4850 Liter) gebraucht halboberirdisch. Der Familien-Tank zum kleinen Preis. Dezent & Sicher.',
+        longDescription: 'Unser Bestseller in der Spar-Edition. Der 4850 Liter Tank halboberirdisch bietet genug Energie für Ihr Einfamilienhaus, verschwindet aber zur Hälfte im Boden. Als gebrauchte, generalüberholte Variante schonen Sie Ihr Baubudget erheblich. Jeder Tank wird auf Herz und Nieren geprüft, neu beschichtet und kommt mit frischem TÜV. Eine seltene Gelegenheit für kluge Rechner.',
+        idealFor: ['Einfamilienhäuser', 'Nachrüster', 'Preisbewusste Bauherren'],
+        features: [
+            'Viel Volumen, wenig Sichtbarkeit',
+            'Top Preis-Leistungs-Verhältnis',
+            'Generalüberholt & Sicher',
+            'Sofort einsatzbereit'
+        ],
+        technicalData: {
+            'Durchmesser': '1.250 mm',
+            'Länge': '4.300 mm',
+            'Gewicht': 'ca. 1.050 kg',
+            'Volumen': '4.850 Liter',
+            'Baujahr': 'Generalüberholt 2024/2025',
+            'Material': 'Feinkornbaustahl',
+            'Beschichtung': 'Bitumen (unten) / Lack (oben)'
+        },
+        installation: 'Einbau in halbhohe Grube. Wir beraten Sie zur optimalen Platzierung.',
+        installationSteps: [
+            { title: 'Tipp', desc: 'Schnell sein lohnt sich - Einzelstücke!' }
+        ],
+        maintenanceInfo: 'Volle Sicherheitsgarantie durch TÜV-Abnahme vor Auslieferung.',
+        seoTitle: 'Gebrauchter Flüssiggastank 4850 Liter halboberirdisch | 2,1 t',
+        seoDesc: 'Gebrauchter Gastank 4850 Liter (2,1 t) halboberirdisch. Ideal für Einfamilienhäuser. Generalüberholt, neue Beschichtung & TÜV-Prüfung.'
+    },
+    {
+        slug: 'fluessiggastank-6400l-gebraucht-halboberirdisch',
+        name: 'Gebrauchter Flüssiggastank 6.400 Liter (halboberirdisch)',
+        condition: 'used',
+        type: 'halboberirdisch',
+        capacity: '2,9 t',
+        volume: '6.400 Liter',
+        dimensions: '5,50 x 1,25 m',
+        weight: '1.400 kg',
+        power: '90 kW',
+        image: null,
+        description: 'Gewerbe-Spezial: 2,9 t (6400 Liter) halboberirdisch gebraucht. Großvolumen günstig lagern. Weniger Auflagen als Oberirdisch.',
+        longDescription: 'Für Gewerbebetriebe, die große Mengen Gas benötigen, aber nicht die Optik einer Industrieanlage wünschen. Der gebrauchte 2,9 t halboberirdisch ist die wirtschaftlichste Lösung. Er ist oft einfacher genehmigungsfähig (Grenzabstände) als rein oberirdische Tanks und kostet nur einen Bruchteil eines neuen Erdtanks. Technisch neuwertig aufgearbeitet.',
+        idealFor: ['Gewerbe', 'Landwirtschaft', 'Großanlagen'],
+        features: [
+            'Großes Volumen günstig',
+            'Platzsparende Installation',
+            'Genehmigungsfreundlich',
+            'TÜV-geprüft'
+        ],
+        technicalData: {
+            'Durchmesser': '1.250 mm',
+            'Länge': '5.500 mm',
+            'Gewicht': 'ca. 1.400 kg',
+            'Volumen': '6.400 Liter',
+            'Baujahr': 'Generalüberholt 2024/2025',
+            'Material': 'Feinkornbaustahl',
+            'Beschichtung': 'Bitumen (unten) / Lack (oben)'
+        },
+        installation: 'Halbhohe Grube. Kran-LKW erforderlich.',
+        installationSteps: [
+            { title: 'Projekt', desc: 'Wir unterstützen bei der Planung.' }
+        ],
+        maintenanceInfo: 'Gewerbliche Prüfpflichten erfüllt.',
+        seoTitle: 'Gebrauchter Großtank 6400 Liter halboberirdisch | 2,9 t | Gewerbe',
+        seoDesc: '2,9 t (6400 Liter) Flüssiggastank gebraucht halboberirdisch. Für Gewerbe & Landwirtschaft. Sparen Sie Investitionskosten. TÜV-neu.'
+    },
+    {
+        slug: 'fluessiggastank-2700l-gebraucht-unterirdisch',
+        name: 'Gebrauchter Flüssiggastank 2.700 Liter (unterirdisch)',
+        condition: 'used',
+        type: 'unterirdisch',
+        capacity: '1,2 t',
+        volume: '2.700 Liter',
+        dimensions: '2,50 x 1,25 m',
+        weight: '600 kg',
+        power: '35 kW',
+        image: null,
+        description: 'Kompakter Erdtank gebraucht (2700 Liter). Platzsparend & Günstig. Neu isoliert & geprüft.',
+        longDescription: 'Der kleine Erdtank als preiswerte Gebraucht-Variante. Ideal für kleine Gärten, wo jeder Euro und jeder Quadratmeter zählt. Der Tank verschwindet komplett im Boden. Durch die Aufarbeitung (Sandstrahlen + neue Epoxid-Isolierung) ist er für Jahrzehnte im Erdreich geschützt. Sie erhalten volle Sicherheit durch die neue TÜV-Abnahme und sparen dabei erheblich gegenüber einem Neukauf. Perfekt für Reihenhäuser oder die Nachrüstung im Bestand.',
+        idealFor: ['Kleine Gärten', 'Reihenhäuser', 'Sparfüchse'],
+        features: [
+            'Unsichtbar & Günstig',
+            'Perfekt für kleine Grundstücke',
+            'Neue Epoxid-Isolierung',
+            'TÜV-abgenommen'
+        ],
+        technicalData: {
+            'Durchmesser': '1.250 mm',
+            'Länge': '2.500 mm',
+            'Gewicht': 'ca. 600 kg',
+            'Volumen': '2.700 Liter',
+            'Baujahr': 'Generalüberholt 2024/2025',
+            'Material': 'Feinkornbaustahl',
+            'Beschichtung': 'Epoxidharz (Neu)'
+        },
+        installation: 'Einlagerung in Sandbett. Grube erforderlich. Gleicher Ablauf wie bei Neuware.',
+        installationSteps: [
+            { title: 'Reservierung', desc: 'Oft nur wenige Stück auf Lager.' }
+        ],
+        maintenanceInfo: 'Volle Prüffristen ab Kaufdatum.',
+        seoTitle: 'Gebrauchter Erdtank 2700 Liter kaufen | 1,2 t Unterirdisch | TÜV-neu',
+        seoDesc: 'Gebrauchter Flüssiggastank unterirdisch 2700 Liter (1,2 t). Der kleine Erdtank zum Sparpreis. Neu isoliert & geprüft. Angebot anfordern.'
     },
     {
         slug: 'fluessiggastank-4850l-gebraucht-unterirdisch',
@@ -465,81 +650,44 @@ export const tankDetails = [
             { title: 'Einbau', desc: 'Identisch zu Neubehälter.' }
         ],
         maintenanceInfo: 'Domschacht und Deckel sind oft ebenfalls erneuert oder aufgearbeitet.',
-        seoTitle: 'Gebrauchter Erdtank 4850 Liter kaufen | 2,1 t Unterirdisch',
+        seoTitle: 'Gebrauchter Erdtank 4850 Liter kaufen | 2,1 t Unterirdisch | TÜV-neu',
         seoDesc: 'Gebrauchter Flüssiggastank unterirdisch 4850 Liter (2,1 t). Neu beschichtet & TÜV-geprüft. Die günstige Erdtank-Lösung. Bestand prüfen!'
     },
     {
-        slug: 'fluessiggastank-2700l-gebraucht-unterirdisch',
-        name: 'Gebrauchter Flüssiggastank 2.700 Liter (unterirdisch)',
+        slug: 'fluessiggastank-6400l-gebraucht-unterirdisch',
+        name: 'Gebrauchter Flüssiggastank 6.400 Liter (unterirdisch)',
         condition: 'used',
         type: 'unterirdisch',
-        capacity: '1,2 t',
-        volume: '2.700 Liter',
-        dimensions: '2,50 x 1,25 m',
-        weight: '600 kg',
-        power: '35 kW',
-        image: null,
-        description: 'Kompakter Erdtank gebraucht (2700 Liter). Platzsparend & Günstig. Neu isoliert & geprüft.',
-        longDescription: 'Der kleine Erdtank als preiswerte Gebraucht-Variante. Ideal für kleine Gärten, wo jeder Euro und jeder Quadratmeter zählt. Der Tank verschwindet komplett im Boden. Durch die Aufarbeitung (Sandstrahlen + neue Epoxid-Isolierung) ist er für Jahrzehnte im Erdreich geschützt. Sie erhalten volle Sicherheit durch die neue TÜV-Abnahme und sparen dabei erheblich gegenüber einem Neukauf. Perfekt für Reihenhäuser oder die Nachrüstung im Bestand.',
-        idealFor: ['Kleine Gärten', 'Reihenhäuser', 'Sparfüchse'],
-        features: [
-            'Unsichtbar & Günstig',
-            'Perfekt für kleine Grundstücke',
-            'Neue Epoxid-Isolierung',
-            'TÜV-abgenommen'
-        ],
-        technicalData: {
-            'Durchmesser': '1.250 mm',
-            'Länge': '2.500 mm',
-            'Gewicht': 'ca. 600 kg',
-            'Volumen': '2.700 Liter',
-            'Baujahr': 'Generalüberholt 2024/2025',
-            'Material': 'Feinkornbaustahl',
-            'Beschichtung': 'Epoxidharz (Neu)'
-        },
-        installation: 'Einlagerung in Sandbett. Grube erforderlich. Gleicher Ablauf wie bei Neuware.',
-        installationSteps: [
-            { title: 'Reservierung', desc: 'Oft nur wenige Stück auf Lager.' }
-        ],
-        maintenanceInfo: 'Volle Prüffristen ab Kaufdatum.',
-        seoTitle: 'Gebrauchter Erdtank 2700 Liter kaufen | 1,2 t Unterirdisch',
-        seoDesc: 'Gebrauchter Flüssiggastank unterirdisch 2700 Liter (1,2 t). Der kleine Erdtank zum Sparpreis. Neu isoliert & geprüft. Angebot anfordern.'
-    },
-    {
-        slug: 'fluessiggastank-6400l-gebraucht-oberirdisch',
-        name: 'Gebrauchter Flüssiggastank 6.400 Liter (oberirdisch)',
-        condition: 'used',
-        type: 'oberirdisch',
         capacity: '2,9 t',
         volume: '6.400 Liter',
         dimensions: '5,50 x 1,25 m',
-        weight: '1.300 kg',
+        weight: '1.500 kg',
         power: '90 kW',
         image: null,
-        description: 'Großtank gebraucht (6400 Liter). Für Gewerbe & Landwirtschaft. Maximale Ersparnis bei maximalem Volumen.',
-        longDescription: 'Für Unternehmen zählt jeder Cent. Ein gebrauchter 2,9 t Tank bietet das gleiche Volumen wie ein Neuer, kostet aber tausende Euro weniger. Ideal für Hallenheizungen, Stallungen oder Prozesswärme. Der Tank ist technisch einwandfrei, sandgestrahlt, geprüft und neu lackiert. Mit der beiliegenden Prüfbescheinigung erfüllen Sie alle gewerblichen Auflagen. Investieren Sie klug in Ihre Infrastruktur und nutzen Sie die steuerlichen Vorteile.',
-        idealFor: ['Gewerbe', 'Landwirtschaft', 'Großverbraucher'],
+        description: 'Schwerlast-Riese: Gebrauchter Erdtank 6400 Liter (2,9 t). Für Großprojekte mit Budget-Disziplin. Neu isoliert.',
+        longDescription: 'Der größte unterirdische Tank in unserem Sortiment - jetzt auch als regenerierte Variante verfügbar. Ideal für Bauträger, Hotels oder landwirtschaftliche Betriebe, die keine Kompromisse bei der Kapazität machen wollen, aber aufs Geld schauen. Der Tank wird professionell aufgearbeitet, erhält eine neue Epoxid-Isolierung für den Erdeinbau und eine frische ZÜS-Prüfung. Sie sparen tausende Euro im Vergleich zum Neupreis.',
+        idealFor: ['Großprojekte', 'Hotellerie', 'Bauträger'],
         features: [
-            'Maximale Ersparnis',
-            'Großvolumen sofort verfügbar',
-            'Inkl. Prüfbescheinigung',
-            'Steuerlich attraktiv'
+            'Maximales Volumen',
+            'Neu isoliert für Erdeinbau',
+            'TÜV-geprüfte Sicherheit',
+            'Hohe Verfügbarkeit'
         ],
         technicalData: {
             'Durchmesser': '1.250 mm',
             'Länge': '5.500 mm',
-            'Gewicht': 'ca. 1.300 kg',
+            'Gewicht': 'ca. 1.500 kg',
             'Volumen': '6.400 Liter',
             'Baujahr': 'Generalüberholt 2024/2025',
             'Material': 'Feinkornbaustahl',
-            'Beschichtung': 'Epoxidharz-Beschichtung (hellgrün)'
+            'Beschichtung': 'Epoxidharz (Neu)'
         },
-        installation: 'Großes Fundament benötigt. Wir koordinieren den Schwertransport.',
+        installation: 'Fachgerechter Einbau durch Tiefbauunternehmen erforderlich. Kranstellung notwendig.',
         installationSteps: [
-            { title: 'Logistik', desc: 'Anlieferung auch in schwieriges Gelände (Hof) möglich.' }
+            { title: 'Planung', desc: 'Lassen Sie sich beraten.' }
         ],
-        maintenanceInfo: 'Gewerbliche Prüffristen beachten.',
-        seoTitle: 'Gebrauchter Gastank 6400 Liter kaufen | 2,9 t Gewerbe',
-        seoDesc: 'Gebrauchter Flüssiggastank 6400 Liter (2,9 t) oberirdisch. Die günstige Lösung für Gewerbe & Agrar. TÜV-geprüft & sofort lieferbar.'
+        maintenanceInfo: 'Wie Neuware zu warten.',
+        seoTitle: 'Gebrauchter Erdtank 6400 Liter kaufen | 2,9 t Unterirdisch | TÜV-neu',
+        seoDesc: 'Gebrauchter Flüssiggastank unterirdisch 6400 Liter (2,9 t). Für Gewerbe & Mehrfamilienhäuser. Neu beschichtet & geprüft. Jetzt Preis anfragen.'
     }
 ];
