@@ -455,6 +455,9 @@ ${routes.map(route => `  <url>
     }
   }
 
+  let prodTemplate = '';
+  let prodRender = null;
+
   if (isProd) {
     app.use(compression())
     app.use(
@@ -469,6 +472,25 @@ ${routes.map(route => `  <url>
         }
       })
     )
+
+    // Preload template and render function to avoid blocking I/O on every request
+    try {
+        const templatePath = path.resolve(__dirname, 'dist/client/index.html');
+        if (fs.existsSync(templatePath)) {
+            prodTemplate = fs.readFileSync(templatePath, 'utf-8');
+            Logger.info('Preloaded production index.html');
+        }
+    } catch (e) {
+        Logger.warn('Failed to preload production index.html:', e.message);
+    }
+
+    try {
+        const serverEntry = await import('./dist/server/entry-server.js');
+        prodRender = serverEntry.render;
+        Logger.info('Preloaded production entry-server.js');
+    } catch (e) {
+        Logger.warn('Failed to preload production entry-server.js:', e.message);
+    }
   }
 
   let getSeoForPath, getSchemaForPath;
@@ -607,13 +629,22 @@ ${routes.map(route => `  <url>
         template = await vite.transformIndexHtml(url, template)
         render = (await vite.ssrLoadModule('/src/entry-server.jsx')).render
       } else {
-        templatePath = path.resolve(__dirname, 'dist/client/index.html')
-        try {
-             template = await fs.promises.readFile(templatePath, 'utf-8')
-        } catch(e) {
-             throw new Error('Production index.html not found');
+        if (prodTemplate) {
+             template = prodTemplate;
+        } else {
+             templatePath = path.resolve(__dirname, 'dist/client/index.html')
+             try {
+                  template = await fs.promises.readFile(templatePath, 'utf-8')
+             } catch(e) {
+                  throw new Error('Production index.html not found');
+             }
         }
-        render = (await import('./dist/server/entry-server.js')).render
+
+        if (prodRender) {
+             render = prodRender;
+        } else {
+             render = (await import('./dist/server/entry-server.js')).render
+        }
 
         template = template.replace(/<title>.*?<\/title>/, `<title>${siteData.title}</title>`);
         if (template.includes('<meta name="description"')) {
