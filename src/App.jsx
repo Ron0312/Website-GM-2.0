@@ -46,11 +46,11 @@ const App = ({ path, context }) => {
     // Initial state based on path if provided (SSR), otherwise default to window location (CSR)
     const getInitialSection = () => {
         if (path) {
-            const p = path.replace(/^\//, '').toLowerCase();
+            const p = path.replace(/^\//, '').replace(/\/$/, '').toLowerCase();
             return p || 'start';
         }
         if (typeof window !== 'undefined') {
-             const p = window.location.pathname.replace(/^\//, '').toLowerCase();
+             const p = window.location.pathname.replace(/^\//, '').replace(/\/$/, '').toLowerCase();
              return p || 'start';
         }
         return 'start';
@@ -136,9 +136,10 @@ const App = ({ path, context }) => {
 
     // Update URL when section changes
     const changeSection = (section) => {
-        setActiveSection(section);
+        const cleanSection = section.replace(/\/$/, '');
+        setActiveSection(cleanSection);
         if (typeof window !== 'undefined') {
-            const url = section === 'start' ? '/' : `/${section}`;
+            const url = cleanSection === 'start' ? '/' : `/${cleanSection}`;
             window.history.pushState({}, '', url);
             window.scrollTo(0, 0);
         }
@@ -259,9 +260,11 @@ const App = ({ path, context }) => {
         }
 
         if (activeSection.startsWith('liefergebiet/')) {
-            const slug = activeSection.split('/')[1];
+            const parts = activeSection.split('/');
+            // Safely get the slug (index 1), ignoring potential empty string at index 2 if trailing slash existed before normalization (though we normalize now)
+            const slug = parts[1];
 
-            // Handle trailing slash or empty slug
+            // Handle empty slug
             if (!slug) {
                 return <Suspense fallback={<div className="h-screen flex items-center justify-center">Laden...</div>}><DeliveryAreaOverview setActiveSection={changeSection} /></Suspense>;
             }
