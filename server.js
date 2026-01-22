@@ -635,6 +635,7 @@ ${routes.map(route => `  <url>
              templatePath = path.resolve(__dirname, 'dist/client/index.html')
              try {
                   template = await fs.promises.readFile(templatePath, 'utf-8')
+                  prodTemplate = template;
              } catch(e) {
                   throw new Error('Production index.html not found');
              }
