@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import pkg from 'react-helmet-async';
 const { HelmetProvider } = pkg;
