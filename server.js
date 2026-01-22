@@ -258,8 +258,22 @@ ${routes.map(route => `  <url>
       path.resolve(__dirname, 'public', filename)
     ]
 
-    for (const filePath of pathsToCheck) {
-        const sent = await new Promise((resolve) => {
+    // Parallel check for file existence (and ensure it's a file)
+    const existences = await Promise.all(pathsToCheck.map(async (filePath) => {
+        try {
+            const stats = await fs.promises.stat(filePath);
+            return stats.isFile();
+        } catch {
+            return false;
+        }
+    }));
+
+    // Find first existing path in priority order
+    const existingIndex = existences.indexOf(true);
+
+    if (existingIndex !== -1) {
+        const filePath = pathsToCheck[existingIndex];
+        return new Promise((resolve) => {
             res.sendFile(filePath, {
                 headers: {
                     'Content-Type': contentType,
@@ -273,7 +287,6 @@ ${routes.map(route => `  <url>
                 }
             });
         });
-        if (sent) return true;
     }
 
     if (generator) {
