@@ -199,6 +199,7 @@ async function createServer() {
 
   const tankSlugs = new Set(tankDetails.map(t => t.slug));
 
+  // Optimized O(1) lookup for city routing
   const citySlugs = new Set(cityData.map(c => c.slug));
 
   const escapeXml = (unsafe) => {
@@ -413,7 +414,9 @@ ${routes.map(route => `  <url>
         }
         if (cleanPath.startsWith('liefergebiet/')) {
             const slug = cleanPath.split('/')[1];
-            if (citySlugs.has(slug)) return next();
+            if (citySlugs.has(slug)) {
+                return next();
+            }
         }
         if (cleanPath.startsWith('wissen/')) {
             const slug = cleanPath.split('/')[1];
