@@ -258,17 +258,21 @@ ${routes.map(route => `  <url>
     ]
 
     for (const filePath of pathsToCheck) {
-        try {
-            await fs.promises.access(filePath, fs.constants.F_OK);
-            // File exists
-            res.setHeader('Content-Type', contentType);
-            // Cache Control for static files served this way
-            res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-            res.sendFile(filePath);
-            return true;
-        } catch (e) {
-            // File not found, continue
-        }
+        const sent = await new Promise((resolve) => {
+            res.sendFile(filePath, {
+                headers: {
+                    'Content-Type': contentType,
+                    'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate'
+                }
+            }, (err) => {
+                if (err) {
+                    resolve(false);
+                } else {
+                    resolve(true);
+                }
+            });
+        });
+        if (sent) return true;
     }
 
     if (generator) {
