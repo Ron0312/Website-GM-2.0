@@ -264,6 +264,11 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
         }
     };
 
+    const handleAutoAdvance = (action) => {
+        action();
+        handleNext();
+    };
+
     const handleBack = () => {
         if (step > 1) setStep(step - 1);
     };
@@ -427,9 +432,9 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                     <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                                         <h3 className="text-2xl font-bold text-center mb-8">Wie können wir helfen?</h3>
                                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                                            <SelectionCard title="Neuer Flüssiggastank" description="Kauf oder Miete" icon={Settings} selected={type === 'tank'} onClick={() => setType('tank')} />
-                                            <SelectionCard title="Flüssiggas" description="Befüllung" icon={Flame} selected={type === 'gas'} onClick={() => setType('gas')} />
-                                            <SelectionCard title="Service" description="Wartung" icon={Wrench} selected={type === 'service'} onClick={() => setType('service')} />
+                                            <SelectionCard title="Neuer Flüssiggastank" description="Kauf oder Miete" icon={Settings} selected={type === 'tank'} onClick={() => handleAutoAdvance(() => setType('tank'))} />
+                                            <SelectionCard title="Flüssiggas" description="Befüllung" icon={Flame} selected={type === 'gas'} onClick={() => handleAutoAdvance(() => setType('gas'))} />
+                                            <SelectionCard title="Service" description="Wartung" icon={Wrench} selected={type === 'service'} onClick={() => handleAutoAdvance(() => setType('service'))} />
                                         </div>
                                         <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg mb-4 hover:bg-gas-dark transition-all">Weiter</button>
                                         <button type="button" onClick={handleBack} className="w-full text-gray-500 font-bold hover:text-gray-600 transition-colors">Zurück</button>
@@ -440,7 +445,10 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                     <motion.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                                         {type === 'tank' ? (
                                             <>
-                                                <h3 className="text-2xl font-bold text-center mb-8">Installation?</h3>
+                                                <div className="text-center mb-8">
+                                                    <h3 className="text-2xl font-bold">Installation?</h3>
+                                                    <p className="text-sm text-gray-500 font-medium mt-1">(Mehrfachauswahl möglich)</p>
+                                                </div>
                                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                                                     <Controller name="installationType" control={control} render={({ field }) => (
                                                         <>
@@ -450,7 +458,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                         </>
                                                     )} />
                                                 </div>
-                                                <button type="button" onClick={handleNext} disabled={!formValues.installationType.length} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 hover:bg-gas-dark transition-all">Weiter</button>
+                                                <button type="button" onClick={handleNext} disabled={!formValues.installationType.length} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 hover:bg-gas-dark transition-all">Auswahl bestätigen</button>
                                             </>
                                         ) : type === 'gas' ? (
                                             <>
@@ -458,8 +466,8 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                                                     <Controller name="details.ownership" control={control} render={({ field }) => (
                                                         <>
-                                                            <SelectionCard title="Eigentum" description="Mein Tank" icon={ThumbsUp} selected={field.value === 'Ja, Eigentum'} onClick={() => field.onChange('Ja, Eigentum')} />
-                                                            <SelectionCard title="Mietvertrag" description="Fremdanbieter" icon={Info} selected={field.value === 'Nein, Mietvertrag'} onClick={() => field.onChange('Nein, Mietvertrag')} />
+                                                            <SelectionCard title="Eigentum" description="Mein Tank" icon={ThumbsUp} selected={field.value === 'Ja, Eigentum'} onClick={() => handleAutoAdvance(() => field.onChange('Ja, Eigentum'))} />
+                                                            <SelectionCard title="Mietvertrag" description="Fremdanbieter" icon={Info} selected={field.value === 'Nein, Mietvertrag'} onClick={() => handleAutoAdvance(() => field.onChange('Nein, Mietvertrag'))} />
                                                         </>
                                                     )} />
                                                 </div>
@@ -496,7 +504,10 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                     <motion.div key="step4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                                         {type === 'tank' ? (
                                             <>
-                                                <h3 className="text-2xl font-bold text-center mb-6">Kaufoption</h3>
+                                                <div className="text-center mb-6">
+                                                    <h3 className="text-2xl font-bold">Kaufoption</h3>
+                                                    <p className="text-sm text-gray-500 font-medium mt-1">(Mehrfachauswahl möglich)</p>
+                                                </div>
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                                                     <Controller name="details.interest" control={control} render={({ field }) => (
                                                         <>
@@ -505,7 +516,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                         </>
                                                     )} />
                                                 </div>
-                                                <button type="button" onClick={handleNext} disabled={!formValues.details.interest.length} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 hover:bg-gas-dark transition-all">Weiter</button>
+                                                <button type="button" onClick={handleNext} disabled={!formValues.details.interest.length} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 hover:bg-gas-dark transition-all">Auswahl bestätigen</button>
                                                 <button type="button" onClick={handleBack} className="w-full text-gray-500 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
                                             </>
                                         ) : type === 'gas' ? (
@@ -562,7 +573,10 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                     <motion.div key="step5" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                                         {type === 'tank' ? (
                                             <>
-                                                <h3 className="text-2xl font-bold text-center mb-4">Zustand</h3>
+                                                <div className="text-center mb-4">
+                                                    <h3 className="text-2xl font-bold">Zustand</h3>
+                                                    <p className="text-sm text-gray-500 font-medium mt-1">(Mehrfachauswahl möglich)</p>
+                                                </div>
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                                                     <Controller name="details.condition" control={control} render={({ field }) => (
                                                         <>
@@ -592,7 +606,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                         <p className="text-xs text-blue-700">Wird komplett inklusive Armaturen geliefert.</p>
                                                     </div>
                                                 </div>
-                                                <button type="button" onClick={handleNext} disabled={!formValues.details.condition.length} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 hover:bg-gas-dark transition-all">Weiter</button>
+                                                <button type="button" onClick={handleNext} disabled={!formValues.details.condition.length} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 hover:bg-gas-dark transition-all">Auswahl bestätigen</button>
                                                 <button type="button" onClick={handleBack} className="w-full text-gray-500 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
                                             </>
                                         ) : (
@@ -619,7 +633,10 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                     )} />
                                                     <Controller name="details.tankSize" control={control} render={({ field }) => (
                                                         <div className="grid grid-cols-1 gap-3">
-                                                            <label className="text-sm font-bold text-gray-500 ml-1">Flüssiggastankgröße</label>
+                                                            <div className="flex items-center justify-between">
+                                                                <label className="text-sm font-bold text-gray-500 ml-1">Flüssiggastankgröße</label>
+                                                                <span className="text-xs text-gray-400">(Mehrfachauswahl)</span>
+                                                            </div>
                                                             <div className="grid grid-cols-3 gap-3">
                                                                 {['1.2t', '2.1t', '2.9t'].map(opt => (
                                                                     <button key={opt} type="button" onClick={() => toggleSelection(field.value, field.onChange, opt)} className={`p-4 rounded-xl border-2 font-bold transition-all ${field.value.includes(opt) ? 'border-gas bg-gas text-white shadow-lg' : 'border-gray-100 hover:border-gas/30'}`}>{opt}</button>
@@ -630,7 +647,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                             </a>
                                                         </div>
                                                     )} />
-                                                    <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg mt-4 hover:bg-gas-dark transition-all">Weiter</button>
+                                                    <button type="button" onClick={handleNext} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg mt-4 hover:bg-gas-dark transition-all">Auswahl bestätigen</button>
                                                     <button type="button" onClick={handleBack} className="w-full text-gray-500 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
                                                 </div>
                                             </>
