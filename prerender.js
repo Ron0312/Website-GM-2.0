@@ -53,6 +53,7 @@ const routesToPrerender = [
     '/pruefungen',
     '/tank-entsorgen',
     '/barrierefreiheit',
+    '/test-inline-wizard',
     // Dynamic routes
     ...tankDetails.map(t => `/tanks/${t.slug}`),
     ...cityData.map(c => `/liefergebiet/${c.slug}`),

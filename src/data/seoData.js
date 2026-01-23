@@ -541,6 +541,13 @@ export const getSeoForPath = (path) => {
             description: 'Erklärung zur Barrierefreiheit gemäß BITV 2.0. Wir bemühen uns um eine zugängliche Webseite für alle Nutzer.',
             schema: [getOrganizationSchema(), getBreadcrumbSchema([{ name: 'Start', url: '/' }, { name: 'Barrierefreiheit', url: '/barrierefreiheit' }])]
         };
+     case 'test-inline-wizard':
+        return {
+            ...defaultSeo,
+            title: 'Test Inline Wizard | Gas-Service Möller',
+            description: 'Test page for the new inline wizard configurator.',
+            schema: [getOrganizationSchema()]
+        };
      case '404':
         return {
             ...defaultSeo,
