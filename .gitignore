@@ -2,3 +2,5 @@ node_modules/
 dist/
 sitemap.xml
 robots.txt
+test-results/
+verification/screenshots/
