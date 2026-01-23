@@ -40,7 +40,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
         mode: "onBlur",
         defaultValues: {
             plz: '',
-            installationType: '',
+            installationType: [],
             details: {
                 ownership: 'Ja, Eigentum',
                 tankSizeGas: '',
@@ -48,10 +48,10 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                 fillUp: false,
                 serviceType: '',
                 message: '',
-                condition: '',
+                condition: [],
                 building: '',
-                tankSize: '',
-                interest: ''
+                tankSize: [],
+                interest: []
             },
             contact: {
                 name: '',
@@ -177,6 +177,13 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
         setTimeout(() => setShake(false), 500);
     };
 
+    const toggleSelection = (currentValue, onChange, option) => {
+        const newValue = currentValue.includes(option)
+            ? currentValue.filter(v => v !== option)
+            : [...currentValue, option];
+        onChange(newValue);
+    };
+
     const handleNext = async (e) => {
         if (e && e.preventDefault) e.preventDefault();
         if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(50);
@@ -196,7 +203,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
              valid = true;
         } else if (step === 3) {
             if (type === 'tank') {
-                if (formValues.installationType) valid = true;
+                if (formValues.installationType.length > 0) valid = true;
             } else if (type === 'gas') {
                 if (formValues.details.ownership) valid = true;
             } else {
@@ -204,7 +211,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
             }
         } else if (step === 4) {
              if (type === 'tank') {
-                if (formValues.details.interest) valid = true;
+                if (formValues.details.interest.length > 0) valid = true;
              } else if (type === 'gas') {
                 valid = true;
              } else {
@@ -214,7 +221,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
              }
         } else if (step === 5) {
              if (type === 'tank') {
-                 if (formValues.details.condition) valid = true;
+                 if (formValues.details.condition.length > 0) valid = true;
              } else {
                 const result = contactSchema.safeParse({ contact: formValues.contact });
                 if (result.success) valid = true;
@@ -280,11 +287,11 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
         formData.append("PLZ", data.plz);
 
         if (type === 'tank') {
-            formData.append("Installation", data.installationType);
-            formData.append("Interesse", data.details.interest);
-            formData.append("Zustand", data.details.condition);
+            formData.append("Installation", data.installationType.join(', '));
+            formData.append("Interesse", data.details.interest.join(', '));
+            formData.append("Zustand", data.details.condition.join(', '));
             formData.append("Gebäude", data.details.building);
-            formData.append("Tankgröße", data.details.tankSize);
+            formData.append("Tankgröße", data.details.tankSize.join(', '));
         } else if (type === 'gas') {
             formData.append("Eigentum", data.details.ownership);
             formData.append("Tankgröße", data.details.tankSizeGas);
@@ -437,13 +444,13 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                                                     <Controller name="installationType" control={control} render={({ field }) => (
                                                         <>
-                                                            <SelectionCard title="Oberirdisch" description="Im Garten" icon={ArrowUpFromLine} selected={field.value === 'oberirdisch'} onClick={() => field.onChange('oberirdisch')} className="!p-3 !text-sm flex-col items-center text-center justify-center" />
-                                                            <SelectionCard title="Halboberirdisch" description="Teils versenkt" icon={Layers} selected={field.value === 'halboberirdisch'} onClick={() => field.onChange('halboberirdisch')} className="!p-3 !text-sm flex-col items-center text-center justify-center" />
-                                                            <SelectionCard title="Unterirdisch" description="Im Boden" icon={ArrowDownToLine} selected={field.value === 'unterirdisch'} onClick={() => field.onChange('unterirdisch')} className="!p-3 !text-sm flex-col items-center text-center justify-center" />
+                                                            <SelectionCard title="Oberirdisch" description="Im Garten" icon={ArrowUpFromLine} selected={field.value.includes('oberirdisch')} onClick={() => toggleSelection(field.value, field.onChange, 'oberirdisch')} className="!p-3 !text-sm flex-col items-center text-center justify-center" />
+                                                            <SelectionCard title="Halboberirdisch" description="Teils versenkt" icon={Layers} selected={field.value.includes('halboberirdisch')} onClick={() => toggleSelection(field.value, field.onChange, 'halboberirdisch')} className="!p-3 !text-sm flex-col items-center text-center justify-center" />
+                                                            <SelectionCard title="Unterirdisch" description="Im Boden" icon={ArrowDownToLine} selected={field.value.includes('unterirdisch')} onClick={() => toggleSelection(field.value, field.onChange, 'unterirdisch')} className="!p-3 !text-sm flex-col items-center text-center justify-center" />
                                                         </>
                                                     )} />
                                                 </div>
-                                                <button type="button" onClick={handleNext} disabled={!formValues.installationType} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 hover:bg-gas-dark transition-all">Weiter</button>
+                                                <button type="button" onClick={handleNext} disabled={!formValues.installationType.length} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 hover:bg-gas-dark transition-all">Weiter</button>
                                             </>
                                         ) : type === 'gas' ? (
                                             <>
@@ -493,12 +500,12 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                                                     <Controller name="details.interest" control={control} render={({ field }) => (
                                                         <>
-                                                            <SelectionCard title="Kauf" description="Eigentumstank" icon={ThumbsUp} selected={field.value === 'Kauf'} onClick={() => field.onChange('Kauf')} />
-                                                            <SelectionCard title="Miete" description="Mietmodell" icon={RefreshCw} selected={field.value === 'Miete'} onClick={() => field.onChange('Miete')} />
+                                                            <SelectionCard title="Kauf" description="Eigentumstank" icon={ThumbsUp} selected={field.value.includes('Kauf')} onClick={() => toggleSelection(field.value, field.onChange, 'Kauf')} />
+                                                            <SelectionCard title="Miete" description="Mietmodell" icon={RefreshCw} selected={field.value.includes('Miete')} onClick={() => toggleSelection(field.value, field.onChange, 'Miete')} />
                                                         </>
                                                     )} />
                                                 </div>
-                                                <button type="button" onClick={handleNext} disabled={!formValues.details.interest} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 hover:bg-gas-dark transition-all">Weiter</button>
+                                                <button type="button" onClick={handleNext} disabled={!formValues.details.interest.length} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 hover:bg-gas-dark transition-all">Weiter</button>
                                                 <button type="button" onClick={handleBack} className="w-full text-gray-500 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
                                             </>
                                         ) : type === 'gas' ? (
@@ -559,9 +566,9 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                                                     <Controller name="details.condition" control={control} render={({ field }) => (
                                                         <>
-                                                            <SelectionCard title="Neu" description="Fabrikneu" icon={Sparkles} selected={field.value === 'Neu'} onClick={() => field.onChange('Neu')} />
+                                                            <SelectionCard title="Neu" description="Fabrikneu" icon={Sparkles} selected={field.value.includes('Neu')} onClick={() => toggleSelection(field.value, field.onChange, 'Neu')} />
                                                             <div className="relative">
-                                                                <SelectionCard title="Gebraucht" description="Aufbereitet" icon={RefreshCw} selected={field.value === 'Gebraucht / Aufbereitet'} onClick={() => field.onChange('Gebraucht / Aufbereitet')} />
+                                                                <SelectionCard title="Gebraucht" description="Aufbereitet" icon={RefreshCw} selected={field.value.includes('Gebraucht / Aufbereitet')} onClick={() => toggleSelection(field.value, field.onChange, 'Gebraucht / Aufbereitet')} />
                                                                 <div className="absolute -top-3 -right-2 bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-md uppercase tracking-wide">
                                                                     Günstiger
                                                                 </div>
@@ -585,7 +592,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                         <p className="text-xs text-blue-700">Wird komplett inklusive Armaturen geliefert.</p>
                                                     </div>
                                                 </div>
-                                                <button type="button" onClick={handleNext} disabled={!formValues.details.condition} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 hover:bg-gas-dark transition-all">Weiter</button>
+                                                <button type="button" onClick={handleNext} disabled={!formValues.details.condition.length} className="w-full bg-gas text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 hover:bg-gas-dark transition-all">Weiter</button>
                                                 <button type="button" onClick={handleBack} className="w-full text-gray-500 font-bold mt-4 hover:text-gray-600 transition-colors">Zurück</button>
                                             </>
                                         ) : (
@@ -615,7 +622,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                                                             <label className="text-sm font-bold text-gray-500 ml-1">Flüssiggastankgröße</label>
                                                             <div className="grid grid-cols-3 gap-3">
                                                                 {['1.2t', '2.1t', '2.9t'].map(opt => (
-                                                                    <button key={opt} type="button" onClick={() => field.onChange(opt)} className={`p-4 rounded-xl border-2 font-bold transition-all ${field.value === opt ? 'border-gas bg-gas text-white shadow-lg' : 'border-gray-100 hover:border-gas/30'}`}>{opt}</button>
+                                                                    <button key={opt} type="button" onClick={() => toggleSelection(field.value, field.onChange, opt)} className={`p-4 rounded-xl border-2 font-bold transition-all ${field.value.includes(opt) ? 'border-gas bg-gas text-white shadow-lg' : 'border-gray-100 hover:border-gas/30'}`}>{opt}</button>
                                                                 ))}
                                                             </div>
                                                             <a href="/rechner" target="_blank" className="text-center text-xs text-gas font-bold hover:underline flex items-center justify-center gap-1 mt-2">
@@ -691,7 +698,7 @@ const ContactFormFields = ({ control, errors, submitting, submitForm, handleBack
                     <input type="checkbox" checked={value} onChange={onChange} className="mt-1 mr-3 w-4 h-4 accent-gas flex-shrink-0" />
                 )} />
                 <span className="leading-relaxed">
-                    Ich stimme zu, dass meine Angaben dauerhaft gespeichert werden. Mehr Infos in der <button type="button" onClick={() => openLegal ? openLegal('privacy') : window.openPrivacy?.()} className="text-gas font-bold underline hover:text-gas-dark">Datenschutzerklärung</button>.
+                    Ich stimme zu, dass meine Angaben zur Kontaktaufnahme und Zuordnung für eventuelle Rückfragen maximal 30 Tage gespeichert werden. Sie können diese Einwilligung jederzeit widerrufen. Weitere Informationen finden Sie in der <button type="button" onClick={() => openLegal ? openLegal('privacy') : window.openPrivacy?.()} className="text-gas font-bold underline hover:text-gas-dark">Datenschutzerklärung</button>.
                 </span>
                 {errors.contact?.consent && <span className="text-red-500 font-bold ml-2">!</span>}
             </div>
