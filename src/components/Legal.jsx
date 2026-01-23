@@ -74,7 +74,7 @@ export const PrivacyContent = () => (
         <p><strong>Kontaktformular / Anfrage-Assistent</strong></p>
         <p>
             Wenn Sie uns per Kontaktformular oder über den Anfrage-Assistenten Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular
-            inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert.
+            inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns für maximal 30 Tage gespeichert.
             Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.
         </p>
         <p><strong>Cookies</strong></p>
