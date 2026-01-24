@@ -41,7 +41,7 @@ const TankDetail = React.lazy(() => import('./components/TankDetail'));
 const KnowledgeTeaser = React.lazy(() => import('./components/KnowledgeTeaser'));
 const EnergyCalculator = React.lazy(() => import('./components/EnergyCalculator'));
 const GasOrderSection = React.lazy(() => import('./components/GasOrderSection'));
-const TestInlinePage = React.lazy(() => import('./components/TestInlinePage'));
+import TestInlinePage from './components/TestInlinePage';
 
 const App = ({ path, context }) => {
     // Initial state based on path if provided (SSR), otherwise default to window location (CSR)
@@ -295,6 +295,7 @@ const App = ({ path, context }) => {
             'tank-entsorgen',
             'barrierefreiheit',
             'liefergebiet',
+            'test-inline-wizard',
             '404'
         ];
 
@@ -362,7 +363,7 @@ const App = ({ path, context }) => {
             case 'ueber-uns': return <><div className="pt-20"></div><AboutPage setActiveSection={changeSection} /><ContactSection /></>;
             case 'kontakt': return <><div className="pt-32"></div><ContactSection /></>;
             case 'barrierefreiheit': return <><AccessibilityPage /><ContactSection /></>;
-            case 'test-inline-wizard': return <Suspense fallback={<div className="h-screen flex items-center justify-center">Laden...</div>}><TestInlinePage setActiveSection={changeSection} openLegal={openLegal} /></Suspense>;
+            case 'test-inline-wizard': return <TestInlinePage setActiveSection={changeSection} openLegal={openLegal} openWizard={openWizard} />;
             default: return <><div className="pt-20"></div><NotFound onGoHome={changeSection} /><ContactSection /></>;
         }
     };
