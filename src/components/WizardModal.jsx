@@ -310,6 +310,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
         formData.append("Name", data.contact.name);
         formData.append("Adresse", `${data.contact.street} ${data.contact.number}, ${data.plz} ${data.contact.city}`);
         formData.append("E-Mail", data.contact.email);
+        formData.append("replyto", data.contact.email);
         formData.append("Telefon", data.contact.phone);
 
         if (data.contact.message) {
