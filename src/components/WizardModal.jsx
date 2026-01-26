@@ -320,7 +320,15 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
         }
 
         try {
-            const response = await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
+            // Convert FormData to JSON for local API
+            const jsonData = {};
+            formData.forEach((value, key) => jsonData[key] = value);
+
+            const response = await fetch("/api/send-mail", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(jsonData)
+            });
             const result = await response.json();
             if (result.success) {
                 setSuccess(true);

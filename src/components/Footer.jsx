@@ -49,9 +49,14 @@ const Footer = ({ setActiveSection, openLegal }) => {
             formData.append("replyto", email);
             formData.append("from_name", "gasmöller Website Footer");
 
-            const response = await fetch("https://api.web3forms.com/submit", {
+            // Convert FormData to JSON for local API
+            const jsonData = {};
+            formData.forEach((value, key) => jsonData[key] = value);
+
+            const response = await fetch("/api/send-mail", {
                 method: "POST",
-                body: formData
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(jsonData)
             });
 
             const result = await response.json();

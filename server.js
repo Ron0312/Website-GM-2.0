@@ -5,9 +5,11 @@ import express from 'express'
 import compression from 'compression'
 import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
+import nodemailer from 'nodemailer'
 import { Logger } from './src/utils/logger.js'
 import { cityData } from './src/data/cityData.js'
 import { tankDetails } from './src/data/tanks.js'
+import { WEB3FORMS_ACCESS_KEY } from './src/constants.js'
 
 // Prevent crash on unhandled exceptions
 process.on('uncaughtException', (err) => {
@@ -549,6 +551,144 @@ ${routes.map(route => `  <url>
          res.status(500).end();
     }
   })
+
+  // --- Email Sending Logic ---
+
+  // Check if SMTP is configured
+  const isSmtpConfigured = () => {
+      return process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS;
+  };
+
+  // Create Transporter
+  const createTransporter = () => {
+      if (!isSmtpConfigured()) return null;
+      return nodemailer.createTransport({
+          host: process.env.SMTP_HOST,
+          port: process.env.SMTP_PORT || 587,
+          secure: process.env.SMTP_SECURE === 'true', // true for 465, false for other ports
+          auth: {
+              user: process.env.SMTP_USER,
+              pass: process.env.SMTP_PASS,
+          },
+      });
+  };
+
+  const transporter = createTransporter();
+
+  // Helper to Generate HTML Email
+  const generateHtmlEmail = (data) => {
+      const { subject, ...fields } = data;
+      const title = subject || 'Neue Nachricht von gasmoeller.de';
+
+      let rows = '';
+      for (const [key, value] of Object.entries(fields)) {
+          // Skip hidden or technical fields
+          if (['access_key', 'honeypot', 'from_name', 'replyto'].includes(key)) continue;
+
+          if (key.startsWith('---')) {
+              // Section Header
+              rows += `
+              <tr>
+                  <td colspan="2" style="padding: 20px 0 10px 0; border-bottom: 2px solid #e11d48;">
+                      <h3 style="margin: 0; color: #e11d48; font-family: sans-serif; text-transform: uppercase; font-size: 14px; letter-spacing: 1px;">${key.replace(/---/g, '').trim()}</h3>
+                  </td>
+              </tr>`;
+          } else {
+              // Data Row
+              rows += `
+              <tr>
+                  <td style="padding: 10px; border-bottom: 1px solid #f0f0f0; font-family: sans-serif; color: #666; width: 30%; font-weight: bold;">${key}</td>
+                  <td style="padding: 10px; border-bottom: 1px solid #f0f0f0; font-family: sans-serif; color: #333;">${value}</td>
+              </tr>`;
+          }
+      }
+
+      return `
+      <!DOCTYPE html>
+      <html>
+      <head>
+          <meta charset="utf-8">
+          <style>
+              body { font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; color: #333; }
+              .container { max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 8px; overflow: hidden; }
+              .header { background-color: #111827; padding: 30px; text-align: center; }
+              .logo { max-height: 50px; }
+              .content { padding: 30px; background-color: #fff; }
+              .footer { background-color: #f9fafb; padding: 20px; text-align: center; font-size: 12px; color: #9ca3af; }
+          </style>
+      </head>
+      <body>
+          <div class="container">
+              <div class="header">
+                 <h1 style="color: white; margin: 0; font-size: 24px;">Gas-Service Möller</h1>
+              </div>
+              <div class="content">
+                  <h2 style="margin-top: 0; color: #111827;">${title}</h2>
+                  <table style="width: 100%; border-collapse: collapse;">
+                      ${rows}
+                  </table>
+              </div>
+              <div class="footer">
+                  <p>&copy; ${new Date().getFullYear()} Gas-Service Möller. Alle Rechte vorbehalten.</p>
+              </div>
+          </div>
+      </body>
+      </html>
+      `;
+  };
+
+  // API Route for Sending Mail
+  app.use(express.json()); // Ensure JSON body parsing
+  app.use(express.urlencoded({ extended: true })); // Ensure Form Data parsing
+
+  app.post('/api/send-mail', async (req, res) => {
+      const data = req.body;
+
+      // Basic Honeypot Check
+      if (data.honeypot) {
+          return res.status(200).json({ success: true, message: 'Bot detected' });
+      }
+
+      // If SMTP is not configured, Fallback to Web3Forms Proxy (server-side)
+      if (!transporter) {
+          Logger.info('SMTP not configured, falling back to Web3Forms proxy.');
+          try {
+             // Reconstruct FormData for Web3Forms
+             // Note: We need to import 'form-data' or use native fetch with URLSearchParams if simple
+             // However, Web3Forms accepts JSON too!
+             const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(data)
+             });
+             const result = await response.json();
+             return res.status(response.status).json(result);
+          } catch (e) {
+             Logger.error('Web3Forms Fallback Error:', e);
+             return res.status(500).json({ success: false, message: 'Server Error' });
+          }
+      }
+
+      // Send via SMTP
+      try {
+          const info = await transporter.sendMail({
+              from: process.env.SMTP_FROM || '"Gas-Service Möller" <noreply@gasmoeller.de>',
+              to: process.env.SMTP_TO || 'kontakt@gasmoeller.de', // Target email
+              replyTo: data.replyto || data['E-Mail'] || data.email,
+              subject: data.subject || data['Betreff'] || 'Neue Anfrage',
+              html: generateHtmlEmail(data),
+          });
+
+          Logger.info('Email sent via SMTP:', info.messageId);
+          res.status(200).json({ success: true, message: 'Email sent successfully' });
+      } catch (error) {
+          Logger.error('SMTP Error:', error);
+          res.status(500).json({ success: false, message: 'Failed to send email' });
+      }
+  });
 
   app.use(async (req, res) => {
     let url = req.originalUrl
