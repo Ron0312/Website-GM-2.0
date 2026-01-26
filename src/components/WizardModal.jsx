@@ -288,6 +288,7 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
         formData.append("subject", `Neue Anfrage: ${typeMap[type] || type.toUpperCase()} - ${data.plz}`);
         formData.append("from_name", "gasmöller Website");
 
+        formData.append("--- ANFRAGE DETAILS ---", "");
         formData.append("Anfrage-Typ", typeMap[type] || type);
         formData.append("PLZ", data.plz);
 
@@ -307,9 +308,11 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
             formData.append("Nachricht", data.details.message);
         }
 
+        formData.append("--- KONTAKT DATEN ---", "");
         formData.append("Name", data.contact.name);
         formData.append("Adresse", `${data.contact.street} ${data.contact.number}, ${data.plz} ${data.contact.city}`);
         formData.append("E-Mail", data.contact.email);
+        formData.append("replyto", data.contact.email);
         formData.append("Telefon", data.contact.phone);
 
         if (data.contact.message) {

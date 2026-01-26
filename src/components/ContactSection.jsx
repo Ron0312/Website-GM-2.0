@@ -57,12 +57,16 @@ const ContactSection = () => {
         submitData.append("subject", "Neue Kontaktanfrage (Website)");
         submitData.append("from_name", "gasmöller Kontaktformular");
 
+        submitData.append("--- KONTAKT DATEN ---", "");
         submitData.append("Name", data.name);
-        submitData.append("Email", data.email);
-        submitData.append("Phone", data.phone);
+        submitData.append("E-Mail", data.email);
+        submitData.append("replyto", data.email);
+        submitData.append("Telefon", data.phone);
         submitData.append("PLZ", data.plz);
-        submitData.append("Subject", data.subject);
-        submitData.append("Message", data.message);
+
+        submitData.append("--- NACHRICHT ---", "");
+        submitData.append("Betreff", data.subject);
+        submitData.append("Nachricht", data.message);
 
         try {
             const response = await fetch("https://api.web3forms.com/submit", {

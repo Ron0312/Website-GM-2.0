@@ -45,7 +45,8 @@ const Footer = ({ setActiveSection, openLegal }) => {
             const formData = new FormData();
             formData.append("access_key", WEB3FORMS_ACCESS_KEY);
             formData.append("subject", "Neue Newsletter Anmeldung");
-            formData.append("email", email);
+            formData.append("E-Mail", email);
+            formData.append("replyto", email);
             formData.append("from_name", "gasmöller Website Footer");
 
             const response = await fetch("https://api.web3forms.com/submit", {
