@@ -116,6 +116,9 @@ async function createServer() {
   const port = process.env.PORT || 5173
 
   let isProd = process.env.NODE_ENV === 'production'
+  let devTemplateCache = null;
+  let devTemplatePath = null;
+  let devTemplateLastModified = 0;
 
   Logger.info(`Starting server. Initial mode: ${isProd ? 'PRODUCTION' : 'DEVELOPMENT'}`);
 
@@ -632,11 +635,30 @@ ${routes.map(route => `  <url>
       let template, render, templatePath
 
       if (!isProd) {
-        templatePath = path.resolve(__dirname, 'views/index.ejs')
+        if (!devTemplatePath) {
+             const ejsPath = path.resolve(__dirname, 'views/index.ejs');
+             try {
+                 await fs.promises.access(ejsPath);
+                 devTemplatePath = ejsPath;
+             } catch {
+                 devTemplatePath = path.resolve(__dirname, 'index.html');
+             }
+        }
+
         try {
-             template = await fs.promises.readFile(templatePath, 'utf-8')
-        } catch(e) {
-            template = await fs.promises.readFile(path.resolve(__dirname, 'index.html'), 'utf-8')
+            const stats = await fs.promises.stat(devTemplatePath);
+            if (!devTemplateCache || stats.mtimeMs > devTemplateLastModified) {
+                devTemplateCache = await fs.promises.readFile(devTemplatePath, 'utf-8');
+                devTemplateLastModified = stats.mtimeMs;
+                // Only log this on initial load to avoid spam if it happens often,
+                // but for dev mode occasional reloads are fine to log.
+                // Logger.info(`Reloaded template from ${path.basename(devTemplatePath)}`);
+            }
+            template = devTemplateCache;
+        } catch (e) {
+            Logger.error('Failed to read template:', e);
+            // Fallback
+            template = await fs.promises.readFile(path.resolve(__dirname, 'index.html'), 'utf-8');
         }
 
         template = template.replace(/<title>.*?<\/title>/, `<title>${siteData.title}</title>`);
