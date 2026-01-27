@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Send, CheckCircle, Loader2, Phone, Clock } from 'lucide-react';
 import { COMPANY_NAME, PHONE_NUMBER, PHONE_NUMBER_DISPLAY, EMAIL_ADDRESS, WEB3FORMS_ACCESS_KEY, SOCIAL_LINKS, OPENING_HOURS } from '../constants';
+import WebaionBadge from './WebaionBadge';
 
 const Footer = ({ setActiveSection, openLegal }) => {
     const [email, setEmail] = useState('');
@@ -166,8 +167,9 @@ const Footer = ({ setActiveSection, openLegal }) => {
                     {status === 'error' && <p className="text-red-400 text-xs mt-2">Ein Fehler ist aufgetreten.</p>}
                 </div>
             </div>
-            <div className="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-gray-800 text-center text-xs text-gray-400">
-                &copy; {new Date().getFullYear()} {COMPANY_NAME} Alle Rechte vorbehalten.
+            <div className="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 gap-4">
+                <p>&copy; {new Date().getFullYear()} {COMPANY_NAME} Alle Rechte vorbehalten.</p>
+                <WebaionBadge />
             </div>
         </footer>
     );
