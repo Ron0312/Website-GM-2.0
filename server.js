@@ -479,6 +479,7 @@ ${routes.map(route => `  <url>
   }
 
   let prodTemplate = '';
+  let prodTemplatePromise = null;
   let prodRender = null;
 
   if (isProd) {
@@ -674,12 +675,22 @@ ${routes.map(route => `  <url>
         if (prodTemplate) {
              template = prodTemplate;
         } else {
-             templatePath = path.resolve(__dirname, 'dist/client/index.html')
+             if (!prodTemplatePromise) {
+                 templatePath = path.resolve(__dirname, 'dist/client/index.html')
+                 prodTemplatePromise = fs.promises.readFile(templatePath, 'utf-8')
+                     .then((t) => {
+                         prodTemplate = t;
+                         return t;
+                     })
+                     .catch((e) => {
+                         prodTemplatePromise = null;
+                         throw new Error('Production index.html not found');
+                     });
+             }
              try {
-                  template = await fs.promises.readFile(templatePath, 'utf-8')
-                  prodTemplate = template;
-             } catch(e) {
-                  throw new Error('Production index.html not found');
+                 template = await prodTemplatePromise;
+             } catch (e) {
+                 throw new Error('Production index.html not found');
              }
         }
 
