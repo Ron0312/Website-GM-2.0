@@ -8,6 +8,7 @@ import ModernInput from './ui/ModernInput';
 import SelectionCard from './ui/SelectionCard';
 import Skeleton from './ui/Skeleton';
 import Toast from './ui/Toast';
+import WebaionBadge from './WebaionBadge';
 import { TANK_SIZES, WEB3FORMS_ACCESS_KEY, PHONE_NUMBER_DISPLAY, PHONE_NUMBER } from '../constants';
 
 const plzSchema = z.object({
@@ -390,6 +391,10 @@ const WizardModal = ({ isOpen, onClose, initialType = 'tank', initialData = null
                             <h3 className="text-3xl font-bold mb-4 text-gray-900">Vielen Dank!</h3>
                             <p className="text-gray-500 mb-8 max-w-md mx-auto">Wir haben Ihre Anfrage erhalten und melden uns in Kürze bei Ihnen.</p>
                             <button onClick={onClose} className="bg-gas text-white px-10 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all hover:bg-gas-dark">Schließen</button>
+
+                            <div className="mt-8 scale-90 opacity-80 hover:opacity-100 transition-opacity">
+                                <WebaionBadge direction="down" />
+                            </div>
                         </div>
                     ) : (
                         <form onSubmit={(e) => { e.preventDefault(); }} className="h-full pb-6">
