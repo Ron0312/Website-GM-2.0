@@ -34,6 +34,7 @@ try {
             ids.push(match[1]);
         }
         const categoryIds = ['tank-technik', 'heizung', 'gewerbe', 'service', 'basis'];
+        // Use Set for O(1) lookups in routing middleware
         knowledgeSlugs = new Set(ids.filter(id => !categoryIds.includes(id)));
         Logger.info(`Loaded ${knowledgeSlugs.size} knowledge articles.`);
     }
@@ -433,6 +434,7 @@ ${routes.map(route => `  <url>
         }
         if (cleanPath.startsWith('wissen/')) {
             const slug = cleanPath.split('/')[1];
+            // O(1) check using Set.has() instead of O(N) Array.includes()
             if (knowledgeSlugs.size === 0 || knowledgeSlugs.has(slug)) return next();
         }
         if (
