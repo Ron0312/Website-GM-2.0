@@ -577,13 +577,22 @@ ${routes.map(route => `  <url>
         }
 
         if (isProd) {
-            const possibleStaticPath = path.join(__dirname, 'dist/client', tryFile.replace(/^\//, ''));
-            // Use async check
-            try {
-                await fs.promises.access(possibleStaticPath, fs.constants.F_OK);
-                return res.sendFile(possibleStaticPath);
-            } catch (e) {
-                // Not found
+            const clientDir = path.resolve(__dirname, 'dist/client');
+            // Remove all leading slashes and ensure no null bytes
+            const safePath = tryFile.replace(new RegExp('^[\\\\/]+'), '').replace(/\0/g, '');
+            const possibleStaticPath = path.resolve(clientDir, safePath);
+
+            // Security Check: Prevent Path Traversal
+            if (possibleStaticPath.startsWith(clientDir + path.sep)) {
+                try {
+                    await fs.promises.access(possibleStaticPath, fs.constants.F_OK);
+                    const stats = await fs.promises.stat(possibleStaticPath);
+                    if (stats.isFile()) {
+                        return res.sendFile(possibleStaticPath);
+                    }
+                } catch (e) {
+                    // Not found
+                }
             }
         }
 
