@@ -76,7 +76,7 @@ const Footer = ({ setActiveSection, openLegal }) => {
     };
 
     return (
-        <footer className="bg-gray-900 text-gray-300 py-20 border-t border-gray-800 text-sm" suppressHydrationWarning>
+        <footer className="bg-gray-900 text-gray-300 py-20 pb-32 md:pb-20 border-t border-gray-800 text-sm" suppressHydrationWarning>
             <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
                 <div className="col-span-1">
                     <img src="/logos/Icon-01.webp" alt="gasmöller" width="422" height="140" style={{ aspectRatio: '422/140' }} loading="lazy" className="h-10 w-auto object-contain filter brightness-0 invert opacity-80 mb-6" />
