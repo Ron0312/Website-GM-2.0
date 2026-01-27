@@ -24,7 +24,7 @@ import LocalLandingPage from './components/LocalLandingPage';
 import { ImprintContent, PrivacyContent, TermsContent, AccessibilityStatementContent } from './components/Legal';
 import { findClientRedirect } from './utils/clientRedirect';
 import { cityData } from './data/cityData';
-import { tankDetails } from './data/tanks';
+import { tankDetails, tankSlugs } from './data/tanks';
 import ErrorBoundary from './components/ErrorBoundary';
 import DualCTA from './components/DualCTA';
 import TankDisposalPage from './components/TankDisposalPage';
@@ -176,7 +176,7 @@ const App = ({ path, context }) => {
         let isInvalidTankRoute = false;
         if (isTankRoute) {
              const slug = activeSection.split('/').pop();
-             const isValidSlug = tankDetails.some(t => t.slug === slug);
+             const isValidSlug = tankSlugs.has(slug);
              if (!isValidSlug && slug !== 'tanks' && slug !== 'fluessiggastank-kaufen') {
                  isInvalidTankRoute = true;
              }
