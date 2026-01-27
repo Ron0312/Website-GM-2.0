@@ -7,7 +7,7 @@ import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
 import { Logger } from './src/utils/logger.js'
 import { cityData } from './src/data/cityData.js'
-import { tankDetails } from './src/data/tanks.js'
+import { tankDetails, tankSlugs } from './src/data/tanks.js'
 
 // Prevent crash on unhandled exceptions
 process.on('uncaughtException', (err) => {
@@ -200,8 +200,6 @@ async function createServer() {
       'wissen', 'ueber-uns', 'kontakt', 'pruefungen', 'barrierefreiheit', '404',
       'sitemap.xml', 'robots.txt'
   ]);
-
-  const tankSlugs = new Set(tankDetails.map(t => t.slug));
 
   // Optimized O(1) lookup for city routing
   const citySlugs = new Set(cityData.map(c => c.slug));
@@ -426,7 +424,7 @@ ${routes.map(route => `  <url>
         const cleanPath = normalizedPath.replace(/^\//, '');
         if (staticRoutes.has(cleanPath)) return next();
         if (cleanPath.startsWith('tanks/') || cleanPath.startsWith('fluessiggastank-kaufen/')) {
-            const slug = cleanPath.split('/').pop();
+            const slug = cleanPath.slice(cleanPath.lastIndexOf('/') + 1);
             if (tankSlugs.has(slug)) return next();
         }
         if (cleanPath.startsWith('liefergebiet/')) {

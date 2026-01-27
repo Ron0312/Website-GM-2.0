@@ -691,3 +691,5 @@ export const tankDetails = [
         seoDesc: 'Gebrauchter Flüssiggastank unterirdisch 6400 Liter (2,9 t). Für Gewerbe & Mehrfamilienhäuser. Neu beschichtet & geprüft. Jetzt Preis anfragen.'
     }
 ];
+
+export const tankSlugs = new Set(tankDetails.map(t => t.slug));
