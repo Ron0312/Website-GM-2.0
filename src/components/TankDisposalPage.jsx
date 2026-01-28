@@ -27,7 +27,7 @@ const TankDisposalPage = ({ setActiveSection, openWizard }) => {
             </button>
             <div className="flex items-center gap-4 bg-white/10 backdrop-blur-sm p-3 rounded-xl border border-white/20">
                 <div className="bg-white p-1 rounded">
-                    <img src="/logos/tuev-sued-logo.png" alt="TÜV SÜD" className="h-8 w-auto object-contain" />
+                    <img src="/logos/tuev-nord-logo.png" alt="TÜV Nord" className="h-8 w-auto object-contain" />
                 </div>
                 <div className="bg-white p-1 rounded">
                     <img src="/logos/dvfg-logo.png" alt="DVFG" className="h-8 w-auto object-contain" />
@@ -144,7 +144,7 @@ const TankDisposalPage = ({ setActiveSection, openWizard }) => {
                                     Jetzt Angebot anfordern
                                 </button>
                                 <div className="mt-4 flex justify-center gap-4">
-                                    <img src="/logos/tuev-sued-logo.png" alt="TÜV SÜD" className="h-6 w-auto object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all" />
+                                    <img src="/logos/tuev-nord-logo.png" alt="TÜV Nord" className="h-6 w-auto object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all" />
                                     <img src="/logos/dvfg-logo.png" alt="DVFG" className="h-6 w-auto object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all" />
                                 </div>
                             </div>

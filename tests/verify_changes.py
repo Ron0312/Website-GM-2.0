@@ -45,7 +45,7 @@ def verify_changes():
              print("Hero Button NOT found: FAILED")
 
         # Check for Badges
-        tuev = page.locator("img[alt='TÜV SÜD']").first
+        tuev = page.locator("img[alt='TÜV Nord']").first
         dvfg = page.locator("img[alt='DVFG']").first
         if tuev.is_visible() and dvfg.is_visible():
              print("Found Trust Badges: SUCCESS")
