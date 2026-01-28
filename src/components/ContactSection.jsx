@@ -110,7 +110,7 @@ const ContactSection = ({ prefill = {} }) => {
                         </a>
                         <button
                             onClick={(e) => { e.preventDefault(); copyToClipboard('04551897089', 'phone'); }}
-                            className="absolute -top-3 -right-3 p-2 bg-white text-gas rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                            className="absolute -top-3 -right-3 p-2 bg-white text-gas rounded-full shadow-lg opacity-100 md:opacity-0 md:group-hover:opacity-100 focus:opacity-100 transition-opacity"
                             aria-label="Nummer der Zentrale kopieren"
                         >
                             {copiedPhone ? <Check size={14} /> : <Copy size={14} />}
@@ -127,7 +127,7 @@ const ContactSection = ({ prefill = {} }) => {
                         </a>
                         <button
                             onClick={(e) => { e.preventDefault(); copyToClipboard('+4917641684326', 'mobile'); }}
-                            className="absolute -top-3 -right-3 p-2 bg-white text-gas rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                            className="absolute -top-3 -right-3 p-2 bg-white text-gas rounded-full shadow-lg opacity-100 md:opacity-0 md:group-hover:opacity-100 focus:opacity-100 transition-opacity"
                             aria-label="Notfallnummer kopieren"
                         >
                             {copiedMobile ? <Check size={14} /> : <Copy size={14} />}

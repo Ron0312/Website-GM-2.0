@@ -6,6 +6,7 @@ const SelectionCard = ({ selected, onClick, title, description, icon: Icon, clas
     return (
         <motion.button
             type="button"
+            aria-pressed={selected}
             onClick={onClick}
             whileHover={{ y: -4 }}
             whileTap={{ scale: 0.98 }}
