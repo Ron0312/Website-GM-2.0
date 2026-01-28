@@ -1,0 +1,12 @@
+
+> gasmoeller-vite@0.0.0 preview
+> cross-env NODE_ENV=production node server.js
+
+{"level":"INFO","timestamp":"2026-01-28T13:16:59.401Z","message":"Loaded 35 knowledge articles."}
+{"level":"INFO","timestamp":"2026-01-28T13:16:59.402Z","message":"Loaded 68 cities."}
+{"level":"INFO","timestamp":"2026-01-28T13:16:59.406Z","message":"Starting server. Initial mode: PRODUCTION"}
+{"level":"INFO","timestamp":"2026-01-28T13:16:59.412Z","message":"Preloaded production index.html"}
+{"level":"INFO","timestamp":"2026-01-28T13:16:59.800Z","message":"Preloaded production entry-server.js"}
+{"level":"INFO","timestamp":"2026-01-28T13:16:59.808Z","message":"Server started at http://localhost:5173"}
+{"level":"INFO","timestamp":"2026-01-28T13:17:05.084Z","message":"Redirecting: /wissen/tank-entsorgen -> /tank-entsorgen"}
+:"INFO","timestamp":"2026-01-28T13:16:58.978Z","message":"Closed out remaining connections"}

@@ -1,9 +1,41 @@
-import React from 'react';
-import { Trash2, AlertTriangle, CheckCircle, Truck, Phone, FileText } from 'lucide-react';
+import React, { useState } from 'react';
+import { Trash2, AlertTriangle, CheckCircle, Truck, FileText } from 'lucide-react';
 import Hero from './Hero';
 import ContactSection from './ContactSection';
 
 const TankDisposalPage = ({ setActiveSection, openWizard }) => {
+    const [contactPrefill, setContactPrefill] = useState({});
+
+    const scrollToContact = () => {
+        setContactPrefill({ subject: 'Anfrage Tankentsorgung' });
+        const contactSection = document.getElementById('kontakt');
+        if (contactSection) {
+            contactSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+             if (setActiveSection) setActiveSection('kontakt');
+        }
+    };
+
+    const heroButtons = (
+        <>
+            <button
+                onClick={scrollToContact}
+                className="px-8 py-4 bg-gas hover:bg-gas-dark text-white text-base font-bold rounded-full shadow-xl shadow-gas/30 transition-all uppercase tracking-wide border-2 border-transparent flex items-center gap-2"
+            >
+                <FileText size={20} />
+                Jetzt Angebot anfordern
+            </button>
+            <div className="flex items-center gap-4 bg-white/10 backdrop-blur-sm p-3 rounded-xl border border-white/20">
+                <div className="bg-white p-1 rounded">
+                    <img src="/logos/tuev-nord-logo.png" alt="TÜV Nord" className="h-8 w-auto object-contain" />
+                </div>
+                <div className="bg-white p-1 rounded">
+                    <img src="/logos/dvfg-logo.png" alt="DVFG" className="h-8 w-auto object-contain" />
+                </div>
+            </div>
+        </>
+    );
+
     return (
         <div className="bg-white">
             <Hero
@@ -12,6 +44,7 @@ const TankDisposalPage = ({ setActiveSection, openWizard }) => {
                 backgroundImage="/images/gas-order-hero.webp" // Reusing hero image for now
                 openWizard={openWizard}
                 setActiveSection={setActiveSection}
+                customButtons={heroButtons}
             />
 
             {/* Intro / Safety Warning */}
@@ -98,19 +131,22 @@ const TankDisposalPage = ({ setActiveSection, openWizard }) => {
                         </div>
                         <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
                             <div className="text-center">
-                                <span className="block text-gray-500 text-sm mb-1">Unverbindliche Schätzung</span>
-                                <span className="block text-3xl font-bold text-gas mb-4">ab 350,- €</span>
-                                <p className="text-sm text-gray-500 mb-6">
-                                    zzgl. MwSt. <br/>
-                                    (bei oberirdischen Tanks, einfache Verladung)
+                                <span className="block text-gray-500 text-sm mb-1">Individuelles Angebot</span>
+                                <h4 className="text-xl font-bold text-gray-900 mb-4">Festpreis erhalten</h4>
+                                <p className="text-sm text-gray-600 mb-6">
+                                    Wir erstellen Ihnen ein verbindliches Angebot für die Entsorgung – passend zu Ihrem Tankstandort.
                                 </p>
                                 <button
-                                    onClick={() => document.getElementById('kontakt').scrollIntoView({ behavior: 'smooth' })}
+                                    onClick={scrollToContact}
                                     className="w-full bg-gas text-white font-bold py-3 rounded-lg hover:bg-gas-dark transition-colors flex items-center justify-center gap-2"
                                 >
                                     <FileText size={18} />
                                     Jetzt Angebot anfordern
                                 </button>
+                                <div className="mt-4 flex justify-center gap-4">
+                                    <img src="/logos/tuev-nord-logo.png" alt="TÜV Nord" className="h-6 w-auto object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all" />
+                                    <img src="/logos/dvfg-logo.png" alt="DVFG" className="h-6 w-auto object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -139,7 +175,7 @@ const TankDisposalPage = ({ setActiveSection, openWizard }) => {
                 </div>
             </div>
 
-            <ContactSection />
+            <ContactSection prefill={contactPrefill} />
         </div>
     );
 };

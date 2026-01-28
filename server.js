@@ -35,7 +35,8 @@ try {
         }
         const categoryIds = ['tank-technik', 'heizung', 'gewerbe', 'service', 'basis'];
         // Use Set for O(1) lookups in routing middleware
-        knowledgeSlugs = new Set(ids.filter(id => !categoryIds.includes(id)));
+        // Explicitly exclude tank-entsorgen so it falls through to redirects
+        knowledgeSlugs = new Set(ids.filter(id => !categoryIds.includes(id) && id !== 'tank-entsorgen'));
         Logger.info(`Loaded ${knowledgeSlugs.size} knowledge articles.`);
     }
 } catch (e) {
@@ -318,6 +319,7 @@ ${routes.map(route => `  <url>
     ['/haftungsausschluss', '/'],
     ['/cookie-richtlinie-eu', '/'],
     ['/sonderpreise-und-entsorgung', '/fluessiggastank-kaufen'],
+    ['/wissen/tank-entsorgen', '/tank-entsorgen'],
 
     // Tank Redirects to New URL Structure
     ['/flussiggastank-oberirdisch-4850l-21t-fassungsvermogen', '/fluessiggastank-kaufen/fluessiggastank-4850l-oberirdisch-2-1t'],
