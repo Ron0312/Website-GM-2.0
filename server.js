@@ -112,6 +112,18 @@ function requestLogger(req, res, next) {
     next();
 }
 
+const escapeXml = (unsafe) => {
+    return unsafe.replace(/[<>&'"]/g, (c) => {
+        switch (c) {
+            case '<': return '&lt;';
+            case '>': return '&gt;';
+            case '&': return '&amp;';
+            case '\'': return '&apos;';
+            case '"': return '&quot;';
+        }
+    });
+};
+
 async function createServer() {
   const app = express()
   const port = process.env.PORT || 5173
@@ -204,18 +216,6 @@ async function createServer() {
 
   // Optimized O(1) lookup for city routing
   const citySlugs = new Set(cityData.map(c => c.slug));
-
-  const escapeXml = (unsafe) => {
-    return unsafe.replace(/[<>&'"]/g, (c) => {
-        switch (c) {
-            case '<': return '&lt;';
-            case '>': return '&gt;';
-            case '&': return '&amp;';
-            case '\'': return '&apos;';
-            case '"': return '&quot;';
-        }
-    });
-  };
 
   /**
    * Generates sitemap.xml dynamically
@@ -602,7 +602,8 @@ ${routes.map(route => `  <url>
         let schemaJson;
         try {
             seoInfo = getSeoForPath(url);
-            schemaJson = JSON.stringify(getSchemaForPath(url));
+            // Sentinel: Sanitize JSON to prevent </script> injection
+            schemaJson = JSON.stringify(getSchemaForPath(url)).replace(/</g, '\\u003c');
         } catch (err) {
             Logger.error('SEO Data Error:', err);
             seoInfo = {
@@ -620,18 +621,19 @@ ${routes.map(route => `  <url>
     <link rel="preload" as="image" href="/images/gas-order-hero-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
     <link rel="preload" as="image" href="/images/gas-order-hero.webp" media="(min-width: 769px)" fetchpriority="high">` : '';
 
+    // Sentinel: Sanitize meta tags to prevent Reflected XSS
     const metaTags = `
     ${preloadLink}
-    <meta property="og:type" content="${seoInfo.type || 'website'}" />
-    <meta property="og:title" content="${seoInfo.title}" />
-    <meta property="og:description" content="${seoInfo.description}" />
-    <meta property="og:url" content="${seoInfo.url}" />
-    <meta property="og:image" content="${seoInfo.image}" />
+    <meta property="og:type" content="${escapeXml(seoInfo.type || 'website')}" />
+    <meta property="og:title" content="${escapeXml(seoInfo.title || '')}" />
+    <meta property="og:description" content="${escapeXml(seoInfo.description || '')}" />
+    <meta property="og:url" content="${escapeXml(seoInfo.url || '')}" />
+    <meta property="og:image" content="${escapeXml(seoInfo.image || '')}" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="${seoInfo.title}" />
-    <meta name="twitter:description" content="${seoInfo.description}" />
-    <meta name="twitter:image" content="${seoInfo.image}" />
-    <link rel="canonical" href="${seoInfo.url}" />
+    <meta name="twitter:title" content="${escapeXml(seoInfo.title || '')}" />
+    <meta name="twitter:description" content="${escapeXml(seoInfo.description || '')}" />
+    <meta name="twitter:image" content="${escapeXml(seoInfo.image || '')}" />
+    <link rel="canonical" href="${escapeXml(seoInfo.url || '')}" />
     `;
 
     const siteData = {
