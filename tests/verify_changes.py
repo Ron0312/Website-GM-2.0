@@ -44,6 +44,14 @@ def verify_changes():
         else:
              print("Hero Button NOT found: FAILED")
 
+        # Check for Badges
+        tuev = page.locator("img[alt='TÜV SÜD']").first
+        dvfg = page.locator("img[alt='DVFG']").first
+        if tuev.is_visible() and dvfg.is_visible():
+             print("Found Trust Badges: SUCCESS")
+        else:
+             print("Trust Badges NOT found: FAILED")
+
         # Check for ABSENCE of wrong buttons (Default Hero buttons)
         wrong_btn_1 = page.get_by_text("Flüssiggastank kaufen")
         wrong_btn_2 = page.get_by_text("Flüssiggas bestellen")

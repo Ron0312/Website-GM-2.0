@@ -17,24 +17,30 @@ const contactSchema = z.object({
     consent: z.literal(true, { errorMap: () => ({ message: "Zustimmung erforderlich" }) })
 });
 
-const ContactSection = () => {
+const ContactSection = ({ prefill = {} }) => {
     const [status, setStatus] = useState('idle'); // idle, loading, success, error
     const [copiedPhone, setCopiedPhone] = useState(false);
     const [copiedMobile, setCopiedMobile] = useState(false);
 
-    const { control, handleSubmit, formState: { errors }, reset } = useForm({
+    const { control, handleSubmit, formState: { errors }, reset, setValue } = useForm({
         resolver: zodResolver(contactSchema),
         defaultValues: {
             name: '',
             phone: '',
             email: '',
             plz: '',
-            subject: '',
+            subject: prefill.subject || '',
             message: '',
             honeypot: '',
             consent: false
         }
     });
+
+    React.useEffect(() => {
+        if (prefill.subject) {
+            setValue('subject', prefill.subject);
+        }
+    }, [prefill, setValue]);
 
     const copyToClipboard = (text, type) => {
         navigator.clipboard.writeText(text);
