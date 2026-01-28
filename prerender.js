@@ -32,7 +32,8 @@ function getKnowledgeRoutes() {
 
     // Exclude category IDs
     const categoryIds = ['tank-technik', 'heizung', 'gewerbe', 'service', 'basis'];
-    return ids.filter(id => !categoryIds.includes(id)).map(id => `/wissen/${id}`);
+    // Filter out tank-entsorgen as it is now a main page redirect
+    return ids.filter(id => !categoryIds.includes(id) && id !== 'tank-entsorgen').map(id => `/wissen/${id}`);
   } catch (e) {
     console.warn('⚠️ Could not parse content.jsx for prerendering:', e.message);
     return [];

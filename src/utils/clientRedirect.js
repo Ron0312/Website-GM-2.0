@@ -7,6 +7,7 @@ const legacyRedirects = {
     '/haftungsausschluss': '/',
     '/cookie-richtlinie-eu': '/',
     '/sonderpreise-und-entsorgung': '/fluessiggastank-kaufen',
+    '/wissen/tank-entsorgen': '/tank-entsorgen',
 
     // Explicit Tank redirects (Legacy -> New Speaking URL)
     '/flussiggastank-oberirdisch-4850l-21t-fassungsvermogen': '/fluessiggastank-kaufen/fluessiggastank-4850l-oberirdisch-2-1t',

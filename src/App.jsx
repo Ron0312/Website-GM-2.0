@@ -252,6 +252,13 @@ const App = ({ path, context }) => {
             }
         }
 
+        if (activeSection === 'wissen/tank-entsorgen') {
+             if (typeof window !== 'undefined') {
+                 setTimeout(() => changeSection('tank-entsorgen'), 0);
+                 return <div className="h-screen flex items-center justify-center">Leite um...</div>;
+             }
+        }
+
         if (activeSection.startsWith('wissen/')) {
             const slug = activeSection.split('/')[1];
             return <><div className="pt-20"></div><KnowledgeCenter slug={slug} setActiveSection={changeSection} /><ContactSection /></>;

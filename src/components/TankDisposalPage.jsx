@@ -4,6 +4,25 @@ import Hero from './Hero';
 import ContactSection from './ContactSection';
 
 const TankDisposalPage = ({ setActiveSection, openWizard }) => {
+    const scrollToContact = () => {
+        const contactSection = document.getElementById('kontakt');
+        if (contactSection) {
+            contactSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+             if (setActiveSection) setActiveSection('kontakt');
+        }
+    };
+
+    const heroButtons = (
+        <button
+            onClick={scrollToContact}
+            className="px-8 py-4 bg-gas hover:bg-gas-dark text-white text-base font-bold rounded-full shadow-xl shadow-gas/30 transition-all uppercase tracking-wide border-2 border-transparent flex items-center gap-2"
+        >
+            <FileText size={20} />
+            Jetzt Angebot anfordern
+        </button>
+    );
+
     return (
         <div className="bg-white">
             <Hero
@@ -12,6 +31,7 @@ const TankDisposalPage = ({ setActiveSection, openWizard }) => {
                 backgroundImage="/images/gas-order-hero.webp" // Reusing hero image for now
                 openWizard={openWizard}
                 setActiveSection={setActiveSection}
+                customButtons={heroButtons}
             />
 
             {/* Intro / Safety Warning */}
@@ -98,11 +118,10 @@ const TankDisposalPage = ({ setActiveSection, openWizard }) => {
                         </div>
                         <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
                             <div className="text-center">
-                                <span className="block text-gray-500 text-sm mb-1">Unverbindliche Schätzung</span>
-                                <span className="block text-3xl font-bold text-gas mb-4">ab 350,- €</span>
-                                <p className="text-sm text-gray-500 mb-6">
-                                    zzgl. MwSt. <br/>
-                                    (bei oberirdischen Tanks, einfache Verladung)
+                                <span className="block text-gray-500 text-sm mb-1">Individuelles Angebot</span>
+                                <h4 className="text-xl font-bold text-gray-900 mb-4">Festpreis erhalten</h4>
+                                <p className="text-sm text-gray-600 mb-6">
+                                    Wir erstellen Ihnen ein verbindliches Angebot für die Entsorgung – passend zu Ihrem Tankstandort.
                                 </p>
                                 <button
                                     onClick={() => document.getElementById('kontakt').scrollIntoView({ behavior: 'smooth' })}

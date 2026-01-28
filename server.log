@@ -1,0 +1,13 @@
+
+> gasmoeller-vite@0.0.0 preview
+> cross-env NODE_ENV=production node server.js
+
+{"level":"INFO","timestamp":"2026-01-28T09:11:16.460Z","message":"Loaded 35 knowledge articles."}
+{"level":"INFO","timestamp":"2026-01-28T09:11:16.461Z","message":"Loaded 68 cities."}
+{"level":"INFO","timestamp":"2026-01-28T09:11:16.465Z","message":"Starting server. Initial mode: PRODUCTION"}
+{"level":"INFO","timestamp":"2026-01-28T09:11:16.469Z","message":"Preloaded production index.html"}
+{"level":"INFO","timestamp":"2026-01-28T09:11:16.854Z","message":"Preloaded production entry-server.js"}
+{"level":"INFO","timestamp":"2026-01-28T09:11:16.861Z","message":"Server started at http://localhost:5173"}
+{"level":"INFO","timestamp":"2026-01-28T09:11:35.479Z","message":"Redirecting: /wissen/tank-entsorgen -> /tank-entsorgen"}
+{"level":"INFO","timestamp":"2026-01-28T09:14:16.209Z","message":"Redirecting: /wissen/tank-entsorgen -> /tank-entsorgen"}
+{"level":"INFO","timestamp":"2026-01-28T09:15:08.700Z","message":"Redirecting: /wissen/tank-entsorgen -> /tank-entsorgen"}
